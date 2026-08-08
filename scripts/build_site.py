@@ -272,7 +272,7 @@ and it is read in English by default.</p>
 <p><strong>Evaluate a text agent.</strong> Hand it anything that maps a string to a
 string and get back per-lesson accuracy with the floor beside it &mdash; because an
 accuracy without a floor is not a result when the answer set varies per episode.</p>
-<pre><code>pip install git+https://github.com/JacobFV/language-curriculum
+<pre><code>pip install git+https://github.com/JacobFV/formal-language-cirriculum
 
 import langcurriculum as lc
 report = lc.evaluate(my_agent, n=20)

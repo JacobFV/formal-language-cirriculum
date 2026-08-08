@@ -34,7 +34,7 @@ Browsable curriculum, with 100 sample episodes per lesson:
 ## Install
 
 ```bash
-pip install git+https://github.com/JacobFV/language-curriculum
+pip install git+https://github.com/JacobFV/formal-language-cirriculum
 ```
 
 Python 3.10+. **Zero runtime dependencies** — the generators are pure Python and are
