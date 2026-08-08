@@ -1,0 +1,1865 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lexicon_induction — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iii">language as action</a> &rsaquo;
+  lexicon_induction</p>
+<h1>#28 <code>lexicon_induction</code></h1>
+<p class="lede">acquiring a new language in-episode</p>
+<div class="tags"><span class="tag ">level 14</span><span class="tag ">section iii</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.38</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Every episode invents a NEW language. Support examples ground novel words;
+    the query uses them compositionally. Nothing carries over between episodes,
+    so a learner that memorizes a vocabulary learns nothing here.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>2</td></tr><tr><td>lexical_novelty</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>2</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>You are told: skt says yellow, psp says green and zss says orange.
+In the scene: o0 is a green sphere at (4, 2); o1 is a yellow disc at (4, 8); o2 is an orange disc at (2, 4); o3 is a red rod at (1, 5).
+Find the skt object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre><h3>spanish</h3><pre>Se sabe lo siguiente: skt dice amarillo, psp dice verde y zss dice naranja.
+En la escena: o0 es una esfera verde y está en (4, 2); o1 es un disco amarillo y está en (4, 8); o2 es un disco naranja y está en (2, 4); o3 es una barra roja y está en (1, 5).
+Busca el objeto skt.
+
+Responde exactamente con una de estas opciones: o0 | o1 | o2 | o3
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>词表如下：skt说黄色；psp说绿色；zss说橙色。
+场景中：o0是一个绿色的球体，位于(4,2)；o1是一个黄色的圆盘，位于(4,8)；o2是一个橙色的圆盘，位于(2,4)；o3是一条红色的杆，位于(1,5)。
+请找出skt对应的物体。
+
+请从以下选项中选出恰好一个作答：o0 | o1 | o2 | o3
+只回答答案本身。</pre><h3>english_synonym</h3><pre>You are told: skt says yellow, psp says green and zss says orange.
+In the scene: o0 is a green sphere at (4, 2); o1 is a yellow disc at (4, 8); o2 is an orange disc at (2, 4); o3 is a red rod at (1, 5).
+Find the skt object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre><h3>symbols</h3><pre>{lexicon: [(says skt yellow) (says psp green) (says zss orange)], query: (find skt), scene: [(obj o0 green sphere 4 2) (obj o1 yellow disc 4 8) (obj o2 orange disc 2 4) (obj o3 red rod 1 5)]}
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/lexicon_induction.jsonl</code> &middot; <code>data/samples/spanish/lexicon_induction.jsonl</code> &middot; <code>data/samples/chinese/lexicon_induction.jsonl</code> &middot; <code>data/samples/english_synonym/lexicon_induction.jsonl</code> &middot; <code>data/samples/symbols/lexicon_induction.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: skt says yellow, psp says green and zss says orange.
+In the scene: o0 is a green sphere at (4, 2); o1 is a yellow disc at (4, 8); o2 is an orange disc at (2, 4); o3 is a red rod at (1, 5).
+Find the skt object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;psp&quot;: &quot;green&quot;,
+  &quot;skt&quot;: &quot;yellow&quot;,
+  &quot;zss&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ppk says orange, tks says purple and mzp says yellow.
+In the scene: o0 is a yellow cube at (6, 6); o1 is an orange cube at (7, 4); o2 is a purple sphere at (9, 1); o3 is a red cube at (0, 0).
+Find the tks object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mzp&quot;: &quot;yellow&quot;,
+  &quot;ppk&quot;: &quot;orange&quot;,
+  &quot;tks&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: kkt says green, ppk says orange and pml says purple.
+In the scene: o0 is an orange cube at (9, 2); o1 is a green rod at (6, 8); o2 is a purple disc at (7, 8); o3 is a red cube at (0, 5).
+Find the kkt object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kkt&quot;: &quot;green&quot;,
+  &quot;pml&quot;: &quot;purple&quot;,
+  &quot;ppk&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mzz says red, slz says orange and mtz says purple.
+In the scene: o0 is a red sphere at (3, 7); o1 is a purple disc at (7, 6); o2 is an orange sphere at (3, 2); o3 is a blue prism at (0, 1).
+Find the mzz object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mtz&quot;: &quot;purple&quot;,
+  &quot;mzz&quot;: &quot;red&quot;,
+  &quot;slz&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lss says yellow, mkk says green and mtk says red.
+In the scene: o0 is a red disc at (5, 4); o1 is a yellow cube at (4, 3); o2 is a green rod at (4, 4); o3 is a blue sphere at (4, 4).
+Find the mkk object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lss&quot;: &quot;yellow&quot;,
+  &quot;mkk&quot;: &quot;green&quot;,
+  &quot;mtk&quot;: &quot;red&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tpl says red, pll says yellow and ztl says purple.
+In the scene: o0 is a purple cube at (5, 7); o1 is a red prism at (8, 1); o2 is a yellow sphere at (0, 3); o3 is a blue cone at (2, 6).
+Find the ztl object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;pll&quot;: &quot;yellow&quot;,
+  &quot;tpl&quot;: &quot;red&quot;,
+  &quot;ztl&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: pzp says blue, ksp says purple and tkk says yellow.
+In the scene: o0 is a blue cube at (4, 7); o1 is a purple rod at (6, 8); o2 is a yellow rod at (1, 3); o3 is a red disc at (4, 9).
+Find the tkk object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;ksp&quot;: &quot;purple&quot;,
+  &quot;pzp&quot;: &quot;blue&quot;,
+  &quot;tkk&quot;: &quot;yellow&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lkk says purple, tms says green and pzk says red.
+In the scene: o0 is a green cube at (6, 6); o1 is a purple sphere at (1, 8); o2 is a red cube at (9, 1); o3 is a blue rod at (9, 0).
+Find the pzk object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lkk&quot;: &quot;purple&quot;,
+  &quot;pzk&quot;: &quot;red&quot;,
+  &quot;tms&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: kkm says orange, mts says blue and mml says purple.
+In the scene: o0 is a blue prism at (7, 6); o1 is a purple disc at (3, 6); o2 is an orange prism at (3, 0); o3 is a red cone at (8, 6).
+Find the mml object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kkm&quot;: &quot;orange&quot;,
+  &quot;mml&quot;: &quot;purple&quot;,
+  &quot;mts&quot;: &quot;blue&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tmm says purple, szt says green and plk says yellow.
+In the scene: o0 is a green disc at (9, 0); o1 is a purple prism at (2, 7); o2 is a yellow prism at (2, 2); o3 is a red cube at (1, 2).
+Find the plk object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;plk&quot;: &quot;yellow&quot;,
+  &quot;szt&quot;: &quot;green&quot;,
+  &quot;tmm&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: msp says blue, szk says green and zks says yellow.
+In the scene: o0 is a yellow cube at (3, 5); o1 is a green prism at (2, 9); o2 is a blue prism at (6, 4); o3 is a red cone at (7, 2).
+Find the msp object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;msp&quot;: &quot;blue&quot;,
+  &quot;szk&quot;: &quot;green&quot;,
+  &quot;zks&quot;: &quot;yellow&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: spz says purple, pps says blue and szp says orange.
+In the scene: o0 is a purple disc at (2, 1); o1 is a blue cone at (2, 1); o2 is an orange rod at (0, 9); o3 is a red prism at (9, 2).
+Find the szp object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;pps&quot;: &quot;blue&quot;,
+  &quot;spz&quot;: &quot;purple&quot;,
+  &quot;szp&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: stl says green, zlt says yellow and msk says orange.
+In the scene: o0 is a green disc at (3, 8); o1 is a yellow rod at (9, 2); o2 is an orange cone at (2, 5); o3 is a red cube at (9, 3).
+Find the stl object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;msk&quot;: &quot;orange&quot;,
+  &quot;stl&quot;: &quot;green&quot;,
+  &quot;zlt&quot;: &quot;yellow&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lpp says blue, ttl says orange and mlm says purple.
+In the scene: o0 is an orange cube at (8, 3); o1 is a blue cone at (0, 6); o2 is a purple rod at (9, 0); o3 is a red sphere at (1, 4).
+Find the lpp object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lpp&quot;: &quot;blue&quot;,
+  &quot;mlm&quot;: &quot;purple&quot;,
+  &quot;ttl&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: kzl says green, plz says orange and mtl says red.
+In the scene: o0 is a green prism at (6, 6); o1 is an orange cone at (3, 5); o2 is a red cone at (5, 8); o3 is a blue sphere at (8, 4).
+Find the kzl object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kzl&quot;: &quot;green&quot;,
+  &quot;mtl&quot;: &quot;red&quot;,
+  &quot;plz&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lkm says blue, mkk says green and mkz says orange.
+In the scene: o0 is an orange prism at (5, 4); o1 is a blue cone at (5, 3); o2 is a green cone at (5, 3); o3 is a red rod at (8, 6).
+Find the mkz object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lkm&quot;: &quot;blue&quot;,
+  &quot;mkk&quot;: &quot;green&quot;,
+  &quot;mkz&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tsm says green, tss says orange and sks says blue.
+In the scene: o0 is an orange cone at (4, 5); o1 is a green sphere at (9, 4); o2 is a blue sphere at (9, 4); o3 is a red sphere at (9, 0).
+Find the tsm object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;sks&quot;: &quot;blue&quot;,
+  &quot;tsm&quot;: &quot;green&quot;,
+  &quot;tss&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ttt says purple, mpl says green and zsp says orange.
+In the scene: o0 is an orange prism at (6, 4); o1 is a purple cone at (6, 2); o2 is a green cube at (2, 3); o3 is a red rod at (8, 8).
+Find the mpl object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mpl&quot;: &quot;green&quot;,
+  &quot;ttt&quot;: &quot;purple&quot;,
+  &quot;zsp&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mkl says yellow, msl says orange and stm says blue.
+In the scene: o0 is a yellow sphere at (4, 1); o1 is a blue disc at (2, 3); o2 is an orange sphere at (3, 5); o3 is a red disc at (3, 7).
+Find the mkl object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mkl&quot;: &quot;yellow&quot;,
+  &quot;msl&quot;: &quot;orange&quot;,
+  &quot;stm&quot;: &quot;blue&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lkp says purple, zkz says green and mst says blue.
+In the scene: o0 is a purple cone at (6, 5); o1 is a green cube at (5, 4); o2 is a blue disc at (9, 3); o3 is a red sphere at (1, 8).
+Find the zkz object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lkp&quot;: &quot;purple&quot;,
+  &quot;mst&quot;: &quot;blue&quot;,
+  &quot;zkz&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: pmt says green and llp says blue.
+In the scene: o0 is a red prism at (1, 1); o1 is a green cone at (7, 9); o2 is a blue prism at (3, 3); o3 is a yellow rod at (5, 5).
+Find the pmt object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;llp&quot;: &quot;blue&quot;,
+  &quot;pmt&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: slt says purple, msl says yellow and spm says blue.
+In the scene: o0 is a yellow cube at (5, 9); o1 is a purple cube at (2, 3); o2 is a blue rod at (0, 6); o3 is a red prism at (9, 7).
+Find the msl object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;msl&quot;: &quot;yellow&quot;,
+  &quot;slt&quot;: &quot;purple&quot;,
+  &quot;spm&quot;: &quot;blue&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lkl says red, zsm says green and mmk says orange.
+In the scene: o0 is an orange cone at (9, 2); o1 is a green rod at (6, 0); o2 is a red cube at (9, 4); o3 is a blue prism at (3, 2).
+Find the mmk object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lkl&quot;: &quot;red&quot;,
+  &quot;mmk&quot;: &quot;orange&quot;,
+  &quot;zsm&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: kkz says green, ptp says purple and tss says blue.
+In the scene: o0 is a purple prism at (0, 3); o1 is a green prism at (0, 1); o2 is a blue rod at (7, 6); o3 is a red disc at (6, 5).
+Find the ptp object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kkz&quot;: &quot;green&quot;,
+  &quot;ptp&quot;: &quot;purple&quot;,
+  &quot;tss&quot;: &quot;blue&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lsp says orange, zmm says red and mmm says blue.
+In the scene: o0 is an orange cube at (7, 7); o1 is a red rod at (1, 0); o2 is a blue sphere at (7, 7); o3 is a green cone at (7, 1).
+Find the mmm object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lsp&quot;: &quot;orange&quot;,
+  &quot;mmm&quot;: &quot;blue&quot;,
+  &quot;zmm&quot;: &quot;red&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ptl says green, pkm says red and spp says yellow.
+In the scene: o0 is a yellow prism at (1, 9); o1 is a red disc at (3, 8); o2 is a green cone at (2, 8); o3 is a blue disc at (7, 8).
+Find the spp object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;pkm&quot;: &quot;red&quot;,
+  &quot;ptl&quot;: &quot;green&quot;,
+  &quot;spp&quot;: &quot;yellow&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lml says yellow, msz says red and zkm says blue.
+In the scene: o0 is a yellow rod at (6, 3); o1 is a red cube at (3, 2); o2 is a blue sphere at (9, 7); o3 is a green cone at (3, 9).
+Find the lml object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lml&quot;: &quot;yellow&quot;,
+  &quot;msz&quot;: &quot;red&quot;,
+  &quot;zkm&quot;: &quot;blue&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lsl says purple, kkt says orange and ttm says green.
+In the scene: o0 is a purple sphere at (3, 7); o1 is a green rod at (9, 1); o2 is an orange prism at (6, 0); o3 is a red prism at (5, 0).
+Find the kkt object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kkt&quot;: &quot;orange&quot;,
+  &quot;lsl&quot;: &quot;purple&quot;,
+  &quot;ttm&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zzl says yellow, mmm says purple and klm says orange.
+In the scene: o0 is an orange prism at (2, 2); o1 is a yellow sphere at (3, 0); o2 is a purple sphere at (1, 1); o3 is a red cone at (2, 2).
+Find the mmm object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;klm&quot;: &quot;orange&quot;,
+  &quot;mmm&quot;: &quot;purple&quot;,
+  &quot;zzl&quot;: &quot;yellow&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zpz says yellow, tkz says purple and zkt says green.
+In the scene: o0 is a green prism at (3, 5); o1 is a yellow prism at (5, 9); o2 is a purple prism at (3, 7); o3 is a red sphere at (6, 6).
+Find the tkz object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;tkz&quot;: &quot;purple&quot;,
+  &quot;zkt&quot;: &quot;green&quot;,
+  &quot;zpz&quot;: &quot;yellow&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lpm says yellow, zpt says green and zkz says red.
+In the scene: o0 is a green prism at (0, 8); o1 is a red cube at (1, 2); o2 is a yellow disc at (6, 5); o3 is a blue cube at (6, 0).
+Find the zpt object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lpm&quot;: &quot;yellow&quot;,
+  &quot;zkz&quot;: &quot;red&quot;,
+  &quot;zpt&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: psm says purple, ksk says red and lkm says blue.
+In the scene: o0 is a red rod at (0, 0); o1 is a purple sphere at (8, 7); o2 is a blue prism at (3, 9); o3 is a green cube at (0, 6).
+Find the psm object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;ksk&quot;: &quot;red&quot;,
+  &quot;lkm&quot;: &quot;blue&quot;,
+  &quot;psm&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: kmm says red, tlm says orange and skl says green.
+In the scene: o0 is a red disc at (7, 5); o1 is an orange cube at (8, 2); o2 is a green cube at (7, 3); o3 is a blue sphere at (7, 1).
+Find the tlm object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kmm&quot;: &quot;red&quot;,
+  &quot;skl&quot;: &quot;green&quot;,
+  &quot;tlm&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zml says purple, mpp says orange and tsl says blue.
+In the scene: o0 is a purple disc at (7, 7); o1 is an orange rod at (1, 4); o2 is a blue cone at (8, 7); o3 is a red rod at (9, 6).
+Find the mpp object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mpp&quot;: &quot;orange&quot;,
+  &quot;tsl&quot;: &quot;blue&quot;,
+  &quot;zml&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: kst says green, ztz says red and kpm says yellow.
+In the scene: o0 is a red disc at (2, 1); o1 is a yellow cone at (9, 0); o2 is a green disc at (1, 0); o3 is a blue cone at (8, 0).
+Find the kpm object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kpm&quot;: &quot;yellow&quot;,
+  &quot;kst&quot;: &quot;green&quot;,
+  &quot;ztz&quot;: &quot;red&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ztp says yellow, mlt says green and pmt says red.
+In the scene: o0 is a yellow cone at (9, 1); o1 is a green cube at (8, 0); o2 is a red rod at (7, 5); o3 is a blue cube at (5, 7).
+Find the ztp object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mlt&quot;: &quot;green&quot;,
+  &quot;pmt&quot;: &quot;red&quot;,
+  &quot;ztp&quot;: &quot;yellow&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tkk says orange, kkz says purple and ppt says blue.
+In the scene: o0 is an orange disc at (4, 8); o1 is a blue disc at (6, 7); o2 is a purple cone at (6, 3); o3 is a red sphere at (1, 8).
+Find the ppt object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kkz&quot;: &quot;purple&quot;,
+  &quot;ppt&quot;: &quot;blue&quot;,
+  &quot;tkk&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lpl says green, lzk says purple and zlp says red.
+In the scene: o0 is a purple prism at (9, 4); o1 is a red rod at (6, 7); o2 is a green cube at (1, 6); o3 is a blue disc at (4, 5).
+Find the lpl object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lpl&quot;: &quot;green&quot;,
+  &quot;lzk&quot;: &quot;purple&quot;,
+  &quot;zlp&quot;: &quot;red&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: plk says green, lss says yellow and ktl says red.
+In the scene: o0 is a yellow cone at (5, 4); o1 is a green cone at (9, 4); o2 is a red disc at (6, 3); o3 is a blue cube at (8, 7).
+Find the lss object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;ktl&quot;: &quot;red&quot;,
+  &quot;lss&quot;: &quot;yellow&quot;,
+  &quot;plk&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: kmm says green, mts says red and slz says purple.
+In the scene: o0 is a red cone at (1, 5); o1 is a green cube at (6, 5); o2 is a purple cube at (6, 8); o3 is a blue cone at (4, 1).
+Find the kmm object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kmm&quot;: &quot;green&quot;,
+  &quot;mts&quot;: &quot;red&quot;,
+  &quot;slz&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: szz says blue, lll says green and kmt says orange.
+In the scene: o0 is a blue disc at (2, 0); o1 is an orange sphere at (9, 7); o2 is a green sphere at (9, 5); o3 is a red cone at (5, 2).
+Find the lll object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kmt&quot;: &quot;orange&quot;,
+  &quot;lll&quot;: &quot;green&quot;,
+  &quot;szz&quot;: &quot;blue&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: msz says yellow, ltz says red and stm says green.
+In the scene: o0 is a green sphere at (2, 5); o1 is a yellow cone at (9, 9); o2 is a red cube at (9, 0); o3 is a blue cone at (3, 1).
+Find the ltz object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;ltz&quot;: &quot;red&quot;,
+  &quot;msz&quot;: &quot;yellow&quot;,
+  &quot;stm&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lkk says red, ltm says purple and mml says orange.
+In the scene: o0 is a red cube at (1, 3); o1 is a purple disc at (9, 0); o2 is an orange sphere at (8, 6); o3 is a blue prism at (9, 4).
+Find the lkk object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lkk&quot;: &quot;red&quot;,
+  &quot;ltm&quot;: &quot;purple&quot;,
+  &quot;mml&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: pms says yellow, ktl says red and tll says purple.
+In the scene: o0 is a red prism at (9, 5); o1 is a yellow disc at (6, 6); o2 is a purple cube at (1, 1); o3 is a blue sphere at (1, 2).
+Find the tll object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;ktl&quot;: &quot;red&quot;,
+  &quot;pms&quot;: &quot;yellow&quot;,
+  &quot;tll&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lpk says red, msm says blue and szz says green.
+In the scene: o0 is a green sphere at (8, 4); o1 is a red rod at (6, 9); o2 is a blue rod at (5, 5); o3 is a yellow cone at (4, 9).
+Find the szz object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lpk&quot;: &quot;red&quot;,
+  &quot;msm&quot;: &quot;blue&quot;,
+  &quot;szz&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tkk says purple, tss says yellow and tkt says red.
+In the scene: o0 is a yellow rod at (0, 9); o1 is a red sphere at (4, 2); o2 is a purple rod at (6, 1); o3 is a blue prism at (2, 0).
+Find the tss object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;tkk&quot;: &quot;purple&quot;,
+  &quot;tkt&quot;: &quot;red&quot;,
+  &quot;tss&quot;: &quot;yellow&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zzp says purple, mlz says red and ksk says blue.
+In the scene: o0 is a blue rod at (0, 0); o1 is a purple disc at (4, 8); o2 is a red rod at (1, 6); o3 is a green prism at (5, 2).
+Find the zzp object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;ksk&quot;: &quot;blue&quot;,
+  &quot;mlz&quot;: &quot;red&quot;,
+  &quot;zzp&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ttz says red, tks says yellow and zsz says orange.
+In the scene: o0 is a yellow cube at (4, 7); o1 is an orange disc at (0, 5); o2 is a red prism at (3, 3); o3 is a blue disc at (5, 7).
+Find the tks object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;tks&quot;: &quot;yellow&quot;,
+  &quot;ttz&quot;: &quot;red&quot;,
+  &quot;zsz&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zlz says yellow, tpz says orange and ztm says blue.
+In the scene: o0 is a blue rod at (3, 3); o1 is a yellow disc at (8, 2); o2 is an orange sphere at (0, 1); o3 is a red cube at (2, 7).
+Find the tpz object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;tpz&quot;: &quot;orange&quot;,
+  &quot;zlz&quot;: &quot;yellow&quot;,
+  &quot;ztm&quot;: &quot;blue&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zzp says green, ktp says orange and kts says red.
+In the scene: o0 is a red cube at (8, 8); o1 is an orange disc at (4, 9); o2 is a green prism at (0, 3); o3 is a blue sphere at (1, 6).
+Find the zzp object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;ktp&quot;: &quot;orange&quot;,
+  &quot;kts&quot;: &quot;red&quot;,
+  &quot;zzp&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tlm says red, lsp says orange and spt says green.
+In the scene: o0 is a green cone at (1, 5); o1 is a red sphere at (3, 1); o2 is an orange disc at (9, 6); o3 is a blue cube at (1, 9).
+Find the tlm object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lsp&quot;: &quot;orange&quot;,
+  &quot;spt&quot;: &quot;green&quot;,
+  &quot;tlm&quot;: &quot;red&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mpz says purple, zmm says green and pmp says yellow.
+In the scene: o0 is a purple rod at (8, 8); o1 is a green cone at (9, 5); o2 is a yellow cone at (6, 0); o3 is a red cube at (8, 4).
+Find the mpz object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mpz&quot;: &quot;purple&quot;,
+  &quot;pmp&quot;: &quot;yellow&quot;,
+  &quot;zmm&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tsk says yellow, zsp says orange and tkl says blue.
+In the scene: o0 is a blue rod at (0, 0); o1 is an orange prism at (7, 0); o2 is a yellow cube at (2, 2); o3 is a red sphere at (4, 7).
+Find the zsp object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;tkl&quot;: &quot;blue&quot;,
+  &quot;tsk&quot;: &quot;yellow&quot;,
+  &quot;zsp&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: szl says yellow, slz says red and zpm says green.
+In the scene: o0 is a green rod at (2, 4); o1 is a yellow cube at (2, 0); o2 is a red sphere at (7, 3); o3 is a blue sphere at (2, 5).
+Find the slz object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;slz&quot;: &quot;red&quot;,
+  &quot;szl&quot;: &quot;yellow&quot;,
+  &quot;zpm&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tss says purple, sms says yellow and msz says green.
+In the scene: o0 is a green prism at (8, 7); o1 is a purple cube at (8, 5); o2 is a yellow cone at (6, 4); o3 is a red sphere at (1, 4).
+Find the tss object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;msz&quot;: &quot;green&quot;,
+  &quot;sms&quot;: &quot;yellow&quot;,
+  &quot;tss&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: kmm says green, ltp says red and klm says orange.
+In the scene: o0 is a green prism at (6, 8); o1 is a red cone at (6, 8); o2 is an orange cube at (4, 0); o3 is a blue disc at (0, 9).
+Find the ltp object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;klm&quot;: &quot;orange&quot;,
+  &quot;kmm&quot;: &quot;green&quot;,
+  &quot;ltp&quot;: &quot;red&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tpz says red, pzk says yellow and slz says blue.
+In the scene: o0 is a yellow rod at (4, 9); o1 is a blue cube at (9, 3); o2 is a red disc at (8, 2); o3 is a green rod at (0, 2).
+Find the slz object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;pzk&quot;: &quot;yellow&quot;,
+  &quot;slz&quot;: &quot;blue&quot;,
+  &quot;tpz&quot;: &quot;red&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zkm says yellow, zts says purple and ktz says green.
+In the scene: o0 is a green disc at (5, 6); o1 is a yellow cube at (9, 7); o2 is a purple cone at (9, 2); o3 is a red sphere at (2, 6).
+Find the zts object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;ktz&quot;: &quot;green&quot;,
+  &quot;zkm&quot;: &quot;yellow&quot;,
+  &quot;zts&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zmm says yellow, kms says purple and llm says green.
+In the scene: o0 is a yellow prism at (4, 9); o1 is a green cube at (7, 3); o2 is a purple cube at (7, 8); o3 is a red prism at (5, 0).
+Find the zmm object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kms&quot;: &quot;purple&quot;,
+  &quot;llm&quot;: &quot;green&quot;,
+  &quot;zmm&quot;: &quot;yellow&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mkl says red, ptl says orange and skm says purple.
+In the scene: o0 is a red disc at (4, 2); o1 is a purple disc at (5, 2); o2 is an orange cube at (1, 5); o3 is a blue cube at (5, 4).
+Find the mkl object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mkl&quot;: &quot;red&quot;,
+  &quot;ptl&quot;: &quot;orange&quot;,
+  &quot;skm&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mtm says red, ttz says green and pss says purple.
+In the scene: o0 is a green prism at (0, 3); o1 is a red cube at (6, 2); o2 is a purple cone at (9, 2); o3 is a blue disc at (8, 9).
+Find the ttz object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mtm&quot;: &quot;red&quot;,
+  &quot;pss&quot;: &quot;purple&quot;,
+  &quot;ttz&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: smz says orange, ttp says yellow and mpt says red.
+In the scene: o0 is an orange prism at (7, 5); o1 is a red cone at (0, 8); o2 is a yellow cube at (2, 5); o3 is a blue prism at (2, 2).
+Find the ttp object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mpt&quot;: &quot;red&quot;,
+  &quot;smz&quot;: &quot;orange&quot;,
+  &quot;ttp&quot;: &quot;yellow&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: pms says purple, tlt says orange and zmk says blue.
+In the scene: o0 is a blue rod at (2, 1); o1 is a purple prism at (7, 8); o2 is an orange cone at (9, 2); o3 is a red sphere at (1, 5).
+Find the tlt object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;pms&quot;: &quot;purple&quot;,
+  &quot;tlt&quot;: &quot;orange&quot;,
+  &quot;zmk&quot;: &quot;blue&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ksl says blue, sst says red and tsl says orange.
+In the scene: o0 is a red cone at (9, 0); o1 is an orange rod at (2, 5); o2 is a blue cone at (9, 0); o3 is a green disc at (2, 3).
+Find the ksl object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;ksl&quot;: &quot;blue&quot;,
+  &quot;sst&quot;: &quot;red&quot;,
+  &quot;tsl&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lkm says purple, zsz says blue and skl says green.
+In the scene: o0 is a green sphere at (0, 1); o1 is a blue rod at (0, 1); o2 is a purple cube at (9, 0); o3 is a red cone at (3, 8).
+Find the skl object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lkm&quot;: &quot;purple&quot;,
+  &quot;skl&quot;: &quot;green&quot;,
+  &quot;zsz&quot;: &quot;blue&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: stt says yellow, zpm says purple and ssz says green.
+In the scene: o0 is a yellow cube at (8, 7); o1 is a purple sphere at (7, 9); o2 is a green cube at (4, 1); o3 is a red disc at (2, 1).
+Find the stt object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;ssz&quot;: &quot;green&quot;,
+  &quot;stt&quot;: &quot;yellow&quot;,
+  &quot;zpm&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ttp says yellow, mps says red and kts says purple.
+In the scene: o0 is a purple sphere at (1, 5); o1 is a red sphere at (6, 7); o2 is a yellow disc at (0, 8); o3 is a blue prism at (2, 5).
+Find the kts object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kts&quot;: &quot;purple&quot;,
+  &quot;mps&quot;: &quot;red&quot;,
+  &quot;ttp&quot;: &quot;yellow&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: sss says purple, tzs says green and kkp says yellow.
+In the scene: o0 is a yellow sphere at (4, 0); o1 is a purple prism at (2, 1); o2 is a green cube at (7, 4); o3 is a red prism at (9, 0).
+Find the sss object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kkp&quot;: &quot;yellow&quot;,
+  &quot;sss&quot;: &quot;purple&quot;,
+  &quot;tzs&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lsl says blue, kzz says purple and lpz says yellow.
+In the scene: o0 is a blue disc at (5, 2); o1 is a yellow rod at (1, 0); o2 is a purple rod at (7, 1); o3 is a red cube at (1, 9).
+Find the lsl object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kzz&quot;: &quot;purple&quot;,
+  &quot;lpz&quot;: &quot;yellow&quot;,
+  &quot;lsl&quot;: &quot;blue&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lkk says purple, ztt says orange and pmk says yellow.
+In the scene: o0 is a purple cone at (8, 8); o1 is a yellow sphere at (6, 6); o2 is an orange prism at (4, 2); o3 is a red sphere at (4, 3).
+Find the ztt object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lkk&quot;: &quot;purple&quot;,
+  &quot;pmk&quot;: &quot;yellow&quot;,
+  &quot;ztt&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ktl says orange, ssm says purple and tkm says blue.
+In the scene: o0 is an orange sphere at (6, 1); o1 is a purple cone at (4, 6); o2 is a blue cube at (1, 0); o3 is a red cone at (4, 2).
+Find the ktl object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;ktl&quot;: &quot;orange&quot;,
+  &quot;ssm&quot;: &quot;purple&quot;,
+  &quot;tkm&quot;: &quot;blue&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: pkt says green, mpp says red and tzz says blue.
+In the scene: o0 is a blue sphere at (8, 0); o1 is a green disc at (5, 7); o2 is a red cone at (2, 0); o3 is a yellow disc at (0, 6).
+Find the mpp object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mpp&quot;: &quot;red&quot;,
+  &quot;pkt&quot;: &quot;green&quot;,
+  &quot;tzz&quot;: &quot;blue&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: kpz says green, lmt says orange and lzz says blue.
+In the scene: o0 is a green prism at (2, 0); o1 is an orange sphere at (7, 0); o2 is a blue cube at (4, 1); o3 is a red cone at (0, 6).
+Find the lmt object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kpz&quot;: &quot;green&quot;,
+  &quot;lmt&quot;: &quot;orange&quot;,
+  &quot;lzz&quot;: &quot;blue&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: szm says yellow, tkz says red and stz says purple.
+In the scene: o0 is a red cube at (0, 4); o1 is a yellow cube at (6, 5); o2 is a purple prism at (7, 8); o3 is a blue sphere at (0, 4).
+Find the stz object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;stz&quot;: &quot;purple&quot;,
+  &quot;szm&quot;: &quot;yellow&quot;,
+  &quot;tkz&quot;: &quot;red&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: kpt says green, pkt says orange and pzz says blue.
+In the scene: o0 is a blue disc at (4, 7); o1 is an orange cone at (4, 8); o2 is a green cube at (8, 0); o3 is a red sphere at (7, 2).
+Find the kpt object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kpt&quot;: &quot;green&quot;,
+  &quot;pkt&quot;: &quot;orange&quot;,
+  &quot;pzz&quot;: &quot;blue&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: pzl says green, skl says yellow and szs says orange.
+In the scene: o0 is an orange cone at (4, 7); o1 is a yellow rod at (5, 9); o2 is a green prism at (4, 6); o3 is a red prism at (8, 9).
+Find the pzl object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;pzl&quot;: &quot;green&quot;,
+  &quot;skl&quot;: &quot;yellow&quot;,
+  &quot;szs&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: spm says yellow, tss says green and mtk says orange.
+In the scene: o0 is a green cone at (4, 3); o1 is an orange disc at (0, 0); o2 is a yellow prism at (9, 9); o3 is a red rod at (3, 5).
+Find the spm object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mtk&quot;: &quot;orange&quot;,
+  &quot;spm&quot;: &quot;yellow&quot;,
+  &quot;tss&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mmm says purple, pkt says blue and ptt says yellow.
+In the scene: o0 is a yellow cube at (7, 2); o1 is a purple disc at (6, 2); o2 is a blue cone at (1, 1); o3 is a red cone at (8, 7).
+Find the ptt object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mmm&quot;: &quot;purple&quot;,
+  &quot;pkt&quot;: &quot;blue&quot;,
+  &quot;ptt&quot;: &quot;yellow&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: pmk says yellow, tll says red and ptl says blue.
+In the scene: o0 is a yellow sphere at (7, 6); o1 is a red cube at (3, 2); o2 is a blue prism at (5, 6); o3 is a green sphere at (2, 5).
+Find the tll object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;pmk&quot;: &quot;yellow&quot;,
+  &quot;ptl&quot;: &quot;blue&quot;,
+  &quot;tll&quot;: &quot;red&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mll says red, mst says yellow and zmm says blue.
+In the scene: o0 is a yellow cube at (7, 4); o1 is a blue prism at (7, 5); o2 is a red cube at (6, 1); o3 is a green prism at (0, 5).
+Find the mll object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mll&quot;: &quot;red&quot;,
+  &quot;mst&quot;: &quot;yellow&quot;,
+  &quot;zmm&quot;: &quot;blue&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tsz says yellow, lps says green and ttz says red.
+In the scene: o0 is a yellow disc at (0, 6); o1 is a green sphere at (8, 9); o2 is a red sphere at (7, 9); o3 is a blue sphere at (3, 5).
+Find the lps object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lps&quot;: &quot;green&quot;,
+  &quot;tsz&quot;: &quot;yellow&quot;,
+  &quot;ttz&quot;: &quot;red&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ssp says purple, zps says red and tzz says blue.
+In the scene: o0 is a red cone at (5, 3); o1 is a blue rod at (2, 9); o2 is a purple sphere at (8, 4); o3 is a green disc at (2, 5).
+Find the zps object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;ssp&quot;: &quot;purple&quot;,
+  &quot;tzz&quot;: &quot;blue&quot;,
+  &quot;zps&quot;: &quot;red&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: pmp says orange, ztp says green and mps says blue.
+In the scene: o0 is a blue disc at (1, 3); o1 is a green disc at (2, 1); o2 is an orange cube at (5, 5); o3 is a red cube at (7, 2).
+Find the mps object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mps&quot;: &quot;blue&quot;,
+  &quot;pmp&quot;: &quot;orange&quot;,
+  &quot;ztp&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: skk says purple, skm says blue and spp says orange.
+In the scene: o0 is an orange cube at (6, 2); o1 is a blue cone at (8, 3); o2 is a purple rod at (3, 7); o3 is a red cube at (0, 0).
+Find the skm object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;skk&quot;: &quot;purple&quot;,
+  &quot;skm&quot;: &quot;blue&quot;,
+  &quot;spp&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ltp says blue, ksk says yellow and zlt says purple.
+In the scene: o0 is a blue sphere at (8, 4); o1 is a yellow prism at (6, 5); o2 is a purple sphere at (2, 7); o3 is a red disc at (0, 2).
+Find the ltp object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;ksk&quot;: &quot;yellow&quot;,
+  &quot;ltp&quot;: &quot;blue&quot;,
+  &quot;zlt&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mlz says green, pkt says purple and mms says blue.
+In the scene: o0 is a green disc at (3, 9); o1 is a purple disc at (7, 9); o2 is a blue cube at (0, 8); o3 is a red prism at (7, 9).
+Find the mms object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mlz&quot;: &quot;green&quot;,
+  &quot;mms&quot;: &quot;blue&quot;,
+  &quot;pkt&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ppk says red, zpt says purple and lkp says green.
+In the scene: o0 is a red disc at (1, 6); o1 is a purple cube at (9, 3); o2 is a green cone at (0, 2); o3 is a blue cone at (1, 7).
+Find the zpt object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lkp&quot;: &quot;green&quot;,
+  &quot;ppk&quot;: &quot;red&quot;,
+  &quot;zpt&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ppz says purple, mlm says green and ktp says orange.
+In the scene: o0 is a green cube at (4, 6); o1 is a purple prism at (8, 9); o2 is an orange cube at (3, 4); o3 is a red rod at (8, 1).
+Find the ppz object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;ktp&quot;: &quot;orange&quot;,
+  &quot;mlm&quot;: &quot;green&quot;,
+  &quot;ppz&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mlk says green, zpl says yellow and smt says red.
+In the scene: o0 is a red rod at (2, 9); o1 is a green prism at (6, 5); o2 is a yellow prism at (2, 4); o3 is a blue cube at (7, 5).
+Find the smt object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mlk&quot;: &quot;green&quot;,
+  &quot;smt&quot;: &quot;red&quot;,
+  &quot;zpl&quot;: &quot;yellow&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tpk says green, ltm says yellow and kpz says blue.
+In the scene: o0 is a blue rod at (5, 1); o1 is a yellow sphere at (7, 9); o2 is a green sphere at (2, 9); o3 is a red cube at (8, 5).
+Find the tpk object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kpz&quot;: &quot;blue&quot;,
+  &quot;ltm&quot;: &quot;yellow&quot;,
+  &quot;tpk&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mlk says green, ztl says orange and slz says yellow.
+In the scene: o0 is a green cone at (1, 8); o1 is a yellow sphere at (0, 6); o2 is an orange prism at (1, 2); o3 is a red disc at (2, 0).
+Find the ztl object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mlk&quot;: &quot;green&quot;,
+  &quot;slz&quot;: &quot;yellow&quot;,
+  &quot;ztl&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: kzm says orange, ssp says purple and llm says yellow.
+In the scene: o0 is an orange sphere at (9, 5); o1 is a yellow sphere at (3, 6); o2 is a purple cube at (7, 8); o3 is a red cone at (6, 8).
+Find the llm object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kzm&quot;: &quot;orange&quot;,
+  &quot;llm&quot;: &quot;yellow&quot;,
+  &quot;ssp&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zzp says red, ztp says yellow and szz says orange.
+In the scene: o0 is an orange rod at (5, 0); o1 is a red cube at (2, 9); o2 is a yellow disc at (9, 2); o3 is a blue prism at (7, 2).
+Find the ztp object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;szz&quot;: &quot;orange&quot;,
+  &quot;ztp&quot;: &quot;yellow&quot;,
+  &quot;zzp&quot;: &quot;red&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ltk says yellow, ktm says red and psz says blue.
+In the scene: o0 is a blue disc at (1, 9); o1 is a yellow prism at (1, 1); o2 is a red sphere at (3, 7); o3 is a green disc at (4, 9).
+Find the ltk object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;ktm&quot;: &quot;red&quot;,
+  &quot;ltk&quot;: &quot;yellow&quot;,
+  &quot;psz&quot;: &quot;blue&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zmk says orange, spk says green and ptt says yellow.
+In the scene: o0 is an orange cone at (8, 0); o1 is a yellow cube at (6, 5); o2 is a green cone at (3, 0); o3 is a red prism at (2, 4).
+Find the zmk object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;ptt&quot;: &quot;yellow&quot;,
+  &quot;spk&quot;: &quot;green&quot;,
+  &quot;zmk&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lzp says blue, pzz says red and pms says orange.
+In the scene: o0 is a red cone at (3, 0); o1 is a blue rod at (8, 9); o2 is an orange rod at (1, 5); o3 is a green rod at (6, 5).
+Find the pzz object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;lzp&quot;: &quot;blue&quot;,
+  &quot;pms&quot;: &quot;orange&quot;,
+  &quot;pzz&quot;: &quot;red&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ttl says red, ptp says blue and smk says orange.
+In the scene: o0 is a red cone at (5, 5); o1 is an orange sphere at (8, 0); o2 is a blue prism at (8, 7); o3 is a green cone at (3, 5).
+Find the ptp object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;ptp&quot;: &quot;blue&quot;,
+  &quot;smk&quot;: &quot;orange&quot;,
+  &quot;ttl&quot;: &quot;red&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: pkz says orange, tpp says purple and msp says red.
+In the scene: o0 is a red cube at (1, 7); o1 is a purple rod at (1, 5); o2 is an orange cone at (2, 4); o3 is a blue disc at (3, 2).
+Find the msp object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;msp&quot;: &quot;red&quot;,
+  &quot;pkz&quot;: &quot;orange&quot;,
+  &quot;tpp&quot;: &quot;purple&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: kst says red, tzp says orange and kts says purple.
+In the scene: o0 is an orange cube at (5, 0); o1 is a purple prism at (4, 5); o2 is a red rod at (7, 3); o3 is a blue sphere at (6, 2).
+Find the kst object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;kst&quot;: &quot;red&quot;,
+  &quot;kts&quot;: &quot;purple&quot;,
+  &quot;tzp&quot;: &quot;orange&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zmm says green, ssm says red and mmp says yellow.
+In the scene: o0 is a red prism at (3, 6); o1 is a green disc at (9, 3); o2 is a yellow prism at (3, 2); o3 is a blue rod at (2, 9).
+Find the zmm object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;lexicon&quot;: {
+  &quot;mmp&quot;: &quot;yellow&quot;,
+  &quot;ssm&quot;: &quot;red&quot;,
+  &quot;zmm&quot;: &quot;green&quot;
+ }
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

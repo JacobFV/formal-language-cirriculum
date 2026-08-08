@@ -1,0 +1,2621 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>strategy_discovery — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#ix">problem formulation and hierarchical agency</a> &rsaquo;
+  strategy_discovery</p>
+<h1>#111 <code>strategy_discovery</code></h1>
+<p class="lede">inducing the invariant behind a problem family</p>
+<div class="tags"><span class="tag ">level 111</span><span class="tag ">section ix</span><span class="tag ">strategy_induction</span><span class="tag ">game_reasoning</span><span class="tag ">abstraction</span></div>
+<div class="stats">
+<div class="stat"><span class="n">3.5</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.29</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.33</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>A problem family with one reusable strategy behind every instance.</p><p>    The worked instances are positions in a take-away game with a per-episode
+    move set; the answer to each is the winning move, or that there is none.
+    Solving instances one at a time is search; the family rewards inducing the
+    invariant (the losing positions), which is what makes the new position
+    answerable at a glance. Positions are restricted to those with a unique
+    winning move so the target is exact.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>reasoning_depth</td><td class='num'>5</td></tr><tr><td>recursion_depth</td><td class='num'>3</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The rules are: may remove 2, may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 5 instance take_4, 18 instance none, 8 instance take_2 and 2 instance take_2.
+What is the winning move at 14?
+
+Answer with exactly one of: none | take_2 | take_3 | take_4
+Reply with the answer only.</pre><h3>spanish</h3><pre>Las reglas son: puede eliminar: 2; puede eliminar: 3; puede eliminar: 4; el resultado: player_taking_last_token_wins.
+Las instancias resueltas son: 5 la instancia take_4, 18 la instancia ninguno, 8 la instancia take_2 y 2 la instancia take_2.
+¿Cuál es el movimiento ganador en 14?
+
+Responde exactamente con una de estas opciones: none | take_2 | take_3 | take_4
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>规则如下：可以移除：2；可以移除：3；可以移除：4；结果：player_taking_last_token_wins。
+已解决的实例如下：5的实例是take_4；18的实例是都不；8的实例是take_2；2的实例是take_2。
+在14处的制胜走法是哪一个？
+
+请从以下选项中选出恰好一个作答：none | take_2 | take_3 | take_4
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The rules are: may remove 2, may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 5 instance take_4, 18 instance none, 8 instance take_2 and 2 instance take_2.
+What is the winning move at 14?
+
+Answer with exactly one of: none | take_2 | take_3 | take_4
+Reply with the answer only.</pre><h3>symbols</h3><pre>{query: (winning_move_at 14), rules: [(may_remove 2) (may_remove 3) (may_remove 4) (outcome player_taking_last_token_wins)], solved_instances: [(instance 5 take_4) (instance 18 none) (instance 8 take_2) (instance 2 take_2)]}
+
+Answer with exactly one of: none | take_2 | take_3 | take_4
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/strategy_discovery.jsonl</code> &middot; <code>data/samples/spanish/strategy_discovery.jsonl</code> &middot; <code>data/samples/chinese/strategy_discovery.jsonl</code> &middot; <code>data/samples/english_synonym/strategy_discovery.jsonl</code> &middot; <code>data/samples/symbols/strategy_discovery.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">take_2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 5 instance take_4, 18 instance none, 8 instance take_2 and 2 instance take_2.
+What is the winning move at 14?
+
+Answer with exactly one of: none | take_2 | take_3 | take_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_2&quot;,
+ &quot;examples&quot;: {
+  &quot;18&quot;: &quot;none&quot;,
+  &quot;2&quot;: &quot;take_2&quot;,
+  &quot;5&quot;: &quot;take_4&quot;,
+  &quot;8&quot;: &quot;take_2&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  3,
+  4
+ ],
+ &quot;position&quot;: 14
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">take_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 13 instance take_4, 6 instance take_4, 3 instance take_3 and 2 instance none.
+What is the winning move at 20?
+
+Answer with exactly one of: none | take_3 | take_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_4&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;take_4&quot;,
+  &quot;2&quot;: &quot;none&quot;,
+  &quot;3&quot;: &quot;take_3&quot;,
+  &quot;6&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  4
+ ],
+ &quot;position&quot;: 20
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">take_3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 3, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 16 instance take_2, 21 instance none, 9 instance take_2 and 20 instance take_5.
+What is the winning move at 18?
+
+Answer with exactly one of: take_5 | take_3 | none | take_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_3&quot;,
+ &quot;examples&quot;: {
+  &quot;16&quot;: &quot;take_2&quot;,
+  &quot;20&quot;: &quot;take_5&quot;,
+  &quot;21&quot;: &quot;none&quot;,
+  &quot;9&quot;: &quot;take_2&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  3,
+  5
+ ],
+ &quot;position&quot;: 18
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">take_5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 17 instance take_2, 3 instance take_2, 4 instance none and 19 instance take_5.
+What is the winning move at 5?
+
+Answer with exactly one of: take_2 | take_5 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_5&quot;,
+ &quot;examples&quot;: {
+  &quot;17&quot;: &quot;take_2&quot;,
+  &quot;19&quot;: &quot;take_5&quot;,
+  &quot;3&quot;: &quot;take_2&quot;,
+  &quot;4&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  5
+ ],
+ &quot;position&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 10 instance none, 13 instance take_1, 14 instance take_4 and 19 instance take_4.
+What is the winning move at 5?
+
+Answer with exactly one of: take_1 | take_4 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;10&quot;: &quot;none&quot;,
+  &quot;13&quot;: &quot;take_1&quot;,
+  &quot;14&quot;: &quot;take_4&quot;,
+  &quot;19&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  4
+ ],
+ &quot;position&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2, may remove 3 and outcome player_taking_last_token_wins.
+The solved instances: 17 instance take_1, 14 instance take_2, 5 instance take_1 and 9 instance take_1.
+What is the winning move at 20?
+
+Answer with exactly one of: take_3 | take_1 | take_2 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;14&quot;: &quot;take_2&quot;,
+  &quot;17&quot;: &quot;take_1&quot;,
+  &quot;5&quot;: &quot;take_1&quot;,
+  &quot;9&quot;: &quot;take_1&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2,
+  3
+ ],
+ &quot;position&quot;: 20
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">take_3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 2 instance none, 3 instance take_3, 13 instance take_4 and 22 instance none.
+What is the winning move at 17?
+
+Answer with exactly one of: take_4 | take_3 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_3&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;take_4&quot;,
+  &quot;2&quot;: &quot;none&quot;,
+  &quot;22&quot;: &quot;none&quot;,
+  &quot;3&quot;: &quot;take_3&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  4
+ ],
+ &quot;position&quot;: 17
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 2 instance take_2, 6 instance none, 5 instance take_4 and 11 instance take_4.
+What is the winning move at 7?
+
+Answer with exactly one of: take_4 | none | take_2 | take_3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;11&quot;: &quot;take_4&quot;,
+  &quot;2&quot;: &quot;take_2&quot;,
+  &quot;5&quot;: &quot;take_4&quot;,
+  &quot;6&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  3,
+  4
+ ],
+ &quot;position&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">take_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 6 instance take_4, 9 instance none, 8 instance none and 22 instance none.
+What is the winning move at 13?
+
+Answer with exactly one of: take_3 | none | take_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_4&quot;,
+ &quot;examples&quot;: {
+  &quot;22&quot;: &quot;none&quot;,
+  &quot;6&quot;: &quot;take_4&quot;,
+  &quot;8&quot;: &quot;none&quot;,
+  &quot;9&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  4
+ ],
+ &quot;position&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 3, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 2 instance take_2, 15 instance none, 19 instance take_5 and 14 instance none.
+What is the winning move at 22?
+
+Answer with exactly one of: take_3 | take_5 | take_2 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;14&quot;: &quot;none&quot;,
+  &quot;15&quot;: &quot;none&quot;,
+  &quot;19&quot;: &quot;take_5&quot;,
+  &quot;2&quot;: &quot;take_2&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  3,
+  5
+ ],
+ &quot;position&quot;: 22
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 13 instance take_4, 8 instance take_5, 19 instance none and 17 instance take_5.
+What is the winning move at 21?
+
+Answer with exactly one of: none | take_5 | take_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;take_4&quot;,
+  &quot;17&quot;: &quot;take_5&quot;,
+  &quot;19&quot;: &quot;none&quot;,
+  &quot;8&quot;: &quot;take_5&quot;
+ },
+ &quot;moves&quot;: [
+  4,
+  5
+ ],
+ &quot;position&quot;: 21
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">take_2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 13 instance take_5, 20 instance take_5, 2 instance take_2 and 3 instance take_2.
+What is the winning move at 9?
+
+Answer with exactly one of: take_4 | take_2 | take_5 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_2&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;take_5&quot;,
+  &quot;2&quot;: &quot;take_2&quot;,
+  &quot;20&quot;: &quot;take_5&quot;,
+  &quot;3&quot;: &quot;take_2&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  4,
+  5
+ ],
+ &quot;position&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">take_1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2, may remove 3 and outcome player_taking_last_token_wins.
+The solved instances: 20 instance none, 19 instance take_3, 22 instance take_2 and 21 instance take_1.
+What is the winning move at 17?
+
+Answer with exactly one of: none | take_3 | take_1 | take_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_1&quot;,
+ &quot;examples&quot;: {
+  &quot;19&quot;: &quot;take_3&quot;,
+  &quot;20&quot;: &quot;none&quot;,
+  &quot;21&quot;: &quot;take_1&quot;,
+  &quot;22&quot;: &quot;take_2&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2,
+  3
+ ],
+ &quot;position&quot;: 17
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 3, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 9 instance take_2, 21 instance none, 2 instance take_2 and 16 instance take_2.
+What is the winning move at 14?
+
+Answer with exactly one of: take_5 | none | take_3 | take_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;16&quot;: &quot;take_2&quot;,
+  &quot;2&quot;: &quot;take_2&quot;,
+  &quot;21&quot;: &quot;none&quot;,
+  &quot;9&quot;: &quot;take_2&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  3,
+  5
+ ],
+ &quot;position&quot;: 14
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">take_5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 21 instance none, 17 instance take_2, 10 instance take_2 and 3 instance take_2.
+What is the winning move at 12?
+
+Answer with exactly one of: none | take_5 | take_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_5&quot;,
+ &quot;examples&quot;: {
+  &quot;10&quot;: &quot;take_2&quot;,
+  &quot;17&quot;: &quot;take_2&quot;,
+  &quot;21&quot;: &quot;none&quot;,
+  &quot;3&quot;: &quot;take_2&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  5
+ ],
+ &quot;position&quot;: 12
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">take_1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2 and outcome player_taking_last_token_wins.
+The solved instances: 21 instance none, 3 instance none, 5 instance take_2 and 11 instance take_2.
+What is the winning move at 13?
+
+Answer with exactly one of: take_1 | none | take_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_1&quot;,
+ &quot;examples&quot;: {
+  &quot;11&quot;: &quot;take_2&quot;,
+  &quot;21&quot;: &quot;none&quot;,
+  &quot;3&quot;: &quot;none&quot;,
+  &quot;5&quot;: &quot;take_2&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2
+ ],
+ &quot;position&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 6 instance take_5, 22 instance none, 13 instance take_5 and 20 instance take_5.
+What is the winning move at 7?
+
+Answer with exactly one of: take_2 | none | take_5 | take_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;take_5&quot;,
+  &quot;20&quot;: &quot;take_5&quot;,
+  &quot;22&quot;: &quot;none&quot;,
+  &quot;6&quot;: &quot;take_5&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  4,
+  5
+ ],
+ &quot;position&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">take_5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 3, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 16 instance take_2, 4 instance take_3, 20 instance take_5 and 8 instance none.
+What is the winning move at 12?
+
+Answer with exactly one of: none | take_2 | take_5 | take_3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_5&quot;,
+ &quot;examples&quot;: {
+  &quot;16&quot;: &quot;take_2&quot;,
+  &quot;20&quot;: &quot;take_5&quot;,
+  &quot;4&quot;: &quot;take_3&quot;,
+  &quot;8&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  3,
+  5
+ ],
+ &quot;position&quot;: 12
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">take_1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 22 instance none, 20 instance none, 8 instance take_1 and 19 instance take_4.
+What is the winning move at 13?
+
+Answer with exactly one of: take_4 | take_1 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_1&quot;,
+ &quot;examples&quot;: {
+  &quot;19&quot;: &quot;take_4&quot;,
+  &quot;20&quot;: &quot;none&quot;,
+  &quot;22&quot;: &quot;none&quot;,
+  &quot;8&quot;: &quot;take_1&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  4
+ ],
+ &quot;position&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">take_3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 14 instance none, 6 instance take_4, 13 instance take_4 and 20 instance take_4.
+What is the winning move at 10?
+
+Answer with exactly one of: none | take_3 | take_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_3&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;take_4&quot;,
+  &quot;14&quot;: &quot;none&quot;,
+  &quot;20&quot;: &quot;take_4&quot;,
+  &quot;6&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  4
+ ],
+ &quot;position&quot;: 10
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">take_1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 12 instance none, 19 instance take_1, 13 instance take_1 and 3 instance none.
+What is the winning move at 16?
+
+Answer with exactly one of: take_1 | none | take_2 | take_5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_1&quot;,
+ &quot;examples&quot;: {
+  &quot;12&quot;: &quot;none&quot;,
+  &quot;13&quot;: &quot;take_1&quot;,
+  &quot;19&quot;: &quot;take_1&quot;,
+  &quot;3&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2,
+  5
+ ],
+ &quot;position&quot;: 16
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 17 instance take_5, 4 instance take_4, 8 instance take_5 and 13 instance take_4.
+What is the winning move at 2?
+
+Answer with exactly one of: take_5 | none | take_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;take_4&quot;,
+  &quot;17&quot;: &quot;take_5&quot;,
+  &quot;4&quot;: &quot;take_4&quot;,
+  &quot;8&quot;: &quot;take_5&quot;
+ },
+ &quot;moves&quot;: [
+  4,
+  5
+ ],
+ &quot;position&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2 and outcome player_taking_last_token_wins.
+The solved instances: 8 instance take_2, 18 instance none, 11 instance take_2 and 21 instance none.
+What is the winning move at 6?
+
+Answer with exactly one of: take_2 | take_1 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;11&quot;: &quot;take_2&quot;,
+  &quot;18&quot;: &quot;none&quot;,
+  &quot;21&quot;: &quot;none&quot;,
+  &quot;8&quot;: &quot;take_2&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2
+ ],
+ &quot;position&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">take_5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 7 instance take_5, 19 instance take_3, 8 instance none and 3 instance take_3.
+What is the winning move at 15?
+
+Answer with exactly one of: take_5 | take_3 | take_4 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_5&quot;,
+ &quot;examples&quot;: {
+  &quot;19&quot;: &quot;take_3&quot;,
+  &quot;3&quot;: &quot;take_3&quot;,
+  &quot;7&quot;: &quot;take_5&quot;,
+  &quot;8&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  4,
+  5
+ ],
+ &quot;position&quot;: 15
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 21 instance none, 6 instance none, 2 instance take_2 and 12 instance none.
+What is the winning move at 18?
+
+Answer with exactly one of: take_2 | none | take_5 | take_1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;12&quot;: &quot;none&quot;,
+  &quot;2&quot;: &quot;take_2&quot;,
+  &quot;21&quot;: &quot;none&quot;,
+  &quot;6&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2,
+  5
+ ],
+ &quot;position&quot;: 18
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">take_5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 19 instance take_1, 22 instance take_4, 6 instance take_4 and 18 instance none.
+What is the winning move at 21?
+
+Answer with exactly one of: take_1 | none | take_4 | take_5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_5&quot;,
+ &quot;examples&quot;: {
+  &quot;18&quot;: &quot;none&quot;,
+  &quot;19&quot;: &quot;take_1&quot;,
+  &quot;22&quot;: &quot;take_4&quot;,
+  &quot;6&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  4,
+  5
+ ],
+ &quot;position&quot;: 21
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">take_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 16 instance take_4, 22 instance take_4, 2 instance take_2 and 7 instance none.
+What is the winning move at 17?
+
+Answer with exactly one of: none | take_4 | take_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_4&quot;,
+ &quot;examples&quot;: {
+  &quot;16&quot;: &quot;take_4&quot;,
+  &quot;2&quot;: &quot;take_2&quot;,
+  &quot;22&quot;: &quot;take_4&quot;,
+  &quot;7&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  4
+ ],
+ &quot;position&quot;: 17
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">take_5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 3, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 21 instance none, 16 instance take_2, 22 instance none and 2 instance take_2.
+What is the winning move at 13?
+
+Answer with exactly one of: none | take_3 | take_2 | take_5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_5&quot;,
+ &quot;examples&quot;: {
+  &quot;16&quot;: &quot;take_2&quot;,
+  &quot;2&quot;: &quot;take_2&quot;,
+  &quot;21&quot;: &quot;none&quot;,
+  &quot;22&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  3,
+  5
+ ],
+ &quot;position&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">take_2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 11 instance none, 8 instance none, 3 instance take_2 and 12 instance take_5.
+What is the winning move at 2?
+
+Answer with exactly one of: take_5 | none | take_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_2&quot;,
+ &quot;examples&quot;: {
+  &quot;11&quot;: &quot;none&quot;,
+  &quot;12&quot;: &quot;take_5&quot;,
+  &quot;3&quot;: &quot;take_2&quot;,
+  &quot;8&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  5
+ ],
+ &quot;position&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">take_3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 2 instance none, 12 instance take_3, 16 instance none and 3 instance take_3.
+What is the winning move at 11?
+
+Answer with exactly one of: take_3 | none | take_5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_3&quot;,
+ &quot;examples&quot;: {
+  &quot;12&quot;: &quot;take_3&quot;,
+  &quot;16&quot;: &quot;none&quot;,
+  &quot;2&quot;: &quot;none&quot;,
+  &quot;3&quot;: &quot;take_3&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  5
+ ],
+ &quot;position&quot;: 11
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 15 instance none, 6 instance none, 2 instance take_2 and 16 instance take_1.
+What is the winning move at 9?
+
+Answer with exactly one of: take_2 | take_1 | none | take_5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;15&quot;: &quot;none&quot;,
+  &quot;16&quot;: &quot;take_1&quot;,
+  &quot;2&quot;: &quot;take_2&quot;,
+  &quot;6&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2,
+  5
+ ],
+ &quot;position&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">take_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 9 instance take_4, 8 instance take_1, 5 instance none and 4 instance take_4.
+What is the winning move at 14?
+
+Answer with exactly one of: take_4 | take_1 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_4&quot;,
+ &quot;examples&quot;: {
+  &quot;4&quot;: &quot;take_4&quot;,
+  &quot;5&quot;: &quot;none&quot;,
+  &quot;8&quot;: &quot;take_1&quot;,
+  &quot;9&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  4
+ ],
+ &quot;position&quot;: 14
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">take_5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 15 instance none, 2 instance take_2, 5 instance take_5 and 3 instance take_2.
+What is the winning move at 19?
+
+Answer with exactly one of: none | take_2 | take_5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_5&quot;,
+ &quot;examples&quot;: {
+  &quot;15&quot;: &quot;none&quot;,
+  &quot;2&quot;: &quot;take_2&quot;,
+  &quot;3&quot;: &quot;take_2&quot;,
+  &quot;5&quot;: &quot;take_5&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  5
+ ],
+ &quot;position&quot;: 19
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">take_3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 3 and outcome player_taking_last_token_wins.
+The solved instances: 19 instance take_3, 22 instance take_2, 9 instance take_3 and 14 instance take_3.
+What is the winning move at 4?
+
+Answer with exactly one of: take_2 | none | take_3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_3&quot;,
+ &quot;examples&quot;: {
+  &quot;14&quot;: &quot;take_3&quot;,
+  &quot;19&quot;: &quot;take_3&quot;,
+  &quot;22&quot;: &quot;take_2&quot;,
+  &quot;9&quot;: &quot;take_3&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  3
+ ],
+ &quot;position&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">take_1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 6 instance take_4, 16 instance none, 4 instance take_4 and 13 instance take_5.
+What is the winning move at 3?
+
+Answer with exactly one of: none | take_1 | take_5 | take_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_1&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;take_5&quot;,
+  &quot;16&quot;: &quot;none&quot;,
+  &quot;4&quot;: &quot;take_4&quot;,
+  &quot;6&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  4,
+  5
+ ],
+ &quot;position&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2, may remove 3 and outcome player_taking_last_token_wins.
+The solved instances: 22 instance take_2, 10 instance take_2, 20 instance none and 14 instance take_2.
+What is the winning move at 12?
+
+Answer with exactly one of: none | take_2 | take_3 | take_1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;10&quot;: &quot;take_2&quot;,
+  &quot;14&quot;: &quot;take_2&quot;,
+  &quot;20&quot;: &quot;none&quot;,
+  &quot;22&quot;: &quot;take_2&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2,
+  3
+ ],
+ &quot;position&quot;: 12
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">take_1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 10 instance take_1, 2 instance take_2, 12 instance none and 3 instance none.
+What is the winning move at 19?
+
+Answer with exactly one of: take_1 | take_5 | take_2 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_1&quot;,
+ &quot;examples&quot;: {
+  &quot;10&quot;: &quot;take_1&quot;,
+  &quot;12&quot;: &quot;none&quot;,
+  &quot;2&quot;: &quot;take_2&quot;,
+  &quot;3&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2,
+  5
+ ],
+ &quot;position&quot;: 19
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 8 instance take_1, 12 instance take_3, 13 instance take_4 and 18 instance take_4.
+What is the winning move at 14?
+
+Answer with exactly one of: take_1 | take_3 | none | take_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;12&quot;: &quot;take_3&quot;,
+  &quot;13&quot;: &quot;take_4&quot;,
+  &quot;18&quot;: &quot;take_4&quot;,
+  &quot;8&quot;: &quot;take_1&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  3,
+  4
+ ],
+ &quot;position&quot;: 14
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">take_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 22 instance take_4, 13 instance take_5, 19 instance take_1 and 18 instance none.
+What is the winning move at 12?
+
+Answer with exactly one of: take_1 | none | take_4 | take_5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_4&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;take_5&quot;,
+  &quot;18&quot;: &quot;none&quot;,
+  &quot;19&quot;: &quot;take_1&quot;,
+  &quot;22&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  4,
+  5
+ ],
+ &quot;position&quot;: 12
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">take_3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 21 instance none, 9 instance none, 16 instance none and 20 instance take_4.
+What is the winning move at 17?
+
+Answer with exactly one of: none | take_4 | take_3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_3&quot;,
+ &quot;examples&quot;: {
+  &quot;16&quot;: &quot;none&quot;,
+  &quot;20&quot;: &quot;take_4&quot;,
+  &quot;21&quot;: &quot;none&quot;,
+  &quot;9&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  4
+ ],
+ &quot;position&quot;: 17
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">take_1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 22 instance take_4, 5 instance take_5, 12 instance take_4 and 9 instance take_1.
+What is the winning move at 3?
+
+Answer with exactly one of: take_5 | take_4 | none | take_1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_1&quot;,
+ &quot;examples&quot;: {
+  &quot;12&quot;: &quot;take_4&quot;,
+  &quot;22&quot;: &quot;take_4&quot;,
+  &quot;5&quot;: &quot;take_5&quot;,
+  &quot;9&quot;: &quot;take_1&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  4,
+  5
+ ],
+ &quot;position&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2, may remove 3 and outcome player_taking_last_token_wins.
+The solved instances: 14 instance take_2, 8 instance none, 19 instance take_3 and 18 instance take_2.
+What is the winning move at 20?
+
+Answer with exactly one of: take_3 | take_1 | none | take_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;14&quot;: &quot;take_2&quot;,
+  &quot;18&quot;: &quot;take_2&quot;,
+  &quot;19&quot;: &quot;take_3&quot;,
+  &quot;8&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2,
+  3
+ ],
+ &quot;position&quot;: 20
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 4 instance none, 5 instance take_5, 19 instance take_5 and 12 instance take_5.
+What is the winning move at 14?
+
+Answer with exactly one of: take_5 | take_2 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;12&quot;: &quot;take_5&quot;,
+  &quot;19&quot;: &quot;take_5&quot;,
+  &quot;4&quot;: &quot;none&quot;,
+  &quot;5&quot;: &quot;take_5&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  5
+ ],
+ &quot;position&quot;: 14
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">take_3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 3 and outcome player_taking_last_token_wins.
+The solved instances: 12 instance take_2, 4 instance take_3, 9 instance take_3 and 22 instance take_2.
+What is the winning move at 19?
+
+Answer with exactly one of: none | take_2 | take_3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_3&quot;,
+ &quot;examples&quot;: {
+  &quot;12&quot;: &quot;take_2&quot;,
+  &quot;22&quot;: &quot;take_2&quot;,
+  &quot;4&quot;: &quot;take_3&quot;,
+  &quot;9&quot;: &quot;take_3&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  3
+ ],
+ &quot;position&quot;: 19
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">take_1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 7 instance take_5, 4 instance take_4, 3 instance take_1 and 2 instance none.
+What is the winning move at 17?
+
+Answer with exactly one of: none | take_1 | take_4 | take_5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_1&quot;,
+ &quot;examples&quot;: {
+  &quot;2&quot;: &quot;none&quot;,
+  &quot;3&quot;: &quot;take_1&quot;,
+  &quot;4&quot;: &quot;take_4&quot;,
+  &quot;7&quot;: &quot;take_5&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  4,
+  5
+ ],
+ &quot;position&quot;: 17
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">take_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 4 instance take_4, 14 instance none, 7 instance none and 21 instance none.
+What is the winning move at 11?
+
+Answer with exactly one of: take_5 | take_4 | none | take_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_4&quot;,
+ &quot;examples&quot;: {
+  &quot;14&quot;: &quot;none&quot;,
+  &quot;21&quot;: &quot;none&quot;,
+  &quot;4&quot;: &quot;take_4&quot;,
+  &quot;7&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  4,
+  5
+ ],
+ &quot;position&quot;: 11
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 19 instance take_4, 9 instance take_4, 2 instance none and 22 instance none.
+What is the winning move at 20?
+
+Answer with exactly one of: take_4 | none | take_1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;19&quot;: &quot;take_4&quot;,
+  &quot;2&quot;: &quot;none&quot;,
+  &quot;22&quot;: &quot;none&quot;,
+  &quot;9&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  4
+ ],
+ &quot;position&quot;: 20
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 14 instance none, 13 instance take_4, 12 instance take_3 and 18 instance take_4.
+What is the winning move at 2?
+
+Answer with exactly one of: none | take_4 | take_3 | take_1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;12&quot;: &quot;take_3&quot;,
+  &quot;13&quot;: &quot;take_4&quot;,
+  &quot;14&quot;: &quot;none&quot;,
+  &quot;18&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  3,
+  4
+ ],
+ &quot;position&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 6 instance none, 19 instance none, 20 instance take_2 and 8 instance take_2.
+What is the winning move at 12?
+
+Answer with exactly one of: take_4 | take_3 | none | take_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;19&quot;: &quot;none&quot;,
+  &quot;20&quot;: &quot;take_2&quot;,
+  &quot;6&quot;: &quot;none&quot;,
+  &quot;8&quot;: &quot;take_2&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  3,
+  4
+ ],
+ &quot;position&quot;: 12
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 20 instance take_4, 13 instance take_4, 2 instance none and 15 instance none.
+What is the winning move at 14?
+
+Answer with exactly one of: take_3 | take_4 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;take_4&quot;,
+  &quot;15&quot;: &quot;none&quot;,
+  &quot;2&quot;: &quot;none&quot;,
+  &quot;20&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  4
+ ],
+ &quot;position&quot;: 14
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">take_5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 16 instance none, 17 instance none, 3 instance take_3 and 11 instance take_3.
+What is the winning move at 7?
+
+Answer with exactly one of: none | take_3 | take_4 | take_5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_5&quot;,
+ &quot;examples&quot;: {
+  &quot;11&quot;: &quot;take_3&quot;,
+  &quot;16&quot;: &quot;none&quot;,
+  &quot;17&quot;: &quot;none&quot;,
+  &quot;3&quot;: &quot;take_3&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  4,
+  5
+ ],
+ &quot;position&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">take_5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 11 instance none, 17 instance take_2, 12 instance take_5 and 19 instance take_5.
+What is the winning move at 5?
+
+Answer with exactly one of: take_5 | take_2 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_5&quot;,
+ &quot;examples&quot;: {
+  &quot;11&quot;: &quot;none&quot;,
+  &quot;12&quot;: &quot;take_5&quot;,
+  &quot;17&quot;: &quot;take_2&quot;,
+  &quot;19&quot;: &quot;take_5&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  5
+ ],
+ &quot;position&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">take_2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 9 instance none, 19 instance take_1, 22 instance take_1 and 3 instance none.
+What is the winning move at 2?
+
+Answer with exactly one of: take_2 | take_5 | none | take_1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_2&quot;,
+ &quot;examples&quot;: {
+  &quot;19&quot;: &quot;take_1&quot;,
+  &quot;22&quot;: &quot;take_1&quot;,
+  &quot;3&quot;: &quot;none&quot;,
+  &quot;9&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2,
+  5
+ ],
+ &quot;position&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 8 instance take_5, 2 instance none, 18 instance none and 17 instance take_5.
+What is the winning move at 12?
+
+Answer with exactly one of: none | take_4 | take_5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;17&quot;: &quot;take_5&quot;,
+  &quot;18&quot;: &quot;none&quot;,
+  &quot;2&quot;: &quot;none&quot;,
+  &quot;8&quot;: &quot;take_5&quot;
+ },
+ &quot;moves&quot;: [
+  4,
+  5
+ ],
+ &quot;position&quot;: 12
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 10 instance take_3, 3 instance take_3, 17 instance take_3 and 6 instance take_4.
+What is the winning move at 2?
+
+Answer with exactly one of: take_4 | take_3 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;10&quot;: &quot;take_3&quot;,
+  &quot;17&quot;: &quot;take_3&quot;,
+  &quot;3&quot;: &quot;take_3&quot;,
+  &quot;6&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  4
+ ],
+ &quot;position&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">take_5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 12 instance take_5, 2 instance take_2, 8 instance none and 17 instance take_2.
+What is the winning move at 19?
+
+Answer with exactly one of: take_2 | none | take_5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_5&quot;,
+ &quot;examples&quot;: {
+  &quot;12&quot;: &quot;take_5&quot;,
+  &quot;17&quot;: &quot;take_2&quot;,
+  &quot;2&quot;: &quot;take_2&quot;,
+  &quot;8&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  5
+ ],
+ &quot;position&quot;: 19
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">take_3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 6 instance take_4, 13 instance take_4, 20 instance take_4 and 15 instance none.
+What is the winning move at 17?
+
+Answer with exactly one of: take_4 | none | take_3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_3&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;take_4&quot;,
+  &quot;15&quot;: &quot;none&quot;,
+  &quot;20&quot;: &quot;take_4&quot;,
+  &quot;6&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  4
+ ],
+ &quot;position&quot;: 17
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">take_5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 18 instance none, 11 instance take_3, 19 instance take_3 and 7 instance take_5.
+What is the winning move at 15?
+
+Answer with exactly one of: take_3 | take_5 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_5&quot;,
+ &quot;examples&quot;: {
+  &quot;11&quot;: &quot;take_3&quot;,
+  &quot;18&quot;: &quot;none&quot;,
+  &quot;19&quot;: &quot;take_3&quot;,
+  &quot;7&quot;: &quot;take_5&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  5
+ ],
+ &quot;position&quot;: 15
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">take_5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 17 instance take_2, 11 instance none, 10 instance take_2 and 3 instance take_2.
+What is the winning move at 12?
+
+Answer with exactly one of: none | take_5 | take_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_5&quot;,
+ &quot;examples&quot;: {
+  &quot;10&quot;: &quot;take_2&quot;,
+  &quot;11&quot;: &quot;none&quot;,
+  &quot;17&quot;: &quot;take_2&quot;,
+  &quot;3&quot;: &quot;take_2&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  5
+ ],
+ &quot;position&quot;: 12
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">take_1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 7 instance none, 13 instance take_1, 4 instance take_4 and 3 instance take_1.
+What is the winning move at 18?
+
+Answer with exactly one of: take_4 | take_1 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_1&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;take_1&quot;,
+  &quot;3&quot;: &quot;take_1&quot;,
+  &quot;4&quot;: &quot;take_4&quot;,
+  &quot;7&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  4
+ ],
+ &quot;position&quot;: 18
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 14 instance take_2, 6 instance none, 5 instance take_4 and 13 instance none.
+What is the winning move at 19?
+
+Answer with exactly one of: take_3 | take_2 | take_4 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;none&quot;,
+  &quot;14&quot;: &quot;take_2&quot;,
+  &quot;5&quot;: &quot;take_4&quot;,
+  &quot;6&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  3,
+  4
+ ],
+ &quot;position&quot;: 19
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">take_5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 18 instance take_4, 11 instance take_4, 21 instance none and 15 instance none.
+What is the winning move at 13?
+
+Answer with exactly one of: take_4 | none | take_5 | take_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_5&quot;,
+ &quot;examples&quot;: {
+  &quot;11&quot;: &quot;take_4&quot;,
+  &quot;15&quot;: &quot;none&quot;,
+  &quot;18&quot;: &quot;take_4&quot;,
+  &quot;21&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  4,
+  5
+ ],
+ &quot;position&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2 and outcome player_taking_last_token_wins.
+The solved instances: 6 instance none, 15 instance none, 10 instance take_1 and 8 instance take_2.
+What is the winning move at 12?
+
+Answer with exactly one of: take_1 | none | take_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;10&quot;: &quot;take_1&quot;,
+  &quot;15&quot;: &quot;none&quot;,
+  &quot;6&quot;: &quot;none&quot;,
+  &quot;8&quot;: &quot;take_2&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2
+ ],
+ &quot;position&quot;: 12
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">take_2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 20 instance take_2, 2 instance take_2, 5 instance take_4 and 6 instance none.
+What is the winning move at 8?
+
+Answer with exactly one of: none | take_2 | take_4 | take_3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_2&quot;,
+ &quot;examples&quot;: {
+  &quot;2&quot;: &quot;take_2&quot;,
+  &quot;20&quot;: &quot;take_2&quot;,
+  &quot;5&quot;: &quot;take_4&quot;,
+  &quot;6&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  3,
+  4
+ ],
+ &quot;position&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">take_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 8 instance take_1, 7 instance none, 22 instance take_1 and 19 instance take_3.
+What is the winning move at 13?
+
+Answer with exactly one of: take_4 | none | take_3 | take_1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_4&quot;,
+ &quot;examples&quot;: {
+  &quot;19&quot;: &quot;take_3&quot;,
+  &quot;22&quot;: &quot;take_1&quot;,
+  &quot;7&quot;: &quot;none&quot;,
+  &quot;8&quot;: &quot;take_1&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  3,
+  4
+ ],
+ &quot;position&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 11 instance take_3, 10 instance none, 19 instance take_3 and 15 instance take_5.
+What is the winning move at 2?
+
+Answer with exactly one of: take_4 | take_3 | take_5 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;10&quot;: &quot;none&quot;,
+  &quot;11&quot;: &quot;take_3&quot;,
+  &quot;15&quot;: &quot;take_5&quot;,
+  &quot;19&quot;: &quot;take_3&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  4,
+  5
+ ],
+ &quot;position&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 20 instance take_4, 21 instance none, 6 instance take_4 and 10 instance take_3.
+What is the winning move at 22?
+
+Answer with exactly one of: take_3 | take_4 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;10&quot;: &quot;take_3&quot;,
+  &quot;20&quot;: &quot;take_4&quot;,
+  &quot;21&quot;: &quot;none&quot;,
+  &quot;6&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  4
+ ],
+ &quot;position&quot;: 22
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 8 instance take_1, 18 instance take_1, 14 instance take_4 and 13 instance take_1.
+What is the winning move at 2?
+
+Answer with exactly one of: none | take_4 | take_1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;take_1&quot;,
+  &quot;14&quot;: &quot;take_4&quot;,
+  &quot;18&quot;: &quot;take_1&quot;,
+  &quot;8&quot;: &quot;take_1&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  4
+ ],
+ &quot;position&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">take_5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 20 instance none, 17 instance take_5, 13 instance take_4 and 22 instance take_4.
+What is the winning move at 8?
+
+Answer with exactly one of: none | take_5 | take_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_5&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;take_4&quot;,
+  &quot;17&quot;: &quot;take_5&quot;,
+  &quot;20&quot;: &quot;none&quot;,
+  &quot;22&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  4,
+  5
+ ],
+ &quot;position&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">take_2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2 and outcome player_taking_last_token_wins.
+The solved instances: 15 instance none, 10 instance take_1, 16 instance take_1 and 11 instance take_2.
+What is the winning move at 14?
+
+Answer with exactly one of: none | take_2 | take_1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_2&quot;,
+ &quot;examples&quot;: {
+  &quot;10&quot;: &quot;take_1&quot;,
+  &quot;11&quot;: &quot;take_2&quot;,
+  &quot;15&quot;: &quot;none&quot;,
+  &quot;16&quot;: &quot;take_1&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2
+ ],
+ &quot;position&quot;: 14
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">take_3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 9 instance none, 3 instance take_3, 20 instance take_4 and 10 instance take_3.
+What is the winning move at 17?
+
+Answer with exactly one of: take_3 | take_4 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_3&quot;,
+ &quot;examples&quot;: {
+  &quot;10&quot;: &quot;take_3&quot;,
+  &quot;20&quot;: &quot;take_4&quot;,
+  &quot;3&quot;: &quot;take_3&quot;,
+  &quot;9&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  4
+ ],
+ &quot;position&quot;: 17
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 2 instance take_2, 21 instance none, 9 instance none and 6 instance none.
+What is the winning move at 3?
+
+Answer with exactly one of: take_2 | take_1 | none | take_5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;2&quot;: &quot;take_2&quot;,
+  &quot;21&quot;: &quot;none&quot;,
+  &quot;6&quot;: &quot;none&quot;,
+  &quot;9&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2,
+  5
+ ],
+ &quot;position&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">take_5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 19 instance take_5, 10 instance take_2, 5 instance take_5 and 17 instance take_2.
+What is the winning move at 12?
+
+Answer with exactly one of: take_5 | take_2 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_5&quot;,
+ &quot;examples&quot;: {
+  &quot;10&quot;: &quot;take_2&quot;,
+  &quot;17&quot;: &quot;take_2&quot;,
+  &quot;19&quot;: &quot;take_5&quot;,
+  &quot;5&quot;: &quot;take_5&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  5
+ ],
+ &quot;position&quot;: 12
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">take_1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 14 instance none, 19 instance take_3, 18 instance take_4 and 15 instance take_1.
+What is the winning move at 22?
+
+Answer with exactly one of: take_4 | take_3 | take_1 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_1&quot;,
+ &quot;examples&quot;: {
+  &quot;14&quot;: &quot;none&quot;,
+  &quot;15&quot;: &quot;take_1&quot;,
+  &quot;18&quot;: &quot;take_4&quot;,
+  &quot;19&quot;: &quot;take_3&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  3,
+  4
+ ],
+ &quot;position&quot;: 22
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">take_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 20 instance take_5, 11 instance take_4, 9 instance take_2 and 15 instance none.
+What is the winning move at 4?
+
+Answer with exactly one of: take_5 | take_4 | take_2 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_4&quot;,
+ &quot;examples&quot;: {
+  &quot;11&quot;: &quot;take_4&quot;,
+  &quot;15&quot;: &quot;none&quot;,
+  &quot;20&quot;: &quot;take_5&quot;,
+  &quot;9&quot;: &quot;take_2&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  4,
+  5
+ ],
+ &quot;position&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">take_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 22 instance none, 20 instance take_5, 4 instance take_4 and 11 instance take_4.
+What is the winning move at 18?
+
+Answer with exactly one of: take_2 | take_5 | take_4 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_4&quot;,
+ &quot;examples&quot;: {
+  &quot;11&quot;: &quot;take_4&quot;,
+  &quot;20&quot;: &quot;take_5&quot;,
+  &quot;22&quot;: &quot;none&quot;,
+  &quot;4&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  4,
+  5
+ ],
+ &quot;position&quot;: 18
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">take_1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 21 instance take_5, 4 instance take_4, 7 instance take_5 and 14 instance take_4.
+What is the winning move at 3?
+
+Answer with exactly one of: take_4 | take_1 | none | take_5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_1&quot;,
+ &quot;examples&quot;: {
+  &quot;14&quot;: &quot;take_4&quot;,
+  &quot;21&quot;: &quot;take_5&quot;,
+  &quot;4&quot;: &quot;take_4&quot;,
+  &quot;7&quot;: &quot;take_5&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  4,
+  5
+ ],
+ &quot;position&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2, may remove 3 and outcome player_taking_last_token_wins.
+The solved instances: 13 instance take_1, 12 instance none, 5 instance take_1 and 14 instance take_2.
+What is the winning move at 20?
+
+Answer with exactly one of: take_1 | take_3 | none | take_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;12&quot;: &quot;none&quot;,
+  &quot;13&quot;: &quot;take_1&quot;,
+  &quot;14&quot;: &quot;take_2&quot;,
+  &quot;5&quot;: &quot;take_1&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2,
+  3
+ ],
+ &quot;position&quot;: 20
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 22 instance take_1, 15 instance take_1, 18 instance take_4 and 20 instance take_4.
+What is the winning move at 7?
+
+Answer with exactly one of: take_1 | take_3 | none | take_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;15&quot;: &quot;take_1&quot;,
+  &quot;18&quot;: &quot;take_4&quot;,
+  &quot;20&quot;: &quot;take_4&quot;,
+  &quot;22&quot;: &quot;take_1&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  3,
+  4
+ ],
+ &quot;position&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">take_3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 20 instance take_4, 7 instance none, 6 instance take_4 and 9 instance none.
+What is the winning move at 3?
+
+Answer with exactly one of: take_3 | take_4 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_3&quot;,
+ &quot;examples&quot;: {
+  &quot;20&quot;: &quot;take_4&quot;,
+  &quot;6&quot;: &quot;take_4&quot;,
+  &quot;7&quot;: &quot;none&quot;,
+  &quot;9&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  4
+ ],
+ &quot;position&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 6 instance take_5, 21 instance none, 18 instance take_4 and 13 instance take_5.
+What is the winning move at 15?
+
+Answer with exactly one of: take_5 | take_2 | none | take_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;take_5&quot;,
+  &quot;18&quot;: &quot;take_4&quot;,
+  &quot;21&quot;: &quot;none&quot;,
+  &quot;6&quot;: &quot;take_5&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  4,
+  5
+ ],
+ &quot;position&quot;: 15
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">take_2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 17 instance take_4, 7 instance none, 13 instance none and 18 instance none.
+What is the winning move at 14?
+
+Answer with exactly one of: take_4 | take_3 | none | take_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_2&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;none&quot;,
+  &quot;17&quot;: &quot;take_4&quot;,
+  &quot;18&quot;: &quot;none&quot;,
+  &quot;7&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  3,
+  4
+ ],
+ &quot;position&quot;: 14
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">take_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 2 instance none, 8 instance none, 10 instance take_3 and 13 instance take_4.
+What is the winning move at 6?
+
+Answer with exactly one of: none | take_4 | take_3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_4&quot;,
+ &quot;examples&quot;: {
+  &quot;10&quot;: &quot;take_3&quot;,
+  &quot;13&quot;: &quot;take_4&quot;,
+  &quot;2&quot;: &quot;none&quot;,
+  &quot;8&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  4
+ ],
+ &quot;position&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 5 instance take_5, 9 instance take_1, 4 instance take_4 and 8 instance none.
+What is the winning move at 18?
+
+Answer with exactly one of: take_5 | take_1 | none | take_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;4&quot;: &quot;take_4&quot;,
+  &quot;5&quot;: &quot;take_5&quot;,
+  &quot;8&quot;: &quot;none&quot;,
+  &quot;9&quot;: &quot;take_1&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  4,
+  5
+ ],
+ &quot;position&quot;: 18
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">take_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 6 instance take_4, 15 instance take_5, 22 instance take_4 and 19 instance take_1.
+What is the winning move at 20?
+
+Answer with exactly one of: take_5 | none | take_1 | take_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_4&quot;,
+ &quot;examples&quot;: {
+  &quot;15&quot;: &quot;take_5&quot;,
+  &quot;19&quot;: &quot;take_1&quot;,
+  &quot;22&quot;: &quot;take_4&quot;,
+  &quot;6&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  4,
+  5
+ ],
+ &quot;position&quot;: 20
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">take_5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 17 instance take_2, 20 instance take_5, 16 instance take_2 and 18 instance take_4.
+What is the winning move at 13?
+
+Answer with exactly one of: take_2 | take_5 | take_4 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_5&quot;,
+ &quot;examples&quot;: {
+  &quot;16&quot;: &quot;take_2&quot;,
+  &quot;17&quot;: &quot;take_2&quot;,
+  &quot;18&quot;: &quot;take_4&quot;,
+  &quot;20&quot;: &quot;take_5&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  4,
+  5
+ ],
+ &quot;position&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 14 instance take_5, 15 instance take_5, 17 instance none and 6 instance take_5.
+What is the winning move at 16?
+
+Answer with exactly one of: take_5 | none | take_3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;14&quot;: &quot;take_5&quot;,
+  &quot;15&quot;: &quot;take_5&quot;,
+  &quot;17&quot;: &quot;none&quot;,
+  &quot;6&quot;: &quot;take_5&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  5
+ ],
+ &quot;position&quot;: 16
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">take_1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2 and outcome player_taking_last_token_wins.
+The solved instances: 4 instance take_1, 22 instance take_1, 19 instance take_1 and 17 instance take_2.
+What is the winning move at 7?
+
+Answer with exactly one of: none | take_1 | take_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_1&quot;,
+ &quot;examples&quot;: {
+  &quot;17&quot;: &quot;take_2&quot;,
+  &quot;19&quot;: &quot;take_1&quot;,
+  &quot;22&quot;: &quot;take_1&quot;,
+  &quot;4&quot;: &quot;take_1&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2
+ ],
+ &quot;position&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">take_1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2, may remove 3 and outcome player_taking_last_token_wins.
+The solved instances: 20 instance none, 7 instance take_3, 12 instance none and 5 instance take_1.
+What is the winning move at 13?
+
+Answer with exactly one of: take_3 | take_2 | take_1 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_1&quot;,
+ &quot;examples&quot;: {
+  &quot;12&quot;: &quot;none&quot;,
+  &quot;20&quot;: &quot;none&quot;,
+  &quot;5&quot;: &quot;take_1&quot;,
+  &quot;7&quot;: &quot;take_3&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2,
+  3
+ ],
+ &quot;position&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">take_5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 8 instance none, 16 instance none, 11 instance take_3 and 9 instance none.
+What is the winning move at 14?
+
+Answer with exactly one of: none | take_3 | take_5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_5&quot;,
+ &quot;examples&quot;: {
+  &quot;11&quot;: &quot;take_3&quot;,
+  &quot;16&quot;: &quot;none&quot;,
+  &quot;8&quot;: &quot;none&quot;,
+  &quot;9&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  5
+ ],
+ &quot;position&quot;: 14
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">take_1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 9 instance take_4, 8 instance take_1, 13 instance take_1 and 14 instance take_4.
+What is the winning move at 18?
+
+Answer with exactly one of: none | take_4 | take_1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_1&quot;,
+ &quot;examples&quot;: {
+  &quot;13&quot;: &quot;take_1&quot;,
+  &quot;14&quot;: &quot;take_4&quot;,
+  &quot;8&quot;: &quot;take_1&quot;,
+  &quot;9&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  4
+ ],
+ &quot;position&quot;: 18
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">take_2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 19 instance take_5, 3 instance take_2, 17 instance take_2 and 18 instance none.
+What is the winning move at 2?
+
+Answer with exactly one of: none | take_2 | take_5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_2&quot;,
+ &quot;examples&quot;: {
+  &quot;17&quot;: &quot;take_2&quot;,
+  &quot;18&quot;: &quot;none&quot;,
+  &quot;19&quot;: &quot;take_5&quot;,
+  &quot;3&quot;: &quot;take_2&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  5
+ ],
+ &quot;position&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 4, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 15 instance take_5, 7 instance take_5, 2 instance none and 16 instance none.
+What is the winning move at 8?
+
+Answer with exactly one of: none | take_3 | take_5 | take_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;15&quot;: &quot;take_5&quot;,
+  &quot;16&quot;: &quot;none&quot;,
+  &quot;2&quot;: &quot;none&quot;,
+  &quot;7&quot;: &quot;take_5&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  4,
+  5
+ ],
+ &quot;position&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">take_3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 3 and outcome player_taking_last_token_wins.
+The solved instances: 16 instance none, 20 instance none, 21 instance none and 15 instance none.
+What is the winning move at 4?
+
+Answer with exactly one of: take_3 | take_2 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_3&quot;,
+ &quot;examples&quot;: {
+  &quot;15&quot;: &quot;none&quot;,
+  &quot;16&quot;: &quot;none&quot;,
+  &quot;20&quot;: &quot;none&quot;,
+  &quot;21&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  3
+ ],
+ &quot;position&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">take_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 5 instance take_3, 11 instance take_4, 12 instance take_3 and 4 instance take_4.
+What is the winning move at 18?
+
+Answer with exactly one of: none | take_4 | take_3 | take_1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_4&quot;,
+ &quot;examples&quot;: {
+  &quot;11&quot;: &quot;take_4&quot;,
+  &quot;12&quot;: &quot;take_3&quot;,
+  &quot;4&quot;: &quot;take_4&quot;,
+  &quot;5&quot;: &quot;take_3&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  3,
+  4
+ ],
+ &quot;position&quot;: 18
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">take_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 5 instance none, 14 instance take_4, 4 instance take_4 and 2 instance none.
+What is the winning move at 9?
+
+Answer with exactly one of: take_1 | take_4 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_4&quot;,
+ &quot;examples&quot;: {
+  &quot;14&quot;: &quot;take_4&quot;,
+  &quot;2&quot;: &quot;none&quot;,
+  &quot;4&quot;: &quot;take_4&quot;,
+  &quot;5&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  4
+ ],
+ &quot;position&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">take_3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 5 instance take_3, 9 instance none, 2 instance none and 15 instance take_1.
+What is the winning move at 19?
+
+Answer with exactly one of: none | take_3 | take_4 | take_1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_3&quot;,
+ &quot;examples&quot;: {
+  &quot;15&quot;: &quot;take_1&quot;,
+  &quot;2&quot;: &quot;none&quot;,
+  &quot;5&quot;: &quot;take_3&quot;,
+  &quot;9&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  3,
+  4
+ ],
+ &quot;position&quot;: 19
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">none</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 15 instance none, 2 instance none, 6 instance take_4 and 3 instance take_3.
+What is the winning move at 21?
+
+Answer with exactly one of: none | take_3 | take_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;none&quot;,
+ &quot;examples&quot;: {
+  &quot;15&quot;: &quot;none&quot;,
+  &quot;2&quot;: &quot;none&quot;,
+  &quot;3&quot;: &quot;take_3&quot;,
+  &quot;6&quot;: &quot;take_4&quot;
+ },
+ &quot;moves&quot;: [
+  3,
+  4
+ ],
+ &quot;position&quot;: 21
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">take_1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 1, may remove 2, may remove 5 and outcome player_taking_last_token_wins.
+The solved instances: 13 instance take_1, 10 instance take_1, 4 instance take_1 and 2 instance take_2.
+What is the winning move at 7?
+
+Answer with exactly one of: take_1 | take_5 | take_2 | none
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_1&quot;,
+ &quot;examples&quot;: {
+  &quot;10&quot;: &quot;take_1&quot;,
+  &quot;13&quot;: &quot;take_1&quot;,
+  &quot;2&quot;: &quot;take_2&quot;,
+  &quot;4&quot;: &quot;take_1&quot;
+ },
+ &quot;moves&quot;: [
+  1,
+  2,
+  5
+ ],
+ &quot;position&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">take_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are: may remove 2, may remove 3, may remove 4 and outcome player_taking_last_token_wins.
+The solved instances: 18 instance none, 12 instance none, 7 instance none and 11 instance take_4.
+What is the winning move at 5?
+
+Answer with exactly one of: take_2 | take_4 | none | take_3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_4&quot;,
+ &quot;examples&quot;: {
+  &quot;11&quot;: &quot;take_4&quot;,
+  &quot;12&quot;: &quot;none&quot;,
+  &quot;18&quot;: &quot;none&quot;,
+  &quot;7&quot;: &quot;none&quot;
+ },
+ &quot;moves&quot;: [
+  2,
+  3,
+  4
+ ],
+ &quot;position&quot;: 5
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

@@ -1,0 +1,75 @@
+:root {
+  --bg: #fbfbfa; --fg: #1c1b19; --muted: #6b6862; --rule: #ddd9d2;
+  --card: #ffffff; --accent: #7a4b1e; --code-bg: #f4f2ee; --shadow: rgba(20,18,15,.05);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17161a; --fg: #e8e6e1; --muted: #a09b93; --rule: #33312f;
+    --card: #1f1e22; --accent: #d8a05e; --code-bg: #232227; --shadow: rgba(0,0,0,.3);
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 16px/1.6 ui-sans-serif, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+.wrap { max-width: 62rem; margin: 0 auto; padding: 2.5rem 1.25rem 5rem; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 1.9rem; line-height: 1.25; margin: 0 0 .35rem; letter-spacing: -.015em; }
+h2 { font-size: 1.25rem; margin: 2.5rem 0 .75rem; letter-spacing: -.01em; }
+h3 { font-size: 1rem; margin: 1.75rem 0 .5rem; }
+p { margin: 0 0 1rem; }
+code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+pre {
+  background: var(--code-bg); border: 1px solid var(--rule); border-radius: 6px;
+  padding: .7rem .85rem; overflow-x: auto; font-size: .82rem; line-height: 1.5; margin: 0;
+}
+code { background: var(--code-bg); padding: .1em .35em; border-radius: 4px; font-size: .88em; }
+pre code { background: none; padding: 0; }
+.crumb { font-size: .85rem; color: var(--muted); margin-bottom: 1.5rem; }
+.lede { font-size: 1.05rem; color: var(--muted); margin-bottom: 2rem; max-width: 44rem; }
+.tags { display: flex; flex-wrap: wrap; gap: .4rem; margin: .75rem 0 1.25rem; }
+.tag {
+  font-size: .74rem; letter-spacing: .02em; padding: .18rem .5rem; border-radius: 999px;
+  border: 1px solid var(--rule); color: var(--muted); background: var(--card);
+}
+.tag.spec { border-color: var(--accent); color: var(--accent); }
+.stats { display: flex; flex-wrap: wrap; gap: 1.75rem; margin: 1.5rem 0 2rem;
+         padding: 1rem 1.25rem; background: var(--card); border: 1px solid var(--rule);
+         border-radius: 8px; }
+.stat { min-width: 6rem; }
+.stat .n { display: block; font-size: 1.5rem; font-weight: 600; letter-spacing: -.02em; }
+.stat .k { font-size: .78rem; color: var(--muted); text-transform: lowercase; }
+table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.scroll { overflow-x: auto; }
+th, td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid var(--rule);
+         vertical-align: top; }
+th { font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted);
+     font-weight: 600; }
+td.num, th.num { text-align: right; color: var(--muted); width: 3.2rem; }
+tbody tr:hover { background: var(--card); }
+.sample { border: 1px solid var(--rule); border-radius: 8px; background: var(--card);
+          margin: 0 0 .9rem; box-shadow: 0 1px 2px var(--shadow); }
+.sample > summary { cursor: pointer; padding: .55rem .85rem; font-size: .85rem;
+                    display: flex; gap: .9rem; align-items: baseline; }
+.sample > summary::marker { color: var(--muted); }
+.sample .seed { color: var(--muted); font-size: .78rem; min-width: 4.5rem; }
+.sample .ans { font-family: ui-monospace, monospace; font-weight: 600; }
+.sample .body { padding: 0 .85rem .85rem; }
+.sample .body > p { margin: .5rem 0 .3rem; font-size: .76rem; color: var(--muted);
+                    text-transform: uppercase; letter-spacing: .04em; }
+.note { border-left: 3px solid var(--accent); padding: .1rem 0 .1rem 1rem;
+        color: var(--muted); font-size: .92rem; }
+footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--rule);
+         color: var(--muted); font-size: .82rem; }
+.secgrid { display: grid; gap: .6rem; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); }
+.seccard { border: 1px solid var(--rule); border-radius: 8px; padding: .8rem .95rem;
+           background: var(--card); }
+.seccard .r { font-size: .74rem; color: var(--muted); letter-spacing: .06em;
+              text-transform: uppercase; }
+.seccard .t { font-weight: 600; margin: .15rem 0 .2rem; }
+.seccard .c { font-size: .8rem; color: var(--muted); }
+ul.notes { margin: .4rem 0 0; padding-left: 1.1rem; font-size: .82rem; color: var(--muted); }
+ul.notes li { margin: .1rem 0; }

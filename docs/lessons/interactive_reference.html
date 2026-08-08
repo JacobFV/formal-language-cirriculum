@@ -1,0 +1,2192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>interactive_reference — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iii">language as action</a> &rsaquo;
+  interactive_reference</p>
+<h1>#38 <code>interactive_reference</code></h1>
+<p class="lede">clarify or act: the value of a question</p>
+<div class="tags"><span class="tag ">level 38</span><span class="tag ">section iii</span><span class="tag ">metareasoning</span><span class="tag ">multi_agent_coordination</span></div>
+<div class="stats">
+<div class="stat"><span class="n">5.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.2</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.215</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Ask, or act? and if asking, ask about *what*.</p><p>    The instruction names one attribute value. If it already denotes uniquely
+    the right move is to act; otherwise exactly one other attribute separates
+    all the candidates, and every other question would come back ambiguous —
+    so the value of each possible question is computed, not guessed.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>ambiguity</td><td class='num'>4</td></tr><tr><td>reasoning_depth</td><td class='num'>3</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The cost is question costs 1.
+The instruction is colour bring the orange.
+In the scene: x3 is an orange cone at (tiny, back); x2 is an orange cone at (small, back); x1 is a green sphere at (tiny, front); x4 is a yellow rod at (small, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | size | shape | position | act_now
+Reply with the answer only.</pre><h3>spanish</h3><pre>El coste es question cuesta 1.
+La instrucción es color trae el naranja.
+En la escena: x3 es un cono naranja y está en (tiny, back); x2 es un cono naranja y está en (small, back); x1 es una esfera verde y está en (tiny, front); x4 es una barra amarilla y está en (small, front).
+El esquema es: 0 el atributo color, 1 el atributo posición, 2 el atributo forma y 3 el atributo tamaño.
+¿Qué se debe preguntar?
+
+Responde exactamente con una de estas opciones: color | size | shape | position | act_now
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>代价是question的成本是1。
+指令是颜色要带来的是橙色。
+场景中：x3是一个橙色的圆锥，位于(tiny,back)；x2是一个橙色的圆锥，位于(small,back)；x1是一个绿色的球体，位于(tiny,front)；x4是一条黄色的杆，位于(small,front)。
+模式是：0的属性是颜色；1的属性是位置；2的属性是形状；3的属性是大小。
+我应该问什么？
+
+请从以下选项中选出恰好一个作答：color | size | shape | position | act_now
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The cost is question costs 1.
+The instruction is colour bring the orange.
+In the scene: x3 is an orange cone at (tiny, back); x2 is an orange cone at (small, back); x1 is a green sphere at (tiny, front); x4 is a yellow rod at (small, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | size | shape | position | act_now
+Reply with the answer only.</pre><h3>symbols</h3><pre>{cost: (cost question 1), instruction: (bring_the color orange), query: what_should_i_ask, scene: [(obj x3 orange cone tiny back) (obj x2 orange cone small back) (obj x1 green sphere tiny front) (obj x4 yellow rod small front)], schema: [(attribute 0 color) (attribute 1 position) (attribute 2 shape) (attribute 3 size)]}
+
+Answer with exactly one of: color | size | shape | position | act_now
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/interactive_reference.jsonl</code> &middot; <code>data/samples/spanish/interactive_reference.jsonl</code> &middot; <code>data/samples/chinese/interactive_reference.jsonl</code> &middot; <code>data/samples/english_synonym/interactive_reference.jsonl</code> &middot; <code>data/samples/symbols/interactive_reference.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the orange.
+In the scene: x3 is an orange cone at (tiny, back); x2 is an orange cone at (small, back); x1 is a green sphere at (tiny, front); x4 is a yellow rod at (small, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | size | shape | position | act_now
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;orange&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the cube.
+In the scene: x3 is an orange cube at (small, left); x4 is an orange cube at (small, right); x2 is a yellow sphere at (tiny, back); x1 is a green rod at (small, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | act_now | shape | color | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;cube&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the front.
+In the scene: x3 is a yellow disc at (small, front); x2 is an orange disc at (small, front); x4 is a blue disc at (small, front); x1 is a purple prism at (large, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | shape | color | act_now | position
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x2&quot;,
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;front&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the huge.
+In the scene: x1 is a red cone at (huge, right); x3 is a red cone at (huge, front); x4 is an orange prism at (large, back); x2 is an orange sphere at (tiny, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | size | position | shape | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x1&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;huge&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the orange.
+In the scene: x4 is an orange cone at (large, right); x2 is an orange cone at (large, left); x1 is an orange cone at (large, back); x3 is a green cube at (large, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | position | size | shape | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x2&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;orange&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the orange.
+In the scene: x1 is an orange rod at (tiny, back); x2 is a blue rod at (tiny, right); x4 is a yellow cone at (huge, right); x3 is a green disc at (tiny, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | shape | color | size | position
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;orange&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the rod.
+In the scene: x4 is a red rod at (small, back); x3 is an orange disc at (large, left); x2 is a green cube at (small, back); x1 is a purple prism at (tiny, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | act_now | position | color | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;rod&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">shape</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the tiny.
+In the scene: x3 is a purple disc at (tiny, back); x1 is a purple cube at (tiny, back); x4 is a red prism at (huge, left); x2 is a blue cube at (huge, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | shape | act_now | position | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;tiny&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the cube.
+In the scene: x4 is a purple cube at (huge, left); x1 is a purple cube at (huge, front); x2 is a purple cube at (huge, right); x3 is a yellow cone at (huge, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | color | shape | act_now | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x1&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;cube&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the blue.
+In the scene: x4 is a blue rod at (small, left); x1 is a blue rod at (large, left); x2 is a red disc at (tiny, back); x3 is a red rod at (huge, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: shape | act_now | position | color | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;blue&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the small.
+In the scene: x4 is a purple cube at (small, back); x3 is a yellow cone at (huge, left); x2 is a purple prism at (large, left); x1 is a blue rod at (large, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | position | act_now | shape | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;small&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the cube.
+In the scene: x3 is a red cube at (small, back); x1 is a red cube at (large, back); x2 is a red sphere at (tiny, back); x4 is a yellow cone at (small, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | color | act_now | size | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;cube&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the purple.
+In the scene: x1 is a purple cube at (large, back); x2 is a purple cube at (huge, back); x4 is a red cube at (small, back); x3 is an orange sphere at (large, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | size | shape | act_now | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x1&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;purple&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">shape</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the right.
+In the scene: x2 is a blue rod at (large, right); x1 is a blue prism at (large, right); x4 is a red disc at (small, front); x3 is a red prism at (small, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | act_now | size | position | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;right&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the front.
+In the scene: x1 is a red disc at (large, front); x3 is an orange disc at (large, front); x4 is a red cone at (small, left); x2 is a green cone at (large, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: shape | size | position | act_now | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x1&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;front&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the blue.
+In the scene: x2 is a blue sphere at (huge, right); x4 is a blue sphere at (huge, back); x3 is a blue sphere at (huge, front); x1 is a yellow prism at (large, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: shape | position | color | act_now | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x4&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;blue&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">shape</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the blue.
+In the scene: x1 is a blue sphere at (huge, back); x3 is a blue disc at (huge, back); x2 is a blue cube at (huge, back); x4 is a red cone at (small, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | position | color | shape | act_now
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x1&quot;,
+  &quot;x3&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;blue&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the right.
+In the scene: x1 is a green sphere at (large, right); x3 is a red sphere at (huge, back); x2 is a green disc at (large, back); x4 is a blue disc at (tiny, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | color | size | shape | position
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;right&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the small.
+In the scene: x4 is a green disc at (small, right); x2 is a green disc at (small, front); x3 is a green prism at (tiny, right); x1 is a green rod at (tiny, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | size | shape | position | act_now
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;small&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the right.
+In the scene: x2 is a yellow cube at (huge, right); x4 is a red cube at (huge, right); x3 is a yellow cone at (large, back); x1 is a green cone at (tiny, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | position | shape | act_now | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;right&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the large.
+In the scene: x2 is a yellow cube at (large, left); x1 is a yellow cube at (large, front); x4 is a yellow cube at (large, right); x3 is a yellow sphere at (small, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | shape | color | act_now | position
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x1&quot;,
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;large&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the tiny.
+In the scene: x1 is a red cone at (tiny, back); x2 is a red cone at (tiny, front); x3 is a red cone at (tiny, right); x4 is a red sphere at (huge, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | color | shape | size | act_now
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x1&quot;,
+  &quot;x2&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;tiny&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the prism.
+In the scene: x3 is a green prism at (large, left); x4 is a green prism at (large, front); x1 is a green sphere at (small, back); x2 is an orange cube at (tiny, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | act_now | size | position | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;prism&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">shape</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the purple.
+In the scene: x3 is a purple cube at (small, front); x2 is a purple sphere at (small, front); x4 is a purple rod at (small, front); x1 is a green cube at (huge, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | size | shape | position | act_now
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x2&quot;,
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;purple&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the cone.
+In the scene: x4 is an orange cone at (large, front); x3 is an orange cone at (huge, front); x1 is an orange cone at (tiny, front); x2 is a purple cube at (huge, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | position | act_now | color | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x3&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;cone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the cube.
+In the scene: x3 is a green cube at (large, right); x2 is a green cube at (small, right); x4 is a purple rod at (small, front); x1 is a blue rod at (large, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | shape | color | size | position
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;cube&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the cone.
+In the scene: x3 is a green cone at (tiny, left); x1 is a green cone at (tiny, front); x4 is an orange rod at (tiny, right); x2 is a blue cube at (small, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | size | shape | color | act_now
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;cone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the left.
+In the scene: x4 is a green sphere at (tiny, left); x1 is a green sphere at (large, left); x2 is a green sphere at (small, left); x3 is an orange rod at (tiny, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | color | size | shape | act_now
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x1&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;left&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the back.
+In the scene: x4 is a blue disc at (small, back); x1 is an orange disc at (small, back); x3 is a green disc at (small, back); x2 is a red prism at (small, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | shape | color | position | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x1&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;back&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the back.
+In the scene: x4 is a red disc at (large, back); x3 is a yellow cube at (tiny, left); x2 is a yellow rod at (small, left); x1 is a red prism at (large, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | act_now | shape | position | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;back&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the disc.
+In the scene: x2 is a purple disc at (small, front); x1 is a red cube at (huge, right); x4 is a red prism at (tiny, right); x3 is a red cube at (small, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | color | act_now | shape | position
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;disc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the left.
+In the scene: x3 is a green sphere at (large, left); x2 is a blue sphere at (large, left); x1 is a blue rod at (tiny, right); x4 is a blue sphere at (huge, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | color | act_now | shape | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;left&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the tiny.
+In the scene: x3 is a blue cube at (tiny, back); x4 is a green cube at (tiny, back); x1 is an orange cube at (tiny, back); x2 is a green disc at (huge, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | act_now | size | color | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x4&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;tiny&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the large.
+In the scene: x4 is a green prism at (large, front); x1 is an orange disc at (small, back); x3 is a green rod at (huge, front); x2 is a yellow cone at (huge, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: shape | act_now | size | color | position
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;large&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the red.
+In the scene: x2 is a red cube at (huge, front); x1 is a yellow prism at (large, front); x4 is a yellow disc at (small, left); x3 is an orange cone at (tiny, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: shape | position | act_now | size | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;red&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the large.
+In the scene: x4 is a blue cone at (large, front); x2 is a purple cube at (huge, front); x1 is an orange disc at (tiny, front); x3 is a red disc at (small, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | shape | act_now | color | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;large&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">shape</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the yellow.
+In the scene: x3 is a yellow prism at (small, front); x2 is a yellow sphere at (small, front); x4 is a red cone at (tiny, back); x1 is an orange prism at (large, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | color | act_now | shape | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;yellow&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the cone.
+In the scene: x2 is an orange cone at (huge, left); x4 is an orange disc at (large, back); x3 is an orange rod at (huge, right); x1 is a red rod at (huge, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | size | act_now | color | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;cone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the cube.
+In the scene: x2 is a red cube at (huge, back); x1 is a red cube at (large, back); x3 is a red cube at (tiny, back); x4 is a yellow cone at (huge, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | position | size | color | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x1&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;cube&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the cube.
+In the scene: x4 is a yellow cube at (huge, front); x1 is a yellow cube at (huge, right); x2 is a yellow cube at (huge, left); x3 is a red rod at (huge, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | color | size | act_now | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x1&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;cube&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the purple.
+In the scene: x3 is a purple prism at (large, left); x2 is a purple prism at (small, left); x4 is a purple prism at (tiny, left); x1 is a red sphere at (huge, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | position | size | shape | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x2&quot;,
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;purple&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the left.
+In the scene: x2 is an orange sphere at (huge, left); x4 is an orange sphere at (small, left); x1 is an orange cube at (huge, back); x3 is a blue rod at (large, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | position | size | shape | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;left&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the huge.
+In the scene: x4 is a green rod at (huge, right); x2 is a red rod at (huge, right); x3 is a red cube at (small, right); x1 is a blue disc at (large, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | color | position | shape | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;huge&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the sphere.
+In the scene: x2 is a yellow sphere at (large, back); x1 is a blue sphere at (large, back); x4 is a purple cone at (huge, back); x3 is a blue rod at (tiny, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: shape | color | size | position | act_now
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;sphere&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the green.
+In the scene: x3 is a green cone at (small, left); x2 is a green cone at (tiny, left); x4 is a green cone at (large, left); x1 is an orange prism at (large, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | position | act_now | color | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x2&quot;,
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;green&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">shape</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the small.
+In the scene: x1 is a yellow cube at (small, right); x3 is a yellow disc at (small, right); x2 is a green cube at (huge, left); x4 is a purple cube at (large, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: shape | position | size | act_now | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x1&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;small&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the sphere.
+In the scene: x2 is a red sphere at (small, back); x3 is a yellow sphere at (small, back); x1 is an orange sphere at (small, back); x4 is an orange disc at (huge, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | position | act_now | size | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x3&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;sphere&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">shape</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the huge.
+In the scene: x4 is a yellow disc at (huge, right); x3 is a yellow cone at (huge, right); x2 is an orange cube at (tiny, left); x1 is a green prism at (large, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | position | size | shape | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;huge&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the tiny.
+In the scene: x4 is a purple sphere at (tiny, right); x2 is a blue rod at (small, back); x1 is an orange sphere at (large, right); x3 is a yellow sphere at (huge, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: shape | size | color | act_now | position
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;tiny&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the right.
+In the scene: x4 is a yellow cone at (large, right); x1 is a green cone at (large, right); x2 is an orange cube at (small, front); x3 is a purple cone at (huge, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | position | shape | color | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;right&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the back.
+In the scene: x4 is an orange prism at (large, back); x1 is an orange prism at (huge, back); x2 is a blue cone at (tiny, left); x3 is a green sphere at (small, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | shape | size | position | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;back&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the rod.
+In the scene: x4 is a yellow rod at (small, front); x3 is a yellow rod at (small, right); x1 is a yellow cone at (huge, left); x2 is a red disc at (large, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: shape | position | act_now | size | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;rod&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">shape</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the red.
+In the scene: x4 is a red sphere at (huge, back); x2 is a red cone at (huge, back); x3 is a green rod at (tiny, left); x1 is a purple prism at (huge, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: shape | position | act_now | color | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;red&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the sphere.
+In the scene: x1 is an orange sphere at (large, back); x3 is an orange disc at (tiny, right); x4 is a green cone at (small, front); x2 is an orange cone at (small, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | shape | size | act_now | position
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;sphere&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the large.
+In the scene: x1 is a green prism at (large, right); x2 is a green prism at (large, left); x3 is a green prism at (large, back); x4 is a purple prism at (small, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: shape | size | position | color | act_now
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x1&quot;,
+  &quot;x2&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;large&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the right.
+In the scene: x3 is a blue prism at (small, right); x4 is a red prism at (small, right); x1 is a yellow disc at (huge, back); x2 is an orange prism at (tiny, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | shape | act_now | size | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;right&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the tiny.
+In the scene: x4 is a purple prism at (tiny, left); x3 is a green disc at (small, front); x2 is an orange cone at (large, left); x1 is a purple sphere at (small, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | size | shape | color | position
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;tiny&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the small.
+In the scene: x2 is a purple disc at (small, back); x1 is a blue disc at (small, back); x4 is an orange sphere at (tiny, back); x3 is a yellow cube at (large, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: shape | color | act_now | size | position
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;small&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the yellow.
+In the scene: x4 is a yellow sphere at (huge, back); x3 is an orange cone at (large, back); x1 is a purple prism at (large, left); x2 is a green prism at (small, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | size | shape | act_now | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;yellow&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the tiny.
+In the scene: x4 is a green cube at (tiny, left); x2 is a green cube at (tiny, right); x3 is a yellow prism at (large, right); x1 is an orange disc at (huge, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | act_now | shape | position | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;tiny&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">shape</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the green.
+In the scene: x2 is a green disc at (tiny, left); x1 is a green rod at (tiny, left); x4 is an orange prism at (tiny, right); x3 is an orange cube at (huge, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | act_now | color | position | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;green&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the sphere.
+In the scene: x4 is an orange sphere at (huge, back); x1 is an orange sphere at (tiny, back); x3 is an orange sphere at (large, back); x2 is a green cube at (tiny, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | position | size | act_now | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x1&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;sphere&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the disc.
+In the scene: x4 is a yellow disc at (large, right); x3 is a purple sphere at (small, left); x1 is a green sphere at (small, left); x2 is a red cube at (huge, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | color | act_now | size | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;disc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the green.
+In the scene: x1 is a green prism at (small, back); x3 is a green prism at (tiny, back); x2 is a red cube at (large, left); x4 is an orange rod at (small, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | color | act_now | size | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x1&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;green&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the cube.
+In the scene: x4 is a green cube at (tiny, right); x2 is a green cube at (large, right); x3 is a red cone at (huge, right); x1 is an orange sphere at (tiny, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | shape | color | position | act_now
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;cube&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the blue.
+In the scene: x4 is a blue disc at (large, front); x1 is a blue disc at (small, front); x2 is a red prism at (large, right); x3 is a green prism at (tiny, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | shape | size | act_now | position
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;blue&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the tiny.
+In the scene: x4 is a green rod at (tiny, left); x1 is a red rod at (tiny, left); x2 is a purple sphere at (large, front); x3 is an orange sphere at (small, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | color | shape | size | position
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;tiny&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the tiny.
+In the scene: x4 is a blue rod at (tiny, back); x3 is a yellow rod at (tiny, back); x2 is a red rod at (tiny, back); x1 is a blue prism at (large, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: shape | size | color | position | act_now
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x3&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;tiny&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the left.
+In the scene: x2 is a red disc at (small, left); x4 is a red disc at (tiny, left); x3 is a purple rod at (tiny, back); x1 is a purple rod at (huge, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | position | shape | act_now | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;left&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the sphere.
+In the scene: x2 is a blue sphere at (tiny, right); x3 is a purple sphere at (tiny, right); x4 is a purple cone at (huge, right); x1 is a yellow prism at (tiny, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | act_now | shape | size | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;sphere&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the cube.
+In the scene: x1 is a green cube at (tiny, right); x2 is an orange cube at (tiny, right); x4 is a yellow sphere at (huge, left); x3 is a purple disc at (large, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | position | color | size | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x1&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;cube&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">shape</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the left.
+In the scene: x3 is a green disc at (huge, left); x4 is a green sphere at (huge, left); x2 is a green rod at (huge, left); x1 is a blue cone at (small, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | act_now | shape | color | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x4&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;left&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the large.
+In the scene: x1 is a green sphere at (large, front); x3 is an orange sphere at (large, front); x4 is an orange sphere at (small, left); x2 is a yellow cube at (small, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | color | act_now | size | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x1&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;large&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">shape</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the yellow.
+In the scene: x4 is a yellow prism at (tiny, right); x2 is a yellow rod at (tiny, right); x3 is a yellow disc at (tiny, right); x1 is an orange cube at (large, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | color | act_now | position | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x2&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;yellow&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the right.
+In the scene: x3 is a green sphere at (small, right); x4 is a red prism at (huge, front); x2 is a yellow sphere at (large, left); x1 is a purple disc at (tiny, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | shape | act_now | position | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;right&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the left.
+In the scene: x3 is a blue sphere at (huge, left); x1 is a blue sphere at (large, left); x2 is a blue sphere at (tiny, left); x4 is a purple rod at (huge, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | color | act_now | shape | position
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x1&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;left&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">shape</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the huge.
+In the scene: x3 is a red sphere at (huge, left); x1 is a red cone at (huge, left); x2 is a red prism at (huge, left); x4 is a blue cone at (large, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | shape | color | position | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x1&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;huge&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">shape</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the huge.
+In the scene: x2 is a purple cube at (huge, front); x4 is a purple rod at (huge, front); x1 is a purple rod at (small, front); x3 is a red prism at (small, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | shape | color | size | act_now
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;huge&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the rod.
+In the scene: x4 is a red rod at (small, right); x3 is a red rod at (small, back); x2 is a red rod at (small, front); x1 is an orange sphere at (large, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: shape | size | act_now | position | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x3&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;rod&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the tiny.
+In the scene: x3 is an orange rod at (tiny, front); x1 is an orange rod at (tiny, right); x2 is an orange rod at (tiny, left); x4 is a blue prism at (small, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | color | act_now | size | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x1&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;tiny&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">shape</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the right.
+In the scene: x1 is a blue cone at (small, right); x2 is a blue disc at (small, right); x3 is a purple cube at (huge, left); x4 is a blue disc at (tiny, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | position | color | act_now | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x1&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;right&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the front.
+In the scene: x1 is a yellow cube at (small, front); x3 is a yellow rod at (tiny, back); x2 is a green rod at (large, back); x4 is a green rod at (small, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | color | size | position | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;front&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the cube.
+In the scene: x1 is an orange cube at (large, left); x2 is an orange cube at (large, back); x3 is an orange cube at (large, right); x4 is a yellow cone at (large, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | position | size | shape | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x1&quot;,
+  &quot;x2&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;cube&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the rod.
+In the scene: x2 is a red rod at (tiny, back); x3 is a red rod at (huge, back); x1 is a red prism at (small, front); x4 is a green sphere at (small, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | color | act_now | size | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;rod&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">shape</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the orange.
+In the scene: x3 is an orange disc at (huge, left); x4 is an orange cube at (huge, left); x2 is an orange sphere at (huge, left); x1 is a red rod at (large, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | color | size | shape | act_now
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x4&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;orange&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the disc.
+In the scene: x3 is a blue disc at (huge, right); x4 is a blue disc at (huge, front); x2 is a blue disc at (huge, left); x1 is an orange prism at (tiny, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | size | act_now | shape | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x4&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;disc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the cube.
+In the scene: x2 is a red cube at (huge, right); x1 is a green cube at (huge, right); x4 is a yellow cube at (huge, right); x3 is a green disc at (small, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | act_now | position | size | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x1&quot;,
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;cube&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the orange.
+In the scene: x4 is an orange sphere at (large, back); x1 is an orange sphere at (large, right); x3 is an orange sphere at (large, front); x2 is a yellow sphere at (tiny, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | act_now | shape | size | position
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x1&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;orange&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the green.
+In the scene: x3 is a green sphere at (large, right); x1 is a green sphere at (tiny, right); x4 is a red rod at (small, right); x2 is a purple prism at (large, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | shape | color | position | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;green&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the large.
+In the scene: x4 is a yellow cone at (large, back); x2 is a red cone at (large, back); x1 is a purple sphere at (tiny, left); x3 is a blue sphere at (small, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | act_now | color | position | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;large&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the cube.
+In the scene: x4 is an orange cube at (tiny, right); x3 is an orange cube at (tiny, left); x2 is a red rod at (small, left); x1 is an orange rod at (huge, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | position | shape | act_now | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;cube&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">color</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the huge.
+In the scene: x4 is a purple sphere at (huge, back); x1 is a green sphere at (huge, back); x3 is a yellow sphere at (huge, back); x2 is a blue prism at (small, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: color | act_now | size | position | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x1&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;huge&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the right.
+In the scene: x2 is a yellow cone at (huge, right); x1 is a yellow cone at (tiny, right); x4 is a red cube at (small, back); x3 is a purple disc at (small, left).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: shape | act_now | position | color | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;right&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the orange.
+In the scene: x2 is an orange sphere at (large, front); x4 is an orange sphere at (huge, front); x1 is an orange sphere at (small, front); x3 is a blue rod at (tiny, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | shape | act_now | color | size
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x4&quot;,
+  &quot;x1&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;orange&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the sphere.
+In the scene: x3 is a green sphere at (tiny, back); x4 is a green cube at (huge, front); x1 is a purple disc at (huge, left); x2 is an orange disc at (large, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: act_now | size | color | shape | position
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;sphere&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">act_now</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the disc.
+In the scene: x3 is a blue disc at (tiny, front); x1 is a blue sphere at (small, left); x4 is a green rod at (huge, front); x2 is a blue prism at (small, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | color | size | shape | act_now
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;disc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">shape</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is size bring the tiny.
+In the scene: x1 is a blue prism at (tiny, front); x2 is a blue rod at (tiny, front); x4 is a blue cone at (tiny, front); x3 is a green cone at (huge, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: position | size | color | shape | act_now
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x1&quot;,
+  &quot;x2&quot;,
+  &quot;x4&quot;
+ ],
+ &quot;named&quot;: &quot;size&quot;,
+ &quot;value&quot;: &quot;tiny&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">position</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is shape bring the sphere.
+In the scene: x3 is a blue sphere at (small, right); x1 is a blue sphere at (small, left); x2 is a blue sphere at (small, front); x4 is an orange disc at (large, right).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | shape | act_now | position | color
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x3&quot;,
+  &quot;x1&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;shape&quot;,
+ &quot;value&quot;: &quot;sphere&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">shape</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is colour bring the orange.
+In the scene: x4 is an orange disc at (small, right); x3 is an orange sphere at (small, right); x2 is an orange prism at (small, right); x1 is a blue prism at (large, front).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | act_now | color | position | shape
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x4&quot;,
+  &quot;x3&quot;,
+  &quot;x2&quot;
+ ],
+ &quot;named&quot;: &quot;color&quot;,
+ &quot;value&quot;: &quot;orange&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">size</span></summary>
+<div class="body">
+<p>prompt</p><pre>The cost is question costs 1.
+The instruction is position bring the right.
+In the scene: x2 is a green cube at (small, right); x3 is a green cube at (large, right); x1 is a purple prism at (small, front); x4 is an orange disc at (small, back).
+The schema: 0 attribute colour, 1 attribute position, 2 attribute shape and 3 attribute size.
+What should i ask?
+
+Answer with exactly one of: size | shape | position | color | act_now
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;candidates&quot;: [
+  &quot;x2&quot;,
+  &quot;x3&quot;
+ ],
+ &quot;named&quot;: &quot;position&quot;,
+ &quot;value&quot;: &quot;right&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

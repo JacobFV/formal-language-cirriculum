@@ -1,0 +1,3011 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>analogy — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iv">analogy, causality, planning, and programs</a> &rsaquo;
+  analogy</p>
+<h1>#41 <code>analogy</code></h1>
+<p class="lede">a:b::c:? over a relational structure</p>
+<div class="tags"><span class="tag ">level 29</span><span class="tag ">section iv</span></div>
+<div class="stats">
+<div class="stat"><span class="n">6.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.167</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.22</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>``a : b :: c : ?`` over a relational structure. Two functional relations
+    are laid over the same six entities and disagree on every entity, so exactly
+    one of them explains the pair ``a:b`` and the answer is that relation applied
+    to ``c``. Which relation was used is never named.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The graph:
+  - Dave outranks Erin
+  - Erin outranks Bob
+  - Dave comes before Carol
+  - Frank outranks Carol
+  - Erin comes before Dave
+  - Frank comes before Erin
+  - Bob outranks Frank
+  - Alice outranks Dave
+  - Carol outranks Alice
+  - Bob comes before Alice
+  - Alice comes before Bob
+  - Carol comes before Frank
+What is the analogy for Alice Bob Dave?
+
+Answer with exactly one of: Alice | Frank | Carol | Dave | Erin | Bob
+Reply with the answer only.</pre><h3>spanish</h3><pre>El grafo es:
+  - David supera a Erin
+  - Erin supera a Roberto
+  - David precede a Carolina
+  - Francisco supera a Carolina
+  - Erin precede a David
+  - Francisco precede a Erin
+  - Roberto supera a Francisco
+  - Alicia supera a David
+  - Carolina supera a Alicia
+  - Roberto precede a Alicia
+  - Alicia precede a Roberto
+  - Carolina precede a Francisco
+¿Cuál es la analogía para Alicia Roberto David?
+
+Responde exactamente con una de estas opciones: Alicia | Francisco | Carolina | David | Erin | Roberto
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>图如下：
+  - 戴夫优先于艾琳
+  - 艾琳优先于鲍勃
+  - 戴夫先于卡罗尔
+  - 弗兰克优先于卡罗尔
+  - 艾琳先于戴夫
+  - 弗兰克先于艾琳
+  - 鲍勃优先于弗兰克
+  - 爱丽丝优先于戴夫
+  - 卡罗尔优先于爱丽丝
+  - 鲍勃先于爱丽丝
+  - 爱丽丝先于鲍勃
+  - 卡罗尔先于弗兰克
+爱丽丝鲍勃戴夫的类比是什么？
+
+请从以下选项中选出恰好一个作答：爱丽丝 | 弗兰克 | 卡罗尔 | 戴夫 | 艾琳 | 鲍勃
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The graph:
+  - Dave outranks Erin
+  - Erin outranks Bob
+  - Dave comes before Carol
+  - Frank outranks Carol
+  - Erin comes before Dave
+  - Frank comes before Erin
+  - Bob outranks Frank
+  - Alice outranks Dave
+  - Carol outranks Alice
+  - Bob comes before Alice
+  - Alice comes before Bob
+  - Carol comes before Frank
+What is the analogy for Alice Bob Dave?
+
+Answer with exactly one of: Alice | Frank | Carol | Dave | Erin | Bob
+Reply with the answer only.</pre><h3>symbols</h3><pre>{graph: [(outranks dave erin) (outranks erin bob) (precedes dave carol) (outranks frank carol) (precedes erin dave) (precedes frank erin) (outranks bob frank) (outranks alice dave) (outranks carol alice) (precedes bob alice) (precedes alice bob) (precedes carol frank)], query: (analogy alice bob dave)}
+
+Answer with exactly one of: alice | frank | carol | dave | erin | bob
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/analogy.jsonl</code> &middot; <code>data/samples/spanish/analogy.jsonl</code> &middot; <code>data/samples/chinese/analogy.jsonl</code> &middot; <code>data/samples/english_synonym/analogy.jsonl</code> &middot; <code>data/samples/symbols/analogy.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Dave outranks Erin
+  - Erin outranks Bob
+  - Dave comes before Carol
+  - Frank outranks Carol
+  - Erin comes before Dave
+  - Frank comes before Erin
+  - Bob outranks Frank
+  - Alice outranks Dave
+  - Carol outranks Alice
+  - Bob comes before Alice
+  - Alice comes before Bob
+  - Carol comes before Frank
+What is the analogy for Alice Bob Dave?
+
+Answer with exactly one of: Alice | Frank | Carol | Dave | Erin | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;dave&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Carol outranks Alice
+  - Alice mirrors Erin
+  - Frank outranks Erin
+  - Dave mirrors Bob
+  - Dave outranks Carol
+  - Alice outranks Frank
+  - Bob outranks Dave
+  - Frank mirrors Dave
+  - Bob mirrors Carol
+  - Erin mirrors Alice
+  - Erin outranks Bob
+  - Carol mirrors Frank
+What is the analogy for Dave Bob Alice?
+
+Answer with exactly one of: Alice | Bob | Erin | Dave | Frank | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;dave&quot;,
+ &quot;answer&quot;: &quot;erin&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin mirrors Carol
+  - Erin follows Frank
+  - Bob follows Carol
+  - Alice follows Bob
+  - Dave follows Erin
+  - Carol mirrors Bob
+  - Frank mirrors Alice
+  - Carol follows Alice
+  - Bob mirrors Erin
+  - Alice mirrors Dave
+  - Frank follows Dave
+  - Dave mirrors Frank
+What is the analogy for Bob Erin Alice?
+
+Answer with exactly one of: Erin | Bob | Dave | Carol | Frank | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;bob&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Carol mirrors Frank
+  - Bob mirrors Erin
+  - Erin comes before Frank
+  - Frank mirrors Alice
+  - Frank comes before Dave
+  - Alice comes before Bob
+  - Bob comes before Carol
+  - Dave comes before Alice
+  - Erin mirrors Dave
+  - Alice mirrors Carol
+  - Dave mirrors Bob
+  - Carol comes before Erin
+What is the analogy for Erin Frank Carol?
+
+Answer with exactly one of: Bob | Dave | Alice | Frank | Erin | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;erin&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Frank mirrors Bob
+  - Bob mirrors Alice
+  - Dave mirrors Frank
+  - Frank follows Dave
+  - Alice follows Erin
+  - Carol follows Frank
+  - Bob follows Carol
+  - Erin follows Alice
+  - Alice mirrors Carol
+  - Erin mirrors Dave
+  - Dave follows Bob
+  - Carol mirrors Erin
+What is the analogy for Carol Erin Bob?
+
+Answer with exactly one of: Frank | Carol | Bob | Alice | Dave | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;carol&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;bob&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin comes before Carol
+  - Bob outranks Carol
+  - Frank outranks Dave
+  - Frank comes before Erin
+  - Carol outranks Frank
+  - Bob comes before Alice
+  - Carol comes before Dave
+  - Alice outranks Erin
+  - Erin outranks Bob
+  - Alice comes before Bob
+  - Dave comes before Frank
+  - Dave outranks Alice
+What is the analogy for Dave Frank Alice?
+
+Answer with exactly one of: Bob | Carol | Alice | Dave | Frank | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;dave&quot;,
+ &quot;answer&quot;: &quot;bob&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Dave outranks Erin
+  - Frank mirrors Carol
+  - Erin mirrors Bob
+  - Bob mirrors Erin
+  - Erin outranks Frank
+  - Bob outranks Alice
+  - Frank outranks Bob
+  - Carol outranks Dave
+  - Dave mirrors Alice
+  - Carol mirrors Frank
+  - Alice mirrors Dave
+  - Alice outranks Carol
+What is the analogy for Erin Bob Frank?
+
+Answer with exactly one of: Carol | Alice | Dave | Erin | Frank | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;frank&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Frank outranks Erin
+  - Carol outranks Alice
+  - Bob comes before Dave
+  - Dave comes before Carol
+  - Alice comes before Erin
+  - Carol comes before Bob
+  - Frank comes before Alice
+  - Alice outranks Bob
+  - Erin comes before Frank
+  - Bob outranks Carol
+  - Dave outranks Frank
+  - Erin outranks Dave
+What is the analogy for Alice Erin Dave?
+
+Answer with exactly one of: Bob | Carol | Frank | Dave | Alice | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;dave&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob outranks Carol
+  - Frank outranks Alice
+  - Dave outranks Frank
+  - Carol outranks Dave
+  - Erin comes before Alice
+  - Erin outranks Bob
+  - Alice outranks Erin
+  - Carol comes before Bob
+  - Frank comes before Carol
+  - Bob comes before Frank
+  - Dave comes before Erin
+  - Alice comes before Dave
+What is the analogy for Bob Frank Carol?
+
+Answer with exactly one of: Dave | Bob | Carol | Erin | Frank | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;bob&quot;,
+ &quot;answer&quot;: &quot;bob&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin follows Alice
+  - Carol mirrors Frank
+  - Frank mirrors Erin
+  - Alice mirrors Dave
+  - Bob follows Dave
+  - Carol follows Erin
+  - Erin mirrors Bob
+  - Alice follows Frank
+  - Dave follows Bob
+  - Dave mirrors Alice
+  - Frank follows Carol
+  - Bob mirrors Carol
+What is the analogy for Alice Dave Erin?
+
+Answer with exactly one of: Frank | Erin | Bob | Alice | Dave | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;bob&quot;,
+ &quot;b&quot;: &quot;dave&quot;,
+ &quot;c&quot;: &quot;erin&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Carol comes before Alice
+  - Dave outranks Frank
+  - Frank outranks Erin
+  - Erin comes before Frank
+  - Erin outranks Carol
+  - Carol outranks Dave
+  - Bob outranks Alice
+  - Alice comes before Erin
+  - Alice outranks Bob
+  - Bob comes before Dave
+  - Frank comes before Bob
+  - Dave comes before Carol
+What is the analogy for Dave Frank Bob?
+
+Answer with exactly one of: Carol | Bob | Dave | Frank | Erin | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;dave&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;bob&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob follows Frank
+  - Carol follows Erin
+  - Alice outranks Carol
+  - Erin outranks Frank
+  - Carol outranks Bob
+  - Frank outranks Alice
+  - Dave follows Alice
+  - Dave outranks Erin
+  - Bob outranks Dave
+  - Erin follows Dave
+  - Alice follows Bob
+  - Frank follows Carol
+What is the analogy for Dave Erin Frank?
+
+Answer with exactly one of: Bob | Frank | Erin | Dave | Alice | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;dave&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;frank&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Frank comes before Alice
+  - Erin comes before Dave
+  - Alice follows Carol
+  - Carol follows Alice
+  - Dave follows Frank
+  - Alice comes before Frank
+  - Bob follows Dave
+  - Carol comes before Bob
+  - Dave comes before Carol
+  - Bob comes before Erin
+  - Erin follows Bob
+  - Frank follows Erin
+What is the analogy for Carol Bob Dave?
+
+Answer with exactly one of: Dave | Carol | Erin | Alice | Bob | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;carol&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;dave&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin mirrors Carol
+  - Dave mirrors Frank
+  - Alice outranks Frank
+  - Frank mirrors Erin
+  - Frank outranks Bob
+  - Dave outranks Carol
+  - Bob outranks Erin
+  - Carol mirrors Bob
+  - Bob mirrors Alice
+  - Carol outranks Alice
+  - Erin outranks Dave
+  - Alice mirrors Dave
+What is the analogy for Bob Alice Frank?
+
+Answer with exactly one of: Frank | Carol | Alice | Bob | Erin | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;bob&quot;,
+ &quot;answer&quot;: &quot;erin&quot;,
+ &quot;b&quot;: &quot;alice&quot;,
+ &quot;c&quot;: &quot;frank&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin outranks Dave
+  - Erin follows Alice
+  - Bob follows Frank
+  - Dave outranks Erin
+  - Dave follows Bob
+  - Frank outranks Bob
+  - Frank follows Carol
+  - Bob outranks Alice
+  - Alice outranks Carol
+  - Alice follows Dave
+  - Carol follows Erin
+  - Carol outranks Frank
+What is the analogy for Dave Bob Frank?
+
+Answer with exactly one of: Erin | Carol | Frank | Alice | Bob | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;dave&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;frank&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Frank mirrors Carol
+  - Bob mirrors Dave
+  - Carol outranks Dave
+  - Dave outranks Bob
+  - Alice outranks Erin
+  - Frank outranks Alice
+  - Dave mirrors Frank
+  - Alice mirrors Bob
+  - Carol mirrors Erin
+  - Bob outranks Carol
+  - Erin mirrors Alice
+  - Erin outranks Frank
+What is the analogy for Bob Dave Frank?
+
+Answer with exactly one of: Dave | Carol | Alice | Erin | Frank | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;bob&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;dave&quot;,
+ &quot;c&quot;: &quot;frank&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin follows Bob
+  - Alice comes before Dave
+  - Bob comes before Carol
+  - Carol follows Alice
+  - Frank comes before Bob
+  - Carol comes before Erin
+  - Alice follows Erin
+  - Dave comes before Alice
+  - Erin comes before Frank
+  - Dave follows Frank
+  - Frank follows Carol
+  - Bob follows Dave
+What is the analogy for Erin Frank Alice?
+
+Answer with exactly one of: Bob | Alice | Frank | Erin | Dave | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin follows Carol
+  - Frank follows Alice
+  - Dave follows Frank
+  - Alice follows Dave
+  - Carol comes before Frank
+  - Erin comes before Alice
+  - Bob follows Erin
+  - Carol follows Bob
+  - Frank comes before Dave
+  - Dave comes before Bob
+  - Bob comes before Carol
+  - Alice comes before Erin
+What is the analogy for Alice Erin Carol?
+
+Answer with exactly one of: Dave | Alice | Bob | Frank | Carol | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;frank&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin comes before Bob
+  - Dave mirrors Alice
+  - Frank mirrors Bob
+  - Erin mirrors Dave
+  - Alice comes before Dave
+  - Carol mirrors Erin
+  - Alice mirrors Carol
+  - Carol comes before Frank
+  - Frank comes before Alice
+  - Bob mirrors Frank
+  - Bob comes before Erin
+  - Dave comes before Carol
+What is the analogy for Erin Dave Alice?
+
+Answer with exactly one of: Alice | Carol | Bob | Dave | Frank | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;dave&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin mirrors Alice
+  - Dave outranks Frank
+  - Frank outranks Erin
+  - Bob mirrors Erin
+  - Alice mirrors Frank
+  - Frank mirrors Dave
+  - Alice outranks Carol
+  - Bob outranks Alice
+  - Dave mirrors Carol
+  - Erin outranks Bob
+  - Carol outranks Dave
+  - Carol mirrors Bob
+What is the analogy for Frank Erin Carol?
+
+Answer with exactly one of: Alice | Dave | Frank | Carol | Bob | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;frank&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob outranks Erin
+  - Bob follows Frank
+  - Dave follows Alice
+  - Frank follows Dave
+  - Dave outranks Frank
+  - Alice outranks Carol
+  - Frank outranks Bob
+  - Erin follows Carol
+  - Alice follows Erin
+  - Carol follows Bob
+  - Carol outranks Dave
+  - Erin outranks Alice
+What is the analogy for Bob Erin Alice?
+
+Answer with exactly one of: Erin | Frank | Alice | Dave | Carol | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;bob&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Dave mirrors Alice
+  - Frank comes before Bob
+  - Dave comes before Carol
+  - Frank mirrors Dave
+  - Carol comes before Erin
+  - Carol mirrors Frank
+  - Bob mirrors Erin
+  - Alice mirrors Carol
+  - Erin comes before Dave
+  - Erin mirrors Bob
+  - Alice comes before Frank
+  - Bob comes before Alice
+What is the analogy for Bob Alice Frank?
+
+Answer with exactly one of: Carol | Dave | Frank | Bob | Erin | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;bob&quot;,
+ &quot;answer&quot;: &quot;bob&quot;,
+ &quot;b&quot;: &quot;alice&quot;,
+ &quot;c&quot;: &quot;frank&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob outranks Frank
+  - Frank outranks Alice
+  - Carol comes before Erin
+  - Erin comes before Alice
+  - Frank comes before Bob
+  - Dave outranks Erin
+  - Alice comes before Frank
+  - Alice outranks Carol
+  - Erin outranks Dave
+  - Dave comes before Carol
+  - Carol outranks Bob
+  - Bob comes before Dave
+What is the analogy for Alice Frank Bob?
+
+Answer with exactly one of: Alice | Carol | Erin | Bob | Dave | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;bob&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob comes before Dave
+  - Erin outranks Bob
+  - Dave comes before Alice
+  - Carol comes before Erin
+  - Bob outranks Erin
+  - Dave outranks Carol
+  - Erin comes before Frank
+  - Carol outranks Dave
+  - Frank comes before Bob
+  - Alice comes before Carol
+  - Frank outranks Alice
+  - Alice outranks Frank
+What is the analogy for Dave Alice Erin?
+
+Answer with exactly one of: Erin | Carol | Bob | Alice | Dave | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;dave&quot;,
+ &quot;answer&quot;: &quot;frank&quot;,
+ &quot;b&quot;: &quot;alice&quot;,
+ &quot;c&quot;: &quot;erin&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Alice mirrors Frank
+  - Erin mirrors Carol
+  - Dave outranks Alice
+  - Carol outranks Frank
+  - Bob mirrors Alice
+  - Alice outranks Carol
+  - Frank outranks Dave
+  - Dave mirrors Bob
+  - Erin outranks Bob
+  - Bob outranks Erin
+  - Carol mirrors Dave
+  - Frank mirrors Erin
+What is the analogy for Bob Alice Dave?
+
+Answer with exactly one of: Carol | Dave | Frank | Alice | Erin | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;bob&quot;,
+ &quot;answer&quot;: &quot;bob&quot;,
+ &quot;b&quot;: &quot;alice&quot;,
+ &quot;c&quot;: &quot;dave&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob follows Carol
+  - Bob comes before Erin
+  - Frank comes before Alice
+  - Alice follows Erin
+  - Alice comes before Dave
+  - Dave follows Bob
+  - Erin follows Alice
+  - Erin comes before Carol
+  - Carol follows Frank
+  - Frank follows Dave
+  - Dave comes before Frank
+  - Carol comes before Bob
+What is the analogy for Erin Alice Carol?
+
+Answer with exactly one of: Alice | Dave | Bob | Carol | Frank | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;frank&quot;,
+ &quot;b&quot;: &quot;alice&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin mirrors Dave
+  - Alice comes before Frank
+  - Frank mirrors Carol
+  - Erin comes before Carol
+  - Frank comes before Alice
+  - Dave mirrors Erin
+  - Bob comes before Dave
+  - Alice mirrors Bob
+  - Dave comes before Bob
+  - Carol comes before Erin
+  - Carol mirrors Frank
+  - Bob mirrors Alice
+What is the analogy for Alice Bob Carol?
+
+Answer with exactly one of: Frank | Dave | Bob | Alice | Carol | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;frank&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin outranks Frank
+  - Dave outranks Alice
+  - Frank mirrors Alice
+  - Carol mirrors Erin
+  - Alice outranks Dave
+  - Frank outranks Carol
+  - Alice mirrors Bob
+  - Bob mirrors Frank
+  - Carol outranks Bob
+  - Bob outranks Erin
+  - Dave mirrors Carol
+  - Erin mirrors Dave
+What is the analogy for Erin Dave Alice?
+
+Answer with exactly one of: Carol | Bob | Dave | Alice | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;bob&quot;,
+ &quot;b&quot;: &quot;dave&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Alice mirrors Bob
+  - Dave comes before Carol
+  - Carol comes before Bob
+  - Frank mirrors Carol
+  - Bob mirrors Erin
+  - Erin comes before Frank
+  - Alice comes before Erin
+  - Dave mirrors Frank
+  - Frank comes before Alice
+  - Erin mirrors Dave
+  - Bob comes before Dave
+  - Carol mirrors Alice
+What is the analogy for Alice Erin Dave?
+
+Answer with exactly one of: Alice | Bob | Carol | Erin | Dave | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;dave&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Carol comes before Alice
+  - Dave comes before Frank
+  - Frank comes before Carol
+  - Dave follows Bob
+  - Alice follows Carol
+  - Frank follows Dave
+  - Bob follows Alice
+  - Carol follows Erin
+  - Alice comes before Erin
+  - Bob comes before Dave
+  - Erin comes before Bob
+  - Erin follows Frank
+What is the analogy for Frank Carol Alice?
+
+Answer with exactly one of: Erin | Frank | Dave | Alice | Bob | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;frank&quot;,
+ &quot;answer&quot;: &quot;erin&quot;,
+ &quot;b&quot;: &quot;carol&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob mirrors Dave
+  - Erin comes before Alice
+  - Frank comes before Dave
+  - Alice mirrors Erin
+  - Alice comes before Carol
+  - Carol mirrors Alice
+  - Bob comes before Frank
+  - Frank mirrors Bob
+  - Erin mirrors Frank
+  - Dave comes before Erin
+  - Dave mirrors Carol
+  - Carol comes before Bob
+What is the analogy for Bob Dave Erin?
+
+Answer with exactly one of: Dave | Alice | Erin | Carol | Frank | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;bob&quot;,
+ &quot;answer&quot;: &quot;frank&quot;,
+ &quot;b&quot;: &quot;dave&quot;,
+ &quot;c&quot;: &quot;erin&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Carol follows Erin
+  - Bob outranks Dave
+  - Dave follows Alice
+  - Erin outranks Bob
+  - Erin follows Dave
+  - Alice follows Carol
+  - Carol outranks Frank
+  - Alice outranks Erin
+  - Bob follows Frank
+  - Frank follows Bob
+  - Frank outranks Alice
+  - Dave outranks Carol
+What is the analogy for Frank Bob Dave?
+
+Answer with exactly one of: Frank | Alice | Erin | Bob | Carol | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;frank&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;dave&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Alice mirrors Bob
+  - Bob outranks Alice
+  - Alice outranks Dave
+  - Frank outranks Erin
+  - Dave outranks Carol
+  - Erin outranks Bob
+  - Carol outranks Frank
+  - Dave mirrors Frank
+  - Bob mirrors Carol
+  - Erin mirrors Dave
+  - Frank mirrors Alice
+  - Carol mirrors Erin
+What is the analogy for Carol Erin Frank?
+
+Answer with exactly one of: Bob | Frank | Carol | Erin | Alice | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;carol&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;frank&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin outranks Dave
+  - Dave outranks Frank
+  - Carol outranks Bob
+  - Bob outranks Alice
+  - Alice comes before Frank
+  - Alice outranks Carol
+  - Frank outranks Erin
+  - Erin comes before Alice
+  - Carol comes before Dave
+  - Frank comes before Bob
+  - Dave comes before Erin
+  - Bob comes before Carol
+What is the analogy for Carol Bob Alice?
+
+Answer with exactly one of: Erin | Frank | Carol | Alice | Bob | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;carol&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Alice follows Carol
+  - Bob follows Dave
+  - Erin follows Bob
+  - Carol follows Erin
+  - Carol mirrors Alice
+  - Frank follows Alice
+  - Alice mirrors Dave
+  - Erin mirrors Frank
+  - Dave mirrors Bob
+  - Bob mirrors Erin
+  - Frank mirrors Carol
+  - Dave follows Frank
+What is the analogy for Erin Frank Carol?
+
+Answer with exactly one of: Bob | Alice | Erin | Dave | Frank | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Alice mirrors Carol
+  - Erin outranks Carol
+  - Erin mirrors Frank
+  - Frank mirrors Alice
+  - Frank outranks Bob
+  - Dave mirrors Bob
+  - Alice outranks Dave
+  - Bob outranks Alice
+  - Carol outranks Erin
+  - Carol mirrors Dave
+  - Bob mirrors Erin
+  - Dave outranks Frank
+What is the analogy for Carol Dave Bob?
+
+Answer with exactly one of: Bob | Frank | Erin | Dave | Carol | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;carol&quot;,
+ &quot;answer&quot;: &quot;erin&quot;,
+ &quot;b&quot;: &quot;dave&quot;,
+ &quot;c&quot;: &quot;bob&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin outranks Carol
+  - Alice outranks Frank
+  - Frank comes before Dave
+  - Frank outranks Bob
+  - Alice comes before Erin
+  - Dave comes before Carol
+  - Dave outranks Erin
+  - Carol outranks Alice
+  - Erin comes before Alice
+  - Bob outranks Dave
+  - Carol comes before Bob
+  - Bob comes before Frank
+What is the analogy for Alice Frank Carol?
+
+Answer with exactly one of: Dave | Bob | Erin | Carol | Alice | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Alice comes before Bob
+  - Bob comes before Erin
+  - Erin comes before Dave
+  - Bob outranks Carol
+  - Frank outranks Bob
+  - Dave comes before Frank
+  - Erin outranks Frank
+  - Dave outranks Alice
+  - Frank comes before Carol
+  - Carol outranks Dave
+  - Carol comes before Alice
+  - Alice outranks Erin
+What is the analogy for Alice Bob Carol?
+
+Answer with exactly one of: Alice | Erin | Bob | Dave | Frank | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Frank follows Erin
+  - Alice follows Bob
+  - Dave follows Frank
+  - Erin follows Carol
+  - Bob follows Alice
+  - Alice comes before Frank
+  - Dave comes before Erin
+  - Carol comes before Bob
+  - Bob comes before Carol
+  - Erin comes before Alice
+  - Frank comes before Dave
+  - Carol follows Dave
+What is the analogy for Alice Frank Carol?
+
+Answer with exactly one of: Carol | Alice | Frank | Bob | Dave | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;bob&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob mirrors Carol
+  - Bob comes before Alice
+  - Carol mirrors Alice
+  - Dave mirrors Frank
+  - Frank mirrors Dave
+  - Carol comes before Erin
+  - Erin mirrors Bob
+  - Dave comes before Bob
+  - Frank comes before Carol
+  - Erin comes before Frank
+  - Alice mirrors Erin
+  - Alice comes before Dave
+What is the analogy for Erin Frank Alice?
+
+Answer with exactly one of: Carol | Dave | Alice | Bob | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Dave mirrors Carol
+  - Frank follows Dave
+  - Frank mirrors Erin
+  - Carol mirrors Frank
+  - Erin mirrors Dave
+  - Alice follows Erin
+  - Erin follows Frank
+  - Dave follows Alice
+  - Alice mirrors Bob
+  - Bob follows Carol
+  - Bob mirrors Alice
+  - Carol follows Bob
+What is the analogy for Erin Frank Dave?
+
+Answer with exactly one of: Erin | Carol | Alice | Frank | Dave | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;dave&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Dave outranks Bob
+  - Carol comes before Frank
+  - Erin comes before Carol
+  - Frank comes before Alice
+  - Bob comes before Dave
+  - Carol outranks Dave
+  - Erin outranks Frank
+  - Dave comes before Erin
+  - Frank outranks Erin
+  - Bob outranks Alice
+  - Alice comes before Bob
+  - Alice outranks Carol
+What is the analogy for Alice Bob Carol?
+
+Answer with exactly one of: Bob | Alice | Frank | Carol | Erin | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;frank&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Dave comes before Bob
+  - Alice outranks Dave
+  - Bob outranks Carol
+  - Alice comes before Erin
+  - Carol comes before Frank
+  - Bob comes before Dave
+  - Frank outranks Alice
+  - Erin comes before Alice
+  - Dave outranks Frank
+  - Frank comes before Carol
+  - Erin outranks Bob
+  - Carol outranks Erin
+What is the analogy for Dave Bob Frank?
+
+Answer with exactly one of: Frank | Carol | Alice | Dave | Erin | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;dave&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;frank&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob mirrors Carol
+  - Frank mirrors Alice
+  - Frank follows Bob
+  - Erin follows Alice
+  - Dave mirrors Erin
+  - Carol follows Erin
+  - Carol mirrors Frank
+  - Bob follows Frank
+  - Erin mirrors Dave
+  - Alice mirrors Bob
+  - Alice follows Dave
+  - Dave follows Carol
+What is the analogy for Bob Frank Carol?
+
+Answer with exactly one of: Bob | Alice | Erin | Dave | Frank | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;bob&quot;,
+ &quot;answer&quot;: &quot;erin&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Frank outranks Dave
+  - Alice outranks Frank
+  - Bob comes before Dave
+  - Frank comes before Carol
+  - Carol comes before Frank
+  - Alice comes before Bob
+  - Carol outranks Alice
+  - Bob outranks Erin
+  - Dave comes before Erin
+  - Dave outranks Carol
+  - Erin outranks Bob
+  - Erin comes before Alice
+What is the analogy for Dave Erin Frank?
+
+Answer with exactly one of: Carol | Alice | Erin | Bob | Frank | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;dave&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;frank&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Frank follows Carol
+  - Bob follows Erin
+  - Frank comes before Erin
+  - Erin comes before Bob
+  - Alice follows Bob
+  - Dave follows Alice
+  - Carol comes before Alice
+  - Erin follows Frank
+  - Carol follows Dave
+  - Alice comes before Frank
+  - Dave comes before Carol
+  - Bob comes before Dave
+What is the analogy for Dave Alice Carol?
+
+Answer with exactly one of: Bob | Erin | Carol | Alice | Frank | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;dave&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;alice&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Alice comes before Erin
+  - Carol comes before Frank
+  - Bob comes before Dave
+  - Erin outranks Frank
+  - Frank comes before Bob
+  - Dave outranks Alice
+  - Bob outranks Erin
+  - Erin comes before Alice
+  - Dave comes before Carol
+  - Carol outranks Dave
+  - Alice outranks Bob
+  - Frank outranks Carol
+What is the analogy for Alice Bob Carol?
+
+Answer with exactly one of: Dave | Bob | Alice | Frank | Carol | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob comes before Erin
+  - Alice comes before Dave
+  - Bob follows Dave
+  - Erin follows Frank
+  - Carol comes before Frank
+  - Carol follows Alice
+  - Frank follows Erin
+  - Dave comes before Alice
+  - Erin comes before Carol
+  - Frank comes before Bob
+  - Dave follows Carol
+  - Alice follows Bob
+What is the analogy for Frank Erin Alice?
+
+Answer with exactly one of: Erin | Alice | Bob | Frank | Carol | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;frank&quot;,
+ &quot;answer&quot;: &quot;bob&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob outranks Frank
+  - Erin mirrors Bob
+  - Carol outranks Bob
+  - Carol mirrors Alice
+  - Alice mirrors Frank
+  - Bob mirrors Carol
+  - Dave outranks Alice
+  - Frank outranks Erin
+  - Frank mirrors Dave
+  - Dave mirrors Erin
+  - Erin outranks Dave
+  - Alice outranks Carol
+What is the analogy for Dave Alice Frank?
+
+Answer with exactly one of: Bob | Frank | Erin | Alice | Carol | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;dave&quot;,
+ &quot;answer&quot;: &quot;erin&quot;,
+ &quot;b&quot;: &quot;alice&quot;,
+ &quot;c&quot;: &quot;frank&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob comes before Frank
+  - Frank mirrors Bob
+  - Alice mirrors Carol
+  - Erin mirrors Alice
+  - Bob mirrors Dave
+  - Frank comes before Dave
+  - Alice comes before Erin
+  - Dave comes before Bob
+  - Erin comes before Carol
+  - Dave mirrors Frank
+  - Carol comes before Alice
+  - Carol mirrors Erin
+What is the analogy for Frank Dave Erin?
+
+Answer with exactly one of: Dave | Frank | Bob | Carol | Alice | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;frank&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;dave&quot;,
+ &quot;c&quot;: &quot;erin&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Alice outranks Erin
+  - Erin follows Frank
+  - Alice follows Dave
+  - Erin outranks Carol
+  - Bob outranks Frank
+  - Dave outranks Alice
+  - Carol outranks Bob
+  - Bob follows Erin
+  - Frank follows Bob
+  - Dave follows Carol
+  - Carol follows Alice
+  - Frank outranks Dave
+What is the analogy for Frank Bob Erin?
+
+Answer with exactly one of: Alice | Bob | Carol | Erin | Dave | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;frank&quot;,
+ &quot;answer&quot;: &quot;frank&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;erin&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Dave mirrors Erin
+  - Bob follows Erin
+  - Alice mirrors Dave
+  - Erin follows Frank
+  - Bob mirrors Alice
+  - Carol mirrors Frank
+  - Frank mirrors Bob
+  - Alice follows Carol
+  - Erin mirrors Carol
+  - Carol follows Bob
+  - Frank follows Dave
+  - Dave follows Alice
+What is the analogy for Dave Alice Carol?
+
+Answer with exactly one of: Alice | Frank | Carol | Erin | Dave | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;dave&quot;,
+ &quot;answer&quot;: &quot;bob&quot;,
+ &quot;b&quot;: &quot;alice&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin outranks Bob
+  - Carol outranks Erin
+  - Bob outranks Frank
+  - Frank follows Carol
+  - Erin follows Dave
+  - Alice outranks Dave
+  - Dave follows Alice
+  - Carol follows Bob
+  - Alice follows Frank
+  - Frank outranks Alice
+  - Dave outranks Carol
+  - Bob follows Erin
+What is the analogy for Erin Dave Bob?
+
+Answer with exactly one of: Alice | Frank | Erin | Carol | Dave | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;erin&quot;,
+ &quot;b&quot;: &quot;dave&quot;,
+ &quot;c&quot;: &quot;bob&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Carol mirrors Alice
+  - Erin outranks Frank
+  - Erin mirrors Dave
+  - Frank outranks Carol
+  - Carol outranks Dave
+  - Alice mirrors Frank
+  - Bob mirrors Erin
+  - Dave outranks Bob
+  - Frank mirrors Bob
+  - Dave mirrors Carol
+  - Alice outranks Erin
+  - Bob outranks Alice
+What is the analogy for Alice Erin Dave?
+
+Answer with exactly one of: Carol | Alice | Dave | Erin | Frank | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;bob&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;dave&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Dave outranks Alice
+  - Bob outranks Erin
+  - Erin outranks Dave
+  - Erin comes before Carol
+  - Carol outranks Bob
+  - Bob comes before Frank
+  - Frank comes before Dave
+  - Alice comes before Erin
+  - Dave comes before Bob
+  - Alice outranks Frank
+  - Frank outranks Carol
+  - Carol comes before Alice
+What is the analogy for Bob Frank Alice?
+
+Answer with exactly one of: Frank | Alice | Carol | Erin | Bob | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;bob&quot;,
+ &quot;answer&quot;: &quot;erin&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Carol follows Dave
+  - Frank outranks Alice
+  - Bob outranks Erin
+  - Alice outranks Frank
+  - Dave follows Frank
+  - Erin follows Bob
+  - Frank follows Erin
+  - Alice follows Carol
+  - Carol outranks Bob
+  - Erin outranks Dave
+  - Dave outranks Carol
+  - Bob follows Alice
+What is the analogy for Erin Bob Carol?
+
+Answer with exactly one of: Erin | Dave | Bob | Frank | Alice | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Frank comes before Dave
+  - Frank mirrors Bob
+  - Bob mirrors Frank
+  - Alice mirrors Erin
+  - Bob comes before Alice
+  - Dave comes before Frank
+  - Erin comes before Carol
+  - Erin mirrors Dave
+  - Carol comes before Erin
+  - Dave mirrors Carol
+  - Carol mirrors Alice
+  - Alice comes before Bob
+What is the analogy for Dave Carol Erin?
+
+Answer with exactly one of: Erin | Frank | Alice | Carol | Dave | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;dave&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;carol&quot;,
+ &quot;c&quot;: &quot;erin&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Carol mirrors Bob
+  - Dave outranks Alice
+  - Erin outranks Dave
+  - Bob mirrors Alice
+  - Frank mirrors Dave
+  - Alice mirrors Carol
+  - Alice outranks Bob
+  - Frank outranks Carol
+  - Bob outranks Erin
+  - Carol outranks Frank
+  - Dave mirrors Erin
+  - Erin mirrors Frank
+What is the analogy for Alice Bob Dave?
+
+Answer with exactly one of: Frank | Alice | Erin | Bob | Carol | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;dave&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin follows Dave
+  - Bob mirrors Erin
+  - Frank mirrors Carol
+  - Erin mirrors Alice
+  - Carol follows Bob
+  - Dave mirrors Bob
+  - Frank follows Erin
+  - Alice mirrors Frank
+  - Carol mirrors Dave
+  - Bob follows Alice
+  - Dave follows Frank
+  - Alice follows Carol
+What is the analogy for Frank Carol Alice?
+
+Answer with exactly one of: Carol | Frank | Dave | Bob | Alice | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;frank&quot;,
+ &quot;answer&quot;: &quot;frank&quot;,
+ &quot;b&quot;: &quot;carol&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Carol mirrors Alice
+  - Alice mirrors Carol
+  - Erin mirrors Bob
+  - Carol follows Bob
+  - Bob mirrors Frank
+  - Erin follows Alice
+  - Dave mirrors Erin
+  - Frank mirrors Dave
+  - Frank follows Carol
+  - Bob follows Erin
+  - Dave follows Frank
+  - Alice follows Dave
+What is the analogy for Dave Erin Carol?
+
+Answer with exactly one of: Bob | Erin | Alice | Frank | Carol | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;dave&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Frank comes before Erin
+  - Alice follows Dave
+  - Alice comes before Carol
+  - Erin comes before Frank
+  - Dave comes before Alice
+  - Bob comes before Dave
+  - Frank follows Bob
+  - Carol follows Erin
+  - Dave follows Frank
+  - Bob follows Alice
+  - Erin follows Carol
+  - Carol comes before Bob
+What is the analogy for Carol Erin Bob?
+
+Answer with exactly one of: Alice | Frank | Bob | Dave | Carol | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;carol&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;bob&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin outranks Dave
+  - Dave outranks Carol
+  - Alice comes before Erin
+  - Bob comes before Dave
+  - Alice outranks Frank
+  - Frank outranks Bob
+  - Frank comes before Alice
+  - Carol comes before Frank
+  - Carol outranks Erin
+  - Erin comes before Carol
+  - Bob outranks Alice
+  - Dave comes before Bob
+What is the analogy for Erin Dave Alice?
+
+Answer with exactly one of: Frank | Carol | Dave | Alice | Bob | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;frank&quot;,
+ &quot;b&quot;: &quot;dave&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Dave outranks Alice
+  - Carol follows Erin
+  - Frank outranks Erin
+  - Frank follows Carol
+  - Erin outranks Bob
+  - Carol outranks Dave
+  - Alice follows Dave
+  - Erin follows Frank
+  - Dave follows Bob
+  - Bob follows Alice
+  - Alice outranks Carol
+  - Bob outranks Frank
+What is the analogy for Frank Carol Bob?
+
+Answer with exactly one of: Erin | Bob | Dave | Carol | Alice | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;frank&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;carol&quot;,
+ &quot;c&quot;: &quot;bob&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin follows Carol
+  - Bob follows Alice
+  - Carol mirrors Bob
+  - Dave follows Frank
+  - Frank mirrors Alice
+  - Erin mirrors Frank
+  - Carol follows Erin
+  - Dave mirrors Erin
+  - Frank follows Dave
+  - Alice follows Bob
+  - Bob mirrors Carol
+  - Alice mirrors Dave
+What is the analogy for Erin Carol Alice?
+
+Answer with exactly one of: Bob | Carol | Dave | Alice | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;bob&quot;,
+ &quot;b&quot;: &quot;carol&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Dave mirrors Erin
+  - Erin mirrors Alice
+  - Carol outranks Frank
+  - Bob outranks Alice
+  - Erin outranks Bob
+  - Frank mirrors Carol
+  - Alice mirrors Bob
+  - Bob mirrors Frank
+  - Frank outranks Dave
+  - Carol mirrors Dave
+  - Dave outranks Carol
+  - Alice outranks Erin
+What is the analogy for Frank Carol Erin?
+
+Answer with exactly one of: Dave | Bob | Alice | Carol | Frank | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;frank&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;carol&quot;,
+ &quot;c&quot;: &quot;erin&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin outranks Carol
+  - Erin comes before Dave
+  - Alice comes before Carol
+  - Bob comes before Frank
+  - Frank comes before Erin
+  - Bob outranks Dave
+  - Frank outranks Alice
+  - Carol outranks Bob
+  - Dave comes before Bob
+  - Carol comes before Alice
+  - Dave outranks Erin
+  - Alice outranks Frank
+What is the analogy for Alice Carol Erin?
+
+Answer with exactly one of: Alice | Dave | Erin | Frank | Bob | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;carol&quot;,
+ &quot;c&quot;: &quot;erin&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Dave mirrors Bob
+  - Erin outranks Frank
+  - Carol mirrors Frank
+  - Frank outranks Carol
+  - Carol outranks Dave
+  - Alice outranks Bob
+  - Alice mirrors Carol
+  - Bob mirrors Dave
+  - Dave outranks Erin
+  - Erin mirrors Alice
+  - Bob outranks Alice
+  - Frank mirrors Erin
+What is the analogy for Dave Bob Alice?
+
+Answer with exactly one of: Frank | Alice | Carol | Bob | Dave | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;dave&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Alice comes before Bob
+  - Dave comes before Alice
+  - Erin comes before Frank
+  - Erin outranks Alice
+  - Alice outranks Carol
+  - Carol outranks Bob
+  - Frank outranks Dave
+  - Dave outranks Erin
+  - Frank comes before Carol
+  - Bob outranks Frank
+  - Bob comes before Erin
+  - Carol comes before Dave
+What is the analogy for Alice Carol Dave?
+
+Answer with exactly one of: Bob | Dave | Alice | Erin | Frank | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;erin&quot;,
+ &quot;b&quot;: &quot;carol&quot;,
+ &quot;c&quot;: &quot;dave&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Alice outranks Carol
+  - Carol comes before Dave
+  - Alice comes before Bob
+  - Frank comes before Erin
+  - Carol outranks Bob
+  - Frank outranks Dave
+  - Erin outranks Frank
+  - Dave comes before Frank
+  - Bob outranks Erin
+  - Dave outranks Alice
+  - Erin comes before Carol
+  - Bob comes before Alice
+What is the analogy for Alice Bob Carol?
+
+Answer with exactly one of: Dave | Erin | Carol | Bob | Alice | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Dave follows Frank
+  - Carol follows Bob
+  - Frank mirrors Bob
+  - Erin mirrors Frank
+  - Alice mirrors Erin
+  - Bob mirrors Dave
+  - Carol mirrors Alice
+  - Bob follows Erin
+  - Alice follows Carol
+  - Frank follows Dave
+  - Dave mirrors Carol
+  - Erin follows Alice
+What is the analogy for Erin Frank Alice?
+
+Answer with exactly one of: Erin | Alice | Frank | Dave | Bob | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;erin&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Alice follows Carol
+  - Alice comes before Dave
+  - Frank follows Erin
+  - Carol comes before Frank
+  - Dave comes before Carol
+  - Carol follows Bob
+  - Erin comes before Bob
+  - Dave follows Frank
+  - Frank comes before Alice
+  - Erin follows Alice
+  - Bob comes before Erin
+  - Bob follows Dave
+What is the analogy for Frank Alice Carol?
+
+Answer with exactly one of: Dave | Bob | Erin | Alice | Carol | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;frank&quot;,
+ &quot;answer&quot;: &quot;frank&quot;,
+ &quot;b&quot;: &quot;alice&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Alice follows Carol
+  - Bob follows Frank
+  - Frank outranks Dave
+  - Carol outranks Frank
+  - Alice outranks Bob
+  - Erin follows Dave
+  - Erin outranks Carol
+  - Bob outranks Alice
+  - Carol follows Bob
+  - Dave outranks Erin
+  - Frank follows Erin
+  - Dave follows Alice
+What is the analogy for Alice Bob Erin?
+
+Answer with exactly one of: Erin | Bob | Frank | Dave | Carol | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;erin&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Carol comes before Frank
+  - Bob comes before Erin
+  - Alice comes before Carol
+  - Erin mirrors Dave
+  - Frank mirrors Alice
+  - Frank comes before Dave
+  - Dave mirrors Carol
+  - Erin comes before Alice
+  - Bob mirrors Frank
+  - Dave comes before Bob
+  - Carol mirrors Erin
+  - Alice mirrors Bob
+What is the analogy for Alice Bob Frank?
+
+Answer with exactly one of: Bob | Carol | Dave | Frank | Erin | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;frank&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Alice comes before Erin
+  - Carol outranks Frank
+  - Bob outranks Carol
+  - Erin outranks Dave
+  - Frank comes before Carol
+  - Dave outranks Erin
+  - Alice outranks Bob
+  - Erin comes before Frank
+  - Frank outranks Alice
+  - Dave comes before Bob
+  - Carol comes before Alice
+  - Bob comes before Dave
+What is the analogy for Carol Alice Frank?
+
+Answer with exactly one of: Bob | Erin | Carol | Frank | Dave | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;carol&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;alice&quot;,
+ &quot;c&quot;: &quot;frank&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob outranks Alice
+  - Erin outranks Bob
+  - Carol mirrors Bob
+  - Frank outranks Carol
+  - Dave mirrors Alice
+  - Alice outranks Frank
+  - Bob mirrors Dave
+  - Dave outranks Erin
+  - Alice mirrors Carol
+  - Carol outranks Dave
+  - Erin mirrors Frank
+  - Frank mirrors Erin
+What is the analogy for Dave Erin Bob?
+
+Answer with exactly one of: Alice | Frank | Dave | Erin | Carol | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;dave&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;bob&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Carol comes before Frank
+  - Frank comes before Erin
+  - Alice comes before Dave
+  - Carol follows Alice
+  - Bob comes before Carol
+  - Dave follows Bob
+  - Erin follows Dave
+  - Alice follows Frank
+  - Bob follows Erin
+  - Frank follows Carol
+  - Dave comes before Alice
+  - Erin comes before Bob
+What is the analogy for Bob Erin Carol?
+
+Answer with exactly one of: Dave | Erin | Frank | Bob | Carol | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;bob&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin follows Frank
+  - Carol follows Alice
+  - Dave comes before Frank
+  - Bob follows Erin
+  - Erin comes before Bob
+  - Alice comes before Erin
+  - Alice follows Carol
+  - Bob comes before Alice
+  - Carol comes before Dave
+  - Frank follows Dave
+  - Dave follows Bob
+  - Frank comes before Carol
+What is the analogy for Erin Bob Frank?
+
+Answer with exactly one of: Bob | Erin | Dave | Carol | Alice | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;frank&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Dave outranks Alice
+  - Erin follows Dave
+  - Dave follows Carol
+  - Frank follows Alice
+  - Bob outranks Frank
+  - Frank outranks Carol
+  - Bob follows Erin
+  - Alice follows Bob
+  - Carol outranks Dave
+  - Erin outranks Bob
+  - Alice outranks Erin
+  - Carol follows Frank
+What is the analogy for Bob Frank Carol?
+
+Answer with exactly one of: Bob | Alice | Erin | Carol | Dave | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;bob&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Frank mirrors Bob
+  - Bob follows Carol
+  - Erin mirrors Frank
+  - Carol mirrors Erin
+  - Bob mirrors Alice
+  - Erin follows Dave
+  - Carol follows Frank
+  - Dave follows Bob
+  - Alice mirrors Dave
+  - Frank follows Alice
+  - Dave mirrors Carol
+  - Alice follows Erin
+What is the analogy for Alice Erin Dave?
+
+Answer with exactly one of: Alice | Frank | Bob | Carol | Erin | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;bob&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;dave&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob comes before Alice
+  - Erin outranks Frank
+  - Carol outranks Alice
+  - Dave outranks Carol
+  - Dave comes before Frank
+  - Erin comes before Bob
+  - Frank outranks Erin
+  - Carol comes before Erin
+  - Frank comes before Carol
+  - Bob outranks Dave
+  - Alice comes before Dave
+  - Alice outranks Bob
+What is the analogy for Erin Frank Carol?
+
+Answer with exactly one of: Carol | Alice | Frank | Erin | Bob | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Carol outranks Frank
+  - Alice outranks Dave
+  - Bob outranks Carol
+  - Erin follows Carol
+  - Frank follows Erin
+  - Frank outranks Alice
+  - Dave outranks Erin
+  - Alice follows Bob
+  - Dave follows Frank
+  - Erin outranks Bob
+  - Bob follows Alice
+  - Carol follows Dave
+What is the analogy for Alice Dave Frank?
+
+Answer with exactly one of: Alice | Dave | Erin | Carol | Frank | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;dave&quot;,
+ &quot;c&quot;: &quot;frank&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Frank follows Alice
+  - Carol follows Erin
+  - Erin follows Bob
+  - Erin comes before Frank
+  - Carol comes before Alice
+  - Dave follows Carol
+  - Frank comes before Dave
+  - Bob follows Dave
+  - Alice comes before Carol
+  - Bob comes before Erin
+  - Dave comes before Bob
+  - Alice follows Frank
+What is the analogy for Frank Alice Bob?
+
+Answer with exactly one of: Alice | Bob | Carol | Frank | Erin | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;frank&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;alice&quot;,
+ &quot;c&quot;: &quot;bob&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Frank follows Bob
+  - Dave outranks Alice
+  - Carol follows Erin
+  - Dave follows Carol
+  - Erin follows Alice
+  - Carol outranks Bob
+  - Alice follows Frank
+  - Alice outranks Dave
+  - Bob outranks Frank
+  - Bob follows Dave
+  - Frank outranks Erin
+  - Erin outranks Carol
+What is the analogy for Erin Carol Bob?
+
+Answer with exactly one of: Carol | Frank | Bob | Alice | Dave | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;frank&quot;,
+ &quot;b&quot;: &quot;carol&quot;,
+ &quot;c&quot;: &quot;bob&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Frank mirrors Dave
+  - Carol outranks Dave
+  - Dave mirrors Frank
+  - Erin mirrors Alice
+  - Frank outranks Erin
+  - Erin outranks Bob
+  - Carol mirrors Bob
+  - Alice outranks Frank
+  - Bob mirrors Carol
+  - Dave outranks Carol
+  - Alice mirrors Erin
+  - Bob outranks Alice
+What is the analogy for Frank Dave Alice?
+
+Answer with exactly one of: Frank | Carol | Bob | Erin | Alice | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;frank&quot;,
+ &quot;answer&quot;: &quot;erin&quot;,
+ &quot;b&quot;: &quot;dave&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Frank mirrors Dave
+  - Carol outranks Bob
+  - Frank outranks Carol
+  - Erin mirrors Alice
+  - Carol mirrors Erin
+  - Alice mirrors Bob
+  - Alice outranks Dave
+  - Bob outranks Alice
+  - Erin outranks Frank
+  - Dave mirrors Carol
+  - Bob mirrors Frank
+  - Dave outranks Erin
+What is the analogy for Bob Frank Erin?
+
+Answer with exactly one of: Frank | Alice | Erin | Bob | Dave | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;bob&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;erin&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Carol outranks Frank
+  - Dave comes before Bob
+  - Alice outranks Dave
+  - Alice comes before Carol
+  - Frank outranks Carol
+  - Bob outranks Alice
+  - Bob comes before Frank
+  - Erin outranks Bob
+  - Frank comes before Dave
+  - Erin comes before Alice
+  - Dave outranks Erin
+  - Carol comes before Erin
+What is the analogy for Bob Frank Carol?
+
+Answer with exactly one of: Alice | Dave | Carol | Bob | Frank | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;bob&quot;,
+ &quot;answer&quot;: &quot;erin&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin outranks Dave
+  - Alice outranks Bob
+  - Dave follows Carol
+  - Bob outranks Carol
+  - Carol outranks Erin
+  - Alice follows Dave
+  - Bob follows Erin
+  - Frank follows Bob
+  - Dave outranks Frank
+  - Frank outranks Alice
+  - Erin follows Frank
+  - Carol follows Alice
+What is the analogy for Erin Dave Carol?
+
+Answer with exactly one of: Carol | Dave | Alice | Bob | Frank | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;erin&quot;,
+ &quot;b&quot;: &quot;dave&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Erin follows Bob
+  - Alice outranks Bob
+  - Bob outranks Carol
+  - Bob follows Dave
+  - Erin outranks Frank
+  - Carol follows Frank
+  - Frank outranks Erin
+  - Dave outranks Alice
+  - Alice follows Erin
+  - Frank follows Alice
+  - Carol outranks Dave
+  - Dave follows Carol
+What is the analogy for Carol Frank Dave?
+
+Answer with exactly one of: Carol | Erin | Alice | Dave | Bob | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;carol&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;dave&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob follows Alice
+  - Carol follows Bob
+  - Dave outranks Alice
+  - Carol outranks Dave
+  - Bob outranks Frank
+  - Alice outranks Erin
+  - Erin follows Frank
+  - Frank outranks Bob
+  - Dave follows Erin
+  - Frank follows Dave
+  - Alice follows Carol
+  - Erin outranks Carol
+What is the analogy for Carol Bob Dave?
+
+Answer with exactly one of: Dave | Alice | Frank | Carol | Bob | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;carol&quot;,
+ &quot;answer&quot;: &quot;erin&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;dave&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob comes before Frank
+  - Dave comes before Carol
+  - Alice follows Bob
+  - Carol follows Alice
+  - Erin follows Carol
+  - Bob follows Erin
+  - Frank follows Dave
+  - Frank comes before Bob
+  - Dave follows Frank
+  - Alice comes before Erin
+  - Carol comes before Dave
+  - Erin comes before Alice
+What is the analogy for Erin Alice Frank?
+
+Answer with exactly one of: Alice | Frank | Carol | Erin | Dave | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;bob&quot;,
+ &quot;b&quot;: &quot;alice&quot;,
+ &quot;c&quot;: &quot;frank&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Dave follows Carol
+  - Frank follows Dave
+  - Frank comes before Carol
+  - Dave comes before Erin
+  - Alice follows Bob
+  - Carol comes before Dave
+  - Bob follows Erin
+  - Alice comes before Frank
+  - Erin comes before Bob
+  - Bob comes before Alice
+  - Carol follows Alice
+  - Erin follows Frank
+What is the analogy for Frank Carol Bob?
+
+Answer with exactly one of: Bob | Dave | Alice | Carol | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;frank&quot;,
+ &quot;answer&quot;: &quot;alice&quot;,
+ &quot;b&quot;: &quot;carol&quot;,
+ &quot;c&quot;: &quot;bob&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Alice outranks Frank
+  - Bob comes before Frank
+  - Carol outranks Erin
+  - Dave outranks Carol
+  - Dave comes before Erin
+  - Bob outranks Alice
+  - Frank comes before Carol
+  - Frank outranks Bob
+  - Carol comes before Bob
+  - Erin outranks Dave
+  - Erin comes before Alice
+  - Alice comes before Dave
+What is the analogy for Alice Frank Erin?
+
+Answer with exactly one of: Alice | Frank | Carol | Bob | Erin | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;alice&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;frank&quot;,
+ &quot;c&quot;: &quot;erin&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob comes before Alice
+  - Carol follows Alice
+  - Frank follows Dave
+  - Alice follows Bob
+  - Alice comes before Frank
+  - Carol comes before Bob
+  - Dave follows Carol
+  - Dave comes before Erin
+  - Erin comes before Dave
+  - Bob follows Erin
+  - Frank comes before Carol
+  - Erin follows Frank
+What is the analogy for Bob Alice Frank?
+
+Answer with exactly one of: Frank | Dave | Bob | Alice | Carol | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;bob&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;alice&quot;,
+ &quot;c&quot;: &quot;frank&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Carol outranks Dave
+  - Carol mirrors Bob
+  - Dave outranks Erin
+  - Alice outranks Carol
+  - Frank mirrors Dave
+  - Alice mirrors Frank
+  - Bob mirrors Erin
+  - Dave mirrors Alice
+  - Frank outranks Bob
+  - Bob outranks Frank
+  - Erin outranks Alice
+  - Erin mirrors Carol
+What is the analogy for Erin Alice Frank?
+
+Answer with exactly one of: Bob | Erin | Frank | Dave | Alice | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;bob&quot;,
+ &quot;b&quot;: &quot;alice&quot;,
+ &quot;c&quot;: &quot;frank&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Frank follows Dave
+  - Frank outranks Erin
+  - Alice outranks Dave
+  - Carol follows Erin
+  - Dave follows Alice
+  - Carol outranks Bob
+  - Erin follows Bob
+  - Erin outranks Alice
+  - Alice follows Frank
+  - Bob follows Carol
+  - Bob outranks Frank
+  - Dave outranks Carol
+What is the analogy for Frank Erin Alice?
+
+Answer with exactly one of: Bob | Alice | Frank | Erin | Dave | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;frank&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;outranks&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Bob mirrors Erin
+  - Erin mirrors Dave
+  - Carol mirrors Alice
+  - Alice comes before Dave
+  - Bob comes before Carol
+  - Carol comes before Bob
+  - Dave mirrors Bob
+  - Frank comes before Erin
+  - Alice mirrors Frank
+  - Erin comes before Alice
+  - Dave comes before Frank
+  - Frank mirrors Carol
+What is the analogy for Erin Alice Dave?
+
+Answer with exactly one of: Erin | Dave | Frank | Carol | Bob | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;erin&quot;,
+ &quot;answer&quot;: &quot;frank&quot;,
+ &quot;b&quot;: &quot;alice&quot;,
+ &quot;c&quot;: &quot;dave&quot;,
+ &quot;relation&quot;: &quot;precedes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Dave mirrors Bob
+  - Carol follows Erin
+  - Dave follows Carol
+  - Bob mirrors Frank
+  - Frank mirrors Erin
+  - Alice follows Frank
+  - Alice mirrors Dave
+  - Erin follows Alice
+  - Frank follows Bob
+  - Carol mirrors Alice
+  - Bob follows Dave
+  - Erin mirrors Carol
+What is the analogy for Carol Erin Dave?
+
+Answer with exactly one of: Dave | Alice | Erin | Frank | Carol | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;carol&quot;,
+ &quot;answer&quot;: &quot;carol&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;dave&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Dave outranks Carol
+  - Alice outranks Erin
+  - Erin outranks Dave
+  - Dave follows Bob
+  - Frank follows Erin
+  - Bob follows Carol
+  - Bob outranks Frank
+  - Carol outranks Alice
+  - Alice follows Dave
+  - Carol follows Frank
+  - Frank outranks Bob
+  - Erin follows Alice
+What is the analogy for Dave Bob Alice?
+
+Answer with exactly one of: Dave | Alice | Carol | Erin | Bob | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;dave&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;alice&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Dave outranks Alice
+  - Erin mirrors Alice
+  - Frank outranks Carol
+  - Carol outranks Frank
+  - Dave mirrors Frank
+  - Bob mirrors Dave
+  - Erin outranks Dave
+  - Alice mirrors Carol
+  - Frank mirrors Erin
+  - Alice outranks Bob
+  - Carol mirrors Bob
+  - Bob outranks Erin
+What is the analogy for Frank Erin Bob?
+
+Answer with exactly one of: Erin | Carol | Frank | Bob | Alice | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;frank&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;erin&quot;,
+ &quot;c&quot;: &quot;bob&quot;,
+ &quot;relation&quot;: &quot;mirrors&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The graph:
+  - Alice mirrors Carol
+  - Carol mirrors Bob
+  - Frank follows Bob
+  - Bob follows Frank
+  - Dave follows Carol
+  - Carol follows Dave
+  - Alice follows Erin
+  - Dave mirrors Erin
+  - Frank mirrors Dave
+  - Bob mirrors Alice
+  - Erin mirrors Frank
+  - Erin follows Alice
+What is the analogy for Frank Bob Carol?
+
+Answer with exactly one of: Carol | Frank | Bob | Erin | Dave | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: &quot;frank&quot;,
+ &quot;answer&quot;: &quot;dave&quot;,
+ &quot;b&quot;: &quot;bob&quot;,
+ &quot;c&quot;: &quot;carol&quot;,
+ &quot;relation&quot;: &quot;follows&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

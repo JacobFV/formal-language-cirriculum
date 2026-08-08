@@ -1,0 +1,1718 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>question_answering — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iii">language as action</a> &rsaquo;
+  question_answering</p>
+<h1>#36 <code>question_answering</code></h1>
+<p class="lede">interrogative form -&gt; reasoning operation</p>
+<div class="tags"><span class="tag ">level 36</span><span class="tag ">section iii</span><span class="tag ">proof_search</span><span class="tag ">quantification</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.5</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.23</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.125</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>who / what / where / when / how-many over an explicit event world.</p><p>    Each interrogative is a different reasoning operation over the same facts.
+    The generator enumerates the questions whose answer is *unique* and samples
+    among them, and for counting questions samples uniformly over the achievable
+    counts so that &quot;one&quot; is not the default reply.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>2</td></tr><tr><td>reasoning_depth</td><td class='num'>3</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The world contains:
+  - event: e2, Frank, read, garden and 1
+  - event: e4, Frank, sang, garden and 7
+  - event: e1, Dave, read, garden and 4
+  - event: e3, Frank, cooked, porch and 0
+  - event: e0, Carol, waited, garden and 2
+How many cellar?
+
+Answer with exactly one of: 1 | 4 | 3 | 0 | 2 | 5
+Reply with the answer only.</pre><h3>spanish</h3><pre>El mundo contiene:
+  - el evento: e2, Francisco, leer, jardín y 1
+  - el evento: e4, Francisco, cantar, jardín y 7
+  - el evento: e1, David, leer, jardín y 4
+  - el evento: e3, Francisco, cocinar, porche y 0
+  - el evento: e0, Carolina, esperar, jardín y 2
+¿Cuántos sótano hay?
+
+Responde exactamente con una de estas opciones: 1 | 4 | 3 | 0 | 2 | 5
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>世界如下：
+  - 事件：e2、弗兰克、读、花园和1
+  - 事件：e4、弗兰克、唱、花园和7
+  - 事件：e1、戴夫、读、花园和4
+  - 事件：e3、弗兰克、煮、门廊和0
+  - 事件：e0、卡罗尔、等待、花园和2
+有多少个地窖？
+
+请从以下选项中选出恰好一个作答：1 | 4 | 3 | 0 | 2 | 5
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The world contains:
+  - event: e2, Frank, read, garden and 1
+  - event: e4, Frank, sang, garden and 7
+  - event: e1, Dave, read, garden and 4
+  - event: e3, Frank, cooked, porch and 0
+  - event: e0, Carol, waited, garden and 2
+How many cellar?
+
+Answer with exactly one of: 1 | 4 | 3 | 0 | 2 | 5
+Reply with the answer only.</pre><h3>symbols</h3><pre>{query: (how_many cellar), world: [(event e2 frank read garden 1) (event e4 frank sang garden 7) (event e1 dave read garden 4) (event e3 frank cooked porch 0) (event e0 carol waited garden 2)]}
+
+Answer with exactly one of: 1 | 4 | 3 | 0 | 2 | 5
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/question_answering.jsonl</code> &middot; <code>data/samples/spanish/question_answering.jsonl</code> &middot; <code>data/samples/chinese/question_answering.jsonl</code> &middot; <code>data/samples/english_synonym/question_answering.jsonl</code> &middot; <code>data/samples/symbols/question_answering.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e2, Frank, read, garden and 1
+  - event: e4, Frank, sang, garden and 7
+  - event: e1, Dave, read, garden and 4
+  - event: e3, Frank, cooked, porch and 0
+  - event: e0, Carol, waited, garden and 2
+How many cellar?
+
+Answer with exactly one of: 1 | 4 | 3 | 0 | 2 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;cellar&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e2, Erin, read, attic and 3; event: e0, Erin, cooked, kitchen and 0; event: e1, Alice, read, kitchen and 6; event: e3, Erin, cooked, garden and 4.
+Who cooked?
+
+Answer with exactly one of: Alice | Frank | Erin | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;cooked&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Alice, waited, kitchen and 6; event: e3, Erin, cooked, porch and 3; event: e0, Carol, read, kitchen and 2; event: e2, Erin, painted, cellar and 5.
+How many garden?
+
+Answer with exactly one of: 1 | 0 | 3 | 2 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;garden&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e0, Dave, cooked, attic and 3; event: e2, Erin, painted, attic and 5; event: e1, Frank, read, porch and 8; event: e3, Erin, slept, kitchen and 7.
+Who cooked?
+
+Answer with exactly one of: Bob | Erin | Dave | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;cooked&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">cellar</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e2, Alice, slept, cellar and 2; event: e3, Dave, painted, attic and 1; event: e0, Carol, painted, porch and 3; event: e1, Carol, painted, cellar and 5.
+Where Alice?
+
+Answer with exactly one of: kitchen | porch | attic | cellar
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;alice&quot;,
+ &quot;kind&quot;: &quot;where&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">slept</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e3, Carol, slept, cellar and 7
+  - event: e2, Frank, slept, porch and 4
+  - event: e0, Carol, painted, garden and 8
+  - event: e4, Frank, slept, attic and 0
+  - event: e1, Carol, painted, attic and 1
+What Frank?
+
+Answer with exactly one of: waited | sang | slept | painted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;frank&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e0, Dave, painted, kitchen and 7; event: e3, Alice, cooked, cellar and 8; event: e2, Dave, read, garden and 5; event: e1, Dave, cooked, kitchen and 3.
+How many study?
+
+Answer with exactly one of: 4 | 0 | 2 | 1 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;study&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e2, Erin, painted, porch and 3
+  - event: e0, Bob, read, kitchen and 1
+  - event: e3, Bob, slept, garden and 0
+  - event: e1, Bob, slept, kitchen and 6
+  - event: e4, Erin, slept, kitchen and 8
+How many kitchen?
+
+Answer with exactly one of: 1 | 3 | 2 | 5 | 0 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;kitchen&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e3, Alice, read, attic and 6; event: e2, Dave, waited, study and 3; event: e1, Alice, waited, attic and 7; event: e0, Alice, read, porch and 0.
+When Dave?
+
+Answer with exactly one of: 3 | 7 | 6 | 0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;dave&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">slept</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e1, Carol, slept, attic and 0
+  - event: e3, Alice, sang, kitchen and 3
+  - event: e0, Alice, read, porch and 8
+  - event: e4, Carol, slept, garden and 1
+  - event: e2, Erin, slept, attic and 5
+What Carol?
+
+Answer with exactly one of: cooked | read | slept | sang
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;carol&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">cooked</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Alice, painted, study and 3; event: e2, Alice, cooked, study and 5; event: e0, Dave, painted, kitchen and 1; event: e3, Frank, cooked, attic and 2.
+What Frank?
+
+Answer with exactly one of: painted | cooked | read | waited
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;frank&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e3, Dave, painted, kitchen and 0
+  - event: e2, Erin, painted, porch and 1
+  - event: e1, Dave, painted, attic and 4
+  - event: e4, Frank, cooked, porch and 8
+  - event: e0, Erin, cooked, kitchen and 7
+When Frank?
+
+Answer with exactly one of: 8 | 1 | 4 | 0 | 7
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;frank&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">slept</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e3, Carol, slept, cellar and 7
+  - event: e0, Frank, slept, cellar and 0
+  - event: e4, Alice, sang, cellar and 1
+  - event: e1, Erin, read, garden and 2
+  - event: e2, Alice, read, cellar and 3
+What Frank?
+
+Answer with exactly one of: sang | read | cooked | slept
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;frank&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e0, Carol, painted, porch and 4
+  - event: e1, Carol, painted, cellar and 0
+  - event: e3, Erin, waited, cellar and 1
+  - event: e2, Frank, waited, garden and 3
+  - event: e4, Frank, painted, cellar and 8
+How many cellar?
+
+Answer with exactly one of: 0 | 2 | 3 | 1 | 5 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;cellar&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e3, Frank, waited, kitchen and 0; event: e1, Bob, painted, cellar and 8; event: e0, Bob, cooked, cellar and 6; event: e2, Frank, cooked, cellar and 7.
+How many garden?
+
+Answer with exactly one of: 1 | 0 | 2 | 4 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;garden&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e3, Frank, cooked, cellar and 2; event: e2, Frank, painted, cellar and 8; event: e1, Frank, slept, cellar and 7; event: e0, Frank, cooked, study and 5.
+Who painted?
+
+Answer with exactly one of: Alice | Erin | Frank | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;painted&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e0, Frank, slept, study and 3
+  - event: e4, Carol, slept, garden and 5
+  - event: e2, Frank, sang, porch and 2
+  - event: e1, Frank, slept, study and 0
+  - event: e3, Bob, slept, cellar and 6
+When Bob?
+
+Answer with exactly one of: 3 | 5 | 2 | 0 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;bob&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e2, Frank, cooked, kitchen and 8
+  - event: e4, Carol, slept, garden and 2
+  - event: e1, Frank, painted, garden and 4
+  - event: e3, Carol, cooked, cellar and 7
+  - event: e0, Alice, painted, kitchen and 6
+Who slept?
+
+Answer with exactly one of: Alice | Frank | Carol | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;slept&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">read</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e0, Carol, read, cellar and 3; event: e1, Dave, read, cellar and 4; event: e2, Carol, read, garden and 5; event: e3, Dave, painted, study and 0.
+What Carol?
+
+Answer with exactly one of: sang | slept | read | painted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;carol&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e0, Erin, waited, cellar and 4; event: e2, Alice, cooked, kitchen and 2; event: e1, Erin, painted, garden and 6; event: e3, Dave, cooked, garden and 7.
+How many cellar?
+
+Answer with exactly one of: 0 | 3 | 2 | 1 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;cellar&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e0, Alice, read, garden and 7; event: e1, Frank, waited, kitchen and 8; event: e3, Alice, slept, kitchen and 1; event: e2, Dave, waited, kitchen and 3.
+How many attic?
+
+Answer with exactly one of: 1 | 3 | 0 | 4 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;attic&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e2, Dave, waited, attic and 0; event: e1, Bob, cooked, attic and 6; event: e0, Frank, read, porch and 5; event: e3, Dave, waited, porch and 1.
+How many garden?
+
+Answer with exactly one of: 1 | 2 | 0 | 4 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;garden&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e3, Dave, cooked, cellar and 0; event: e0, Bob, cooked, kitchen and 2; event: e1, Erin, slept, cellar and 6; event: e2, Bob, waited, kitchen and 5.
+Who waited?
+
+Answer with exactly one of: Dave | Alice | Bob | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;waited&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e2, Carol, read, garden and 4
+  - event: e1, Bob, read, porch and 3
+  - event: e4, Frank, cooked, cellar and 8
+  - event: e3, Alice, cooked, garden and 7
+  - event: e0, Alice, read, porch and 0
+When Bob?
+
+Answer with exactly one of: 3 | 0 | 4 | 7 | 8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;bob&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e0, Alice, cooked, kitchen and 7
+  - event: e2, Bob, slept, kitchen and 0
+  - event: e3, Erin, slept, garden and 4
+  - event: e4, Bob, slept, kitchen and 8
+  - event: e1, Alice, sang, kitchen and 1
+When Erin?
+
+Answer with exactly one of: 1 | 7 | 0 | 8 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;erin&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e4, Alice, painted, cellar and 2
+  - event: e2, Dave, cooked, porch and 4
+  - event: e3, Bob, painted, cellar and 6
+  - event: e1, Alice, read, attic and 3
+  - event: e0, Bob, cooked, kitchen and 1
+How many porch?
+
+Answer with exactly one of: 2 | 0 | 1 | 4 | 5 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;porch&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Bob, slept, porch and 3; event: e3, Bob, painted, kitchen and 7; event: e2, Carol, read, garden and 5; event: e0, Bob, painted, porch and 6.
+Who read?
+
+Answer with exactly one of: Carol | Dave | Bob | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;read&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e2, Frank, read, porch and 1
+  - event: e4, Carol, slept, garden and 0
+  - event: e3, Carol, cooked, study and 7
+  - event: e1, Frank, read, porch and 3
+  - event: e0, Frank, read, garden and 2
+Who read?
+
+Answer with exactly one of: Carol | Frank | Alice | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;read&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e3, Bob, slept, study and 0; event: e1, Frank, slept, attic and 3; event: e2, Bob, read, attic and 1; event: e0, Alice, read, garden and 2.
+When Alice?
+
+Answer with exactly one of: 3 | 1 | 2 | 0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;alice&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">study</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e0, Frank, sang, study and 3; event: e2, Alice, sang, study and 0; event: e3, Alice, read, porch and 8; event: e1, Alice, cooked, study and 5.
+Where Frank?
+
+Answer with exactly one of: porch | kitchen | study | garden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;frank&quot;,
+ &quot;kind&quot;: &quot;where&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e4, Bob, read, attic and 1
+  - event: e3, Bob, slept, porch and 6
+  - event: e0, Dave, painted, garden and 8
+  - event: e2, Bob, cooked, garden and 0
+  - event: e1, Dave, slept, kitchen and 3
+How many garden?
+
+Answer with exactly one of: 1 | 5 | 0 | 2 | 4 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;garden&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">waited</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Dave, waited, porch and 8; event: e0, Erin, painted, garden and 0; event: e2, Erin, sang, garden and 1; event: e3, Alice, sang, kitchen and 6.
+What Dave?
+
+Answer with exactly one of: sang | slept | painted | waited
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;dave&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Dave, slept, porch and 7; event: e2, Dave, read, garden and 1; event: e0, Dave, read, cellar and 4; event: e3, Alice, painted, attic and 8.
+How many porch?
+
+Answer with exactly one of: 4 | 3 | 2 | 1 | 0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;porch&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">sang</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e3, Bob, waited, porch and 2; event: e1, Carol, cooked, porch and 7; event: e0, Frank, sang, attic and 8; event: e2, Erin, sang, cellar and 3.
+What Frank?
+
+Answer with exactly one of: waited | cooked | sang | painted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;frank&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e1, Erin, slept, kitchen and 2
+  - event: e2, Erin, sang, study and 0
+  - event: e0, Erin, cooked, cellar and 8
+  - event: e3, Bob, slept, porch and 7
+  - event: e4, Bob, cooked, study and 5
+How many study?
+
+Answer with exactly one of: 3 | 2 | 1 | 4 | 0 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;study&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e4, Frank, cooked, porch and 6
+  - event: e3, Frank, read, cellar and 4
+  - event: e2, Bob, read, cellar and 0
+  - event: e0, Bob, painted, study and 1
+  - event: e1, Bob, slept, attic and 5
+How many cellar?
+
+Answer with exactly one of: 0 | 2 | 1 | 5 | 3 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;cellar&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">attic</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e2, Alice, waited, attic and 8
+  - event: e0, Erin, sang, porch and 4
+  - event: e4, Carol, painted, cellar and 5
+  - event: e3, Carol, painted, porch and 3
+  - event: e1, Frank, waited, attic and 1
+Where Alice?
+
+Answer with exactly one of: cellar | attic | study | porch
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;alice&quot;,
+ &quot;kind&quot;: &quot;where&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e3, Carol, cooked, attic and 0; event: e2, Alice, cooked, porch and 1; event: e1, Alice, slept, garden and 7; event: e0, Erin, waited, attic and 6.
+How many cellar?
+
+Answer with exactly one of: 3 | 2 | 0 | 1 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;cellar&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">slept</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e3, Bob, cooked, porch and 7
+  - event: e2, Bob, read, porch and 8
+  - event: e1, Dave, slept, garden and 5
+  - event: e4, Alice, slept, porch and 2
+  - event: e0, Bob, slept, garden and 4
+What Alice?
+
+Answer with exactly one of: waited | cooked | slept | read
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;alice&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Erin, sang, kitchen and 1; event: e3, Erin, cooked, garden and 0; event: e2, Alice, slept, cellar and 2; event: e0, Carol, cooked, garden and 4.
+Who sang?
+
+Answer with exactly one of: Carol | Dave | Alice | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;sang&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e1, Alice, cooked, kitchen and 0
+  - event: e4, Alice, sang, attic and 4
+  - event: e0, Dave, cooked, attic and 2
+  - event: e3, Dave, cooked, kitchen and 1
+  - event: e2, Alice, sang, cellar and 5
+Who sang?
+
+Answer with exactly one of: Alice | Erin | Frank | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;sang&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e3, Erin, sang, porch and 6
+  - event: e0, Bob, waited, study and 0
+  - event: e4, Carol, painted, study and 2
+  - event: e1, Carol, painted, attic and 7
+  - event: e2, Erin, cooked, study and 1
+How many kitchen?
+
+Answer with exactly one of: 2 | 0 | 3 | 1 | 5 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;kitchen&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e2, Alice, slept, study and 4; event: e1, Carol, cooked, porch and 8; event: e0, Alice, slept, study and 3; event: e3, Bob, painted, kitchen and 6.
+How many attic?
+
+Answer with exactly one of: 3 | 1 | 0 | 4 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;attic&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Carol, waited, attic and 5; event: e2, Erin, slept, attic and 4; event: e0, Erin, cooked, porch and 6; event: e3, Bob, cooked, porch and 8.
+Who waited?
+
+Answer with exactly one of: Bob | Dave | Erin | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;waited&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e4, Erin, cooked, garden and 3
+  - event: e2, Frank, read, garden and 5
+  - event: e0, Dave, cooked, porch and 2
+  - event: e1, Erin, cooked, porch and 4
+  - event: e3, Erin, cooked, porch and 6
+How many garden?
+
+Answer with exactly one of: 5 | 4 | 3 | 0 | 1 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;garden&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e3, Dave, cooked, kitchen and 5
+  - event: e2, Dave, read, kitchen and 6
+  - event: e1, Frank, waited, garden and 4
+  - event: e4, Carol, slept, porch and 0
+  - event: e0, Dave, waited, porch and 1
+How many porch?
+
+Answer with exactly one of: 1 | 0 | 5 | 2 | 4 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;porch&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e3, Dave, read, cellar and 8; event: e1, Bob, sang, attic and 4; event: e2, Carol, painted, attic and 7; event: e0, Dave, read, attic and 2.
+When Bob?
+
+Answer with exactly one of: 8 | 4 | 7 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;bob&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e0, Alice, read, cellar and 0
+  - event: e1, Dave, waited, attic and 1
+  - event: e2, Carol, waited, porch and 8
+  - event: e3, Erin, read, attic and 2
+  - event: e4, Dave, waited, porch and 3
+How many kitchen?
+
+Answer with exactly one of: 3 | 4 | 5 | 2 | 1 | 0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;kitchen&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e1, Bob, sang, cellar and 8
+  - event: e4, Carol, waited, attic and 5
+  - event: e3, Erin, read, study and 4
+  - event: e2, Bob, read, cellar and 6
+  - event: e0, Erin, slept, kitchen and 3
+When Carol?
+
+Answer with exactly one of: 4 | 8 | 3 | 6 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;carol&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e3, Alice, slept, garden and 4; event: e1, Carol, waited, cellar and 3; event: e2, Carol, cooked, attic and 6; event: e0, Alice, slept, attic and 0.
+Who cooked?
+
+Answer with exactly one of: Bob | Carol | Alice | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;cooked&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e4, Erin, read, garden and 7
+  - event: e0, Frank, read, kitchen and 5
+  - event: e3, Frank, slept, kitchen and 6
+  - event: e2, Bob, painted, cellar and 2
+  - event: e1, Erin, read, cellar and 1
+Who painted?
+
+Answer with exactly one of: Bob | Erin | Frank | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;painted&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">cooked</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Bob, sang, study and 6; event: e2, Frank, cooked, cellar and 2; event: e3, Bob, waited, attic and 3; event: e0, Erin, sang, porch and 5.
+What Frank?
+
+Answer with exactly one of: cooked | painted | waited | sang
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;frank&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e4, Alice, painted, attic and 5
+  - event: e0, Alice, slept, attic and 0
+  - event: e2, Erin, sang, porch and 4
+  - event: e3, Bob, painted, attic and 3
+  - event: e1, Erin, slept, porch and 8
+When Bob?
+
+Answer with exactly one of: 8 | 5 | 3 | 0 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;bob&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e3, Frank, read, attic and 0; event: e1, Erin, waited, study and 4; event: e2, Erin, cooked, study and 5; event: e0, Erin, painted, garden and 2.
+When Frank?
+
+Answer with exactly one of: 4 | 0 | 2 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;frank&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Carol, painted, attic and 0; event: e2, Erin, read, attic and 8; event: e3, Carol, painted, cellar and 4; event: e0, Bob, read, attic and 3.
+When Bob?
+
+Answer with exactly one of: 8 | 0 | 4 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;bob&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">sang</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e2, Alice, sang, cellar and 2; event: e0, Alice, waited, porch and 8; event: e3, Alice, sang, cellar and 5; event: e1, Bob, sang, cellar and 6.
+What Bob?
+
+Answer with exactly one of: slept | waited | sang | cooked
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;bob&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">kitchen</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Frank, read, kitchen and 3; event: e2, Frank, sang, kitchen and 0; event: e3, Dave, sang, kitchen and 8; event: e0, Erin, read, kitchen and 4.
+Where Dave?
+
+Answer with exactly one of: attic | cellar | porch | kitchen
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;dave&quot;,
+ &quot;kind&quot;: &quot;where&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">cooked</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Erin, cooked, study and 5; event: e0, Carol, sang, kitchen and 2; event: e2, Dave, cooked, cellar and 3; event: e3, Erin, sang, kitchen and 6.
+What Dave?
+
+Answer with exactly one of: read | painted | cooked | sang
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;dave&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">waited</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e2, Bob, waited, porch and 3; event: e3, Bob, waited, porch and 8; event: e0, Dave, read, garden and 1; event: e1, Dave, cooked, cellar and 0.
+What Bob?
+
+Answer with exactly one of: sang | cooked | read | waited
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;bob&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Frank, painted, attic and 2; event: e2, Alice, slept, attic and 4; event: e0, Alice, painted, attic and 5; event: e3, Alice, painted, cellar and 0.
+When Frank?
+
+Answer with exactly one of: 4 | 0 | 2 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;frank&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e3, Carol, read, garden and 5
+  - event: e4, Erin, painted, kitchen and 7
+  - event: e2, Carol, painted, study and 1
+  - event: e0, Dave, read, study and 6
+  - event: e1, Bob, read, kitchen and 0
+When Erin?
+
+Answer with exactly one of: 7 | 0 | 1 | 5 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;erin&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">kitchen</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e3, Frank, slept, garden and 2
+  - event: e2, Erin, sang, kitchen and 1
+  - event: e0, Bob, waited, kitchen and 7
+  - event: e4, Frank, slept, study and 0
+  - event: e1, Bob, sang, study and 5
+Where Erin?
+
+Answer with exactly one of: garden | cellar | study | kitchen
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;erin&quot;,
+ &quot;kind&quot;: &quot;where&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e0, Erin, waited, kitchen and 2; event: e1, Bob, cooked, garden and 1; event: e3, Erin, sang, kitchen and 3; event: e2, Dave, painted, garden and 0.
+How many kitchen?
+
+Answer with exactly one of: 4 | 3 | 0 | 2 | 1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;kitchen&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e1, Erin, slept, garden and 4
+  - event: e3, Carol, cooked, attic and 5
+  - event: e0, Dave, slept, study and 1
+  - event: e2, Dave, waited, study and 6
+  - event: e4, Erin, cooked, study and 7
+How many kitchen?
+
+Answer with exactly one of: 3 | 2 | 5 | 0 | 1 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;kitchen&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e0, Alice, read, study and 6
+  - event: e1, Alice, slept, study and 7
+  - event: e3, Erin, waited, study and 5
+  - event: e4, Carol, read, garden and 0
+  - event: e2, Alice, sang, garden and 1
+Who slept?
+
+Answer with exactly one of: Erin | Alice | Dave | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;slept&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">waited</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e0, Carol, waited, cellar and 8
+  - event: e3, Bob, painted, attic and 1
+  - event: e1, Frank, painted, cellar and 7
+  - event: e4, Dave, cooked, kitchen and 3
+  - event: e2, Frank, waited, garden and 2
+What Carol?
+
+Answer with exactly one of: waited | painted | cooked | read
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;carol&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e2, Dave, slept, attic and 5; event: e0, Dave, painted, cellar and 2; event: e1, Carol, cooked, cellar and 1; event: e3, Carol, waited, cellar and 8.
+Who slept?
+
+Answer with exactly one of: Dave | Erin | Carol | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;slept&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Alice, cooked, study and 2; event: e0, Dave, sang, cellar and 0; event: e2, Erin, painted, study and 7; event: e3, Alice, sang, cellar and 8.
+Who cooked?
+
+Answer with exactly one of: Erin | Dave | Alice | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;cooked&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e2, Erin, sang, study and 4
+  - event: e4, Carol, sang, cellar and 0
+  - event: e3, Frank, waited, porch and 8
+  - event: e0, Frank, waited, cellar and 5
+  - event: e1, Alice, painted, cellar and 2
+Who waited?
+
+Answer with exactly one of: Frank | Erin | Alice | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;waited&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Frank, waited, porch and 7; event: e2, Bob, read, porch and 1; event: e3, Bob, cooked, attic and 3; event: e0, Carol, cooked, cellar and 5.
+When Carol?
+
+Answer with exactly one of: 7 | 5 | 1 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;carol&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">porch</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Alice, waited, study and 8; event: e0, Carol, sang, garden and 6; event: e2, Carol, cooked, cellar and 1; event: e3, Erin, sang, porch and 3.
+Where Erin?
+
+Answer with exactly one of: garden | study | cellar | porch
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;erin&quot;,
+ &quot;kind&quot;: &quot;where&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e0, Alice, slept, porch and 3
+  - event: e3, Frank, waited, kitchen and 5
+  - event: e2, Alice, sang, cellar and 6
+  - event: e4, Bob, slept, garden and 4
+  - event: e1, Alice, waited, garden and 0
+Who sang?
+
+Answer with exactly one of: Frank | Erin | Bob | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;sang&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e3, Erin, sang, garden and 1; event: e0, Erin, waited, cellar and 5; event: e1, Erin, sang, study and 3; event: e2, Carol, painted, garden and 7.
+When Carol?
+
+Answer with exactly one of: 1 | 3 | 7 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;carol&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">painted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e3, Alice, cooked, attic and 0
+  - event: e0, Dave, painted, kitchen and 8
+  - event: e4, Alice, painted, porch and 5
+  - event: e2, Carol, painted, attic and 7
+  - event: e1, Carol, cooked, cellar and 3
+What Dave?
+
+Answer with exactly one of: painted | sang | cooked | read
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;dave&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">sang</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e0, Carol, sang, porch and 2; event: e3, Frank, waited, attic and 4; event: e2, Erin, cooked, cellar and 8; event: e1, Alice, waited, porch and 5.
+What Carol?
+
+Answer with exactly one of: cooked | slept | waited | sang
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;carol&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e3, Dave, painted, cellar and 2
+  - event: e2, Alice, cooked, cellar and 6
+  - event: e1, Frank, cooked, study and 1
+  - event: e4, Frank, cooked, cellar and 8
+  - event: e0, Alice, read, porch and 5
+When Dave?
+
+Answer with exactly one of: 5 | 8 | 6 | 1 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;dave&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e1, Erin, painted, attic and 5
+  - event: e2, Bob, painted, cellar and 6
+  - event: e3, Dave, painted, attic and 2
+  - event: e0, Bob, slept, cellar and 1
+  - event: e4, Dave, read, cellar and 8
+Who slept?
+
+Answer with exactly one of: Dave | Bob | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;slept&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e1, Alice, cooked, study and 0
+  - event: e2, Erin, slept, porch and 6
+  - event: e3, Erin, painted, garden and 2
+  - event: e0, Alice, cooked, garden and 8
+  - event: e4, Bob, cooked, porch and 7
+Who painted?
+
+Answer with exactly one of: Bob | Alice | Carol | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;painted&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">garden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e0, Carol, sang, porch and 8; event: e3, Alice, slept, attic and 1; event: e2, Carol, sang, study and 6; event: e1, Erin, cooked, garden and 0.
+Where Erin?
+
+Answer with exactly one of: attic | porch | study | garden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;erin&quot;,
+ &quot;kind&quot;: &quot;where&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e0, Alice, waited, cellar and 7; event: e2, Alice, sang, garden and 1; event: e3, Alice, sang, cellar and 3; event: e1, Alice, sang, garden and 4.
+How many cellar?
+
+Answer with exactly one of: 0 | 3 | 4 | 1 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;cellar&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e0, Dave, painted, study and 0
+  - event: e3, Erin, read, attic and 7
+  - event: e1, Erin, painted, porch and 6
+  - event: e2, Frank, read, porch and 1
+  - event: e4, Dave, read, kitchen and 4
+How many study?
+
+Answer with exactly one of: 3 | 2 | 1 | 0 | 5 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;study&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e2, Bob, sang, garden and 1
+  - event: e3, Erin, read, study and 2
+  - event: e4, Bob, painted, kitchen and 6
+  - event: e1, Erin, painted, porch and 5
+  - event: e0, Carol, sang, kitchen and 4
+Who read?
+
+Answer with exactly one of: Bob | Carol | Erin | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;read&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">porch</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e0, Dave, waited, kitchen and 4; event: e1, Alice, sang, porch and 2; event: e3, Carol, waited, attic and 3; event: e2, Erin, sang, study and 0.
+Where Alice?
+
+Answer with exactly one of: porch | study | attic | kitchen
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;alice&quot;,
+ &quot;kind&quot;: &quot;where&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">attic</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e4, Bob, painted, attic and 4
+  - event: e0, Alice, painted, cellar and 6
+  - event: e2, Dave, slept, attic and 7
+  - event: e3, Bob, painted, cellar and 8
+  - event: e1, Frank, waited, garden and 2
+Where Dave?
+
+Answer with exactly one of: kitchen | attic | garden | cellar
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;dave&quot;,
+ &quot;kind&quot;: &quot;where&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e1, Carol, waited, attic and 4
+  - event: e3, Frank, waited, attic and 3
+  - event: e2, Dave, waited, study and 7
+  - event: e4, Dave, cooked, study and 5
+  - event: e0, Frank, cooked, porch and 2
+How many cellar?
+
+Answer with exactly one of: 2 | 1 | 5 | 0 | 4 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;cellar&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e2, Bob, painted, cellar and 6; event: e3, Erin, waited, garden and 5; event: e1, Frank, sang, cellar and 3; event: e0, Bob, painted, porch and 8.
+When Frank?
+
+Answer with exactly one of: 6 | 8 | 3 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;frank&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">garden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e2, Erin, read, garden and 4; event: e0, Carol, cooked, attic and 7; event: e1, Carol, read, porch and 0; event: e3, Erin, cooked, garden and 1.
+Where Erin?
+
+Answer with exactly one of: garden | attic | porch | kitchen
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;erin&quot;,
+ &quot;kind&quot;: &quot;where&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">waited</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e3, Erin, waited, garden and 3; event: e1, Bob, cooked, study and 1; event: e0, Frank, painted, study and 6; event: e2, Frank, waited, garden and 8.
+What Erin?
+
+Answer with exactly one of: read | waited | painted | cooked
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;erin&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">waited</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e3, Bob, painted, attic and 8
+  - event: e2, Bob, sang, garden and 4
+  - event: e1, Carol, waited, attic and 2
+  - event: e0, Erin, waited, kitchen and 1
+  - event: e4, Erin, painted, attic and 3
+What Carol?
+
+Answer with exactly one of: waited | slept | painted | sang
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;carol&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">sang</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Erin, read, garden and 7; event: e2, Erin, painted, kitchen and 4; event: e3, Erin, painted, porch and 0; event: e0, Carol, sang, kitchen and 2.
+What Carol?
+
+Answer with exactly one of: read | sang | painted | slept
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;carol&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">painted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e3, Frank, painted, cellar and 0; event: e1, Dave, read, cellar and 4; event: e2, Alice, waited, cellar and 2; event: e0, Alice, painted, garden and 7.
+What Frank?
+
+Answer with exactly one of: waited | cooked | read | painted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;frank&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Dave, painted, study and 7; event: e3, Bob, painted, garden and 6; event: e0, Dave, read, cellar and 5; event: e2, Frank, sang, study and 1.
+Who read?
+
+Answer with exactly one of: Frank | Erin | Bob | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;read&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">read</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e2, Frank, waited, kitchen and 5
+  - event: e0, Frank, painted, study and 0
+  - event: e3, Dave, read, study and 6
+  - event: e4, Erin, read, porch and 1
+  - event: e1, Dave, painted, kitchen and 8
+What Erin?
+
+Answer with exactly one of: slept | painted | read | waited
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;erin&quot;,
+ &quot;kind&quot;: &quot;what&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e1, Carol, sang, cellar and 1
+  - event: e4, Erin, cooked, kitchen and 2
+  - event: e3, Alice, sang, cellar and 4
+  - event: e0, Dave, cooked, kitchen and 8
+  - event: e2, Carol, painted, study and 5
+How many garden?
+
+Answer with exactly one of: 0 | 2 | 5 | 1 | 3 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;garden&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e3, Erin, read, attic and 5; event: e1, Erin, read, attic and 6; event: e0, Bob, cooked, study and 0; event: e2, Bob, sang, porch and 8.
+Who sang?
+
+Answer with exactly one of: Alice | Carol | Erin | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;sang&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Alice, slept, cellar and 5; event: e3, Bob, slept, kitchen and 7; event: e0, Erin, cooked, porch and 1; event: e2, Bob, slept, cellar and 2.
+When Erin?
+
+Answer with exactly one of: 1 | 2 | 7 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;erin&quot;,
+ &quot;kind&quot;: &quot;when&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e4, Alice, slept, kitchen and 4
+  - event: e1, Alice, painted, cellar and 8
+  - event: e3, Dave, cooked, attic and 1
+  - event: e2, Bob, painted, attic and 2
+  - event: e0, Carol, read, garden and 5
+Who read?
+
+Answer with exactly one of: Dave | Carol | Alice | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;read&quot;,
+ &quot;kind&quot;: &quot;who&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains: event: e1, Alice, painted, porch and 7; event: e0, Dave, waited, cellar and 1; event: e3, Dave, painted, cellar and 5; event: e2, Erin, painted, cellar and 3.
+How many kitchen?
+
+Answer with exactly one of: 1 | 2 | 4 | 3 | 0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;kitchen&quot;,
+ &quot;kind&quot;: &quot;how_many&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">garden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e2, Bob, read, porch and 0
+  - event: e0, Erin, slept, garden and 3
+  - event: e3, Bob, read, porch and 5
+  - event: e1, Carol, cooked, study and 6
+  - event: e4, Carol, read, porch and 2
+Where Erin?
+
+Answer with exactly one of: garden | study | porch | kitchen
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;erin&quot;,
+ &quot;kind&quot;: &quot;where&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">kitchen</span></summary>
+<div class="body">
+<p>prompt</p><pre>The world contains:
+  - event: e4, Alice, sang, kitchen and 4
+  - event: e3, Dave, painted, kitchen and 5
+  - event: e1, Bob, waited, cellar and 3
+  - event: e0, Bob, slept, cellar and 7
+  - event: e2, Bob, slept, study and 8
+Where Dave?
+
+Answer with exactly one of: kitchen | attic | study | cellar
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;arg&quot;: &quot;dave&quot;,
+ &quot;kind&quot;: &quot;where&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

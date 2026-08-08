@@ -1,0 +1,3085 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>theory_comparison — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#vi">scientific induction and model discovery</a> &rsaquo;
+  theory_comparison</p>
+<h1>#71 <code>theory_comparison</code></h1>
+<p class="lede">rival theories, identical fit, one held-out datum</p>
+<div class="tags"><span class="tag ">level 71</span><span class="tag ">section vi</span><span class="tag ">scientific_induction</span><span class="tag ">abstraction</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.28</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Four theories fit the observations *exactly*; a new datum kills three.</p><p>    The rivals are built as ``p·x + q + k·(x-s)(x-t)(x-u)`` over the three
+    training points, so they are indistinguishable on the training set by
+    construction — no amount of re-fitting separates them — and the held-out
+    observation is the only evidence that does. Simplicity is a real but
+    insufficient cue: the ``k = 0`` theory is the simplest one and is right a
+    quarter of the time.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>ambiguity</td><td class='num'>2</td></tr><tr><td>compositional_depth</td><td class='num'>4</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The data are: 1 was observed to be 1, 5 was observed to be -3 and -5 was observed to be 7.
+The new observation is 2 was observed to be 21.
+The theories are:
+  - t1: y equals -1 times x plus 2 plus 1 times x minus 1 times x minus 5 times x minus -5
+  - t2: y equals -1 times x plus 2
+  - t3: y equals -1 times x plus 2 plus -1 times x minus 1 times x minus 5 times x minus -5
+  - t4: y equals -1 times x plus 2 plus 2 times x minus 1 times x minus 5 times x minus -5
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t4 | t1 | t3
+Reply with the answer only.</pre><h3>spanish</h3><pre>Los datos son: se observó que 1 es 1, se observó que 5 es -3 y se observó que -5 es 7.
+La nueva observación es se observó que 2 es 21.
+Las teorías son:
+  - t1: y es igual a -1 por x más 2 más 1 por x menos 1 por x menos 5 por x menos -5
+  - t2: y es igual a -1 por x más 2
+  - t3: y es igual a -1 por x más 2 más -1 por x menos 1 por x menos 5 por x menos -5
+  - t4: y es igual a -1 por x más 2 más 2 por x menos 1 por x menos 5 por x menos -5
+¿Qué teoría sobrevive?
+
+Responde exactamente con una de estas opciones: t2 | t4 | t1 | t3
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>数据如下：观察到1是1；观察到5是-3；观察到-5是7。
+新的观察是观察到2是21。
+理论如下：t1：y等于-1乘以x加上2加上1乘以x减去1乘以x减去5乘以x减去-5；t2：y等于-1乘以x加上2；t3：y等于-1乘以x加上2加上-1乘以x减去1乘以x减去5乘以x减去-5；t4：y等于-1乘以x加上2加上2乘以x减去1乘以x减去5乘以x减去-5。
+留存下来的理论是哪一个？
+
+请从以下选项中选出恰好一个作答：t2 | t4 | t1 | t3
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The data are: 1 was observed to be 1, 5 was observed to be -3 and -5 was observed to be 7.
+The new observation is 2 was observed to be 21.
+The theories are:
+  - t1: y equals -1 times x plus 2 plus 1 times x minus 1 times x minus 5 times x minus -5
+  - t2: y equals -1 times x plus 2
+  - t3: y equals -1 times x plus 2 plus -1 times x minus 1 times x minus 5 times x minus -5
+  - t4: y equals -1 times x plus 2 plus 2 times x minus 1 times x minus 5 times x minus -5
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t4 | t1 | t3
+Reply with the answer only.</pre><h3>symbols</h3><pre>{data: [(observed 1 1) (observed 5 -3) (observed -5 7)], new_observation: (observed 2 21), query: surviving_theory, theories: [(theory t1 (eq y (add (add (mul -1 x) 2) (mul 1 (mul (sub x 1) (mul (sub x 5) (sub x -5))))))) (theory t2 (eq y (add (mul -1 x) 2))) (theory t3 (eq y (add (add (mul -1 x) 2) (mul -1 (mul (sub x 1) (mul (sub x 5) (sub x -5))))))) (theory t4 (eq y (add (add (mul -1 x) 2) (mul 2 (mul (sub x 1) (mul (sub x 5) (sub x -5)))))))]}
+
+Answer with exactly one of: t2 | t4 | t1 | t3
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/theory_comparison.jsonl</code> &middot; <code>data/samples/spanish/theory_comparison.jsonl</code> &middot; <code>data/samples/chinese/theory_comparison.jsonl</code> &middot; <code>data/samples/english_synonym/theory_comparison.jsonl</code> &middot; <code>data/samples/symbols/theory_comparison.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 1 was observed to be 1, 5 was observed to be -3 and -5 was observed to be 7.
+The new observation is 2 was observed to be 21.
+The theories are:
+  - t1: y equals -1 times x plus 2 plus 1 times x minus 1 times x minus 5 times x minus -5
+  - t2: y equals -1 times x plus 2
+  - t3: y equals -1 times x plus 2 plus -1 times x minus 1 times x minus 5 times x minus -5
+  - t4: y equals -1 times x plus 2 plus 2 times x minus 1 times x minus 5 times x minus -5
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t4 | t1 | t3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  2
+ ],
+ &quot;k_true&quot;: -1,
+ &quot;roots&quot;: [
+  1,
+  5,
+  -5
+ ],
+ &quot;x_new&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -3 was observed to be -2, 4 was observed to be -9 and -4 was observed to be -1.
+The new observation is 6 was observed to be 169.
+The theories are:
+  - t1: y equals -1 times x plus -5 plus -1 times x minus -3 times x minus 4 times x minus -4
+  - t2: y equals -1 times x plus -5 plus 1 times x minus -3 times x minus 4 times x minus -4
+  - t3: y equals -1 times x plus -5
+  - t4: y equals -1 times x plus -5 plus 2 times x minus -3 times x minus 4 times x minus -4
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t3 | t2 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  -5
+ ],
+ &quot;k_true&quot;: 1,
+ &quot;roots&quot;: [
+  -3,
+  4,
+  -4
+ ],
+ &quot;x_new&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -5 was observed to be 1, -4 was observed to be 0 and 4 was observed to be -8.
+The new observation is 5 was observed to be -9.
+The theories are:
+  - t1: y equals -1 times x plus -4
+  - t2: y equals -1 times x plus -4 plus -1 times x minus -5 times x minus -4 times x minus 4
+  - t3: y equals -1 times x plus -4 plus -2 times x minus -5 times x minus -4 times x minus 4
+  - t4: y equals -1 times x plus -4 plus 1 times x minus -5 times x minus -4 times x minus 4
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t2 | t4 | t3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  -4
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  -5,
+  -4,
+  4
+ ],
+ &quot;x_new&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -2 was observed to be 3, 4 was observed to be -9 and 3 was observed to be -7.
+The new observation is 5 was observed to be -11.
+The theories are:
+  - t1: y equals -2 times x plus -1 plus 1 times x minus -2 times x minus 4 times x minus 3
+  - t2: y equals -2 times x plus -1
+  - t3: y equals -2 times x plus -1 plus 2 times x minus -2 times x minus 4 times x minus 3
+  - t4: y equals -2 times x plus -1 plus -2 times x minus -2 times x minus 4 times x minus 3
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t4 | t3 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  -1
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  -2,
+  4,
+  3
+ ],
+ &quot;x_new&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -2 was observed to be -6, -1 was observed to be -3 and -4 was observed to be -12.
+The new observation is -6 was observed to be -18.
+The theories are:
+  - t1: y equals 3 times x plus 0
+  - t2: y equals 3 times x plus 0 plus 2 times x minus -2 times x minus -1 times x minus -4
+  - t3: y equals 3 times x plus 0 plus -2 times x minus -2 times x minus -1 times x minus -4
+  - t4: y equals 3 times x plus 0 plus 1 times x minus -2 times x minus -1 times x minus -4
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t2 | t4 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  0
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  -2,
+  -1,
+  -4
+ ],
+ &quot;x_new&quot;: -6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 4 was observed to be 17, -1 was observed to be 2 and 0 was observed to be 5.
+The new observation is 6 was observed to be 23.
+The theories are:
+  - t1: y equals 3 times x plus 5 plus -1 times x minus 4 times x minus -1 times x minus 0
+  - t2: y equals 3 times x plus 5 plus 2 times x minus 4 times x minus -1 times x minus 0
+  - t3: y equals 3 times x plus 5
+  - t4: y equals 3 times x plus 5 plus -2 times x minus 4 times x minus -1 times x minus 0
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t2 | t1 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  5
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  4,
+  -1,
+  0
+ ],
+ &quot;x_new&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 4 was observed to be -10, -4 was observed to be -2 and 2 was observed to be -8.
+The new observation is 7 was observed to be 317.
+The theories are:
+  - t1: y equals -1 times x plus -6 plus -1 times x minus 4 times x minus -4 times x minus 2
+  - t2: y equals -1 times x plus -6 plus -2 times x minus 4 times x minus -4 times x minus 2
+  - t3: y equals -1 times x plus -6
+  - t4: y equals -1 times x plus -6 plus 2 times x minus 4 times x minus -4 times x minus 2
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t2 | t1 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  -6
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  4,
+  -4,
+  2
+ ],
+ &quot;x_new&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 0 was observed to be -6, -3 was observed to be -15 and 1 was observed to be -3.
+The new observation is -1 was observed to be -9.
+The theories are:
+  - t1: y equals 3 times x plus -6 plus 2 times x minus 0 times x minus -3 times x minus 1
+  - t2: y equals 3 times x plus -6 plus 1 times x minus 0 times x minus -3 times x minus 1
+  - t3: y equals 3 times x plus -6
+  - t4: y equals 3 times x plus -6 plus -2 times x minus 0 times x minus -3 times x minus 1
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t1 | t2 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  -6
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  0,
+  -3,
+  1
+ ],
+ &quot;x_new&quot;: -1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -2 was observed to be 1, 0 was observed to be -3 and 1 was observed to be -5.
+The new observation is -4 was observed to be 85.
+The theories are:
+  - t1: y equals -2 times x plus -3 plus -2 times x minus -2 times x minus 0 times x minus 1
+  - t2: y equals -2 times x plus -3
+  - t3: y equals -2 times x plus -3 plus 2 times x minus -2 times x minus 0 times x minus 1
+  - t4: y equals -2 times x plus -3 plus 1 times x minus -2 times x minus 0 times x minus 1
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t3 | t2 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  -3
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  -2,
+  0,
+  1
+ ],
+ &quot;x_new&quot;: -4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 2 was observed to be -6, 4 was observed to be -8 and 0 was observed to be -4.
+The new observation is -2 was observed to be 94.
+The theories are:
+  - t1: y equals -1 times x plus -4 plus 1 times x minus 2 times x minus 4 times x minus 0
+  - t2: y equals -1 times x plus -4 plus -2 times x minus 2 times x minus 4 times x minus 0
+  - t3: y equals -1 times x plus -4 plus -1 times x minus 2 times x minus 4 times x minus 0
+  - t4: y equals -1 times x plus -4
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t2 | t1 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  -4
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  2,
+  4,
+  0
+ ],
+ &quot;x_new&quot;: -2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 4 was observed to be 7, -5 was observed to be -2 and 1 was observed to be 4.
+The new observation is 2 was observed to be -23.
+The theories are:
+  - t1: y equals 1 times x plus 3 plus 2 times x minus 4 times x minus -5 times x minus 1
+  - t2: y equals 1 times x plus 3 plus -1 times x minus 4 times x minus -5 times x minus 1
+  - t3: y equals 1 times x plus 3
+  - t4: y equals 1 times x plus 3 plus -2 times x minus 4 times x minus -5 times x minus 1
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t4 | t1 | t3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  3
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  4,
+  -5,
+  1
+ ],
+ &quot;x_new&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 2 was observed to be 4, 3 was observed to be 5 and 5 was observed to be 7.
+The new observation is 6 was observed to be -4.
+The theories are:
+  - t1: y equals 1 times x plus 2 plus 2 times x minus 2 times x minus 3 times x minus 5
+  - t2: y equals 1 times x plus 2 plus -2 times x minus 2 times x minus 3 times x minus 5
+  - t3: y equals 1 times x plus 2 plus -1 times x minus 2 times x minus 3 times x minus 5
+  - t4: y equals 1 times x plus 2
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t3 | t1 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  2
+ ],
+ &quot;k_true&quot;: -1,
+ &quot;roots&quot;: [
+  2,
+  3,
+  5
+ ],
+ &quot;x_new&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 2 was observed to be 5, -1 was observed to be -4 and 3 was observed to be 8.
+The new observation is -2 was observed to be 33.
+The theories are:
+  - t1: y equals 3 times x plus -1
+  - t2: y equals 3 times x plus -1 plus -1 times x minus 2 times x minus -1 times x minus 3
+  - t3: y equals 3 times x plus -1 plus -2 times x minus 2 times x minus -1 times x minus 3
+  - t4: y equals 3 times x plus -1 plus 2 times x minus 2 times x minus -1 times x minus 3
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t1 | t3 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  -1
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  2,
+  -1,
+  3
+ ],
+ &quot;x_new&quot;: -2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -1 was observed to be -6, 5 was observed to be 12 and -3 was observed to be -12.
+The new observation is -5 was observed to be -18.
+The theories are:
+  - t1: y equals 3 times x plus -3
+  - t2: y equals 3 times x plus -3 plus 1 times x minus -1 times x minus 5 times x minus -3
+  - t3: y equals 3 times x plus -3 plus -2 times x minus -1 times x minus 5 times x minus -3
+  - t4: y equals 3 times x plus -3 plus -1 times x minus -1 times x minus 5 times x minus -3
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t4 | t2 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  -3
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  -1,
+  5,
+  -3
+ ],
+ &quot;x_new&quot;: -5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -4 was observed to be 6, 4 was observed to be -10 and 3 was observed to be -8.
+The new observation is 6 was observed to be -134.
+The theories are:
+  - t1: y equals -2 times x plus -2
+  - t2: y equals -2 times x plus -2 plus -2 times x minus -4 times x minus 4 times x minus 3
+  - t3: y equals -2 times x plus -2 plus 1 times x minus -4 times x minus 4 times x minus 3
+  - t4: y equals -2 times x plus -2 plus -1 times x minus -4 times x minus 4 times x minus 3
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t2 | t1 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  -2
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  -4,
+  4,
+  3
+ ],
+ &quot;x_new&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -2 was observed to be -12, -5 was observed to be -21 and 3 was observed to be 3.
+The new observation is -7 was observed to be 73.
+The theories are:
+  - t1: y equals 3 times x plus -6 plus -1 times x minus -2 times x minus -5 times x minus 3
+  - t2: y equals 3 times x plus -6 plus 1 times x minus -2 times x minus -5 times x minus 3
+  - t3: y equals 3 times x plus -6
+  - t4: y equals 3 times x plus -6 plus -2 times x minus -2 times x minus -5 times x minus 3
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t4 | t2 | t3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  -6
+ ],
+ &quot;k_true&quot;: -1,
+ &quot;roots&quot;: [
+  -2,
+  -5,
+  3
+ ],
+ &quot;x_new&quot;: -7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 0 was observed to be 0, 2 was observed to be -2 and 4 was observed to be -4.
+The new observation is -1 was observed to be -29.
+The theories are:
+  - t1: y equals -1 times x plus 0 plus -2 times x minus 0 times x minus 2 times x minus 4
+  - t2: y equals -1 times x plus 0
+  - t3: y equals -1 times x plus 0 plus 2 times x minus 0 times x minus 2 times x minus 4
+  - t4: y equals -1 times x plus 0 plus -1 times x minus 0 times x minus 2 times x minus 4
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t3 | t2 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  0
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  0,
+  2,
+  4
+ ],
+ &quot;x_new&quot;: -1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 3 was observed to be -5, 1 was observed to be -3 and -1 was observed to be -1.
+The new observation is -6 was observed to be 4.
+The theories are:
+  - t1: y equals -1 times x plus -2
+  - t2: y equals -1 times x plus -2 plus 1 times x minus 3 times x minus 1 times x minus -1
+  - t3: y equals -1 times x plus -2 plus 2 times x minus 3 times x minus 1 times x minus -1
+  - t4: y equals -1 times x plus -2 plus -1 times x minus 3 times x minus 1 times x minus -1
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t2 | t4 | t3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  -2
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  3,
+  1,
+  -1
+ ],
+ &quot;x_new&quot;: -6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -3 was observed to be 0, -4 was observed to be 1 and 2 was observed to be -5.
+The new observation is -5 was observed to be -12.
+The theories are:
+  - t1: y equals -1 times x plus -3
+  - t2: y equals -1 times x plus -3 plus 1 times x minus -3 times x minus -4 times x minus 2
+  - t3: y equals -1 times x plus -3 plus -1 times x minus -3 times x minus -4 times x minus 2
+  - t4: y equals -1 times x plus -3 plus 2 times x minus -3 times x minus -4 times x minus 2
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t1 | t4 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  -3
+ ],
+ &quot;k_true&quot;: 1,
+ &quot;roots&quot;: [
+  -3,
+  -4,
+  2
+ ],
+ &quot;x_new&quot;: -5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 5 was observed to be -13, -5 was observed to be 17 and 3 was observed to be -7.
+The new observation is 2 was observed to be 38.
+The theories are:
+  - t1: y equals -3 times x plus 2
+  - t2: y equals -3 times x plus 2 plus 1 times x minus 5 times x minus -5 times x minus 3
+  - t3: y equals -3 times x plus 2 plus 2 times x minus 5 times x minus -5 times x minus 3
+  - t4: y equals -3 times x plus 2 plus -1 times x minus 5 times x minus -5 times x minus 3
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t3 | t2 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  -3,
+  2
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  5,
+  -5,
+  3
+ ],
+ &quot;x_new&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 5 was observed to be 19, -3 was observed to be -5 and -1 was observed to be 1.
+The new observation is -7 was observed to be -593.
+The theories are:
+  - t1: y equals 3 times x plus 4 plus -2 times x minus 5 times x minus -3 times x minus -1
+  - t2: y equals 3 times x plus 4 plus -1 times x minus 5 times x minus -3 times x minus -1
+  - t3: y equals 3 times x plus 4
+  - t4: y equals 3 times x plus 4 plus 2 times x minus 5 times x minus -3 times x minus -1
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t3 | t4 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  4
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  5,
+  -3,
+  -1
+ ],
+ &quot;x_new&quot;: -7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -3 was observed to be -11, 1 was observed to be 1 and 4 was observed to be 10.
+The new observation is 3 was observed to be -17.
+The theories are:
+  - t1: y equals 3 times x plus -2 plus -1 times x minus -3 times x minus 1 times x minus 4
+  - t2: y equals 3 times x plus -2 plus -2 times x minus -3 times x minus 1 times x minus 4
+  - t3: y equals 3 times x plus -2
+  - t4: y equals 3 times x plus -2 plus 2 times x minus -3 times x minus 1 times x minus 4
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t2 | t4 | t3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  -2
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  -3,
+  1,
+  4
+ ],
+ &quot;x_new&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -3 was observed to be -5, -2 was observed to be -3 and -5 was observed to be -9.
+The new observation is 7 was observed to be 1095.
+The theories are:
+  - t1: y equals 2 times x plus 1 plus 1 times x minus -3 times x minus -2 times x minus -5
+  - t2: y equals 2 times x plus 1 plus -1 times x minus -3 times x minus -2 times x minus -5
+  - t3: y equals 2 times x plus 1 plus -2 times x minus -3 times x minus -2 times x minus -5
+  - t4: y equals 2 times x plus 1
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t4 | t2 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  1
+ ],
+ &quot;k_true&quot;: 1,
+ &quot;roots&quot;: [
+  -3,
+  -2,
+  -5
+ ],
+ &quot;x_new&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -1 was observed to be -4, -4 was observed to be -10 and -5 was observed to be -12.
+The new observation is -3 was observed to be -16.
+The theories are:
+  - t1: y equals 2 times x plus -2 plus 1 times x minus -1 times x minus -4 times x minus -5
+  - t2: y equals 2 times x plus -2
+  - t3: y equals 2 times x plus -2 plus 2 times x minus -1 times x minus -4 times x minus -5
+  - t4: y equals 2 times x plus -2 plus -1 times x minus -1 times x minus -4 times x minus -5
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t4 | t3 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  -2
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  -1,
+  -4,
+  -5
+ ],
+ &quot;x_new&quot;: -3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 1 was observed to be -6, 4 was observed to be -12 and -3 was observed to be 2.
+The new observation is 7 was observed to be -198.
+The theories are:
+  - t1: y equals -2 times x plus -4 plus -1 times x minus 1 times x minus 4 times x minus -3
+  - t2: y equals -2 times x plus -4
+  - t3: y equals -2 times x plus -4 plus 1 times x minus 1 times x minus 4 times x minus -3
+  - t4: y equals -2 times x plus -4 plus -2 times x minus 1 times x minus 4 times x minus -3
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t1 | t2 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  -4
+ ],
+ &quot;k_true&quot;: -1,
+ &quot;roots&quot;: [
+  1,
+  4,
+  -3
+ ],
+ &quot;x_new&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 1 was observed to be 3, -5 was observed to be 9 and -2 was observed to be 6.
+The new observation is -7 was observed to be 171.
+The theories are:
+  - t1: y equals -1 times x plus 4 plus 2 times x minus 1 times x minus -5 times x minus -2
+  - t2: y equals -1 times x plus 4 plus -2 times x minus 1 times x minus -5 times x minus -2
+  - t3: y equals -1 times x plus 4
+  - t4: y equals -1 times x plus 4 plus -1 times x minus 1 times x minus -5 times x minus -2
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t4 | t3 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  4
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  1,
+  -5,
+  -2
+ ],
+ &quot;x_new&quot;: -7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -2 was observed to be -2, 5 was observed to be 12 and 1 was observed to be 4.
+The new observation is -7 was observed to be 948.
+The theories are:
+  - t1: y equals 2 times x plus 2 plus 2 times x minus -2 times x minus 5 times x minus 1
+  - t2: y equals 2 times x plus 2 plus -2 times x minus -2 times x minus 5 times x minus 1
+  - t3: y equals 2 times x plus 2
+  - t4: y equals 2 times x plus 2 plus -1 times x minus -2 times x minus 5 times x minus 1
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t1 | t3 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  -2,
+  5,
+  1
+ ],
+ &quot;x_new&quot;: -7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 5 was observed to be -8, 2 was observed to be -5 and -1 was observed to be -2.
+The new observation is 3 was observed to be -22.
+The theories are:
+  - t1: y equals -1 times x plus -3
+  - t2: y equals -1 times x plus -3 plus -1 times x minus 5 times x minus 2 times x minus -1
+  - t3: y equals -1 times x plus -3 plus -2 times x minus 5 times x minus 2 times x minus -1
+  - t4: y equals -1 times x plus -3 plus 2 times x minus 5 times x minus 2 times x minus -1
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t3 | t1 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  -3
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  5,
+  2,
+  -1
+ ],
+ &quot;x_new&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -4 was observed to be -3, -3 was observed to be -1 and 3 was observed to be 11.
+The new observation is 6 was observed to be 287.
+The theories are:
+  - t1: y equals 2 times x plus 5 plus -1 times x minus -4 times x minus -3 times x minus 3
+  - t2: y equals 2 times x plus 5 plus -2 times x minus -4 times x minus -3 times x minus 3
+  - t3: y equals 2 times x plus 5
+  - t4: y equals 2 times x plus 5 plus 1 times x minus -4 times x minus -3 times x minus 3
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t1 | t4 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  5
+ ],
+ &quot;k_true&quot;: 1,
+ &quot;roots&quot;: [
+  -4,
+  -3,
+  3
+ ],
+ &quot;x_new&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 3 was observed to be 9, -4 was observed to be -5 and 0 was observed to be 3.
+The new observation is 1 was observed to be 15.
+The theories are:
+  - t1: y equals 2 times x plus 3 plus 1 times x minus 3 times x minus -4 times x minus 0
+  - t2: y equals 2 times x plus 3 plus -2 times x minus 3 times x minus -4 times x minus 0
+  - t3: y equals 2 times x plus 3 plus -1 times x minus 3 times x minus -4 times x minus 0
+  - t4: y equals 2 times x plus 3
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t1 | t3 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3
+ ],
+ &quot;k_true&quot;: -1,
+ &quot;roots&quot;: [
+  3,
+  -4,
+  0
+ ],
+ &quot;x_new&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 3 was observed to be 10, -1 was observed to be 2 and -5 was observed to be -6.
+The new observation is 1 was observed to be 54.
+The theories are:
+  - t1: y equals 2 times x plus 4 plus 2 times x minus 3 times x minus -1 times x minus -5
+  - t2: y equals 2 times x plus 4 plus -2 times x minus 3 times x minus -1 times x minus -5
+  - t3: y equals 2 times x plus 4
+  - t4: y equals 2 times x plus 4 plus -1 times x minus 3 times x minus -1 times x minus -5
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t4 | t3 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  4
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  3,
+  -1,
+  -5
+ ],
+ &quot;x_new&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -5 was observed to be -9, 2 was observed to be -2 and -4 was observed to be -8.
+The new observation is 4 was observed to be -288.
+The theories are:
+  - t1: y equals 1 times x plus -4 plus 1 times x minus -5 times x minus 2 times x minus -4
+  - t2: y equals 1 times x plus -4 plus 2 times x minus -5 times x minus 2 times x minus -4
+  - t3: y equals 1 times x plus -4
+  - t4: y equals 1 times x plus -4 plus -2 times x minus -5 times x minus 2 times x minus -4
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t3 | t4 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  -4
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  -5,
+  2,
+  -4
+ ],
+ &quot;x_new&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -4 was observed to be 9, -2 was observed to be 7 and -3 was observed to be 8.
+The new observation is 7 was observed to be -2.
+The theories are:
+  - t1: y equals -1 times x plus 5 plus -2 times x minus -4 times x minus -2 times x minus -3
+  - t2: y equals -1 times x plus 5 plus 2 times x minus -4 times x minus -2 times x minus -3
+  - t3: y equals -1 times x plus 5 plus -1 times x minus -4 times x minus -2 times x minus -3
+  - t4: y equals -1 times x plus 5
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t2 | t3 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  5
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  -4,
+  -2,
+  -3
+ ],
+ &quot;x_new&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 4 was observed to be -3, -3 was observed to be 4 and -2 was observed to be 3.
+The new observation is 6 was observed to be 283.
+The theories are:
+  - t1: y equals -1 times x plus 1 plus 1 times x minus 4 times x minus -3 times x minus -2
+  - t2: y equals -1 times x plus 1
+  - t3: y equals -1 times x plus 1 plus -1 times x minus 4 times x minus -3 times x minus -2
+  - t4: y equals -1 times x plus 1 plus 2 times x minus 4 times x minus -3 times x minus -2
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t4 | t2 | t3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  1
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  4,
+  -3,
+  -2
+ ],
+ &quot;x_new&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 3 was observed to be -12, 0 was observed to be -6 and -5 was observed to be 4.
+The new observation is 1 was observed to be 4.
+The theories are:
+  - t1: y equals -2 times x plus -6 plus 2 times x minus 3 times x minus 0 times x minus -5
+  - t2: y equals -2 times x plus -6 plus -2 times x minus 3 times x minus 0 times x minus -5
+  - t3: y equals -2 times x plus -6
+  - t4: y equals -2 times x plus -6 plus -1 times x minus 3 times x minus 0 times x minus -5
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t3 | t2 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  -6
+ ],
+ &quot;k_true&quot;: -1,
+ &quot;roots&quot;: [
+  3,
+  0,
+  -5
+ ],
+ &quot;x_new&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 3 was observed to be 8, 0 was observed to be -1 and -3 was observed to be -10.
+The new observation is -2 was observed to be -7.
+The theories are:
+  - t1: y equals 3 times x plus -1
+  - t2: y equals 3 times x plus -1 plus -1 times x minus 3 times x minus 0 times x minus -3
+  - t3: y equals 3 times x plus -1 plus 1 times x minus 3 times x minus 0 times x minus -3
+  - t4: y equals 3 times x plus -1 plus 2 times x minus 3 times x minus 0 times x minus -3
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t4 | t2 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  -1
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  3,
+  0,
+  -3
+ ],
+ &quot;x_new&quot;: -2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 0 was observed to be -5, -5 was observed to be 0 and 4 was observed to be -9.
+The new observation is -3 was observed to be 40.
+The theories are:
+  - t1: y equals -1 times x plus -5
+  - t2: y equals -1 times x plus -5 plus 1 times x minus 0 times x minus -5 times x minus 4
+  - t3: y equals -1 times x plus -5 plus -2 times x minus 0 times x minus -5 times x minus 4
+  - t4: y equals -1 times x plus -5 plus 2 times x minus 0 times x minus -5 times x minus 4
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t2 | t3 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  -5
+ ],
+ &quot;k_true&quot;: 1,
+ &quot;roots&quot;: [
+  0,
+  -5,
+  4
+ ],
+ &quot;x_new&quot;: -3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 5 was observed to be 14, 4 was observed to be 12 and -4 was observed to be -4.
+The new observation is 1 was observed to be 6.
+The theories are:
+  - t1: y equals 2 times x plus 4
+  - t2: y equals 2 times x plus 4 plus -2 times x minus 5 times x minus 4 times x minus -4
+  - t3: y equals 2 times x plus 4 plus 1 times x minus 5 times x minus 4 times x minus -4
+  - t4: y equals 2 times x plus 4 plus -1 times x minus 5 times x minus 4 times x minus -4
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t2 | t3 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  4
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  5,
+  4,
+  -4
+ ],
+ &quot;x_new&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 5 was observed to be 10, 1 was observed to be -2 and 4 was observed to be 7.
+The new observation is -2 was observed to be -11.
+The theories are:
+  - t1: y equals 3 times x plus -5
+  - t2: y equals 3 times x plus -5 plus 1 times x minus 5 times x minus 1 times x minus 4
+  - t3: y equals 3 times x plus -5 plus -1 times x minus 5 times x minus 1 times x minus 4
+  - t4: y equals 3 times x plus -5 plus -2 times x minus 5 times x minus 1 times x minus 4
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t4 | t2 | t3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  -5
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  5,
+  1,
+  4
+ ],
+ &quot;x_new&quot;: -2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -2 was observed to be 3, -1 was observed to be 0 and 1 was observed to be -6.
+The new observation is 6 was observed to be 539.
+The theories are:
+  - t1: y equals -3 times x plus -3 plus -1 times x minus -2 times x minus -1 times x minus 1
+  - t2: y equals -3 times x plus -3
+  - t3: y equals -3 times x plus -3 plus -2 times x minus -2 times x minus -1 times x minus 1
+  - t4: y equals -3 times x plus -3 plus 2 times x minus -2 times x minus -1 times x minus 1
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t4 | t2 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  -3,
+  -3
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  -2,
+  -1,
+  1
+ ],
+ &quot;x_new&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 2 was observed to be -9, 4 was observed to be -15 and 3 was observed to be -12.
+The new observation is -5 was observed to be -996.
+The theories are:
+  - t1: y equals -3 times x plus -3
+  - t2: y equals -3 times x plus -3 plus 1 times x minus 2 times x minus 4 times x minus 3
+  - t3: y equals -3 times x plus -3 plus -2 times x minus 2 times x minus 4 times x minus 3
+  - t4: y equals -3 times x plus -3 plus 2 times x minus 2 times x minus 4 times x minus 3
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t4 | t3 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  -3,
+  -3
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  2,
+  4,
+  3
+ ],
+ &quot;x_new&quot;: -5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 1 was observed to be -2, 0 was observed to be 0 and -2 was observed to be 4.
+The new observation is 2 was observed to be -4.
+The theories are:
+  - t1: y equals -2 times x plus 0 plus -1 times x minus 1 times x minus 0 times x minus -2
+  - t2: y equals -2 times x plus 0
+  - t3: y equals -2 times x plus 0 plus 2 times x minus 1 times x minus 0 times x minus -2
+  - t4: y equals -2 times x plus 0 plus 1 times x minus 1 times x minus 0 times x minus -2
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t3 | t1 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  0
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  1,
+  0,
+  -2
+ ],
+ &quot;x_new&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 5 was observed to be 13, -4 was observed to be -14 and -5 was observed to be -17.
+The new observation is 7 was observed to be 19.
+The theories are:
+  - t1: y equals 3 times x plus -2 plus 1 times x minus 5 times x minus -4 times x minus -5
+  - t2: y equals 3 times x plus -2 plus -1 times x minus 5 times x minus -4 times x minus -5
+  - t3: y equals 3 times x plus -2 plus -2 times x minus 5 times x minus -4 times x minus -5
+  - t4: y equals 3 times x plus -2
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t3 | t4 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  -2
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  5,
+  -4,
+  -5
+ ],
+ &quot;x_new&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -5 was observed to be -6, -1 was observed to be -2 and -3 was observed to be -4.
+The new observation is 5 was observed to be 4.
+The theories are:
+  - t1: y equals 1 times x plus -1
+  - t2: y equals 1 times x plus -1 plus -2 times x minus -5 times x minus -1 times x minus -3
+  - t3: y equals 1 times x plus -1 plus -1 times x minus -5 times x minus -1 times x minus -3
+  - t4: y equals 1 times x plus -1 plus 1 times x minus -5 times x minus -1 times x minus -3
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t1 | t2 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  -1
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  -5,
+  -1,
+  -3
+ ],
+ &quot;x_new&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 1 was observed to be -2, 3 was observed to be 4 and 4 was observed to be 7.
+The new observation is -3 was observed to be -14.
+The theories are:
+  - t1: y equals 3 times x plus -5 plus -2 times x minus 1 times x minus 3 times x minus 4
+  - t2: y equals 3 times x plus -5 plus 2 times x minus 1 times x minus 3 times x minus 4
+  - t3: y equals 3 times x plus -5
+  - t4: y equals 3 times x plus -5 plus -1 times x minus 1 times x minus 3 times x minus 4
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t2 | t4 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  -5
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  1,
+  3,
+  4
+ ],
+ &quot;x_new&quot;: -3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -1 was observed to be -4, 1 was observed to be -6 and 2 was observed to be -7.
+The new observation is -6 was observed to be 561.
+The theories are:
+  - t1: y equals -1 times x plus -5 plus -1 times x minus -1 times x minus 1 times x minus 2
+  - t2: y equals -1 times x plus -5 plus 1 times x minus -1 times x minus 1 times x minus 2
+  - t3: y equals -1 times x plus -5 plus -2 times x minus -1 times x minus 1 times x minus 2
+  - t4: y equals -1 times x plus -5
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t4 | t2 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  -5
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  -1,
+  1,
+  2
+ ],
+ &quot;x_new&quot;: -6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -4 was observed to be -5, 1 was observed to be 5 and -5 was observed to be -7.
+The new observation is 5 was observed to be 13.
+The theories are:
+  - t1: y equals 2 times x plus 3 plus 1 times x minus -4 times x minus 1 times x minus -5
+  - t2: y equals 2 times x plus 3 plus -1 times x minus -4 times x minus 1 times x minus -5
+  - t3: y equals 2 times x plus 3 plus -2 times x minus -4 times x minus 1 times x minus -5
+  - t4: y equals 2 times x plus 3
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t3 | t4 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  -4,
+  1,
+  -5
+ ],
+ &quot;x_new&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 0 was observed to be 1, -4 was observed to be -7 and 1 was observed to be 3.
+The new observation is 2 was observed to be 5.
+The theories are:
+  - t1: y equals 2 times x plus 1 plus 1 times x minus 0 times x minus -4 times x minus 1
+  - t2: y equals 2 times x plus 1
+  - t3: y equals 2 times x plus 1 plus -1 times x minus 0 times x minus -4 times x minus 1
+  - t4: y equals 2 times x plus 1 plus 2 times x minus 0 times x minus -4 times x minus 1
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t2 | t4 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  1
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  0,
+  -4,
+  1
+ ],
+ &quot;x_new&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 3 was observed to be 11, 0 was observed to be 5 and -3 was observed to be -1.
+The new observation is 7 was observed to be -541.
+The theories are:
+  - t1: y equals 2 times x plus 5 plus -2 times x minus 3 times x minus 0 times x minus -3
+  - t2: y equals 2 times x plus 5 plus 2 times x minus 3 times x minus 0 times x minus -3
+  - t3: y equals 2 times x plus 5
+  - t4: y equals 2 times x plus 5 plus 1 times x minus 3 times x minus 0 times x minus -3
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t1 | t3 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  5
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  3,
+  0,
+  -3
+ ],
+ &quot;x_new&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -4 was observed to be 11, 0 was observed to be -1 and 1 was observed to be -4.
+The new observation is 7 was observed to be 440.
+The theories are:
+  - t1: y equals -3 times x plus -1 plus 1 times x minus -4 times x minus 0 times x minus 1
+  - t2: y equals -3 times x plus -1
+  - t3: y equals -3 times x plus -1 plus 2 times x minus -4 times x minus 0 times x minus 1
+  - t4: y equals -3 times x plus -1 plus -2 times x minus -4 times x minus 0 times x minus 1
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t4 | t3 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  -3,
+  -1
+ ],
+ &quot;k_true&quot;: 1,
+ &quot;roots&quot;: [
+  -4,
+  0,
+  1
+ ],
+ &quot;x_new&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 2 was observed to be 3, -1 was observed to be -6 and 0 was observed to be -3.
+The new observation is 4 was observed to be -31.
+The theories are:
+  - t1: y equals 3 times x plus -3 plus -2 times x minus 2 times x minus -1 times x minus 0
+  - t2: y equals 3 times x plus -3
+  - t3: y equals 3 times x plus -3 plus -1 times x minus 2 times x minus -1 times x minus 0
+  - t4: y equals 3 times x plus -3 plus 2 times x minus 2 times x minus -1 times x minus 0
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t1 | t4 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  -3
+ ],
+ &quot;k_true&quot;: -1,
+ &quot;roots&quot;: [
+  2,
+  -1,
+  0
+ ],
+ &quot;x_new&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -2 was observed to be 1, 3 was observed to be -9 and 4 was observed to be -11.
+The new observation is 0 was observed to be 45.
+The theories are:
+  - t1: y equals -2 times x plus -3
+  - t2: y equals -2 times x plus -3 plus -1 times x minus -2 times x minus 3 times x minus 4
+  - t3: y equals -2 times x plus -3 plus 2 times x minus -2 times x minus 3 times x minus 4
+  - t4: y equals -2 times x plus -3 plus 1 times x minus -2 times x minus 3 times x minus 4
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t3 | t2 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  -3
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  -2,
+  3,
+  4
+ ],
+ &quot;x_new&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -1 was observed to be -2, -5 was observed to be -6 and 3 was observed to be 2.
+The new observation is -4 was observed to be 16.
+The theories are:
+  - t1: y equals 1 times x plus -1
+  - t2: y equals 1 times x plus -1 plus -2 times x minus -1 times x minus -5 times x minus 3
+  - t3: y equals 1 times x plus -1 plus 1 times x minus -1 times x minus -5 times x minus 3
+  - t4: y equals 1 times x plus -1 plus 2 times x minus -1 times x minus -5 times x minus 3
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t2 | t4 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  -1
+ ],
+ &quot;k_true&quot;: 1,
+ &quot;roots&quot;: [
+  -1,
+  -5,
+  3
+ ],
+ &quot;x_new&quot;: -4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 4 was observed to be 13, -2 was observed to be 1 and 2 was observed to be 9.
+The new observation is 7 was observed to be -116.
+The theories are:
+  - t1: y equals 2 times x plus 5 plus 2 times x minus 4 times x minus -2 times x minus 2
+  - t2: y equals 2 times x plus 5 plus 1 times x minus 4 times x minus -2 times x minus 2
+  - t3: y equals 2 times x plus 5 plus -1 times x minus 4 times x minus -2 times x minus 2
+  - t4: y equals 2 times x plus 5
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t1 | t4 | t3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  5
+ ],
+ &quot;k_true&quot;: -1,
+ &quot;roots&quot;: [
+  4,
+  -2,
+  2
+ ],
+ &quot;x_new&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -3 was observed to be 4, 2 was observed to be -1 and 3 was observed to be -2.
+The new observation is 1 was observed to be -8.
+The theories are:
+  - t1: y equals -1 times x plus 1 plus 2 times x minus -3 times x minus 2 times x minus 3
+  - t2: y equals -1 times x plus 1 plus -1 times x minus -3 times x minus 2 times x minus 3
+  - t3: y equals -1 times x plus 1
+  - t4: y equals -1 times x plus 1 plus -2 times x minus -3 times x minus 2 times x minus 3
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t3 | t2 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  1
+ ],
+ &quot;k_true&quot;: -1,
+ &quot;roots&quot;: [
+  -3,
+  2,
+  3
+ ],
+ &quot;x_new&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -4 was observed to be -14, -2 was observed to be -8 and -3 was observed to be -11.
+The new observation is 0 was observed to be -2.
+The theories are:
+  - t1: y equals 3 times x plus -2
+  - t2: y equals 3 times x plus -2 plus -2 times x minus -4 times x minus -2 times x minus -3
+  - t3: y equals 3 times x plus -2 plus 2 times x minus -4 times x minus -2 times x minus -3
+  - t4: y equals 3 times x plus -2 plus 1 times x minus -4 times x minus -2 times x minus -3
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t3 | t2 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  -2
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  -4,
+  -2,
+  -3
+ ],
+ &quot;x_new&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 3 was observed to be 11, -5 was observed to be -13 and 2 was observed to be 8.
+The new observation is 7 was observed to be 263.
+The theories are:
+  - t1: y equals 3 times x plus 2 plus 2 times x minus 3 times x minus -5 times x minus 2
+  - t2: y equals 3 times x plus 2 plus -1 times x minus 3 times x minus -5 times x minus 2
+  - t3: y equals 3 times x plus 2 plus 1 times x minus 3 times x minus -5 times x minus 2
+  - t4: y equals 3 times x plus 2
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t2 | t4 | t3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  2
+ ],
+ &quot;k_true&quot;: 1,
+ &quot;roots&quot;: [
+  3,
+  -5,
+  2
+ ],
+ &quot;x_new&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -5 was observed to be 12, 0 was observed to be 2 and 5 was observed to be -8.
+The new observation is 1 was observed to be -48.
+The theories are:
+  - t1: y equals -2 times x plus 2 plus 1 times x minus -5 times x minus 0 times x minus 5
+  - t2: y equals -2 times x plus 2 plus 2 times x minus -5 times x minus 0 times x minus 5
+  - t3: y equals -2 times x plus 2 plus -1 times x minus -5 times x minus 0 times x minus 5
+  - t4: y equals -2 times x plus 2
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t4 | t2 | t3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  2
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  -5,
+  0,
+  5
+ ],
+ &quot;x_new&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 4 was observed to be 16, -2 was observed to be -2 and 5 was observed to be 19.
+The new observation is 1 was observed to be 43.
+The theories are:
+  - t1: y equals 3 times x plus 4
+  - t2: y equals 3 times x plus 4 plus 1 times x minus 4 times x minus -2 times x minus 5
+  - t3: y equals 3 times x plus 4 plus -1 times x minus 4 times x minus -2 times x minus 5
+  - t4: y equals 3 times x plus 4 plus -2 times x minus 4 times x minus -2 times x minus 5
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t2 | t3 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  4
+ ],
+ &quot;k_true&quot;: 1,
+ &quot;roots&quot;: [
+  4,
+  -2,
+  5
+ ],
+ &quot;x_new&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -2 was observed to be 2, -4 was observed to be 8 and 2 was observed to be -10.
+The new observation is 6 was observed to be -22.
+The theories are:
+  - t1: y equals -3 times x plus -4
+  - t2: y equals -3 times x plus -4 plus 2 times x minus -2 times x minus -4 times x minus 2
+  - t3: y equals -3 times x plus -4 plus 1 times x minus -2 times x minus -4 times x minus 2
+  - t4: y equals -3 times x plus -4 plus -2 times x minus -2 times x minus -4 times x minus 2
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t2 | t1 | t3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  -3,
+  -4
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  -2,
+  -4,
+  2
+ ],
+ &quot;x_new&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -1 was observed to be -2, 5 was observed to be -8 and -3 was observed to be 0.
+The new observation is -7 was observed to be 4.
+The theories are:
+  - t1: y equals -1 times x plus -3 plus -1 times x minus -1 times x minus 5 times x minus -3
+  - t2: y equals -1 times x plus -3 plus 1 times x minus -1 times x minus 5 times x minus -3
+  - t3: y equals -1 times x plus -3
+  - t4: y equals -1 times x plus -3 plus 2 times x minus -1 times x minus 5 times x minus -3
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t3 | t4 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  -3
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  -1,
+  5,
+  -3
+ ],
+ &quot;x_new&quot;: -7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 2 was observed to be 2, -3 was observed to be 12 and 3 was observed to be 0.
+The new observation is 7 was observed to be -8.
+The theories are:
+  - t1: y equals -2 times x plus 6
+  - t2: y equals -2 times x plus 6 plus -1 times x minus 2 times x minus -3 times x minus 3
+  - t3: y equals -2 times x plus 6 plus 1 times x minus 2 times x minus -3 times x minus 3
+  - t4: y equals -2 times x plus 6 plus 2 times x minus 2 times x minus -3 times x minus 3
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t3 | t2 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  6
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  2,
+  -3,
+  3
+ ],
+ &quot;x_new&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 4 was observed to be -7, -3 was observed to be 7 and -4 was observed to be 9.
+The new observation is -5 was observed to be -7.
+The theories are:
+  - t1: y equals -2 times x plus 1 plus 2 times x minus 4 times x minus -3 times x minus -4
+  - t2: y equals -2 times x plus 1 plus -1 times x minus 4 times x minus -3 times x minus -4
+  - t3: y equals -2 times x plus 1
+  - t4: y equals -2 times x plus 1 plus 1 times x minus 4 times x minus -3 times x minus -4
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t3 | t1 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  1
+ ],
+ &quot;k_true&quot;: 1,
+ &quot;roots&quot;: [
+  4,
+  -3,
+  -4
+ ],
+ &quot;x_new&quot;: -5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 2 was observed to be -1, 5 was observed to be -4 and -1 was observed to be 2.
+The new observation is -6 was observed to be 887.
+The theories are:
+  - t1: y equals -1 times x plus 1 plus 2 times x minus 2 times x minus 5 times x minus -1
+  - t2: y equals -1 times x plus 1 plus -2 times x minus 2 times x minus 5 times x minus -1
+  - t3: y equals -1 times x plus 1
+  - t4: y equals -1 times x plus 1 plus -1 times x minus 2 times x minus 5 times x minus -1
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t3 | t4 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  1
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  2,
+  5,
+  -1
+ ],
+ &quot;x_new&quot;: -6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 2 was observed to be 8, -4 was observed to be -4 and 1 was observed to be 6.
+The new observation is 7 was observed to be -642.
+The theories are:
+  - t1: y equals 2 times x plus 4 plus 2 times x minus 2 times x minus -4 times x minus 1
+  - t2: y equals 2 times x plus 4 plus -1 times x minus 2 times x minus -4 times x minus 1
+  - t3: y equals 2 times x plus 4
+  - t4: y equals 2 times x plus 4 plus -2 times x minus 2 times x minus -4 times x minus 1
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t3 | t1 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  4
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  2,
+  -4,
+  1
+ ],
+ &quot;x_new&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 1 was observed to be -1, -1 was observed to be -5 and 4 was observed to be 5.
+The new observation is 3 was observed to be 11.
+The theories are:
+  - t1: y equals 2 times x plus -3 plus 2 times x minus 1 times x minus -1 times x minus 4
+  - t2: y equals 2 times x plus -3 plus -1 times x minus 1 times x minus -1 times x minus 4
+  - t3: y equals 2 times x plus -3
+  - t4: y equals 2 times x plus -3 plus 1 times x minus 1 times x minus -1 times x minus 4
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t1 | t2 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  -3
+ ],
+ &quot;k_true&quot;: -1,
+ &quot;roots&quot;: [
+  1,
+  -1,
+  4
+ ],
+ &quot;x_new&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -4 was observed to be 14, -1 was observed to be 8 and 1 was observed to be 4.
+The new observation is 4 was observed to be -2.
+The theories are:
+  - t1: y equals -2 times x plus 6 plus -1 times x minus -4 times x minus -1 times x minus 1
+  - t2: y equals -2 times x plus 6 plus 2 times x minus -4 times x minus -1 times x minus 1
+  - t3: y equals -2 times x plus 6
+  - t4: y equals -2 times x plus 6 plus 1 times x minus -4 times x minus -1 times x minus 1
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t1 | t3 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  6
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  -4,
+  -1,
+  1
+ ],
+ &quot;x_new&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -4 was observed to be -4, 5 was observed to be 5 and 1 was observed to be 1.
+The new observation is 2 was observed to be -34.
+The theories are:
+  - t1: y equals 1 times x plus 0 plus -1 times x minus -4 times x minus 5 times x minus 1
+  - t2: y equals 1 times x plus 0
+  - t3: y equals 1 times x plus 0 plus 2 times x minus -4 times x minus 5 times x minus 1
+  - t4: y equals 1 times x plus 0 plus 1 times x minus -4 times x minus 5 times x minus 1
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t1 | t4 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  0
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  -4,
+  5,
+  1
+ ],
+ &quot;x_new&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 2 was observed to be 7, 3 was observed to be 9 and -4 was observed to be -5.
+The new observation is -2 was observed to be 79.
+The theories are:
+  - t1: y equals 2 times x plus 3
+  - t2: y equals 2 times x plus 3 plus -1 times x minus 2 times x minus 3 times x minus -4
+  - t3: y equals 2 times x plus 3 plus 2 times x minus 2 times x minus 3 times x minus -4
+  - t4: y equals 2 times x plus 3 plus 1 times x minus 2 times x minus 3 times x minus -4
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t1 | t3 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  2,
+  3,
+  -4
+ ],
+ &quot;x_new&quot;: -2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 5 was observed to be -15, -5 was observed to be 5 and -4 was observed to be 3.
+The new observation is 2 was observed to be -261.
+The theories are:
+  - t1: y equals -2 times x plus -5
+  - t2: y equals -2 times x plus -5 plus 1 times x minus 5 times x minus -5 times x minus -4
+  - t3: y equals -2 times x plus -5 plus -1 times x minus 5 times x minus -5 times x minus -4
+  - t4: y equals -2 times x plus -5 plus 2 times x minus 5 times x minus -5 times x minus -4
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t2 | t1 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  -5
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  5,
+  -5,
+  -4
+ ],
+ &quot;x_new&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -4 was observed to be -8, -1 was observed to be -5 and 2 was observed to be -2.
+The new observation is 6 was observed to be 282.
+The theories are:
+  - t1: y equals 1 times x plus -4 plus -2 times x minus -4 times x minus -1 times x minus 2
+  - t2: y equals 1 times x plus -4
+  - t3: y equals 1 times x plus -4 plus 1 times x minus -4 times x minus -1 times x minus 2
+  - t4: y equals 1 times x plus -4 plus 2 times x minus -4 times x minus -1 times x minus 2
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t1 | t3 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  -4
+ ],
+ &quot;k_true&quot;: 1,
+ &quot;roots&quot;: [
+  -4,
+  -1,
+  2
+ ],
+ &quot;x_new&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 0 was observed to be -4, 3 was observed to be -7 and -5 was observed to be 1.
+The new observation is -3 was observed to be -1.
+The theories are:
+  - t1: y equals -1 times x plus -4 plus -2 times x minus 0 times x minus 3 times x minus -5
+  - t2: y equals -1 times x plus -4
+  - t3: y equals -1 times x plus -4 plus 2 times x minus 0 times x minus 3 times x minus -5
+  - t4: y equals -1 times x plus -4 plus -1 times x minus 0 times x minus 3 times x minus -5
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t1 | t2 | t3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  -4
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  0,
+  3,
+  -5
+ ],
+ &quot;x_new&quot;: -3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -4 was observed to be 9, 4 was observed to be 1 and -3 was observed to be 8.
+The new observation is 7 was observed to be -332.
+The theories are:
+  - t1: y equals -1 times x plus 5 plus -1 times x minus -4 times x minus 4 times x minus -3
+  - t2: y equals -1 times x plus 5
+  - t3: y equals -1 times x plus 5 plus -2 times x minus -4 times x minus 4 times x minus -3
+  - t4: y equals -1 times x plus 5 plus 1 times x minus -4 times x minus 4 times x minus -3
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t4 | t3 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  5
+ ],
+ &quot;k_true&quot;: -1,
+ &quot;roots&quot;: [
+  -4,
+  4,
+  -3
+ ],
+ &quot;x_new&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -1 was observed to be 2, -4 was observed to be -1 and 3 was observed to be 6.
+The new observation is 5 was observed to be 8.
+The theories are:
+  - t1: y equals 1 times x plus 3 plus 2 times x minus -1 times x minus -4 times x minus 3
+  - t2: y equals 1 times x plus 3
+  - t3: y equals 1 times x plus 3 plus -1 times x minus -1 times x minus -4 times x minus 3
+  - t4: y equals 1 times x plus 3 plus 1 times x minus -1 times x minus -4 times x minus 3
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t3 | t1 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  3
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  -1,
+  -4,
+  3
+ ],
+ &quot;x_new&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 4 was observed to be -9, 3 was observed to be -8 and -4 was observed to be -1.
+The new observation is -1 was observed to be -4.
+The theories are:
+  - t1: y equals -1 times x plus -5
+  - t2: y equals -1 times x plus -5 plus -2 times x minus 4 times x minus 3 times x minus -4
+  - t3: y equals -1 times x plus -5 plus 1 times x minus 4 times x minus 3 times x minus -4
+  - t4: y equals -1 times x plus -5 plus 2 times x minus 4 times x minus 3 times x minus -4
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t2 | t1 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  -5
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  4,
+  3,
+  -4
+ ],
+ &quot;x_new&quot;: -1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 2 was observed to be -4, 4 was observed to be -2 and 1 was observed to be -5.
+The new observation is -6 was observed to be -572.
+The theories are:
+  - t1: y equals 1 times x plus -6 plus -1 times x minus 2 times x minus 4 times x minus 1
+  - t2: y equals 1 times x plus -6 plus 1 times x minus 2 times x minus 4 times x minus 1
+  - t3: y equals 1 times x plus -6 plus 2 times x minus 2 times x minus 4 times x minus 1
+  - t4: y equals 1 times x plus -6
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t2 | t3 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  -6
+ ],
+ &quot;k_true&quot;: 1,
+ &quot;roots&quot;: [
+  2,
+  4,
+  1
+ ],
+ &quot;x_new&quot;: -6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 0 was observed to be -2, 2 was observed to be -6 and 1 was observed to be -4.
+The new observation is -3 was observed to be 64.
+The theories are:
+  - t1: y equals -2 times x plus -2 plus -1 times x minus 0 times x minus 2 times x minus 1
+  - t2: y equals -2 times x plus -2
+  - t3: y equals -2 times x plus -2 plus -2 times x minus 0 times x minus 2 times x minus 1
+  - t4: y equals -2 times x plus -2 plus 2 times x minus 0 times x minus 2 times x minus 1
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t3 | t2 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  -2
+ ],
+ &quot;k_true&quot;: -1,
+ &quot;roots&quot;: [
+  0,
+  2,
+  1
+ ],
+ &quot;x_new&quot;: -3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -1 was observed to be -1, 0 was observed to be -3 and -2 was observed to be 1.
+The new observation is 4 was observed to be -251.
+The theories are:
+  - t1: y equals -2 times x plus -3 plus 1 times x minus -1 times x minus 0 times x minus -2
+  - t2: y equals -2 times x plus -3
+  - t3: y equals -2 times x plus -3 plus -1 times x minus -1 times x minus 0 times x minus -2
+  - t4: y equals -2 times x plus -3 plus -2 times x minus -1 times x minus 0 times x minus -2
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t2 | t1 | t3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  -3
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  -1,
+  0,
+  -2
+ ],
+ &quot;x_new&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -2 was observed to be -1, -4 was observed to be -7 and -1 was observed to be 2.
+The new observation is -7 was observed to be -106.
+The theories are:
+  - t1: y equals 3 times x plus 5 plus 1 times x minus -2 times x minus -4 times x minus -1
+  - t2: y equals 3 times x plus 5
+  - t3: y equals 3 times x plus 5 plus 2 times x minus -2 times x minus -4 times x minus -1
+  - t4: y equals 3 times x plus 5 plus -1 times x minus -2 times x minus -4 times x minus -1
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t1 | t2 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  5
+ ],
+ &quot;k_true&quot;: 1,
+ &quot;roots&quot;: [
+  -2,
+  -4,
+  -1
+ ],
+ &quot;x_new&quot;: -7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -3 was observed to be -10, 2 was observed to be 0 and 0 was observed to be -4.
+The new observation is -5 was observed to be -14.
+The theories are:
+  - t1: y equals 2 times x plus -4 plus -1 times x minus -3 times x minus 2 times x minus 0
+  - t2: y equals 2 times x plus -4 plus 2 times x minus -3 times x minus 2 times x minus 0
+  - t3: y equals 2 times x plus -4
+  - t4: y equals 2 times x plus -4 plus -2 times x minus -3 times x minus 2 times x minus 0
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t2 | t3 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  -4
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  -3,
+  2,
+  0
+ ],
+ &quot;x_new&quot;: -5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -1 was observed to be -3, 1 was observed to be 3 and 3 was observed to be 9.
+The new observation is -2 was observed to be -6.
+The theories are:
+  - t1: y equals 3 times x plus 0 plus 1 times x minus -1 times x minus 1 times x minus 3
+  - t2: y equals 3 times x plus 0 plus -1 times x minus -1 times x minus 1 times x minus 3
+  - t3: y equals 3 times x plus 0
+  - t4: y equals 3 times x plus 0 plus 2 times x minus -1 times x minus 1 times x minus 3
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t3 | t1 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  0
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  -1,
+  1,
+  3
+ ],
+ &quot;x_new&quot;: -2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 3 was observed to be 8, 2 was observed to be 6 and 0 was observed to be 2.
+The new observation is -5 was observed to be -568.
+The theories are:
+  - t1: y equals 2 times x plus 2 plus 2 times x minus 3 times x minus 2 times x minus 0
+  - t2: y equals 2 times x plus 2
+  - t3: y equals 2 times x plus 2 plus -1 times x minus 3 times x minus 2 times x minus 0
+  - t4: y equals 2 times x plus 2 plus -2 times x minus 3 times x minus 2 times x minus 0
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t4 | t2 | t3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  3,
+  2,
+  0
+ ],
+ &quot;x_new&quot;: -5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -3 was observed to be 9, 2 was observed to be 4 and 3 was observed to be 3.
+The new observation is -5 was observed to be 11.
+The theories are:
+  - t1: y equals -1 times x plus 6 plus -2 times x minus -3 times x minus 2 times x minus 3
+  - t2: y equals -1 times x plus 6
+  - t3: y equals -1 times x plus 6 plus -1 times x minus -3 times x minus 2 times x minus 3
+  - t4: y equals -1 times x plus 6 plus 2 times x minus -3 times x minus 2 times x minus 3
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t1 | t4 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  6
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  -3,
+  2,
+  3
+ ],
+ &quot;x_new&quot;: -5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 2 was observed to be -4, 5 was observed to be -10 and -4 was observed to be 8.
+The new observation is -3 was observed to be -74.
+The theories are:
+  - t1: y equals -2 times x plus 0 plus -2 times x minus 2 times x minus 5 times x minus -4
+  - t2: y equals -2 times x plus 0 plus 1 times x minus 2 times x minus 5 times x minus -4
+  - t3: y equals -2 times x plus 0
+  - t4: y equals -2 times x plus 0 plus 2 times x minus 2 times x minus 5 times x minus -4
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t2 | t1 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  0
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  2,
+  5,
+  -4
+ ],
+ &quot;x_new&quot;: -3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -1 was observed to be 5, -5 was observed to be 17 and 2 was observed to be -4.
+The new observation is 3 was observed to be -71.
+The theories are:
+  - t1: y equals -3 times x plus 2
+  - t2: y equals -3 times x plus 2 plus -1 times x minus -1 times x minus -5 times x minus 2
+  - t3: y equals -3 times x plus 2 plus -2 times x minus -1 times x minus -5 times x minus 2
+  - t4: y equals -3 times x plus 2 plus 1 times x minus -1 times x minus -5 times x minus 2
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t3 | t2 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  -3,
+  2
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  -1,
+  -5,
+  2
+ ],
+ &quot;x_new&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -2 was observed to be -1, 4 was observed to be -7 and -4 was observed to be 1.
+The new observation is 5 was observed to be -71.
+The theories are:
+  - t1: y equals -1 times x plus -3 plus -1 times x minus -2 times x minus 4 times x minus -4
+  - t2: y equals -1 times x plus -3
+  - t3: y equals -1 times x plus -3 plus 2 times x minus -2 times x minus 4 times x minus -4
+  - t4: y equals -1 times x plus -3 plus 1 times x minus -2 times x minus 4 times x minus -4
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t2 | t3 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  -3
+ ],
+ &quot;k_true&quot;: -1,
+ &quot;roots&quot;: [
+  -2,
+  4,
+  -4
+ ],
+ &quot;x_new&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -5 was observed to be -21, 3 was observed to be 3 and 0 was observed to be -6.
+The new observation is 7 was observed to be -321.
+The theories are:
+  - t1: y equals 3 times x plus -6 plus -2 times x minus -5 times x minus 3 times x minus 0
+  - t2: y equals 3 times x plus -6 plus -1 times x minus -5 times x minus 3 times x minus 0
+  - t3: y equals 3 times x plus -6 plus 1 times x minus -5 times x minus 3 times x minus 0
+  - t4: y equals 3 times x plus -6
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t1 | t2 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  -6
+ ],
+ &quot;k_true&quot;: -1,
+ &quot;roots&quot;: [
+  -5,
+  3,
+  0
+ ],
+ &quot;x_new&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -3 was observed to be 7, -2 was observed to be 4 and 3 was observed to be -11.
+The new observation is 7 was observed to be -23.
+The theories are:
+  - t1: y equals -3 times x plus -2 plus -1 times x minus -3 times x minus -2 times x minus 3
+  - t2: y equals -3 times x plus -2 plus 1 times x minus -3 times x minus -2 times x minus 3
+  - t3: y equals -3 times x plus -2
+  - t4: y equals -3 times x plus -2 plus 2 times x minus -3 times x minus -2 times x minus 3
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t2 | t1 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  -3,
+  -2
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  -3,
+  -2,
+  3
+ ],
+ &quot;x_new&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 1 was observed to be 2, -2 was observed to be 8 and 0 was observed to be 4.
+The new observation is -1 was observed to be 10.
+The theories are:
+  - t1: y equals -2 times x plus 4 plus 2 times x minus 1 times x minus -2 times x minus 0
+  - t2: y equals -2 times x plus 4 plus 1 times x minus 1 times x minus -2 times x minus 0
+  - t3: y equals -2 times x plus 4
+  - t4: y equals -2 times x plus 4 plus -2 times x minus 1 times x minus -2 times x minus 0
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t1 | t3 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  4
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  1,
+  -2,
+  0
+ ],
+ &quot;x_new&quot;: -1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -4 was observed to be 7, 4 was observed to be -9 and -1 was observed to be 1.
+The new observation is 0 was observed to be 31.
+The theories are:
+  - t1: y equals -2 times x plus -1
+  - t2: y equals -2 times x plus -1 plus -2 times x minus -4 times x minus 4 times x minus -1
+  - t3: y equals -2 times x plus -1 plus -1 times x minus -4 times x minus 4 times x minus -1
+  - t4: y equals -2 times x plus -1 plus 2 times x minus -4 times x minus 4 times x minus -1
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t4 | t3 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  -1
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  -4,
+  4,
+  -1
+ ],
+ &quot;x_new&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -2 was observed to be -3, -4 was observed to be -9 and 2 was observed to be 9.
+The new observation is 3 was observed to be 82.
+The theories are:
+  - t1: y equals 3 times x plus 3
+  - t2: y equals 3 times x plus 3 plus -1 times x minus -2 times x minus -4 times x minus 2
+  - t3: y equals 3 times x plus 3 plus 1 times x minus -2 times x minus -4 times x minus 2
+  - t4: y equals 3 times x plus 3 plus 2 times x minus -2 times x minus -4 times x minus 2
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t4 | t1 | t3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  3
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  -2,
+  -4,
+  2
+ ],
+ &quot;x_new&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -4 was observed to be -8, 4 was observed to be 16 and -3 was observed to be -5.
+The new observation is 7 was observed to be 355.
+The theories are:
+  - t1: y equals 3 times x plus 4
+  - t2: y equals 3 times x plus 4 plus 2 times x minus -4 times x minus 4 times x minus -3
+  - t3: y equals 3 times x plus 4 plus -1 times x minus -4 times x minus 4 times x minus -3
+  - t4: y equals 3 times x plus 4 plus 1 times x minus -4 times x minus 4 times x minus -3
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t4 | t1 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  3,
+  4
+ ],
+ &quot;k_true&quot;: 1,
+ &quot;roots&quot;: [
+  -4,
+  4,
+  -3
+ ],
+ &quot;x_new&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 1 was observed to be 8, 3 was observed to be 12 and 4 was observed to be 14.
+The new observation is 5 was observed to be 0.
+The theories are:
+  - t1: y equals 2 times x plus 6 plus 2 times x minus 1 times x minus 3 times x minus 4
+  - t2: y equals 2 times x plus 6 plus -2 times x minus 1 times x minus 3 times x minus 4
+  - t3: y equals 2 times x plus 6
+  - t4: y equals 2 times x plus 6 plus 1 times x minus 1 times x minus 3 times x minus 4
+What is the surviving theory?
+
+Answer with exactly one of: t2 | t3 | t4 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  6
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  1,
+  3,
+  4
+ ],
+ &quot;x_new&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">t2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 2 was observed to be -11, 4 was observed to be -17 and 0 was observed to be -5.
+The new observation is -1 was observed to be -2.
+The theories are:
+  - t1: y equals -3 times x plus -5 plus 2 times x minus 2 times x minus 4 times x minus 0
+  - t2: y equals -3 times x plus -5
+  - t3: y equals -3 times x plus -5 plus -2 times x minus 2 times x minus 4 times x minus 0
+  - t4: y equals -3 times x plus -5 plus 1 times x minus 2 times x minus 4 times x minus 0
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t2 | t3 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t2&quot;,
+ &quot;coefficients&quot;: [
+  -3,
+  -5
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  2,
+  4,
+  0
+ ],
+ &quot;x_new&quot;: -1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 3 was observed to be -5, -3 was observed to be 1 and -4 was observed to be 2.
+The new observation is 0 was observed to be 70.
+The theories are:
+  - t1: y equals -1 times x plus -2
+  - t2: y equals -1 times x plus -2 plus 2 times x minus 3 times x minus -3 times x minus -4
+  - t3: y equals -1 times x plus -2 plus -2 times x minus 3 times x minus -3 times x minus -4
+  - t4: y equals -1 times x plus -2 plus -1 times x minus 3 times x minus -3 times x minus -4
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t4 | t2 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  -2
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  3,
+  -3,
+  -4
+ ],
+ &quot;x_new&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 3 was observed to be -5, 5 was observed to be -9 and 4 was observed to be -7.
+The new observation is 2 was observed to be -3.
+The theories are:
+  - t1: y equals -2 times x plus 1 plus -2 times x minus 3 times x minus 5 times x minus 4
+  - t2: y equals -2 times x plus 1 plus 1 times x minus 3 times x minus 5 times x minus 4
+  - t3: y equals -2 times x plus 1
+  - t4: y equals -2 times x plus 1 plus 2 times x minus 3 times x minus 5 times x minus 4
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t1 | t3 | t2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  1
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  3,
+  5,
+  4
+ ],
+ &quot;x_new&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">t1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 0 was observed to be -5, 5 was observed to be -15 and 1 was observed to be -7.
+The new observation is -5 was observed to be -595.
+The theories are:
+  - t1: y equals -2 times x plus -5 plus 2 times x minus 0 times x minus 5 times x minus 1
+  - t2: y equals -2 times x plus -5 plus 1 times x minus 0 times x minus 5 times x minus 1
+  - t3: y equals -2 times x plus -5
+  - t4: y equals -2 times x plus -5 plus -2 times x minus 0 times x minus 5 times x minus 1
+What is the surviving theory?
+
+Answer with exactly one of: t1 | t4 | t2 | t3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t1&quot;,
+ &quot;coefficients&quot;: [
+  -2,
+  -5
+ ],
+ &quot;k_true&quot;: 2,
+ &quot;roots&quot;: [
+  0,
+  5,
+  1
+ ],
+ &quot;x_new&quot;: -5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">t4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: -2 was observed to be 9, 1 was observed to be 0 and 0 was observed to be 3.
+The new observation is -7 was observed to be -256.
+The theories are:
+  - t1: y equals -3 times x plus 3 plus -2 times x minus -2 times x minus 1 times x minus 0
+  - t2: y equals -3 times x plus 3 plus 2 times x minus -2 times x minus 1 times x minus 0
+  - t3: y equals -3 times x plus 3
+  - t4: y equals -3 times x plus 3 plus 1 times x minus -2 times x minus 1 times x minus 0
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t1 | t2 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t4&quot;,
+ &quot;coefficients&quot;: [
+  -3,
+  3
+ ],
+ &quot;k_true&quot;: 1,
+ &quot;roots&quot;: [
+  -2,
+  1,
+  0
+ ],
+ &quot;x_new&quot;: -7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 0 was observed to be 0, 4 was observed to be -4 and -5 was observed to be 5.
+The new observation is 7 was observed to be -7.
+The theories are:
+  - t1: y equals -1 times x plus 0 plus -1 times x minus 0 times x minus 4 times x minus -5
+  - t2: y equals -1 times x plus 0 plus -2 times x minus 0 times x minus 4 times x minus -5
+  - t3: y equals -1 times x plus 0
+  - t4: y equals -1 times x plus 0 plus 1 times x minus 0 times x minus 4 times x minus -5
+What is the surviving theory?
+
+Answer with exactly one of: t4 | t2 | t3 | t1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  -1,
+  0
+ ],
+ &quot;k_true&quot;: 0,
+ &quot;roots&quot;: [
+  0,
+  4,
+  -5
+ ],
+ &quot;x_new&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">t3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The data are: 1 was observed to be -2, 5 was observed to be 6 and -2 was observed to be -8.
+The new observation is -6 was observed to be 600.
+The theories are:
+  - t1: y equals 2 times x plus -4 plus -1 times x minus 1 times x minus 5 times x minus -2
+  - t2: y equals 2 times x plus -4
+  - t3: y equals 2 times x plus -4 plus -2 times x minus 1 times x minus 5 times x minus -2
+  - t4: y equals 2 times x plus -4 plus 1 times x minus 1 times x minus 5 times x minus -2
+What is the surviving theory?
+
+Answer with exactly one of: t3 | t2 | t1 | t4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;t3&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  -4
+ ],
+ &quot;k_true&quot;: -2,
+ &quot;roots&quot;: [
+  1,
+  5,
+  -2
+ ],
+ &quot;x_new&quot;: -6
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

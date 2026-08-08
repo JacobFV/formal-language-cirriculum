@@ -1,0 +1,2755 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>definitions — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iii">language as action</a> &rsaquo;
+  definitions</p>
+<h1>#39 <code>definitions</code></h1>
+<p class="lede">a novel word defined compositionally, then applied</p>
+<div class="tags"><span class="tag ">level 28</span><span class="tag ">section iii</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.295</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>A novel word is *defined compositionally in the episode* and then applied:
+    ``a dax is any red cube``; half the episodes stack a second definition on the
+    first (``a blicket is any big dax``), so the word must be expanded before it
+    can be used. Nothing carries between episodes.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>4</td></tr><tr><td>lexical_novelty</td><td class='num'>4</td></tr><tr><td>reasoning_depth</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>You are told: mmlv define coloured purple and shaped sphere.
+In the scene:
+  - o1 is a purple sphere
+  - o2 is a blue sphere
+  - o0 is a blue cone
+  - o3 is a purple cone
+  - o1 size big
+  - o2 size small
+  - o0 size small
+  - o3 size small
+Find the mmlv object.
+
+Answer with exactly one of: o2 | o1 | o0 | o3
+Reply with the answer only.</pre><h3>spanish</h3><pre>Se sabe lo siguiente: mmlv define de color morado y de forma esfera.
+En la escena:
+  - o1 es una esfera morada
+  - o2 es una esfera azul
+  - o0 es un cono azul
+  - o3 es un cono morado
+  - o1 el tamaño grande
+  - o2 el tamaño pequeño
+  - o0 el tamaño pequeño
+  - o3 el tamaño pequeño
+Busca el objeto mmlv.
+
+Responde exactamente con una de estas opciones: o2 | o1 | o0 | o3
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>词表如下：mmlv定义为颜色为紫色并且形状为球体。
+场景中：
+  - o1是一个紫色的球体
+  - o2是一个蓝色的球体
+  - o0是一个蓝色的圆锥
+  - o3是一个紫色的圆锥
+  - o1的大小是大
+  - o2的大小是小
+  - o0的大小是小
+  - o3的大小是小
+请找出mmlv对应的物体。
+
+请从以下选项中选出恰好一个作答：o2 | o1 | o0 | o3
+只回答答案本身。</pre><h3>english_synonym</h3><pre>You are told: mmlv define coloured purple and shaped sphere.
+In the scene:
+  - o1 is a purple sphere
+  - o2 is a blue sphere
+  - o0 is a blue cone
+  - o3 is a purple cone
+  - o1 size big
+  - o2 size small
+  - o0 size small
+  - o3 size small
+Find the mmlv object.
+
+Answer with exactly one of: o2 | o1 | o0 | o3
+Reply with the answer only.</pre><h3>symbols</h3><pre>{lexicon: [(define mmlv (and (color purple) (shape sphere)))], query: (find mmlv), scene: [(obj o1 purple sphere) (obj o2 blue sphere) (obj o0 blue cone) (obj o3 purple cone) (size o1 big) (size o2 small) (size o0 small) (size o3 small)]}
+
+Answer with exactly one of: o2 | o1 | o0 | o3
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/definitions.jsonl</code> &middot; <code>data/samples/spanish/definitions.jsonl</code> &middot; <code>data/samples/chinese/definitions.jsonl</code> &middot; <code>data/samples/english_synonym/definitions.jsonl</code> &middot; <code>data/samples/symbols/definitions.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mmlv define coloured purple and shaped sphere.
+In the scene:
+  - o1 is a purple sphere
+  - o2 is a blue sphere
+  - o0 is a blue cone
+  - o3 is a purple cone
+  - o1 size big
+  - o2 size small
+  - o0 size small
+  - o3 size small
+Find the mmlv object.
+
+Answer with exactly one of: o2 | o1 | o0 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;mmlv&quot;: &quot;purple+sphere&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: pkr define mlk and size big and mlk define coloured red.
+In the scene:
+  - o3 is a red cube
+  - o2 is a yellow cube
+  - o1 is a yellow prism
+  - o0 is a red prism
+  - o3 size small
+  - o2 size big
+  - o1 size big
+  - o0 size big
+Find the pkr object.
+
+Answer with exactly one of: o0 | o1 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;mlk&quot;: &quot;red&quot;,
+  &quot;pkr&quot;: &quot;mlk+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: kklv define coloured red and shaped sphere.
+In the scene:
+  - o2 is a purple sphere
+  - o1 is a purple disc
+  - o3 is a red disc
+  - o0 is a red sphere
+  - o2 size big
+  - o1 size big
+  - o3 size big
+  - o0 size big
+Find the kklv object.
+
+Answer with exactly one of: o0 | o3 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;kklv&quot;: &quot;red+sphere&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: str define coloured yellow and kzk define str and size big.
+In the scene:
+  - o3 is a yellow disc
+  - o1 is a green sphere
+  - o0 is a yellow sphere
+  - o2 is a green disc
+  - o3 size big
+  - o1 size big
+  - o0 size small
+  - o2 size big
+Find the kzk object.
+
+Answer with exactly one of: o3 | o0 | o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;kzk&quot;: &quot;str+big&quot;,
+  &quot;str&quot;: &quot;yellow&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: skzz define coloured green and mlpr define skzz and size big.
+In the scene:
+  - o1 is a green sphere
+  - o3 is a green cube
+  - o2 is a purple cube
+  - o0 is a purple sphere
+  - o1 size big
+  - o3 size small
+  - o2 size big
+  - o0 size big
+Find the mlpr object.
+
+Answer with exactly one of: o1 | o0 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;mlpr&quot;: &quot;skzz+big&quot;,
+  &quot;skzz&quot;: &quot;green&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tvt define ksp and size big and ksp define coloured blue.
+In the scene:
+  - o2 is a blue cone
+  - o3 is a blue cube
+  - o0 is a red cube
+  - o1 is a red cone
+  - o2 size small
+  - o3 size big
+  - o0 size big
+  - o1 size small
+Find the tvt object.
+
+Answer with exactly one of: o2 | o3 | o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;ksp&quot;: &quot;blue&quot;,
+  &quot;tvt&quot;: &quot;ksp+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mplm define coloured red and mszm define mplm and size big.
+In the scene:
+  - o2 is a green prism
+  - o0 is a red prism
+  - o1 is a red cone
+  - o3 is a green cone
+  - o2 size big
+  - o0 size big
+  - o1 size small
+  - o3 size small
+Find the mszm object.
+
+Answer with exactly one of: o2 | o1 | o3 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;mplm&quot;: &quot;red&quot;,
+  &quot;mszm&quot;: &quot;mplm+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: rpk define coloured purple and shaped cube.
+In the scene:
+  - o2 is a blue rod
+  - o3 is a purple cube
+  - o0 is a blue cube
+  - o1 is a purple rod
+  - o2 size small
+  - o3 size big
+  - o0 size small
+  - o1 size big
+Find the rpk object.
+
+Answer with exactly one of: o1 | o0 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;rpk&quot;: &quot;purple+cube&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: spmv define coloured blue and vpmz define spmv and size big.
+In the scene:
+  - o3 is a yellow rod
+  - o2 is a blue cube
+  - o1 is a yellow cube
+  - o0 is a blue rod
+  - o3 size big
+  - o2 size big
+  - o1 size big
+  - o0 size small
+Find the vpmz object.
+
+Answer with exactly one of: o2 | o1 | o3 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;spmv&quot;: &quot;blue&quot;,
+  &quot;vpmz&quot;: &quot;spmv+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zss define ttsk and size big and ttsk define coloured purple.
+In the scene:
+  - o2 is a red cone
+  - o1 is a purple disc
+  - o0 is a purple cone
+  - o3 is a red disc
+  - o2 size small
+  - o1 size big
+  - o0 size small
+  - o3 size big
+Find the zss object.
+
+Answer with exactly one of: o0 | o2 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;ttsk&quot;: &quot;purple&quot;,
+  &quot;zss&quot;: &quot;ttsk+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tlpp define coloured purple and zlt define tlpp and size big.
+In the scene:
+  - o1 is a purple prism
+  - o2 is a red cone
+  - o3 is a red prism
+  - o0 is a purple cone
+  - o1 size small
+  - o2 size small
+  - o3 size small
+  - o0 size big
+Find the zlt object.
+
+Answer with exactly one of: o2 | o0 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;tlpp&quot;: &quot;purple&quot;,
+  &quot;zlt&quot;: &quot;tlpp+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: kvl define vtkr and size big and vtkr define coloured purple.
+In the scene:
+  - o1 is a purple prism
+  - o0 is a purple cube
+  - o2 is a blue cube
+  - o3 is a blue prism
+  - o1 size small
+  - o0 size big
+  - o2 size small
+  - o3 size small
+Find the kvl object.
+
+Answer with exactly one of: o3 | o0 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;kvl&quot;: &quot;vtkr+big&quot;,
+  &quot;vtkr&quot;: &quot;purple&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lsk define coloured orange and shaped disc.
+In the scene:
+  - o3 is a purple disc
+  - o2 is a orange disc
+  - o1 is a purple sphere
+  - o0 is a orange sphere
+  - o3 size big
+  - o2 size small
+  - o1 size big
+  - o0 size small
+Find the lsk object.
+
+Answer with exactly one of: o2 | o1 | o0 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;lsk&quot;: &quot;orange+disc&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ztm define coloured red and shaped disc.
+In the scene:
+  - o3 is a blue disc
+  - o0 is a blue sphere
+  - o1 is a red disc
+  - o2 is a red sphere
+  - o3 size big
+  - o0 size small
+  - o1 size big
+  - o2 size small
+Find the ztm object.
+
+Answer with exactly one of: o3 | o1 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;ztm&quot;: &quot;red+disc&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mml define lzlr and size big and lzlr define coloured yellow.
+In the scene:
+  - o2 is a yellow rod
+  - o3 is a green prism
+  - o0 is a yellow prism
+  - o1 is a green rod
+  - o2 size big
+  - o3 size small
+  - o0 size small
+  - o1 size big
+Find the mml object.
+
+Answer with exactly one of: o1 | o2 | o3 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;lzlr&quot;: &quot;yellow&quot;,
+  &quot;mml&quot;: &quot;lzlr+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ssll define coloured red and pvmv define ssll and size big.
+In the scene:
+  - o3 is a blue cone
+  - o1 is a red prism
+  - o2 is a blue prism
+  - o0 is a red cone
+  - o3 size big
+  - o1 size small
+  - o2 size big
+  - o0 size big
+Find the pvmv object.
+
+Answer with exactly one of: o0 | o2 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;pvmv&quot;: &quot;ssll+big&quot;,
+  &quot;ssll&quot;: &quot;red&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zks define coloured blue and shaped rod.
+In the scene:
+  - o3 is a green sphere
+  - o1 is a blue rod
+  - o2 is a blue sphere
+  - o0 is a green rod
+  - o3 size big
+  - o1 size big
+  - o2 size big
+  - o0 size small
+Find the zks object.
+
+Answer with exactly one of: o0 | o1 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;zks&quot;: &quot;blue+rod&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tst define coloured red and shaped rod.
+In the scene:
+  - o2 is a red rod
+  - o0 is a red prism
+  - o3 is a blue rod
+  - o1 is a blue prism
+  - o2 size big
+  - o0 size big
+  - o3 size small
+  - o1 size big
+Find the tst object.
+
+Answer with exactly one of: o3 | o1 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;tst&quot;: &quot;red+rod&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tss define coloured green and shaped sphere.
+In the scene:
+  - o0 is a yellow cone
+  - o3 is a green sphere
+  - o2 is a green cone
+  - o1 is a yellow sphere
+  - o0 size big
+  - o3 size small
+  - o2 size big
+  - o1 size small
+Find the tss object.
+
+Answer with exactly one of: o1 | o3 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;tss&quot;: &quot;green+sphere&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zksm define coloured purple and shaped cube.
+In the scene:
+  - o2 is a green cube
+  - o1 is a purple cube
+  - o3 is a purple cone
+  - o0 is a green cone
+  - o2 size big
+  - o1 size big
+  - o3 size big
+  - o0 size small
+Find the zksm object.
+
+Answer with exactly one of: o2 | o0 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;zksm&quot;: &quot;purple+cube&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: llpm define coloured green and shaped disc.
+In the scene:
+  - o0 is a blue disc
+  - o3 is a green prism
+  - o2 is a blue prism
+  - o1 is a green disc
+  - o0 size big
+  - o3 size small
+  - o2 size big
+  - o1 size small
+Find the llpm object.
+
+Answer with exactly one of: o1 | o3 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;llpm&quot;: &quot;green+disc&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: skp define coloured blue and shaped rod.
+In the scene:
+  - o3 is a blue cube
+  - o2 is a purple rod
+  - o0 is a purple cube
+  - o1 is a blue rod
+  - o3 size small
+  - o2 size big
+  - o0 size big
+  - o1 size small
+Find the skp object.
+
+Answer with exactly one of: o2 | o0 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;skp&quot;: &quot;blue+rod&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zzp define coloured red and lztp define zzp and size big.
+In the scene:
+  - o2 is a red cube
+  - o3 is a red cone
+  - o1 is a blue cube
+  - o0 is a blue cone
+  - o2 size small
+  - o3 size big
+  - o1 size small
+  - o0 size big
+Find the lztp object.
+
+Answer with exactly one of: o2 | o3 | o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;lztp&quot;: &quot;zzp+big&quot;,
+  &quot;zzp&quot;: &quot;red&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: vpk define coloured green and shaped cube.
+In the scene:
+  - o3 is a blue cube
+  - o2 is a green cube
+  - o1 is a blue prism
+  - o0 is a green prism
+  - o3 size big
+  - o2 size small
+  - o1 size small
+  - o0 size small
+Find the vpk object.
+
+Answer with exactly one of: o2 | o3 | o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;vpk&quot;: &quot;green+cube&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lzm define vvz and size big and vvz define coloured blue.
+In the scene:
+  - o0 is a blue cube
+  - o1 is a blue rod
+  - o3 is a green cube
+  - o2 is a green rod
+  - o0 size big
+  - o1 size small
+  - o3 size small
+  - o2 size small
+Find the lzm object.
+
+Answer with exactly one of: o3 | o1 | o0 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;lzm&quot;: &quot;vvz+big&quot;,
+  &quot;vvz&quot;: &quot;blue&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mmpm define rmml and size big and rmml define coloured yellow.
+In the scene:
+  - o3 is a red cube
+  - o1 is a yellow disc
+  - o0 is a red disc
+  - o2 is a yellow cube
+  - o3 size big
+  - o1 size big
+  - o0 size small
+  - o2 size small
+Find the mmpm object.
+
+Answer with exactly one of: o2 | o3 | o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;mmpm&quot;: &quot;rmml+big&quot;,
+  &quot;rmml&quot;: &quot;yellow&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: skkz define stt and size big and stt define coloured purple.
+In the scene:
+  - o0 is a orange sphere
+  - o1 is a purple sphere
+  - o2 is a purple disc
+  - o3 is a orange disc
+  - o0 size small
+  - o1 size big
+  - o2 size small
+  - o3 size big
+Find the skkz object.
+
+Answer with exactly one of: o3 | o0 | o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;skkz&quot;: &quot;stt+big&quot;,
+  &quot;stt&quot;: &quot;purple&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: pkvl define coloured yellow and lsr define pkvl and size big.
+In the scene:
+  - o2 is a yellow sphere
+  - o3 is a yellow rod
+  - o0 is a green sphere
+  - o1 is a green rod
+  - o2 size small
+  - o3 size big
+  - o0 size small
+  - o1 size big
+Find the lsr object.
+
+Answer with exactly one of: o1 | o3 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;lsr&quot;: &quot;pkvl+big&quot;,
+  &quot;pkvl&quot;: &quot;yellow&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: kps define coloured blue and trr define kps and size big.
+In the scene:
+  - o3 is a yellow rod
+  - o1 is a yellow sphere
+  - o0 is a blue rod
+  - o2 is a blue sphere
+  - o3 size small
+  - o1 size big
+  - o0 size big
+  - o2 size small
+Find the trr object.
+
+Answer with exactly one of: o0 | o2 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;kps&quot;: &quot;blue&quot;,
+  &quot;trr&quot;: &quot;kps+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tspp define coloured yellow and shaped cube.
+In the scene:
+  - o3 is a yellow cone
+  - o1 is a blue cone
+  - o2 is a yellow cube
+  - o0 is a blue cube
+  - o3 size big
+  - o1 size big
+  - o2 size big
+  - o0 size small
+Find the tspp object.
+
+Answer with exactly one of: o3 | o1 | o0 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;tspp&quot;: &quot;yellow+cube&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lrmp define coloured red and zrm define lrmp and size big.
+In the scene:
+  - o3 is a red prism
+  - o1 is a blue prism
+  - o0 is a blue cube
+  - o2 is a red cube
+  - o3 size small
+  - o1 size small
+  - o0 size small
+  - o2 size big
+Find the zrm object.
+
+Answer with exactly one of: o2 | o1 | o0 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;lrmp&quot;: &quot;red&quot;,
+  &quot;zrm&quot;: &quot;lrmp+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: smmk define coloured blue and shaped cube.
+In the scene:
+  - o3 is a orange cube
+  - o0 is a blue cube
+  - o2 is a orange sphere
+  - o1 is a blue sphere
+  - o3 size small
+  - o0 size big
+  - o2 size small
+  - o1 size small
+Find the smmk object.
+
+Answer with exactly one of: o2 | o0 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;smmk&quot;: &quot;blue+cube&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: vsz define coloured green and shaped cube.
+In the scene:
+  - o3 is a purple cone
+  - o2 is a green cube
+  - o1 is a green cone
+  - o0 is a purple cube
+  - o3 size small
+  - o2 size big
+  - o1 size big
+  - o0 size small
+Find the vsz object.
+
+Answer with exactly one of: o2 | o3 | o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;vsz&quot;: &quot;green+cube&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: pzrv define coloured green and shaped disc.
+In the scene:
+  - o1 is a green disc
+  - o3 is a purple rod
+  - o0 is a purple disc
+  - o2 is a green rod
+  - o1 size small
+  - o3 size big
+  - o0 size big
+  - o2 size big
+Find the pzrv object.
+
+Answer with exactly one of: o2 | o0 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;pzrv&quot;: &quot;green+disc&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: rmk define coloured red and zzp define rmk and size big.
+In the scene:
+  - o0 is a red sphere
+  - o2 is a purple sphere
+  - o1 is a red disc
+  - o3 is a purple disc
+  - o0 size big
+  - o2 size small
+  - o1 size small
+  - o3 size big
+Find the zzp object.
+
+Answer with exactly one of: o2 | o1 | o3 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;rmk&quot;: &quot;red&quot;,
+  &quot;zzp&quot;: &quot;rmk+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: slm define vlk and size big and vlk define coloured orange.
+In the scene:
+  - o0 is a orange rod
+  - o3 is a green rod
+  - o2 is a orange disc
+  - o1 is a green disc
+  - o0 size big
+  - o3 size small
+  - o2 size small
+  - o1 size big
+Find the slm object.
+
+Answer with exactly one of: o0 | o3 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;slm&quot;: &quot;vlk+big&quot;,
+  &quot;vlk&quot;: &quot;orange&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lpsp define coloured yellow and tvlr define lpsp and size big.
+In the scene:
+  - o0 is a yellow cone
+  - o2 is a yellow disc
+  - o1 is a orange cone
+  - o3 is a orange disc
+  - o0 size big
+  - o2 size small
+  - o1 size big
+  - o3 size small
+Find the tvlr object.
+
+Answer with exactly one of: o0 | o2 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;lpsp&quot;: &quot;yellow&quot;,
+  &quot;tvlr&quot;: &quot;lpsp+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mrzl define coloured yellow and shaped prism.
+In the scene:
+  - o3 is a green prism
+  - o1 is a green rod
+  - o0 is a yellow prism
+  - o2 is a yellow rod
+  - o3 size small
+  - o1 size big
+  - o0 size small
+  - o2 size small
+Find the mrzl object.
+
+Answer with exactly one of: o1 | o0 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;mrzl&quot;: &quot;yellow+prism&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: smrv define coloured blue and lrrk define smrv and size big.
+In the scene:
+  - o1 is a purple cone
+  - o2 is a blue cone
+  - o3 is a purple rod
+  - o0 is a blue rod
+  - o1 size big
+  - o2 size big
+  - o3 size big
+  - o0 size small
+Find the lrrk object.
+
+Answer with exactly one of: o0 | o3 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;lrrk&quot;: &quot;smrv+big&quot;,
+  &quot;smrv&quot;: &quot;blue&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zmvp define mpl and size big and mpl define coloured green.
+In the scene:
+  - o0 is a green rod
+  - o2 is a green sphere
+  - o1 is a orange sphere
+  - o3 is a orange rod
+  - o0 size small
+  - o2 size big
+  - o1 size big
+  - o3 size small
+Find the zmvp object.
+
+Answer with exactly one of: o2 | o1 | o3 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;mpl&quot;: &quot;green&quot;,
+  &quot;zmvp&quot;: &quot;mpl+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tlm define coloured yellow and pkl define tlm and size big.
+In the scene:
+  - o0 is a green disc
+  - o3 is a yellow disc
+  - o1 is a green cube
+  - o2 is a yellow cube
+  - o0 size small
+  - o3 size small
+  - o1 size small
+  - o2 size big
+Find the pkl object.
+
+Answer with exactly one of: o1 | o3 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;pkl&quot;: &quot;tlm+big&quot;,
+  &quot;tlm&quot;: &quot;yellow&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tzkm define coloured orange and shaped cube.
+In the scene:
+  - o1 is a purple cube
+  - o2 is a orange cube
+  - o0 is a orange sphere
+  - o3 is a purple sphere
+  - o1 size small
+  - o2 size small
+  - o0 size big
+  - o3 size small
+Find the tzkm object.
+
+Answer with exactly one of: o3 | o0 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;tzkm&quot;: &quot;orange+cube&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: rsr define coloured purple and tpl define rsr and size big.
+In the scene:
+  - o1 is a red cube
+  - o0 is a purple cube
+  - o2 is a red prism
+  - o3 is a purple prism
+  - o1 size small
+  - o0 size big
+  - o2 size small
+  - o3 size small
+Find the tpl object.
+
+Answer with exactly one of: o3 | o1 | o0 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;rsr&quot;: &quot;purple&quot;,
+  &quot;tpl&quot;: &quot;rsr+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: prz define mmp and size big and mmp define coloured purple.
+In the scene:
+  - o1 is a red disc
+  - o2 is a purple disc
+  - o0 is a red prism
+  - o3 is a purple prism
+  - o1 size big
+  - o2 size small
+  - o0 size small
+  - o3 size big
+Find the prz object.
+
+Answer with exactly one of: o3 | o1 | o0 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;mmp&quot;: &quot;purple&quot;,
+  &quot;prz&quot;: &quot;mmp+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mlzt define coloured red and lmzk define mlzt and size big.
+In the scene:
+  - o3 is a orange disc
+  - o1 is a red sphere
+  - o0 is a red disc
+  - o2 is a orange sphere
+  - o3 size big
+  - o1 size big
+  - o0 size small
+  - o2 size big
+Find the lmzk object.
+
+Answer with exactly one of: o0 | o2 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;lmzk&quot;: &quot;mlzt+big&quot;,
+  &quot;mlzt&quot;: &quot;red&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: spm define coloured red and shaped cone.
+In the scene:
+  - o3 is a red cone
+  - o1 is a green cube
+  - o2 is a green cone
+  - o0 is a red cube
+  - o3 size small
+  - o1 size small
+  - o2 size big
+  - o0 size small
+Find the spm object.
+
+Answer with exactly one of: o0 | o2 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;spm&quot;: &quot;red+cone&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mpvl define coloured orange and rmps define mpvl and size big.
+In the scene:
+  - o2 is a red cube
+  - o3 is a red cone
+  - o0 is a orange cone
+  - o1 is a orange cube
+  - o2 size small
+  - o3 size small
+  - o0 size small
+  - o1 size big
+Find the rmps object.
+
+Answer with exactly one of: o1 | o0 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;mpvl&quot;: &quot;orange&quot;,
+  &quot;rmps&quot;: &quot;mpvl+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: krl define lps and size big and lps define coloured red.
+In the scene:
+  - o3 is a purple prism
+  - o1 is a purple cube
+  - o2 is a red cube
+  - o0 is a red prism
+  - o3 size small
+  - o1 size small
+  - o2 size big
+  - o0 size small
+Find the krl object.
+
+Answer with exactly one of: o2 | o3 | o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;krl&quot;: &quot;lps+big&quot;,
+  &quot;lps&quot;: &quot;red&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: pmt define coloured yellow and rzl define pmt and size big.
+In the scene:
+  - o1 is a yellow disc
+  - o2 is a blue disc
+  - o3 is a yellow sphere
+  - o0 is a blue sphere
+  - o1 size small
+  - o2 size small
+  - o3 size big
+  - o0 size small
+Find the rzl object.
+
+Answer with exactly one of: o1 | o3 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;pmt&quot;: &quot;yellow&quot;,
+  &quot;rzl&quot;: &quot;pmt+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: stm define coloured blue and zpkp define stm and size big.
+In the scene:
+  - o0 is a blue cube
+  - o3 is a green prism
+  - o1 is a blue prism
+  - o2 is a green cube
+  - o0 size big
+  - o3 size small
+  - o1 size small
+  - o2 size big
+Find the zpkp object.
+
+Answer with exactly one of: o0 | o2 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;stm&quot;: &quot;blue&quot;,
+  &quot;zpkp&quot;: &quot;stm+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: sml define coloured purple and shaped sphere.
+In the scene:
+  - o1 is a purple cube
+  - o2 is a blue sphere
+  - o3 is a purple sphere
+  - o0 is a blue cube
+  - o1 size big
+  - o2 size small
+  - o3 size big
+  - o0 size big
+Find the sml object.
+
+Answer with exactly one of: o2 | o1 | o0 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;sml&quot;: &quot;purple+sphere&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mkr define coloured purple and zlvs define mkr and size big.
+In the scene:
+  - o2 is a purple disc
+  - o1 is a purple cone
+  - o0 is a orange cone
+  - o3 is a orange disc
+  - o2 size big
+  - o1 size small
+  - o0 size big
+  - o3 size big
+Find the zlvs object.
+
+Answer with exactly one of: o0 | o2 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;mkr&quot;: &quot;purple&quot;,
+  &quot;zlvs&quot;: &quot;mkr+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ttv define coloured red and pmkp define ttv and size big.
+In the scene:
+  - o2 is a red disc
+  - o1 is a yellow disc
+  - o0 is a red cube
+  - o3 is a yellow cube
+  - o2 size big
+  - o1 size big
+  - o0 size small
+  - o3 size big
+Find the pmkp object.
+
+Answer with exactly one of: o0 | o2 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;pmkp&quot;: &quot;ttv+big&quot;,
+  &quot;ttv&quot;: &quot;red&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: svss define coloured green and klzt define svss and size big.
+In the scene:
+  - o1 is a green sphere
+  - o2 is a blue sphere
+  - o3 is a green rod
+  - o0 is a blue rod
+  - o1 size big
+  - o2 size small
+  - o3 size small
+  - o0 size big
+Find the klzt object.
+
+Answer with exactly one of: o2 | o3 | o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;klzt&quot;: &quot;svss+big&quot;,
+  &quot;svss&quot;: &quot;green&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: rzpz define coloured yellow and shaped rod.
+In the scene:
+  - o0 is a yellow rod
+  - o1 is a blue sphere
+  - o2 is a yellow sphere
+  - o3 is a blue rod
+  - o0 size small
+  - o1 size small
+  - o2 size big
+  - o3 size big
+Find the rzpz object.
+
+Answer with exactly one of: o3 | o1 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;rzpz&quot;: &quot;yellow+rod&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zks define coloured orange and shaped disc.
+In the scene:
+  - o2 is a orange prism
+  - o3 is a yellow disc
+  - o1 is a orange disc
+  - o0 is a yellow prism
+  - o2 size big
+  - o3 size big
+  - o1 size big
+  - o0 size big
+Find the zks object.
+
+Answer with exactly one of: o2 | o3 | o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;zks&quot;: &quot;orange+disc&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tptm define ktps and size big and ktps define coloured green.
+In the scene:
+  - o0 is a orange sphere
+  - o3 is a green disc
+  - o1 is a orange disc
+  - o2 is a green sphere
+  - o0 size small
+  - o3 size big
+  - o1 size small
+  - o2 size small
+Find the tptm object.
+
+Answer with exactly one of: o1 | o0 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;ktps&quot;: &quot;green&quot;,
+  &quot;tptm&quot;: &quot;ktps+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: rztt define coloured red and plr define rztt and size big.
+In the scene:
+  - o1 is a blue disc
+  - o0 is a blue rod
+  - o2 is a red disc
+  - o3 is a red rod
+  - o1 size big
+  - o0 size small
+  - o2 size small
+  - o3 size big
+Find the plr object.
+
+Answer with exactly one of: o2 | o1 | o0 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;plr&quot;: &quot;rztt+big&quot;,
+  &quot;rztt&quot;: &quot;red&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mvrp define coloured purple and shaped cone.
+In the scene:
+  - o2 is a purple disc
+  - o1 is a yellow disc
+  - o0 is a yellow cone
+  - o3 is a purple cone
+  - o2 size small
+  - o1 size small
+  - o0 size big
+  - o3 size small
+Find the mvrp object.
+
+Answer with exactly one of: o2 | o1 | o3 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;mvrp&quot;: &quot;purple+cone&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mlk define coloured orange and shaped prism.
+In the scene:
+  - o3 is a yellow disc
+  - o0 is a orange prism
+  - o1 is a orange disc
+  - o2 is a yellow prism
+  - o3 size small
+  - o0 size big
+  - o1 size small
+  - o2 size big
+Find the mlk object.
+
+Answer with exactly one of: o3 | o1 | o0 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;mlk&quot;: &quot;orange+prism&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: ztr define coloured blue and shaped prism.
+In the scene:
+  - o1 is a orange prism
+  - o2 is a orange cube
+  - o0 is a blue cube
+  - o3 is a blue prism
+  - o1 size big
+  - o2 size small
+  - o0 size small
+  - o3 size small
+Find the ztr object.
+
+Answer with exactly one of: o0 | o2 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;ztr&quot;: &quot;blue+prism&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lkp define coloured red and shaped cone.
+In the scene:
+  - o1 is a red prism
+  - o0 is a yellow prism
+  - o2 is a red cone
+  - o3 is a yellow cone
+  - o1 size small
+  - o0 size small
+  - o2 size big
+  - o3 size small
+Find the lkp object.
+
+Answer with exactly one of: o1 | o3 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;lkp&quot;: &quot;red+cone&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lts define coloured green and shaped rod.
+In the scene:
+  - o2 is a red sphere
+  - o3 is a red rod
+  - o0 is a green rod
+  - o1 is a green sphere
+  - o2 size small
+  - o3 size small
+  - o0 size big
+  - o1 size big
+Find the lts object.
+
+Answer with exactly one of: o3 | o0 | o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;lts&quot;: &quot;green+rod&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: szkk define coloured orange and shaped cube.
+In the scene:
+  - o0 is a orange cone
+  - o3 is a blue cube
+  - o1 is a blue cone
+  - o2 is a orange cube
+  - o0 size big
+  - o3 size small
+  - o1 size small
+  - o2 size small
+Find the szkk object.
+
+Answer with exactly one of: o0 | o2 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;szkk&quot;: &quot;orange+cube&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: kmtm define coloured blue and shaped cube.
+In the scene:
+  - o3 is a blue prism
+  - o2 is a orange cube
+  - o0 is a blue cube
+  - o1 is a orange prism
+  - o3 size small
+  - o2 size big
+  - o0 size small
+  - o1 size small
+Find the kmtm object.
+
+Answer with exactly one of: o0 | o1 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;kmtm&quot;: &quot;blue+cube&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zmt define coloured orange and shaped cube.
+In the scene:
+  - o1 is a yellow sphere
+  - o2 is a orange cube
+  - o3 is a yellow cube
+  - o0 is a orange sphere
+  - o1 size small
+  - o2 size big
+  - o3 size big
+  - o0 size big
+Find the zmt object.
+
+Answer with exactly one of: o0 | o2 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;zmt&quot;: &quot;orange+cube&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: rkrm define coloured blue and shaped sphere.
+In the scene:
+  - o2 is a blue sphere
+  - o0 is a yellow sphere
+  - o3 is a blue disc
+  - o1 is a yellow disc
+  - o2 size big
+  - o0 size big
+  - o3 size small
+  - o1 size small
+Find the rkrm object.
+
+Answer with exactly one of: o3 | o0 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;rkrm&quot;: &quot;blue+sphere&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: rttl define mmv and size big and mmv define coloured red.
+In the scene:
+  - o0 is a red sphere
+  - o1 is a blue sphere
+  - o3 is a red rod
+  - o2 is a blue rod
+  - o0 size small
+  - o1 size small
+  - o3 size big
+  - o2 size big
+Find the rttl object.
+
+Answer with exactly one of: o3 | o1 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;mmv&quot;: &quot;red&quot;,
+  &quot;rttl&quot;: &quot;mmv+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lkm define coloured green and shaped cone.
+In the scene:
+  - o3 is a yellow cone
+  - o2 is a yellow disc
+  - o1 is a green disc
+  - o0 is a green cone
+  - o3 size big
+  - o2 size small
+  - o1 size small
+  - o0 size small
+Find the lkm object.
+
+Answer with exactly one of: o1 | o2 | o0 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;lkm&quot;: &quot;green+cone&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mmp define pzt and size big and pzt define coloured yellow.
+In the scene:
+  - o0 is a yellow cone
+  - o3 is a yellow disc
+  - o2 is a purple cone
+  - o1 is a purple disc
+  - o0 size small
+  - o3 size big
+  - o2 size small
+  - o1 size big
+Find the mmp object.
+
+Answer with exactly one of: o2 | o3 | o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;mmp&quot;: &quot;pzt+big&quot;,
+  &quot;pzt&quot;: &quot;yellow&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zvm define vmmk and size big and vmmk define coloured yellow.
+In the scene:
+  - o2 is a blue sphere
+  - o3 is a blue prism
+  - o1 is a yellow prism
+  - o0 is a yellow sphere
+  - o2 size small
+  - o3 size big
+  - o1 size big
+  - o0 size small
+Find the zvm object.
+
+Answer with exactly one of: o2 | o3 | o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;vmmk&quot;: &quot;yellow&quot;,
+  &quot;zvm&quot;: &quot;vmmk+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: pvmk define klk and size big and klk define coloured purple.
+In the scene:
+  - o2 is a blue cube
+  - o1 is a purple disc
+  - o3 is a blue disc
+  - o0 is a purple cube
+  - o2 size big
+  - o1 size big
+  - o3 size small
+  - o0 size small
+Find the pvmk object.
+
+Answer with exactly one of: o1 | o2 | o3 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;klk&quot;: &quot;purple&quot;,
+  &quot;pvmk&quot;: &quot;klk+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: vkv define coloured purple and kpzz define vkv and size big.
+In the scene:
+  - o0 is a purple cone
+  - o1 is a orange sphere
+  - o3 is a orange cone
+  - o2 is a purple sphere
+  - o0 size small
+  - o1 size small
+  - o3 size big
+  - o2 size big
+Find the kpzz object.
+
+Answer with exactly one of: o3 | o1 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;kpzz&quot;: &quot;vkv+big&quot;,
+  &quot;vkv&quot;: &quot;purple&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: plr define coloured orange and zsm define plr and size big.
+In the scene:
+  - o3 is a purple sphere
+  - o1 is a purple prism
+  - o0 is a orange sphere
+  - o2 is a orange prism
+  - o3 size small
+  - o1 size small
+  - o0 size big
+  - o2 size small
+Find the zsm object.
+
+Answer with exactly one of: o2 | o0 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;plr&quot;: &quot;orange&quot;,
+  &quot;zsm&quot;: &quot;plr+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: vtp define coloured yellow and rst define vtp and size big.
+In the scene:
+  - o3 is a green cone
+  - o0 is a yellow cone
+  - o1 is a yellow sphere
+  - o2 is a green sphere
+  - o3 size small
+  - o0 size big
+  - o1 size small
+  - o2 size big
+Find the rst object.
+
+Answer with exactly one of: o3 | o1 | o0 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;rst&quot;: &quot;vtp+big&quot;,
+  &quot;vtp&quot;: &quot;yellow&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: vzpk define coloured green and stz define vzpk and size big.
+In the scene:
+  - o1 is a orange cone
+  - o0 is a orange cube
+  - o2 is a green cube
+  - o3 is a green cone
+  - o1 size big
+  - o0 size small
+  - o2 size big
+  - o3 size small
+Find the stz object.
+
+Answer with exactly one of: o2 | o3 | o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;stz&quot;: &quot;vzpk+big&quot;,
+  &quot;vzpk&quot;: &quot;green&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: pps define coloured blue and ptm define pps and size big.
+In the scene:
+  - o2 is a blue cone
+  - o0 is a yellow cube
+  - o1 is a blue cube
+  - o3 is a yellow cone
+  - o2 size small
+  - o0 size big
+  - o1 size big
+  - o3 size small
+Find the ptm object.
+
+Answer with exactly one of: o3 | o2 | o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;pps&quot;: &quot;blue&quot;,
+  &quot;ptm&quot;: &quot;pps+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: rzr define srp and size big and srp define coloured purple.
+In the scene:
+  - o0 is a blue disc
+  - o1 is a purple rod
+  - o3 is a blue rod
+  - o2 is a purple disc
+  - o0 size big
+  - o1 size big
+  - o3 size small
+  - o2 size small
+Find the rzr object.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;rzr&quot;: &quot;srp+big&quot;,
+  &quot;srp&quot;: &quot;purple&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lpl define coloured yellow and shaped sphere.
+In the scene:
+  - o0 is a yellow rod
+  - o1 is a yellow sphere
+  - o2 is a orange rod
+  - o3 is a orange sphere
+  - o0 size small
+  - o1 size small
+  - o2 size big
+  - o3 size big
+Find the lpl object.
+
+Answer with exactly one of: o3 | o1 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;lpl&quot;: &quot;yellow+sphere&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: vmkv define vlmp and size big and vlmp define coloured green.
+In the scene:
+  - o2 is a red sphere
+  - o1 is a green sphere
+  - o3 is a green cube
+  - o0 is a red cube
+  - o2 size big
+  - o1 size small
+  - o3 size big
+  - o0 size small
+Find the vmkv object.
+
+Answer with exactly one of: o0 | o3 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;vlmp&quot;: &quot;green&quot;,
+  &quot;vmkv&quot;: &quot;vlmp+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zmlm define ttsl and size big and ttsl define coloured blue.
+In the scene:
+  - o3 is a blue prism
+  - o2 is a purple prism
+  - o1 is a purple cube
+  - o0 is a blue cube
+  - o3 size small
+  - o2 size small
+  - o1 size small
+  - o0 size big
+Find the zmlm object.
+
+Answer with exactly one of: o0 | o2 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;ttsl&quot;: &quot;blue&quot;,
+  &quot;zmlm&quot;: &quot;ttsl+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: rzr define coloured orange and shaped rod.
+In the scene:
+  - o1 is a orange rod
+  - o0 is a green rod
+  - o3 is a orange cone
+  - o2 is a green cone
+  - o1 size small
+  - o0 size small
+  - o3 size small
+  - o2 size big
+Find the rzr object.
+
+Answer with exactly one of: o1 | o2 | o0 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;rzr&quot;: &quot;orange+rod&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lvmv define coloured purple and shaped sphere.
+In the scene:
+  - o0 is a purple sphere
+  - o3 is a red sphere
+  - o1 is a red cone
+  - o2 is a purple cone
+  - o0 size small
+  - o3 size big
+  - o1 size small
+  - o2 size small
+Find the lvmv object.
+
+Answer with exactly one of: o1 | o2 | o3 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;lvmv&quot;: &quot;purple+sphere&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: svtk define coloured green and shaped cube.
+In the scene:
+  - o2 is a green cube
+  - o1 is a red cube
+  - o0 is a green prism
+  - o3 is a red prism
+  - o2 size small
+  - o1 size big
+  - o0 size big
+  - o3 size small
+Find the svtk object.
+
+Answer with exactly one of: o2 | o3 | o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;svtk&quot;: &quot;green+cube&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tvk define coloured orange and shaped disc.
+In the scene:
+  - o0 is a green disc
+  - o2 is a green sphere
+  - o3 is a orange disc
+  - o1 is a orange sphere
+  - o0 size big
+  - o2 size big
+  - o3 size big
+  - o1 size big
+Find the tvk object.
+
+Answer with exactly one of: o1 | o3 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;tvk&quot;: &quot;orange+disc&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: pvv define coloured purple and shaped sphere.
+In the scene:
+  - o1 is a purple sphere
+  - o3 is a yellow disc
+  - o2 is a purple disc
+  - o0 is a yellow sphere
+  - o1 size small
+  - o3 size big
+  - o2 size small
+  - o0 size big
+Find the pvv object.
+
+Answer with exactly one of: o2 | o3 | o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;pvv&quot;: &quot;purple+sphere&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: slk define coloured orange and shaped disc.
+In the scene:
+  - o2 is a yellow cube
+  - o3 is a orange cube
+  - o1 is a orange disc
+  - o0 is a yellow disc
+  - o2 size big
+  - o3 size small
+  - o1 size big
+  - o0 size small
+Find the slk object.
+
+Answer with exactly one of: o2 | o3 | o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;slk&quot;: &quot;orange+disc&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: szt define coloured orange and shaped cone.
+In the scene:
+  - o1 is a red cube
+  - o0 is a orange cube
+  - o3 is a orange cone
+  - o2 is a red cone
+  - o1 size big
+  - o0 size big
+  - o3 size big
+  - o2 size small
+Find the szt object.
+
+Answer with exactly one of: o3 | o0 | o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;szt&quot;: &quot;orange+cone&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: svs define ptzt and size big and ptzt define coloured blue.
+In the scene:
+  - o3 is a blue cube
+  - o0 is a blue sphere
+  - o2 is a yellow sphere
+  - o1 is a yellow cube
+  - o3 size small
+  - o0 size big
+  - o2 size small
+  - o1 size small
+Find the svs object.
+
+Answer with exactly one of: o1 | o2 | o0 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;ptzt&quot;: &quot;blue&quot;,
+  &quot;svs&quot;: &quot;ptzt+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: vmpz define vkr and size big and vkr define coloured orange.
+In the scene:
+  - o1 is a orange disc
+  - o0 is a green disc
+  - o3 is a orange cube
+  - o2 is a green cube
+  - o1 size small
+  - o0 size small
+  - o3 size big
+  - o2 size small
+Find the vmpz object.
+
+Answer with exactly one of: o0 | o3 | o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;vkr&quot;: &quot;orange&quot;,
+  &quot;vmpz&quot;: &quot;vkr+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: plv define coloured purple and shaped prism.
+In the scene:
+  - o1 is a green prism
+  - o2 is a green cone
+  - o3 is a purple cone
+  - o0 is a purple prism
+  - o1 size small
+  - o2 size small
+  - o3 size big
+  - o0 size big
+Find the plv object.
+
+Answer with exactly one of: o2 | o0 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;plv&quot;: &quot;purple+prism&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mmvr define coloured green and shaped rod.
+In the scene:
+  - o1 is a yellow sphere
+  - o0 is a green rod
+  - o3 is a yellow rod
+  - o2 is a green sphere
+  - o1 size big
+  - o0 size small
+  - o3 size big
+  - o2 size small
+Find the mmvr object.
+
+Answer with exactly one of: o2 | o1 | o0 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;mmvr&quot;: &quot;green+rod&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: vtmt define coloured orange and shaped cube.
+In the scene:
+  - o0 is a orange cube
+  - o2 is a green cube
+  - o1 is a orange rod
+  - o3 is a green rod
+  - o0 size small
+  - o2 size small
+  - o1 size small
+  - o3 size small
+Find the vtmt object.
+
+Answer with exactly one of: o2 | o3 | o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;vtmt&quot;: &quot;orange+cube&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: svmm define ssv and size big and ssv define coloured red.
+In the scene:
+  - o1 is a purple rod
+  - o2 is a red disc
+  - o3 is a red rod
+  - o0 is a purple disc
+  - o1 size big
+  - o2 size small
+  - o3 size big
+  - o0 size small
+Find the svmm object.
+
+Answer with exactly one of: o2 | o3 | o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;ssv&quot;: &quot;red&quot;,
+  &quot;svmm&quot;: &quot;ssv+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lskp define coloured purple and mzv define lskp and size big.
+In the scene:
+  - o1 is a green cube
+  - o3 is a purple cube
+  - o2 is a purple disc
+  - o0 is a green disc
+  - o1 size big
+  - o3 size big
+  - o2 size small
+  - o0 size big
+Find the mzv object.
+
+Answer with exactly one of: o3 | o1 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;lskp&quot;: &quot;purple&quot;,
+  &quot;mzv&quot;: &quot;lskp+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: tttp define coloured purple and shaped sphere.
+In the scene:
+  - o2 is a purple disc
+  - o0 is a purple sphere
+  - o3 is a orange disc
+  - o1 is a orange sphere
+  - o2 size small
+  - o0 size big
+  - o3 size big
+  - o1 size big
+Find the tttp object.
+
+Answer with exactly one of: o1 | o3 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;tttp&quot;: &quot;purple+sphere&quot;
+ },
+ &quot;levels&quot;: 1,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: vrv define coloured orange and ktkm define vrv and size big.
+In the scene:
+  - o3 is a orange cone
+  - o0 is a orange cube
+  - o1 is a green cube
+  - o2 is a green cone
+  - o3 size big
+  - o0 size small
+  - o1 size big
+  - o2 size small
+Find the ktkm object.
+
+Answer with exactly one of: o3 | o1 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;ktkm&quot;: &quot;vrv+big&quot;,
+  &quot;vrv&quot;: &quot;orange&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: mtm define tzpr and size big and tzpr define coloured green.
+In the scene:
+  - o1 is a red prism
+  - o2 is a green prism
+  - o3 is a red cube
+  - o0 is a green cube
+  - o1 size small
+  - o2 size small
+  - o3 size big
+  - o0 size big
+Find the mtm object.
+
+Answer with exactly one of: o3 | o1 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;mtm&quot;: &quot;tzpr+big&quot;,
+  &quot;tzpr&quot;: &quot;green&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: zlkv define coloured red and rsz define zlkv and size big.
+In the scene:
+  - o2 is a yellow prism
+  - o3 is a yellow sphere
+  - o1 is a red sphere
+  - o0 is a red prism
+  - o2 size small
+  - o3 size small
+  - o1 size small
+  - o0 size big
+Find the rsz object.
+
+Answer with exactly one of: o0 | o2 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;rsz&quot;: &quot;zlkv+big&quot;,
+  &quot;zlkv&quot;: &quot;red&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are told: lps define coloured yellow and rmv define lps and size big.
+In the scene:
+  - o3 is a purple disc
+  - o2 is a yellow rod
+  - o0 is a yellow disc
+  - o1 is a purple rod
+  - o3 size big
+  - o2 size small
+  - o0 size big
+  - o1 size small
+Find the rmv object.
+
+Answer with exactly one of: o1 | o3 | o0 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;defs&quot;: {
+  &quot;lps&quot;: &quot;yellow&quot;,
+  &quot;rmv&quot;: &quot;lps+big&quot;
+ },
+ &quot;levels&quot;: 2,
+ &quot;target&quot;: &quot;o0&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

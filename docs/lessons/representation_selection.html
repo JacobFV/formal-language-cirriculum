@@ -1,0 +1,5487 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>representation_selection — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#v">ontology and representation</a> &rsaquo;
+  representation_selection</p>
+<h1>#64 <code>representation_selection</code></h1>
+<p class="lede">which encoding answers the query in fewest steps</p>
+<div class="tags"><span class="tag ">level 64</span><span class="tag ">section v</span><span class="tag ">representation_choice</span><span class="tag ">cost_model_reasoning</span><span class="tag ">planning</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.27</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>One latent chain, four encodings, one query: which encoding costs least?</p><p>    ``graph`` is a shuffled edge list (each edge is found by scanning), ``sequence``
+    an ordered list (scan to the item, then walk), ``set`` an unordered bag with
+    O(1) membership and no successor at all, ``table`` keyed rows that must be
+    indexed first. The four coefficients of the cost model are resampled every
+    episode and shown in the observation, so no encoding is a standing answer:
+    the four costs have to be computed.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>2</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph:
+  - i3 edge i5
+  - i0 edge i2
+  - i1 edge i6
+  - i2 edge i4
+  - i5 edge i1
+  - i4 edge i3
+The sequence is:
+  - i0
+  - i2
+  - i4
+  - i3
+  - i5
+  - i1
+  - i6
+The set:
+  - i3
+  - i5
+  - i2
+  - i6
+  - i1
+  - i0
+  - i4
+The table:
+  - i0 row i2
+  - i3 row i5
+  - i5 row i1
+  - i4 row i3
+  - i2 row i4
+  - i1 row i6
+What is the cheapest encoding for i5 1?
+
+Answer with exactly one of: graph | set | sequence | table
+Reply with the answer only.</pre><h3>spanish</h3><pre>Costes:
+  - el coste: secuencia, scan_per_item y 2
+  - el coste: secuencia, per_step y 1
+  - el coste: grafo, scan_per_edge y 2
+  - el coste: conjunto, lookup y 3
+  - el coste: conjunto, per_step y unsupported
+  - el coste: mesa, index_per_row y 1
+  - el coste: mesa, lookup y 3
+El grafo es:
+  - i3 la arista i5
+  - i0 la arista i2
+  - i1 la arista i6
+  - i2 la arista i4
+  - i5 la arista i1
+  - i4 la arista i3
+La secuencia es:
+  - i0
+  - i2
+  - i4
+  - i3
+  - i5
+  - i1
+  - i6
+El conjunto es:
+  - i3
+  - i5
+  - i2
+  - i6
+  - i1
+  - i0
+  - i4
+La tabla es:
+  - i0 la fila i2
+  - i3 la fila i5
+  - i5 la fila i1
+  - i4 la fila i3
+  - i2 la fila i4
+  - i1 la fila i6
+¿Cuál es la codificación más barata para i5 1?
+
+Responde exactamente con una de estas opciones: grafo | conjunto | secuencia | mesa
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>代价模型如下：
+  - 成本：序列、scan_per_item和2
+  - 成本：序列、per_step和1
+  - 成本：图、scan_per_edge和2
+  - 成本：集合、lookup和3
+  - 成本：集合、per_step和unsupported
+  - 成本：桌子、index_per_row和1
+  - 成本：桌子、lookup和3
+图如下：
+  - i3有边连到i5
+  - i0有边连到i2
+  - i1有边连到i6
+  - i2有边连到i4
+  - i5有边连到i1
+  - i4有边连到i3
+序列如下：
+  - i0
+  - i2
+  - i4
+  - i3
+  - i5
+  - i1
+  - i6
+集合如下：
+  - i3
+  - i5
+  - i2
+  - i6
+  - i1
+  - i0
+  - i4
+表格如下：
+  - i0的行是i2
+  - i3的行是i5
+  - i5的行是i1
+  - i4的行是i3
+  - i2的行是i4
+  - i1的行是i6
+i51的最省的编码是什么？
+
+请从以下选项中选出恰好一个作答：图 | 集合 | 序列 | 桌子
+只回答答案本身。</pre><h3>english_synonym</h3><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph:
+  - i3 edge i5
+  - i0 edge i2
+  - i1 edge i6
+  - i2 edge i4
+  - i5 edge i1
+  - i4 edge i3
+The sequence is:
+  - i0
+  - i2
+  - i4
+  - i3
+  - i5
+  - i1
+  - i6
+The set:
+  - i3
+  - i5
+  - i2
+  - i6
+  - i1
+  - i0
+  - i4
+The table:
+  - i0 row i2
+  - i3 row i5
+  - i5 row i1
+  - i4 row i3
+  - i2 row i4
+  - i1 row i6
+What is the cheapest encoding for i5 1?
+
+Answer with exactly one of: graph | set | sequence | table
+Reply with the answer only.</pre><h3>symbols</h3><pre>{cost_model: [(cost sequence scan_per_item 2) (cost sequence per_step 1) (cost graph scan_per_edge 2) (cost set lookup 3) (cost set per_step unsupported) (cost table index_per_row 1) (cost table lookup 3)], graph: [(edge i3 i5) (edge i0 i2) (edge i1 i6) (edge i2 i4) (edge i5 i1) (edge i4 i3)], query: (cheapest_encoding i5 1), sequence: [i0 i2 i4 i3 i5 i1 i6], set: [i3 i5 i2 i6 i1 i0 i4], table: [(row i0 i2) (row i3 i5) (row i5 i1) (row i4 i3) (row i2 i4) (row i1 i6)]}
+
+Answer with exactly one of: graph | set | sequence | table
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/representation_selection.jsonl</code> &middot; <code>data/samples/spanish/representation_selection.jsonl</code> &middot; <code>data/samples/chinese/representation_selection.jsonl</code> &middot; <code>data/samples/english_synonym/representation_selection.jsonl</code> &middot; <code>data/samples/symbols/representation_selection.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph:
+  - i3 edge i5
+  - i0 edge i2
+  - i1 edge i6
+  - i2 edge i4
+  - i5 edge i1
+  - i4 edge i3
+The sequence is:
+  - i0
+  - i2
+  - i4
+  - i3
+  - i5
+  - i1
+  - i6
+The set:
+  - i3
+  - i5
+  - i2
+  - i6
+  - i1
+  - i0
+  - i4
+The table:
+  - i0 row i2
+  - i3 row i5
+  - i5 row i1
+  - i4 row i3
+  - i2 row i4
+  - i1 row i6
+What is the cheapest encoding for i5 1?
+
+Answer with exactly one of: graph | set | sequence | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  1,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 10,
+  &quot;sequence&quot;: 11,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 9
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 1
+The graph: i4 edge i0, i3 edge i5 and i0 edge i3.
+The sequence is: i4, i0, i3 and i5.
+The set: i5, i0, i3 and i4.
+The table: i0 row i3, i4 row i0 and i3 row i5.
+What is the cheapest encoding for i0 2?
+
+Answer with exactly one of: set | table | sequence | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  1,
+  2,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 5,
+  &quot;sequence&quot;: 4,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 8
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 2
+The graph: i7 edge i6, i1 edge i2 and i2 edge i7.
+The sequence is: i1, i2, i7 and i6.
+The set: i1, i2, i7 and i6.
+The table: i1 row i2, i2 row i7 and i7 row i6.
+What is the cheapest encoding for i7 1?
+
+Answer with exactly one of: graph | table | sequence | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  3,
+  1,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 1,
+  &quot;sequence&quot;: 6,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 5
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 3
+The graph:
+  - i5 edge i4
+  - i7 edge i0
+  - i4 edge i7
+  - i3 edge i5
+  - i0 edge i1
+  - i6 edge i3
+The sequence is:
+  - i6
+  - i3
+  - i5
+  - i4
+  - i7
+  - i0
+  - i1
+The set:
+  - i6
+  - i3
+  - i0
+  - i5
+  - i7
+  - i4
+  - i1
+The table:
+  - i6 row i3
+  - i5 row i4
+  - i3 row i5
+  - i4 row i7
+  - i7 row i0
+  - i0 row i1
+What is the cheapest encoding for i4 3?
+
+Answer with exactly one of: sequence | graph | table | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  2,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 20,
+  &quot;sequence&quot;: 17,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 21
+ },
+ &quot;k&quot;: 3,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 2
+The graph:
+  - i6 edge i7
+  - i3 edge i6
+  - i5 edge i3
+  - i7 edge i0
+  - i1 edge i5
+The sequence is:
+  - i1
+  - i5
+  - i3
+  - i6
+  - i7
+  - i0
+The set:
+  - i6
+  - i7
+  - i0
+  - i3
+  - i1
+  - i5
+The table:
+  - i6 row i7
+  - i7 row i0
+  - i1 row i5
+  - i5 row i3
+  - i3 row i6
+What is the cheapest encoding for i1 2?
+
+Answer with exactly one of: table | sequence | set | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  1,
+  2,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 8,
+  &quot;sequence&quot;: 3,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 14
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph:
+  - i1 edge i7
+  - i7 edge i5
+  - i6 edge i3
+  - i3 edge i1
+  - i0 edge i6
+The sequence is:
+  - i0
+  - i6
+  - i3
+  - i1
+  - i7
+  - i5
+The set:
+  - i3
+  - i5
+  - i7
+  - i1
+  - i6
+  - i0
+The table:
+  - i0 row i6
+  - i6 row i3
+  - i1 row i7
+  - i7 row i5
+  - i3 row i1
+What is the cheapest encoding for i6 0?
+
+Answer with exactly one of: sequence | set | graph | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 6,
+  &quot;sequence&quot;: 4,
+  &quot;set&quot;: 3,
+  &quot;table&quot;: 8
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 1
+The graph: i5 edge i2, i3 edge i6 and i6 edge i5.
+The sequence is: i3, i6, i5 and i2.
+The set: i6, i5, i2 and i3.
+The table: i6 row i5, i3 row i6 and i5 row i2.
+What is the cheapest encoding for i6 2?
+
+Answer with exactly one of: sequence | graph | table | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  3,
+  2,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 4,
+  &quot;sequence&quot;: 8,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 8
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 2
+The graph: i5 edge i0, i6 edge i5, i7 edge i4 and i0 edge i7.
+The sequence is:
+  - i6
+  - i5
+  - i0
+  - i7
+  - i4
+The set:
+  - i0
+  - i7
+  - i4
+  - i5
+  - i6
+The table: i6 row i5, i0 row i7, i7 row i4 and i5 row i0.
+What is the cheapest encoding for i7 0?
+
+Answer with exactly one of: table | graph | set | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  1,
+  1,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 3,
+  &quot;sequence&quot;: 4,
+  &quot;set&quot;: 2,
+  &quot;table&quot;: 6
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 2
+The graph:
+  - i7 edge i0
+  - i6 edge i1
+  - i0 edge i4
+  - i4 edge i3
+  - i1 edge i7
+The sequence is:
+  - i6
+  - i1
+  - i7
+  - i0
+  - i4
+  - i3
+The set:
+  - i7
+  - i4
+  - i3
+  - i1
+  - i0
+  - i6
+The table:
+  - i7 row i0
+  - i0 row i4
+  - i6 row i1
+  - i4 row i3
+  - i1 row i7
+What is the cheapest encoding for i1 2?
+
+Answer with exactly one of: table | sequence | set | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  2,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 12,
+  &quot;sequence&quot;: 8,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 14
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph:
+  - i7 edge i6
+  - i6 edge i0
+  - i2 edge i5
+  - i5 edge i4
+  - i4 edge i7
+  - i0 edge i1
+The sequence is:
+  - i2
+  - i5
+  - i4
+  - i7
+  - i6
+  - i0
+  - i1
+The set:
+  - i7
+  - i1
+  - i2
+  - i0
+  - i5
+  - i6
+  - i4
+The table:
+  - i6 row i0
+  - i4 row i7
+  - i0 row i1
+  - i2 row i5
+  - i7 row i6
+  - i5 row i4
+What is the cheapest encoding for i0 1?
+
+Answer with exactly one of: table | set | graph | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 12,
+  &quot;sequence&quot;: 15,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 7
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 1
+The graph: i6 edge i2, i3 edge i6, i5 edge i3 and i2 edge i4.
+The sequence is:
+  - i5
+  - i3
+  - i6
+  - i2
+  - i4
+The set:
+  - i3
+  - i6
+  - i2
+  - i5
+  - i4
+The table: i6 row i2, i5 row i3, i2 row i4 and i3 row i6.
+What is the cheapest encoding for i2 1?
+
+Answer with exactly one of: graph | set | table | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  1,
+  2,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 8,
+  &quot;sequence&quot;: 9,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 9
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph:
+  - i6 edge i1
+  - i1 edge i5
+  - i7 edge i4
+  - i4 edge i6
+  - i5 edge i2
+  - i2 edge i3
+The sequence is:
+  - i7
+  - i4
+  - i6
+  - i1
+  - i5
+  - i2
+  - i3
+The set:
+  - i3
+  - i7
+  - i6
+  - i4
+  - i2
+  - i1
+  - i5
+The table:
+  - i1 row i5
+  - i7 row i4
+  - i4 row i6
+  - i2 row i3
+  - i6 row i1
+  - i5 row i2
+What is the cheapest encoding for i2 1?
+
+Answer with exactly one of: table | graph | set | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  1,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 12,
+  &quot;sequence&quot;: 13,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 9
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph:
+  - i7 edge i5
+  - i3 edge i2
+  - i6 edge i7
+  - i4 edge i3
+  - i2 edge i6
+  - i5 edge i0
+The sequence is:
+  - i4
+  - i3
+  - i2
+  - i6
+  - i7
+  - i5
+  - i0
+The set:
+  - i5
+  - i0
+  - i6
+  - i3
+  - i4
+  - i2
+  - i7
+The table:
+  - i5 row i0
+  - i6 row i7
+  - i2 row i6
+  - i4 row i3
+  - i7 row i5
+  - i3 row i2
+What is the cheapest encoding for i7 2?
+
+Answer with exactly one of: sequence | set | table | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 14,
+  &quot;sequence&quot;: 16,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 12
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 1
+The graph:
+  - i6 edge i4
+  - i1 edge i6
+  - i2 edge i5
+  - i4 edge i7
+  - i5 edge i1
+The sequence is:
+  - i2
+  - i5
+  - i1
+  - i6
+  - i4
+  - i7
+The set:
+  - i5
+  - i6
+  - i7
+  - i1
+  - i2
+  - i4
+The table:
+  - i6 row i4
+  - i1 row i6
+  - i5 row i1
+  - i4 row i7
+  - i2 row i5
+What is the cheapest encoding for i7 0?
+
+Answer with exactly one of: graph | set | table | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  1,
+  2,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 8,
+  &quot;sequence&quot;: 12,
+  &quot;set&quot;: 1,
+  &quot;table&quot;: 11
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 2
+The graph:
+  - i6 edge i5
+  - i0 edge i6
+  - i5 edge i2
+  - i2 edge i1
+  - i4 edge i0
+The sequence is:
+  - i4
+  - i0
+  - i6
+  - i5
+  - i2
+  - i1
+The set:
+  - i4
+  - i2
+  - i0
+  - i6
+  - i1
+  - i5
+The table:
+  - i0 row i6
+  - i6 row i5
+  - i5 row i2
+  - i4 row i0
+  - i2 row i1
+What is the cheapest encoding for i0 3?
+
+Answer with exactly one of: graph | table | sequence | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  3,
+  1,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 6,
+  &quot;sequence&quot;: 11,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 11
+ },
+ &quot;k&quot;: 3,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 2
+The graph:
+  - i6 edge i3
+  - i0 edge i6
+  - i7 edge i2
+  - i5 edge i7
+  - i3 edge i5
+The sequence is:
+  - i0
+  - i6
+  - i3
+  - i5
+  - i7
+  - i2
+The set:
+  - i0
+  - i5
+  - i2
+  - i3
+  - i7
+  - i6
+The table:
+  - i0 row i6
+  - i3 row i5
+  - i5 row i7
+  - i7 row i2
+  - i6 row i3
+What is the cheapest encoding for i3 2?
+
+Answer with exactly one of: sequence | table | graph | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  2,
+  1,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 9,
+  &quot;sequence&quot;: 7,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 9
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 2
+The graph:
+  - i1 edge i5
+  - i7 edge i2
+  - i5 edge i0
+  - i2 edge i3
+  - i3 edge i1
+  - i0 edge i4
+The sequence is:
+  - i7
+  - i2
+  - i3
+  - i1
+  - i5
+  - i0
+  - i4
+The set:
+  - i4
+  - i1
+  - i7
+  - i3
+  - i5
+  - i0
+  - i2
+The table:
+  - i7 row i2
+  - i0 row i4
+  - i2 row i3
+  - i1 row i5
+  - i5 row i0
+  - i3 row i1
+What is the cheapest encoding for i0 0?
+
+Answer with exactly one of: graph | set | sequence | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  2,
+  2,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 3,
+  &quot;sequence&quot;: 6,
+  &quot;set&quot;: 2,
+  &quot;table&quot;: 14
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph:
+  - i7 edge i6
+  - i3 edge i4
+  - i5 edge i0
+  - i6 edge i5
+  - i0 edge i1
+  - i4 edge i7
+The sequence is:
+  - i3
+  - i4
+  - i7
+  - i6
+  - i5
+  - i0
+  - i1
+The set:
+  - i6
+  - i1
+  - i0
+  - i4
+  - i5
+  - i7
+  - i3
+The table:
+  - i3 row i4
+  - i6 row i5
+  - i7 row i6
+  - i4 row i7
+  - i5 row i0
+  - i0 row i1
+What is the cheapest encoding for i5 2?
+
+Answer with exactly one of: graph | table | sequence | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 16,
+  &quot;sequence&quot;: 16,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 12
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 3
+The graph: i5 edge i7, i0 edge i4, i6 edge i0 and i4 edge i5.
+The sequence is:
+  - i6
+  - i0
+  - i4
+  - i5
+  - i7
+The set:
+  - i6
+  - i5
+  - i7
+  - i0
+  - i4
+The table: i5 row i7, i0 row i4, i4 row i5 and i6 row i0.
+What is the cheapest encoding for i4 2?
+
+Answer with exactly one of: table | graph | set | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  1,
+  2,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 10,
+  &quot;sequence&quot;: 8,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 14
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph: i2 edge i0, i5 edge i2 and i0 edge i4.
+The sequence is: i5, i2, i0 and i4.
+The set: i0, i4, i2 and i5.
+The table: i0 row i4, i5 row i2 and i2 row i0.
+What is the cheapest encoding for i0 1?
+
+Answer with exactly one of: graph | set | sequence | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  1,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 3,
+  &quot;sequence&quot;: 4,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 6
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 3
+The graph: i6 edge i3, i5 edge i7 and i7 edge i6.
+The sequence is: i5, i7, i6 and i3.
+The set: i6, i7, i3 and i5.
+The table: i7 row i6, i6 row i3 and i5 row i7.
+What is the cheapest encoding for i5 0?
+
+Answer with exactly one of: sequence | graph | table | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  1,
+  2,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 1,
+  &quot;set&quot;: 3,
+  &quot;table&quot;: 9
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 3
+The graph:
+  - i7 edge i6
+  - i2 edge i3
+  - i0 edge i2
+  - i1 edge i7
+  - i6 edge i0
+The sequence is:
+  - i1
+  - i7
+  - i6
+  - i0
+  - i2
+  - i3
+The set:
+  - i6
+  - i0
+  - i3
+  - i1
+  - i7
+  - i2
+The table:
+  - i6 row i0
+  - i2 row i3
+  - i7 row i6
+  - i0 row i2
+  - i1 row i7
+What is the cheapest encoding for i1 0?
+
+Answer with exactly one of: set | table | graph | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  2,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 8,
+  &quot;sequence&quot;: 2,
+  &quot;set&quot;: 3,
+  &quot;table&quot;: 13
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 2
+The graph:
+  - i1 edge i3
+  - i3 edge i0
+  - i7 edge i6
+  - i2 edge i7
+  - i6 edge i1
+The sequence is:
+  - i2
+  - i7
+  - i6
+  - i1
+  - i3
+  - i0
+The set:
+  - i7
+  - i2
+  - i0
+  - i1
+  - i6
+  - i3
+The table:
+  - i1 row i3
+  - i3 row i0
+  - i6 row i1
+  - i2 row i7
+  - i7 row i6
+What is the cheapest encoding for i7 2?
+
+Answer with exactly one of: set | sequence | table | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  2,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 16,
+  &quot;sequence&quot;: 10,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 14
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph: i4 edge i7, i7 edge i0 and i3 edge i4.
+The sequence is: i3, i4, i7 and i0.
+The set: i4, i0, i3 and i7.
+The table: i3 row i4, i7 row i0 and i4 row i7.
+What is the cheapest encoding for i0 0?
+
+Answer with exactly one of: table | graph | set | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 4,
+  &quot;sequence&quot;: 8,
+  &quot;set&quot;: 3,
+  &quot;table&quot;: 6
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph: i4 edge i1, i1 edge i0, i3 edge i6 and i6 edge i4.
+The sequence is:
+  - i3
+  - i6
+  - i4
+  - i1
+  - i0
+The set:
+  - i0
+  - i1
+  - i6
+  - i4
+  - i3
+The table: i4 row i1, i3 row i6, i1 row i0 and i6 row i4.
+What is the cheapest encoding for i3 2?
+
+Answer with exactly one of: set | table | graph | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 14,
+  &quot;sequence&quot;: 8,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 6
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph: i2 edge i1, i3 edge i6, i7 edge i2 and i6 edge i7.
+The sequence is:
+  - i3
+  - i6
+  - i7
+  - i2
+  - i1
+The set:
+  - i1
+  - i6
+  - i2
+  - i3
+  - i7
+The table: i7 row i2, i2 row i1, i3 row i6 and i6 row i7.
+What is the cheapest encoding for i6 3?
+
+Answer with exactly one of: graph | sequence | set | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 16,
+  &quot;sequence&quot;: 13,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 7
+ },
+ &quot;k&quot;: 3,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 3
+The graph: i4 edge i7, i7 edge i0, i6 edge i4 and i0 edge i1.
+The sequence is:
+  - i6
+  - i4
+  - i7
+  - i0
+  - i1
+The set:
+  - i0
+  - i7
+  - i6
+  - i1
+  - i4
+The table: i4 row i7, i6 row i4, i7 row i0 and i0 row i1.
+What is the cheapest encoding for i6 3?
+
+Answer with exactly one of: table | graph | set | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  1,
+  2,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 12,
+  &quot;sequence&quot;: 5,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 17
+ },
+ &quot;k&quot;: 3,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph:
+  - i3 edge i2
+  - i4 edge i0
+  - i7 edge i3
+  - i0 edge i5
+  - i2 edge i4
+  - i1 edge i7
+The sequence is:
+  - i1
+  - i7
+  - i3
+  - i2
+  - i4
+  - i0
+  - i5
+The set:
+  - i3
+  - i7
+  - i0
+  - i1
+  - i2
+  - i5
+  - i4
+The table:
+  - i0 row i5
+  - i1 row i7
+  - i7 row i3
+  - i3 row i2
+  - i4 row i0
+  - i2 row i4
+What is the cheapest encoding for i1 3?
+
+Answer with exactly one of: table | graph | sequence | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  3,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 10,
+  &quot;sequence&quot;: 10,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 9
+ },
+ &quot;k&quot;: 3,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 2
+The graph:
+  - i6 edge i2
+  - i0 edge i5
+  - i1 edge i4
+  - i4 edge i6
+  - i2 edge i0
+The sequence is:
+  - i1
+  - i4
+  - i6
+  - i2
+  - i0
+  - i5
+The set:
+  - i0
+  - i5
+  - i1
+  - i4
+  - i2
+  - i6
+The table:
+  - i6 row i2
+  - i4 row i6
+  - i2 row i0
+  - i0 row i5
+  - i1 row i4
+What is the cheapest encoding for i2 0?
+
+Answer with exactly one of: sequence | set | table | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  1,
+  2,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 1,
+  &quot;sequence&quot;: 4,
+  &quot;set&quot;: 2,
+  &quot;table&quot;: 12
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph: i6 edge i3, i4 edge i0, i3 edge i7 and i0 edge i6.
+The sequence is:
+  - i4
+  - i0
+  - i6
+  - i3
+  - i7
+The set:
+  - i0
+  - i3
+  - i6
+  - i7
+  - i4
+The table: i4 row i0, i0 row i6, i3 row i7 and i6 row i3.
+What is the cheapest encoding for i6 0?
+
+Answer with exactly one of: set | table | graph | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  1,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 6,
+  &quot;set&quot;: 3,
+  &quot;table&quot;: 7
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph: i1 edge i7, i4 edge i5 and i7 edge i4.
+The sequence is: i1, i7, i4 and i5.
+The set: i7, i1, i4 and i5.
+The table: i1 row i7, i4 row i5 and i7 row i4.
+What is the cheapest encoding for i4 0?
+
+Answer with exactly one of: table | sequence | set | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  2,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 3,
+  &quot;set&quot;: 1,
+  &quot;table&quot;: 4
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph: i6 edge i3, i3 edge i2, i1 edge i0 and i0 edge i6.
+The sequence is:
+  - i1
+  - i0
+  - i6
+  - i3
+  - i2
+The set:
+  - i6
+  - i2
+  - i3
+  - i0
+  - i1
+The table: i1 row i0, i0 row i6, i6 row i3 and i3 row i2.
+What is the cheapest encoding for i3 1?
+
+Answer with exactly one of: set | sequence | table | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 4,
+  &quot;sequence&quot;: 10,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 5
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 1
+The graph: i7 edge i5, i1 edge i3, i5 edge i1 and i2 edge i7.
+The sequence is:
+  - i2
+  - i7
+  - i5
+  - i1
+  - i3
+The set:
+  - i7
+  - i1
+  - i5
+  - i2
+  - i3
+The table: i5 row i1, i2 row i7, i1 row i3 and i7 row i5.
+What is the cheapest encoding for i1 1?
+
+Answer with exactly one of: table | sequence | graph | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  2,
+  2,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 6,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 9
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 2
+The graph:
+  - i0 edge i7
+  - i3 edge i2
+  - i4 edge i6
+  - i2 edge i4
+  - i7 edge i3
+The sequence is:
+  - i0
+  - i7
+  - i3
+  - i2
+  - i4
+  - i6
+The set:
+  - i7
+  - i4
+  - i0
+  - i3
+  - i6
+  - i2
+The table:
+  - i7 row i3
+  - i3 row i2
+  - i4 row i6
+  - i2 row i4
+  - i0 row i7
+What is the cheapest encoding for i0 2?
+
+Answer with exactly one of: graph | set | table | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  2,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 12,
+  &quot;sequence&quot;: 8,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 14
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph: i7 edge i2, i0 edge i7 and i3 edge i0.
+The sequence is: i3, i0, i7 and i2.
+The set: i2, i7, i0 and i3.
+The table: i0 row i7, i7 row i2 and i3 row i0.
+What is the cheapest encoding for i0 0?
+
+Answer with exactly one of: table | graph | set | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 4,
+  &quot;sequence&quot;: 4,
+  &quot;set&quot;: 3,
+  &quot;table&quot;: 6
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 3
+The graph: i6 edge i1, i5 edge i6, i2 edge i3 and i1 edge i2.
+The sequence is:
+  - i5
+  - i6
+  - i1
+  - i2
+  - i3
+The set:
+  - i6
+  - i2
+  - i3
+  - i1
+  - i5
+The table: i1 row i2, i5 row i6, i2 row i3 and i6 row i1.
+What is the cheapest encoding for i3 0?
+
+Answer with exactly one of: sequence | graph | table | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  2,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 6,
+  &quot;sequence&quot;: 10,
+  &quot;set&quot;: 3,
+  &quot;table&quot;: 11
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph: i6 edge i7, i3 edge i5 and i7 edge i3.
+The sequence is: i6, i7, i3 and i5.
+The set: i6, i5, i3 and i7.
+The table: i7 row i3, i3 row i5 and i6 row i7.
+What is the cheapest encoding for i5 0?
+
+Answer with exactly one of: sequence | graph | table | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  2,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 4,
+  &quot;set&quot;: 1,
+  &quot;table&quot;: 4
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph: i6 edge i0, i4 edge i2 and i0 edge i4.
+The sequence is: i6, i0, i4 and i2.
+The set: i0, i4, i2 and i6.
+The table: i6 row i0, i4 row i2 and i0 row i4.
+What is the cheapest encoding for i4 1?
+
+Answer with exactly one of: sequence | table | set | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 4,
+  &quot;sequence&quot;: 9,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 6
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph: i2 edge i5, i5 edge i1, i1 edge i7 and i6 edge i2.
+The sequence is:
+  - i6
+  - i2
+  - i5
+  - i1
+  - i7
+The set:
+  - i7
+  - i2
+  - i1
+  - i6
+  - i5
+The table: i1 row i7, i5 row i1, i6 row i2 and i2 row i5.
+What is the cheapest encoding for i1 1?
+
+Answer with exactly one of: graph | table | set | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 6,
+  &quot;sequence&quot;: 11,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 5
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 3
+The graph:
+  - i5 edge i6
+  - i0 edge i7
+  - i7 edge i3
+  - i3 edge i2
+  - i2 edge i5
+The sequence is:
+  - i0
+  - i7
+  - i3
+  - i2
+  - i5
+  - i6
+The set:
+  - i5
+  - i2
+  - i3
+  - i7
+  - i0
+  - i6
+The table:
+  - i5 row i6
+  - i7 row i3
+  - i0 row i7
+  - i3 row i2
+  - i2 row i5
+What is the cheapest encoding for i0 0?
+
+Answer with exactly one of: graph | sequence | set | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  2,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 4,
+  &quot;sequence&quot;: 2,
+  &quot;set&quot;: 3,
+  &quot;table&quot;: 13
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 2
+The graph:
+  - i6 edge i0
+  - i5 edge i3
+  - i0 edge i4
+  - i4 edge i5
+  - i3 edge i2
+The sequence is:
+  - i6
+  - i0
+  - i4
+  - i5
+  - i3
+  - i2
+The set:
+  - i2
+  - i3
+  - i6
+  - i5
+  - i4
+  - i0
+The table:
+  - i5 row i3
+  - i6 row i0
+  - i3 row i2
+  - i4 row i5
+  - i0 row i4
+What is the cheapest encoding for i4 3?
+
+Answer with exactly one of: set | sequence | table | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 22,
+  &quot;sequence&quot;: 15,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 11
+ },
+ &quot;k&quot;: 3,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph: i4 edge i2, i6 edge i4, i2 edge i7 and i1 edge i6.
+The sequence is:
+  - i1
+  - i6
+  - i4
+  - i2
+  - i7
+The set:
+  - i4
+  - i2
+  - i6
+  - i7
+  - i1
+The table: i1 row i6, i6 row i4, i4 row i2 and i2 row i7.
+What is the cheapest encoding for i6 3?
+
+Answer with exactly one of: table | graph | set | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 12,
+  &quot;sequence&quot;: 13,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 7
+ },
+ &quot;k&quot;: 3,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 2
+The graph: i0 edge i4, i1 edge i6, i6 edge i3 and i4 edge i1.
+The sequence is:
+  - i0
+  - i4
+  - i1
+  - i6
+  - i3
+The set:
+  - i3
+  - i4
+  - i6
+  - i0
+  - i1
+The table: i4 row i1, i6 row i3, i1 row i6 and i0 row i4.
+What is the cheapest encoding for i4 0?
+
+Answer with exactly one of: table | sequence | graph | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  1,
+  2,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 1,
+  &quot;sequence&quot;: 2,
+  &quot;set&quot;: 2,
+  &quot;table&quot;: 10
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph: i0 edge i1, i7 edge i6 and i1 edge i7.
+The sequence is: i0, i1, i7 and i6.
+The set: i6, i1, i7 and i0.
+The table: i0 row i1, i7 row i6 and i1 row i7.
+What is the cheapest encoding for i7 1?
+
+Answer with exactly one of: graph | sequence | table | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  3,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 6,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 6
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph:
+  - i1 edge i7
+  - i3 edge i0
+  - i0 edge i5
+  - i5 edge i1
+  - i7 edge i6
+The sequence is:
+  - i3
+  - i0
+  - i5
+  - i1
+  - i7
+  - i6
+The set:
+  - i1
+  - i6
+  - i0
+  - i7
+  - i5
+  - i3
+The table:
+  - i5 row i1
+  - i0 row i5
+  - i3 row i0
+  - i7 row i6
+  - i1 row i7
+What is the cheapest encoding for i5 3?
+
+Answer with exactly one of: graph | sequence | set | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 20,
+  &quot;sequence&quot;: 12,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 8
+ },
+ &quot;k&quot;: 3,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph: i5 edge i1, i6 edge i5, i4 edge i6 and i1 edge i7.
+The sequence is:
+  - i4
+  - i6
+  - i5
+  - i1
+  - i7
+The set:
+  - i4
+  - i1
+  - i6
+  - i7
+  - i5
+The table: i4 row i6, i1 row i7, i6 row i5 and i5 row i1.
+What is the cheapest encoding for i6 0?
+
+Answer with exactly one of: table | set | sequence | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  3,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 2,
+  &quot;set&quot;: 1,
+  &quot;table&quot;: 5
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 3
+The graph:
+  - i4 edge i6
+  - i5 edge i2
+  - i1 edge i5
+  - i6 edge i1
+  - i2 edge i7
+  - i0 edge i4
+The sequence is:
+  - i0
+  - i4
+  - i6
+  - i1
+  - i5
+  - i2
+  - i7
+The set:
+  - i6
+  - i2
+  - i4
+  - i5
+  - i1
+  - i0
+  - i7
+The table:
+  - i1 row i5
+  - i2 row i7
+  - i5 row i2
+  - i4 row i6
+  - i0 row i4
+  - i6 row i1
+What is the cheapest encoding for i2 0?
+
+Answer with exactly one of: set | sequence | graph | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  1,
+  2,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 6,
+  &quot;set&quot;: 3,
+  &quot;table&quot;: 15
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph:
+  - i2 edge i3
+  - i0 edge i2
+  - i7 edge i5
+  - i3 edge i7
+  - i6 edge i0
+The sequence is:
+  - i6
+  - i0
+  - i2
+  - i3
+  - i7
+  - i5
+The set:
+  - i2
+  - i0
+  - i6
+  - i3
+  - i7
+  - i5
+The table:
+  - i0 row i2
+  - i2 row i3
+  - i7 row i5
+  - i3 row i7
+  - i6 row i0
+What is the cheapest encoding for i0 0?
+
+Answer with exactly one of: sequence | set | table | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  2,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 2,
+  &quot;set&quot;: 1,
+  &quot;table&quot;: 6
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph: i1 edge i3, i7 edge i1, i4 edge i6 and i6 edge i7.
+The sequence is:
+  - i4
+  - i6
+  - i7
+  - i1
+  - i3
+The set:
+  - i7
+  - i4
+  - i1
+  - i6
+  - i3
+The table: i4 row i6, i7 row i1, i6 row i7 and i1 row i3.
+What is the cheapest encoding for i3 0?
+
+Answer with exactly one of: set | sequence | table | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 10,
+  &quot;set&quot;: 1,
+  &quot;table&quot;: 5
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph:
+  - i4 edge i7
+  - i0 edge i2
+  - i7 edge i5
+  - i2 edge i4
+  - i6 edge i0
+The sequence is:
+  - i6
+  - i0
+  - i2
+  - i4
+  - i7
+  - i5
+The set:
+  - i5
+  - i7
+  - i2
+  - i0
+  - i6
+  - i4
+The table:
+  - i6 row i0
+  - i0 row i2
+  - i7 row i5
+  - i2 row i4
+  - i4 row i7
+What is the cheapest encoding for i2 0?
+
+Answer with exactly one of: graph | table | sequence | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  3,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 3,
+  &quot;set&quot;: 3,
+  &quot;table&quot;: 8
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 2
+The graph:
+  - i2 edge i4
+  - i5 edge i7
+  - i3 edge i2
+  - i7 edge i3
+  - i0 edge i5
+  - i6 edge i0
+The sequence is:
+  - i6
+  - i0
+  - i5
+  - i7
+  - i3
+  - i2
+  - i4
+The set:
+  - i2
+  - i3
+  - i0
+  - i4
+  - i5
+  - i6
+  - i7
+The table:
+  - i5 row i7
+  - i6 row i0
+  - i0 row i5
+  - i7 row i3
+  - i3 row i2
+  - i2 row i4
+What is the cheapest encoding for i7 3?
+
+Answer with exactly one of: table | sequence | graph | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  1,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 16,
+  &quot;sequence&quot;: 14,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 12
+ },
+ &quot;k&quot;: 3,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 2
+The graph:
+  - i5 edge i4
+  - i6 edge i1
+  - i1 edge i2
+  - i0 edge i3
+  - i2 edge i0
+  - i3 edge i5
+The sequence is:
+  - i6
+  - i1
+  - i2
+  - i0
+  - i3
+  - i5
+  - i4
+The set:
+  - i0
+  - i1
+  - i2
+  - i6
+  - i4
+  - i5
+  - i3
+The table:
+  - i3 row i5
+  - i1 row i2
+  - i6 row i1
+  - i5 row i4
+  - i0 row i3
+  - i2 row i0
+What is the cheapest encoding for i6 2?
+
+Answer with exactly one of: table | sequence | set | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 10,
+  &quot;sequence&quot;: 8,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 10
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph:
+  - i3 edge i5
+  - i6 edge i3
+  - i7 edge i6
+  - i5 edge i0
+  - i0 edge i4
+The sequence is:
+  - i7
+  - i6
+  - i3
+  - i5
+  - i0
+  - i4
+The set:
+  - i3
+  - i7
+  - i5
+  - i6
+  - i4
+  - i0
+The table:
+  - i3 row i5
+  - i5 row i0
+  - i0 row i4
+  - i6 row i3
+  - i7 row i6
+What is the cheapest encoding for i5 0?
+
+Answer with exactly one of: sequence | graph | set | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 8,
+  &quot;set&quot;: 1,
+  &quot;table&quot;: 6
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph: i3 edge i5, i0 edge i3, i6 edge i1 and i5 edge i6.
+The sequence is:
+  - i0
+  - i3
+  - i5
+  - i6
+  - i1
+The set:
+  - i0
+  - i3
+  - i5
+  - i1
+  - i6
+The table: i0 row i3, i5 row i6, i3 row i5 and i6 row i1.
+What is the cheapest encoding for i0 0?
+
+Answer with exactly one of: set | graph | sequence | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  1,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 1,
+  &quot;set&quot;: 3,
+  &quot;table&quot;: 7
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph:
+  - i0 edge i4
+  - i5 edge i1
+  - i3 edge i7
+  - i4 edge i5
+  - i1 edge i3
+The sequence is:
+  - i0
+  - i4
+  - i5
+  - i1
+  - i3
+  - i7
+The set:
+  - i7
+  - i4
+  - i1
+  - i3
+  - i0
+  - i5
+The table:
+  - i1 row i3
+  - i5 row i1
+  - i3 row i7
+  - i4 row i5
+  - i0 row i4
+What is the cheapest encoding for i4 2?
+
+Answer with exactly one of: set | table | sequence | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  1,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 6,
+  &quot;sequence&quot;: 4,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 11
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 2
+The graph: i0 edge i1, i5 edge i7, i2 edge i5 and i7 edge i0.
+The sequence is:
+  - i2
+  - i5
+  - i7
+  - i0
+  - i1
+The set:
+  - i0
+  - i5
+  - i7
+  - i2
+  - i1
+The table: i5 row i7, i2 row i5, i7 row i0 and i0 row i1.
+What is the cheapest encoding for i7 2?
+
+Answer with exactly one of: sequence | set | graph | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  2,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 10,
+  &quot;sequence&quot;: 12,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 12
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph: i7 edge i0, i4 edge i3, i3 edge i7 and i2 edge i4.
+The sequence is:
+  - i2
+  - i4
+  - i3
+  - i7
+  - i0
+The set:
+  - i0
+  - i2
+  - i4
+  - i7
+  - i3
+The table: i7 row i0, i4 row i3, i3 row i7 and i2 row i4.
+What is the cheapest encoding for i7 1?
+
+Answer with exactly one of: sequence | table | set | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  3,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 1,
+  &quot;sequence&quot;: 7,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 7
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 1
+The graph:
+  - i1 edge i4
+  - i4 edge i2
+  - i0 edge i1
+  - i3 edge i6
+  - i2 edge i3
+The sequence is:
+  - i0
+  - i1
+  - i4
+  - i2
+  - i3
+  - i6
+The set:
+  - i2
+  - i0
+  - i6
+  - i1
+  - i4
+  - i3
+The table:
+  - i2 row i3
+  - i1 row i4
+  - i0 row i1
+  - i3 row i6
+  - i4 row i2
+What is the cheapest encoding for i3 1?
+
+Answer with exactly one of: sequence | graph | set | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  2,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 8,
+  &quot;sequence&quot;: 12,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 11
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 2
+The graph: i1 edge i3, i3 edge i6 and i2 edge i1.
+The sequence is: i2, i1, i3 and i6.
+The set: i2, i1, i6 and i3.
+The table: i1 row i3, i3 row i6 and i2 row i1.
+What is the cheapest encoding for i2 2?
+
+Answer with exactly one of: graph | set | table | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  1,
+  2,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 4,
+  &quot;sequence&quot;: 3,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 10
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph: i2 edge i0, i4 edge i2 and i0 edge i7.
+The sequence is: i4, i2, i0 and i7.
+The set: i0, i4, i2 and i7.
+The table: i2 row i0, i0 row i7 and i4 row i2.
+What is the cheapest encoding for i4 0?
+
+Answer with exactly one of: sequence | graph | table | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 4,
+  &quot;sequence&quot;: 2,
+  &quot;set&quot;: 3,
+  &quot;table&quot;: 6
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph:
+  - i7 edge i1
+  - i3 edge i4
+  - i1 edge i3
+  - i4 edge i5
+  - i2 edge i7
+The sequence is:
+  - i2
+  - i7
+  - i1
+  - i3
+  - i4
+  - i5
+The set:
+  - i1
+  - i4
+  - i5
+  - i7
+  - i3
+  - i2
+The table:
+  - i4 row i5
+  - i7 row i1
+  - i1 row i3
+  - i3 row i4
+  - i2 row i7
+What is the cheapest encoding for i5 0?
+
+Answer with exactly one of: set | table | sequence | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  2,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 4,
+  &quot;sequence&quot;: 6,
+  &quot;set&quot;: 1,
+  &quot;table&quot;: 6
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph: i4 edge i6, i6 edge i3 and i3 edge i0.
+The sequence is: i4, i6, i3 and i0.
+The set: i4, i6, i0 and i3.
+The table: i6 row i3, i4 row i6 and i3 row i0.
+What is the cheapest encoding for i3 1?
+
+Answer with exactly one of: table | set | graph | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 6,
+  &quot;sequence&quot;: 9,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 4
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 3
+The graph: i7 edge i2, i2 edge i5 and i3 edge i7.
+The sequence is: i3, i7, i2 and i5.
+The set: i5, i2, i7 and i3.
+The table: i2 row i5, i7 row i2 and i3 row i7.
+What is the cheapest encoding for i3 0?
+
+Answer with exactly one of: sequence | graph | table | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  1,
+  2,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 3,
+  &quot;sequence&quot;: 1,
+  &quot;set&quot;: 3,
+  &quot;table&quot;: 9
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph:
+  - i5 edge i6
+  - i1 edge i2
+  - i2 edge i4
+  - i7 edge i5
+  - i0 edge i1
+  - i4 edge i7
+The sequence is:
+  - i0
+  - i1
+  - i2
+  - i4
+  - i7
+  - i5
+  - i6
+The set:
+  - i4
+  - i6
+  - i7
+  - i0
+  - i5
+  - i2
+  - i1
+The table:
+  - i4 row i7
+  - i5 row i6
+  - i0 row i1
+  - i7 row i5
+  - i1 row i2
+  - i2 row i4
+What is the cheapest encoding for i4 2?
+
+Answer with exactly one of: table | graph | sequence | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 20,
+  &quot;sequence&quot;: 12,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 8
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph:
+  - i2 edge i3
+  - i4 edge i6
+  - i1 edge i2
+  - i3 edge i7
+  - i6 edge i1
+  - i5 edge i4
+The sequence is:
+  - i5
+  - i4
+  - i6
+  - i1
+  - i2
+  - i3
+  - i7
+The set:
+  - i2
+  - i4
+  - i3
+  - i6
+  - i5
+  - i7
+  - i1
+The table:
+  - i2 row i3
+  - i6 row i1
+  - i5 row i4
+  - i3 row i7
+  - i1 row i2
+  - i4 row i6
+What is the cheapest encoding for i4 3?
+
+Answer with exactly one of: set | table | sequence | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  3,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 10,
+  &quot;sequence&quot;: 11,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 9
+ },
+ &quot;k&quot;: 3,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph: i1 edge i5, i2 edge i1 and i7 edge i2.
+The sequence is: i7, i2, i1 and i5.
+The set: i5, i7, i2 and i1.
+The table: i1 row i5, i7 row i2 and i2 row i1.
+What is the cheapest encoding for i7 2?
+
+Answer with exactly one of: table | sequence | set | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 10,
+  &quot;sequence&quot;: 6,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 5
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 3
+The graph: i6 edge i5, i0 edge i3, i5 edge i0 and i2 edge i6.
+The sequence is:
+  - i2
+  - i6
+  - i5
+  - i0
+  - i3
+The set:
+  - i6
+  - i3
+  - i5
+  - i0
+  - i2
+The table: i6 row i5, i2 row i6, i5 row i0 and i0 row i3.
+What is the cheapest encoding for i6 1?
+
+Answer with exactly one of: sequence | table | graph | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  2,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 7,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 11
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 1
+The graph: i6 edge i3, i3 edge i7 and i7 edge i2.
+The sequence is: i6, i3, i7 and i2.
+The set: i3, i2, i6 and i7.
+The table: i7 row i2, i6 row i3 and i3 row i7.
+What is the cheapest encoding for i7 1?
+
+Answer with exactly one of: sequence | table | set | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  2,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 6,
+  &quot;sequence&quot;: 9,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 7
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph:
+  - i2 edge i3
+  - i3 edge i0
+  - i6 edge i2
+  - i4 edge i7
+  - i7 edge i6
+The sequence is:
+  - i4
+  - i7
+  - i6
+  - i2
+  - i3
+  - i0
+The set:
+  - i7
+  - i4
+  - i2
+  - i0
+  - i6
+  - i3
+The table:
+  - i2 row i3
+  - i6 row i2
+  - i4 row i7
+  - i7 row i6
+  - i3 row i0
+What is the cheapest encoding for i6 2?
+
+Answer with exactly one of: sequence | table | graph | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 8,
+  &quot;sequence&quot;: 10,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 7
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 2
+The graph:
+  - i7 edge i6
+  - i3 edge i5
+  - i2 edge i3
+  - i0 edge i7
+  - i5 edge i0
+The sequence is:
+  - i2
+  - i3
+  - i5
+  - i0
+  - i7
+  - i6
+The set:
+  - i2
+  - i7
+  - i6
+  - i0
+  - i3
+  - i5
+The table:
+  - i5 row i0
+  - i7 row i6
+  - i0 row i7
+  - i2 row i3
+  - i3 row i5
+What is the cheapest encoding for i6 0?
+
+Answer with exactly one of: set | sequence | graph | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  3,
+  1,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 1,
+  &quot;sequence&quot;: 6,
+  &quot;set&quot;: 2,
+  &quot;table&quot;: 7
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 1
+The graph:
+  - i4 edge i5
+  - i6 edge i7
+  - i7 edge i3
+  - i3 edge i0
+  - i0 edge i4
+The sequence is:
+  - i6
+  - i7
+  - i3
+  - i0
+  - i4
+  - i5
+The set:
+  - i0
+  - i6
+  - i5
+  - i7
+  - i4
+  - i3
+The table:
+  - i7 row i3
+  - i6 row i7
+  - i0 row i4
+  - i3 row i0
+  - i4 row i5
+What is the cheapest encoding for i6 1?
+
+Answer with exactly one of: graph | table | set | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  2,
+  2,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 3,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 11
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 3
+The graph: i7 edge i5, i5 edge i1, i0 edge i7 and i6 edge i0.
+The sequence is:
+  - i6
+  - i0
+  - i7
+  - i5
+  - i1
+The set:
+  - i0
+  - i5
+  - i6
+  - i1
+  - i7
+The table: i5 row i1, i7 row i5, i6 row i0 and i0 row i7.
+What is the cheapest encoding for i1 0?
+
+Answer with exactly one of: graph | table | set | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  2,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 4,
+  &quot;sequence&quot;: 10,
+  &quot;set&quot;: 3,
+  &quot;table&quot;: 11
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 2
+The graph: i7 edge i0, i0 edge i2 and i2 edge i6.
+The sequence is: i7, i0, i2 and i6.
+The set: i6, i7, i0 and i2.
+The table: i7 row i0, i2 row i6 and i0 row i2.
+What is the cheapest encoding for i0 0?
+
+Answer with exactly one of: graph | set | table | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  2,
+  2,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 1,
+  &quot;sequence&quot;: 2,
+  &quot;set&quot;: 2,
+  &quot;table&quot;: 8
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 1
+The graph: i4 edge i3, i0 edge i6 and i3 edge i0.
+The sequence is: i4, i3, i0 and i6.
+The set: i3, i4, i6 and i0.
+The table: i0 row i6, i4 row i3 and i3 row i0.
+What is the cheapest encoding for i4 0?
+
+Answer with exactly one of: graph | sequence | set | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  2,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 2,
+  &quot;set&quot;: 1,
+  &quot;table&quot;: 7
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 3
+The graph: i1 edge i3, i6 edge i1 and i2 edge i6.
+The sequence is: i2, i6, i1 and i3.
+The set: i3, i2, i1 and i6.
+The table: i6 row i1, i1 row i3 and i2 row i6.
+What is the cheapest encoding for i2 3?
+
+Answer with exactly one of: graph | table | set | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  2,
+  2,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 6,
+  &quot;sequence&quot;: 7,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 15
+ },
+ &quot;k&quot;: 3,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph:
+  - i0 edge i6
+  - i6 edge i4
+  - i1 edge i3
+  - i4 edge i1
+  - i5 edge i0
+The sequence is:
+  - i5
+  - i0
+  - i6
+  - i4
+  - i1
+  - i3
+The set:
+  - i1
+  - i5
+  - i4
+  - i0
+  - i3
+  - i6
+The table:
+  - i5 row i0
+  - i4 row i1
+  - i6 row i4
+  - i0 row i6
+  - i1 row i3
+What is the cheapest encoding for i6 3?
+
+Answer with exactly one of: sequence | set | graph | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 18,
+  &quot;sequence&quot;: 12,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 8
+ },
+ &quot;k&quot;: 3,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 2
+The graph:
+  - i1 edge i2
+  - i4 edge i7
+  - i6 edge i1
+  - i3 edge i4
+  - i0 edge i3
+  - i2 edge i0
+The sequence is:
+  - i6
+  - i1
+  - i2
+  - i0
+  - i3
+  - i4
+  - i7
+The set:
+  - i7
+  - i1
+  - i2
+  - i0
+  - i4
+  - i6
+  - i3
+The table:
+  - i1 row i2
+  - i0 row i3
+  - i3 row i4
+  - i6 row i1
+  - i4 row i7
+  - i2 row i0
+What is the cheapest encoding for i7 0?
+
+Answer with exactly one of: set | sequence | table | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  1,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 4,
+  &quot;sequence&quot;: 14,
+  &quot;set&quot;: 2,
+  &quot;table&quot;: 8
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 1
+The graph:
+  - i0 edge i2
+  - i6 edge i0
+  - i3 edge i1
+  - i1 edge i6
+  - i2 edge i5
+The sequence is:
+  - i3
+  - i1
+  - i6
+  - i0
+  - i2
+  - i5
+The set:
+  - i3
+  - i6
+  - i5
+  - i1
+  - i0
+  - i2
+The table:
+  - i1 row i6
+  - i6 row i0
+  - i3 row i1
+  - i2 row i5
+  - i0 row i2
+What is the cheapest encoding for i1 0?
+
+Answer with exactly one of: sequence | set | graph | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  1,
+  2,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 6,
+  &quot;sequence&quot;: 4,
+  &quot;set&quot;: 1,
+  &quot;table&quot;: 11
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 2
+The graph:
+  - i7 edge i3
+  - i6 edge i0
+  - i0 edge i5
+  - i3 edge i6
+  - i5 edge i2
+The sequence is:
+  - i7
+  - i3
+  - i6
+  - i0
+  - i5
+  - i2
+The set:
+  - i7
+  - i2
+  - i3
+  - i6
+  - i0
+  - i5
+The table:
+  - i7 row i3
+  - i0 row i5
+  - i3 row i6
+  - i6 row i0
+  - i5 row i2
+What is the cheapest encoding for i6 2?
+
+Answer with exactly one of: graph | sequence | set | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  1,
+  2,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 10,
+  &quot;sequence&quot;: 8,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 14
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 2
+The graph:
+  - i2 edge i1
+  - i6 edge i3
+  - i3 edge i5
+  - i1 edge i6
+  - i5 edge i0
+  - i4 edge i2
+The sequence is:
+  - i4
+  - i2
+  - i1
+  - i6
+  - i3
+  - i5
+  - i0
+The set:
+  - i6
+  - i3
+  - i1
+  - i4
+  - i2
+  - i5
+  - i0
+The table:
+  - i6 row i3
+  - i5 row i0
+  - i3 row i5
+  - i4 row i2
+  - i1 row i6
+  - i2 row i1
+What is the cheapest encoding for i4 3?
+
+Answer with exactly one of: sequence | table | set | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  1,
+  2,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 22,
+  &quot;sequence&quot;: 5,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 18
+ },
+ &quot;k&quot;: 3,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph:
+  - i1 edge i0
+  - i6 edge i2
+  - i7 edge i4
+  - i2 edge i7
+  - i4 edge i3
+  - i3 edge i1
+The sequence is:
+  - i6
+  - i2
+  - i7
+  - i4
+  - i3
+  - i1
+  - i0
+The set:
+  - i3
+  - i7
+  - i0
+  - i1
+  - i4
+  - i2
+  - i6
+The table:
+  - i2 row i7
+  - i1 row i0
+  - i4 row i3
+  - i6 row i2
+  - i3 row i1
+  - i7 row i4
+What is the cheapest encoding for i3 0?
+
+Answer with exactly one of: table | graph | sequence | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  1,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 10,
+  &quot;sequence&quot;: 10,
+  &quot;set&quot;: 3,
+  &quot;table&quot;: 9
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph:
+  - i3 edge i2
+  - i1 edge i5
+  - i4 edge i0
+  - i2 edge i6
+  - i6 edge i4
+  - i0 edge i1
+The sequence is:
+  - i3
+  - i2
+  - i6
+  - i4
+  - i0
+  - i1
+  - i5
+The set:
+  - i6
+  - i0
+  - i4
+  - i5
+  - i3
+  - i1
+  - i2
+The table:
+  - i6 row i4
+  - i2 row i6
+  - i3 row i2
+  - i1 row i5
+  - i4 row i0
+  - i0 row i1
+What is the cheapest encoding for i0 1?
+
+Answer with exactly one of: table | graph | set | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 12,
+  &quot;sequence&quot;: 12,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 9
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 1
+The graph:
+  - i1 edge i5
+  - i6 edge i1
+  - i2 edge i0
+  - i4 edge i6
+  - i0 edge i3
+  - i5 edge i2
+The sequence is:
+  - i4
+  - i6
+  - i1
+  - i5
+  - i2
+  - i0
+  - i3
+The set:
+  - i1
+  - i2
+  - i0
+  - i3
+  - i6
+  - i5
+  - i4
+The table:
+  - i4 row i6
+  - i6 row i1
+  - i0 row i3
+  - i1 row i5
+  - i2 row i0
+  - i5 row i2
+What is the cheapest encoding for i1 2?
+
+Answer with exactly one of: graph | set | sequence | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  1,
+  2,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 7,
+  &quot;sequence&quot;: 5,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 14
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph: i1 edge i7, i5 edge i1, i0 edge i2 and i7 edge i0.
+The sequence is:
+  - i5
+  - i1
+  - i7
+  - i0
+  - i2
+The set:
+  - i2
+  - i5
+  - i0
+  - i1
+  - i7
+The table: i1 row i7, i7 row i0, i5 row i1 and i0 row i2.
+What is the cheapest encoding for i0 1?
+
+Answer with exactly one of: table | sequence | graph | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 6,
+  &quot;sequence&quot;: 11,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 5
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 3
+The graph: i4 edge i2, i0 edge i4 and i7 edge i0.
+The sequence is: i7, i0, i4 and i2.
+The set: i7, i0, i2 and i4.
+The table: i4 row i2, i7 row i0 and i0 row i4.
+What is the cheapest encoding for i0 0?
+
+Answer with exactly one of: set | table | graph | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  2,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 4,
+  &quot;sequence&quot;: 4,
+  &quot;set&quot;: 3,
+  &quot;table&quot;: 9
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 2
+The graph:
+  - i5 edge i0
+  - i3 edge i2
+  - i2 edge i7
+  - i7 edge i6
+  - i6 edge i5
+The sequence is:
+  - i3
+  - i2
+  - i7
+  - i6
+  - i5
+  - i0
+The set:
+  - i3
+  - i6
+  - i7
+  - i0
+  - i5
+  - i2
+The table:
+  - i3 row i2
+  - i7 row i6
+  - i2 row i7
+  - i6 row i5
+  - i5 row i0
+What is the cheapest encoding for i3 0?
+
+Answer with exactly one of: graph | table | set | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  1,
+  2,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 1,
+  &quot;set&quot;: 2,
+  &quot;table&quot;: 12
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph:
+  - i6 edge i7
+  - i2 edge i3
+  - i7 edge i4
+  - i0 edge i6
+  - i4 edge i2
+The sequence is:
+  - i0
+  - i6
+  - i7
+  - i4
+  - i2
+  - i3
+The set:
+  - i2
+  - i3
+  - i4
+  - i6
+  - i0
+  - i7
+The table:
+  - i7 row i4
+  - i4 row i2
+  - i2 row i3
+  - i0 row i6
+  - i6 row i7
+What is the cheapest encoding for i6 1?
+
+Answer with exactly one of: table | graph | sequence | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 6,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 8
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 2
+The graph: i6 edge i4, i4 edge i5, i2 edge i6 and i1 edge i2.
+The sequence is:
+  - i1
+  - i2
+  - i6
+  - i4
+  - i5
+The set:
+  - i5
+  - i4
+  - i1
+  - i6
+  - i2
+The table: i1 row i2, i4 row i5, i6 row i4 and i2 row i6.
+What is the cheapest encoding for i1 3?
+
+Answer with exactly one of: graph | sequence | set | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  1,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 16,
+  &quot;sequence&quot;: 8,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 10
+ },
+ &quot;k&quot;: 3,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 2
+The graph:
+  - i4 edge i2
+  - i3 edge i4
+  - i6 edge i1
+  - i2 edge i6
+  - i1 edge i0
+  - i7 edge i3
+The sequence is:
+  - i7
+  - i3
+  - i4
+  - i2
+  - i6
+  - i1
+  - i0
+The set:
+  - i1
+  - i7
+  - i3
+  - i0
+  - i4
+  - i6
+  - i2
+The table:
+  - i4 row i2
+  - i2 row i6
+  - i7 row i3
+  - i3 row i4
+  - i1 row i0
+  - i6 row i1
+What is the cheapest encoding for i1 1?
+
+Answer with exactly one of: graph | set | table | sequence
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  1,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 10,
+  &quot;sequence&quot;: 14,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 8
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph:
+  - i1 edge i5
+  - i4 edge i2
+  - i6 edge i1
+  - i2 edge i7
+  - i7 edge i6
+  - i0 edge i4
+The sequence is:
+  - i0
+  - i4
+  - i2
+  - i7
+  - i6
+  - i1
+  - i5
+The set:
+  - i5
+  - i6
+  - i7
+  - i1
+  - i0
+  - i2
+  - i4
+The table:
+  - i1 row i5
+  - i2 row i7
+  - i7 row i6
+  - i4 row i2
+  - i6 row i1
+  - i0 row i4
+What is the cheapest encoding for i1 1?
+
+Answer with exactly one of: graph | sequence | set | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  1,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 1,
+  &quot;sequence&quot;: 7,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 7
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 2
+The graph: i6 edge i4, i1 edge i6, i3 edge i1 and i0 edge i3.
+The sequence is:
+  - i0
+  - i3
+  - i1
+  - i6
+  - i4
+The set:
+  - i0
+  - i6
+  - i4
+  - i1
+  - i3
+The table: i1 row i6, i6 row i4, i0 row i3 and i3 row i1.
+What is the cheapest encoding for i0 0?
+
+Answer with exactly one of: table | set | sequence | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  3,
+  1,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 4,
+  &quot;sequence&quot;: 1,
+  &quot;set&quot;: 2,
+  &quot;table&quot;: 6
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">graph</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 3
+The graph:
+  - i0 edge i3
+  - i6 edge i0
+  - i1 edge i6
+  - i7 edge i4
+  - i2 edge i7
+  - i3 edge i2
+The sequence is:
+  - i1
+  - i6
+  - i0
+  - i3
+  - i2
+  - i7
+  - i4
+The set:
+  - i3
+  - i0
+  - i6
+  - i7
+  - i2
+  - i1
+  - i4
+The table:
+  - i1 row i6
+  - i7 row i4
+  - i0 row i3
+  - i3 row i2
+  - i2 row i7
+  - i6 row i0
+What is the cheapest encoding for i6 2?
+
+Answer with exactly one of: graph | sequence | set | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;graph&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  2,
+  2,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 3,
+  &quot;sequence&quot;: 6,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 18
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph: i5 edge i3, i3 edge i1 and i1 edge i4.
+The sequence is: i5, i3, i1 and i4.
+The set: i1, i3, i5 and i4.
+The table: i1 row i4, i5 row i3 and i3 row i1.
+What is the cheapest encoding for i1 1?
+
+Answer with exactly one of: table | sequence | graph | set
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 6,
+  &quot;sequence&quot;: 9,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 4
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph:
+  - i4 edge i0
+  - i6 edge i1
+  - i0 edge i7
+  - i7 edge i2
+  - i1 edge i4
+The sequence is:
+  - i6
+  - i1
+  - i4
+  - i0
+  - i7
+  - i2
+The set:
+  - i4
+  - i0
+  - i1
+  - i7
+  - i6
+  - i2
+The table:
+  - i6 row i1
+  - i0 row i7
+  - i4 row i0
+  - i7 row i2
+  - i1 row i4
+What is the cheapest encoding for i4 2?
+
+Answer with exactly one of: graph | sequence | set | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  2,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 8,
+  &quot;sequence&quot;: 10,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 7
+ },
+ &quot;k&quot;: 2,
+ &quot;n&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 3
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 3
+The graph:
+  - i3 edge i2
+  - i6 edge i1
+  - i5 edge i3
+  - i2 edge i6
+  - i0 edge i5
+  - i1 edge i7
+The sequence is:
+  - i0
+  - i5
+  - i3
+  - i2
+  - i6
+  - i1
+  - i7
+The set:
+  - i1
+  - i5
+  - i6
+  - i2
+  - i7
+  - i0
+  - i3
+The table:
+  - i5 row i3
+  - i2 row i6
+  - i6 row i1
+  - i1 row i7
+  - i0 row i5
+  - i3 row i2
+What is the cheapest encoding for i2 3?
+
+Answer with exactly one of: table | set | sequence | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  1,
+  1,
+  3
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 24,
+  &quot;sequence&quot;: 11,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 15
+ },
+ &quot;k&quot;: 3,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 1
+  - per_step on sequence costs 2
+  - scan_per_edge on graph costs 1
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 1
+The graph:
+  - i7 edge i1
+  - i5 edge i0
+  - i6 edge i2
+  - i4 edge i5
+  - i0 edge i6
+  - i1 edge i4
+The sequence is:
+  - i7
+  - i1
+  - i4
+  - i5
+  - i0
+  - i6
+  - i2
+The set:
+  - i4
+  - i6
+  - i5
+  - i2
+  - i7
+  - i1
+  - i0
+The table:
+  - i4 row i5
+  - i0 row i6
+  - i5 row i0
+  - i6 row i2
+  - i7 row i1
+  - i1 row i4
+What is the cheapest encoding for i1 3?
+
+Answer with exactly one of: sequence | set | graph | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  1,
+  2,
+  1,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 12,
+  &quot;sequence&quot;: 8,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 9
+ },
+ &quot;k&quot;: 3,
+ &quot;n&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 1
+The graph: i4 edge i3, i0 edge i6, i6 edge i4 and i3 edge i5.
+The sequence is:
+  - i0
+  - i6
+  - i4
+  - i3
+  - i5
+The set:
+  - i4
+  - i3
+  - i6
+  - i5
+  - i0
+The table: i0 row i6, i3 row i5, i4 row i3 and i6 row i4.
+What is the cheapest encoding for i6 0?
+
+Answer with exactly one of: table | sequence | set | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  2,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 4,
+  &quot;sequence&quot;: 4,
+  &quot;set&quot;: 1,
+  &quot;table&quot;: 9
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">sequence</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 2
+The graph: i3 edge i0, i4 edge i3, i7 edge i1 and i1 edge i4.
+The sequence is:
+  - i7
+  - i1
+  - i4
+  - i3
+  - i0
+The set:
+  - i4
+  - i3
+  - i1
+  - i0
+  - i7
+The table: i4 row i3, i3 row i0, i1 row i4 and i7 row i1.
+What is the cheapest encoding for i1 1?
+
+Answer with exactly one of: set | graph | sequence | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sequence&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  1,
+  1,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 8,
+  &quot;sequence&quot;: 5,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 6
+ },
+ &quot;k&quot;: 1,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">set</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 1
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 1
+  - per_step on set costs unsupported
+  - index_per_row on table costs 2
+  - lookup on table costs 1
+The graph: i0 edge i6, i5 edge i3 and i3 edge i0.
+The sequence is: i5, i3, i0 and i6.
+The set: i0, i3, i6 and i5.
+The table: i0 row i6, i3 row i0 and i5 row i3.
+What is the cheapest encoding for i0 0?
+
+Answer with exactly one of: table | sequence | set | graph
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;set&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  1,
+  2,
+  1
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 2,
+  &quot;sequence&quot;: 6,
+  &quot;set&quot;: 1,
+  &quot;table&quot;: 7
+ },
+ &quot;k&quot;: 0,
+ &quot;n&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">table</span></summary>
+<div class="body">
+<p>prompt</p><pre>Costs:
+  - scan_per_item on sequence costs 2
+  - per_step on sequence costs 3
+  - scan_per_edge on graph costs 2
+  - lookup on set costs 2
+  - per_step on set costs unsupported
+  - index_per_row on table costs 1
+  - lookup on table costs 2
+The graph: i6 edge i3, i3 edge i5, i0 edge i4 and i5 edge i0.
+The sequence is:
+  - i6
+  - i3
+  - i5
+  - i0
+  - i4
+The set:
+  - i0
+  - i5
+  - i3
+  - i6
+  - i4
+The table: i0 row i4, i3 row i5, i6 row i3 and i5 row i0.
+What is the cheapest encoding for i6 3?
+
+Answer with exactly one of: set | sequence | graph | table
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;table&quot;,
+ &quot;coefficients&quot;: [
+  2,
+  3,
+  1,
+  2
+ ],
+ &quot;costs&quot;: {
+  &quot;graph&quot;: 14,
+  &quot;sequence&quot;: 11,
+  &quot;set&quot;: null,
+  &quot;table&quot;: 10
+ },
+ &quot;k&quot;: 3,
+ &quot;n&quot;: 5
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

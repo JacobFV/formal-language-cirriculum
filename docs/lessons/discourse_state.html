@@ -1,0 +1,3958 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>discourse_state — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iii">language as action</a> &rsaquo;
+  discourse_state</p>
+<h1>#23 <code>discourse_state</code></h1>
+<p class="lede">salience as state across turns</p>
+<div class="tags"><span class="tag ">level 23</span><span class="tag ">section iii</span><span class="tag ">sequence_memory</span><span class="tag ">variable_binding</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.185</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Salience as state: entities are mentioned and *closed* over turns.</p><p>    The referent of &quot;the animal we were talking about&quot; is the most recently
+    mentioned entity of that kind whose mention has not since been closed — so
+    the answer depends on the whole turn sequence, not on the last line.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>ambiguity</td><td class='num'>2</td></tr><tr><td>discourse_horizon</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>2</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The entities are: barge is a vehicle, kettle is a tool, truck is a vehicle and fern is a plant.
+The turns:
+  - turn 0: close truck
+  - turn 1: mention truck
+  - turn 2: mention barge
+  - turn 3: mention barge
+  - turn 4: mention kettle
+Which vehicle is most salient?
+
+Answer with exactly one of: kettle | barge | truck | fern
+Reply with the answer only.</pre><h3>spanish</h3><pre>Las entidades son: barcaza es un vehículo, tetera es una herramienta, camión es un vehículo y helecho es una planta.
+Los turnos son:
+  - turno 0: cerrar camión
+  - turno 1: mention camión
+  - turno 2: mention barcaza
+  - turno 3: mention barcaza
+  - turno 4: mention tetera
+¿Qué vehículo es el más destacado?
+
+Responde exactamente con una de estas opciones: tetera | barcaza | camión | helecho
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>实体如下：驳船是一种车辆；水壶是一种工具；卡车是一种车辆；蕨类植物是一种植物。
+各轮如下：
+  - 第0轮：关闭卡车
+  - 第1轮：mention卡车
+  - 第2轮：mention驳船
+  - 第3轮：mention驳船
+  - 第4轮：mention水壶
+车辆的最显著的是什么？
+
+请从以下选项中选出恰好一个作答：水壶 | 驳船 | 卡车 | 蕨类植物
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The entities are: barge is a vehicle, kettle is a tool, truck is a vehicle and fern is a plant.
+The turns:
+  - turn 0: close truck
+  - turn 1: mention truck
+  - turn 2: mention barge
+  - turn 3: mention barge
+  - turn 4: mention kettle
+Which vehicle is most salient?
+
+Answer with exactly one of: kettle | barge | truck | fern
+Reply with the answer only.</pre><h3>symbols</h3><pre>{entities: [(entity barge vehicle) (entity kettle tool) (entity truck vehicle) (entity fern plant)], query: (most_salient vehicle), turns: [(turn 0 close truck) (turn 1 mention truck) (turn 2 mention barge) (turn 3 mention barge) (turn 4 mention kettle)]}
+
+Answer with exactly one of: kettle | barge | truck | fern
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/discourse_state.jsonl</code> &middot; <code>data/samples/spanish/discourse_state.jsonl</code> &middot; <code>data/samples/chinese/discourse_state.jsonl</code> &middot; <code>data/samples/english_synonym/discourse_state.jsonl</code> &middot; <code>data/samples/symbols/discourse_state.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">barge</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: barge is a vehicle, kettle is a tool, truck is a vehicle and fern is a plant.
+The turns:
+  - turn 0: close truck
+  - turn 1: mention truck
+  - turn 2: mention barge
+  - turn 3: mention barge
+  - turn 4: mention kettle
+Which vehicle is most salient?
+
+Answer with exactly one of: kettle | barge | truck | fern
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;close&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: fern is a plant, truck is a vehicle, rose is a plant and barge is a vehicle.
+The turns: turn 0: mention rose; turn 1: mention fern; turn 2: mention fern; turn 3: mention barge.
+Which plant is most salient?
+
+Answer with exactly one of: truck | fern | barge | rose
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">otter</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: spade is a tool, hamster is an animal, otter is an animal and fern is a plant.
+The turns: turn 0: mention hamster; turn 1: mention otter; turn 2: mention fern; turn 3: mention otter.
+Which animal is most salient?
+
+Answer with exactly one of: fern | otter | hamster | spade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: spade is a tool, otter is an animal, rose is a plant and fern is a plant.
+The turns:
+  - turn 0: mention fern
+  - turn 1: mention rose
+  - turn 2: mention fern
+  - turn 3: mention fern
+  - turn 4: mention fern
+Which plant is most salient?
+
+Answer with exactly one of: otter | spade | rose | fern
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: fern is a plant, truck is a vehicle, otter is an animal and rose is a plant.
+The turns: turn 0: mention rose; turn 1: close fern; turn 2: mention fern; turn 3: mention truck.
+Which plant is most salient?
+
+Answer with exactly one of: truck | rose | fern | otter
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">kettle</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: fern is a plant, chisel is a tool, spade is a tool and kettle is a tool.
+The turns:
+  - turn 0: mention kettle
+  - turn 1: close kettle
+  - turn 2: mention chisel
+  - turn 3: mention spade
+  - turn 4: mention chisel
+  - turn 5: mention kettle
+Which tool is most salient?
+
+Answer with exactly one of: kettle | chisel | fern | spade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">hamster</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: otter is an animal, hamster is an animal, magpie is an animal and spade is a tool.
+The turns:
+  - turn 0: mention magpie
+  - turn 1: mention otter
+  - turn 2: mention hamster
+  - turn 3: mention hamster
+  - turn 4: mention spade
+Which animal is most salient?
+
+Answer with exactly one of: spade | magpie | hamster | otter
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">spade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: hamster is an animal, truck is a vehicle, kettle is a tool and spade is a tool.
+The turns: turn 0: mention spade; turn 1: mention kettle; turn 2: mention spade; turn 3: close hamster.
+Which tool is most salient?
+
+Answer with exactly one of: truck | kettle | spade | hamster
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;hamster&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: rose is a plant, kettle is a tool, chisel is a tool and fern is a plant.
+The turns:
+  - turn 0: mention rose
+  - turn 1: close fern
+  - turn 2: mention rose
+  - turn 3: mention fern
+  - turn 4: mention fern
+Which plant is most salient?
+
+Answer with exactly one of: chisel | fern | kettle | rose
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">truck</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: rose is a plant, magpie is an animal, barge is a vehicle and truck is a vehicle.
+The turns:
+  - turn 0: close magpie
+  - turn 1: mention truck
+  - turn 2: mention rose
+  - turn 3: mention barge
+  - turn 4: mention magpie
+  - turn 5: mention truck
+Which vehicle is most salient?
+
+Answer with exactly one of: truck | magpie | barge | rose
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;close&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">hamster</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: magpie is an animal, otter is an animal, hamster is an animal and barge is a vehicle.
+The turns: turn 0: mention otter; turn 1: mention otter; turn 2: mention magpie; turn 3: mention hamster.
+Which animal is most salient?
+
+Answer with exactly one of: magpie | barge | otter | hamster
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">barge</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: barge is a vehicle, truck is a vehicle, magpie is an animal and rose is a plant.
+The turns: turn 0: mention barge; turn 1: mention truck; turn 2: mention truck; turn 3: mention barge.
+Which vehicle is most salient?
+
+Answer with exactly one of: rose | barge | magpie | truck
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">truck</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: truck is a vehicle, hamster is an animal, barge is a vehicle and rose is a plant.
+The turns:
+  - turn 0: mention rose
+  - turn 1: close truck
+  - turn 2: mention barge
+  - turn 3: mention hamster
+  - turn 4: mention truck
+  - turn 5: mention truck
+Which vehicle is most salient?
+
+Answer with exactly one of: truck | hamster | rose | barge
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">kettle</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: rose is a plant, spade is a tool, chisel is a tool and kettle is a tool.
+The turns:
+  - turn 0: mention chisel
+  - turn 1: mention chisel
+  - turn 2: mention kettle
+  - turn 3: mention spade
+  - turn 4: mention rose
+  - turn 5: mention kettle
+  - turn 6: close chisel
+Which tool is most salient?
+
+Answer with exactly one of: rose | spade | chisel | kettle
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;chisel&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">otter</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: rose is a plant, magpie is an animal, chisel is a tool and otter is an animal.
+The turns:
+  - turn 0: mention otter
+  - turn 1: mention rose
+  - turn 2: mention otter
+  - turn 3: mention magpie
+  - turn 4: mention otter
+Which animal is most salient?
+
+Answer with exactly one of: magpie | rose | otter | chisel
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: fern is a plant, hamster is an animal, kettle is a tool and rose is a plant.
+The turns: turn 0: mention rose; turn 1: mention kettle; turn 2: close kettle; turn 3: mention fern.
+Which plant is most salient?
+
+Answer with exactly one of: kettle | rose | fern | hamster
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">kettle</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: kettle is a tool, chisel is a tool, spade is a tool and otter is an animal.
+The turns:
+  - turn 0: mention spade
+  - turn 1: close spade
+  - turn 2: mention chisel
+  - turn 3: mention kettle
+  - turn 4: mention chisel
+  - turn 5: mention spade
+  - turn 6: mention kettle
+Which tool is most salient?
+
+Answer with exactly one of: chisel | spade | otter | kettle
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">truck</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: barge is a vehicle, rose is a plant, truck is a vehicle and magpie is an animal.
+The turns:
+  - turn 0: mention truck
+  - turn 1: close rose
+  - turn 2: mention barge
+  - turn 3: mention magpie
+  - turn 4: mention truck
+  - turn 5: mention truck
+Which vehicle is most salient?
+
+Answer with exactly one of: truck | barge | magpie | rose
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">rose</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: fern is a plant, rose is a plant, kettle is a tool and otter is an animal.
+The turns:
+  - turn 0: mention otter
+  - turn 1: close rose
+  - turn 2: mention fern
+  - turn 3: mention kettle
+  - turn 4: mention rose
+Which plant is most salient?
+
+Answer with exactly one of: otter | kettle | fern | rose
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">magpie</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: hamster is an animal, magpie is an animal, chisel is a tool and barge is a vehicle.
+The turns: turn 0: mention chisel; turn 1: mention hamster; turn 2: mention magpie; turn 3: mention barge.
+Which animal is most salient?
+
+Answer with exactly one of: magpie | barge | chisel | hamster
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">rose</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: magpie is an animal, rose is a plant, fern is a plant and hamster is an animal.
+The turns:
+  - turn 0: mention fern
+  - turn 1: mention hamster
+  - turn 2: close fern
+  - turn 3: mention rose
+  - turn 4: mention hamster
+Which plant is most salient?
+
+Answer with exactly one of: fern | rose | magpie | hamster
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">rose</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: truck is a vehicle, fern is a plant, barge is a vehicle and rose is a plant.
+The turns: turn 0: mention fern; turn 1: close fern; turn 2: mention rose; turn 3: mention barge.
+Which plant is most salient?
+
+Answer with exactly one of: rose | barge | fern | truck
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">rose</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: chisel is a tool, fern is a plant, magpie is an animal and rose is a plant.
+The turns: turn 0: mention fern; turn 1: mention magpie; turn 2: mention chisel; turn 3: mention rose.
+Which plant is most salient?
+
+Answer with exactly one of: fern | rose | magpie | chisel
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">spade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: spade is a tool, fern is a plant, kettle is a tool and barge is a vehicle.
+The turns: turn 0: mention kettle; turn 1: mention spade; turn 2: mention fern.
+Which tool is most salient?
+
+Answer with exactly one of: kettle | fern | barge | spade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">barge</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: truck is a vehicle, otter is an animal, kettle is a tool and barge is a vehicle.
+The turns: turn 0: mention truck; turn 1: mention truck; turn 2: mention barge; turn 3: mention barge.
+Which vehicle is most salient?
+
+Answer with exactly one of: truck | otter | kettle | barge
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">truck</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: hamster is an animal, truck is a vehicle, barge is a vehicle and fern is a plant.
+The turns:
+  - turn 0: mention barge
+  - turn 1: mention barge
+  - turn 2: mention truck
+  - turn 3: mention hamster
+  - turn 4: mention truck
+Which vehicle is most salient?
+
+Answer with exactly one of: fern | truck | barge | hamster
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">rose</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: rose is a plant, magpie is an animal, fern is a plant and barge is a vehicle.
+The turns:
+  - turn 0: mention magpie
+  - turn 1: mention barge
+  - turn 2: mention fern
+  - turn 3: mention rose
+  - turn 4: mention rose
+Which plant is most salient?
+
+Answer with exactly one of: fern | rose | magpie | barge
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">truck</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: truck is a vehicle, barge is a vehicle, hamster is an animal and otter is an animal.
+The turns: turn 0: mention barge; turn 1: mention barge; turn 2: mention barge; turn 3: mention truck.
+Which vehicle is most salient?
+
+Answer with exactly one of: otter | barge | hamster | truck
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">hamster</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: spade is a tool, magpie is an animal, hamster is an animal and fern is a plant.
+The turns:
+  - turn 0: close spade
+  - turn 1: mention magpie
+  - turn 2: mention magpie
+  - turn 3: mention magpie
+  - turn 4: mention hamster
+Which animal is most salient?
+
+Answer with exactly one of: hamster | spade | magpie | fern
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;close&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">magpie</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: magpie is an animal, truck is a vehicle, otter is an animal and hamster is an animal.
+The turns:
+  - turn 0: mention otter
+  - turn 1: mention otter
+  - turn 2: mention hamster
+  - turn 3: mention truck
+  - turn 4: mention magpie
+Which animal is most salient?
+
+Answer with exactly one of: otter | magpie | hamster | truck
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">chisel</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: magpie is an animal, chisel is a tool, kettle is a tool and hamster is an animal.
+The turns: turn 0: mention kettle; turn 1: mention chisel; turn 2: mention chisel.
+Which tool is most salient?
+
+Answer with exactly one of: magpie | chisel | kettle | hamster
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">hamster</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: otter is an animal, magpie is an animal, rose is a plant and hamster is an animal.
+The turns: turn 0: mention otter; turn 1: mention magpie; turn 2: mention otter; turn 3: mention hamster.
+Which animal is most salient?
+
+Answer with exactly one of: otter | magpie | rose | hamster
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">hamster</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: otter is an animal, rose is a plant, hamster is an animal and spade is a tool.
+The turns:
+  - turn 0: mention hamster
+  - turn 1: mention otter
+  - turn 2: mention spade
+  - turn 3: mention otter
+  - turn 4: mention hamster
+Which animal is most salient?
+
+Answer with exactly one of: rose | otter | hamster | spade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: fern is a plant, rose is a plant, chisel is a tool and magpie is an animal.
+The turns:
+  - turn 0: mention magpie
+  - turn 1: mention fern
+  - turn 2: mention rose
+  - turn 3: mention chisel
+  - turn 4: mention fern
+Which plant is most salient?
+
+Answer with exactly one of: magpie | fern | rose | chisel
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">kettle</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: magpie is an animal, barge is a vehicle, chisel is a tool and kettle is a tool.
+The turns:
+  - turn 0: mention chisel
+  - turn 1: mention chisel
+  - turn 2: mention magpie
+  - turn 3: mention kettle
+  - turn 4: mention barge
+Which tool is most salient?
+
+Answer with exactly one of: kettle | magpie | barge | chisel
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">chisel</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: chisel is a tool, otter is an animal, spade is a tool and fern is a plant.
+The turns:
+  - turn 0: close spade
+  - turn 1: mention spade
+  - turn 2: mention spade
+  - turn 3: mention chisel
+  - turn 4: mention spade
+  - turn 5: mention chisel
+Which tool is most salient?
+
+Answer with exactly one of: otter | spade | chisel | fern
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;close&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">spade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: hamster is an animal, fern is a plant, kettle is a tool and spade is a tool.
+The turns:
+  - turn 0: mention spade
+  - turn 1: mention kettle
+  - turn 2: mention kettle
+  - turn 3: mention spade
+  - turn 4: mention hamster
+Which tool is most salient?
+
+Answer with exactly one of: fern | kettle | hamster | spade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">magpie</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: truck is a vehicle, otter is an animal, barge is a vehicle and magpie is an animal.
+The turns:
+  - turn 0: mention magpie
+  - turn 1: mention magpie
+  - turn 2: mention otter
+  - turn 3: mention otter
+  - turn 4: mention magpie
+Which animal is most salient?
+
+Answer with exactly one of: truck | otter | magpie | barge
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">truck</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: chisel is a tool, barge is a vehicle, truck is a vehicle and fern is a plant.
+The turns:
+  - turn 0: mention barge
+  - turn 1: mention truck
+  - turn 2: mention truck
+  - turn 3: mention truck
+  - turn 4: close chisel
+Which vehicle is most salient?
+
+Answer with exactly one of: truck | barge | chisel | fern
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;chisel&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: rose is a plant, fern is a plant, kettle is a tool and otter is an animal.
+The turns:
+  - turn 0: mention rose
+  - turn 1: mention rose
+  - turn 2: mention kettle
+  - turn 3: close rose
+  - turn 4: mention fern
+  - turn 5: mention fern
+Which plant is most salient?
+
+Answer with exactly one of: rose | fern | kettle | otter
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">truck</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: barge is a vehicle, otter is an animal, truck is a vehicle and kettle is a tool.
+The turns: turn 0: mention barge; turn 1: mention truck; turn 2: mention otter.
+Which vehicle is most salient?
+
+Answer with exactly one of: truck | otter | kettle | barge
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">barge</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: barge is a vehicle, truck is a vehicle, spade is a tool and rose is a plant.
+The turns: turn 0: mention barge; turn 1: mention truck; turn 2: mention barge.
+Which vehicle is most salient?
+
+Answer with exactly one of: rose | truck | barge | spade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">magpie</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: fern is a plant, magpie is an animal, spade is a tool and otter is an animal.
+The turns: turn 0: close magpie; turn 1: mention otter; turn 2: mention fern; turn 3: mention magpie.
+Which animal is most salient?
+
+Answer with exactly one of: spade | magpie | fern | otter
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;close&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">otter</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: chisel is a tool, otter is an animal, hamster is an animal and magpie is an animal.
+The turns:
+  - turn 0: mention hamster
+  - turn 1: close magpie
+  - turn 2: mention magpie
+  - turn 3: mention hamster
+  - turn 4: mention magpie
+  - turn 5: mention magpie
+  - turn 6: mention otter
+Which animal is most salient?
+
+Answer with exactly one of: chisel | hamster | magpie | otter
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">barge</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: truck is a vehicle, kettle is a tool, magpie is an animal and barge is a vehicle.
+The turns: turn 0: mention truck; turn 1: mention barge; turn 2: mention magpie.
+Which vehicle is most salient?
+
+Answer with exactly one of: barge | truck | kettle | magpie
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">spade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: chisel is a tool, magpie is an animal, spade is a tool and kettle is a tool.
+The turns:
+  - turn 0: mention kettle
+  - turn 1: mention chisel
+  - turn 2: mention chisel
+  - turn 3: mention spade
+  - turn 4: mention spade
+Which tool is most salient?
+
+Answer with exactly one of: spade | kettle | chisel | magpie
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">hamster</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: magpie is an animal, otter is an animal, truck is a vehicle and hamster is an animal.
+The turns:
+  - turn 0: mention magpie
+  - turn 1: mention otter
+  - turn 2: mention truck
+  - turn 3: close truck
+  - turn 4: mention hamster
+Which animal is most salient?
+
+Answer with exactly one of: magpie | truck | hamster | otter
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">chisel</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: spade is a tool, chisel is a tool, magpie is an animal and truck is a vehicle.
+The turns: turn 0: mention spade; turn 1: mention spade; turn 2: mention spade; turn 3: mention chisel.
+Which tool is most salient?
+
+Answer with exactly one of: truck | magpie | chisel | spade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">spade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: chisel is a tool, truck is a vehicle, fern is a plant and spade is a tool.
+The turns:
+  - turn 0: mention chisel
+  - turn 1: mention chisel
+  - turn 2: mention spade
+  - turn 3: close chisel
+  - turn 4: mention truck
+  - turn 5: mention spade
+Which tool is most salient?
+
+Answer with exactly one of: fern | chisel | spade | truck
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">hamster</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: hamster is an animal, fern is a plant, magpie is an animal and otter is an animal.
+The turns:
+  - turn 0: mention otter
+  - turn 1: close fern
+  - turn 2: mention magpie
+  - turn 3: mention hamster
+  - turn 4: mention hamster
+  - turn 5: mention fern
+Which animal is most salient?
+
+Answer with exactly one of: otter | magpie | fern | hamster
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">barge</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: rose is a plant, barge is a vehicle, truck is a vehicle and fern is a plant.
+The turns: turn 0: mention truck; turn 1: close rose; turn 2: mention truck; turn 3: mention barge.
+Which vehicle is most salient?
+
+Answer with exactly one of: rose | barge | fern | truck
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: rose is a plant, fern is a plant, spade is a tool and barge is a vehicle.
+The turns: turn 0: mention rose; turn 1: mention spade; turn 2: mention barge; turn 3: mention fern.
+Which plant is most salient?
+
+Answer with exactly one of: spade | barge | fern | rose
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">chisel</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: spade is a tool, fern is a plant, chisel is a tool and magpie is an animal.
+The turns: turn 0: mention chisel; turn 1: mention spade; turn 2: mention chisel; turn 3: close magpie.
+Which tool is most salient?
+
+Answer with exactly one of: fern | chisel | magpie | spade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;magpie&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: rose is a plant, truck is a vehicle, chisel is a tool and fern is a plant.
+The turns:
+  - turn 0: mention rose
+  - turn 1: close truck
+  - turn 2: mention truck
+  - turn 3: mention rose
+  - turn 4: mention fern
+Which plant is most salient?
+
+Answer with exactly one of: rose | chisel | fern | truck
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">rose</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: fern is a plant, truck is a vehicle, kettle is a tool and rose is a plant.
+The turns:
+  - turn 0: mention fern
+  - turn 1: mention rose
+  - turn 2: mention truck
+  - turn 3: mention fern
+  - turn 4: mention rose
+Which plant is most salient?
+
+Answer with exactly one of: fern | rose | truck | kettle
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">otter</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: fern is a plant, hamster is an animal, kettle is a tool and otter is an animal.
+The turns:
+  - turn 0: mention hamster
+  - turn 1: mention otter
+  - turn 2: mention otter
+  - turn 3: mention otter
+  - turn 4: mention otter
+Which animal is most salient?
+
+Answer with exactly one of: hamster | kettle | otter | fern
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">hamster</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: hamster is an animal, rose is a plant, magpie is an animal and otter is an animal.
+The turns:
+  - turn 0: close rose
+  - turn 1: mention hamster
+  - turn 2: mention magpie
+  - turn 3: mention magpie
+  - turn 4: mention otter
+  - turn 5: mention hamster
+  - turn 6: mention rose
+Which animal is most salient?
+
+Answer with exactly one of: rose | magpie | hamster | otter
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;close&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">hamster</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: magpie is an animal, truck is a vehicle, hamster is an animal and otter is an animal.
+The turns:
+  - turn 0: mention hamster
+  - turn 1: mention otter
+  - turn 2: mention magpie
+  - turn 3: mention otter
+  - turn 4: mention hamster
+  - turn 5: mention truck
+Which animal is most salient?
+
+Answer with exactly one of: otter | magpie | hamster | truck
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: rose is a plant, kettle is a tool, fern is a plant and truck is a vehicle.
+The turns:
+  - turn 0: mention truck
+  - turn 1: mention rose
+  - turn 2: mention rose
+  - turn 3: mention fern
+  - turn 4: mention fern
+Which plant is most salient?
+
+Answer with exactly one of: rose | kettle | fern | truck
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: rose is a plant, fern is a plant, barge is a vehicle and magpie is an animal.
+The turns: turn 0: mention rose; turn 1: mention barge; turn 2: mention magpie; turn 3: mention fern.
+Which plant is most salient?
+
+Answer with exactly one of: magpie | rose | barge | fern
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">chisel</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: chisel is a tool, spade is a tool, kettle is a tool and otter is an animal.
+The turns:
+  - turn 0: mention kettle
+  - turn 1: close spade
+  - turn 2: mention spade
+  - turn 3: mention otter
+  - turn 4: mention chisel
+Which tool is most salient?
+
+Answer with exactly one of: spade | chisel | otter | kettle
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">truck</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: magpie is an animal, spade is a tool, truck is a vehicle and barge is a vehicle.
+The turns: turn 0: mention barge; turn 1: mention barge; turn 2: mention truck; turn 3: mention truck.
+Which vehicle is most salient?
+
+Answer with exactly one of: spade | barge | truck | magpie
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: fern is a plant, chisel is a tool, rose is a plant and spade is a tool.
+The turns: turn 0: mention fern; turn 1: mention chisel; turn 2: mention rose; turn 3: mention fern.
+Which plant is most salient?
+
+Answer with exactly one of: chisel | fern | spade | rose
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">barge</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: fern is a plant, chisel is a tool, barge is a vehicle and truck is a vehicle.
+The turns:
+  - turn 0: mention truck
+  - turn 1: mention fern
+  - turn 2: close fern
+  - turn 3: mention barge
+  - turn 4: mention barge
+Which vehicle is most salient?
+
+Answer with exactly one of: chisel | truck | barge | fern
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">truck</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: magpie is an animal, truck is a vehicle, kettle is a tool and barge is a vehicle.
+The turns: turn 0: mention truck; turn 1: mention magpie; turn 2: mention barge; turn 3: mention truck.
+Which vehicle is most salient?
+
+Answer with exactly one of: barge | kettle | magpie | truck
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">truck</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: truck is a vehicle, barge is a vehicle, fern is a plant and kettle is a tool.
+The turns: turn 0: mention kettle; turn 1: mention barge; turn 2: mention truck.
+Which vehicle is most salient?
+
+Answer with exactly one of: fern | kettle | barge | truck
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">hamster</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: hamster is an animal, otter is an animal, chisel is a tool and magpie is an animal.
+The turns:
+  - turn 0: mention magpie
+  - turn 1: mention hamster
+  - turn 2: mention otter
+  - turn 3: mention otter
+  - turn 4: mention hamster
+Which animal is most salient?
+
+Answer with exactly one of: otter | magpie | chisel | hamster
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">magpie</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: otter is an animal, barge is a vehicle, magpie is an animal and chisel is a tool.
+The turns:
+  - turn 0: mention otter
+  - turn 1: mention barge
+  - turn 2: mention otter
+  - turn 3: mention magpie
+  - turn 4: mention magpie
+Which animal is most salient?
+
+Answer with exactly one of: magpie | otter | barge | chisel
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">barge</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: barge is a vehicle, magpie is an animal, truck is a vehicle and fern is a plant.
+The turns: turn 0: mention fern; turn 1: close magpie; turn 2: mention truck; turn 3: mention barge.
+Which vehicle is most salient?
+
+Answer with exactly one of: truck | fern | barge | magpie
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">hamster</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: hamster is an animal, magpie is an animal, chisel is a tool and truck is a vehicle.
+The turns:
+  - turn 0: mention truck
+  - turn 1: close magpie
+  - turn 2: mention magpie
+  - turn 3: mention truck
+  - turn 4: mention chisel
+  - turn 5: mention hamster
+Which animal is most salient?
+
+Answer with exactly one of: chisel | hamster | truck | magpie
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">hamster</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: otter is an animal, spade is a tool, magpie is an animal and hamster is an animal.
+The turns:
+  - turn 0: mention hamster
+  - turn 1: mention spade
+  - turn 2: mention otter
+  - turn 3: mention magpie
+  - turn 4: mention hamster
+Which animal is most salient?
+
+Answer with exactly one of: spade | magpie | otter | hamster
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">spade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: kettle is a tool, otter is an animal, spade is a tool and fern is a plant.
+The turns:
+  - turn 0: mention fern
+  - turn 1: mention kettle
+  - turn 2: mention spade
+  - turn 3: mention kettle
+  - turn 4: close kettle
+  - turn 5: mention spade
+Which tool is most salient?
+
+Answer with exactly one of: otter | kettle | spade | fern
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">otter</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: otter is an animal, rose is a plant, chisel is a tool and magpie is an animal.
+The turns: turn 0: close magpie; turn 1: mention magpie; turn 2: mention otter; turn 3: mention otter.
+Which animal is most salient?
+
+Answer with exactly one of: chisel | magpie | rose | otter
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;close&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">spade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: truck is a vehicle, chisel is a tool, spade is a tool and otter is an animal.
+The turns:
+  - turn 0: mention otter
+  - turn 1: mention truck
+  - turn 2: mention chisel
+  - turn 3: mention chisel
+  - turn 4: close otter
+  - turn 5: mention spade
+Which tool is most salient?
+
+Answer with exactly one of: truck | chisel | spade | otter
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">magpie</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: magpie is an animal, hamster is an animal, fern is a plant and otter is an animal.
+The turns:
+  - turn 0: mention otter
+  - turn 1: close otter
+  - turn 2: mention hamster
+  - turn 3: mention fern
+  - turn 4: mention hamster
+  - turn 5: mention magpie
+Which animal is most salient?
+
+Answer with exactly one of: magpie | otter | fern | hamster
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">truck</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: chisel is a tool, barge is a vehicle, truck is a vehicle and fern is a plant.
+The turns:
+  - turn 0: mention barge
+  - turn 1: mention fern
+  - turn 2: mention truck
+  - turn 3: mention truck
+  - turn 4: close fern
+Which vehicle is most salient?
+
+Answer with exactly one of: fern | truck | chisel | barge
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">spade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: chisel is a tool, kettle is a tool, spade is a tool and hamster is an animal.
+The turns:
+  - turn 0: mention chisel
+  - turn 1: mention kettle
+  - turn 2: mention spade
+  - turn 3: mention chisel
+  - turn 4: close chisel
+Which tool is most salient?
+
+Answer with exactly one of: hamster | kettle | spade | chisel
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;chisel&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">spade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: fern is a plant, spade is a tool, chisel is a tool and kettle is a tool.
+The turns:
+  - turn 0: mention kettle
+  - turn 1: mention fern
+  - turn 2: close fern
+  - turn 3: mention chisel
+  - turn 4: mention chisel
+  - turn 5: mention spade
+  - turn 6: mention fern
+Which tool is most salient?
+
+Answer with exactly one of: kettle | spade | chisel | fern
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">rose</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: fern is a plant, hamster is an animal, barge is a vehicle and rose is a plant.
+The turns:
+  - turn 0: mention fern
+  - turn 1: mention fern
+  - turn 2: mention hamster
+  - turn 3: close hamster
+  - turn 4: mention rose
+Which plant is most salient?
+
+Answer with exactly one of: fern | barge | rose | hamster
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">rose</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: rose is a plant, kettle is a tool, fern is a plant and otter is an animal.
+The turns: turn 0: mention fern; turn 1: mention rose; turn 2: mention rose.
+Which plant is most salient?
+
+Answer with exactly one of: rose | fern | otter | kettle
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">chisel</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: kettle is a tool, chisel is a tool, spade is a tool and magpie is an animal.
+The turns:
+  - turn 0: mention kettle
+  - turn 1: mention chisel
+  - turn 2: mention kettle
+  - turn 3: mention spade
+  - turn 4: mention magpie
+  - turn 5: mention chisel
+Which tool is most salient?
+
+Answer with exactly one of: spade | magpie | kettle | chisel
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">truck</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: hamster is an animal, truck is a vehicle, otter is an animal and barge is a vehicle.
+The turns:
+  - turn 0: mention otter
+  - turn 1: mention otter
+  - turn 2: mention truck
+  - turn 3: mention barge
+  - turn 4: mention truck
+Which vehicle is most salient?
+
+Answer with exactly one of: hamster | barge | otter | truck
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: rose is a plant, chisel is a tool, fern is a plant and magpie is an animal.
+The turns:
+  - turn 0: mention rose
+  - turn 1: mention chisel
+  - turn 2: close fern
+  - turn 3: mention fern
+  - turn 4: mention rose
+  - turn 5: mention fern
+Which plant is most salient?
+
+Answer with exactly one of: fern | chisel | rose | magpie
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">truck</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: truck is a vehicle, hamster is an animal, rose is a plant and barge is a vehicle.
+The turns:
+  - turn 0: mention truck
+  - turn 1: close barge
+  - turn 2: mention barge
+  - turn 3: mention truck
+  - turn 4: mention truck
+Which vehicle is most salient?
+
+Answer with exactly one of: rose | truck | barge | hamster
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">spade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: rose is a plant, kettle is a tool, spade is a tool and truck is a vehicle.
+The turns:
+  - turn 0: mention kettle
+  - turn 1: mention spade
+  - turn 2: mention truck
+  - turn 3: close rose
+  - turn 4: mention kettle
+  - turn 5: mention spade
+Which tool is most salient?
+
+Answer with exactly one of: kettle | spade | truck | rose
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: rose is a plant, fern is a plant, truck is a vehicle and kettle is a tool.
+The turns:
+  - turn 0: mention kettle
+  - turn 1: mention kettle
+  - turn 2: mention rose
+  - turn 3: mention rose
+  - turn 4: mention fern
+Which plant is most salient?
+
+Answer with exactly one of: truck | rose | fern | kettle
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">otter</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: magpie is an animal, hamster is an animal, rose is a plant and otter is an animal.
+The turns:
+  - turn 0: close otter
+  - turn 1: mention hamster
+  - turn 2: mention magpie
+  - turn 3: mention magpie
+  - turn 4: mention hamster
+  - turn 5: mention otter
+Which animal is most salient?
+
+Answer with exactly one of: rose | hamster | magpie | otter
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;close&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: fern is a plant, rose is a plant, truck is a vehicle and chisel is a tool.
+The turns: turn 0: mention fern; turn 1: mention rose; turn 2: mention chisel; turn 3: mention fern.
+Which plant is most salient?
+
+Answer with exactly one of: truck | fern | chisel | rose
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">barge</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: spade is a tool, hamster is an animal, barge is a vehicle and truck is a vehicle.
+The turns: turn 0: mention truck; turn 1: mention barge; turn 2: close truck; turn 3: mention hamster.
+Which vehicle is most salient?
+
+Answer with exactly one of: barge | spade | truck | hamster
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">otter</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: magpie is an animal, hamster is an animal, otter is an animal and spade is a tool.
+The turns:
+  - turn 0: mention magpie
+  - turn 1: mention spade
+  - turn 2: mention hamster
+  - turn 3: mention hamster
+  - turn 4: mention magpie
+  - turn 5: mention otter
+Which animal is most salient?
+
+Answer with exactly one of: otter | hamster | spade | magpie
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: fern is a plant, rose is a plant, chisel is a tool and barge is a vehicle.
+The turns:
+  - turn 0: close rose
+  - turn 1: mention chisel
+  - turn 2: mention fern
+  - turn 3: mention rose
+  - turn 4: mention fern
+Which plant is most salient?
+
+Answer with exactly one of: barge | chisel | fern | rose
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;close&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">magpie</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: magpie is an animal, barge is a vehicle, hamster is an animal and fern is a plant.
+The turns: turn 0: mention hamster; turn 1: mention hamster; turn 2: mention magpie.
+Which animal is most salient?
+
+Answer with exactly one of: hamster | magpie | fern | barge
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;animal&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;magpie&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">truck</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: rose is a plant, truck is a vehicle, magpie is an animal and barge is a vehicle.
+The turns: turn 0: mention barge; turn 1: mention truck; turn 2: mention truck.
+Which vehicle is most salient?
+
+Answer with exactly one of: rose | barge | magpie | truck
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">barge</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: chisel is a tool, barge is a vehicle, otter is an animal and truck is a vehicle.
+The turns:
+  - turn 0: mention truck
+  - turn 1: mention otter
+  - turn 2: mention chisel
+  - turn 3: mention truck
+  - turn 4: mention barge
+Which vehicle is most salient?
+
+Answer with exactly one of: otter | barge | chisel | truck
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: truck is a vehicle, rose is a plant, barge is a vehicle and fern is a plant.
+The turns:
+  - turn 0: mention barge
+  - turn 1: mention rose
+  - turn 2: mention fern
+  - turn 3: close barge
+  - turn 4: mention truck
+Which plant is most salient?
+
+Answer with exactly one of: fern | truck | barge | rose
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">fern</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: spade is a tool, fern is a plant, hamster is an animal and rose is a plant.
+The turns:
+  - turn 0: mention hamster
+  - turn 1: mention fern
+  - turn 2: mention rose
+  - turn 3: close hamster
+  - turn 4: mention spade
+  - turn 5: mention fern
+Which plant is most salient?
+
+Answer with exactly one of: spade | rose | hamster | fern
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ],
+  [
+   &quot;close&quot;,
+   &quot;hamster&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">kettle</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: spade is a tool, hamster is an animal, chisel is a tool and kettle is a tool.
+The turns:
+  - turn 0: close kettle
+  - turn 1: mention spade
+  - turn 2: mention chisel
+  - turn 3: mention chisel
+  - turn 4: mention kettle
+Which tool is most salient?
+
+Answer with exactly one of: spade | chisel | hamster | kettle
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;close&quot;,
+   &quot;kettle&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;kettle&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">rose</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: hamster is an animal, rose is a plant, spade is a tool and fern is a plant.
+The turns: turn 0: mention fern; turn 1: mention fern; turn 2: mention rose.
+Which plant is most salient?
+
+Answer with exactly one of: spade | hamster | fern | rose
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;plant&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;fern&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;rose&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">spade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: chisel is a tool, spade is a tool, barge is a vehicle and hamster is an animal.
+The turns: turn 0: mention chisel; turn 1: mention chisel; turn 2: mention barge; turn 3: mention spade.
+Which tool is most salient?
+
+Answer with exactly one of: hamster | spade | chisel | barge
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;tool&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;chisel&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;spade&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">truck</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: kettle is a tool, otter is an animal, barge is a vehicle and truck is a vehicle.
+The turns:
+  - turn 0: mention truck
+  - turn 1: mention truck
+  - turn 2: mention otter
+  - turn 3: mention barge
+  - turn 4: mention truck
+Which vehicle is most salient?
+
+Answer with exactly one of: barge | truck | kettle | otter
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;vehicle&quot;,
+ &quot;turns&quot;: [
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;otter&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;barge&quot;
+  ],
+  [
+   &quot;mention&quot;,
+   &quot;truck&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

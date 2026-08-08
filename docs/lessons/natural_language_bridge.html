@@ -1,0 +1,3150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>natural_language_bridge — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iv">analogy, causality, planning, and programs</a> &rsaquo;
+  natural_language_bridge</p>
+<h1>#60 <code>natural_language_bridge</code></h1>
+<p class="lede">an English sentence to the symbolic structure it denotes</p>
+<div class="tags"><span class="tag ">level 60</span><span class="tag ">section iv</span><span class="tag ">grounding</span><span class="tag ">parsing</span><span class="tag ">surface_to_structure</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.265</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Which symbolic structure does this English sentence denote?</p><p>    The sentence is *generated from* the structure, so the mapping is exact; the
+    world is arranged so that neither colour nor shape alone is a definite
+    description and both must be used to resolve a noun phrase to an id. Every
+    distractor is rendered too and rejected unless it produces a different
+    sentence — a distractor that says the same thing would make the episode
+    unanswerable rather than hard.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>ambiguity</td><td class='num'>2</td></tr><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>grammar_complexity</td><td class='num'>3</td></tr><tr><td>world_complexity</td><td class='num'>2</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The candidates are: opt_b: x6 next to x8; opt_a: x0 next to x6; opt_d: to the right of the x6 x0; opt_c: x6 next to x0.
+The sentence is:
+  - the
+  - yellow
+  - prism
+  - is
+  - next
+  - to
+  - the
+  - purple
+  - cone
+The world contains: x6 is a yellow prism, x2 is a yellow cone, x8 is a purple prism and x0 is a purple cone.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_c | opt_d | opt_b
+Reply with the answer only.</pre><h3>spanish</h3><pre>Los candidatos son: opción B: x6 está cerca de x8; opción A: x0 está cerca de x6; opción D: a la derecha de el x0 x6; opción C: x6 está cerca de x0.
+La frase es:
+  - the
+  - amarillo
+  - prisma
+  - is
+  - next
+  - to
+  - the
+  - morado
+  - cono
+El mundo contiene: x6 es un prisma amarillo, x2 es un cono amarillo, x8 es un prisma morado y x0 es un cono morado.
+¿Cuál es la denotación?
+
+Responde exactamente con una de estas opciones: opción A | opción C | opción D | opción B
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>候选项如下：选项B：x6靠近x8；选项A：x0靠近x6；选项D：在x6x0的右边；选项C：x6靠近x0。
+句子是：
+  - the
+  - 黄色
+  - 棱镜
+  - is
+  - next
+  - to
+  - the
+  - 紫色
+  - 圆锥
+世界如下：x6是一个黄色的棱镜；x2是一个黄色的圆锥；x8是一个紫色的棱镜；x0是一个紫色的圆锥。
+的指称是什么？
+
+请从以下选项中选出恰好一个作答：选项A | 选项C | 选项D | 选项B
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The candidates are: opt_b: x6 next to x8; opt_a: x0 next to x6; opt_d: to the right of the x6 x0; opt_c: x6 next to x0.
+The sentence is:
+  - the
+  - yellow
+  - prism
+  - is
+  - next
+  - to
+  - the
+  - purple
+  - cone
+The world contains: x6 is a yellow prism, x2 is a yellow cone, x8 is a purple prism and x0 is a purple cone.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_c | opt_d | opt_b
+Reply with the answer only.</pre><h3>symbols</h3><pre>{candidates: [(candidate opt_b (near x6 x8)) (candidate opt_a (near x0 x6)) (candidate opt_d (right_of x6 x0)) (candidate opt_c (near x6 x0))], query: denotation, sentence: [the yellow prism is next to the purple cone], world: [(obj x6 yellow prism) (obj x2 yellow cone) (obj x8 purple prism) (obj x0 purple cone)]}
+
+Answer with exactly one of: opt_a | opt_c | opt_d | opt_b
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/natural_language_bridge.jsonl</code> &middot; <code>data/samples/spanish/natural_language_bridge.jsonl</code> &middot; <code>data/samples/chinese/natural_language_bridge.jsonl</code> &middot; <code>data/samples/english_synonym/natural_language_bridge.jsonl</code> &middot; <code>data/samples/symbols/natural_language_bridge.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: x6 next to x8; opt_a: x0 next to x6; opt_d: to the right of the x6 x0; opt_c: x6 next to x0.
+The sentence is:
+  - the
+  - yellow
+  - prism
+  - is
+  - next
+  - to
+  - the
+  - purple
+  - cone
+The world contains: x6 is a yellow prism, x2 is a yellow cone, x8 is a purple prism and x0 is a purple cone.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_c | opt_d | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the yellow prism is next to the purple cone&quot;,
+ &quot;structure&quot;: &quot;(near x6 x0)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: below the x2 x8 and to the left of the x2 x1; opt_c: to the left of the x2 x8 and x2 next to x1; opt_a: to the left of the x2 x1 and below the x2 x8; opt_b: to the left of the x2 x8 and below the x2 x1.
+The sentence is:
+  - the
+  - orange
+  - prism
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - yellow
+  - prism
+  - and
+  - is
+  - below
+  - the
+  - orange
+  - rod
+The world contains: x1 is an orange rod, x2 is an orange prism, x8 is a yellow prism and x0 is a yellow rod.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_d | opt_c | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the orange prism is to the left of the yellow prism and is below the orange rod&quot;,
+ &quot;structure&quot;: &quot;(and (left_of x2 x8) (below x2 x1))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: to the right of the x2 x8 and x2 next to x1; opt_b: x2 next to x1 and to the right of the x2 x8; opt_d: x2 next to x8 and below the x2 x1; opt_a: x2 next to x8 and to the right of the x2 x1.
+The sentence is:
+  - the
+  - blue
+  - disc
+  - is
+  - next
+  - to
+  - the
+  - green
+  - cone
+  - and
+  - is
+  - to
+  - the
+  - right
+  - of
+  - the
+  - blue
+  - cone
+The world contains: x1 is a blue cone, x0 is a green disc, x8 is a green cone and x2 is a blue disc.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_c | opt_b | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the blue disc is next to the green cone and is to the right of the blue cone&quot;,
+ &quot;structure&quot;: &quot;(and (near x2 x8) (right_of x2 x1))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: x4 next to x7 and x4 inside x2; opt_b: x4 next to x7 and to the right of the x4 x2; opt_c: to the right of the x4 x7 and x4 next to x2; opt_a: x4 next to x2 and to the right of the x4 x7.
+The sentence is:
+  - the
+  - yellow
+  - cube
+  - is
+  - next
+  - to
+  - the
+  - yellow
+  - disc
+  - and
+  - is
+  - to
+  - the
+  - right
+  - of
+  - the
+  - purple
+  - cube
+The world contains: x2 is a purple cube, x7 is a yellow disc, x4 is a yellow cube and x3 is a purple disc.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_b | opt_c | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the yellow cube is next to the yellow disc and is to the right of the purple cube&quot;,
+ &quot;structure&quot;: &quot;(and (near x4 x7) (right_of x4 x2))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: x0 next to x3; opt_d: x4 next to x0; opt_b: above the x0 x4; opt_c: x0 next to x4.
+The sentence is:
+  - the
+  - orange
+  - cube
+  - is
+  - next
+  - to
+  - the
+  - yellow
+  - cube
+The world contains: x3 is an orange sphere, x5 is a yellow sphere, x4 is a yellow cube and x0 is an orange cube.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_a | opt_c | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the orange cube is next to the yellow cube&quot;,
+ &quot;structure&quot;: &quot;(near x0 x4)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: not to the right of the x7 x5; opt_d: not to the right of the x5 x7; opt_c: to the right of the x5 x7; opt_b: not to the left of the x5 x7.
+The sentence is:
+  - the
+  - orange
+  - cube
+  - is
+  - not
+  - to
+  - the
+  - right
+  - of
+  - the
+  - orange
+  - prism
+The world contains: x4 is a purple prism, x7 is an orange prism, x6 is a purple cube and x5 is an orange cube.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_a | opt_d | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the orange cube is not to the right of the orange prism&quot;,
+ &quot;structure&quot;: &quot;(not (right_of x5 x7))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: not to the left of the x7 x6; opt_d: not above the x6 x7; opt_b: above the x7 x6; opt_c: not above the x7 x6.
+The sentence is:
+  - the
+  - red
+  - disc
+  - is
+  - not
+  - above
+  - the
+  - orange
+  - sphere
+The world contains: x2 is an orange disc, x1 is a red sphere, x7 is a red disc and x6 is an orange sphere.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_d | opt_b | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the red disc is not above the orange sphere&quot;,
+ &quot;structure&quot;: &quot;(not (above x7 x6))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: x2 next to x8; opt_b: x8 next to x5; opt_a: to the right of the x8 x2; opt_c: x8 next to x2.
+The sentence is:
+  - the
+  - orange
+  - disc
+  - is
+  - next
+  - to
+  - the
+  - red
+  - disc
+The world contains: x2 is a red disc, x3 is an orange cube, x5 is a red cube and x8 is an orange disc.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_c | opt_a | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the orange disc is next to the red disc&quot;,
+ &quot;structure&quot;: &quot;(near x8 x2)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: below the x1 x5; opt_d: not below the x5 x1; opt_c: not below the x1 x5; opt_b: not to the left of the x1 x5.
+The sentence is:
+  - the
+  - blue
+  - sphere
+  - is
+  - not
+  - below
+  - the
+  - blue
+  - cube
+The world contains: x8 is a red cube, x3 is a red sphere, x5 is a blue cube and x1 is a blue sphere.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_a | opt_b | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the blue sphere is not below the blue cube&quot;,
+ &quot;structure&quot;: &quot;(not (below x1 x5))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: above the x1 x7 and to the left of the x1 x5; opt_a: x1 next to x7 and above the x1 x5; opt_b: above the x1 x7 and x1 next to x5; opt_c: above the x1 x5 and x1 next to x7.
+The sentence is:
+  - the
+  - red
+  - disc
+  - is
+  - above
+  - the
+  - blue
+  - disc
+  - and
+  - is
+  - next
+  - to
+  - the
+  - blue
+  - cone
+The world contains: x5 is a blue cone, x7 is a blue disc, x2 is a red cone and x1 is a red disc.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_b | opt_a | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the red disc is above the blue disc and is next to the blue cone&quot;,
+ &quot;structure&quot;: &quot;(and (above x1 x7) (near x1 x5))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: not to the left of the x0 x4; opt_a: not x0 next to x4; opt_d: to the left of the x0 x4; opt_b: not to the left of the x4 x0.
+The sentence is:
+  - the
+  - red
+  - rod
+  - is
+  - not
+  - to
+  - the
+  - left
+  - of
+  - the
+  - blue
+  - prism
+The world contains: x3 is a blue rod, x6 is a red prism, x0 is a red rod and x4 is a blue prism.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_d | opt_a | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the red rod is not to the left of the blue prism&quot;,
+ &quot;structure&quot;: &quot;(not (left_of x0 x4))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: to the left of the x3 x7; opt_d: to the left of the x7 x4; opt_b: below the x7 x3; opt_c: to the left of the x7 x3.
+The sentence is:
+  - the
+  - purple
+  - disc
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - blue
+  - sphere
+The world contains: x4 is a blue disc, x7 is a purple disc, x3 is a blue sphere and x8 is a purple sphere.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_b | opt_d | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the purple disc is to the left of the blue sphere&quot;,
+ &quot;structure&quot;: &quot;(left_of x7 x3)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: above the x7 x8 and below the x7 x5; opt_d: above the x7 x5 and to the right of the x7 x8; opt_c: above the x7 x5 and below the x7 x8; opt_b: below the x7 x5 and above the x7 x8.
+The sentence is:
+  - the
+  - green
+  - prism
+  - is
+  - above
+  - the
+  - orange
+  - prism
+  - and
+  - is
+  - below
+  - the
+  - orange
+  - sphere
+The world contains: x4 is a green sphere, x5 is an orange prism, x7 is a green prism and x8 is an orange sphere.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_d | opt_c | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the green prism is above the orange prism and is below the orange sphere&quot;,
+ &quot;structure&quot;: &quot;(and (above x7 x5) (below x7 x8))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: to the right of the x5 x8 and to the left of the x5 x4; opt_b: to the right of the x5 x4 and x5 inside x8; opt_d: to the right of the x5 x4 and to the left of the x5 x8; opt_c: to the left of the x5 x4 and to the right of the x5 x8.
+The sentence is:
+  - the
+  - orange
+  - rod
+  - is
+  - to
+  - the
+  - right
+  - of
+  - the
+  - orange
+  - sphere
+  - and
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - blue
+  - rod
+The world contains: x4 is an orange sphere, x5 is an orange rod, x6 is a blue sphere and x8 is a blue rod.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_b | opt_a | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the orange rod is to the right of the orange sphere and is to the left of the blue rod&quot;,
+ &quot;structure&quot;: &quot;(and (right_of x5 x4) (left_of x5 x8))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: below the x2 x1; opt_c: x2 inside x3; opt_a: x2 inside x1; opt_d: x1 inside x2.
+The sentence is:
+  - the
+  - green
+  - cube
+  - is
+  - inside
+  - the
+  - green
+  - rod
+The world contains: x5 is an orange cube, x3 is an orange rod, x2 is a green cube and x1 is a green rod.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_a | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the green cube is inside the green rod&quot;,
+ &quot;structure&quot;: &quot;(inside x2 x1)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: x0 inside x4; opt_c: x4 inside x5; opt_a: x4 inside x0; opt_b: above the x4 x0.
+The sentence is:
+  - the
+  - blue
+  - sphere
+  - is
+  - inside
+  - the
+  - blue
+  - cube
+The world contains: x3 is a red cube, x0 is a blue cube, x5 is a red sphere and x4 is a blue sphere.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_a | opt_d | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the blue sphere is inside the blue cube&quot;,
+ &quot;structure&quot;: &quot;(inside x4 x0)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: to the right of the x3 x7; opt_c: not x3 inside x7; opt_b: not to the right of the x3 x7; opt_a: not to the right of the x7 x3.
+The sentence is:
+  - the
+  - blue
+  - prism
+  - is
+  - not
+  - to
+  - the
+  - right
+  - of
+  - the
+  - yellow
+  - cube
+The world contains: x2 is a blue cube, x7 is a yellow cube, x5 is a yellow prism and x3 is a blue prism.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_a | opt_d | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the blue prism is not to the right of the yellow cube&quot;,
+ &quot;structure&quot;: &quot;(not (right_of x3 x7))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: not below the x7 x2; opt_c: not to the right of the x2 x7; opt_d: not to the right of the x7 x2; opt_a: to the right of the x7 x2.
+The sentence is:
+  - the
+  - green
+  - sphere
+  - is
+  - not
+  - to
+  - the
+  - right
+  - of
+  - the
+  - orange
+  - sphere
+The world contains: x2 is an orange sphere, x7 is a green sphere, x6 is an orange disc and x8 is a green disc.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_d | opt_b | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the green sphere is not to the right of the orange sphere&quot;,
+ &quot;structure&quot;: &quot;(not (right_of x7 x2))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: above the x5 x2; opt_d: below the x5 x3; opt_b: above the x5 x3; opt_a: above the x3 x5.
+The sentence is:
+  - the
+  - green
+  - sphere
+  - is
+  - above
+  - the
+  - blue
+  - prism
+The world contains: x2 is a blue sphere, x3 is a blue prism, x5 is a green sphere and x1 is a green prism.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_c | opt_d | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the green sphere is above the blue prism&quot;,
+ &quot;structure&quot;: &quot;(above x5 x3)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: to the left of the x4 x0; opt_a: not to the left of the x0 x4; opt_c: not above the x4 x0; opt_b: not to the left of the x4 x0.
+The sentence is:
+  - the
+  - green
+  - disc
+  - is
+  - not
+  - to
+  - the
+  - left
+  - of
+  - the
+  - yellow
+  - disc
+The world contains: x4 is a green disc, x7 is a yellow cone, x1 is a green cone and x0 is a yellow disc.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_b | opt_d | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the green disc is not to the left of the yellow disc&quot;,
+ &quot;structure&quot;: &quot;(not (left_of x4 x0))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: not to the left of the x6 x5; opt_c: to the left of the x6 x5; opt_d: not x6 inside x5; opt_a: not to the left of the x5 x6.
+The sentence is:
+  - the
+  - red
+  - disc
+  - is
+  - not
+  - to
+  - the
+  - left
+  - of
+  - the
+  - red
+  - sphere
+The world contains: x5 is a red sphere, x2 is a green sphere, x4 is a green disc and x6 is a red disc.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_b | opt_c | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the red disc is not to the left of the red sphere&quot;,
+ &quot;structure&quot;: &quot;(not (left_of x6 x5))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: x2 next to x5; opt_b: x2 next to x6; opt_d: x2 inside x6; opt_c: x6 next to x2.
+The sentence is:
+  - the
+  - orange
+  - sphere
+  - is
+  - next
+  - to
+  - the
+  - orange
+  - prism
+The world contains: x5 is a green prism, x6 is an orange prism, x2 is an orange sphere and x3 is a green sphere.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_c | opt_d | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the orange sphere is next to the orange prism&quot;,
+ &quot;structure&quot;: &quot;(near x2 x6)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: above the x3 x0 and to the left of the x3 x4; opt_a: above the x3 x0 and x3 inside x4; opt_d: above the x3 x4 and to the left of the x3 x0; opt_c: to the left of the x3 x0 and above the x3 x4.
+The sentence is:
+  - the
+  - blue
+  - cube
+  - is
+  - above
+  - the
+  - yellow
+  - rod
+  - and
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - blue
+  - rod
+The world contains: x4 is a blue rod, x3 is a blue cube, x0 is a yellow rod and x2 is a yellow cube.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_c | opt_b | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the blue cube is above the yellow rod and is to the left of the blue rod&quot;,
+ &quot;structure&quot;: &quot;(and (above x3 x0) (left_of x3 x4))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: below the x8 x4; opt_b: above the x4 x8; opt_d: above the x8 x4; opt_a: above the x8 x0.
+The sentence is:
+  - the
+  - yellow
+  - prism
+  - is
+  - above
+  - the
+  - green
+  - disc
+The world contains: x8 is a yellow prism, x1 is a yellow disc, x0 is a green prism and x4 is a green disc.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_a | opt_d | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the yellow prism is above the green disc&quot;,
+ &quot;structure&quot;: &quot;(above x8 x4)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: not to the left of the x6 x8; opt_a: not x6 inside x8; opt_b: x6 inside x8; opt_c: not x8 inside x6.
+The sentence is:
+  - the
+  - blue
+  - rod
+  - is
+  - not
+  - inside
+  - the
+  - blue
+  - cube
+The world contains: x8 is a blue cube, x6 is a blue rod, x2 is an orange cube and x1 is an orange rod.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_a | opt_d | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the blue rod is not inside the blue cube&quot;,
+ &quot;structure&quot;: &quot;(not (inside x6 x8))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: to the left of the x0 x2 and x0 next to x1; opt_a: to the left of the x0 x1 and x0 next to x2; opt_c: x0 next to x1 and to the left of the x0 x2; opt_b: to the left of the x0 x1 and x0 inside x2.
+The sentence is:
+  - the
+  - yellow
+  - cube
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - orange
+  - cone
+  - and
+  - is
+  - next
+  - to
+  - the
+  - orange
+  - cube
+The world contains: x1 is an orange cone, x6 is a yellow cone, x0 is a yellow cube and x2 is an orange cube.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_d | opt_c | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the yellow cube is to the left of the orange cone and is next to the orange cube&quot;,
+ &quot;structure&quot;: &quot;(and (left_of x0 x1) (near x0 x2))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: x4 inside x7 and to the right of the x4 x3; opt_c: below the x4 x7 and x4 inside x3; opt_b: x4 inside x7 and below the x4 x3; opt_d: x4 inside x3 and below the x4 x7.
+The sentence is:
+  - the
+  - purple
+  - sphere
+  - is
+  - inside
+  - the
+  - red
+  - sphere
+  - and
+  - is
+  - below
+  - the
+  - purple
+  - prism
+The world contains: x4 is a purple sphere, x3 is a purple prism, x7 is a red sphere and x8 is a red prism.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_c | opt_d | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the purple sphere is inside the red sphere and is below the purple prism&quot;,
+ &quot;structure&quot;: &quot;(and (inside x4 x7) (below x4 x3))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: to the right of the x1 x7; opt_c: below the x1 x7; opt_a: below the x7 x1; opt_d: below the x1 x2.
+The sentence is:
+  - the
+  - orange
+  - cone
+  - is
+  - below
+  - the
+  - red
+  - cone
+The world contains: x4 is an orange disc, x7 is a red cone, x1 is an orange cone and x2 is a red disc.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_c | opt_a | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the orange cone is below the red cone&quot;,
+ &quot;structure&quot;: &quot;(below x1 x7)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: to the right of the x2 x1; opt_a: x2 inside x4; opt_c: to the right of the x2 x4; opt_d: to the right of the x4 x2.
+The sentence is:
+  - the
+  - orange
+  - sphere
+  - is
+  - to
+  - the
+  - right
+  - of
+  - the
+  - orange
+  - rod
+The world contains: x1 is a blue sphere, x6 is a blue rod, x4 is an orange rod and x2 is an orange sphere.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_c | opt_d | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the orange sphere is to the right of the orange rod&quot;,
+ &quot;structure&quot;: &quot;(right_of x2 x4)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: not to the left of the x4 x1; opt_a: not to the left of the x1 x4; opt_d: not x1 inside x4; opt_c: to the left of the x1 x4.
+The sentence is:
+  - the
+  - green
+  - disc
+  - is
+  - not
+  - to
+  - the
+  - left
+  - of
+  - the
+  - green
+  - cube
+The world contains: x8 is a purple cube, x4 is a green cube, x2 is a purple disc and x1 is a green disc.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_b | opt_d | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the green disc is not to the left of the green cube&quot;,
+ &quot;structure&quot;: &quot;(not (left_of x1 x4))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: to the left of the x4 x7 and below the x4 x8; opt_a: to the left of the x4 x8 and below the x4 x7; opt_b: to the left of the x4 x8 and x4 inside x7; opt_c: below the x4 x8 and to the left of the x4 x7.
+The sentence is:
+  - the
+  - purple
+  - cone
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - blue
+  - cone
+  - and
+  - is
+  - below
+  - the
+  - purple
+  - cube
+The world contains: x0 is a blue cube, x8 is a blue cone, x4 is a purple cone and x7 is a purple cube.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_c | opt_a | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the purple cone is to the left of the blue cone and is below the purple cube&quot;,
+ &quot;structure&quot;: &quot;(and (left_of x4 x8) (below x4 x7))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: to the left of the x7 x8; opt_c: to the right of the x8 x7; opt_d: to the right of the x7 x3; opt_b: to the right of the x7 x8.
+The sentence is:
+  - the
+  - blue
+  - sphere
+  - is
+  - to
+  - the
+  - right
+  - of
+  - the
+  - red
+  - sphere
+The world contains: x0 is a red cube, x3 is a blue cube, x7 is a blue sphere and x8 is a red sphere.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_d | opt_b | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the blue sphere is to the right of the red sphere&quot;,
+ &quot;structure&quot;: &quot;(right_of x7 x8)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: x2 next to x1 and above the x2 x3; opt_d: x2 next to x3 and above the x2 x1; opt_c: above the x2 x3 and x2 next to x1; opt_b: x2 next to x3 and to the left of the x2 x1.
+The sentence is:
+  - the
+  - orange
+  - prism
+  - is
+  - next
+  - to
+  - the
+  - orange
+  - cube
+  - and
+  - is
+  - above
+  - the
+  - blue
+  - prism
+The world contains: x8 is a blue cube, x2 is an orange prism, x3 is an orange cube and x1 is a blue prism.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_a | opt_d | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the orange prism is next to the orange cube and is above the blue prism&quot;,
+ &quot;structure&quot;: &quot;(and (near x2 x3) (above x2 x1))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: not above the x8 x3; opt_d: not below the x8 x3; opt_b: below the x8 x3; opt_c: not below the x3 x8.
+The sentence is:
+  - the
+  - purple
+  - disc
+  - is
+  - not
+  - below
+  - the
+  - yellow
+  - sphere
+The world contains: x3 is a yellow sphere, x8 is a purple disc, x2 is a yellow disc and x6 is a purple sphere.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_a | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the purple disc is not below the yellow sphere&quot;,
+ &quot;structure&quot;: &quot;(not (below x8 x3))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: above the x4 x8; opt_c: to the left of the x4 x5; opt_a: above the x5 x4; opt_d: above the x4 x5.
+The sentence is:
+  - the
+  - blue
+  - cone
+  - is
+  - above
+  - the
+  - red
+  - prism
+The world contains: x8 is a red cone, x0 is a blue prism, x5 is a red prism and x4 is a blue cone.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_a | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the blue cone is above the red prism&quot;,
+ &quot;structure&quot;: &quot;(above x4 x5)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: x6 inside x1 and above the x6 x8; opt_d: x6 inside x8 and x6 next to x1; opt_a: x6 next to x1 and x6 inside x8; opt_b: x6 inside x1 and x6 next to x8.
+The sentence is:
+  - the
+  - orange
+  - cone
+  - is
+  - inside
+  - the
+  - green
+  - cone
+  - and
+  - is
+  - next
+  - to
+  - the
+  - green
+  - sphere
+The world contains: x8 is a green sphere, x5 is an orange sphere, x1 is a green cone and x6 is an orange cone.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_b | opt_c | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the orange cone is inside the green cone and is next to the green sphere&quot;,
+ &quot;structure&quot;: &quot;(and (inside x6 x1) (near x6 x8))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: x5 next to x7 and above the x5 x0; opt_c: above the x5 x0 and x5 next to x7; opt_a: above the x5 x7 and x5 next to x0; opt_d: above the x5 x7 and x5 inside x0.
+The sentence is:
+  - the
+  - red
+  - disc
+  - is
+  - above
+  - the
+  - orange
+  - sphere
+  - and
+  - is
+  - next
+  - to
+  - the
+  - orange
+  - disc
+The world contains: x5 is a red disc, x2 is a red sphere, x7 is an orange sphere and x0 is an orange disc.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_d | opt_a | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the red disc is above the orange sphere and is next to the orange disc&quot;,
+ &quot;structure&quot;: &quot;(and (above x5 x7) (near x5 x0))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: below the x1 x2; opt_a: below the x2 x1; opt_c: below the x2 x0; opt_d: to the right of the x2 x1.
+The sentence is:
+  - the
+  - purple
+  - cube
+  - is
+  - below
+  - the
+  - yellow
+  - cube
+The world contains: x0 is a purple prism, x5 is a yellow prism, x2 is a purple cube and x1 is a yellow cube.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_c | opt_d | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the purple cube is below the yellow cube&quot;,
+ &quot;structure&quot;: &quot;(below x2 x1)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: not above the x7 x5; opt_a: not x7 next to x5; opt_c: not x5 next to x7; opt_b: x7 next to x5.
+The sentence is:
+  - the
+  - red
+  - cone
+  - is
+  - not
+  - next
+  - to
+  - the
+  - orange
+  - cone
+The world contains: x7 is a red cone, x5 is an orange cone, x6 is a red prism and x8 is an orange prism.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_a | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the red cone is not next to the orange cone&quot;,
+ &quot;structure&quot;: &quot;(not (near x7 x5))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: x8 inside x0; opt_a: above the x8 x0; opt_d: x0 inside x8; opt_c: x8 inside x3.
+The sentence is:
+  - the
+  - orange
+  - prism
+  - is
+  - inside
+  - the
+  - blue
+  - prism
+The world contains: x4 is a blue disc, x3 is an orange disc, x0 is a blue prism and x8 is an orange prism.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_a | opt_d | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the orange prism is inside the blue prism&quot;,
+ &quot;structure&quot;: &quot;(inside x8 x0)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: to the left of the x0 x2; opt_d: x0 next to x1; opt_b: to the left of the x1 x0; opt_c: to the left of the x0 x1.
+The sentence is:
+  - the
+  - orange
+  - cone
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - blue
+  - cone
+The world contains: x1 is a blue cone, x0 is an orange cone, x7 is an orange sphere and x2 is a blue sphere.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_c | opt_d | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the orange cone is to the left of the blue cone&quot;,
+ &quot;structure&quot;: &quot;(left_of x0 x1)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: to the right of the x1 x5; opt_b: to the right of the x5 x8; opt_d: to the left of the x5 x1; opt_c: to the right of the x5 x1.
+The sentence is:
+  - the
+  - yellow
+  - rod
+  - is
+  - to
+  - the
+  - right
+  - of
+  - the
+  - yellow
+  - cone
+The world contains: x8 is a purple rod, x5 is a yellow rod, x1 is a yellow cone and x6 is a purple cone.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_c | opt_a | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the yellow rod is to the right of the yellow cone&quot;,
+ &quot;structure&quot;: &quot;(right_of x5 x1)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: to the left of the x0 x5; opt_c: x0 inside x5; opt_b: to the left of the x0 x1; opt_d: to the left of the x5 x0.
+The sentence is:
+  - the
+  - blue
+  - cube
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - orange
+  - sphere
+The world contains: x2 is a blue sphere, x1 is an orange cube, x0 is a blue cube and x5 is an orange sphere.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_d | opt_b | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the blue cube is to the left of the orange sphere&quot;,
+ &quot;structure&quot;: &quot;(left_of x0 x5)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: to the left of the x5 x1 and x5 next to x4; opt_c: x5 next to x4 and to the left of the x5 x1; opt_d: x5 next to x1 and below the x5 x4; opt_b: x5 next to x1 and to the left of the x5 x4.
+The sentence is:
+  - the
+  - green
+  - rod
+  - is
+  - next
+  - to
+  - the
+  - green
+  - cube
+  - and
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - yellow
+  - cube
+The world contains: x5 is a green rod, x4 is a yellow cube, x0 is a yellow rod and x1 is a green cube.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_a | opt_b | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the green rod is next to the green cube and is to the left of the yellow cube&quot;,
+ &quot;structure&quot;: &quot;(and (near x5 x1) (left_of x5 x4))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: to the left of the x3 x7 and above the x3 x1; opt_d: to the left of the x3 x7 and to the right of the x3 x1; opt_a: to the left of the x3 x1 and to the right of the x3 x7; opt_b: to the right of the x3 x7 and to the left of the x3 x1.
+The sentence is:
+  - the
+  - blue
+  - cube
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - green
+  - cube
+  - and
+  - is
+  - to
+  - the
+  - right
+  - of
+  - the
+  - green
+  - sphere
+The world contains: x3 is a blue cube, x7 is a green cube, x1 is a green sphere and x6 is a blue sphere.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_c | opt_b | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the blue cube is to the left of the green cube and is to the right of the green sphere&quot;,
+ &quot;structure&quot;: &quot;(and (left_of x3 x7) (right_of x3 x1))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: not to the left of the x4 x3; opt_b: not above the x4 x3; opt_d: not to the left of the x3 x4; opt_a: to the left of the x4 x3.
+The sentence is:
+  - the
+  - green
+  - cone
+  - is
+  - not
+  - to
+  - the
+  - left
+  - of
+  - the
+  - red
+  - cube
+The world contains: x2 is a red cone, x4 is a green cone, x3 is a red cube and x6 is a green cube.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_a | opt_d | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the green cone is not to the left of the red cube&quot;,
+ &quot;structure&quot;: &quot;(not (left_of x4 x3))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: to the left of the x1 x4 and above the x1 x0; opt_d: x1 inside x4 and to the left of the x1 x0; opt_b: to the left of the x1 x0 and x1 inside x4; opt_a: to the left of the x1 x4 and x1 inside x0.
+The sentence is:
+  - the
+  - blue
+  - disc
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - purple
+  - disc
+  - and
+  - is
+  - inside
+  - the
+  - blue
+  - rod
+The world contains: x0 is a blue rod, x6 is a purple rod, x1 is a blue disc and x4 is a purple disc.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_a | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the blue disc is to the left of the purple disc and is inside the blue rod&quot;,
+ &quot;structure&quot;: &quot;(and (left_of x1 x4) (inside x1 x0))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: to the left of the x3 x1; opt_c: below the x3 x5; opt_a: below the x3 x1; opt_b: below the x1 x3.
+The sentence is:
+  - the
+  - yellow
+  - rod
+  - is
+  - below
+  - the
+  - yellow
+  - cone
+The world contains: x5 is a purple cone, x1 is a yellow cone, x4 is a purple rod and x3 is a yellow rod.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_d | opt_a | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the yellow rod is below the yellow cone&quot;,
+ &quot;structure&quot;: &quot;(below x3 x1)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: not to the right of the x8 x5; opt_d: not x5 inside x8; opt_c: to the right of the x5 x8; opt_b: not to the right of the x5 x8.
+The sentence is:
+  - the
+  - purple
+  - disc
+  - is
+  - not
+  - to
+  - the
+  - right
+  - of
+  - the
+  - orange
+  - cone
+The world contains: x1 is a purple cone, x4 is an orange disc, x8 is an orange cone and x5 is a purple disc.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_b | opt_d | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the purple disc is not to the right of the orange cone&quot;,
+ &quot;structure&quot;: &quot;(not (right_of x5 x8))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: to the right of the x5 x3 and to the left of the x5 x0; opt_d: to the right of the x5 x3 and below the x5 x0; opt_b: below the x5 x3 and to the right of the x5 x0; opt_a: to the right of the x5 x0 and below the x5 x3.
+The sentence is:
+  - the
+  - green
+  - cube
+  - is
+  - to
+  - the
+  - right
+  - of
+  - the
+  - purple
+  - disc
+  - and
+  - is
+  - below
+  - the
+  - green
+  - disc
+The world contains: x1 is a purple cube, x0 is a green disc, x5 is a green cube and x3 is a purple disc.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_a | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the green cube is to the right of the purple disc and is below the green disc&quot;,
+ &quot;structure&quot;: &quot;(and (right_of x5 x3) (below x5 x0))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: not to the right of the x7 x2; opt_c: to the right of the x2 x7; opt_a: not above the x2 x7; opt_d: not to the right of the x2 x7.
+The sentence is:
+  - the
+  - blue
+  - cone
+  - is
+  - not
+  - to
+  - the
+  - right
+  - of
+  - the
+  - blue
+  - cube
+The world contains: x7 is a blue cube, x5 is a yellow cone, x4 is a yellow cube and x2 is a blue cone.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_d | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the blue cone is not to the right of the blue cube&quot;,
+ &quot;structure&quot;: &quot;(not (right_of x2 x7))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: not x1 next to x6; opt_a: not above the x6 x1; opt_b: x6 next to x1; opt_c: not x6 next to x1.
+The sentence is:
+  - the
+  - green
+  - disc
+  - is
+  - not
+  - next
+  - to
+  - the
+  - green
+  - prism
+The world contains: x6 is a green disc, x3 is a purple prism, x2 is a purple disc and x1 is a green prism.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_a | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the green disc is not next to the green prism&quot;,
+ &quot;structure&quot;: &quot;(not (near x6 x1))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: to the right of the x4 x0 and above the x4 x8; opt_a: above the x4 x8 and to the right of the x4 x0; opt_d: to the right of the x4 x8 and below the x4 x0; opt_b: to the right of the x4 x8 and above the x4 x0.
+The sentence is:
+  - the
+  - green
+  - prism
+  - is
+  - to
+  - the
+  - right
+  - of
+  - the
+  - yellow
+  - cube
+  - and
+  - is
+  - above
+  - the
+  - green
+  - cube
+The world contains: x4 is a green prism, x5 is a yellow prism, x0 is a green cube and x8 is a yellow cube.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_c | opt_b | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the green prism is to the right of the yellow cube and is above the green cube&quot;,
+ &quot;structure&quot;: &quot;(and (right_of x4 x8) (above x4 x0))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: above the x3 x5 and x3 inside x4; opt_a: to the right of the x3 x5 and above the x3 x4; opt_d: above the x3 x5 and to the right of the x3 x4; opt_b: above the x3 x4 and to the right of the x3 x5.
+The sentence is:
+  - the
+  - yellow
+  - prism
+  - is
+  - above
+  - the
+  - yellow
+  - cone
+  - and
+  - is
+  - to
+  - the
+  - right
+  - of
+  - the
+  - purple
+  - prism
+The world contains: x4 is a purple prism, x7 is a purple cone, x3 is a yellow prism and x5 is a yellow cone.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_a | opt_c | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the yellow prism is above the yellow cone and is to the right of the purple prism&quot;,
+ &quot;structure&quot;: &quot;(and (above x3 x5) (right_of x3 x4))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: not to the right of the x4 x8; opt_a: not to the right of the x8 x4; opt_b: to the right of the x8 x4; opt_c: not x8 inside x4.
+The sentence is:
+  - the
+  - orange
+  - sphere
+  - is
+  - not
+  - to
+  - the
+  - right
+  - of
+  - the
+  - yellow
+  - sphere
+The world contains: x8 is an orange sphere, x2 is a yellow prism, x7 is an orange prism and x4 is a yellow sphere.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_d | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the orange sphere is not to the right of the yellow sphere&quot;,
+ &quot;structure&quot;: &quot;(not (right_of x8 x4))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: x5 inside x3; opt_c: not x3 inside x5; opt_a: not below the x5 x3; opt_d: not x5 inside x3.
+The sentence is:
+  - the
+  - red
+  - rod
+  - is
+  - not
+  - inside
+  - the
+  - green
+  - sphere
+The world contains: x3 is a green sphere, x8 is a green rod, x1 is a red sphere and x5 is a red rod.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_c | opt_d | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the red rod is not inside the green sphere&quot;,
+ &quot;structure&quot;: &quot;(not (inside x5 x3))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: x3 next to x8 and to the left of the x3 x5; opt_a: x3 next to x5 and above the x3 x8; opt_c: to the left of the x3 x5 and x3 next to x8; opt_b: x3 next to x5 and to the left of the x3 x8.
+The sentence is:
+  - the
+  - purple
+  - disc
+  - is
+  - next
+  - to
+  - the
+  - purple
+  - prism
+  - and
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - green
+  - disc
+The world contains: x3 is a purple disc, x8 is a green disc, x5 is a purple prism and x0 is a green prism.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_b | opt_c | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the purple disc is next to the purple prism and is to the left of the green disc&quot;,
+ &quot;structure&quot;: &quot;(and (near x3 x5) (left_of x3 x8))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: x5 inside x4 and below the x5 x6; opt_a: x5 inside x6 and below the x5 x4; opt_b: below the x5 x4 and x5 inside x6; opt_d: x5 inside x4 and to the left of the x5 x6.
+The sentence is:
+  - the
+  - blue
+  - disc
+  - is
+  - inside
+  - the
+  - red
+  - cone
+  - and
+  - is
+  - below
+  - the
+  - blue
+  - cone
+The world contains: x4 is a red cone, x0 is a red disc, x6 is a blue cone and x5 is a blue disc.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_c | opt_b | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the blue disc is inside the red cone and is below the blue cone&quot;,
+ &quot;structure&quot;: &quot;(and (inside x5 x4) (below x5 x6))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: not above the x3 x6; opt_a: above the x3 x6; opt_d: not above the x6 x3; opt_b: not below the x3 x6.
+The sentence is:
+  - the
+  - blue
+  - sphere
+  - is
+  - not
+  - above
+  - the
+  - red
+  - prism
+The world contains: x5 is a blue prism, x3 is a blue sphere, x6 is a red prism and x8 is a red sphere.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_b | opt_c | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the blue sphere is not above the red prism&quot;,
+ &quot;structure&quot;: &quot;(not (above x3 x6))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: below the x5 x3; opt_d: x5 next to x8; opt_b: below the x8 x5; opt_c: below the x5 x8.
+The sentence is:
+  - the
+  - red
+  - cube
+  - is
+  - below
+  - the
+  - red
+  - cone
+The world contains: x1 is a blue cone, x8 is a red cone, x5 is a red cube and x3 is a blue cube.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_d | opt_a | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the red cube is below the red cone&quot;,
+ &quot;structure&quot;: &quot;(below x5 x8)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: not x1 inside x4; opt_b: not x4 inside x1; opt_d: not to the right of the x4 x1; opt_a: x4 inside x1.
+The sentence is:
+  - the
+  - green
+  - rod
+  - is
+  - not
+  - inside
+  - the
+  - blue
+  - prism
+The world contains: x8 is a blue rod, x1 is a blue prism, x4 is a green rod and x7 is a green prism.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_d | opt_c | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the green rod is not inside the blue prism&quot;,
+ &quot;structure&quot;: &quot;(not (inside x4 x1))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: not below the x2 x1; opt_d: to the left of the x2 x1; opt_b: not to the left of the x2 x1; opt_c: not to the left of the x1 x2.
+The sentence is:
+  - the
+  - orange
+  - cone
+  - is
+  - not
+  - to
+  - the
+  - left
+  - of
+  - the
+  - orange
+  - cube
+The world contains: x7 is a green cone, x1 is an orange cube, x2 is an orange cone and x4 is a green cube.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_a | opt_b | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the orange cone is not to the left of the orange cube&quot;,
+ &quot;structure&quot;: &quot;(not (left_of x2 x1))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: to the right of the x1 x6 and to the left of the x1 x2; opt_c: to the right of the x1 x2 and to the left of the x1 x6; opt_d: to the right of the x1 x2 and above the x1 x6; opt_b: to the left of the x1 x2 and to the right of the x1 x6.
+The sentence is:
+  - the
+  - yellow
+  - rod
+  - is
+  - to
+  - the
+  - right
+  - of
+  - the
+  - green
+  - cone
+  - and
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - green
+  - rod
+The world contains: x2 is a green cone, x1 is a yellow rod, x7 is a yellow cone and x6 is a green rod.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_c | opt_b | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the yellow rod is to the right of the green cone and is to the left of the green rod&quot;,
+ &quot;structure&quot;: &quot;(and (right_of x1 x2) (left_of x1 x6))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: above the x7 x2 and to the left of the x7 x6; opt_a: to the left of the x7 x6 and above the x7 x2; opt_c: above the x7 x6 and x7 inside x2; opt_d: above the x7 x6 and to the left of the x7 x2.
+The sentence is:
+  - the
+  - yellow
+  - cube
+  - is
+  - above
+  - the
+  - yellow
+  - prism
+  - and
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - red
+  - prism
+The world contains: x7 is a yellow cube, x8 is a red cube, x2 is a red prism and x6 is a yellow prism.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_c | opt_a | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the yellow cube is above the yellow prism and is to the left of the red prism&quot;,
+ &quot;structure&quot;: &quot;(and (above x7 x6) (left_of x7 x2))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: x4 inside x7; opt_b: not x7 inside x4; opt_a: not to the right of the x4 x7; opt_c: not x4 inside x7.
+The sentence is:
+  - the
+  - yellow
+  - cube
+  - is
+  - not
+  - inside
+  - the
+  - purple
+  - rod
+The world contains: x4 is a yellow cube, x7 is a purple rod, x5 is a purple cube and x1 is a yellow rod.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_d | opt_b | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the yellow cube is not inside the purple rod&quot;,
+ &quot;structure&quot;: &quot;(not (inside x4 x7))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: x4 inside x7; opt_d: x7 inside x6; opt_b: x7 inside x4; opt_c: below the x7 x4.
+The sentence is:
+  - the
+  - yellow
+  - disc
+  - is
+  - inside
+  - the
+  - blue
+  - disc
+The world contains: x6 is a blue prism, x7 is a yellow disc, x2 is a yellow prism and x4 is a blue disc.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_b | opt_c | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the yellow disc is inside the blue disc&quot;,
+ &quot;structure&quot;: &quot;(inside x7 x4)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: to the right of the x1 x4 and below the x1 x3; opt_b: to the right of the x1 x3 and x1 inside x4; opt_d: below the x1 x3 and to the right of the x1 x4; opt_a: to the right of the x1 x3 and below the x1 x4.
+The sentence is:
+  - the
+  - green
+  - disc
+  - is
+  - to
+  - the
+  - right
+  - of
+  - the
+  - green
+  - cone
+  - and
+  - is
+  - below
+  - the
+  - yellow
+  - disc
+The world contains: x4 is a yellow disc, x3 is a green cone, x8 is a yellow cone and x1 is a green disc.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_c | opt_a | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the green disc is to the right of the green cone and is below the yellow disc&quot;,
+ &quot;structure&quot;: &quot;(and (right_of x1 x3) (below x1 x4))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: not to the right of the x3 x1; opt_d: not to the right of the x1 x3; opt_c: to the right of the x1 x3; opt_b: not to the left of the x1 x3.
+The sentence is:
+  - the
+  - yellow
+  - cone
+  - is
+  - not
+  - to
+  - the
+  - right
+  - of
+  - the
+  - orange
+  - disc
+The world contains: x8 is an orange cone, x1 is a yellow cone, x6 is a yellow disc and x3 is an orange disc.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_d | opt_a | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the yellow cone is not to the right of the orange disc&quot;,
+ &quot;structure&quot;: &quot;(not (right_of x1 x3))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: to the right of the x6 x1; opt_d: x6 next to x7; opt_b: to the right of the x6 x7; opt_c: to the right of the x7 x6.
+The sentence is:
+  - the
+  - yellow
+  - prism
+  - is
+  - to
+  - the
+  - right
+  - of
+  - the
+  - blue
+  - prism
+The world contains: x6 is a yellow prism, x7 is a blue prism, x4 is a blue cone and x1 is a yellow cone.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_d | opt_c | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the yellow prism is to the right of the blue prism&quot;,
+ &quot;structure&quot;: &quot;(right_of x6 x7)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: x7 next to x1 and below the x7 x0; opt_d: x7 next to x0 and above the x7 x1; opt_c: x7 next to x0 and below the x7 x1; opt_a: below the x7 x0 and x7 next to x1.
+The sentence is:
+  - the
+  - purple
+  - rod
+  - is
+  - next
+  - to
+  - the
+  - red
+  - cone
+  - and
+  - is
+  - below
+  - the
+  - purple
+  - cone
+The world contains: x7 is a purple rod, x6 is a red rod, x0 is a red cone and x1 is a purple cone.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_c | opt_d | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the purple rod is next to the red cone and is below the purple cone&quot;,
+ &quot;structure&quot;: &quot;(and (near x7 x0) (below x7 x1))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: x5 inside x3; opt_b: below the x3 x5; opt_a: x3 inside x5; opt_c: x3 inside x1.
+The sentence is:
+  - the
+  - yellow
+  - cube
+  - is
+  - inside
+  - the
+  - blue
+  - cone
+The world contains: x4 is a yellow cone, x3 is a yellow cube, x1 is a blue cube and x5 is a blue cone.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_d | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the yellow cube is inside the blue cone&quot;,
+ &quot;structure&quot;: &quot;(inside x3 x5)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: x0 next to x1; opt_c: not x0 next to x1; opt_b: not x1 next to x0; opt_a: not to the left of the x0 x1.
+The sentence is:
+  - the
+  - green
+  - sphere
+  - is
+  - not
+  - next
+  - to
+  - the
+  - blue
+  - cube
+The world contains: x0 is a green sphere, x2 is a green cube, x5 is a blue sphere and x1 is a blue cube.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_a | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the green sphere is not next to the blue cube&quot;,
+ &quot;structure&quot;: &quot;(not (near x0 x1))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: below the x1 x7 and to the right of the x1 x5; opt_d: to the right of the x1 x7 and x1 inside x5; opt_b: to the right of the x1 x5 and below the x1 x7; opt_c: to the right of the x1 x7 and below the x1 x5.
+The sentence is:
+  - the
+  - purple
+  - cone
+  - is
+  - to
+  - the
+  - right
+  - of
+  - the
+  - orange
+  - cone
+  - and
+  - is
+  - below
+  - the
+  - purple
+  - rod
+The world contains: x1 is a purple cone, x7 is an orange cone, x2 is an orange rod and x5 is a purple rod.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_c | opt_d | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the purple cone is to the right of the orange cone and is below the purple rod&quot;,
+ &quot;structure&quot;: &quot;(and (right_of x1 x7) (below x1 x5))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: not x4 next to x3; opt_b: x4 next to x3; opt_d: not x4 inside x3; opt_a: not x3 next to x4.
+The sentence is:
+  - the
+  - blue
+  - cone
+  - is
+  - not
+  - next
+  - to
+  - the
+  - purple
+  - prism
+The world contains: x8 is a purple cone, x3 is a purple prism, x4 is a blue cone and x1 is a blue prism.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_a | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the blue cone is not next to the purple prism&quot;,
+ &quot;structure&quot;: &quot;(not (near x4 x3))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: above the x2 x1; opt_c: x1 next to x2; opt_b: x2 next to x1; opt_a: x2 next to x8.
+The sentence is:
+  - the
+  - green
+  - cone
+  - is
+  - next
+  - to
+  - the
+  - blue
+  - sphere
+The world contains: x1 is a blue sphere, x2 is a green cone, x8 is a blue cone and x0 is a green sphere.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_d | opt_a | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the green cone is next to the blue sphere&quot;,
+ &quot;structure&quot;: &quot;(near x2 x1)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: not to the left of the x3 x0; opt_a: to the left of the x3 x0; opt_b: not to the left of the x0 x3; opt_c: not above the x3 x0.
+The sentence is:
+  - the
+  - orange
+  - rod
+  - is
+  - not
+  - to
+  - the
+  - left
+  - of
+  - the
+  - purple
+  - rod
+The world contains: x7 is a purple prism, x3 is an orange rod, x0 is a purple rod and x6 is an orange prism.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_d | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the orange rod is not to the left of the purple rod&quot;,
+ &quot;structure&quot;: &quot;(not (left_of x3 x0))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: below the x3 x5; opt_c: not below the x3 x5; opt_d: not below the x5 x3; opt_a: not to the right of the x3 x5.
+The sentence is:
+  - the
+  - green
+  - sphere
+  - is
+  - not
+  - below
+  - the
+  - green
+  - prism
+The world contains: x3 is a green sphere, x7 is a red sphere, x1 is a red prism and x5 is a green prism.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_a | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the green sphere is not below the green prism&quot;,
+ &quot;structure&quot;: &quot;(not (below x3 x5))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: to the left of the x5 x1; opt_c: above the x1 x5; opt_b: above the x5 x6; opt_a: above the x5 x1.
+The sentence is:
+  - the
+  - red
+  - cone
+  - is
+  - above
+  - the
+  - blue
+  - cone
+The world contains: x6 is a blue prism, x1 is a blue cone, x4 is a red prism and x5 is a red cone.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_d | opt_a | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the red cone is above the blue cone&quot;,
+ &quot;structure&quot;: &quot;(above x5 x1)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: x5 inside x1 and below the x5 x3; opt_b: x5 inside x1 and to the right of the x5 x3; opt_a: x5 inside x3 and below the x5 x1; opt_c: below the x5 x1 and x5 inside x3.
+The sentence is:
+  - the
+  - orange
+  - rod
+  - is
+  - inside
+  - the
+  - green
+  - prism
+  - and
+  - is
+  - below
+  - the
+  - orange
+  - prism
+The world contains: x3 is an orange prism, x2 is a green rod, x5 is an orange rod and x1 is a green prism.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_d | opt_c | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the orange rod is inside the green prism and is below the orange prism&quot;,
+ &quot;structure&quot;: &quot;(and (inside x5 x1) (below x5 x3))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: to the left of the x4 x7 and to the right of the x4 x8; opt_a: to the left of the x4 x8 and to the right of the x4 x7; opt_b: to the left of the x4 x8 and x4 inside x7; opt_d: to the right of the x4 x8 and to the left of the x4 x7.
+The sentence is:
+  - the
+  - blue
+  - prism
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - blue
+  - sphere
+  - and
+  - is
+  - to
+  - the
+  - right
+  - of
+  - the
+  - orange
+  - prism
+The world contains: x8 is a blue sphere, x7 is an orange prism, x2 is an orange sphere and x4 is a blue prism.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_c | opt_a | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the blue prism is to the left of the blue sphere and is to the right of the orange prism&quot;,
+ &quot;structure&quot;: &quot;(and (left_of x4 x8) (right_of x4 x7))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: below the x4 x6 and x4 next to x5; opt_d: x4 next to x6 and below the x4 x5; opt_b: x4 next to x6 and to the right of the x4 x5; opt_a: x4 next to x5 and below the x4 x6.
+The sentence is:
+  - the
+  - green
+  - cone
+  - is
+  - next
+  - to
+  - the
+  - yellow
+  - cone
+  - and
+  - is
+  - below
+  - the
+  - green
+  - disc
+The world contains: x6 is a yellow cone, x4 is a green cone, x5 is a green disc and x8 is a yellow disc.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_d | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the green cone is next to the yellow cone and is below the green disc&quot;,
+ &quot;structure&quot;: &quot;(and (near x4 x6) (below x4 x5))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: not x4 inside x2; opt_a: x2 inside x4; opt_b: not x2 next to x4; opt_c: not x2 inside x4.
+The sentence is:
+  - the
+  - purple
+  - prism
+  - is
+  - not
+  - inside
+  - the
+  - purple
+  - cube
+The world contains: x2 is a purple prism, x8 is a yellow prism, x4 is a purple cube and x7 is a yellow cube.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_d | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the purple prism is not inside the purple cube&quot;,
+ &quot;structure&quot;: &quot;(not (inside x2 x4))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: below the x4 x8; opt_a: below the x4 x2; opt_d: below the x8 x4; opt_b: x4 next to x8.
+The sentence is:
+  - the
+  - blue
+  - rod
+  - is
+  - below
+  - the
+  - blue
+  - cone
+The world contains: x4 is a blue rod, x7 is an orange cone, x8 is a blue cone and x2 is an orange rod.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_a | opt_d | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the blue rod is below the blue cone&quot;,
+ &quot;structure&quot;: &quot;(below x4 x8)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: to the left of the x8 x0; opt_c: x0 inside x8; opt_b: to the left of the x0 x8; opt_d: to the left of the x0 x7.
+The sentence is:
+  - the
+  - yellow
+  - cube
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - red
+  - sphere
+The world contains: x1 is a yellow sphere, x7 is a red cube, x8 is a red sphere and x0 is a yellow cube.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_a | opt_d | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the yellow cube is to the left of the red sphere&quot;,
+ &quot;structure&quot;: &quot;(left_of x0 x8)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: x7 next to x3 and to the right of the x7 x0; opt_b: x7 next to x0 and above the x7 x3; opt_a: to the right of the x7 x0 and x7 next to x3; opt_c: x7 next to x0 and to the right of the x7 x3.
+The sentence is:
+  - the
+  - green
+  - prism
+  - is
+  - next
+  - to
+  - the
+  - purple
+  - prism
+  - and
+  - is
+  - to
+  - the
+  - right
+  - of
+  - the
+  - green
+  - sphere
+The world contains: x0 is a purple prism, x4 is a purple sphere, x7 is a green prism and x3 is a green sphere.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_b | opt_c | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the green prism is next to the purple prism and is to the right of the green sphere&quot;,
+ &quot;structure&quot;: &quot;(and (near x7 x0) (right_of x7 x3))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: x7 next to x2 and x7 inside x1; opt_d: x7 inside x2 and x7 next to x1; opt_c: x7 next to x1 and x7 inside x2; opt_a: x7 next to x2 and to the right of the x7 x1.
+The sentence is:
+  - the
+  - blue
+  - disc
+  - is
+  - next
+  - to
+  - the
+  - yellow
+  - cone
+  - and
+  - is
+  - inside
+  - the
+  - yellow
+  - disc
+The world contains: x2 is a yellow cone, x7 is a blue disc, x3 is a blue cone and x1 is a yellow disc.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_d | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the blue disc is next to the yellow cone and is inside the yellow disc&quot;,
+ &quot;structure&quot;: &quot;(and (near x7 x2) (inside x7 x1))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: below the x5 x0 and to the left of the x5 x8; opt_b: below the x5 x8 and x5 inside x0; opt_c: below the x5 x0 and x5 inside x8; opt_d: x5 inside x0 and below the x5 x8.
+The sentence is:
+  - the
+  - purple
+  - rod
+  - is
+  - below
+  - the
+  - red
+  - cone
+  - and
+  - is
+  - inside
+  - the
+  - purple
+  - cone
+The world contains: x7 is a red rod, x5 is a purple rod, x0 is a red cone and x8 is a purple cone.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_b | opt_c | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the purple rod is below the red cone and is inside the purple cone&quot;,
+ &quot;structure&quot;: &quot;(and (below x5 x0) (inside x5 x8))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: not above the x3 x2; opt_b: not to the left of the x2 x3; opt_a: above the x2 x3; opt_c: not above the x2 x3.
+The sentence is:
+  - the
+  - red
+  - disc
+  - is
+  - not
+  - above
+  - the
+  - red
+  - cone
+The world contains: x2 is a red disc, x3 is a red cone, x4 is a green cone and x6 is a green disc.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_a | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the red disc is not above the red cone&quot;,
+ &quot;structure&quot;: &quot;(not (above x2 x3))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: x3 inside x2 and to the right of the x3 x6; opt_c: to the right of the x3 x6 and x3 inside x2; opt_a: to the right of the x3 x2 and x3 inside x6; opt_d: to the right of the x3 x2 and to the left of the x3 x6.
+The sentence is:
+  - the
+  - orange
+  - cube
+  - is
+  - to
+  - the
+  - right
+  - of
+  - the
+  - red
+  - cube
+  - and
+  - is
+  - inside
+  - the
+  - orange
+  - disc
+The world contains: x3 is an orange cube, x1 is a red disc, x6 is an orange disc and x2 is a red cube.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_d | opt_a | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the orange cube is to the right of the red cube and is inside the orange disc&quot;,
+ &quot;structure&quot;: &quot;(and (right_of x3 x2) (inside x3 x6))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: not to the left of the x2 x1; opt_b: to the left of the x1 x2; opt_d: not x1 next to x2; opt_c: not to the left of the x1 x2.
+The sentence is:
+  - the
+  - red
+  - prism
+  - is
+  - not
+  - to
+  - the
+  - left
+  - of
+  - the
+  - red
+  - cone
+The world contains: x1 is a red prism, x4 is a blue prism, x2 is a red cone and x8 is a blue cone.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_b | opt_c | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the red prism is not to the left of the red cone&quot;,
+ &quot;structure&quot;: &quot;(not (left_of x1 x2))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_a: not below the x3 x8; opt_d: not above the x3 x8; opt_b: above the x3 x8; opt_c: not above the x8 x3.
+The sentence is:
+  - the
+  - purple
+  - cone
+  - is
+  - not
+  - above
+  - the
+  - orange
+  - cone
+The world contains: x1 is a purple rod, x5 is an orange rod, x8 is an orange cone and x3 is a purple cone.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_d | opt_c | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the purple cone is not above the orange cone&quot;,
+ &quot;structure&quot;: &quot;(not (above x3 x8))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: not to the right of the x2 x1; opt_a: not x2 inside x1; opt_b: to the right of the x2 x1; opt_d: not to the right of the x1 x2.
+The sentence is:
+  - the
+  - yellow
+  - prism
+  - is
+  - not
+  - to
+  - the
+  - right
+  - of
+  - the
+  - blue
+  - prism
+The world contains: x5 is a blue rod, x1 is a blue prism, x6 is a yellow rod and x2 is a yellow prism.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_b | opt_d | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the yellow prism is not to the right of the blue prism&quot;,
+ &quot;structure&quot;: &quot;(not (right_of x2 x1))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: to the left of the x4 x6 and x4 inside x8; opt_a: to the left of the x4 x8 and x4 inside x6; opt_c: x4 inside x8 and to the left of the x4 x6; opt_b: to the left of the x4 x8 and x4 next to x6.
+The sentence is:
+  - the
+  - purple
+  - prism
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - red
+  - disc
+  - and
+  - is
+  - inside
+  - the
+  - purple
+  - disc
+The world contains: x8 is a red disc, x4 is a purple prism, x6 is a purple disc and x5 is a red prism.
+What is the denotation?
+
+Answer with exactly one of: opt_d | opt_b | opt_c | opt_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the purple prism is to the left of the red disc and is inside the purple disc&quot;,
+ &quot;structure&quot;: &quot;(and (left_of x4 x8) (inside x4 x6))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">opt_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: x0 next to x5 and x0 inside x7; opt_a: x0 next to x5 and to the left of the x0 x7; opt_c: x0 inside x5 and x0 next to x7; opt_d: x0 next to x7 and x0 inside x5.
+The sentence is:
+  - the
+  - blue
+  - prism
+  - is
+  - next
+  - to
+  - the
+  - blue
+  - sphere
+  - and
+  - is
+  - inside
+  - the
+  - green
+  - prism
+The world contains: x6 is a green sphere, x7 is a green prism, x5 is a blue sphere and x0 is a blue prism.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_a | opt_c | opt_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_b&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the blue prism is next to the blue sphere and is inside the green prism&quot;,
+ &quot;structure&quot;: &quot;(and (near x0 x5) (inside x0 x7))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: not above the x8 x0; opt_a: not x8 next to x0; opt_b: not x0 next to x8; opt_d: x8 next to x0.
+The sentence is:
+  - the
+  - green
+  - cube
+  - is
+  - not
+  - next
+  - to
+  - the
+  - green
+  - prism
+The world contains: x2 is a yellow prism, x7 is a yellow cube, x8 is a green cube and x0 is a green prism.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_a | opt_d | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the green cube is not next to the green prism&quot;,
+ &quot;structure&quot;: &quot;(not (near x8 x0))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">opt_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_b: x8 inside x2 and x8 next to x3; opt_d: x8 next to x2 and to the right of the x8 x3; opt_c: x8 next to x2 and x8 inside x3; opt_a: x8 next to x3 and x8 inside x2.
+The sentence is:
+  - the
+  - blue
+  - cube
+  - is
+  - next
+  - to
+  - the
+  - red
+  - cube
+  - and
+  - is
+  - inside
+  - the
+  - blue
+  - disc
+The world contains: x8 is a blue cube, x2 is a red cube, x3 is a blue disc and x0 is a red disc.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_c | opt_d | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_c&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the blue cube is next to the red cube and is inside the blue disc&quot;,
+ &quot;structure&quot;: &quot;(and (near x8 x2) (inside x8 x3))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: not x7 inside x8; opt_a: x7 inside x8; opt_c: not x8 inside x7; opt_b: not above the x7 x8.
+The sentence is:
+  - the
+  - red
+  - cube
+  - is
+  - not
+  - inside
+  - the
+  - blue
+  - cube
+The world contains: x5 is a red cone, x8 is a blue cube, x3 is a blue cone and x7 is a red cube.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_d | opt_a | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;not&quot;,
+ &quot;sentence&quot;: &quot;the red cube is not inside the blue cube&quot;,
+ &quot;structure&quot;: &quot;(not (inside x7 x8))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: above the x2 x6 and to the left of the x2 x3; opt_a: to the left of the x2 x6 and above the x2 x3; opt_c: above the x2 x6 and x2 next to x3; opt_b: above the x2 x3 and to the left of the x2 x6.
+The sentence is:
+  - the
+  - red
+  - cube
+  - is
+  - above
+  - the
+  - red
+  - disc
+  - and
+  - is
+  - to
+  - the
+  - left
+  - of
+  - the
+  - purple
+  - cube
+The world contains: x2 is a red cube, x3 is a purple cube, x7 is a purple disc and x6 is a red disc.
+What is the denotation?
+
+Answer with exactly one of: opt_c | opt_a | opt_d | opt_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the red cube is above the red disc and is to the left of the purple cube&quot;,
+ &quot;structure&quot;: &quot;(and (above x2 x6) (left_of x2 x3))&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">opt_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_c: below the x5 x2; opt_d: below the x5 x0; opt_a: to the left of the x5 x0; opt_b: below the x0 x5.
+The sentence is:
+  - the
+  - yellow
+  - cone
+  - is
+  - below
+  - the
+  - yellow
+  - disc
+The world contains: x0 is a yellow disc, x5 is a yellow cone, x3 is a red cone and x2 is a red disc.
+What is the denotation?
+
+Answer with exactly one of: opt_b | opt_a | opt_d | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_d&quot;,
+ &quot;form&quot;: &quot;rel&quot;,
+ &quot;sentence&quot;: &quot;the yellow cone is below the yellow disc&quot;,
+ &quot;structure&quot;: &quot;(below x5 x0)&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">opt_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: opt_d: x4 inside x6 and x4 next to x8; opt_b: x4 next to x6 and to the left of the x4 x8; opt_a: x4 next to x6 and x4 inside x8; opt_c: x4 next to x8 and x4 inside x6.
+The sentence is:
+  - the
+  - blue
+  - sphere
+  - is
+  - next
+  - to
+  - the
+  - orange
+  - rod
+  - and
+  - is
+  - inside
+  - the
+  - orange
+  - sphere
+The world contains: x8 is an orange sphere, x4 is a blue sphere, x1 is a blue rod and x6 is an orange rod.
+What is the denotation?
+
+Answer with exactly one of: opt_a | opt_b | opt_d | opt_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;opt_a&quot;,
+ &quot;form&quot;: &quot;and&quot;,
+ &quot;sentence&quot;: &quot;the blue sphere is next to the orange rod and is inside the orange sphere&quot;,
+ &quot;structure&quot;: &quot;(and (near x4 x6) (inside x4 x8))&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

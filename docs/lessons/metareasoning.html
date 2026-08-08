@@ -1,0 +1,2888 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>metareasoning — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#ix">problem formulation and hierarchical agency</a> &rsaquo;
+  metareasoning</p>
+<h1>#110 <code>metareasoning</code></h1>
+<p class="lede">choosing how to reason, fallbacks included</p>
+<div class="tags"><span class="tag ">level 110</span><span class="tag ">section ix</span><span class="tag ">metareasoning</span><span class="tag ">decision_theory</span><span class="tag ">expected_value</span></div>
+<div class="stats">
+<div class="stat"><span class="n">5.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.2</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.2</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Choosing how to reason, with a fallback if the reasoning fails.</p><p>    Each operator can fail, and failure is not worth zero — there is a stated
+    fallback payoff, which differs per operator. So the ranking under
+    ``p x payoff - cost`` is deliberately made to disagree with the true ranking
+    under ``p x payoff + (1-p) x fallback - cost`` in most episodes; the greedy
+    reading of the same table is wrong.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>computational_budget</td><td class='num'>4</td></tr><tr><td>reasoning_depth</td><td class='num'>5</td></tr><tr><td>uncertainty</td><td class='num'>4</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The budget is 6.
+The reasoning operators:
+  - operator: proof, cost 5, success percent 50, payoff if success 20 and payoff if failure 2
+  - operator: search, cost 2, success percent 40, payoff if success 26 and payoff if failure 18
+  - operator: simulation, cost 1, success percent 30, payoff if success 9 and payoff if failure 1
+  - operator: act, cost 1, success percent 95, payoff if success 26 and payoff if failure 12
+  - operator: experiment, cost 6, success percent 90, payoff if success 13 and payoff if failure 16
+What is the highest expected value operator?
+
+Answer with exactly one of: search | experiment | simulation | proof | act
+Reply with the answer only.</pre><h3>spanish</h3><pre>El presupuesto es 6.
+Los operadores de razonamiento son:
+  - el operador: demostración, el coste: 5, el porcentaje de éxito: 50, la recompensa si hay éxito: 20 y la recompensa si hay fracaso: 2
+  - el operador: búsqueda, el coste: 2, el porcentaje de éxito: 40, la recompensa si hay éxito: 26 y la recompensa si hay fracaso: 18
+  - el operador: simulación, el coste: 1, el porcentaje de éxito: 30, la recompensa si hay éxito: 9 y la recompensa si hay fracaso: 1
+  - el operador: acto, el coste: 1, el porcentaje de éxito: 95, la recompensa si hay éxito: 26 y la recompensa si hay fracaso: 12
+  - el operador: experimento, el coste: 6, el porcentaje de éxito: 90, la recompensa si hay éxito: 13 y la recompensa si hay fracaso: 16
+¿Qué operador tiene el mayor valor esperado?
+
+Responde exactamente con una de estas opciones: búsqueda | experimento | simulación | demostración | acto
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>预算是6。
+推理算子如下：
+  - 算子：证明、成本：5、成功率：50、成功时的收益：20和失败时的收益：2
+  - 算子：搜索、成本：2、成功率：40、成功时的收益：26和失败时的收益：18
+  - 算子：模拟、成本：1、成功率：30、成功时的收益：9和失败时的收益：1
+  - 算子：行动、成本：1、成功率：95、成功时的收益：26和失败时的收益：12
+  - 算子：实验、成本：6、成功率：90、成功时的收益：13和失败时的收益：16
+期望价值最高的算子是哪一个？
+
+请从以下选项中选出恰好一个作答：搜索 | 实验 | 模拟 | 证明 | 行动
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The budget is 6.
+The reasoning operators:
+  - operator: proof, cost 5, success percent 50, payoff if success 20 and payoff if failure 2
+  - operator: search, cost 2, success percent 40, payoff if success 26 and payoff if failure 18
+  - operator: simulation, cost 1, success percent 30, payoff if success 9 and payoff if failure 1
+  - operator: act, cost 1, success percent 95, payoff if success 26 and payoff if failure 12
+  - operator: experiment, cost 6, success percent 90, payoff if success 13 and payoff if failure 16
+What is the highest expected value operator?
+
+Answer with exactly one of: search | experiment | simulation | proof | act
+Reply with the answer only.</pre><h3>symbols</h3><pre>{budget: 6, query: highest_expected_value_operator, reasoning_operators: [(operator proof (cost 5) (success_percent 50) (payoff_if_success 20) (payoff_if_failure 2)) (operator search (cost 2) (success_percent 40) (payoff_if_success 26) (payoff_if_failure 18)) (operator simulation (cost 1) (success_percent 30) (payoff_if_success 9) (payoff_if_failure 1)) (operator act (cost 1) (success_percent 95) (payoff_if_success 26) (payoff_if_failure 12)) (operator experiment (cost 6) (success_percent 90) (payoff_if_success 13) (payoff_if_failure 16))]}
+
+Answer with exactly one of: search | experiment | simulation | proof | act
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/metareasoning.jsonl</code> &middot; <code>data/samples/spanish/metareasoning.jsonl</code> &middot; <code>data/samples/chinese/metareasoning.jsonl</code> &middot; <code>data/samples/english_synonym/metareasoning.jsonl</code> &middot; <code>data/samples/symbols/metareasoning.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">act</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 6.
+The reasoning operators:
+  - operator: proof, cost 5, success percent 50, payoff if success 20 and payoff if failure 2
+  - operator: search, cost 2, success percent 40, payoff if success 26 and payoff if failure 18
+  - operator: simulation, cost 1, success percent 30, payoff if success 9 and payoff if failure 1
+  - operator: act, cost 1, success percent 95, payoff if success 26 and payoff if failure 12
+  - operator: experiment, cost 6, success percent 90, payoff if success 13 and payoff if failure 16
+What is the highest expected value operator?
+
+Answer with exactly one of: search | experiment | simulation | proof | act
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;act&quot;,
+ &quot;budget&quot;: 6,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 24.3,
+  &quot;experiment&quot;: 7.3,
+  &quot;proof&quot;: 6.0,
+  &quot;search&quot;: 19.2,
+  &quot;simulation&quot;: 2.4
+ },
+ &quot;greedy_answer&quot;: &quot;act&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">simulation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 11.
+The reasoning operators:
+  - operator: memory_lookup, cost 7, success percent 35, payoff if success 16 and payoff if failure 17
+  - operator: delegation, cost 8, success percent 45, payoff if success 28 and payoff if failure 12
+  - operator: simulation, cost 5, success percent 55, payoff if success 23 and payoff if failure 15
+  - operator: act, cost 9, success percent 75, payoff if success 21 and payoff if failure 6
+  - operator: search, cost 9, success percent 70, payoff if success 23 and payoff if failure 1
+What is the highest expected value operator?
+
+Answer with exactly one of: act | search | memory_lookup | delegation | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;simulation&quot;,
+ &quot;budget&quot;: 11,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 8.25,
+  &quot;delegation&quot;: 11.2,
+  &quot;memory_lookup&quot;: 9.65,
+  &quot;search&quot;: 7.4,
+  &quot;simulation&quot;: 14.4
+ },
+ &quot;greedy_answer&quot;: &quot;simulation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">proof</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: proof, cost 2, success percent 80, payoff if success 30 and payoff if failure 13
+  - operator: simulation, cost 2, success percent 45, payoff if success 5 and payoff if failure 5
+  - operator: memory_lookup, cost 3, success percent 35, payoff if success 9 and payoff if failure 16
+  - operator: act, cost 6, success percent 90, payoff if success 29 and payoff if failure 11
+  - operator: delegation, cost 5, success percent 65, payoff if success 21 and payoff if failure 17
+What is the highest expected value operator?
+
+Answer with exactly one of: memory_lookup | simulation | delegation | act | proof
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;proof&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 21.2,
+  &quot;delegation&quot;: 14.6,
+  &quot;memory_lookup&quot;: 10.55,
+  &quot;proof&quot;: 24.6,
+  &quot;simulation&quot;: 3.0
+ },
+ &quot;greedy_answer&quot;: &quot;proof&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">delegation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: act, cost 8, success percent 70, payoff if success 25 and payoff if failure 4
+  - operator: memory_lookup, cost 4, success percent 30, payoff if success 21 and payoff if failure 12
+  - operator: delegation, cost 4, success percent 85, payoff if success 22 and payoff if failure 17
+  - operator: experiment, cost 8, success percent 50, payoff if success 22 and payoff if failure 7
+  - operator: proof, cost 8, success percent 20, payoff if success 24 and payoff if failure 0
+What is the highest expected value operator?
+
+Answer with exactly one of: act | memory_lookup | experiment | proof | delegation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;delegation&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 10.7,
+  &quot;delegation&quot;: 17.25,
+  &quot;experiment&quot;: 6.5,
+  &quot;memory_lookup&quot;: 10.7,
+  &quot;proof&quot;: -3.2
+ },
+ &quot;greedy_answer&quot;: &quot;delegation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: proof, cost 1, success percent 20, payoff if success 5 and payoff if failure 12
+  - operator: search, cost 2, success percent 90, payoff if success 22 and payoff if failure 11
+  - operator: memory_lookup, cost 3, success percent 35, payoff if success 8 and payoff if failure 8
+  - operator: act, cost 2, success percent 10, payoff if success 25 and payoff if failure 8
+  - operator: simulation, cost 5, success percent 55, payoff if success 30 and payoff if failure 1
+What is the highest expected value operator?
+
+Answer with exactly one of: memory_lookup | simulation | act | proof | search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;search&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 7.7,
+  &quot;memory_lookup&quot;: 5.0,
+  &quot;proof&quot;: 9.6,
+  &quot;search&quot;: 18.9,
+  &quot;simulation&quot;: 11.95
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">simulation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 12.
+The reasoning operators:
+  - operator: act, cost 1, success percent 65, payoff if success 17 and payoff if failure 0
+  - operator: proof, cost 10, success percent 10, payoff if success 24 and payoff if failure 10
+  - operator: simulation, cost 2, success percent 55, payoff if success 16 and payoff if failure 9
+  - operator: search, cost 8, success percent 60, payoff if success 10 and payoff if failure 15
+  - operator: delegation, cost 8, success percent 35, payoff if success 6 and payoff if failure 8
+What is the highest expected value operator?
+
+Answer with exactly one of: simulation | act | search | proof | delegation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;simulation&quot;,
+ &quot;budget&quot;: 12,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 10.05,
+  &quot;delegation&quot;: -0.7,
+  &quot;proof&quot;: 1.4,
+  &quot;search&quot;: 4.0,
+  &quot;simulation&quot;: 10.85
+ },
+ &quot;greedy_answer&quot;: &quot;act&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">simulation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 11.
+The reasoning operators:
+  - operator: act, cost 5, success percent 80, payoff if success 20 and payoff if failure 5
+  - operator: memory_lookup, cost 1, success percent 10, payoff if success 22 and payoff if failure 3
+  - operator: search, cost 5, success percent 65, payoff if success 11 and payoff if failure 8
+  - operator: proof, cost 9, success percent 80, payoff if success 15 and payoff if failure 16
+  - operator: simulation, cost 5, success percent 75, payoff if success 18 and payoff if failure 19
+What is the highest expected value operator?
+
+Answer with exactly one of: act | simulation | search | memory_lookup | proof
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;simulation&quot;,
+ &quot;budget&quot;: 11,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 12.0,
+  &quot;memory_lookup&quot;: 3.9,
+  &quot;proof&quot;: 6.2,
+  &quot;search&quot;: 4.95,
+  &quot;simulation&quot;: 13.25
+ },
+ &quot;greedy_answer&quot;: &quot;act&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">experiment</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 12.
+The reasoning operators:
+  - operator: proof, cost 1, success percent 90, payoff if success 11 and payoff if failure 1
+  - operator: memory_lookup, cost 2, success percent 75, payoff if success 18 and payoff if failure 2
+  - operator: experiment, cost 1, success percent 25, payoff if success 12 and payoff if failure 20
+  - operator: search, cost 4, success percent 20, payoff if success 22 and payoff if failure 13
+  - operator: simulation, cost 9, success percent 25, payoff if success 16 and payoff if failure 18
+What is the highest expected value operator?
+
+Answer with exactly one of: experiment | memory_lookup | search | proof | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;experiment&quot;,
+ &quot;budget&quot;: 12,
+ &quot;expected_values&quot;: {
+  &quot;experiment&quot;: 17.0,
+  &quot;memory_lookup&quot;: 12.0,
+  &quot;proof&quot;: 9.0,
+  &quot;search&quot;: 10.8,
+  &quot;simulation&quot;: 8.5
+ },
+ &quot;greedy_answer&quot;: &quot;memory_lookup&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">memory_lookup</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 11.
+The reasoning operators:
+  - operator: proof, cost 1, success percent 20, payoff if success 9 and payoff if failure 7
+  - operator: search, cost 7, success percent 20, payoff if success 20 and payoff if failure 7
+  - operator: simulation, cost 9, success percent 40, payoff if success 17 and payoff if failure 20
+  - operator: act, cost 7, success percent 85, payoff if success 23 and payoff if failure 6
+  - operator: memory_lookup, cost 1, success percent 80, payoff if success 20 and payoff if failure 14
+What is the highest expected value operator?
+
+Answer with exactly one of: simulation | act | search | memory_lookup | proof
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;memory_lookup&quot;,
+ &quot;budget&quot;: 11,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 13.45,
+  &quot;memory_lookup&quot;: 17.8,
+  &quot;proof&quot;: 6.4,
+  &quot;search&quot;: 2.6,
+  &quot;simulation&quot;: 9.8
+ },
+ &quot;greedy_answer&quot;: &quot;memory_lookup&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">experiment</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 6.
+The reasoning operators:
+  - operator: simulation, cost 4, success percent 15, payoff if success 17 and payoff if failure 15
+  - operator: experiment, cost 3, success percent 40, payoff if success 26 and payoff if failure 7
+  - operator: search, cost 2, success percent 70, payoff if success 13 and payoff if failure 10
+  - operator: memory_lookup, cost 1, success percent 40, payoff if success 27 and payoff if failure 0
+  - operator: act, cost 6, success percent 75, payoff if success 7 and payoff if failure 8
+What is the highest expected value operator?
+
+Answer with exactly one of: act | search | memory_lookup | experiment | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;experiment&quot;,
+ &quot;budget&quot;: 6,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 1.25,
+  &quot;experiment&quot;: 11.6,
+  &quot;memory_lookup&quot;: 9.8,
+  &quot;search&quot;: 10.1,
+  &quot;simulation&quot;: 11.3
+ },
+ &quot;greedy_answer&quot;: &quot;memory_lookup&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">simulation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 9.
+The reasoning operators:
+  - operator: simulation, cost 3, success percent 70, payoff if success 23 and payoff if failure 11
+  - operator: delegation, cost 4, success percent 15, payoff if success 6 and payoff if failure 15
+  - operator: experiment, cost 5, success percent 20, payoff if success 22 and payoff if failure 2
+  - operator: search, cost 8, success percent 35, payoff if success 30 and payoff if failure 6
+  - operator: proof, cost 3, success percent 25, payoff if success 29 and payoff if failure 3
+What is the highest expected value operator?
+
+Answer with exactly one of: proof | delegation | search | experiment | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;simulation&quot;,
+ &quot;budget&quot;: 9,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 9.65,
+  &quot;experiment&quot;: 1.0,
+  &quot;proof&quot;: 6.5,
+  &quot;search&quot;: 6.4,
+  &quot;simulation&quot;: 16.4
+ },
+ &quot;greedy_answer&quot;: &quot;simulation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">delegation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 6.
+The reasoning operators:
+  - operator: act, cost 6, success percent 10, payoff if success 11 and payoff if failure 6
+  - operator: experiment, cost 1, success percent 85, payoff if success 17 and payoff if failure 12
+  - operator: proof, cost 2, success percent 50, payoff if success 15 and payoff if failure 2
+  - operator: delegation, cost 4, success percent 20, payoff if success 23 and payoff if failure 20
+  - operator: search, cost 3, success percent 70, payoff if success 7 and payoff if failure 0
+What is the highest expected value operator?
+
+Answer with exactly one of: proof | experiment | delegation | search | act
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;delegation&quot;,
+ &quot;budget&quot;: 6,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 0.5,
+  &quot;delegation&quot;: 16.6,
+  &quot;experiment&quot;: 15.25,
+  &quot;proof&quot;: 6.5,
+  &quot;search&quot;: 1.9
+ },
+ &quot;greedy_answer&quot;: &quot;experiment&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">simulation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: memory_lookup, cost 7, success percent 75, payoff if success 16 and payoff if failure 5
+  - operator: simulation, cost 1, success percent 40, payoff if success 20 and payoff if failure 19
+  - operator: delegation, cost 6, success percent 55, payoff if success 14 and payoff if failure 5
+  - operator: proof, cost 1, success percent 75, payoff if success 16 and payoff if failure 10
+  - operator: experiment, cost 1, success percent 60, payoff if success 9 and payoff if failure 2
+What is the highest expected value operator?
+
+Answer with exactly one of: delegation | proof | simulation | experiment | memory_lookup
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;simulation&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 3.95,
+  &quot;experiment&quot;: 5.2,
+  &quot;memory_lookup&quot;: 6.25,
+  &quot;proof&quot;: 13.5,
+  &quot;simulation&quot;: 18.4
+ },
+ &quot;greedy_answer&quot;: &quot;proof&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">delegation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: experiment, cost 2, success percent 10, payoff if success 13 and payoff if failure 4
+  - operator: act, cost 2, success percent 20, payoff if success 22 and payoff if failure 6
+  - operator: simulation, cost 7, success percent 45, payoff if success 25 and payoff if failure 5
+  - operator: delegation, cost 1, success percent 50, payoff if success 19 and payoff if failure 13
+  - operator: proof, cost 6, success percent 55, payoff if success 5 and payoff if failure 13
+What is the highest expected value operator?
+
+Answer with exactly one of: simulation | act | proof | experiment | delegation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;delegation&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 7.2,
+  &quot;delegation&quot;: 15.0,
+  &quot;experiment&quot;: 2.9,
+  &quot;proof&quot;: 2.6,
+  &quot;simulation&quot;: 7.0
+ },
+ &quot;greedy_answer&quot;: &quot;delegation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">experiment</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 6.
+The reasoning operators:
+  - operator: proof, cost 6, success percent 20, payoff if success 8 and payoff if failure 19
+  - operator: experiment, cost 2, success percent 70, payoff if success 17 and payoff if failure 18
+  - operator: search, cost 5, success percent 65, payoff if success 10 and payoff if failure 3
+  - operator: act, cost 3, success percent 10, payoff if success 7 and payoff if failure 8
+  - operator: simulation, cost 4, success percent 25, payoff if success 25 and payoff if failure 3
+What is the highest expected value operator?
+
+Answer with exactly one of: proof | experiment | simulation | act | search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;experiment&quot;,
+ &quot;budget&quot;: 6,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 4.9,
+  &quot;experiment&quot;: 15.3,
+  &quot;proof&quot;: 10.8,
+  &quot;search&quot;: 2.55,
+  &quot;simulation&quot;: 4.5
+ },
+ &quot;greedy_answer&quot;: &quot;experiment&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">experiment</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: simulation, cost 1, success percent 25, payoff if success 30 and payoff if failure 4
+  - operator: search, cost 7, success percent 60, payoff if success 9 and payoff if failure 10
+  - operator: experiment, cost 10, success percent 95, payoff if success 24 and payoff if failure 15
+  - operator: proof, cost 2, success percent 60, payoff if success 15 and payoff if failure 14
+  - operator: act, cost 10, success percent 25, payoff if success 17 and payoff if failure 18
+What is the highest expected value operator?
+
+Answer with exactly one of: search | act | proof | experiment | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;experiment&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 7.75,
+  &quot;experiment&quot;: 13.55,
+  &quot;proof&quot;: 12.6,
+  &quot;search&quot;: 2.4,
+  &quot;simulation&quot;: 9.5
+ },
+ &quot;greedy_answer&quot;: &quot;experiment&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">delegation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: proof, cost 5, success percent 50, payoff if success 5 and payoff if failure 4
+  - operator: delegation, cost 3, success percent 60, payoff if success 26 and payoff if failure 4
+  - operator: memory_lookup, cost 2, success percent 45, payoff if success 5 and payoff if failure 9
+  - operator: act, cost 6, success percent 55, payoff if success 5 and payoff if failure 7
+  - operator: simulation, cost 4, success percent 10, payoff if success 18 and payoff if failure 8
+What is the highest expected value operator?
+
+Answer with exactly one of: simulation | act | proof | delegation | memory_lookup
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;delegation&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: -0.1,
+  &quot;delegation&quot;: 14.2,
+  &quot;memory_lookup&quot;: 5.2,
+  &quot;proof&quot;: -0.5,
+  &quot;simulation&quot;: 5.0
+ },
+ &quot;greedy_answer&quot;: &quot;delegation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">experiment</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: act, cost 7, success percent 60, payoff if success 25 and payoff if failure 12
+  - operator: experiment, cost 7, success percent 95, payoff if success 26 and payoff if failure 8
+  - operator: simulation, cost 7, success percent 75, payoff if success 13 and payoff if failure 16
+  - operator: proof, cost 2, success percent 95, payoff if success 6 and payoff if failure 4
+  - operator: memory_lookup, cost 1, success percent 10, payoff if success 12 and payoff if failure 12
+What is the highest expected value operator?
+
+Answer with exactly one of: memory_lookup | act | proof | experiment | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;experiment&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 12.8,
+  &quot;experiment&quot;: 18.1,
+  &quot;memory_lookup&quot;: 11.0,
+  &quot;proof&quot;: 3.9,
+  &quot;simulation&quot;: 6.75
+ },
+ &quot;greedy_answer&quot;: &quot;experiment&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">memory_lookup</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: memory_lookup, cost 3, success percent 25, payoff if success 15 and payoff if failure 16
+  - operator: delegation, cost 2, success percent 45, payoff if success 11 and payoff if failure 11
+  - operator: proof, cost 4, success percent 85, payoff if success 10 and payoff if failure 15
+  - operator: simulation, cost 6, success percent 35, payoff if success 30 and payoff if failure 7
+  - operator: search, cost 3, success percent 80, payoff if success 13 and payoff if failure 6
+What is the highest expected value operator?
+
+Answer with exactly one of: simulation | delegation | search | proof | memory_lookup
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;memory_lookup&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 9.0,
+  &quot;memory_lookup&quot;: 12.75,
+  &quot;proof&quot;: 6.75,
+  &quot;search&quot;: 8.6,
+  &quot;simulation&quot;: 9.05
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">simulation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: experiment, cost 1, success percent 50, payoff if success 18 and payoff if failure 10
+  - operator: act, cost 3, success percent 25, payoff if success 29 and payoff if failure 10
+  - operator: simulation, cost 3, success percent 10, payoff if success 23 and payoff if failure 19
+  - operator: search, cost 5, success percent 30, payoff if success 24 and payoff if failure 8
+  - operator: delegation, cost 4, success percent 65, payoff if success 21 and payoff if failure 9
+What is the highest expected value operator?
+
+Answer with exactly one of: experiment | search | simulation | delegation | act
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;simulation&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 11.75,
+  &quot;delegation&quot;: 12.8,
+  &quot;experiment&quot;: 13.0,
+  &quot;search&quot;: 7.8,
+  &quot;simulation&quot;: 16.4
+ },
+ &quot;greedy_answer&quot;: &quot;delegation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">memory_lookup</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 11.
+The reasoning operators:
+  - operator: proof, cost 2, success percent 30, payoff if success 15 and payoff if failure 15
+  - operator: memory_lookup, cost 4, success percent 60, payoff if success 25 and payoff if failure 10
+  - operator: act, cost 1, success percent 75, payoff if success 18 and payoff if failure 2
+  - operator: simulation, cost 10, success percent 80, payoff if success 18 and payoff if failure 6
+  - operator: delegation, cost 2, success percent 60, payoff if success 23 and payoff if failure 5
+What is the highest expected value operator?
+
+Answer with exactly one of: simulation | proof | delegation | memory_lookup | act
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;memory_lookup&quot;,
+ &quot;budget&quot;: 11,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 13.0,
+  &quot;delegation&quot;: 13.8,
+  &quot;memory_lookup&quot;: 15.0,
+  &quot;proof&quot;: 13.0,
+  &quot;simulation&quot;: 5.6
+ },
+ &quot;greedy_answer&quot;: &quot;act&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">delegation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: act, cost 3, success percent 35, payoff if success 25 and payoff if failure 11
+  - operator: memory_lookup, cost 9, success percent 45, payoff if success 23 and payoff if failure 19
+  - operator: simulation, cost 5, success percent 45, payoff if success 8 and payoff if failure 5
+  - operator: delegation, cost 6, success percent 65, payoff if success 29 and payoff if failure 19
+  - operator: search, cost 6, success percent 95, payoff if success 24 and payoff if failure 3
+What is the highest expected value operator?
+
+Answer with exactly one of: act | simulation | delegation | search | memory_lookup
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;delegation&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 12.9,
+  &quot;delegation&quot;: 19.5,
+  &quot;memory_lookup&quot;: 11.8,
+  &quot;search&quot;: 16.95,
+  &quot;simulation&quot;: 1.35
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">proof</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 11.
+The reasoning operators:
+  - operator: memory_lookup, cost 1, success percent 10, payoff if success 23 and payoff if failure 8
+  - operator: act, cost 4, success percent 50, payoff if success 6 and payoff if failure 10
+  - operator: search, cost 10, success percent 35, payoff if success 22 and payoff if failure 13
+  - operator: proof, cost 2, success percent 65, payoff if success 30 and payoff if failure 2
+  - operator: experiment, cost 5, success percent 75, payoff if success 11 and payoff if failure 5
+What is the highest expected value operator?
+
+Answer with exactly one of: memory_lookup | proof | act | search | experiment
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;proof&quot;,
+ &quot;budget&quot;: 11,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 4.0,
+  &quot;experiment&quot;: 4.5,
+  &quot;memory_lookup&quot;: 8.5,
+  &quot;proof&quot;: 18.2,
+  &quot;search&quot;: 6.15
+ },
+ &quot;greedy_answer&quot;: &quot;proof&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 8.
+The reasoning operators:
+  - operator: simulation, cost 3, success percent 40, payoff if success 13 and payoff if failure 14
+  - operator: delegation, cost 7, success percent 10, payoff if success 21 and payoff if failure 20
+  - operator: experiment, cost 1, success percent 25, payoff if success 7 and payoff if failure 15
+  - operator: act, cost 7, success percent 70, payoff if success 21 and payoff if failure 11
+  - operator: search, cost 1, success percent 45, payoff if success 24 and payoff if failure 14
+What is the highest expected value operator?
+
+Answer with exactly one of: simulation | act | experiment | search | delegation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;search&quot;,
+ &quot;budget&quot;: 8,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 11.0,
+  &quot;delegation&quot;: 13.1,
+  &quot;experiment&quot;: 12.0,
+  &quot;search&quot;: 17.5,
+  &quot;simulation&quot;: 10.6
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">experiment</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 8.
+The reasoning operators:
+  - operator: search, cost 6, success percent 15, payoff if success 11 and payoff if failure 10
+  - operator: simulation, cost 6, success percent 20, payoff if success 14 and payoff if failure 3
+  - operator: experiment, cost 5, success percent 95, payoff if success 28 and payoff if failure 8
+  - operator: proof, cost 4, success percent 30, payoff if success 20 and payoff if failure 9
+  - operator: memory_lookup, cost 5, success percent 20, payoff if success 22 and payoff if failure 20
+What is the highest expected value operator?
+
+Answer with exactly one of: search | experiment | memory_lookup | proof | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;experiment&quot;,
+ &quot;budget&quot;: 8,
+ &quot;expected_values&quot;: {
+  &quot;experiment&quot;: 22.0,
+  &quot;memory_lookup&quot;: 15.4,
+  &quot;proof&quot;: 8.3,
+  &quot;search&quot;: 4.15,
+  &quot;simulation&quot;: -0.8
+ },
+ &quot;greedy_answer&quot;: &quot;experiment&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">proof</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 9.
+The reasoning operators:
+  - operator: act, cost 9, success percent 85, payoff if success 21 and payoff if failure 3
+  - operator: simulation, cost 6, success percent 35, payoff if success 22 and payoff if failure 11
+  - operator: search, cost 7, success percent 25, payoff if success 23 and payoff if failure 3
+  - operator: proof, cost 4, success percent 90, payoff if success 30 and payoff if failure 19
+  - operator: memory_lookup, cost 1, success percent 50, payoff if success 6 and payoff if failure 9
+What is the highest expected value operator?
+
+Answer with exactly one of: memory_lookup | simulation | proof | act | search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;proof&quot;,
+ &quot;budget&quot;: 9,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 9.3,
+  &quot;memory_lookup&quot;: 6.5,
+  &quot;proof&quot;: 24.9,
+  &quot;search&quot;: 1.0,
+  &quot;simulation&quot;: 8.85
+ },
+ &quot;greedy_answer&quot;: &quot;proof&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">delegation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: proof, cost 1, success percent 90, payoff if success 10 and payoff if failure 20
+  - operator: simulation, cost 3, success percent 30, payoff if success 11 and payoff if failure 19
+  - operator: delegation, cost 1, success percent 30, payoff if success 29 and payoff if failure 15
+  - operator: act, cost 7, success percent 45, payoff if success 28 and payoff if failure 13
+  - operator: memory_lookup, cost 4, success percent 10, payoff if success 26 and payoff if failure 7
+What is the highest expected value operator?
+
+Answer with exactly one of: proof | simulation | memory_lookup | act | delegation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;delegation&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 12.75,
+  &quot;delegation&quot;: 18.2,
+  &quot;memory_lookup&quot;: 4.9,
+  &quot;proof&quot;: 10.0,
+  &quot;simulation&quot;: 13.6
+ },
+ &quot;greedy_answer&quot;: &quot;proof&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">delegation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 6.
+The reasoning operators:
+  - operator: simulation, cost 2, success percent 45, payoff if success 20 and payoff if failure 2
+  - operator: search, cost 4, success percent 15, payoff if success 26 and payoff if failure 14
+  - operator: memory_lookup, cost 3, success percent 65, payoff if success 17 and payoff if failure 5
+  - operator: experiment, cost 6, success percent 20, payoff if success 24 and payoff if failure 13
+  - operator: delegation, cost 1, success percent 50, payoff if success 22 and payoff if failure 10
+What is the highest expected value operator?
+
+Answer with exactly one of: memory_lookup | delegation | experiment | simulation | search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;delegation&quot;,
+ &quot;budget&quot;: 6,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 15.0,
+  &quot;experiment&quot;: 9.2,
+  &quot;memory_lookup&quot;: 9.8,
+  &quot;search&quot;: 11.8,
+  &quot;simulation&quot;: 8.1
+ },
+ &quot;greedy_answer&quot;: &quot;delegation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">simulation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 12.
+The reasoning operators:
+  - operator: delegation, cost 6, success percent 70, payoff if success 8 and payoff if failure 15
+  - operator: act, cost 5, success percent 70, payoff if success 21 and payoff if failure 5
+  - operator: simulation, cost 4, success percent 95, payoff if success 18 and payoff if failure 0
+  - operator: proof, cost 4, success percent 40, payoff if success 6 and payoff if failure 10
+  - operator: memory_lookup, cost 4, success percent 35, payoff if success 14 and payoff if failure 18
+What is the highest expected value operator?
+
+Answer with exactly one of: act | memory_lookup | simulation | proof | delegation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;simulation&quot;,
+ &quot;budget&quot;: 12,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 11.2,
+  &quot;delegation&quot;: 4.1,
+  &quot;memory_lookup&quot;: 12.6,
+  &quot;proof&quot;: 4.4,
+  &quot;simulation&quot;: 13.1
+ },
+ &quot;greedy_answer&quot;: &quot;simulation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 9.
+The reasoning operators:
+  - operator: memory_lookup, cost 7, success percent 75, payoff if success 22 and payoff if failure 4
+  - operator: search, cost 3, success percent 60, payoff if success 28 and payoff if failure 20
+  - operator: experiment, cost 4, success percent 50, payoff if success 5 and payoff if failure 0
+  - operator: delegation, cost 7, success percent 30, payoff if success 14 and payoff if failure 0
+  - operator: simulation, cost 7, success percent 80, payoff if success 14 and payoff if failure 19
+What is the highest expected value operator?
+
+Answer with exactly one of: search | memory_lookup | experiment | delegation | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;search&quot;,
+ &quot;budget&quot;: 9,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: -2.8,
+  &quot;experiment&quot;: -1.5,
+  &quot;memory_lookup&quot;: 10.5,
+  &quot;search&quot;: 21.8,
+  &quot;simulation&quot;: 8.0
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 11.
+The reasoning operators:
+  - operator: search, cost 2, success percent 35, payoff if success 24 and payoff if failure 16
+  - operator: experiment, cost 4, success percent 50, payoff if success 6 and payoff if failure 12
+  - operator: delegation, cost 7, success percent 65, payoff if success 22 and payoff if failure 2
+  - operator: act, cost 1, success percent 90, payoff if success 12 and payoff if failure 0
+  - operator: simulation, cost 7, success percent 30, payoff if success 7 and payoff if failure 14
+What is the highest expected value operator?
+
+Answer with exactly one of: search | simulation | delegation | experiment | act
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;search&quot;,
+ &quot;budget&quot;: 11,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 9.8,
+  &quot;delegation&quot;: 8.0,
+  &quot;experiment&quot;: 5.0,
+  &quot;search&quot;: 16.8,
+  &quot;simulation&quot;: 4.9
+ },
+ &quot;greedy_answer&quot;: &quot;act&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">simulation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 11.
+The reasoning operators:
+  - operator: delegation, cost 6, success percent 55, payoff if success 15 and payoff if failure 18
+  - operator: act, cost 5, success percent 35, payoff if success 22 and payoff if failure 19
+  - operator: proof, cost 6, success percent 40, payoff if success 28 and payoff if failure 3
+  - operator: memory_lookup, cost 4, success percent 85, payoff if success 6 and payoff if failure 8
+  - operator: simulation, cost 7, success percent 85, payoff if success 25 and payoff if failure 20
+What is the highest expected value operator?
+
+Answer with exactly one of: delegation | act | proof | simulation | memory_lookup
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;simulation&quot;,
+ &quot;budget&quot;: 11,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 15.05,
+  &quot;delegation&quot;: 10.35,
+  &quot;memory_lookup&quot;: 2.3,
+  &quot;proof&quot;: 7.0,
+  &quot;simulation&quot;: 17.25
+ },
+ &quot;greedy_answer&quot;: &quot;simulation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">proof</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: delegation, cost 7, success percent 15, payoff if success 21 and payoff if failure 15
+  - operator: memory_lookup, cost 5, success percent 10, payoff if success 20 and payoff if failure 6
+  - operator: search, cost 4, success percent 10, payoff if success 28 and payoff if failure 1
+  - operator: simulation, cost 3, success percent 10, payoff if success 22 and payoff if failure 4
+  - operator: proof, cost 1, success percent 60, payoff if success 21 and payoff if failure 10
+What is the highest expected value operator?
+
+Answer with exactly one of: proof | simulation | delegation | memory_lookup | search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;proof&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 8.9,
+  &quot;memory_lookup&quot;: 2.4,
+  &quot;proof&quot;: 15.6,
+  &quot;search&quot;: -0.3,
+  &quot;simulation&quot;: 2.8
+ },
+ &quot;greedy_answer&quot;: &quot;proof&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">simulation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 11.
+The reasoning operators:
+  - operator: act, cost 9, success percent 85, payoff if success 6 and payoff if failure 19
+  - operator: experiment, cost 9, success percent 90, payoff if success 10 and payoff if failure 20
+  - operator: proof, cost 10, success percent 90, payoff if success 15 and payoff if failure 16
+  - operator: delegation, cost 8, success percent 80, payoff if success 14 and payoff if failure 20
+  - operator: simulation, cost 2, success percent 55, payoff if success 18 and payoff if failure 9
+What is the highest expected value operator?
+
+Answer with exactly one of: simulation | delegation | proof | act | experiment
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;simulation&quot;,
+ &quot;budget&quot;: 11,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: -1.05,
+  &quot;delegation&quot;: 7.2,
+  &quot;experiment&quot;: 2.0,
+  &quot;proof&quot;: 5.1,
+  &quot;simulation&quot;: 11.95
+ },
+ &quot;greedy_answer&quot;: &quot;simulation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">act</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: experiment, cost 4, success percent 40, payoff if success 19 and payoff if failure 17
+  - operator: memory_lookup, cost 9, success percent 75, payoff if success 12 and payoff if failure 7
+  - operator: act, cost 2, success percent 20, payoff if success 30 and payoff if failure 14
+  - operator: search, cost 3, success percent 30, payoff if success 23 and payoff if failure 12
+  - operator: delegation, cost 5, success percent 55, payoff if success 17 and payoff if failure 10
+What is the highest expected value operator?
+
+Answer with exactly one of: act | delegation | experiment | search | memory_lookup
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;act&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 15.2,
+  &quot;delegation&quot;: 8.85,
+  &quot;experiment&quot;: 13.8,
+  &quot;memory_lookup&quot;: 1.75,
+  &quot;search&quot;: 12.3
+ },
+ &quot;greedy_answer&quot;: &quot;delegation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">simulation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 9.
+The reasoning operators:
+  - operator: proof, cost 9, success percent 55, payoff if success 22 and payoff if failure 14
+  - operator: simulation, cost 3, success percent 60, payoff if success 24 and payoff if failure 15
+  - operator: act, cost 9, success percent 50, payoff if success 22 and payoff if failure 16
+  - operator: search, cost 7, success percent 15, payoff if success 27 and payoff if failure 12
+  - operator: delegation, cost 1, success percent 80, payoff if success 21 and payoff if failure 5
+What is the highest expected value operator?
+
+Answer with exactly one of: delegation | proof | act | search | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;simulation&quot;,
+ &quot;budget&quot;: 9,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 10.0,
+  &quot;delegation&quot;: 16.8,
+  &quot;proof&quot;: 9.4,
+  &quot;search&quot;: 7.25,
+  &quot;simulation&quot;: 17.4
+ },
+ &quot;greedy_answer&quot;: &quot;delegation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">delegation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 11.
+The reasoning operators:
+  - operator: search, cost 7, success percent 35, payoff if success 17 and payoff if failure 3
+  - operator: experiment, cost 11, success percent 30, payoff if success 26 and payoff if failure 3
+  - operator: act, cost 9, success percent 10, payoff if success 5 and payoff if failure 16
+  - operator: simulation, cost 11, success percent 75, payoff if success 7 and payoff if failure 13
+  - operator: delegation, cost 8, success percent 25, payoff if success 20 and payoff if failure 17
+What is the highest expected value operator?
+
+Answer with exactly one of: search | simulation | act | experiment | delegation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;delegation&quot;,
+ &quot;budget&quot;: 11,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 5.9,
+  &quot;delegation&quot;: 9.75,
+  &quot;experiment&quot;: -1.1,
+  &quot;search&quot;: 0.9,
+  &quot;simulation&quot;: -2.5
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">delegation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 8.
+The reasoning operators:
+  - operator: experiment, cost 8, success percent 55, payoff if success 17 and payoff if failure 13
+  - operator: delegation, cost 8, success percent 90, payoff if success 30 and payoff if failure 3
+  - operator: act, cost 2, success percent 75, payoff if success 7 and payoff if failure 17
+  - operator: search, cost 8, success percent 30, payoff if success 30 and payoff if failure 1
+  - operator: simulation, cost 5, success percent 65, payoff if success 25 and payoff if failure 13
+What is the highest expected value operator?
+
+Answer with exactly one of: delegation | act | search | experiment | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;delegation&quot;,
+ &quot;budget&quot;: 8,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 7.5,
+  &quot;delegation&quot;: 19.3,
+  &quot;experiment&quot;: 7.2,
+  &quot;search&quot;: 1.7,
+  &quot;simulation&quot;: 15.8
+ },
+ &quot;greedy_answer&quot;: &quot;delegation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">act</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 8.
+The reasoning operators:
+  - operator: memory_lookup, cost 3, success percent 65, payoff if success 15 and payoff if failure 8
+  - operator: delegation, cost 8, success percent 65, payoff if success 6 and payoff if failure 19
+  - operator: experiment, cost 8, success percent 30, payoff if success 18 and payoff if failure 16
+  - operator: act, cost 6, success percent 55, payoff if success 20 and payoff if failure 18
+  - operator: search, cost 7, success percent 45, payoff if success 24 and payoff if failure 2
+What is the highest expected value operator?
+
+Answer with exactly one of: act | experiment | delegation | search | memory_lookup
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;act&quot;,
+ &quot;budget&quot;: 8,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 13.1,
+  &quot;delegation&quot;: 2.55,
+  &quot;experiment&quot;: 8.6,
+  &quot;memory_lookup&quot;: 9.55,
+  &quot;search&quot;: 4.9
+ },
+ &quot;greedy_answer&quot;: &quot;memory_lookup&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">experiment</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: search, cost 3, success percent 10, payoff if success 8 and payoff if failure 13
+  - operator: proof, cost 4, success percent 10, payoff if success 25 and payoff if failure 8
+  - operator: simulation, cost 6, success percent 65, payoff if success 27 and payoff if failure 5
+  - operator: memory_lookup, cost 7, success percent 10, payoff if success 14 and payoff if failure 2
+  - operator: experiment, cost 3, success percent 75, payoff if success 30 and payoff if failure 3
+What is the highest expected value operator?
+
+Answer with exactly one of: proof | memory_lookup | simulation | experiment | search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;experiment&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;experiment&quot;: 20.25,
+  &quot;memory_lookup&quot;: -3.8,
+  &quot;proof&quot;: 5.7,
+  &quot;search&quot;: 9.5,
+  &quot;simulation&quot;: 13.3
+ },
+ &quot;greedy_answer&quot;: &quot;experiment&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">proof</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 6.
+The reasoning operators:
+  - operator: act, cost 6, success percent 55, payoff if success 19 and payoff if failure 5
+  - operator: delegation, cost 3, success percent 35, payoff if success 21 and payoff if failure 9
+  - operator: search, cost 5, success percent 40, payoff if success 20 and payoff if failure 13
+  - operator: experiment, cost 3, success percent 60, payoff if success 12 and payoff if failure 4
+  - operator: proof, cost 5, success percent 20, payoff if success 10 and payoff if failure 18
+What is the highest expected value operator?
+
+Answer with exactly one of: delegation | search | experiment | act | proof
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;proof&quot;,
+ &quot;budget&quot;: 6,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 6.7,
+  &quot;delegation&quot;: 10.2,
+  &quot;experiment&quot;: 5.8,
+  &quot;proof&quot;: 11.4,
+  &quot;search&quot;: 10.8
+ },
+ &quot;greedy_answer&quot;: &quot;act&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">experiment</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: act, cost 10, success percent 15, payoff if success 8 and payoff if failure 18
+  - operator: experiment, cost 6, success percent 35, payoff if success 13 and payoff if failure 20
+  - operator: memory_lookup, cost 5, success percent 95, payoff if success 13 and payoff if failure 12
+  - operator: simulation, cost 10, success percent 10, payoff if success 29 and payoff if failure 7
+  - operator: proof, cost 1, success percent 80, payoff if success 9 and payoff if failure 4
+What is the highest expected value operator?
+
+Answer with exactly one of: act | memory_lookup | proof | simulation | experiment
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;experiment&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 6.5,
+  &quot;experiment&quot;: 11.55,
+  &quot;memory_lookup&quot;: 7.95,
+  &quot;proof&quot;: 7.0,
+  &quot;simulation&quot;: -0.8
+ },
+ &quot;greedy_answer&quot;: &quot;memory_lookup&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">delegation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: experiment, cost 6, success percent 95, payoff if success 18 and payoff if failure 7
+  - operator: search, cost 1, success percent 75, payoff if success 6 and payoff if failure 0
+  - operator: simulation, cost 5, success percent 10, payoff if success 22 and payoff if failure 6
+  - operator: delegation, cost 2, success percent 25, payoff if success 26 and payoff if failure 17
+  - operator: act, cost 1, success percent 40, payoff if success 12 and payoff if failure 16
+What is the highest expected value operator?
+
+Answer with exactly one of: search | simulation | delegation | experiment | act
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;delegation&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 13.4,
+  &quot;delegation&quot;: 17.25,
+  &quot;experiment&quot;: 11.45,
+  &quot;search&quot;: 3.5,
+  &quot;simulation&quot;: 2.6
+ },
+ &quot;greedy_answer&quot;: &quot;experiment&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">simulation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: experiment, cost 5, success percent 35, payoff if success 17 and payoff if failure 2
+  - operator: memory_lookup, cost 1, success percent 15, payoff if success 10 and payoff if failure 1
+  - operator: delegation, cost 9, success percent 25, payoff if success 23 and payoff if failure 20
+  - operator: simulation, cost 1, success percent 25, payoff if success 24 and payoff if failure 14
+  - operator: proof, cost 3, success percent 55, payoff if success 13 and payoff if failure 2
+What is the highest expected value operator?
+
+Answer with exactly one of: proof | delegation | experiment | simulation | memory_lookup
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;simulation&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 11.75,
+  &quot;experiment&quot;: 2.25,
+  &quot;memory_lookup&quot;: 1.35,
+  &quot;proof&quot;: 5.05,
+  &quot;simulation&quot;: 15.5
+ },
+ &quot;greedy_answer&quot;: &quot;simulation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 11.
+The reasoning operators:
+  - operator: search, cost 1, success percent 45, payoff if success 22 and payoff if failure 15
+  - operator: act, cost 4, success percent 65, payoff if success 21 and payoff if failure 3
+  - operator: memory_lookup, cost 9, success percent 90, payoff if success 16 and payoff if failure 7
+  - operator: proof, cost 3, success percent 80, payoff if success 13 and payoff if failure 4
+  - operator: simulation, cost 2, success percent 90, payoff if success 13 and payoff if failure 13
+What is the highest expected value operator?
+
+Answer with exactly one of: act | search | simulation | proof | memory_lookup
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;search&quot;,
+ &quot;budget&quot;: 11,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 10.7,
+  &quot;memory_lookup&quot;: 6.1,
+  &quot;proof&quot;: 8.2,
+  &quot;search&quot;: 17.15,
+  &quot;simulation&quot;: 11.0
+ },
+ &quot;greedy_answer&quot;: &quot;simulation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">act</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 8.
+The reasoning operators:
+  - operator: delegation, cost 6, success percent 60, payoff if success 8 and payoff if failure 13
+  - operator: memory_lookup, cost 4, success percent 65, payoff if success 9 and payoff if failure 20
+  - operator: act, cost 6, success percent 70, payoff if success 27 and payoff if failure 16
+  - operator: proof, cost 5, success percent 15, payoff if success 20 and payoff if failure 11
+  - operator: search, cost 2, success percent 10, payoff if success 29 and payoff if failure 10
+What is the highest expected value operator?
+
+Answer with exactly one of: delegation | memory_lookup | proof | search | act
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;act&quot;,
+ &quot;budget&quot;: 8,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 17.7,
+  &quot;delegation&quot;: 4.0,
+  &quot;memory_lookup&quot;: 8.85,
+  &quot;proof&quot;: 7.35,
+  &quot;search&quot;: 9.9
+ },
+ &quot;greedy_answer&quot;: &quot;act&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">memory_lookup</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: delegation, cost 2, success percent 70, payoff if success 14 and payoff if failure 11
+  - operator: search, cost 2, success percent 25, payoff if success 24 and payoff if failure 11
+  - operator: act, cost 3, success percent 90, payoff if success 19 and payoff if failure 8
+  - operator: memory_lookup, cost 1, success percent 60, payoff if success 19 and payoff if failure 12
+  - operator: proof, cost 7, success percent 40, payoff if success 8 and payoff if failure 18
+What is the highest expected value operator?
+
+Answer with exactly one of: search | proof | delegation | memory_lookup | act
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;memory_lookup&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 14.9,
+  &quot;delegation&quot;: 11.1,
+  &quot;memory_lookup&quot;: 15.2,
+  &quot;proof&quot;: 7.0,
+  &quot;search&quot;: 12.25
+ },
+ &quot;greedy_answer&quot;: &quot;act&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: act, cost 7, success percent 75, payoff if success 16 and payoff if failure 9
+  - operator: experiment, cost 6, success percent 95, payoff if success 6 and payoff if failure 3
+  - operator: search, cost 5, success percent 20, payoff if success 23 and payoff if failure 15
+  - operator: simulation, cost 9, success percent 30, payoff if success 22 and payoff if failure 18
+  - operator: delegation, cost 10, success percent 85, payoff if success 24 and payoff if failure 4
+What is the highest expected value operator?
+
+Answer with exactly one of: search | delegation | experiment | act | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;search&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 7.25,
+  &quot;delegation&quot;: 11.0,
+  &quot;experiment&quot;: -0.15,
+  &quot;search&quot;: 11.6,
+  &quot;simulation&quot;: 10.2
+ },
+ &quot;greedy_answer&quot;: &quot;delegation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">delegation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 11.
+The reasoning operators:
+  - operator: experiment, cost 11, success percent 30, payoff if success 16 and payoff if failure 20
+  - operator: delegation, cost 2, success percent 45, payoff if success 13 and payoff if failure 8
+  - operator: memory_lookup, cost 9, success percent 55, payoff if success 15 and payoff if failure 10
+  - operator: proof, cost 11, success percent 10, payoff if success 23 and payoff if failure 9
+  - operator: search, cost 7, success percent 35, payoff if success 11 and payoff if failure 12
+What is the highest expected value operator?
+
+Answer with exactly one of: search | delegation | experiment | proof | memory_lookup
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;delegation&quot;,
+ &quot;budget&quot;: 11,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 8.25,
+  &quot;experiment&quot;: 7.8,
+  &quot;memory_lookup&quot;: 3.75,
+  &quot;proof&quot;: -0.6,
+  &quot;search&quot;: 4.65
+ },
+ &quot;greedy_answer&quot;: &quot;delegation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">proof</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: experiment, cost 1, success percent 65, payoff if success 27 and payoff if failure 1
+  - operator: simulation, cost 4, success percent 20, payoff if success 14 and payoff if failure 2
+  - operator: memory_lookup, cost 7, success percent 50, payoff if success 29 and payoff if failure 17
+  - operator: proof, cost 7, success percent 85, payoff if success 27 and payoff if failure 15
+  - operator: act, cost 1, success percent 95, payoff if success 9 and payoff if failure 0
+What is the highest expected value operator?
+
+Answer with exactly one of: proof | memory_lookup | experiment | act | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;proof&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 7.55,
+  &quot;experiment&quot;: 16.9,
+  &quot;memory_lookup&quot;: 16.0,
+  &quot;proof&quot;: 18.2,
+  &quot;simulation&quot;: 0.4
+ },
+ &quot;greedy_answer&quot;: &quot;experiment&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">proof</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 12.
+The reasoning operators:
+  - operator: act, cost 9, success percent 30, payoff if success 5 and payoff if failure 11
+  - operator: memory_lookup, cost 9, success percent 45, payoff if success 10 and payoff if failure 18
+  - operator: simulation, cost 2, success percent 30, payoff if success 13 and payoff if failure 12
+  - operator: experiment, cost 9, success percent 55, payoff if success 7 and payoff if failure 11
+  - operator: proof, cost 1, success percent 75, payoff if success 20 and payoff if failure 20
+What is the highest expected value operator?
+
+Answer with exactly one of: simulation | memory_lookup | proof | act | experiment
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;proof&quot;,
+ &quot;budget&quot;: 12,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 0.2,
+  &quot;experiment&quot;: -0.2,
+  &quot;memory_lookup&quot;: 5.4,
+  &quot;proof&quot;: 19.0,
+  &quot;simulation&quot;: 10.3
+ },
+ &quot;greedy_answer&quot;: &quot;proof&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">simulation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: experiment, cost 8, success percent 10, payoff if success 18 and payoff if failure 17
+  - operator: simulation, cost 1, success percent 85, payoff if success 21 and payoff if failure 20
+  - operator: memory_lookup, cost 9, success percent 25, payoff if success 21 and payoff if failure 9
+  - operator: act, cost 9, success percent 80, payoff if success 26 and payoff if failure 0
+  - operator: search, cost 6, success percent 75, payoff if success 21 and payoff if failure 2
+What is the highest expected value operator?
+
+Answer with exactly one of: experiment | search | memory_lookup | act | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;simulation&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 11.8,
+  &quot;experiment&quot;: 9.1,
+  &quot;memory_lookup&quot;: 3.0,
+  &quot;search&quot;: 10.25,
+  &quot;simulation&quot;: 19.85
+ },
+ &quot;greedy_answer&quot;: &quot;simulation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">proof</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 8.
+The reasoning operators:
+  - operator: delegation, cost 3, success percent 75, payoff if success 15 and payoff if failure 6
+  - operator: experiment, cost 2, success percent 85, payoff if success 18 and payoff if failure 4
+  - operator: simulation, cost 4, success percent 40, payoff if success 5 and payoff if failure 5
+  - operator: memory_lookup, cost 8, success percent 80, payoff if success 29 and payoff if failure 2
+  - operator: proof, cost 2, success percent 75, payoff if success 22 and payoff if failure 12
+What is the highest expected value operator?
+
+Answer with exactly one of: delegation | experiment | memory_lookup | proof | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;proof&quot;,
+ &quot;budget&quot;: 8,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 9.75,
+  &quot;experiment&quot;: 13.9,
+  &quot;memory_lookup&quot;: 15.6,
+  &quot;proof&quot;: 17.5,
+  &quot;simulation&quot;: 1.0
+ },
+ &quot;greedy_answer&quot;: &quot;memory_lookup&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">delegation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 9.
+The reasoning operators:
+  - operator: search, cost 2, success percent 55, payoff if success 9 and payoff if failure 20
+  - operator: act, cost 8, success percent 85, payoff if success 18 and payoff if failure 7
+  - operator: proof, cost 3, success percent 40, payoff if success 22 and payoff if failure 10
+  - operator: memory_lookup, cost 4, success percent 55, payoff if success 12 and payoff if failure 6
+  - operator: delegation, cost 7, success percent 45, payoff if success 19 and payoff if failure 19
+What is the highest expected value operator?
+
+Answer with exactly one of: delegation | memory_lookup | proof | search | act
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;delegation&quot;,
+ &quot;budget&quot;: 9,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 8.35,
+  &quot;delegation&quot;: 12.0,
+  &quot;memory_lookup&quot;: 5.3,
+  &quot;proof&quot;: 11.8,
+  &quot;search&quot;: 11.95
+ },
+ &quot;greedy_answer&quot;: &quot;act&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: experiment, cost 7, success percent 45, payoff if success 5 and payoff if failure 6
+  - operator: search, cost 1, success percent 70, payoff if success 26 and payoff if failure 0
+  - operator: simulation, cost 1, success percent 35, payoff if success 28 and payoff if failure 4
+  - operator: proof, cost 8, success percent 70, payoff if success 23 and payoff if failure 5
+  - operator: delegation, cost 6, success percent 50, payoff if success 5 and payoff if failure 7
+What is the highest expected value operator?
+
+Answer with exactly one of: search | simulation | proof | delegation | experiment
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;search&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 0.0,
+  &quot;experiment&quot;: -1.45,
+  &quot;proof&quot;: 9.6,
+  &quot;search&quot;: 17.2,
+  &quot;simulation&quot;: 11.4
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 9.
+The reasoning operators:
+  - operator: memory_lookup, cost 7, success percent 35, payoff if success 14 and payoff if failure 10
+  - operator: proof, cost 1, success percent 25, payoff if success 18 and payoff if failure 9
+  - operator: search, cost 4, success percent 20, payoff if success 21 and payoff if failure 20
+  - operator: act, cost 6, success percent 65, payoff if success 24 and payoff if failure 6
+  - operator: experiment, cost 7, success percent 40, payoff if success 12 and payoff if failure 6
+What is the highest expected value operator?
+
+Answer with exactly one of: memory_lookup | search | proof | experiment | act
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;search&quot;,
+ &quot;budget&quot;: 9,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 11.7,
+  &quot;experiment&quot;: 1.4,
+  &quot;memory_lookup&quot;: 4.4,
+  &quot;proof&quot;: 10.25,
+  &quot;search&quot;: 16.2
+ },
+ &quot;greedy_answer&quot;: &quot;act&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">experiment</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: simulation, cost 9, success percent 30, payoff if success 17 and payoff if failure 0
+  - operator: search, cost 6, success percent 50, payoff if success 23 and payoff if failure 6
+  - operator: act, cost 5, success percent 95, payoff if success 18 and payoff if failure 7
+  - operator: experiment, cost 2, success percent 65, payoff if success 24 and payoff if failure 2
+  - operator: memory_lookup, cost 1, success percent 40, payoff if success 6 and payoff if failure 18
+What is the highest expected value operator?
+
+Answer with exactly one of: memory_lookup | act | search | experiment | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;experiment&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 12.45,
+  &quot;experiment&quot;: 14.3,
+  &quot;memory_lookup&quot;: 12.2,
+  &quot;search&quot;: 8.5,
+  &quot;simulation&quot;: -3.9
+ },
+ &quot;greedy_answer&quot;: &quot;experiment&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">simulation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 6.
+The reasoning operators:
+  - operator: proof, cost 1, success percent 50, payoff if success 15 and payoff if failure 6
+  - operator: simulation, cost 6, success percent 80, payoff if success 22 and payoff if failure 5
+  - operator: experiment, cost 6, success percent 15, payoff if success 23 and payoff if failure 17
+  - operator: act, cost 6, success percent 30, payoff if success 23 and payoff if failure 7
+  - operator: search, cost 2, success percent 10, payoff if success 8 and payoff if failure 5
+What is the highest expected value operator?
+
+Answer with exactly one of: proof | simulation | experiment | search | act
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;simulation&quot;,
+ &quot;budget&quot;: 6,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 5.8,
+  &quot;experiment&quot;: 11.9,
+  &quot;proof&quot;: 9.5,
+  &quot;search&quot;: 3.3,
+  &quot;simulation&quot;: 12.6
+ },
+ &quot;greedy_answer&quot;: &quot;simulation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">proof</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: proof, cost 7, success percent 50, payoff if success 19 and payoff if failure 19
+  - operator: search, cost 7, success percent 20, payoff if success 19 and payoff if failure 17
+  - operator: act, cost 1, success percent 85, payoff if success 11 and payoff if failure 15
+  - operator: experiment, cost 4, success percent 70, payoff if success 16 and payoff if failure 9
+  - operator: delegation, cost 4, success percent 55, payoff if success 23 and payoff if failure 3
+What is the highest expected value operator?
+
+Answer with exactly one of: search | proof | act | experiment | delegation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;proof&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 10.6,
+  &quot;delegation&quot;: 10.0,
+  &quot;experiment&quot;: 9.9,
+  &quot;proof&quot;: 12.0,
+  &quot;search&quot;: 10.4
+ },
+ &quot;greedy_answer&quot;: &quot;delegation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">experiment</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 11.
+The reasoning operators:
+  - operator: memory_lookup, cost 11, success percent 50, payoff if success 16 and payoff if failure 4
+  - operator: delegation, cost 7, success percent 80, payoff if success 21 and payoff if failure 11
+  - operator: experiment, cost 3, success percent 15, payoff if success 25 and payoff if failure 19
+  - operator: simulation, cost 9, success percent 30, payoff if success 20 and payoff if failure 17
+  - operator: act, cost 4, success percent 45, payoff if success 25 and payoff if failure 15
+What is the highest expected value operator?
+
+Answer with exactly one of: memory_lookup | simulation | delegation | experiment | act
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;experiment&quot;,
+ &quot;budget&quot;: 11,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 15.5,
+  &quot;delegation&quot;: 12.0,
+  &quot;experiment&quot;: 16.9,
+  &quot;memory_lookup&quot;: -1.0,
+  &quot;simulation&quot;: 8.9
+ },
+ &quot;greedy_answer&quot;: &quot;delegation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">memory_lookup</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: memory_lookup, cost 2, success percent 55, payoff if success 24 and payoff if failure 20
+  - operator: proof, cost 6, success percent 10, payoff if success 18 and payoff if failure 5
+  - operator: experiment, cost 2, success percent 70, payoff if success 6 and payoff if failure 7
+  - operator: simulation, cost 7, success percent 85, payoff if success 19 and payoff if failure 10
+  - operator: act, cost 1, success percent 20, payoff if success 26 and payoff if failure 5
+What is the highest expected value operator?
+
+Answer with exactly one of: proof | memory_lookup | simulation | act | experiment
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;memory_lookup&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 8.2,
+  &quot;experiment&quot;: 4.3,
+  &quot;memory_lookup&quot;: 20.2,
+  &quot;proof&quot;: 0.3,
+  &quot;simulation&quot;: 10.65
+ },
+ &quot;greedy_answer&quot;: &quot;memory_lookup&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">delegation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 8.
+The reasoning operators:
+  - operator: memory_lookup, cost 6, success percent 10, payoff if success 20 and payoff if failure 11
+  - operator: experiment, cost 6, success percent 35, payoff if success 15 and payoff if failure 20
+  - operator: act, cost 3, success percent 60, payoff if success 5 and payoff if failure 13
+  - operator: delegation, cost 1, success percent 90, payoff if success 27 and payoff if failure 2
+  - operator: proof, cost 6, success percent 20, payoff if success 17 and payoff if failure 14
+What is the highest expected value operator?
+
+Answer with exactly one of: memory_lookup | act | proof | delegation | experiment
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;delegation&quot;,
+ &quot;budget&quot;: 8,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 5.2,
+  &quot;delegation&quot;: 23.5,
+  &quot;experiment&quot;: 12.25,
+  &quot;memory_lookup&quot;: 5.9,
+  &quot;proof&quot;: 8.6
+ },
+ &quot;greedy_answer&quot;: &quot;delegation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">proof</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 8.
+The reasoning operators:
+  - operator: memory_lookup, cost 3, success percent 40, payoff if success 27 and payoff if failure 2
+  - operator: proof, cost 3, success percent 10, payoff if success 13 and payoff if failure 20
+  - operator: search, cost 3, success percent 25, payoff if success 5 and payoff if failure 15
+  - operator: experiment, cost 6, success percent 35, payoff if success 21 and payoff if failure 5
+  - operator: delegation, cost 8, success percent 90, payoff if success 5 and payoff if failure 10
+What is the highest expected value operator?
+
+Answer with exactly one of: experiment | delegation | proof | memory_lookup | search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;proof&quot;,
+ &quot;budget&quot;: 8,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: -2.5,
+  &quot;experiment&quot;: 4.6,
+  &quot;memory_lookup&quot;: 9.0,
+  &quot;proof&quot;: 16.3,
+  &quot;search&quot;: 9.5
+ },
+ &quot;greedy_answer&quot;: &quot;memory_lookup&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">memory_lookup</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: memory_lookup, cost 1, success percent 25, payoff if success 18 and payoff if failure 20
+  - operator: simulation, cost 3, success percent 15, payoff if success 20 and payoff if failure 7
+  - operator: act, cost 5, success percent 95, payoff if success 13 and payoff if failure 3
+  - operator: proof, cost 7, success percent 65, payoff if success 9 and payoff if failure 4
+  - operator: search, cost 2, success percent 70, payoff if success 14 and payoff if failure 16
+What is the highest expected value operator?
+
+Answer with exactly one of: search | simulation | memory_lookup | proof | act
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;memory_lookup&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 7.5,
+  &quot;memory_lookup&quot;: 18.5,
+  &quot;proof&quot;: 0.25,
+  &quot;search&quot;: 12.6,
+  &quot;simulation&quot;: 5.95
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 8.
+The reasoning operators:
+  - operator: simulation, cost 5, success percent 65, payoff if success 10 and payoff if failure 8
+  - operator: search, cost 3, success percent 50, payoff if success 18 and payoff if failure 14
+  - operator: proof, cost 4, success percent 45, payoff if success 30 and payoff if failure 0
+  - operator: delegation, cost 4, success percent 45, payoff if success 25 and payoff if failure 7
+  - operator: act, cost 5, success percent 25, payoff if success 10 and payoff if failure 9
+What is the highest expected value operator?
+
+Answer with exactly one of: act | delegation | search | simulation | proof
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;search&quot;,
+ &quot;budget&quot;: 8,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 4.25,
+  &quot;delegation&quot;: 11.1,
+  &quot;proof&quot;: 9.5,
+  &quot;search&quot;: 13.0,
+  &quot;simulation&quot;: 4.3
+ },
+ &quot;greedy_answer&quot;: &quot;proof&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">act</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 9.
+The reasoning operators:
+  - operator: act, cost 3, success percent 90, payoff if success 28 and payoff if failure 4
+  - operator: proof, cost 8, success percent 15, payoff if success 13 and payoff if failure 3
+  - operator: delegation, cost 8, success percent 50, payoff if success 11 and payoff if failure 20
+  - operator: simulation, cost 7, success percent 45, payoff if success 7 and payoff if failure 17
+  - operator: memory_lookup, cost 9, success percent 80, payoff if success 22 and payoff if failure 10
+What is the highest expected value operator?
+
+Answer with exactly one of: simulation | memory_lookup | proof | act | delegation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;act&quot;,
+ &quot;budget&quot;: 9,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 22.6,
+  &quot;delegation&quot;: 7.5,
+  &quot;memory_lookup&quot;: 10.6,
+  &quot;proof&quot;: -3.5,
+  &quot;simulation&quot;: 5.5
+ },
+ &quot;greedy_answer&quot;: &quot;act&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">memory_lookup</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 8.
+The reasoning operators:
+  - operator: simulation, cost 3, success percent 80, payoff if success 21 and payoff if failure 4
+  - operator: experiment, cost 1, success percent 90, payoff if success 8 and payoff if failure 12
+  - operator: proof, cost 7, success percent 80, payoff if success 25 and payoff if failure 16
+  - operator: search, cost 5, success percent 95, payoff if success 8 and payoff if failure 15
+  - operator: memory_lookup, cost 2, success percent 65, payoff if success 28 and payoff if failure 5
+What is the highest expected value operator?
+
+Answer with exactly one of: search | experiment | memory_lookup | simulation | proof
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;memory_lookup&quot;,
+ &quot;budget&quot;: 8,
+ &quot;expected_values&quot;: {
+  &quot;experiment&quot;: 7.4,
+  &quot;memory_lookup&quot;: 17.95,
+  &quot;proof&quot;: 16.2,
+  &quot;search&quot;: 3.35,
+  &quot;simulation&quot;: 14.6
+ },
+ &quot;greedy_answer&quot;: &quot;memory_lookup&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 8.
+The reasoning operators:
+  - operator: memory_lookup, cost 5, success percent 15, payoff if success 10 and payoff if failure 14
+  - operator: experiment, cost 3, success percent 25, payoff if success 26 and payoff if failure 3
+  - operator: act, cost 4, success percent 15, payoff if success 26 and payoff if failure 5
+  - operator: search, cost 7, success percent 85, payoff if success 24 and payoff if failure 8
+  - operator: proof, cost 8, success percent 55, payoff if success 12 and payoff if failure 12
+What is the highest expected value operator?
+
+Answer with exactly one of: proof | search | experiment | memory_lookup | act
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;search&quot;,
+ &quot;budget&quot;: 8,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 4.15,
+  &quot;experiment&quot;: 5.75,
+  &quot;memory_lookup&quot;: 8.4,
+  &quot;proof&quot;: 4.0,
+  &quot;search&quot;: 14.6
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: search, cost 1, success percent 95, payoff if success 28 and payoff if failure 15
+  - operator: experiment, cost 3, success percent 95, payoff if success 25 and payoff if failure 3
+  - operator: delegation, cost 4, success percent 75, payoff if success 20 and payoff if failure 8
+  - operator: simulation, cost 2, success percent 60, payoff if success 6 and payoff if failure 2
+  - operator: memory_lookup, cost 6, success percent 80, payoff if success 22 and payoff if failure 11
+What is the highest expected value operator?
+
+Answer with exactly one of: delegation | experiment | memory_lookup | search | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;search&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 13.0,
+  &quot;experiment&quot;: 20.9,
+  &quot;memory_lookup&quot;: 13.8,
+  &quot;search&quot;: 26.35,
+  &quot;simulation&quot;: 2.4
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">proof</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 6.
+The reasoning operators:
+  - operator: act, cost 2, success percent 10, payoff if success 9 and payoff if failure 7
+  - operator: simulation, cost 3, success percent 15, payoff if success 7 and payoff if failure 3
+  - operator: proof, cost 4, success percent 20, payoff if success 13 and payoff if failure 19
+  - operator: experiment, cost 2, success percent 50, payoff if success 9 and payoff if failure 15
+  - operator: search, cost 6, success percent 20, payoff if success 27 and payoff if failure 10
+What is the highest expected value operator?
+
+Answer with exactly one of: experiment | act | simulation | search | proof
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;proof&quot;,
+ &quot;budget&quot;: 6,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 5.2,
+  &quot;experiment&quot;: 10.0,
+  &quot;proof&quot;: 13.8,
+  &quot;search&quot;: 7.4,
+  &quot;simulation&quot;: 0.6
+ },
+ &quot;greedy_answer&quot;: &quot;experiment&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">delegation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: search, cost 5, success percent 90, payoff if success 9 and payoff if failure 3
+  - operator: memory_lookup, cost 7, success percent 20, payoff if success 28 and payoff if failure 5
+  - operator: simulation, cost 7, success percent 50, payoff if success 29 and payoff if failure 11
+  - operator: act, cost 5, success percent 25, payoff if success 7 and payoff if failure 14
+  - operator: delegation, cost 4, success percent 75, payoff if success 29 and payoff if failure 8
+What is the highest expected value operator?
+
+Answer with exactly one of: act | memory_lookup | search | delegation | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;delegation&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 7.25,
+  &quot;delegation&quot;: 19.75,
+  &quot;memory_lookup&quot;: 2.6,
+  &quot;search&quot;: 3.4,
+  &quot;simulation&quot;: 13.0
+ },
+ &quot;greedy_answer&quot;: &quot;delegation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">experiment</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: proof, cost 6, success percent 55, payoff if success 8 and payoff if failure 6
+  - operator: delegation, cost 8, success percent 85, payoff if success 22 and payoff if failure 10
+  - operator: experiment, cost 5, success percent 25, payoff if success 26 and payoff if failure 19
+  - operator: simulation, cost 10, success percent 50, payoff if success 27 and payoff if failure 0
+  - operator: memory_lookup, cost 5, success percent 40, payoff if success 10 and payoff if failure 18
+What is the highest expected value operator?
+
+Answer with exactly one of: experiment | memory_lookup | proof | delegation | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;experiment&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 12.2,
+  &quot;experiment&quot;: 15.75,
+  &quot;memory_lookup&quot;: 9.8,
+  &quot;proof&quot;: 1.1,
+  &quot;simulation&quot;: 3.5
+ },
+ &quot;greedy_answer&quot;: &quot;delegation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">experiment</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: search, cost 10, success percent 65, payoff if success 14 and payoff if failure 19
+  - operator: memory_lookup, cost 5, success percent 20, payoff if success 21 and payoff if failure 10
+  - operator: experiment, cost 3, success percent 60, payoff if success 12 and payoff if failure 12
+  - operator: proof, cost 3, success percent 10, payoff if success 27 and payoff if failure 7
+  - operator: simulation, cost 8, success percent 10, payoff if success 19 and payoff if failure 2
+What is the highest expected value operator?
+
+Answer with exactly one of: search | memory_lookup | simulation | experiment | proof
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;experiment&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;experiment&quot;: 9.0,
+  &quot;memory_lookup&quot;: 7.2,
+  &quot;proof&quot;: 6.0,
+  &quot;search&quot;: 5.75,
+  &quot;simulation&quot;: -4.3
+ },
+ &quot;greedy_answer&quot;: &quot;experiment&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">memory_lookup</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: simulation, cost 4, success percent 90, payoff if success 10 and payoff if failure 19
+  - operator: memory_lookup, cost 4, success percent 20, payoff if success 19 and payoff if failure 11
+  - operator: search, cost 4, success percent 50, payoff if success 13 and payoff if failure 1
+  - operator: act, cost 7, success percent 20, payoff if success 7 and payoff if failure 2
+  - operator: proof, cost 5, success percent 30, payoff if success 12 and payoff if failure 0
+What is the highest expected value operator?
+
+Answer with exactly one of: search | memory_lookup | proof | act | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;memory_lookup&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: -4.0,
+  &quot;memory_lookup&quot;: 8.6,
+  &quot;proof&quot;: -1.4,
+  &quot;search&quot;: 3.0,
+  &quot;simulation&quot;: 6.9
+ },
+ &quot;greedy_answer&quot;: &quot;simulation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">experiment</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 6.
+The reasoning operators:
+  - operator: delegation, cost 5, success percent 50, payoff if success 19 and payoff if failure 5
+  - operator: proof, cost 1, success percent 90, payoff if success 6 and payoff if failure 4
+  - operator: act, cost 3, success percent 35, payoff if success 11 and payoff if failure 11
+  - operator: search, cost 3, success percent 50, payoff if success 21 and payoff if failure 19
+  - operator: experiment, cost 1, success percent 80, payoff if success 30 and payoff if failure 14
+What is the highest expected value operator?
+
+Answer with exactly one of: act | search | proof | delegation | experiment
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;experiment&quot;,
+ &quot;budget&quot;: 6,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 8.0,
+  &quot;delegation&quot;: 7.0,
+  &quot;experiment&quot;: 25.8,
+  &quot;proof&quot;: 4.8,
+  &quot;search&quot;: 17.0
+ },
+ &quot;greedy_answer&quot;: &quot;experiment&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">act</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 9.
+The reasoning operators:
+  - operator: memory_lookup, cost 2, success percent 65, payoff if success 12 and payoff if failure 6
+  - operator: proof, cost 8, success percent 50, payoff if success 20 and payoff if failure 6
+  - operator: search, cost 9, success percent 60, payoff if success 19 and payoff if failure 1
+  - operator: act, cost 6, success percent 30, payoff if success 26 and payoff if failure 20
+  - operator: experiment, cost 1, success percent 95, payoff if success 16 and payoff if failure 16
+What is the highest expected value operator?
+
+Answer with exactly one of: proof | act | search | experiment | memory_lookup
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;act&quot;,
+ &quot;budget&quot;: 9,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 15.8,
+  &quot;experiment&quot;: 15.0,
+  &quot;memory_lookup&quot;: 7.9,
+  &quot;proof&quot;: 5.0,
+  &quot;search&quot;: 2.8
+ },
+ &quot;greedy_answer&quot;: &quot;experiment&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">memory_lookup</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 11.
+The reasoning operators:
+  - operator: search, cost 10, success percent 10, payoff if success 17 and payoff if failure 2
+  - operator: proof, cost 8, success percent 20, payoff if success 18 and payoff if failure 9
+  - operator: act, cost 8, success percent 50, payoff if success 10 and payoff if failure 14
+  - operator: experiment, cost 4, success percent 30, payoff if success 5 and payoff if failure 3
+  - operator: memory_lookup, cost 8, success percent 60, payoff if success 30 and payoff if failure 20
+What is the highest expected value operator?
+
+Answer with exactly one of: search | experiment | proof | act | memory_lookup
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;memory_lookup&quot;,
+ &quot;budget&quot;: 11,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 4.0,
+  &quot;experiment&quot;: -0.4,
+  &quot;memory_lookup&quot;: 18.0,
+  &quot;proof&quot;: 2.8,
+  &quot;search&quot;: -6.5
+ },
+ &quot;greedy_answer&quot;: &quot;memory_lookup&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 9.
+The reasoning operators:
+  - operator: search, cost 2, success percent 40, payoff if success 27 and payoff if failure 17
+  - operator: simulation, cost 4, success percent 45, payoff if success 11 and payoff if failure 2
+  - operator: memory_lookup, cost 8, success percent 20, payoff if success 30 and payoff if failure 17
+  - operator: act, cost 4, success percent 60, payoff if success 7 and payoff if failure 3
+  - operator: delegation, cost 8, success percent 95, payoff if success 7 and payoff if failure 3
+What is the highest expected value operator?
+
+Answer with exactly one of: memory_lookup | act | search | simulation | delegation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;search&quot;,
+ &quot;budget&quot;: 9,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 1.4,
+  &quot;delegation&quot;: -1.2,
+  &quot;memory_lookup&quot;: 11.6,
+  &quot;search&quot;: 19.0,
+  &quot;simulation&quot;: 2.05
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">simulation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 12.
+The reasoning operators:
+  - operator: memory_lookup, cost 12, success percent 20, payoff if success 28 and payoff if failure 16
+  - operator: simulation, cost 5, success percent 30, payoff if success 24 and payoff if failure 20
+  - operator: act, cost 2, success percent 40, payoff if success 9 and payoff if failure 14
+  - operator: delegation, cost 9, success percent 50, payoff if success 27 and payoff if failure 5
+  - operator: search, cost 11, success percent 90, payoff if success 26 and payoff if failure 12
+What is the highest expected value operator?
+
+Answer with exactly one of: delegation | memory_lookup | simulation | search | act
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;simulation&quot;,
+ &quot;budget&quot;: 12,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 10.0,
+  &quot;delegation&quot;: 7.0,
+  &quot;memory_lookup&quot;: 6.4,
+  &quot;search&quot;: 13.6,
+  &quot;simulation&quot;: 16.2
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">proof</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: experiment, cost 1, success percent 45, payoff if success 17 and payoff if failure 14
+  - operator: proof, cost 3, success percent 90, payoff if success 24 and payoff if failure 16
+  - operator: simulation, cost 7, success percent 25, payoff if success 25 and payoff if failure 0
+  - operator: delegation, cost 1, success percent 95, payoff if success 16 and payoff if failure 0
+  - operator: search, cost 8, success percent 45, payoff if success 11 and payoff if failure 11
+What is the highest expected value operator?
+
+Answer with exactly one of: delegation | search | simulation | proof | experiment
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;proof&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 14.2,
+  &quot;experiment&quot;: 14.35,
+  &quot;proof&quot;: 20.2,
+  &quot;search&quot;: 3.0,
+  &quot;simulation&quot;: -0.75
+ },
+ &quot;greedy_answer&quot;: &quot;proof&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 6.
+The reasoning operators:
+  - operator: proof, cost 3, success percent 55, payoff if success 13 and payoff if failure 3
+  - operator: delegation, cost 1, success percent 25, payoff if success 28 and payoff if failure 0
+  - operator: experiment, cost 4, success percent 85, payoff if success 10 and payoff if failure 5
+  - operator: simulation, cost 3, success percent 85, payoff if success 12 and payoff if failure 5
+  - operator: search, cost 3, success percent 50, payoff if success 9 and payoff if failure 20
+What is the highest expected value operator?
+
+Answer with exactly one of: simulation | experiment | proof | delegation | search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;search&quot;,
+ &quot;budget&quot;: 6,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 6.0,
+  &quot;experiment&quot;: 5.25,
+  &quot;proof&quot;: 5.5,
+  &quot;search&quot;: 11.5,
+  &quot;simulation&quot;: 7.95
+ },
+ &quot;greedy_answer&quot;: &quot;simulation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">proof</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 12.
+The reasoning operators:
+  - operator: experiment, cost 1, success percent 35, payoff if success 9 and payoff if failure 14
+  - operator: delegation, cost 11, success percent 30, payoff if success 24 and payoff if failure 2
+  - operator: simulation, cost 12, success percent 65, payoff if success 12 and payoff if failure 9
+  - operator: memory_lookup, cost 11, success percent 10, payoff if success 15 and payoff if failure 9
+  - operator: proof, cost 4, success percent 90, payoff if success 29 and payoff if failure 9
+What is the highest expected value operator?
+
+Answer with exactly one of: simulation | proof | experiment | delegation | memory_lookup
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;proof&quot;,
+ &quot;budget&quot;: 12,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: -2.4,
+  &quot;experiment&quot;: 11.25,
+  &quot;memory_lookup&quot;: -1.4,
+  &quot;proof&quot;: 23.0,
+  &quot;simulation&quot;: -1.05
+ },
+ &quot;greedy_answer&quot;: &quot;proof&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">memory_lookup</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: proof, cost 9, success percent 30, payoff if success 25 and payoff if failure 11
+  - operator: experiment, cost 4, success percent 35, payoff if success 18 and payoff if failure 13
+  - operator: memory_lookup, cost 1, success percent 90, payoff if success 20 and payoff if failure 11
+  - operator: act, cost 4, success percent 90, payoff if success 7 and payoff if failure 1
+  - operator: delegation, cost 7, success percent 80, payoff if success 27 and payoff if failure 10
+What is the highest expected value operator?
+
+Answer with exactly one of: memory_lookup | proof | delegation | act | experiment
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;memory_lookup&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 2.4,
+  &quot;delegation&quot;: 16.6,
+  &quot;experiment&quot;: 10.75,
+  &quot;memory_lookup&quot;: 18.1,
+  &quot;proof&quot;: 6.2
+ },
+ &quot;greedy_answer&quot;: &quot;memory_lookup&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">proof</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 9.
+The reasoning operators:
+  - operator: delegation, cost 7, success percent 25, payoff if success 29 and payoff if failure 2
+  - operator: simulation, cost 9, success percent 45, payoff if success 8 and payoff if failure 10
+  - operator: search, cost 9, success percent 55, payoff if success 22 and payoff if failure 9
+  - operator: proof, cost 4, success percent 80, payoff if success 30 and payoff if failure 13
+  - operator: experiment, cost 8, success percent 40, payoff if success 21 and payoff if failure 4
+What is the highest expected value operator?
+
+Answer with exactly one of: simulation | proof | experiment | search | delegation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;proof&quot;,
+ &quot;budget&quot;: 9,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 1.75,
+  &quot;experiment&quot;: 2.8,
+  &quot;proof&quot;: 22.6,
+  &quot;search&quot;: 7.15,
+  &quot;simulation&quot;: 0.1
+ },
+ &quot;greedy_answer&quot;: &quot;proof&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">experiment</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 6.
+The reasoning operators:
+  - operator: simulation, cost 5, success percent 20, payoff if success 19 and payoff if failure 17
+  - operator: proof, cost 1, success percent 45, payoff if success 11 and payoff if failure 13
+  - operator: memory_lookup, cost 3, success percent 25, payoff if success 28 and payoff if failure 3
+  - operator: search, cost 2, success percent 55, payoff if success 27 and payoff if failure 3
+  - operator: experiment, cost 1, success percent 30, payoff if success 29 and payoff if failure 15
+What is the highest expected value operator?
+
+Answer with exactly one of: simulation | experiment | proof | memory_lookup | search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;experiment&quot;,
+ &quot;budget&quot;: 6,
+ &quot;expected_values&quot;: {
+  &quot;experiment&quot;: 18.2,
+  &quot;memory_lookup&quot;: 6.25,
+  &quot;proof&quot;: 11.1,
+  &quot;search&quot;: 14.2,
+  &quot;simulation&quot;: 12.4
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">simulation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: simulation, cost 7, success percent 20, payoff if success 29 and payoff if failure 18
+  - operator: delegation, cost 3, success percent 55, payoff if success 16 and payoff if failure 8
+  - operator: proof, cost 9, success percent 30, payoff if success 10 and payoff if failure 4
+  - operator: search, cost 3, success percent 95, payoff if success 13 and payoff if failure 1
+  - operator: act, cost 9, success percent 30, payoff if success 21 and payoff if failure 16
+What is the highest expected value operator?
+
+Answer with exactly one of: delegation | proof | act | search | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;simulation&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 8.5,
+  &quot;delegation&quot;: 9.4,
+  &quot;proof&quot;: -3.2,
+  &quot;search&quot;: 9.4,
+  &quot;simulation&quot;: 13.2
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">act</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 6.
+The reasoning operators:
+  - operator: experiment, cost 1, success percent 75, payoff if success 19 and payoff if failure 0
+  - operator: search, cost 3, success percent 70, payoff if success 8 and payoff if failure 16
+  - operator: act, cost 1, success percent 90, payoff if success 28 and payoff if failure 20
+  - operator: memory_lookup, cost 1, success percent 35, payoff if success 17 and payoff if failure 9
+  - operator: simulation, cost 5, success percent 40, payoff if success 11 and payoff if failure 11
+What is the highest expected value operator?
+
+Answer with exactly one of: act | experiment | memory_lookup | search | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;act&quot;,
+ &quot;budget&quot;: 6,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 26.2,
+  &quot;experiment&quot;: 13.25,
+  &quot;memory_lookup&quot;: 10.8,
+  &quot;search&quot;: 7.4,
+  &quot;simulation&quot;: 6.0
+ },
+ &quot;greedy_answer&quot;: &quot;act&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: simulation, cost 4, success percent 65, payoff if success 11 and payoff if failure 19
+  - operator: delegation, cost 2, success percent 55, payoff if success 15 and payoff if failure 0
+  - operator: act, cost 8, success percent 55, payoff if success 6 and payoff if failure 9
+  - operator: proof, cost 10, success percent 50, payoff if success 20 and payoff if failure 19
+  - operator: search, cost 7, success percent 60, payoff if success 25 and payoff if failure 14
+What is the highest expected value operator?
+
+Answer with exactly one of: delegation | proof | simulation | act | search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;search&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: -0.65,
+  &quot;delegation&quot;: 6.25,
+  &quot;proof&quot;: 9.5,
+  &quot;search&quot;: 13.6,
+  &quot;simulation&quot;: 9.8
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">experiment</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 6.
+The reasoning operators:
+  - operator: experiment, cost 2, success percent 25, payoff if success 19 and payoff if failure 10
+  - operator: simulation, cost 5, success percent 35, payoff if success 19 and payoff if failure 13
+  - operator: memory_lookup, cost 5, success percent 10, payoff if success 15 and payoff if failure 14
+  - operator: delegation, cost 3, success percent 75, payoff if success 9 and payoff if failure 9
+  - operator: proof, cost 2, success percent 45, payoff if success 8 and payoff if failure 4
+What is the highest expected value operator?
+
+Answer with exactly one of: simulation | experiment | delegation | memory_lookup | proof
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;experiment&quot;,
+ &quot;budget&quot;: 6,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 6.0,
+  &quot;experiment&quot;: 10.25,
+  &quot;memory_lookup&quot;: 9.1,
+  &quot;proof&quot;: 3.8,
+  &quot;simulation&quot;: 10.1
+ },
+ &quot;greedy_answer&quot;: &quot;delegation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">experiment</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: act, cost 8, success percent 15, payoff if success 25 and payoff if failure 4
+  - operator: search, cost 4, success percent 50, payoff if success 17 and payoff if failure 20
+  - operator: delegation, cost 1, success percent 90, payoff if success 6 and payoff if failure 14
+  - operator: experiment, cost 4, success percent 55, payoff if success 29 and payoff if failure 14
+  - operator: simulation, cost 7, success percent 40, payoff if success 18 and payoff if failure 19
+What is the highest expected value operator?
+
+Answer with exactly one of: act | search | experiment | simulation | delegation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;experiment&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: -0.85,
+  &quot;delegation&quot;: 5.8,
+  &quot;experiment&quot;: 18.25,
+  &quot;search&quot;: 14.5,
+  &quot;simulation&quot;: 11.6
+ },
+ &quot;greedy_answer&quot;: &quot;experiment&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">memory_lookup</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: memory_lookup, cost 3, success percent 15, payoff if success 26 and payoff if failure 20
+  - operator: search, cost 5, success percent 65, payoff if success 7 and payoff if failure 17
+  - operator: proof, cost 10, success percent 55, payoff if success 25 and payoff if failure 11
+  - operator: delegation, cost 8, success percent 55, payoff if success 13 and payoff if failure 15
+  - operator: simulation, cost 7, success percent 65, payoff if success 19 and payoff if failure 3
+What is the highest expected value operator?
+
+Answer with exactly one of: memory_lookup | delegation | search | simulation | proof
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;memory_lookup&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 5.9,
+  &quot;memory_lookup&quot;: 17.9,
+  &quot;proof&quot;: 8.7,
+  &quot;search&quot;: 5.5,
+  &quot;simulation&quot;: 6.4
+ },
+ &quot;greedy_answer&quot;: &quot;simulation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">act</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 8.
+The reasoning operators:
+  - operator: act, cost 3, success percent 70, payoff if success 26 and payoff if failure 11
+  - operator: simulation, cost 4, success percent 50, payoff if success 30 and payoff if failure 1
+  - operator: memory_lookup, cost 1, success percent 70, payoff if success 18 and payoff if failure 5
+  - operator: experiment, cost 4, success percent 20, payoff if success 22 and payoff if failure 13
+  - operator: search, cost 7, success percent 55, payoff if success 21 and payoff if failure 11
+What is the highest expected value operator?
+
+Answer with exactly one of: act | search | memory_lookup | simulation | experiment
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;act&quot;,
+ &quot;budget&quot;: 8,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 18.5,
+  &quot;experiment&quot;: 10.8,
+  &quot;memory_lookup&quot;: 13.1,
+  &quot;search&quot;: 9.5,
+  &quot;simulation&quot;: 11.5
+ },
+ &quot;greedy_answer&quot;: &quot;act&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">act</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 11.
+The reasoning operators:
+  - operator: delegation, cost 8, success percent 20, payoff if success 11 and payoff if failure 13
+  - operator: memory_lookup, cost 9, success percent 95, payoff if success 5 and payoff if failure 18
+  - operator: act, cost 6, success percent 55, payoff if success 18 and payoff if failure 19
+  - operator: proof, cost 6, success percent 35, payoff if success 17 and payoff if failure 12
+  - operator: experiment, cost 5, success percent 25, payoff if success 6 and payoff if failure 16
+What is the highest expected value operator?
+
+Answer with exactly one of: proof | delegation | act | memory_lookup | experiment
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;act&quot;,
+ &quot;budget&quot;: 11,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 12.45,
+  &quot;delegation&quot;: 4.6,
+  &quot;experiment&quot;: 8.5,
+  &quot;memory_lookup&quot;: -3.35,
+  &quot;proof&quot;: 7.75
+ },
+ &quot;greedy_answer&quot;: &quot;act&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 6.
+The reasoning operators:
+  - operator: act, cost 3, success percent 30, payoff if success 10 and payoff if failure 12
+  - operator: search, cost 1, success percent 40, payoff if success 29 and payoff if failure 7
+  - operator: experiment, cost 5, success percent 95, payoff if success 8 and payoff if failure 19
+  - operator: memory_lookup, cost 1, success percent 35, payoff if success 23 and payoff if failure 1
+  - operator: simulation, cost 3, success percent 70, payoff if success 8 and payoff if failure 20
+What is the highest expected value operator?
+
+Answer with exactly one of: simulation | act | memory_lookup | experiment | search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;search&quot;,
+ &quot;budget&quot;: 6,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 8.4,
+  &quot;experiment&quot;: 3.55,
+  &quot;memory_lookup&quot;: 7.7,
+  &quot;search&quot;: 14.8,
+  &quot;simulation&quot;: 8.6
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">delegation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 9.
+The reasoning operators:
+  - operator: delegation, cost 1, success percent 75, payoff if success 19 and payoff if failure 20
+  - operator: simulation, cost 6, success percent 80, payoff if success 16 and payoff if failure 6
+  - operator: experiment, cost 1, success percent 85, payoff if success 16 and payoff if failure 9
+  - operator: proof, cost 7, success percent 50, payoff if success 22 and payoff if failure 0
+  - operator: search, cost 7, success percent 10, payoff if success 28 and payoff if failure 13
+What is the highest expected value operator?
+
+Answer with exactly one of: delegation | proof | experiment | search | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;delegation&quot;,
+ &quot;budget&quot;: 9,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 18.25,
+  &quot;experiment&quot;: 13.95,
+  &quot;proof&quot;: 4.0,
+  &quot;search&quot;: 7.5,
+  &quot;simulation&quot;: 8.0
+ },
+ &quot;greedy_answer&quot;: &quot;delegation&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">proof</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 6.
+The reasoning operators:
+  - operator: memory_lookup, cost 1, success percent 40, payoff if success 25 and payoff if failure 12
+  - operator: delegation, cost 6, success percent 80, payoff if success 9 and payoff if failure 18
+  - operator: simulation, cost 5, success percent 25, payoff if success 19 and payoff if failure 14
+  - operator: proof, cost 2, success percent 70, payoff if success 27 and payoff if failure 20
+  - operator: search, cost 2, success percent 90, payoff if success 20 and payoff if failure 18
+What is the highest expected value operator?
+
+Answer with exactly one of: proof | memory_lookup | delegation | search | simulation
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;proof&quot;,
+ &quot;budget&quot;: 6,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 4.8,
+  &quot;memory_lookup&quot;: 16.2,
+  &quot;proof&quot;: 22.9,
+  &quot;search&quot;: 17.8,
+  &quot;simulation&quot;: 10.25
+ },
+ &quot;greedy_answer&quot;: &quot;proof&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">proof</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: proof, cost 1, success percent 25, payoff if success 19 and payoff if failure 16
+  - operator: delegation, cost 7, success percent 40, payoff if success 16 and payoff if failure 2
+  - operator: experiment, cost 7, success percent 50, payoff if success 13 and payoff if failure 6
+  - operator: simulation, cost 2, success percent 25, payoff if success 22 and payoff if failure 9
+  - operator: search, cost 7, success percent 75, payoff if success 18 and payoff if failure 19
+What is the highest expected value operator?
+
+Answer with exactly one of: delegation | search | simulation | proof | experiment
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;proof&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;delegation&quot;: 0.6,
+  &quot;experiment&quot;: 2.5,
+  &quot;proof&quot;: 15.75,
+  &quot;search&quot;: 11.25,
+  &quot;simulation&quot;: 10.25
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">delegation</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 12.
+The reasoning operators:
+  - operator: delegation, cost 4, success percent 35, payoff if success 5 and payoff if failure 18
+  - operator: experiment, cost 2, success percent 15, payoff if success 19 and payoff if failure 2
+  - operator: search, cost 12, success percent 30, payoff if success 8 and payoff if failure 2
+  - operator: proof, cost 9, success percent 95, payoff if success 13 and payoff if failure 19
+  - operator: act, cost 3, success percent 90, payoff if success 11 and payoff if failure 11
+What is the highest expected value operator?
+
+Answer with exactly one of: experiment | act | delegation | proof | search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;delegation&quot;,
+ &quot;budget&quot;: 12,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 8.0,
+  &quot;delegation&quot;: 9.45,
+  &quot;experiment&quot;: 2.55,
+  &quot;proof&quot;: 4.3,
+  &quot;search&quot;: -8.2
+ },
+ &quot;greedy_answer&quot;: &quot;act&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">experiment</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 10.
+The reasoning operators:
+  - operator: proof, cost 9, success percent 30, payoff if success 11 and payoff if failure 17
+  - operator: experiment, cost 4, success percent 75, payoff if success 22 and payoff if failure 3
+  - operator: delegation, cost 9, success percent 35, payoff if success 17 and payoff if failure 5
+  - operator: memory_lookup, cost 9, success percent 20, payoff if success 30 and payoff if failure 5
+  - operator: act, cost 6, success percent 85, payoff if success 10 and payoff if failure 9
+What is the highest expected value operator?
+
+Answer with exactly one of: experiment | act | delegation | proof | memory_lookup
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;experiment&quot;,
+ &quot;budget&quot;: 10,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 3.85,
+  &quot;delegation&quot;: 0.2,
+  &quot;experiment&quot;: 13.25,
+  &quot;memory_lookup&quot;: 1.0,
+  &quot;proof&quot;: 6.2
+ },
+ &quot;greedy_answer&quot;: &quot;experiment&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">proof</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 7.
+The reasoning operators:
+  - operator: search, cost 7, success percent 70, payoff if success 26 and payoff if failure 6
+  - operator: experiment, cost 5, success percent 40, payoff if success 30 and payoff if failure 11
+  - operator: memory_lookup, cost 2, success percent 20, payoff if success 13 and payoff if failure 12
+  - operator: proof, cost 4, success percent 40, payoff if success 18 and payoff if failure 19
+  - operator: act, cost 5, success percent 95, payoff if success 7 and payoff if failure 19
+What is the highest expected value operator?
+
+Answer with exactly one of: search | memory_lookup | act | proof | experiment
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;proof&quot;,
+ &quot;budget&quot;: 7,
+ &quot;expected_values&quot;: {
+  &quot;act&quot;: 2.6,
+  &quot;experiment&quot;: 13.6,
+  &quot;memory_lookup&quot;: 10.2,
+  &quot;proof&quot;: 14.6,
+  &quot;search&quot;: 13.0
+ },
+ &quot;greedy_answer&quot;: &quot;search&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

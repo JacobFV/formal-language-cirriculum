@@ -1,0 +1,3107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>long_range_agreement — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#supplementary">supplementary syntax and semantics</a> &rsaquo;
+  long_range_agreement</p>
+<h1>supplementary <code>long_range_agreement</code></h1>
+<p class="lede">agreement with the head across attractors</p>
+<div class="tags"><span class="tag ">level 20</span><span class="tag ">section supplementary</span></div>
+<div class="stats">
+<div class="stat"><span class="n">2.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.5</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.13</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Subject-verb agreement across a chain of attractor nouns of varying
+    length: the classic diagnostic for whether a learner tracks the *head* of a
+    phrase or merely the nearest noun. Attractor number is drawn independently,
+    so the nearest-noun heuristic is wrong about half the time.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>discourse_horizon</td><td class='num'>3</td></tr><tr><td>grammar_complexity</td><td class='num'>4</td></tr><tr><td>recursion_depth</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The sentence is:
+  - the
+  - farmer
+  - by
+  - the
+  - keys
+  - under
+  - the
+  - farmers
+  - beside
+  - the
+  - farmers
+  - beside
+  - the
+  - books
+  - __
+What is the main verb form?
+
+Answer with exactly one of: opens | open
+Reply with the answer only.</pre><h3>spanish</h3><pre>La frase es:
+  - the
+  - farmer
+  - by
+  - the
+  - keys
+  - under
+  - the
+  - farmers
+  - beside
+  - the
+  - farmers
+  - beside
+  - the
+  - books
+  - __
+¿Cuál es la forma del verbo principal?
+
+Responde exactamente con una de estas opciones: opens | open
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>句子是：
+  - the
+  - farmer
+  - by
+  - the
+  - keys
+  - under
+  - the
+  - farmers
+  - beside
+  - the
+  - farmers
+  - beside
+  - the
+  - books
+  - __
+主要动词的形式是哪一个？
+
+请从以下选项中选出恰好一个作答：opens | open
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The sentence is:
+  - the
+  - farmer
+  - by
+  - the
+  - keys
+  - under
+  - the
+  - farmers
+  - beside
+  - the
+  - farmers
+  - beside
+  - the
+  - books
+  - __
+What is the main verb form?
+
+Answer with exactly one of: opens | open
+Reply with the answer only.</pre><h3>symbols</h3><pre>{query: main_verb_form, sentence: [the farmer by the keys under the farmers beside the farmers beside the books __]}
+
+Answer with exactly one of: opens | open
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/long_range_agreement.jsonl</code> &middot; <code>data/samples/spanish/long_range_agreement.jsonl</code> &middot; <code>data/samples/chinese/long_range_agreement.jsonl</code> &middot; <code>data/samples/english_synonym/long_range_agreement.jsonl</code> &middot; <code>data/samples/symbols/long_range_agreement.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">opens</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - farmer
+  - by
+  - the
+  - keys
+  - under
+  - the
+  - farmers
+  - beside
+  - the
+  - farmers
+  - beside
+  - the
+  - books
+  - __
+What is the main verb form?
+
+Answer with exactly one of: opens | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true,
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">opens</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - key
+  - behind
+  - the
+  - authors
+  - beside
+  - the
+  - farmer
+  - __
+What is the main verb form?
+
+Answer with exactly one of: opens | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">work</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - authors
+  - under
+  - the
+  - dog
+  - __
+What is the main verb form?
+
+Answer with exactly one of: work | works
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">opens</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - dog
+  - behind
+  - the
+  - author
+  - by
+  - the
+  - pilot
+  - __
+What is the main verb form?
+
+Answer with exactly one of: opens | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">work</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilots
+  - near
+  - the
+  - farmers
+  - by
+  - the
+  - keys
+  - __
+What is the main verb form?
+
+Answer with exactly one of: work | works
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">opens</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilot
+  - by
+  - the
+  - pilot
+  - beside
+  - the
+  - key
+  - beside
+  - the
+  - pilots
+  - __
+What is the main verb form?
+
+Answer with exactly one of: opens | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  false,
+  true
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">fail</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - authors
+  - by
+  - the
+  - keys
+  - __
+What is the main verb form?
+
+Answer with exactly one of: fails | fail
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">fails</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - farmer
+  - by
+  - the
+  - pilots
+  - near
+  - the
+  - keys
+  - near
+  - the
+  - books
+  - __
+What is the main verb form?
+
+Answer with exactly one of: fails | fail
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">arrive</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - farmers
+  - near
+  - the
+  - dogs
+  - by
+  - the
+  - keys
+  - __
+What is the main verb form?
+
+Answer with exactly one of: arrives | arrive
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">arrives</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - author
+  - near
+  - the
+  - dogs
+  - by
+  - the
+  - author
+  - by
+  - the
+  - keys
+  - behind
+  - the
+  - pilots
+  - __
+What is the main verb form?
+
+Answer with exactly one of: arrives | arrive
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  false,
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">work</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - books
+  - behind
+  - the
+  - keys
+  - __
+What is the main verb form?
+
+Answer with exactly one of: work | works
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">opens</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - farmer
+  - by
+  - the
+  - farmer
+  - by
+  - the
+  - dogs
+  - beside
+  - the
+  - farmer
+  - beside
+  - the
+  - keys
+  - __
+What is the main verb form?
+
+Answer with exactly one of: open | opens
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true,
+  false,
+  true
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">move</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - books
+  - behind
+  - the
+  - pilots
+  - behind
+  - the
+  - key
+  - behind
+  - the
+  - author
+  - beside
+  - the
+  - pilot
+  - __
+What is the main verb form?
+
+Answer with exactly one of: move | moves
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  false,
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilots
+  - beside
+  - the
+  - dog
+  - beside
+  - the
+  - dog
+  - beside
+  - the
+  - dogs
+  - __
+What is the main verb form?
+
+Answer with exactly one of: waits | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  false,
+  true
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">waits</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilot
+  - under
+  - the
+  - book
+  - __
+What is the main verb form?
+
+Answer with exactly one of: waits | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilots
+  - beside
+  - the
+  - keys
+  - beside
+  - the
+  - keys
+  - __
+What is the main verb form?
+
+Answer with exactly one of: waits | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">work</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - authors
+  - near
+  - the
+  - farmers
+  - under
+  - the
+  - farmer
+  - near
+  - the
+  - dog
+  - __
+What is the main verb form?
+
+Answer with exactly one of: works | work
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">waits</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - author
+  - by
+  - the
+  - authors
+  - near
+  - the
+  - pilots
+  - behind
+  - the
+  - dogs
+  - under
+  - the
+  - author
+  - __
+What is the main verb form?
+
+Answer with exactly one of: waits | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true,
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">work</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - farmers
+  - behind
+  - the
+  - authors
+  - behind
+  - the
+  - pilots
+  - __
+What is the main verb form?
+
+Answer with exactly one of: works | work
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">works</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - book
+  - behind
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: works | work
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilots
+  - by
+  - the
+  - key
+  - behind
+  - the
+  - dogs
+  - __
+What is the main verb form?
+
+Answer with exactly one of: open | opens
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">arrive</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - farmers
+  - beside
+  - the
+  - pilots
+  - by
+  - the
+  - farmer
+  - __
+What is the main verb form?
+
+Answer with exactly one of: arrive | arrives
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - books
+  - near
+  - the
+  - farmers
+  - under
+  - the
+  - pilot
+  - __
+What is the main verb form?
+
+Answer with exactly one of: open | opens
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">opens</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - key
+  - behind
+  - the
+  - key
+  - beside
+  - the
+  - farmer
+  - behind
+  - the
+  - pilots
+  - __
+What is the main verb form?
+
+Answer with exactly one of: open | opens
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  false,
+  true
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">fails</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - dog
+  - beside
+  - the
+  - dog
+  - near
+  - the
+  - dog
+  - beside
+  - the
+  - pilot
+  - near
+  - the
+  - pilots
+  - __
+What is the main verb form?
+
+Answer with exactly one of: fails | fail
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  false,
+  false,
+  true
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">moves</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - key
+  - under
+  - the
+  - dog
+  - under
+  - the
+  - pilots
+  - behind
+  - the
+  - keys
+  - near
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: move | moves
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true,
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">moves</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - farmer
+  - beside
+  - the
+  - book
+  - by
+  - the
+  - farmers
+  - __
+What is the main verb form?
+
+Answer with exactly one of: move | moves
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">waits</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - author
+  - under
+  - the
+  - dogs
+  - under
+  - the
+  - books
+  - beside
+  - the
+  - farmers
+  - by
+  - the
+  - farmer
+  - __
+What is the main verb form?
+
+Answer with exactly one of: wait | waits
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true,
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">arrives</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - book
+  - beside
+  - the
+  - book
+  - __
+What is the main verb form?
+
+Answer with exactly one of: arrives | arrive
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">fail</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - books
+  - under
+  - the
+  - authors
+  - __
+What is the main verb form?
+
+Answer with exactly one of: fails | fail
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">arrives</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - book
+  - under
+  - the
+  - pilot
+  - beside
+  - the
+  - keys
+  - by
+  - the
+  - keys
+  - __
+What is the main verb form?
+
+Answer with exactly one of: arrive | arrives
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - farmers
+  - beside
+  - the
+  - dog
+  - __
+What is the main verb form?
+
+Answer with exactly one of: open | opens
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">fails</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - dog
+  - beside
+  - the
+  - author
+  - __
+What is the main verb form?
+
+Answer with exactly one of: fail | fails
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">moves</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - author
+  - by
+  - the
+  - farmer
+  - by
+  - the
+  - books
+  - __
+What is the main verb form?
+
+Answer with exactly one of: moves | move
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">arrives</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - dog
+  - under
+  - the
+  - key
+  - under
+  - the
+  - keys
+  - by
+  - the
+  - authors
+  - __
+What is the main verb form?
+
+Answer with exactly one of: arrive | arrives
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">waits</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilot
+  - under
+  - the
+  - author
+  - by
+  - the
+  - farmer
+  - under
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: waits | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">work</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - keys
+  - near
+  - the
+  - author
+  - beside
+  - the
+  - book
+  - behind
+  - the
+  - author
+  - __
+What is the main verb form?
+
+Answer with exactly one of: works | work
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">opens</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilot
+  - by
+  - the
+  - pilot
+  - __
+What is the main verb form?
+
+Answer with exactly one of: opens | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">fail</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilots
+  - behind
+  - the
+  - keys
+  - beside
+  - the
+  - authors
+  - under
+  - the
+  - books
+  - under
+  - the
+  - pilots
+  - __
+What is the main verb form?
+
+Answer with exactly one of: fails | fail
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true,
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - keys
+  - by
+  - the
+  - dogs
+  - under
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: waits | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">opens</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - book
+  - beside
+  - the
+  - keys
+  - under
+  - the
+  - dog
+  - near
+  - the
+  - pilots
+  - beside
+  - the
+  - book
+  - __
+What is the main verb form?
+
+Answer with exactly one of: open | opens
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  false,
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - dogs
+  - under
+  - the
+  - farmer
+  - by
+  - the
+  - books
+  - near
+  - the
+  - key
+  - beside
+  - the
+  - farmer
+  - __
+What is the main verb form?
+
+Answer with exactly one of: waits | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true,
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - authors
+  - near
+  - the
+  - dogs
+  - __
+What is the main verb form?
+
+Answer with exactly one of: wait | waits
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">fail</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - dogs
+  - near
+  - the
+  - farmers
+  - __
+What is the main verb form?
+
+Answer with exactly one of: fails | fail
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">waits</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilot
+  - beside
+  - the
+  - keys
+  - near
+  - the
+  - authors
+  - beside
+  - the
+  - books
+  - under
+  - the
+  - book
+  - __
+What is the main verb form?
+
+Answer with exactly one of: waits | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true,
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - authors
+  - near
+  - the
+  - keys
+  - near
+  - the
+  - keys
+  - under
+  - the
+  - author
+  - __
+What is the main verb form?
+
+Answer with exactly one of: wait | waits
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - books
+  - beside
+  - the
+  - book
+  - __
+What is the main verb form?
+
+Answer with exactly one of: wait | waits
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - books
+  - under
+  - the
+  - farmer
+  - by
+  - the
+  - books
+  - near
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: open | opens
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">fail</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilots
+  - by
+  - the
+  - books
+  - behind
+  - the
+  - dog
+  - near
+  - the
+  - dogs
+  - __
+What is the main verb form?
+
+Answer with exactly one of: fail | fails
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  false,
+  true
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - keys
+  - by
+  - the
+  - author
+  - __
+What is the main verb form?
+
+Answer with exactly one of: open | opens
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">works</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - author
+  - behind
+  - the
+  - pilot
+  - under
+  - the
+  - authors
+  - near
+  - the
+  - dog
+  - near
+  - the
+  - dogs
+  - __
+What is the main verb form?
+
+Answer with exactly one of: works | work
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true,
+  false,
+  true
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">moves</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - book
+  - beside
+  - the
+  - dogs
+  - behind
+  - the
+  - books
+  - __
+What is the main verb form?
+
+Answer with exactly one of: moves | move
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">arrive</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilots
+  - under
+  - the
+  - books
+  - beside
+  - the
+  - farmers
+  - behind
+  - the
+  - dog
+  - __
+What is the main verb form?
+
+Answer with exactly one of: arrives | arrive
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilots
+  - by
+  - the
+  - farmer
+  - near
+  - the
+  - author
+  - __
+What is the main verb form?
+
+Answer with exactly one of: open | opens
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">move</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - authors
+  - behind
+  - the
+  - farmer
+  - under
+  - the
+  - farmers
+  - __
+What is the main verb form?
+
+Answer with exactly one of: moves | move
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">opens</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - dog
+  - under
+  - the
+  - dog
+  - __
+What is the main verb form?
+
+Answer with exactly one of: open | opens
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - books
+  - behind
+  - the
+  - author
+  - __
+What is the main verb form?
+
+Answer with exactly one of: wait | waits
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">fail</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - books
+  - under
+  - the
+  - keys
+  - __
+What is the main verb form?
+
+Answer with exactly one of: fails | fail
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">work</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilots
+  - behind
+  - the
+  - dogs
+  - under
+  - the
+  - farmers
+  - __
+What is the main verb form?
+
+Answer with exactly one of: works | work
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilots
+  - under
+  - the
+  - farmers
+  - by
+  - the
+  - pilots
+  - __
+What is the main verb form?
+
+Answer with exactly one of: opens | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">arrive</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - dogs
+  - behind
+  - the
+  - authors
+  - near
+  - the
+  - farmer
+  - beside
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: arrives | arrive
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - dogs
+  - near
+  - the
+  - authors
+  - near
+  - the
+  - farmers
+  - beside
+  - the
+  - farmers
+  - by
+  - the
+  - author
+  - __
+What is the main verb form?
+
+Answer with exactly one of: wait | waits
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true,
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - dogs
+  - under
+  - the
+  - farmers
+  - beside
+  - the
+  - dog
+  - __
+What is the main verb form?
+
+Answer with exactly one of: opens | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - authors
+  - behind
+  - the
+  - farmer
+  - beside
+  - the
+  - pilots
+  - under
+  - the
+  - authors
+  - beside
+  - the
+  - pilot
+  - __
+What is the main verb form?
+
+Answer with exactly one of: wait | waits
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true,
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">arrive</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - books
+  - near
+  - the
+  - farmer
+  - beside
+  - the
+  - dog
+  - beside
+  - the
+  - pilot
+  - behind
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: arrive | arrives
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  false,
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">work</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - books
+  - by
+  - the
+  - dogs
+  - under
+  - the
+  - farmer
+  - beside
+  - the
+  - pilots
+  - behind
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: work | works
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  false,
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - dogs
+  - by
+  - the
+  - farmers
+  - __
+What is the main verb form?
+
+Answer with exactly one of: opens | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">fail</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - farmers
+  - by
+  - the
+  - farmers
+  - __
+What is the main verb form?
+
+Answer with exactly one of: fails | fail
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">arrives</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilot
+  - by
+  - the
+  - books
+  - under
+  - the
+  - dogs
+  - under
+  - the
+  - pilot
+  - under
+  - the
+  - farmer
+  - __
+What is the main verb form?
+
+Answer with exactly one of: arrive | arrives
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true,
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">move</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - dogs
+  - under
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: moves | move
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">arrive</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - farmers
+  - near
+  - the
+  - farmers
+  - __
+What is the main verb form?
+
+Answer with exactly one of: arrive | arrives
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">opens</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - key
+  - beside
+  - the
+  - author
+  - by
+  - the
+  - authors
+  - by
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: opens | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">moves</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilot
+  - by
+  - the
+  - dogs
+  - __
+What is the main verb form?
+
+Answer with exactly one of: moves | move
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - farmers
+  - under
+  - the
+  - books
+  - behind
+  - the
+  - books
+  - behind
+  - the
+  - book
+  - __
+What is the main verb form?
+
+Answer with exactly one of: open | opens
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">work</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - authors
+  - beside
+  - the
+  - dog
+  - __
+What is the main verb form?
+
+Answer with exactly one of: work | works
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">opens</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - farmer
+  - by
+  - the
+  - key
+  - behind
+  - the
+  - pilot
+  - under
+  - the
+  - pilot
+  - under
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: opens | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  false,
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">fail</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - farmers
+  - near
+  - the
+  - dog
+  - under
+  - the
+  - farmer
+  - behind
+  - the
+  - author
+  - __
+What is the main verb form?
+
+Answer with exactly one of: fail | fails
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - dogs
+  - near
+  - the
+  - dog
+  - by
+  - the
+  - authors
+  - by
+  - the
+  - books
+  - __
+What is the main verb form?
+
+Answer with exactly one of: wait | waits
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilots
+  - behind
+  - the
+  - pilot
+  - behind
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: wait | waits
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">arrive</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - books
+  - behind
+  - the
+  - dogs
+  - near
+  - the
+  - dogs
+  - __
+What is the main verb form?
+
+Answer with exactly one of: arrive | arrives
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilots
+  - by
+  - the
+  - farmers
+  - by
+  - the
+  - farmers
+  - by
+  - the
+  - farmer
+  - __
+What is the main verb form?
+
+Answer with exactly one of: opens | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - books
+  - near
+  - the
+  - farmers
+  - by
+  - the
+  - dogs
+  - under
+  - the
+  - key
+  - under
+  - the
+  - pilots
+  - __
+What is the main verb form?
+
+Answer with exactly one of: wait | waits
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true,
+  false,
+  true
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">opens</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - book
+  - beside
+  - the
+  - author
+  - beside
+  - the
+  - dog
+  - __
+What is the main verb form?
+
+Answer with exactly one of: opens | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">works</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - farmer
+  - near
+  - the
+  - keys
+  - beside
+  - the
+  - key
+  - near
+  - the
+  - dogs
+  - under
+  - the
+  - keys
+  - __
+What is the main verb form?
+
+Answer with exactly one of: work | works
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  false,
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">moves</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - key
+  - under
+  - the
+  - farmers
+  - by
+  - the
+  - dogs
+  - beside
+  - the
+  - pilots
+  - __
+What is the main verb form?
+
+Answer with exactly one of: moves | move
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">moves</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - key
+  - beside
+  - the
+  - author
+  - under
+  - the
+  - dogs
+  - __
+What is the main verb form?
+
+Answer with exactly one of: move | moves
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">waits</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - author
+  - near
+  - the
+  - pilots
+  - __
+What is the main verb form?
+
+Answer with exactly one of: waits | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">waits</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - book
+  - under
+  - the
+  - keys
+  - under
+  - the
+  - pilot
+  - __
+What is the main verb form?
+
+Answer with exactly one of: wait | waits
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">arrives</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - author
+  - by
+  - the
+  - dog
+  - under
+  - the
+  - pilots
+  - beside
+  - the
+  - pilots
+  - by
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: arrives | arrive
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true,
+  true,
+  false
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">arrives</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilot
+  - near
+  - the
+  - authors
+  - __
+What is the main verb form?
+
+Answer with exactly one of: arrives | arrive
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">moves</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - farmer
+  - under
+  - the
+  - pilot
+  - behind
+  - the
+  - pilot
+  - __
+What is the main verb form?
+
+Answer with exactly one of: moves | move
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">waits</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilot
+  - behind
+  - the
+  - pilots
+  - __
+What is the main verb form?
+
+Answer with exactly one of: waits | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true
+ ],
+ &quot;attractors&quot;: 1,
+ &quot;distance&quot;: 4,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">opens</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - book
+  - under
+  - the
+  - book
+  - near
+  - the
+  - pilot
+  - beside
+  - the
+  - book
+  - under
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: open | opens
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  false,
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">waits</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilot
+  - near
+  - the
+  - author
+  - behind
+  - the
+  - authors
+  - by
+  - the
+  - key
+  - near
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: waits | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true,
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">fail</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - authors
+  - near
+  - the
+  - authors
+  - under
+  - the
+  - pilots
+  - __
+What is the main verb form?
+
+Answer with exactly one of: fails | fail
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">opens</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - key
+  - by
+  - the
+  - dog
+  - beside
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: open | opens
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - pilots
+  - near
+  - the
+  - farmer
+  - near
+  - the
+  - author
+  - under
+  - the
+  - dogs
+  - __
+What is the main verb form?
+
+Answer with exactly one of: opens | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  false,
+  true
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">work</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - authors
+  - by
+  - the
+  - key
+  - under
+  - the
+  - keys
+  - __
+What is the main verb form?
+
+Answer with exactly one of: work | works
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  false,
+  true
+ ],
+ &quot;attractors&quot;: 2,
+ &quot;distance&quot;: 7,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">fails</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - key
+  - behind
+  - the
+  - authors
+  - by
+  - the
+  - author
+  - beside
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: fail | fails
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 3,
+ &quot;distance&quot;: 10,
+ &quot;head_plural&quot;: false
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">arrive</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - the
+  - books
+  - beside
+  - the
+  - dogs
+  - behind
+  - the
+  - keys
+  - by
+  - the
+  - book
+  - behind
+  - the
+  - key
+  - __
+What is the main verb form?
+
+Answer with exactly one of: arrives | arrive
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;attractor_numbers&quot;: [
+  true,
+  true,
+  false,
+  false
+ ],
+ &quot;attractors&quot;: 4,
+ &quot;distance&quot;: 13,
+ &quot;head_plural&quot;: true
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

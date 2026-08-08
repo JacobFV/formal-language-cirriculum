@@ -1,0 +1,2271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>knowledge_update — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iii">language as action</a> &rsaquo;
+  knowledge_update</p>
+<h1>#34 <code>knowledge_update</code></h1>
+<p class="lede">assert / correct / retract / hedge</p>
+<div class="tags"><span class="tag ">level 34</span><span class="tag ">section iii</span><span class="tag ">ontology_learning</span><span class="tag ">belief_modeling</span></div>
+<div class="stats">
+<div class="stat"><span class="n">7.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.143</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.205</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Assertion, correction, retraction and uncertainty are different operations.</p><p>    All four arrive as utterances about a knowledge base and only two of them
+    overwrite it: a retraction takes a slot back to ``unknown`` and a hedge
+    leaves it exactly as it was. The query sometimes names an untouched slot, so
+    &quot;return whatever the utterance mentioned&quot; is wrong a third of the time.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>discourse_horizon</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>3</td></tr><tr><td>world_complexity</td><td class='num'>2</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The kb: k1 is purple, k3 is green and k2 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k3, green and orange.
+What is the color of k1?
+
+Answer with exactly one of: orange | purple | yellow | unknown | red | blue | green
+Reply with the answer only.</pre><h3>spanish</h3><pre>La base de conocimiento contiene: k1 es morado, k3 es verde y k2 es desconocido.
+Las operaciones son: assert, correct, retract y hedge.
+Lo que se dijo: correcto: k3, verde y naranja.
+¿De qué color es k1?
+
+Responde exactamente con una de estas opciones: naranja | morado | amarillo | desconocido | rojo | azul | verde
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>知识库如下：k1是紫色的；k3是绿色的；k2是未知。
+操作如下：assert、correct、retract和hedge。
+所说的话如下：是正确的：k3、绿色和橙色。
+k1的颜色是什么？
+
+请从以下选项中选出恰好一个作答：橙色 | 紫色 | 黄色 | 未知 | 红色 | 蓝色 | 绿色
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The kb: k1 is purple, k3 is green and k2 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k3, green and orange.
+What is the color of k1?
+
+Answer with exactly one of: orange | purple | yellow | unknown | red | blue | green
+Reply with the answer only.</pre><h3>symbols</h3><pre>{kb: [(color k1 purple) (color k3 green) (color k2 unknown)], operations: [assert correct retract hedge], query: (color_of k1), said: (correct k3 green orange)}
+
+Answer with exactly one of: orange | purple | yellow | unknown | red | blue | green
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/knowledge_update.jsonl</code> &middot; <code>data/samples/spanish/knowledge_update.jsonl</code> &middot; <code>data/samples/chinese/knowledge_update.jsonl</code> &middot; <code>data/samples/english_synonym/knowledge_update.jsonl</code> &middot; <code>data/samples/symbols/knowledge_update.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is purple, k3 is green and k2 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k3, green and orange.
+What is the color of k1?
+
+Answer with exactly one of: orange | purple | yellow | unknown | red | blue | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;purple&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;orange&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is yellow, k3 is yellow and k1 is blue.
+The operations: assert, correct, retract and hedge.
+What was said: k2 hedge red.
+What is the color of k3?
+
+Answer with exactly one of: green | orange | blue | unknown | red | purple | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;yellow&quot;,
+  &quot;k3&quot;: &quot;yellow&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is blue, k3 is orange and k1 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k3, orange and purple.
+What is the color of k2?
+
+Answer with exactly one of: red | unknown | green | yellow | blue | orange | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;unknown&quot;,
+  &quot;k2&quot;: &quot;blue&quot;,
+  &quot;k3&quot;: &quot;purple&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is purple, k3 is purple and k1 is red.
+The operations: assert, correct, retract and hedge.
+What was said: retract k3.
+What is the color of k2?
+
+Answer with exactly one of: green | red | unknown | purple | yellow | orange | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;red&quot;,
+  &quot;k2&quot;: &quot;purple&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is yellow, k2 is red and k1 is yellow.
+The operations: assert, correct, retract and hedge.
+What was said: retract k1.
+What is the color of k3?
+
+Answer with exactly one of: blue | yellow | red | orange | green | unknown | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;unknown&quot;,
+  &quot;k2&quot;: &quot;red&quot;,
+  &quot;k3&quot;: &quot;yellow&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is orange, k2 is unknown and k3 is purple.
+The operations: assert, correct, retract and hedge.
+What was said: k1 hedge blue.
+What is the color of k3?
+
+Answer with exactly one of: yellow | purple | orange | green | unknown | blue | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;orange&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;purple&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is green, k1 is blue and k3 is yellow.
+The operations: assert, correct, retract and hedge.
+What was said: retract k3.
+What is the color of k2?
+
+Answer with exactly one of: purple | red | unknown | orange | blue | yellow | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is red, k1 is purple and k2 is purple.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k3, red and blue.
+What is the color of k3?
+
+Answer with exactly one of: green | orange | purple | blue | red | unknown | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;purple&quot;,
+  &quot;k2&quot;: &quot;purple&quot;,
+  &quot;k3&quot;: &quot;blue&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is unknown, k2 is orange and k1 is blue.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k3, orange and yellow.
+What is the color of k3?
+
+Answer with exactly one of: green | red | blue | purple | orange | unknown | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;orange&quot;,
+  &quot;k3&quot;: &quot;yellow&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is blue, k3 is unknown and k2 is purple.
+The operations: assert, correct, retract and hedge.
+What was said: k3 assert green.
+What is the color of k2?
+
+Answer with exactly one of: green | blue | unknown | yellow | red | orange | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;purple&quot;,
+  &quot;k3&quot;: &quot;green&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is purple, k1 is yellow and k3 is green.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k3, green and red.
+What is the color of k3?
+
+Answer with exactly one of: purple | unknown | orange | blue | red | green | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;yellow&quot;,
+  &quot;k2&quot;: &quot;purple&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is purple, k3 is purple and k2 is purple.
+The operations: assert, correct, retract and hedge.
+What was said: k1 assert yellow.
+What is the color of k3?
+
+Answer with exactly one of: yellow | unknown | green | orange | purple | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;yellow&quot;,
+  &quot;k2&quot;: &quot;purple&quot;,
+  &quot;k3&quot;: &quot;purple&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is orange, k3 is yellow and k2 is green.
+The operations: assert, correct, retract and hedge.
+What was said: retract k3.
+What is the color of k2?
+
+Answer with exactly one of: orange | yellow | green | red | blue | purple | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;orange&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is orange, k3 is blue and k2 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k1, orange and blue.
+What is the color of k1?
+
+Answer with exactly one of: yellow | orange | unknown | green | blue | purple | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;orange&quot;,
+  &quot;k3&quot;: &quot;blue&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is green, k3 is red and k1 is green.
+The operations: assert, correct, retract and hedge.
+What was said: k3 hedge purple.
+What is the color of k2?
+
+Answer with exactly one of: red | yellow | orange | purple | unknown | blue | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;green&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is red, k3 is blue and k1 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: retract k2.
+What is the color of k2?
+
+Answer with exactly one of: red | orange | blue | purple | unknown | yellow | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;orange&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;blue&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is yellow, k3 is red and k2 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: retract k2.
+What is the color of k2?
+
+Answer with exactly one of: yellow | orange | unknown | purple | green | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;yellow&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is green, k2 is orange and k3 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: k2 assert red.
+What is the color of k1?
+
+Answer with exactly one of: red | blue | purple | green | unknown | orange | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;green&quot;,
+  &quot;k2&quot;: &quot;red&quot;,
+  &quot;k3&quot;: &quot;orange&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is green, k3 is yellow and k1 is blue.
+The operations: assert, correct, retract and hedge.
+What was said: retract k3.
+What is the color of k3?
+
+Answer with exactly one of: unknown | purple | yellow | orange | red | green | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is purple, k1 is blue and k3 is purple.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k1, blue and orange.
+What is the color of k1?
+
+Answer with exactly one of: purple | unknown | blue | orange | yellow | green | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;orange&quot;,
+  &quot;k2&quot;: &quot;purple&quot;,
+  &quot;k3&quot;: &quot;purple&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is orange, k1 is red and k3 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k3, yellow and red.
+What is the color of k1?
+
+Answer with exactly one of: orange | yellow | purple | green | blue | unknown | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;red&quot;,
+  &quot;k2&quot;: &quot;orange&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is orange, k2 is blue and k1 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k2, blue and orange.
+What is the color of k1?
+
+Answer with exactly one of: purple | unknown | yellow | green | orange | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;unknown&quot;,
+  &quot;k2&quot;: &quot;orange&quot;,
+  &quot;k3&quot;: &quot;orange&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is yellow, k3 is red and k1 is green.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k2, yellow and green.
+What is the color of k2?
+
+Answer with exactly one of: orange | red | unknown | yellow | blue | purple | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;green&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is green, k1 is purple and k2 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: retract k3.
+What is the color of k3?
+
+Answer with exactly one of: unknown | green | orange | red | yellow | purple | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;purple&quot;,
+  &quot;k2&quot;: &quot;orange&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is blue, k2 is blue and k3 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: k3 assert blue.
+What is the color of k3?
+
+Answer with exactly one of: unknown | purple | blue | yellow | red | orange | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;blue&quot;,
+  &quot;k3&quot;: &quot;blue&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is green, k1 is red and k2 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: k1 assert yellow.
+What is the color of k2?
+
+Answer with exactly one of: blue | unknown | green | orange | purple | red | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;yellow&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;green&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is yellow, k1 is red and k3 is yellow.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k2, yellow and purple.
+What is the color of k2?
+
+Answer with exactly one of: purple | unknown | green | red | blue | yellow | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;red&quot;,
+  &quot;k2&quot;: &quot;purple&quot;,
+  &quot;k3&quot;: &quot;yellow&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is green, k2 is red and k3 is purple.
+The operations: assert, correct, retract and hedge.
+What was said: retract k2.
+What is the color of k2?
+
+Answer with exactly one of: purple | green | red | yellow | orange | unknown | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;green&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;purple&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is orange, k3 is blue and k1 is yellow.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k2, orange and blue.
+What is the color of k3?
+
+Answer with exactly one of: yellow | green | red | orange | purple | unknown | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;yellow&quot;,
+  &quot;k2&quot;: &quot;blue&quot;,
+  &quot;k3&quot;: &quot;blue&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is purple, k1 is purple and k3 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: k1 hedge red.
+What is the color of k2?
+
+Answer with exactly one of: orange | purple | unknown | green | blue | yellow | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;purple&quot;,
+  &quot;k2&quot;: &quot;purple&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is purple, k2 is blue and k3 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: k1 hedge yellow.
+What is the color of k3?
+
+Answer with exactly one of: unknown | purple | green | orange | yellow | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;purple&quot;,
+  &quot;k2&quot;: &quot;blue&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is yellow, k2 is red and k1 is red.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k1, red and green.
+What is the color of k3?
+
+Answer with exactly one of: green | yellow | purple | blue | unknown | red | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;green&quot;,
+  &quot;k2&quot;: &quot;red&quot;,
+  &quot;k3&quot;: &quot;yellow&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is orange, k3 is unknown and k1 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: k2 assert green.
+What is the color of k1?
+
+Answer with exactly one of: unknown | orange | blue | yellow | purple | red | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;orange&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is green, k1 is purple and k3 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: retract k2.
+What is the color of k1?
+
+Answer with exactly one of: purple | unknown | blue | orange | red | green | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;purple&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is blue, k2 is unknown and k3 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: k2 assert yellow.
+What is the color of k2?
+
+Answer with exactly one of: unknown | yellow | orange | blue | purple | red | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;yellow&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is orange, k2 is blue and k3 is green.
+The operations: assert, correct, retract and hedge.
+What was said: k3 assert orange.
+What is the color of k2?
+
+Answer with exactly one of: unknown | yellow | blue | red | purple | green | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;orange&quot;,
+  &quot;k2&quot;: &quot;blue&quot;,
+  &quot;k3&quot;: &quot;orange&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is unknown, k1 is unknown and k2 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: k1 assert red.
+What is the color of k2?
+
+Answer with exactly one of: red | purple | yellow | green | unknown | blue | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;red&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is unknown, k1 is orange and k3 is purple.
+The operations: assert, correct, retract and hedge.
+What was said: retract k2.
+What is the color of k3?
+
+Answer with exactly one of: orange | purple | blue | green | yellow | red | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;orange&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;purple&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is orange, k2 is green and k3 is green.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k1, orange and purple.
+What is the color of k2?
+
+Answer with exactly one of: red | yellow | blue | purple | orange | unknown | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;purple&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;green&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is blue, k2 is orange and k1 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: retract k2.
+What is the color of k3?
+
+Answer with exactly one of: blue | yellow | purple | unknown | red | orange | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;orange&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;blue&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is orange, k1 is unknown and k2 is blue.
+The operations: assert, correct, retract and hedge.
+What was said: retract k1.
+What is the color of k1?
+
+Answer with exactly one of: yellow | green | orange | blue | purple | red | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;unknown&quot;,
+  &quot;k2&quot;: &quot;blue&quot;,
+  &quot;k3&quot;: &quot;orange&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is blue, k3 is unknown and k2 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: retract k3.
+What is the color of k2?
+
+Answer with exactly one of: yellow | orange | green | blue | red | purple | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;orange&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is green, k1 is blue and k3 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: k3 assert purple.
+What is the color of k1?
+
+Answer with exactly one of: yellow | green | purple | blue | orange | unknown | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;purple&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is blue, k2 is unknown and k1 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: k3 hedge orange.
+What is the color of k2?
+
+Answer with exactly one of: orange | blue | green | yellow | unknown | red | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;orange&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;blue&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is blue, k1 is blue and k2 is red.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k3, blue and orange.
+What is the color of k2?
+
+Answer with exactly one of: red | blue | unknown | purple | yellow | orange | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;red&quot;,
+  &quot;k3&quot;: &quot;orange&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is red, k3 is red and k2 is red.
+The operations: assert, correct, retract and hedge.
+What was said: retract k1.
+What is the color of k3?
+
+Answer with exactly one of: green | blue | yellow | purple | red | orange | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;unknown&quot;,
+  &quot;k2&quot;: &quot;red&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is purple, k2 is unknown and k1 is purple.
+The operations: assert, correct, retract and hedge.
+What was said: k3 assert red.
+What is the color of k3?
+
+Answer with exactly one of: orange | blue | yellow | purple | red | green | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;purple&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is yellow, k1 is green and k2 is yellow.
+The operations: assert, correct, retract and hedge.
+What was said: k2 assert purple.
+What is the color of k2?
+
+Answer with exactly one of: yellow | purple | blue | green | orange | unknown | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;green&quot;,
+  &quot;k2&quot;: &quot;purple&quot;,
+  &quot;k3&quot;: &quot;yellow&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is orange, k2 is purple and k3 is yellow.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k1, orange and red.
+What is the color of k2?
+
+Answer with exactly one of: green | red | yellow | purple | unknown | blue | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;red&quot;,
+  &quot;k2&quot;: &quot;purple&quot;,
+  &quot;k3&quot;: &quot;yellow&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is red, k2 is purple and k1 is red.
+The operations: assert, correct, retract and hedge.
+What was said: k1 assert yellow.
+What is the color of k3?
+
+Answer with exactly one of: purple | unknown | green | blue | red | orange | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;yellow&quot;,
+  &quot;k2&quot;: &quot;purple&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is blue, k3 is green and k2 is green.
+The operations: assert, correct, retract and hedge.
+What was said: k1 assert green.
+What is the color of k3?
+
+Answer with exactly one of: blue | yellow | orange | purple | green | red | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;green&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;green&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is blue, k3 is green and k1 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: k3 hedge orange.
+What is the color of k1?
+
+Answer with exactly one of: red | yellow | blue | unknown | purple | green | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;unknown&quot;,
+  &quot;k2&quot;: &quot;blue&quot;,
+  &quot;k3&quot;: &quot;green&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is unknown, k1 is green and k2 is blue.
+The operations: assert, correct, retract and hedge.
+What was said: k3 hedge blue.
+What is the color of k1?
+
+Answer with exactly one of: unknown | blue | green | purple | red | orange | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;green&quot;,
+  &quot;k2&quot;: &quot;blue&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is orange, k1 is orange and k3 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: k1 assert red.
+What is the color of k2?
+
+Answer with exactly one of: purple | red | yellow | unknown | blue | orange | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;red&quot;,
+  &quot;k2&quot;: &quot;orange&quot;,
+  &quot;k3&quot;: &quot;orange&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is yellow, k2 is unknown and k1 is blue.
+The operations: assert, correct, retract and hedge.
+What was said: retract k2.
+What is the color of k1?
+
+Answer with exactly one of: unknown | green | purple | red | orange | blue | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;yellow&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is orange, k3 is red and k1 is green.
+The operations: assert, correct, retract and hedge.
+What was said: retract k2.
+What is the color of k1?
+
+Answer with exactly one of: red | green | blue | orange | purple | unknown | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;green&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is purple, k1 is purple and k3 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k1, purple and red.
+What is the color of k1?
+
+Answer with exactly one of: blue | orange | yellow | unknown | green | red | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;red&quot;,
+  &quot;k2&quot;: &quot;purple&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is red, k2 is green and k1 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: k2 hedge purple.
+What is the color of k3?
+
+Answer with exactly one of: red | yellow | purple | green | blue | orange | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;unknown&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is orange, k1 is unknown and k3 is blue.
+The operations: assert, correct, retract and hedge.
+What was said: k1 hedge green.
+What is the color of k1?
+
+Answer with exactly one of: orange | red | blue | purple | yellow | green | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;unknown&quot;,
+  &quot;k2&quot;: &quot;orange&quot;,
+  &quot;k3&quot;: &quot;blue&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is unknown, k3 is unknown and k1 is green.
+The operations: assert, correct, retract and hedge.
+What was said: k1 assert orange.
+What is the color of k2?
+
+Answer with exactly one of: red | blue | green | purple | orange | yellow | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;orange&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is green, k3 is yellow and k2 is green.
+The operations: assert, correct, retract and hedge.
+What was said: k1 assert blue.
+What is the color of k1?
+
+Answer with exactly one of: green | unknown | purple | orange | blue | red | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;yellow&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is green, k1 is orange and k2 is green.
+The operations: assert, correct, retract and hedge.
+What was said: k1 assert yellow.
+What is the color of k1?
+
+Answer with exactly one of: orange | yellow | purple | red | unknown | blue | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;yellow&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;green&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is blue, k1 is unknown and k3 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k1, blue and purple.
+What is the color of k2?
+
+Answer with exactly one of: orange | purple | yellow | unknown | blue | green | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;purple&quot;,
+  &quot;k2&quot;: &quot;blue&quot;,
+  &quot;k3&quot;: &quot;orange&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is green, k3 is red and k2 is red.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k1, green and yellow.
+What is the color of k1?
+
+Answer with exactly one of: blue | purple | yellow | red | green | orange | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;yellow&quot;,
+  &quot;k2&quot;: &quot;red&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is yellow, k1 is orange and k2 is green.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k2, green and blue.
+What is the color of k3?
+
+Answer with exactly one of: purple | red | green | blue | orange | yellow | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;orange&quot;,
+  &quot;k2&quot;: &quot;blue&quot;,
+  &quot;k3&quot;: &quot;yellow&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is blue, k3 is purple and k2 is green.
+The operations: assert, correct, retract and hedge.
+What was said: k2 hedge blue.
+What is the color of k1?
+
+Answer with exactly one of: red | orange | unknown | blue | green | yellow | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;purple&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is blue, k2 is green and k1 is purple.
+The operations: assert, correct, retract and hedge.
+What was said: k3 hedge green.
+What is the color of k2?
+
+Answer with exactly one of: orange | unknown | yellow | green | red | blue | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;purple&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;blue&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is yellow, k3 is purple and k1 is purple.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k3, purple and red.
+What is the color of k1?
+
+Answer with exactly one of: orange | purple | yellow | unknown | red | green | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;purple&quot;,
+  &quot;k2&quot;: &quot;yellow&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is unknown, k2 is purple and k3 is purple.
+The operations: assert, correct, retract and hedge.
+What was said: k1 hedge yellow.
+What is the color of k2?
+
+Answer with exactly one of: red | blue | purple | yellow | green | unknown | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;unknown&quot;,
+  &quot;k2&quot;: &quot;purple&quot;,
+  &quot;k3&quot;: &quot;purple&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is blue, k1 is green and k3 is purple.
+The operations: assert, correct, retract and hedge.
+What was said: k1 hedge purple.
+What is the color of k3?
+
+Answer with exactly one of: orange | blue | red | unknown | green | purple | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;green&quot;,
+  &quot;k2&quot;: &quot;blue&quot;,
+  &quot;k3&quot;: &quot;purple&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is yellow, k2 is red and k1 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k1, orange and yellow.
+What is the color of k2?
+
+Answer with exactly one of: purple | orange | unknown | green | red | yellow | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;yellow&quot;,
+  &quot;k2&quot;: &quot;red&quot;,
+  &quot;k3&quot;: &quot;yellow&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is blue, k1 is blue and k2 is blue.
+The operations: assert, correct, retract and hedge.
+What was said: k2 assert orange.
+What is the color of k3?
+
+Answer with exactly one of: yellow | orange | blue | green | unknown | red | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;orange&quot;,
+  &quot;k3&quot;: &quot;blue&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is purple, k3 is green and k1 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k1, orange and green.
+What is the color of k2?
+
+Answer with exactly one of: green | purple | unknown | orange | red | blue | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;green&quot;,
+  &quot;k2&quot;: &quot;purple&quot;,
+  &quot;k3&quot;: &quot;green&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is purple, k1 is green and k2 is yellow.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k1, green and purple.
+What is the color of k3?
+
+Answer with exactly one of: purple | orange | blue | unknown | yellow | green | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;purple&quot;,
+  &quot;k2&quot;: &quot;yellow&quot;,
+  &quot;k3&quot;: &quot;purple&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is green, k1 is blue and k3 is yellow.
+The operations: assert, correct, retract and hedge.
+What was said: retract k1.
+What is the color of k2?
+
+Answer with exactly one of: blue | yellow | orange | red | purple | unknown | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;unknown&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;yellow&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is orange, k3 is orange and k2 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: retract k3.
+What is the color of k2?
+
+Answer with exactly one of: orange | yellow | blue | purple | unknown | red | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;orange&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is unknown, k3 is green and k2 is blue.
+The operations: assert, correct, retract and hedge.
+What was said: retract k3.
+What is the color of k3?
+
+Answer with exactly one of: yellow | unknown | orange | purple | green | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;unknown&quot;,
+  &quot;k2&quot;: &quot;blue&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is blue, k3 is red and k2 is purple.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k2, purple and blue.
+What is the color of k2?
+
+Answer with exactly one of: green | yellow | blue | red | purple | unknown | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;blue&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is orange, k3 is green and k1 is red.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k1, red and purple.
+What is the color of k1?
+
+Answer with exactly one of: unknown | red | green | purple | yellow | orange | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;purple&quot;,
+  &quot;k2&quot;: &quot;orange&quot;,
+  &quot;k3&quot;: &quot;green&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is blue, k2 is orange and k1 is blue.
+The operations: assert, correct, retract and hedge.
+What was said: retract k3.
+What is the color of k3?
+
+Answer with exactly one of: purple | blue | unknown | green | yellow | orange | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;orange&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is orange, k3 is unknown and k2 is green.
+The operations: assert, correct, retract and hedge.
+What was said: k2 hedge yellow.
+What is the color of k1?
+
+Answer with exactly one of: green | orange | unknown | red | blue | yellow | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;orange&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is purple, k2 is red and k3 is yellow.
+The operations: assert, correct, retract and hedge.
+What was said: k3 assert green.
+What is the color of k2?
+
+Answer with exactly one of: purple | red | yellow | unknown | blue | green | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;purple&quot;,
+  &quot;k2&quot;: &quot;red&quot;,
+  &quot;k3&quot;: &quot;green&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is unknown, k2 is blue and k1 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k2, blue and red.
+What is the color of k2?
+
+Answer with exactly one of: green | orange | unknown | blue | red | purple | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;orange&quot;,
+  &quot;k2&quot;: &quot;red&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is yellow, k3 is orange and k2 is blue.
+The operations: assert, correct, retract and hedge.
+What was said: k3 assert red.
+What is the color of k3?
+
+Answer with exactly one of: purple | red | yellow | unknown | orange | green | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;yellow&quot;,
+  &quot;k2&quot;: &quot;blue&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is unknown, k2 is red and k3 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k2, red and purple.
+What is the color of k2?
+
+Answer with exactly one of: red | yellow | orange | blue | green | purple | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;unknown&quot;,
+  &quot;k2&quot;: &quot;purple&quot;,
+  &quot;k3&quot;: &quot;orange&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is blue, k3 is green and k1 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k3, green and orange.
+What is the color of k1?
+
+Answer with exactly one of: blue | green | red | orange | unknown | yellow | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;orange&quot;,
+  &quot;k2&quot;: &quot;blue&quot;,
+  &quot;k3&quot;: &quot;orange&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is red, k2 is orange and k1 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: k2 assert purple.
+What is the color of k3?
+
+Answer with exactly one of: blue | purple | green | red | orange | yellow | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;orange&quot;,
+  &quot;k2&quot;: &quot;purple&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is unknown, k3 is red and k1 is green.
+The operations: assert, correct, retract and hedge.
+What was said: retract k1.
+What is the color of k3?
+
+Answer with exactly one of: orange | purple | blue | unknown | yellow | green | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;unknown&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is blue, k1 is purple and k2 is red.
+The operations: assert, correct, retract and hedge.
+What was said: k1 hedge blue.
+What is the color of k3?
+
+Answer with exactly one of: unknown | green | yellow | purple | blue | orange | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;purple&quot;,
+  &quot;k2&quot;: &quot;red&quot;,
+  &quot;k3&quot;: &quot;blue&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is red, k2 is yellow and k1 is blue.
+The operations: assert, correct, retract and hedge.
+What was said: retract k2.
+What is the color of k1?
+
+Answer with exactly one of: orange | green | purple | red | yellow | blue | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is purple, k3 is orange and k1 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: retract k3.
+What is the color of k3?
+
+Answer with exactly one of: orange | yellow | purple | blue | red | unknown | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;unknown&quot;,
+  &quot;k2&quot;: &quot;purple&quot;,
+  &quot;k3&quot;: &quot;unknown&quot;
+ },
+ &quot;op&quot;: &quot;retract&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k3&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is unknown, k3 is yellow and k1 is unknown.
+The operations: assert, correct, retract and hedge.
+What was said: k1 hedge yellow.
+What is the color of k3?
+
+Answer with exactly one of: red | yellow | orange | purple | blue | green | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;unknown&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;yellow&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is orange, k3 is red and k2 is yellow.
+The operations: assert, correct, retract and hedge.
+What was said: k1 assert purple.
+What is the color of k2?
+
+Answer with exactly one of: blue | unknown | yellow | purple | red | green | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;purple&quot;,
+  &quot;k2&quot;: &quot;yellow&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is unknown, k3 is blue and k2 is red.
+The operations: assert, correct, retract and hedge.
+What was said: k1 assert purple.
+What is the color of k2?
+
+Answer with exactly one of: yellow | unknown | blue | green | purple | orange | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;purple&quot;,
+  &quot;k2&quot;: &quot;red&quot;,
+  &quot;k3&quot;: &quot;blue&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is green, k1 is red and k3 is green.
+The operations: assert, correct, retract and hedge.
+What was said: k1 hedge orange.
+What is the color of k1?
+
+Answer with exactly one of: unknown | blue | green | orange | yellow | red | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;red&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;green&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k1&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k2 is unknown, k1 is red and k3 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: correct: k1, red and blue.
+What is the color of k3?
+
+Answer with exactly one of: yellow | red | green | blue | unknown | purple | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;orange&quot;
+ },
+ &quot;op&quot;: &quot;correct&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is unknown, k3 is blue and k2 is green.
+The operations: assert, correct, retract and hedge.
+What was said: k1 assert blue.
+What is the color of k3?
+
+Answer with exactly one of: purple | yellow | blue | unknown | red | green | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;blue&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is green, k2 is unknown and k1 is red.
+The operations: assert, correct, retract and hedge.
+What was said: k1 assert orange.
+What is the color of k3?
+
+Answer with exactly one of: blue | yellow | unknown | purple | green | orange | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;orange&quot;,
+  &quot;k2&quot;: &quot;unknown&quot;,
+  &quot;k3&quot;: &quot;green&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k1&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k3 is red, k1 is unknown and k2 is orange.
+The operations: assert, correct, retract and hedge.
+What was said: k2 assert yellow.
+What is the color of k3?
+
+Answer with exactly one of: purple | blue | unknown | orange | green | red | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;unknown&quot;,
+  &quot;k2&quot;: &quot;yellow&quot;,
+  &quot;k3&quot;: &quot;red&quot;
+ },
+ &quot;op&quot;: &quot;assert&quot;,
+ &quot;queried&quot;: &quot;k3&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The kb: k1 is blue, k3 is blue and k2 is green.
+The operations: assert, correct, retract and hedge.
+What was said: k2 hedge orange.
+What is the color of k2?
+
+Answer with exactly one of: green | blue | unknown | yellow | red | purple | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;after&quot;: {
+  &quot;k1&quot;: &quot;blue&quot;,
+  &quot;k2&quot;: &quot;green&quot;,
+  &quot;k3&quot;: &quot;blue&quot;
+ },
+ &quot;op&quot;: &quot;hedge&quot;,
+ &quot;queried&quot;: &quot;k2&quot;,
+ &quot;target&quot;: &quot;k2&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

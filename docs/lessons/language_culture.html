@@ -1,0 +1,3589 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>language_culture — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iv">analogy, causality, planning, and programs</a> &rsaquo;
+  language_culture</p>
+<h1>#58 <code>language_culture</code></h1>
+<p class="lede">iterated learning through a transmission bottleneck</p>
+<div class="tags"><span class="tag ">level 58</span><span class="tag ">section iv</span><span class="tag ">ontology_learning</span><span class="tag ">multi_agent_coordination</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.2</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Each generation learns from a sample of the last one and fills the gaps.</p><p>    This is the iterated-learning setup in miniature: a learner hears words for
+    only some of the meanings and, by the stated regularization rule, extends the
+    last word it heard to every meaning it did not. Repeated over generations the
+    lexicon collapses onto fewer forms — and which form survives is a fact about
+    the transmission chain, computable exactly by replaying it, not about any
+    property of the words themselves.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>discourse_horizon</td><td class='num'>4</td></tr><tr><td>lexical_novelty</td><td class='num'>4</td></tr><tr><td>reasoning_depth</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The founder lexicon: water says luko, cloud says peki, wind says vune and fire says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and vune
+  - heard: 1, 1, cloud and peki
+  - heard: 2, 0, wind and vune
+  - heard: 2, 1, water and peki
+  - heard: 2, 2, cloud and peki
+  - heard: 3, 0, fire and peki
+  - heard: 3, 1, cloud and peki
+What is the word for water in generation 3?
+
+Answer with exactly one of: peki | luko | vune | soga
+Reply with the answer only.</pre><h3>spanish</h3><pre>El léxico fundacional es: agua dice Luko, nube dice Peki, viento dice Vune y fuego dice Soga.
+La regla es: el significado no oído toma: last_heard_word.
+La transmisión es:
+  - oyó: 1, 0, viento y Vune
+  - oyó: 1, 1, nube y Peki
+  - oyó: 2, 0, viento y Vune
+  - oyó: 2, 1, agua y Peki
+  - oyó: 2, 2, nube y Peki
+  - oyó: 3, 0, fuego y Peki
+  - oyó: 3, 1, nube y Peki
+¿Cuál es la palabra para agua en la generación 3?
+
+Responde exactamente con una de estas opciones: Peki | Luko | Vune | Soga
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>初始词表如下：水说卢科；云说佩基；风说武讷；火说索加。
+规则是：未听过的含义取：last_heard_word。
+传递情况如下：
+  - 听到：1、0、风和武讷
+  - 听到：1、1、云和佩基
+  - 听到：2、0、风和武讷
+  - 听到：2、1、水和佩基
+  - 听到：2、2、云和佩基
+  - 听到：3、0、火和佩基
+  - 听到：3、1、云和佩基
+3水的对应的词是什么？
+
+请从以下选项中选出恰好一个作答：佩基 | 卢科 | 武讷 | 索加
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The founder lexicon: water says luko, cloud says peki, wind says vune and fire says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and vune
+  - heard: 1, 1, cloud and peki
+  - heard: 2, 0, wind and vune
+  - heard: 2, 1, water and peki
+  - heard: 2, 2, cloud and peki
+  - heard: 3, 0, fire and peki
+  - heard: 3, 1, cloud and peki
+What is the word for water in generation 3?
+
+Answer with exactly one of: peki | luko | vune | soga
+Reply with the answer only.</pre><h3>symbols</h3><pre>{founder_lexicon: [(says water luko) (says cloud peki) (says wind vune) (says fire soga)], query: (word_for 3 water), rule: [(unheard_meaning_takes last_heard_word)], transmission: [(heard 1 0 wind vune) (heard 1 1 cloud peki) (heard 2 0 wind vune) (heard 2 1 water peki) (heard 2 2 cloud peki) (heard 3 0 fire peki) (heard 3 1 cloud peki)]}
+
+Answer with exactly one of: peki | luko | vune | soga
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/language_culture.jsonl</code> &middot; <code>data/samples/spanish/language_culture.jsonl</code> &middot; <code>data/samples/chinese/language_culture.jsonl</code> &middot; <code>data/samples/english_synonym/language_culture.jsonl</code> &middot; <code>data/samples/symbols/language_culture.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">peki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says luko, cloud says peki, wind says vune and fire says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and vune
+  - heard: 1, 1, cloud and peki
+  - heard: 2, 0, wind and vune
+  - heard: 2, 1, water and peki
+  - heard: 2, 2, cloud and peki
+  - heard: 3, 0, fire and peki
+  - heard: 3, 1, cloud and peki
+What is the word for water in generation 3?
+
+Answer with exactly one of: peki | luko | vune | soga
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;peki&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;vune&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;water&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: seed says vune, fire says peki, wind says luko and water says tama.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, fire and peki
+  - heard: 1, 1, wind and luko
+  - heard: 2, 0, fire and peki
+  - heard: 2, 1, water and luko
+  - heard: 2, 2, seed and luko
+  - heard: 3, 0, seed and luko
+  - heard: 3, 1, water and luko
+What is the word for seed in generation 3?
+
+Answer with exactly one of: peki | luko | vune | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;tama&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;seed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">peki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: seed says peki, wind says reshi, water says vune and fire says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and reshi
+  - heard: 1, 1, water and vune
+  - heard: 1, 2, seed and peki
+  - heard: 2, 0, fire and peki
+  - heard: 2, 1, wind and reshi
+  - heard: 2, 2, seed and peki
+What is the word for water in generation 2?
+
+Answer with exactly one of: luko | peki | reshi | vune
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;water&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">peki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: cloud says reshi, water says peki, wind says tama and seed says vune.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and tama
+  - heard: 1, 1, water and peki
+  - heard: 2, 0, water and peki
+  - heard: 2, 1, seed and peki
+  - heard: 2, 2, wind and tama
+What is the word for seed in generation 2?
+
+Answer with exactly one of: vune | peki | tama | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;seed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says luko, seed says tama, stone says soga and water says vune.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, seed and tama
+  - heard: 1, 1, fire and luko
+  - heard: 2, 0, water and luko
+  - heard: 2, 1, seed and tama
+  - heard: 2, 2, fire and luko
+What is the word for water in generation 2?
+
+Answer with exactly one of: tama | soga | luko | vune
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;tama&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;tama&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;vune&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;water&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">peki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says peki, cloud says luko, wind says tama and seed says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, stone and peki
+  - heard: 1, 1, wind and tama
+  - heard: 1, 2, cloud and luko
+  - heard: 2, 0, wind and tama
+  - heard: 2, 1, stone and peki
+What is the word for seed in generation 2?
+
+Answer with exactly one of: tama | soga | peki | luko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;seed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says reshi, fire says soga, seed says tama and cloud says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, water and reshi
+  - heard: 1, 1, seed and tama
+  - heard: 1, 2, fire and soga
+  - heard: 2, 0, cloud and soga
+  - heard: 2, 1, fire and soga
+  - heard: 3, 0, seed and soga
+  - heard: 3, 1, water and soga
+What is the word for cloud in generation 3?
+
+Answer with exactly one of: tama | luko | soga | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;soga&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;reshi&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;cloud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">peki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says soga, cloud says peki, stone says tama and wind says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and luko
+  - heard: 1, 1, cloud and peki
+  - heard: 1, 2, stone and tama
+  - heard: 2, 0, water and tama
+  - heard: 2, 1, cloud and peki
+What is the word for wind in generation 2?
+
+Answer with exactly one of: luko | tama | peki | soga
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;tama&quot;,
+  &quot;wind&quot;: &quot;peki&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;wind&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">vune</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: cloud says peki, stone says tama, water says luko and fire says vune.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, cloud and peki
+  - heard: 1, 1, water and luko
+  - heard: 1, 2, fire and vune
+  - heard: 2, 0, water and luko
+  - heard: 2, 1, cloud and peki
+  - heard: 2, 2, stone and vune
+What is the word for stone in generation 2?
+
+Answer with exactly one of: peki | vune | luko | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 3,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">tama</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says peki, cloud says luko, stone says tama and seed says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, stone and tama
+  - heard: 1, 1, water and peki
+  - heard: 1, 2, seed and soga
+  - heard: 2, 0, cloud and soga
+  - heard: 2, 1, water and peki
+  - heard: 2, 2, stone and tama
+  - heard: 3, 0, water and peki
+  - heard: 3, 1, stone and tama
+What is the word for cloud in generation 3?
+
+Answer with exactly one of: soga | luko | tama | peki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;seed&quot;: &quot;tama&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;peki&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;peki&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;cloud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">peki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: seed says peki, water says vune, fire says tama and cloud says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, fire and tama
+  - heard: 1, 1, seed and peki
+  - heard: 2, 0, cloud and peki
+  - heard: 2, 1, seed and peki
+  - heard: 3, 0, water and peki
+  - heard: 3, 1, fire and peki
+What is the word for water in generation 3?
+
+Answer with exactly one of: peki | tama | vune | luko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;peki&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;fire&quot;: &quot;tama&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;vune&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;water&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">peki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: seed says soga, wind says luko, water says tama and cloud says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and luko
+  - heard: 1, 1, water and tama
+  - heard: 1, 2, cloud and peki
+  - heard: 2, 0, water and tama
+  - heard: 2, 1, wind and luko
+  - heard: 2, 2, cloud and peki
+  - heard: 3, 0, seed and peki
+  - heard: 3, 1, cloud and peki
+What is the word for water in generation 3?
+
+Answer with exactly one of: tama | luko | peki | soga
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;peki&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;tama&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;water&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">vune</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: cloud says vune, stone says tama, fire says luko and seed says reshi.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, stone and tama
+  - heard: 1, 1, cloud and vune
+  - heard: 2, 0, cloud and vune
+  - heard: 2, 1, seed and vune
+  - heard: 3, 0, stone and vune
+  - heard: 3, 1, fire and vune
+What is the word for stone in generation 3?
+
+Answer with exactly one of: tama | reshi | luko | vune
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;seed&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;vune&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says peki, seed says reshi, stone says luko and wind says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, seed and reshi
+  - heard: 1, 1, water and peki
+  - heard: 1, 2, stone and luko
+  - heard: 2, 0, water and peki
+  - heard: 2, 1, seed and reshi
+What is the word for wind in generation 2?
+
+Answer with exactly one of: luko | soga | peki | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;water&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;wind&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says soga, cloud says vune, seed says reshi and water says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, fire and soga
+  - heard: 1, 1, water and peki
+  - heard: 1, 2, seed and reshi
+  - heard: 2, 0, water and peki
+  - heard: 2, 1, seed and reshi
+What is the word for cloud in generation 2?
+
+Answer with exactly one of: peki | vune | soga | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;water&quot;: &quot;peki&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;water&quot;: &quot;peki&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;cloud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: cloud says reshi, water says luko, fire says tama and seed says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, fire and tama
+  - heard: 1, 1, cloud and reshi
+  - heard: 1, 2, water and luko
+  - heard: 2, 0, water and luko
+  - heard: 2, 1, fire and tama
+  - heard: 2, 2, seed and luko
+What is the word for cloud in generation 2?
+
+Answer with exactly one of: luko | peki | reshi | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;fire&quot;: &quot;tama&quot;,
+  &quot;seed&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;fire&quot;: &quot;tama&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;cloud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">tama</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says tama, stone says vune, seed says soga and cloud says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, cloud and luko
+  - heard: 1, 1, water and tama
+  - heard: 2, 0, stone and tama
+  - heard: 2, 1, water and tama
+  - heard: 3, 0, cloud and tama
+  - heard: 3, 1, water and tama
+  - heard: 3, 2, stone and tama
+What is the word for stone in generation 3?
+
+Answer with exactly one of: vune | soga | luko | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;seed&quot;: &quot;tama&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">tama</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says tama, stone says soga, seed says reshi and cloud says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, seed and reshi
+  - heard: 1, 1, stone and soga
+  - heard: 1, 2, water and tama
+  - heard: 2, 0, seed and reshi
+  - heard: 2, 1, cloud and tama
+What is the word for cloud in generation 2?
+
+Answer with exactly one of: soga | reshi | tama | luko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;cloud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: cloud says vune, wind says reshi, water says luko and fire says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, water and luko
+  - heard: 1, 1, cloud and vune
+  - heard: 1, 2, wind and reshi
+  - heard: 2, 0, wind and reshi
+  - heard: 2, 1, fire and reshi
+  - heard: 3, 0, fire and reshi
+  - heard: 3, 1, water and reshi
+What is the word for water in generation 3?
+
+Answer with exactly one of: luko | reshi | vune | soga
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;water&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;water&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">peki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says peki, seed says reshi, wind says luko and fire says vune.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and luko
+  - heard: 1, 1, stone and peki
+  - heard: 2, 0, wind and luko
+  - heard: 2, 1, stone and peki
+  - heard: 2, 2, fire and peki
+  - heard: 3, 0, stone and peki
+  - heard: 3, 1, seed and peki
+What is the word for seed in generation 3?
+
+Answer with exactly one of: peki | vune | reshi | luko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;peki&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;seed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says tama, stone says reshi, wind says soga and cloud says vune.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, cloud and vune
+  - heard: 1, 1, stone and reshi
+  - heard: 2, 0, stone and reshi
+  - heard: 2, 1, water and reshi
+  - heard: 2, 2, cloud and vune
+What is the word for water in generation 2?
+
+Answer with exactly one of: soga | tama | vune | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;water&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;vune&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;water&quot;: &quot;tama&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;water&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says peki, seed says luko, cloud says vune and water says reshi.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, stone and peki
+  - heard: 1, 1, seed and luko
+  - heard: 1, 2, water and reshi
+  - heard: 2, 0, cloud and reshi
+  - heard: 2, 1, seed and luko
+What is the word for water in generation 2?
+
+Answer with exactly one of: luko | vune | reshi | peki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;seed&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;reshi&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;water&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: wind says luko, fire says tama, water says vune and stone says reshi.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, fire and tama
+  - heard: 1, 1, wind and luko
+  - heard: 2, 0, wind and luko
+  - heard: 2, 1, water and luko
+  - heard: 2, 2, stone and luko
+  - heard: 3, 0, wind and luko
+  - heard: 3, 1, stone and luko
+  - heard: 3, 2, fire and luko
+What is the word for fire in generation 3?
+
+Answer with exactly one of: luko | reshi | tama | vune
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;tama&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;water&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;fire&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: wind says soga, fire says vune, seed says peki and stone says reshi.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and soga
+  - heard: 1, 1, stone and reshi
+  - heard: 1, 2, seed and peki
+  - heard: 2, 0, fire and peki
+  - heard: 2, 1, seed and peki
+  - heard: 2, 2, stone and reshi
+  - heard: 3, 0, fire and peki
+  - heard: 3, 1, seed and peki
+  - heard: 3, 2, wind and reshi
+What is the word for wind in generation 3?
+
+Answer with exactly one of: vune | soga | reshi | peki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;wind&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: wind says luko, water says peki, fire says reshi and cloud says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission: heard: 1, 0, wind and luko; heard: 1, 1, fire and reshi; heard: 2, 0, water and reshi; heard: 2, 1, wind and luko.
+What is the word for fire in generation 2?
+
+Answer with exactly one of: reshi | luko | soga | peki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;water&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;fire&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">vune</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: cloud says soga, fire says vune, wind says luko and water says tama.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, cloud and soga
+  - heard: 1, 1, fire and vune
+  - heard: 2, 0, fire and vune
+  - heard: 2, 1, wind and vune
+  - heard: 2, 2, water and vune
+What is the word for cloud in generation 2?
+
+Answer with exactly one of: vune | luko | tama | soga
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;vune&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;tama&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;cloud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">vune</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: wind says peki, cloud says vune, seed says tama and water says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, water and soga
+  - heard: 1, 1, cloud and vune
+  - heard: 1, 2, seed and tama
+  - heard: 2, 0, wind and tama
+  - heard: 2, 1, cloud and vune
+  - heard: 3, 0, water and vune
+  - heard: 3, 1, cloud and vune
+What is the word for wind in generation 3?
+
+Answer with exactly one of: tama | peki | soga | vune
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;seed&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;vune&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;seed&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;peki&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;wind&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says soga, cloud says tama, stone says peki and wind says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and luko
+  - heard: 1, 1, water and soga
+  - heard: 2, 0, stone and soga
+  - heard: 2, 1, water and soga
+  - heard: 3, 0, water and soga
+  - heard: 3, 1, cloud and soga
+  - heard: 3, 2, stone and soga
+What is the word for stone in generation 3?
+
+Answer with exactly one of: soga | tama | luko | peki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: seed says peki, water says vune, wind says tama and fire says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, seed and peki
+  - heard: 1, 1, fire and luko
+  - heard: 2, 0, wind and luko
+  - heard: 2, 1, seed and peki
+  - heard: 2, 2, fire and luko
+What is the word for water in generation 2?
+
+Answer with exactly one of: vune | luko | tama | peki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;water&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">peki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says reshi, stone says tama, seed says peki and cloud says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, stone and tama
+  - heard: 1, 1, seed and peki
+  - heard: 2, 0, stone and tama
+  - heard: 2, 1, cloud and peki
+  - heard: 2, 2, fire and peki
+  - heard: 3, 0, cloud and peki
+  - heard: 3, 1, stone and tama
+  - heard: 3, 2, fire and peki
+What is the word for fire in generation 3?
+
+Answer with exactly one of: tama | peki | reshi | soga
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;fire&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says luko, fire says reshi, seed says soga and wind says tama.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, stone and luko
+  - heard: 1, 1, seed and soga
+  - heard: 2, 0, stone and luko
+  - heard: 2, 1, fire and soga
+  - heard: 3, 0, fire and soga
+  - heard: 3, 1, stone and luko
+  - heard: 3, 2, wind and soga
+What is the word for fire in generation 3?
+
+Answer with exactly one of: tama | soga | luko | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;fire&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: cloud says tama, wind says soga, water says peki and fire says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, water and peki
+  - heard: 1, 1, wind and soga
+  - heard: 2, 0, wind and soga
+  - heard: 2, 1, water and peki
+  - heard: 2, 2, fire and soga
+What is the word for fire in generation 2?
+
+Answer with exactly one of: soga | luko | tama | peki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;fire&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">vune</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: seed says vune, cloud says tama, water says luko and fire says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission: heard: 1, 0, cloud and tama; heard: 1, 1, seed and vune; heard: 2, 0, seed and vune; heard: 2, 1, fire and vune.
+What is the word for cloud in generation 2?
+
+Answer with exactly one of: tama | luko | soga | vune
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;seed&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;vune&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;cloud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: cloud says reshi, wind says luko, seed says vune and water says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, seed and vune
+  - heard: 1, 1, wind and luko
+  - heard: 2, 0, seed and vune
+  - heard: 2, 1, cloud and luko
+  - heard: 2, 2, water and luko
+  - heard: 3, 0, cloud and luko
+  - heard: 3, 1, water and luko
+  - heard: 3, 2, wind and luko
+What is the word for water in generation 3?
+
+Answer with exactly one of: reshi | vune | peki | luko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;water&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">tama</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says vune, seed says tama, cloud says soga and fire says reshi.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, cloud and soga
+  - heard: 1, 1, seed and tama
+  - heard: 2, 0, cloud and soga
+  - heard: 2, 1, fire and tama
+  - heard: 3, 0, cloud and soga
+  - heard: 3, 1, seed and tama
+What is the word for fire in generation 3?
+
+Answer with exactly one of: reshi | vune | tama | soga
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;fire&quot;: &quot;tama&quot;,
+  &quot;seed&quot;: &quot;tama&quot;,
+  &quot;stone&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;tama&quot;,
+  &quot;stone&quot;: &quot;vune&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;fire&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: seed says reshi, stone says luko, wind says peki and water says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and peki
+  - heard: 1, 1, stone and luko
+  - heard: 1, 2, water and soga
+  - heard: 2, 0, water and soga
+  - heard: 2, 1, wind and peki
+  - heard: 3, 0, wind and peki
+  - heard: 3, 1, stone and peki
+  - heard: 3, 2, water and soga
+What is the word for seed in generation 3?
+
+Answer with exactly one of: luko | soga | peki | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;peki&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;peki&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;seed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says soga, stone says tama, seed says luko and water says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, stone and tama
+  - heard: 1, 1, seed and luko
+  - heard: 2, 0, stone and tama
+  - heard: 2, 1, seed and luko
+  - heard: 2, 2, fire and luko
+  - heard: 3, 0, seed and luko
+  - heard: 3, 1, fire and luko
+What is the word for stone in generation 3?
+
+Answer with exactly one of: peki | soga | tama | luko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;peki&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: wind says soga, stone says reshi, seed says peki and fire says tama.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, seed and peki
+  - heard: 1, 1, wind and soga
+  - heard: 1, 2, fire and tama
+  - heard: 2, 0, wind and soga
+  - heard: 2, 1, stone and tama
+  - heard: 2, 2, seed and peki
+  - heard: 3, 0, stone and tama
+  - heard: 3, 1, fire and peki
+  - heard: 3, 2, wind and soga
+What is the word for seed in generation 3?
+
+Answer with exactly one of: peki | soga | reshi | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 3,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;tama&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;seed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: seed says reshi, cloud says soga, wind says tama and stone says vune.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, cloud and soga
+  - heard: 1, 1, stone and vune
+  - heard: 1, 2, wind and tama
+  - heard: 2, 0, wind and tama
+  - heard: 2, 1, stone and vune
+  - heard: 2, 2, cloud and soga
+  - heard: 3, 0, wind and tama
+  - heard: 3, 1, cloud and soga
+What is the word for seed in generation 3?
+
+Answer with exactly one of: reshi | vune | tama | soga
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;seed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says reshi, cloud says vune, stone says soga and water says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, water and luko
+  - heard: 1, 1, stone and soga
+  - heard: 2, 0, cloud and soga
+  - heard: 2, 1, fire and soga
+  - heard: 2, 2, stone and soga
+What is the word for water in generation 2?
+
+Answer with exactly one of: vune | soga | luko | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;soga&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;water&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">peki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: seed says luko, wind says vune, cloud says reshi and fire says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, seed and luko
+  - heard: 1, 1, fire and peki
+  - heard: 2, 0, cloud and peki
+  - heard: 2, 1, wind and peki
+  - heard: 3, 0, cloud and peki
+  - heard: 3, 1, wind and peki
+What is the word for seed in generation 3?
+
+Answer with exactly one of: peki | luko | reshi | vune
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;peki&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;vune&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;seed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">vune</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says soga, water says reshi, stone says peki and cloud says vune.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, stone and peki
+  - heard: 1, 1, cloud and vune
+  - heard: 2, 0, water and vune
+  - heard: 2, 1, fire and vune
+  - heard: 3, 0, fire and vune
+  - heard: 3, 1, stone and vune
+What is the word for stone in generation 3?
+
+Answer with exactly one of: reshi | soga | vune | peki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;vune&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;reshi&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says luko, stone says tama, seed says peki and wind says reshi.
+The rule is: unheard meaning takes last_heard_word.
+The transmission: heard: 1, 0, stone and tama; heard: 1, 1, fire and luko; heard: 2, 0, fire and luko; heard: 2, 1, seed and luko.
+What is the word for stone in generation 2?
+
+Answer with exactly one of: peki | luko | reshi | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">vune</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says reshi, cloud says soga, water says vune and stone says tama.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, cloud and soga
+  - heard: 1, 1, stone and tama
+  - heard: 1, 2, water and vune
+  - heard: 2, 0, water and vune
+  - heard: 2, 1, fire and vune
+  - heard: 3, 0, water and vune
+  - heard: 3, 1, stone and vune
+What is the word for fire in generation 3?
+
+Answer with exactly one of: reshi | vune | soga | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;vune&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;vune&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;fire&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">tama</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: cloud says vune, seed says luko, fire says reshi and wind says tama.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, seed and luko
+  - heard: 1, 1, wind and tama
+  - heard: 2, 0, cloud and tama
+  - heard: 2, 1, wind and tama
+  - heard: 2, 2, fire and tama
+What is the word for fire in generation 2?
+
+Answer with exactly one of: tama | luko | vune | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;fire&quot;: &quot;tama&quot;,
+  &quot;seed&quot;: &quot;tama&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;fire&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">tama</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: cloud says reshi, stone says tama, water says soga and seed says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, cloud and reshi
+  - heard: 1, 1, seed and peki
+  - heard: 1, 2, stone and tama
+  - heard: 2, 0, seed and peki
+  - heard: 2, 1, water and tama
+What is the word for cloud in generation 2?
+
+Answer with exactly one of: tama | soga | peki | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;soga&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;cloud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says peki, cloud says luko, wind says soga and stone says reshi.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and soga
+  - heard: 1, 1, cloud and luko
+  - heard: 2, 0, wind and soga
+  - heard: 2, 1, cloud and luko
+  - heard: 2, 2, stone and luko
+What is the word for fire in generation 2?
+
+Answer with exactly one of: reshi | luko | peki | soga
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;fire&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: cloud says reshi, wind says luko, stone says vune and fire says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, fire and peki
+  - heard: 1, 1, stone and vune
+  - heard: 1, 2, cloud and reshi
+  - heard: 2, 0, fire and peki
+  - heard: 2, 1, cloud and reshi
+  - heard: 2, 2, wind and reshi
+  - heard: 3, 0, fire and peki
+  - heard: 3, 1, stone and reshi
+  - heard: 3, 2, cloud and reshi
+What is the word for wind in generation 3?
+
+Answer with exactly one of: peki | reshi | vune | luko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;wind&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says peki, water says reshi, seed says soga and wind says vune.
+The rule is: unheard meaning takes last_heard_word.
+The transmission: heard: 1, 0, stone and peki; heard: 1, 1, water and reshi; heard: 2, 0, stone and peki; heard: 2, 1, seed and reshi.
+What is the word for seed in generation 2?
+
+Answer with exactly one of: reshi | vune | peki | soga
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;vune&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;seed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">peki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says peki, cloud says tama, wind says soga and fire says reshi.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and soga
+  - heard: 1, 1, stone and peki
+  - heard: 2, 0, fire and peki
+  - heard: 2, 1, wind and soga
+  - heard: 2, 2, cloud and peki
+What is the word for cloud in generation 2?
+
+Answer with exactly one of: soga | tama | peki | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;cloud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: seed says reshi, stone says vune, wind says tama and cloud says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and tama
+  - heard: 1, 1, cloud and luko
+  - heard: 2, 0, wind and tama
+  - heard: 2, 1, stone and luko
+  - heard: 2, 2, cloud and luko
+  - heard: 3, 0, wind and tama
+  - heard: 3, 1, seed and luko
+  - heard: 3, 2, cloud and luko
+What is the word for seed in generation 3?
+
+Answer with exactly one of: vune | reshi | luko | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;seed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says luko, wind says reshi, fire says soga and seed says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, water and luko
+  - heard: 1, 1, seed and peki
+  - heard: 1, 2, fire and soga
+  - heard: 2, 0, fire and soga
+  - heard: 2, 1, water and luko
+  - heard: 3, 0, fire and soga
+  - heard: 3, 1, seed and luko
+What is the word for wind in generation 3?
+
+Answer with exactly one of: soga | luko | peki | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;wind&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: cloud says luko, fire says tama, stone says vune and water says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, stone and vune
+  - heard: 1, 1, cloud and luko
+  - heard: 2, 0, water and luko
+  - heard: 2, 1, fire and luko
+  - heard: 2, 2, cloud and luko
+  - heard: 3, 0, fire and luko
+  - heard: 3, 1, cloud and luko
+What is the word for stone in generation 3?
+
+Answer with exactly one of: vune | luko | tama | peki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;fire&quot;: &quot;tama&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;peki&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">peki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says peki, cloud says reshi, seed says soga and water says vune.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, water and vune
+  - heard: 1, 1, cloud and reshi
+  - heard: 1, 2, stone and peki
+  - heard: 2, 0, cloud and reshi
+  - heard: 2, 1, seed and peki
+  - heard: 3, 0, cloud and reshi
+  - heard: 3, 1, stone and peki
+  - heard: 3, 2, water and peki
+What is the word for seed in generation 3?
+
+Answer with exactly one of: soga | vune | peki | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;peki&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;vune&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;seed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says luko, wind says peki, water says vune and cloud says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, cloud and soga
+  - heard: 1, 1, stone and luko
+  - heard: 2, 0, water and luko
+  - heard: 2, 1, cloud and soga
+  - heard: 3, 0, water and luko
+  - heard: 3, 1, cloud and soga
+  - heard: 3, 2, wind and soga
+What is the word for stone in generation 3?
+
+Answer with exactly one of: peki | vune | soga | luko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;peki&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">vune</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says vune, water says tama, seed says luko and fire says reshi.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, fire and reshi
+  - heard: 1, 1, water and tama
+  - heard: 1, 2, stone and vune
+  - heard: 2, 0, fire and reshi
+  - heard: 2, 1, water and tama
+  - heard: 2, 2, seed and vune
+What is the word for seed in generation 2?
+
+Answer with exactly one of: tama | luko | vune | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 3,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;seed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says soga, cloud says vune, seed says peki and fire says reshi.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, cloud and vune
+  - heard: 1, 1, stone and soga
+  - heard: 1, 2, fire and reshi
+  - heard: 2, 0, fire and reshi
+  - heard: 2, 1, seed and reshi
+What is the word for stone in generation 2?
+
+Answer with exactly one of: reshi | peki | vune | soga
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;soga&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">peki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says reshi, fire says peki, wind says vune and cloud says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, stone and reshi
+  - heard: 1, 1, wind and vune
+  - heard: 1, 2, fire and peki
+  - heard: 2, 0, wind and vune
+  - heard: 2, 1, fire and peki
+  - heard: 2, 2, stone and reshi
+  - heard: 3, 0, stone and reshi
+  - heard: 3, 1, fire and peki
+What is the word for wind in generation 3?
+
+Answer with exactly one of: reshi | peki | vune | luko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;peki&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;vune&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;wind&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says vune, wind says tama, water says luko and seed says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, seed and soga
+  - heard: 1, 1, wind and tama
+  - heard: 1, 2, water and luko
+  - heard: 2, 0, seed and soga
+  - heard: 2, 1, water and luko
+  - heard: 2, 2, wind and tama
+  - heard: 3, 0, wind and tama
+  - heard: 3, 1, water and luko
+What is the word for stone in generation 3?
+
+Answer with exactly one of: luko | vune | soga | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;seed&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: cloud says tama, seed says peki, fire says reshi and water says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, water and luko
+  - heard: 1, 1, cloud and tama
+  - heard: 1, 2, fire and reshi
+  - heard: 2, 0, water and luko
+  - heard: 2, 1, seed and reshi
+What is the word for cloud in generation 2?
+
+Answer with exactly one of: peki | luko | reshi | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;cloud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says peki, cloud says soga, stone says luko and wind says vune.
+The rule is: unheard meaning takes last_heard_word.
+The transmission: heard: 1, 0, wind and vune; heard: 1, 1, cloud and soga; heard: 2, 0, wind and vune; heard: 2, 1, water and soga.
+What is the word for water in generation 2?
+
+Answer with exactly one of: soga | luko | peki | vune
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;vune&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;vune&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;water&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says soga, seed says tama, cloud says reshi and wind says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and luko
+  - heard: 1, 1, water and soga
+  - heard: 1, 2, cloud and reshi
+  - heard: 2, 0, wind and luko
+  - heard: 2, 1, water and soga
+  - heard: 3, 0, water and soga
+  - heard: 3, 1, wind and luko
+  - heard: 3, 2, seed and soga
+What is the word for cloud in generation 3?
+
+Answer with exactly one of: reshi | tama | soga | luko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;cloud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">tama</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says reshi, seed says vune, cloud says tama and fire says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, fire and peki
+  - heard: 1, 1, cloud and tama
+  - heard: 2, 0, fire and peki
+  - heard: 2, 1, water and tama
+  - heard: 2, 2, cloud and tama
+What is the word for seed in generation 2?
+
+Answer with exactly one of: tama | vune | peki | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;reshi&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;seed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">tama</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says soga, cloud says vune, water says reshi and wind says tama.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and tama
+  - heard: 1, 1, water and reshi
+  - heard: 1, 2, stone and soga
+  - heard: 2, 0, water and reshi
+  - heard: 2, 1, wind and tama
+What is the word for cloud in generation 2?
+
+Answer with exactly one of: tama | vune | reshi | soga
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;cloud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says tama, wind says luko, stone says vune and cloud says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and luko
+  - heard: 1, 1, stone and vune
+  - heard: 1, 2, cloud and soga
+  - heard: 2, 0, stone and vune
+  - heard: 2, 1, cloud and soga
+What is the word for wind in generation 2?
+
+Answer with exactly one of: tama | vune | luko | soga
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;fire&quot;: &quot;tama&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;wind&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">vune</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says vune, seed says peki, wind says reshi and cloud says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, cloud and luko
+  - heard: 1, 1, stone and vune
+  - heard: 2, 0, wind and vune
+  - heard: 2, 1, stone and vune
+  - heard: 2, 2, seed and vune
+  - heard: 3, 0, cloud and vune
+  - heard: 3, 1, wind and vune
+What is the word for seed in generation 3?
+
+Answer with exactly one of: peki | vune | reshi | luko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;seed&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;vune&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;seed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says reshi, fire says vune, cloud says peki and wind says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission: heard: 1, 0, cloud and peki; heard: 1, 1, stone and reshi; heard: 2, 0, wind and reshi; heard: 2, 1, stone and reshi.
+What is the word for cloud in generation 2?
+
+Answer with exactly one of: peki | soga | reshi | vune
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;cloud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">vune</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: cloud says soga, fire says vune, water says luko and wind says reshi.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, water and luko
+  - heard: 1, 1, fire and vune
+  - heard: 2, 0, wind and vune
+  - heard: 2, 1, water and luko
+  - heard: 2, 2, fire and vune
+  - heard: 3, 0, water and luko
+  - heard: 3, 1, cloud and vune
+  - heard: 3, 2, fire and vune
+What is the word for cloud in generation 3?
+
+Answer with exactly one of: reshi | vune | soga | luko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;vune&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;cloud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says vune, stone says soga, wind says peki and cloud says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and peki
+  - heard: 1, 1, stone and soga
+  - heard: 2, 0, fire and soga
+  - heard: 2, 1, cloud and soga
+  - heard: 3, 0, cloud and soga
+  - heard: 3, 1, stone and soga
+What is the word for wind in generation 3?
+
+Answer with exactly one of: peki | luko | vune | soga
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;peki&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;wind&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: seed says reshi, wind says tama, cloud says luko and fire says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and tama
+  - heard: 1, 1, seed and reshi
+  - heard: 1, 2, fire and peki
+  - heard: 2, 0, seed and reshi
+  - heard: 2, 1, fire and peki
+  - heard: 2, 2, wind and tama
+  - heard: 3, 0, cloud and tama
+  - heard: 3, 1, seed and reshi
+What is the word for wind in generation 3?
+
+Answer with exactly one of: luko | reshi | tama | peki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;wind&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says reshi, cloud says tama, fire says luko and water says vune.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, cloud and tama
+  - heard: 1, 1, fire and luko
+  - heard: 1, 2, stone and reshi
+  - heard: 2, 0, water and reshi
+  - heard: 2, 1, stone and reshi
+  - heard: 2, 2, cloud and tama
+What is the word for water in generation 2?
+
+Answer with exactly one of: vune | tama | reshi | luko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;fire&quot;: &quot;tama&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;water&quot;: &quot;reshi&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;water&quot;: &quot;vune&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;water&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">tama</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says reshi, water says tama, seed says soga and stone says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, seed and soga
+  - heard: 1, 1, water and tama
+  - heard: 2, 0, water and tama
+  - heard: 2, 1, stone and tama
+  - heard: 2, 2, seed and soga
+What is the word for stone in generation 2?
+
+Answer with exactly one of: soga | luko | reshi | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">peki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says reshi, seed says peki, fire says soga and cloud says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, cloud and luko
+  - heard: 1, 1, seed and peki
+  - heard: 2, 0, seed and peki
+  - heard: 2, 1, cloud and luko
+  - heard: 2, 2, water and peki
+What is the word for fire in generation 2?
+
+Answer with exactly one of: luko | peki | reshi | soga
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;peki&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;reshi&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;fire&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">vune</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says luko, cloud says reshi, fire says vune and wind says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, cloud and reshi
+  - heard: 1, 1, stone and luko
+  - heard: 1, 2, fire and vune
+  - heard: 2, 0, cloud and reshi
+  - heard: 2, 1, fire and vune
+  - heard: 2, 2, wind and vune
+What is the word for stone in generation 2?
+
+Answer with exactly one of: luko | vune | reshi | peki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;vune&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;peki&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says luko, wind says reshi, seed says tama and water says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, water and soga
+  - heard: 1, 1, fire and luko
+  - heard: 1, 2, wind and reshi
+  - heard: 2, 0, fire and luko
+  - heard: 2, 1, wind and reshi
+  - heard: 2, 2, seed and reshi
+  - heard: 3, 0, wind and reshi
+  - heard: 3, 1, water and reshi
+What is the word for seed in generation 3?
+
+Answer with exactly one of: tama | luko | soga | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;water&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;seed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">peki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: seed says peki, cloud says tama, wind says vune and water says reshi.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, water and reshi
+  - heard: 1, 1, seed and peki
+  - heard: 2, 0, cloud and peki
+  - heard: 2, 1, water and reshi
+  - heard: 2, 2, seed and peki
+  - heard: 3, 0, cloud and peki
+  - heard: 3, 1, wind and peki
+What is the word for wind in generation 3?
+
+Answer with exactly one of: reshi | vune | tama | peki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;peki&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;vune&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;wind&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">peki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says reshi, cloud says tama, seed says vune and fire says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, stone and reshi
+  - heard: 1, 1, fire and peki
+  - heard: 2, 0, fire and peki
+  - heard: 2, 1, seed and peki
+  - heard: 3, 0, cloud and peki
+  - heard: 3, 1, stone and peki
+What is the word for seed in generation 3?
+
+Answer with exactly one of: reshi | vune | peki | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;peki&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;seed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says luko, water says reshi, fire says soga and wind says tama.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, fire and soga
+  - heard: 1, 1, stone and luko
+  - heard: 1, 2, water and reshi
+  - heard: 2, 0, water and reshi
+  - heard: 2, 1, fire and soga
+What is the word for wind in generation 2?
+
+Answer with exactly one of: reshi | tama | soga | luko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;wind&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says soga, cloud says tama, fire says reshi and stone says vune.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, fire and reshi
+  - heard: 1, 1, water and soga
+  - heard: 1, 2, stone and vune
+  - heard: 2, 0, fire and reshi
+  - heard: 2, 1, water and soga
+What is the word for stone in generation 2?
+
+Answer with exactly one of: reshi | soga | vune | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;soga&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;soga&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says peki, cloud says soga, water says luko and seed says reshi.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, stone and peki
+  - heard: 1, 1, seed and reshi
+  - heard: 2, 0, stone and peki
+  - heard: 2, 1, seed and reshi
+  - heard: 2, 2, water and reshi
+  - heard: 3, 0, water and reshi
+  - heard: 3, 1, stone and peki
+  - heard: 3, 2, seed and reshi
+What is the word for water in generation 3?
+
+Answer with exactly one of: peki | soga | luko | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;reshi&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;water&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">vune</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says luko, seed says vune, stone says reshi and cloud says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, cloud and peki
+  - heard: 1, 1, seed and vune
+  - heard: 1, 2, stone and reshi
+  - heard: 2, 0, water and reshi
+  - heard: 2, 1, seed and vune
+What is the word for cloud in generation 2?
+
+Answer with exactly one of: luko | reshi | peki | vune
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;seed&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;reshi&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;cloud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">tama</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: wind says tama, seed says peki, stone says soga and cloud says vune.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, stone and soga
+  - heard: 1, 1, seed and peki
+  - heard: 1, 2, wind and tama
+  - heard: 2, 0, seed and peki
+  - heard: 2, 1, cloud and tama
+What is the word for stone in generation 2?
+
+Answer with exactly one of: peki | tama | soga | vune
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says soga, fire says tama, cloud says reshi and water says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, cloud and reshi
+  - heard: 1, 1, water and luko
+  - heard: 2, 0, cloud and reshi
+  - heard: 2, 1, water and luko
+  - heard: 3, 0, stone and luko
+  - heard: 3, 1, cloud and reshi
+  - heard: 3, 2, water and luko
+What is the word for fire in generation 3?
+
+Answer with exactly one of: soga | reshi | tama | luko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;fire&quot;: &quot;tama&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;fire&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says peki, cloud says vune, seed says reshi and wind says tama.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, fire and peki
+  - heard: 1, 1, seed and reshi
+  - heard: 2, 0, fire and peki
+  - heard: 2, 1, seed and reshi
+  - heard: 2, 2, wind and reshi
+What is the word for wind in generation 2?
+
+Answer with exactly one of: tama | peki | vune | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;wind&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">tama</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says peki, water says soga, fire says reshi and wind says tama.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and tama
+  - heard: 1, 1, stone and peki
+  - heard: 2, 0, wind and tama
+  - heard: 2, 1, stone and peki
+  - heard: 2, 2, water and peki
+  - heard: 3, 0, stone and peki
+  - heard: 3, 1, wind and tama
+What is the word for water in generation 3?
+
+Answer with exactly one of: reshi | soga | tama | peki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;tama&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;tama&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;water&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">vune</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says luko, seed says soga, fire says vune and wind says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, seed and soga
+  - heard: 1, 1, water and luko
+  - heard: 1, 2, fire and vune
+  - heard: 2, 0, seed and soga
+  - heard: 2, 1, fire and vune
+What is the word for wind in generation 2?
+
+Answer with exactly one of: soga | luko | vune | peki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;vune&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;peki&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;wind&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: cloud says vune, stone says reshi, seed says soga and fire says tama.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, seed and soga
+  - heard: 1, 1, cloud and vune
+  - heard: 1, 2, stone and reshi
+  - heard: 2, 0, seed and soga
+  - heard: 2, 1, stone and reshi
+  - heard: 3, 0, seed and soga
+  - heard: 3, 1, cloud and reshi
+  - heard: 3, 2, fire and reshi
+What is the word for cloud in generation 3?
+
+Answer with exactly one of: vune | reshi | soga | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;vune&quot;,
+  &quot;fire&quot;: &quot;tama&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;cloud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">vune</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: seed says vune, water says reshi, fire says soga and wind says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, seed and vune
+  - heard: 1, 1, wind and peki
+  - heard: 1, 2, water and reshi
+  - heard: 2, 0, fire and reshi
+  - heard: 2, 1, seed and vune
+What is the word for wind in generation 2?
+
+Answer with exactly one of: vune | peki | reshi | soga
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;vune&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;peki&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;wind&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says peki, cloud says soga, water says tama and fire says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, fire and luko
+  - heard: 1, 1, stone and peki
+  - heard: 2, 0, cloud and peki
+  - heard: 2, 1, stone and peki
+  - heard: 2, 2, fire and luko
+  - heard: 3, 0, stone and peki
+  - heard: 3, 1, water and luko
+What is the word for cloud in generation 3?
+
+Answer with exactly one of: peki | luko | soga | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;tama&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;cloud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: seed says tama, fire says reshi, wind says vune and stone says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, fire and reshi
+  - heard: 1, 1, stone and luko
+  - heard: 2, 0, stone and luko
+  - heard: 2, 1, fire and reshi
+  - heard: 3, 0, fire and reshi
+  - heard: 3, 1, wind and reshi
+What is the word for wind in generation 3?
+
+Answer with exactly one of: vune | luko | tama | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;tama&quot;,
+  &quot;stone&quot;: &quot;luko&quot;,
+  &quot;wind&quot;: &quot;vune&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;wind&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says soga, cloud says reshi, stone says vune and water says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, water and peki
+  - heard: 1, 1, fire and soga
+  - heard: 1, 2, cloud and reshi
+  - heard: 2, 0, water and peki
+  - heard: 2, 1, cloud and reshi
+  - heard: 3, 0, cloud and reshi
+  - heard: 3, 1, stone and reshi
+  - heard: 3, 2, water and peki
+What is the word for stone in generation 3?
+
+Answer with exactly one of: soga | vune | reshi | peki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;reshi&quot;,
+  &quot;water&quot;: &quot;peki&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;peki&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">vune</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says soga, seed says luko, water says vune and stone says peki.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, fire and soga
+  - heard: 1, 1, water and vune
+  - heard: 2, 0, fire and soga
+  - heard: 2, 1, stone and vune
+  - heard: 2, 2, water and vune
+  - heard: 3, 0, water and vune
+  - heard: 3, 1, stone and vune
+What is the word for fire in generation 3?
+
+Answer with exactly one of: soga | luko | vune | peki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;seed&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;vune&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;vune&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;fire&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: stone says vune, cloud says tama, seed says peki and wind says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission: heard: 1, 0, seed and peki; heard: 1, 1, wind and soga; heard: 2, 0, wind and soga; heard: 2, 1, cloud and soga.
+What is the word for stone in generation 2?
+
+Answer with exactly one of: peki | soga | vune | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;seed&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">luko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: cloud says tama, seed says reshi, fire says soga and stone says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, seed and reshi
+  - heard: 1, 1, stone and luko
+  - heard: 2, 0, fire and luko
+  - heard: 2, 1, cloud and luko
+  - heard: 3, 0, stone and luko
+  - heard: 3, 1, fire and luko
+What is the word for fire in generation 3?
+
+Answer with exactly one of: soga | reshi | tama | luko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;fire&quot;: &quot;luko&quot;,
+  &quot;seed&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;stone&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;fire&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: wind says soga, fire says tama, water says vune and seed says reshi.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, seed and reshi
+  - heard: 1, 1, wind and soga
+  - heard: 1, 2, water and vune
+  - heard: 2, 0, fire and vune
+  - heard: 2, 1, wind and soga
+  - heard: 2, 2, water and vune
+  - heard: 3, 0, seed and vune
+  - heard: 3, 1, wind and soga
+What is the word for fire in generation 3?
+
+Answer with exactly one of: tama | reshi | soga | vune
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;tama&quot;,
+  &quot;seed&quot;: &quot;reshi&quot;,
+  &quot;water&quot;: &quot;vune&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;fire&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">reshi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: cloud says reshi, water says soga, seed says tama and wind says luko.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, wind and luko
+  - heard: 1, 1, cloud and reshi
+  - heard: 2, 0, cloud and reshi
+  - heard: 2, 1, water and reshi
+  - heard: 2, 2, wind and luko
+What is the word for water in generation 2?
+
+Answer with exactly one of: soga | tama | luko | reshi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;luko&quot;,
+  &quot;water&quot;: &quot;reshi&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;reshi&quot;,
+  &quot;seed&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;water&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says peki, wind says reshi, cloud says soga and stone says tama.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, stone and tama
+  - heard: 1, 1, cloud and soga
+  - heard: 2, 0, stone and tama
+  - heard: 2, 1, fire and soga
+  - heard: 2, 2, wind and soga
+What is the word for wind in generation 2?
+
+Answer with exactly one of: tama | soga | reshi | peki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 2,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;wind&quot;: &quot;reshi&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;wind&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">peki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: fire says vune, stone says soga, water says peki and cloud says tama.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, cloud and tama
+  - heard: 1, 1, fire and vune
+  - heard: 1, 2, water and peki
+  - heard: 2, 0, cloud and tama
+  - heard: 2, 1, water and peki
+  - heard: 2, 2, stone and peki
+  - heard: 3, 0, stone and peki
+  - heard: 3, 1, water and peki
+  - heard: 3, 2, fire and peki
+What is the word for stone in generation 3?
+
+Answer with exactly one of: vune | peki | soga | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;peki&quot;,
+  &quot;fire&quot;: &quot;peki&quot;,
+  &quot;stone&quot;: &quot;peki&quot;,
+  &quot;water&quot;: &quot;peki&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;tama&quot;,
+  &quot;fire&quot;: &quot;vune&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;peki&quot;
+ },
+ &quot;generations&quot;: 3,
+ &quot;meaning&quot;: &quot;stone&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">tama</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: water says luko, seed says tama, stone says vune and fire says soga.
+The rule is: unheard meaning takes last_heard_word.
+The transmission:
+  - heard: 1, 0, fire and soga
+  - heard: 1, 1, seed and tama
+  - heard: 2, 0, seed and tama
+  - heard: 2, 1, water and tama
+  - heard: 2, 2, stone and tama
+What is the word for fire in generation 2?
+
+Answer with exactly one of: luko | vune | soga | tama
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;fire&quot;: &quot;tama&quot;,
+  &quot;seed&quot;: &quot;tama&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;tama&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;fire&quot;: &quot;soga&quot;,
+  &quot;seed&quot;: &quot;tama&quot;,
+  &quot;stone&quot;: &quot;vune&quot;,
+  &quot;water&quot;: &quot;luko&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;fire&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">soga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The founder lexicon: wind says soga, cloud says luko, water says peki and stone says tama.
+The rule is: unheard meaning takes last_heard_word.
+The transmission: heard: 1, 0, cloud and luko; heard: 1, 1, wind and soga; heard: 2, 0, water and soga; heard: 2, 1, wind and soga.
+What is the word for water in generation 2?
+
+Answer with exactly one of: peki | luko | tama | soga
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;distinct_words_left&quot;: 1,
+ &quot;final_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;soga&quot;,
+  &quot;stone&quot;: &quot;soga&quot;,
+  &quot;water&quot;: &quot;soga&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;founder_lexicon&quot;: {
+  &quot;cloud&quot;: &quot;luko&quot;,
+  &quot;stone&quot;: &quot;tama&quot;,
+  &quot;water&quot;: &quot;peki&quot;,
+  &quot;wind&quot;: &quot;soga&quot;
+ },
+ &quot;generations&quot;: 2,
+ &quot;meaning&quot;: &quot;water&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

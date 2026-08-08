@@ -1,0 +1,5915 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>proof_compression — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#vii">mathematics and formal reasoning</a> &rsaquo;
+  proof_compression</p>
+<h1>#85 <code>proof_compression</code></h1>
+<p class="lede">factoring a repeated subproof out of a long derivation</p>
+<div class="tags"><span class="tag ">level 85</span><span class="tag ">section vii</span><span class="tag ">abstraction</span><span class="tag ">proof_structure</span><span class="tag ">cost_reasoning</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.01</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Two goals are proved by one long flat derivation with repeated subproofs.</p><p>    Factoring a shared subproof out as a named lemma pays its cost once instead
+    of once per use; the answer is the proposition whose abstraction shortens the
+    *total* derivation the most, with ties rejected. This is proof structure, not
+    proof validity: every candidate is already true.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>4</td></tr><tr><td>discourse_horizon</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>5</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The axioms are: fact pobi, fact rite and fact sopi.
+The candidates are: k0 abstraction pite, k1 abstraction dumu, k2 abstraction davi and k3 abstraction seme.
+The derivation:
+  - step 0: sopi given nothing
+  - step 1: dumu tone (sopi)
+  - step 2: zugi ziza (dumu)
+  - step 3: sopi given nothing
+  - step 4: dumu tone (sopi)
+  - step 5: zugi ziza (dumu)
+  - step 6: davi kuke (zugi)
+  - step 7: rudi diso (zugi, davi)
+  - step 8: sopi given nothing
+  - step 9: dumu tone (sopi)
+  - step 10: zugi ziza (dumu)
+The goals are: rudi and zugi.
+The rules are:
+  - rule ziza: zugi if (dumu)
+  - rule tone: dumu if (sopi)
+  - rule diso: rudi if (zugi, davi)
+  - rule zasi: pite if (zugi, davi)
+  - rule disi: rudi if (davi, zugi)
+  - rule kuke: davi if (zugi)
+  - rule gura: davi if (seme, zugi)
+  - rule doza: dumu if (sopi, seme)
+  - rule masa: seme if (pobi, rite)
+  - rule soru: seme if (pobi, sopi)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: dumu | davi | seme | pite
+Reply with the answer only.</pre><h3>spanish</h3><pre>Los axiomas son: el hecho: pobi; el hecho: rite; el hecho: sopi.
+Los candidatos son: k0 la abstracción pite, k1 la abstracción dumu, k2 la abstracción davi y k3 la abstracción seme.
+La derivación es:
+  - paso 0: sopi given nothing
+  - paso 1: dumu tone (sopi)
+  - paso 2: zugi ziza (dumu)
+  - paso 3: sopi given nothing
+  - paso 4: dumu tone (sopi)
+  - paso 5: zugi ziza (dumu)
+  - paso 6: davi kuke (zugi)
+  - paso 7: rudi diso (zugi, davi)
+  - paso 8: sopi given nothing
+  - paso 9: dumu tone (sopi)
+  - paso 10: zugi ziza (dumu)
+Los objetivos son: rudi y zugi.
+Las reglas son:
+  - regla ziza: zugi si (dumu)
+  - regla tone: dumu si (sopi)
+  - regla diso: rudi si (zugi, davi)
+  - regla zasi: pite si (zugi, davi)
+  - regla disi: rudi si (davi, zugi)
+  - regla kuke: davi si (zugi)
+  - regla gura: davi si (seme, zugi)
+  - regla doza: dumu si (sopi, seme)
+  - regla masa: seme si (pobi, rite)
+  - regla soru: seme si (pobi, sopi)
+¿Qué lema comprime más la derivación?
+
+Responde exactamente con una de estas opciones: dumu | davi | seme | pite
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>公理如下：事实：pobi；事实：rite；事实：sopi。
+候选项如下：k0的抽象是pite；k1的抽象是dumu；k2的抽象是davi；k3的抽象是seme。
+推导如下：
+  - 第0步：sopigivennothing
+  - 第1步：dumutone(sopi)
+  - 第2步：zugiziza(dumu)
+  - 第3步：sopigivennothing
+  - 第4步：dumutone(sopi)
+  - 第5步：zugiziza(dumu)
+  - 第6步：davikuke(zugi)
+  - 第7步：rudidiso(zugi，davi)
+  - 第8步：sopigivennothing
+  - 第9步：dumutone(sopi)
+  - 第10步：zugiziza(dumu)
+目标如下：rudi和zugi。
+规则如下：
+  - 规则ziza：若(dumu)则zugi
+  - 规则tone：若(sopi)则dumu
+  - 规则diso：若(zugi，davi)则rudi
+  - 规则zasi：若(zugi，davi)则pite
+  - 规则disi：若(davi，zugi)则rudi
+  - 规则kuke：若(zugi)则davi
+  - 规则gura：若(seme，zugi)则davi
+  - 规则doza：若(sopi，seme)则dumu
+  - 规则masa：若(pobi，rite)则seme
+  - 规则soru：若(pobi，sopi)则seme
+哪一条引理最能压缩推导？
+
+请从以下选项中选出恰好一个作答：dumu | davi | seme | pite
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The axioms are: fact pobi, fact rite and fact sopi.
+The candidates are: k0 abstraction pite, k1 abstraction dumu, k2 abstraction davi and k3 abstraction seme.
+The derivation:
+  - step 0: sopi given nothing
+  - step 1: dumu tone (sopi)
+  - step 2: zugi ziza (dumu)
+  - step 3: sopi given nothing
+  - step 4: dumu tone (sopi)
+  - step 5: zugi ziza (dumu)
+  - step 6: davi kuke (zugi)
+  - step 7: rudi diso (zugi, davi)
+  - step 8: sopi given nothing
+  - step 9: dumu tone (sopi)
+  - step 10: zugi ziza (dumu)
+The goals are: rudi and zugi.
+The rules are:
+  - rule ziza: zugi if (dumu)
+  - rule tone: dumu if (sopi)
+  - rule diso: rudi if (zugi, davi)
+  - rule zasi: pite if (zugi, davi)
+  - rule disi: rudi if (davi, zugi)
+  - rule kuke: davi if (zugi)
+  - rule gura: davi if (seme, zugi)
+  - rule doza: dumu if (sopi, seme)
+  - rule masa: seme if (pobi, rite)
+  - rule soru: seme if (pobi, sopi)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: dumu | davi | seme | pite
+Reply with the answer only.</pre><h3>symbols</h3><pre>{axioms: [(fact pobi) (fact rite) (fact sopi)], candidates: [(abstraction k0 pite) (abstraction k1 dumu) (abstraction k2 davi) (abstraction k3 seme)], derivation: [(step 0 sopi given []) (step 1 dumu tone [sopi]) (step 2 zugi ziza [dumu]) (step 3 sopi given []) (step 4 dumu tone [sopi]) (step 5 zugi ziza [dumu]) (step 6 davi kuke [zugi]) (step 7 rudi diso [zugi davi]) (step 8 sopi given []) (step 9 dumu tone [sopi]) (step 10 zugi ziza [dumu])], goals: [rudi zugi], query: lemma_that_most_compresses_the_derivation, rules: [(rule ziza zugi [dumu]) (rule tone dumu [sopi]) (rule diso rudi [zugi davi]) (rule zasi pite [zugi davi]) (rule disi rudi [davi zugi]) (rule kuke davi [zugi]) (rule gura davi [seme zugi]) (rule doza dumu [sopi seme]) (rule masa seme [pobi rite]) (rule soru seme [pobi sopi])]}
+
+Answer with exactly one of: dumu | davi | seme | pite
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/proof_compression.jsonl</code> &middot; <code>data/samples/spanish/proof_compression.jsonl</code> &middot; <code>data/samples/chinese/proof_compression.jsonl</code> &middot; <code>data/samples/english_synonym/proof_compression.jsonl</code> &middot; <code>data/samples/symbols/proof_compression.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">dumu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact pobi, fact rite and fact sopi.
+The candidates are: k0 abstraction pite, k1 abstraction dumu, k2 abstraction davi and k3 abstraction seme.
+The derivation:
+  - step 0: sopi given nothing
+  - step 1: dumu tone (sopi)
+  - step 2: zugi ziza (dumu)
+  - step 3: sopi given nothing
+  - step 4: dumu tone (sopi)
+  - step 5: zugi ziza (dumu)
+  - step 6: davi kuke (zugi)
+  - step 7: rudi diso (zugi, davi)
+  - step 8: sopi given nothing
+  - step 9: dumu tone (sopi)
+  - step 10: zugi ziza (dumu)
+The goals are: rudi and zugi.
+The rules are:
+  - rule ziza: zugi if (dumu)
+  - rule tone: dumu if (sopi)
+  - rule diso: rudi if (zugi, davi)
+  - rule zasi: pite if (zugi, davi)
+  - rule disi: rudi if (davi, zugi)
+  - rule kuke: davi if (zugi)
+  - rule gura: davi if (seme, zugi)
+  - rule doza: dumu if (sopi, seme)
+  - rule masa: seme if (pobi, rite)
+  - rule soru: seme if (pobi, sopi)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: dumu | davi | seme | pite
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 8,
+ &quot;derivation_length&quot;: 11,
+ &quot;goals&quot;: [
+  &quot;rudi&quot;,
+  &quot;zugi&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  -1,
+  -6,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">tazo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact voka, fact gudi and fact doro.
+The candidates are: k0 abstraction tazo, k1 abstraction rapo, k2 abstraction vubo and k3 abstraction naba.
+The derivation:
+  - step 0: voka given nothing
+  - step 1: voka given nothing
+  - step 2: rapo sero (voka)
+  - step 3: doro given nothing
+  - step 4: tazo sene (rapo, doro)
+  - step 5: meta bosa (voka, tazo)
+  - step 6: voka given nothing
+  - step 7: rapo sero (voka)
+  - step 8: doro given nothing
+  - step 9: tazo sene (rapo, doro)
+  - step 10: vubo vemi (meta, tazo)
+  - step 11: vepa toso (vubo)
+  - step 12: voka given nothing
+  - step 13: voka given nothing
+  - step 14: rapo sero (voka)
+  - step 15: doro given nothing
+  - step 16: tazo sene (rapo, doro)
+  - step 17: meta bosa (voka, tazo)
+The goals are: vepa and meta.
+The rules are:
+  - rule vemi: vubo if (meta, tazo)
+  - rule toso: vepa if (vubo)
+  - rule veri: tazo if (voka, rapo)
+  - rule sene: tazo if (rapo, doro)
+  - rule sero: rapo if (voka)
+  - rule gidi: naba if (meta, rapo)
+  - rule bosa: meta if (voka, tazo)
+  - rule zupu: vubo if (naba, meta)
+  - rule tare: vepa if (meta, vubo)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: vubo | naba | tazo | rapo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 10,
+ &quot;derivation_length&quot;: 18,
+ &quot;goals&quot;: [
+  &quot;vepa&quot;,
+  &quot;meta&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  4,
+  2,
+  -3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">retu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact vona, fact mima and fact sati.
+The candidates are: k0 abstraction rapo, k1 abstraction retu, k2 abstraction voda and k3 abstraction meva.
+The derivation:
+  - step 0: mima given nothing
+  - step 1: vona given nothing
+  - step 2: voda koka (mima, vona)
+  - step 3: sati given nothing
+  - step 4: meva tipo (voda, sati)
+  - step 5: mima given nothing
+  - step 6: rapo gipa (mima)
+  - step 7: retu tivo (meva, rapo)
+  - step 8: mima given nothing
+  - step 9: rapo gipa (mima)
+  - step 10: dama kabu (retu, rapo)
+  - step 11: mima given nothing
+  - step 12: vona given nothing
+  - step 13: voda koka (mima, vona)
+  - step 14: sati given nothing
+  - step 15: meva tipo (voda, sati)
+  - step 16: mima given nothing
+  - step 17: rapo gipa (mima)
+  - step 18: retu tivo (meva, rapo)
+  - step 19: mima given nothing
+  - step 20: rapo gipa (mima)
+  - step 21: niza vobo (retu, rapo)
+The goals are: dama and niza.
+The rules are:
+  - rule tipo: meva if (voda, sati)
+  - rule tivo: retu if (meva, rapo)
+  - rule mire: niza if (retu, rapo)
+  - rule kabu: dama if (retu, rapo)
+  - rule koka: voda if (mima, vona)
+  - rule vobo: niza if (retu, rapo)
+  - rule mada: rapo if (meva)
+  - rule gipa: rapo if (mima)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: retu | rapo | voda | meva
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 12,
+ &quot;derivation_length&quot;: 22,
+ &quot;goals&quot;: [
+  &quot;dama&quot;,
+  &quot;niza&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  3,
+  4,
+  1
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">rove</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact dubo, fact kuse and fact nuru.
+The candidates are: k0 abstraction muke, k1 abstraction zosu, k2 abstraction zava and k3 abstraction rove.
+The derivation:
+  - step 0: kuse given nothing
+  - step 1: nuru given nothing
+  - step 2: muke biru (kuse, nuru)
+  - step 3: nuru given nothing
+  - step 4: dubo given nothing
+  - step 5: zosu pure (nuru, dubo)
+  - step 6: rove nabe (muke, zosu)
+  - step 7: kuse given nothing
+  - step 8: nuru given nothing
+  - step 9: muke biru (kuse, nuru)
+  - step 10: keso remo (rove, muke)
+  - step 11: nuru given nothing
+  - step 12: dubo given nothing
+  - step 13: zosu pure (nuru, dubo)
+  - step 14: kuse given nothing
+  - step 15: nuru given nothing
+  - step 16: muke biru (kuse, nuru)
+  - step 17: nuru given nothing
+  - step 18: dubo given nothing
+  - step 19: zosu pure (nuru, dubo)
+  - step 20: rove nabe (muke, zosu)
+  - step 21: zava punu (zosu, rove)
+  - step 22: kuse given nothing
+  - step 23: nuru given nothing
+  - step 24: muke biru (kuse, nuru)
+  - step 25: nuru given nothing
+  - step 26: dubo given nothing
+  - step 27: zosu pure (nuru, dubo)
+  - step 28: rove nabe (muke, zosu)
+  - step 29: gubi tote (zava, rove)
+The goals are: keso and gubi.
+The rules are:
+  - rule zozo: muke if (nuru)
+  - rule biru: muke if (kuse, nuru)
+  - rule pure: zosu if (nuru, dubo)
+  - rule vipu: zava if (rove, keso)
+  - rule remo: keso if (rove, muke)
+  - rule tote: gubi if (zava, rove)
+  - rule nabe: rove if (muke, zosu)
+  - rule punu: zava if (zosu, rove)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: rove | muke | zosu | zava
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 14,
+ &quot;derivation_length&quot;: 30,
+ &quot;goals&quot;: [
+  &quot;keso&quot;,
+  &quot;gubi&quot;
+ ],
+ &quot;savings&quot;: [
+  6,
+  0,
+  3,
+  3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">zudo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact tido, fact kevu and fact pesa.
+The candidates are: k0 abstraction rada, k1 abstraction bidu, k2 abstraction nuru and k3 abstraction zudo.
+The derivation:
+  - step 0: kevu given nothing
+  - step 1: tido given nothing
+  - step 2: nuru duro (kevu, tido)
+  - step 3: rada roda (nuru)
+  - step 4: kevu given nothing
+  - step 5: tido given nothing
+  - step 6: nuru duro (kevu, tido)
+  - step 7: zudo dunu (rada, nuru)
+  - step 8: site pozo (zudo)
+  - step 9: kevu given nothing
+  - step 10: tido given nothing
+  - step 11: nuru duro (kevu, tido)
+  - step 12: rada roda (nuru)
+  - step 13: kevu given nothing
+  - step 14: tido given nothing
+  - step 15: nuru duro (kevu, tido)
+  - step 16: zudo dunu (rada, nuru)
+  - step 17: bidu gige (zudo)
+  - step 18: kevu given nothing
+  - step 19: tido given nothing
+  - step 20: nuru duro (kevu, tido)
+  - step 21: rada roda (nuru)
+  - step 22: kevu given nothing
+  - step 23: tido given nothing
+  - step 24: nuru duro (kevu, tido)
+  - step 25: zudo dunu (rada, nuru)
+  - step 26: bina zeno (bidu, zudo)
+The goals are: site and bina.
+The rules are:
+  - rule kipe: nuru if (pesa, kevu)
+  - rule dunu: zudo if (rada, nuru)
+  - rule rodu: bidu if (zudo, site)
+  - rule zeno: bina if (bidu, zudo)
+  - rule pozo: site if (zudo)
+  - rule duro: nuru if (kevu, tido)
+  - rule gige: bidu if (zudo)
+  - rule roda: rada if (nuru)
+  - rule devi: site if (zudo, rada)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: bidu | zudo | rada | nuru
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 15,
+ &quot;derivation_length&quot;: 27,
+ &quot;goals&quot;: [
+  &quot;site&quot;,
+  &quot;bina&quot;
+ ],
+ &quot;savings&quot;: [
+  8,
+  5,
+  4,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">gaga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact guru, fact vare and fact veke.
+The candidates are: k0 abstraction gaga, k1 abstraction sapo, k2 abstraction nere and k3 abstraction duke.
+The derivation:
+  - step 0: guru given nothing
+  - step 1: veke given nothing
+  - step 2: gaga pipa (guru, veke)
+  - step 3: novu noge (gaga)
+  - step 4: veke given nothing
+  - step 5: nere suma (veke)
+  - step 6: vare given nothing
+  - step 7: guru given nothing
+  - step 8: veke given nothing
+  - step 9: gaga pipa (guru, veke)
+  - step 10: sapo tine (vare, gaga)
+  - step 11: duke keta (nere, sapo)
+  - step 12: guru given nothing
+  - step 13: veke given nothing
+  - step 14: gaga pipa (guru, veke)
+  - step 15: novu noge (gaga)
+  - step 16: zibi napa (duke, novu)
+The goals are: novu and zibi.
+The rules are:
+  - rule noge: novu if (gaga)
+  - rule potu: sapo if (gaga)
+  - rule musi: nere if (vare, gaga)
+  - rule tine: sapo if (vare, gaga)
+  - rule suma: nere if (veke)
+  - rule keta: duke if (nere, sapo)
+  - rule pipa: gaga if (guru, veke)
+  - rule zuna: gaga if (vare, veke)
+  - rule toto: novu if (gaga, nere)
+  - rule napa: zibi if (duke, novu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: sapo | gaga | duke | nere
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 17,
+ &quot;goals&quot;: [
+  &quot;novu&quot;,
+  &quot;zibi&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  0,
+  0,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">numo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact diti, fact kiso and fact gabu.
+The candidates are: k0 abstraction tovo, k1 abstraction nive, k2 abstraction numo and k3 abstraction puri.
+The derivation:
+  - step 0: diti given nothing
+  - step 1: kiso given nothing
+  - step 2: numo tozu (diti, kiso)
+  - step 3: diti given nothing
+  - step 4: puri mivo (numo, diti)
+  - step 5: diti given nothing
+  - step 6: kiso given nothing
+  - step 7: numo tozu (diti, kiso)
+  - step 8: tovo remu (puri, numo)
+  - step 9: diti given nothing
+  - step 10: kiso given nothing
+  - step 11: numo tozu (diti, kiso)
+  - step 12: rezo gatu (numo)
+  - step 13: rivo dino (tovo, rezo)
+  - step 14: diti given nothing
+  - step 15: kiso given nothing
+  - step 16: numo tozu (diti, kiso)
+  - step 17: rezo gatu (numo)
+The goals are: rivo and rezo.
+The rules are:
+  - rule take: rivo if (tovo, puri)
+  - rule bura: rezo if (numo, tovo)
+  - rule mubo: nive if (rezo)
+  - rule gatu: rezo if (numo)
+  - rule remu: tovo if (puri, numo)
+  - rule mivo: puri if (numo, diti)
+  - rule dino: rivo if (tovo, rezo)
+  - rule tozu: numo if (diti, kiso)
+  - rule sodo: nive if (tovo, rivo)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: tovo | puri | numo | nive
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 18,
+ &quot;goals&quot;: [
+  &quot;rivo&quot;,
+  &quot;rezo&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  2,
+  -3,
+  3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">gopu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact meze, fact dobe and fact pora.
+The candidates are: k0 abstraction mono, k1 abstraction geve, k2 abstraction gopu and k3 abstraction mepu.
+The derivation:
+  - step 0: pora given nothing
+  - step 1: gopu mibe (pora)
+  - step 2: kede dovo (gopu)
+  - step 3: pora given nothing
+  - step 4: gopu mibe (pora)
+  - step 5: kede dovo (gopu)
+  - step 6: pora given nothing
+  - step 7: mepu tigu (pora)
+  - step 8: pora given nothing
+  - step 9: gopu mibe (pora)
+  - step 10: pora given nothing
+  - step 11: mepu tigu (pora)
+  - step 12: mono popo (gopu, mepu)
+  - step 13: geve redi (mepu, mono)
+  - step 14: bote tada (kede, geve)
+The goals are: kede and bote.
+The rules are:
+  - rule tada: bote if (kede, geve)
+  - rule bede: kede if (gopu, mepu)
+  - rule punu: gopu if (dobe, pora)
+  - rule popo: mono if (gopu, mepu)
+  - rule mibe: gopu if (pora)
+  - rule dovo: kede if (gopu)
+  - rule tigu: mepu if (pora)
+  - rule redi: geve if (mepu, mono)
+  - rule taru: mepu if (pora, meze)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: mepu | geve | mono | gopu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 10,
+ &quot;derivation_length&quot;: 15,
+ &quot;goals&quot;: [
+  &quot;kede&quot;,
+  &quot;bote&quot;
+ ],
+ &quot;savings&quot;: [
+  1,
+  0,
+  0,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">vasu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact topo, fact dudi and fact zaba.
+The candidates are: k0 abstraction vasu, k1 abstraction neso, k2 abstraction kagi and k3 abstraction pudi.
+The derivation:
+  - step 0: zaba given nothing
+  - step 1: dudi given nothing
+  - step 2: topo given nothing
+  - step 3: vasu voka (dudi, topo)
+  - step 4: neso tate (zaba, vasu)
+  - step 5: dudi given nothing
+  - step 6: topo given nothing
+  - step 7: vasu voka (dudi, topo)
+  - step 8: zeta gipo (neso, vasu)
+  - step 9: zaba given nothing
+  - step 10: dudi given nothing
+  - step 11: topo given nothing
+  - step 12: vasu voka (dudi, topo)
+  - step 13: neso tate (zaba, vasu)
+  - step 14: dudi given nothing
+  - step 15: topo given nothing
+  - step 16: vasu voka (dudi, topo)
+  - step 17: kagi daku (neso, vasu)
+  - step 18: nina zosa (kagi)
+The goals are: zeta and nina.
+The rules are:
+  - rule voka: vasu if (dudi, topo)
+  - rule tate: neso if (zaba, vasu)
+  - rule daku: kagi if (neso, vasu)
+  - rule gipo: zeta if (neso, vasu)
+  - rule kore: pudi if (zeta, kagi)
+  - rule zosa: nina if (kagi)
+  - rule zove: nina if (pudi, kagi)
+  - rule padu: pudi if (kagi)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: kagi | vasu | pudi | neso
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 19,
+ &quot;goals&quot;: [
+  &quot;zeta&quot;,
+  &quot;nina&quot;
+ ],
+ &quot;savings&quot;: [
+  -5,
+  2,
+  0,
+  3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">pedo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact nami, fact keri and fact duba.
+The candidates are: k0 abstraction neta, k1 abstraction pupo, k2 abstraction gigi and k3 abstraction pedo.
+The derivation:
+  - step 0: duba given nothing
+  - step 1: nami given nothing
+  - step 2: neta komu (duba, nami)
+  - step 3: nami given nothing
+  - step 4: duba given nothing
+  - step 5: pupo gate (nami, duba)
+  - step 6: pedo bime (neta, pupo)
+  - step 7: sisi duma (pedo)
+  - step 8: duba given nothing
+  - step 9: nami given nothing
+  - step 10: neta komu (duba, nami)
+  - step 11: nami given nothing
+  - step 12: duba given nothing
+  - step 13: pupo gate (nami, duba)
+  - step 14: pedo bime (neta, pupo)
+  - step 15: duba given nothing
+  - step 16: nami given nothing
+  - step 17: neta komu (duba, nami)
+  - step 18: nami given nothing
+  - step 19: duba given nothing
+  - step 20: pupo gate (nami, duba)
+  - step 21: pedo bime (neta, pupo)
+  - step 22: sisi duma (pedo)
+  - step 23: bagi rida (pedo, sisi)
+The goals are: sisi and bagi.
+The rules are:
+  - rule bime: pedo if (neta, pupo)
+  - rule komu: neta if (duba, nami)
+  - rule rume: sisi if (pedo, pupo)
+  - rule duma: sisi if (pedo)
+  - rule gitu: bagi if (gigi, pedo)
+  - rule zupu: gigi if (sisi, pedo)
+  - rule gate: pupo if (nami, duba)
+  - rule babo: neta if (pupo, duba)
+  - rule rida: bagi if (pedo, sisi)
+  - rule dore: gigi if (neta, sisi)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: pedo | gigi | pupo | neta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 12,
+ &quot;derivation_length&quot;: 24,
+ &quot;goals&quot;: [
+  &quot;sisi&quot;,
+  &quot;bagi&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  -2,
+  6,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">baru</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact tode, fact puti and fact rope.
+The candidates are: k0 abstraction baru, k1 abstraction sodo, k2 abstraction sore and k3 abstraction dana.
+The derivation:
+  - step 0: puti given nothing
+  - step 1: rope given nothing
+  - step 2: sodo vuse (puti, rope)
+  - step 3: rope given nothing
+  - step 4: puti given nothing
+  - step 5: sore soni (rope, puti)
+  - step 6: baru zenu (sodo, sore)
+  - step 7: puti given nothing
+  - step 8: rope given nothing
+  - step 9: sodo vuse (puti, rope)
+  - step 10: rope given nothing
+  - step 11: puti given nothing
+  - step 12: sore soni (rope, puti)
+  - step 13: dana toba (sodo, sore)
+  - step 14: gato moki (baru, dana)
+  - step 15: rero datu (gato)
+  - step 16: puti given nothing
+  - step 17: rope given nothing
+  - step 18: sodo vuse (puti, rope)
+  - step 19: rope given nothing
+  - step 20: puti given nothing
+  - step 21: sore soni (rope, puti)
+  - step 22: baru zenu (sodo, sore)
+  - step 23: puti given nothing
+  - step 24: rope given nothing
+  - step 25: sodo vuse (puti, rope)
+  - step 26: rope given nothing
+  - step 27: puti given nothing
+  - step 28: sore soni (rope, puti)
+  - step 29: dana toba (sodo, sore)
+  - step 30: gato moki (baru, dana)
+The goals are: rero and gato.
+The rules are:
+  - rule moki: gato if (baru, dana)
+  - rule zopi: sodo if (sore, rope)
+  - rule zenu: baru if (sodo, sore)
+  - rule vuse: sodo if (puti, rope)
+  - rule bevu: dana if (baru)
+  - rule toba: dana if (sodo, sore)
+  - rule soni: sore if (rope, puti)
+  - rule digo: rero if (dana, gato)
+  - rule datu: rero if (gato)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: baru | dana | sore | sodo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 15,
+ &quot;derivation_length&quot;: 31,
+ &quot;goals&quot;: [
+  &quot;rero&quot;,
+  &quot;gato&quot;
+ ],
+ &quot;savings&quot;: [
+  7,
+  3,
+  3,
+  3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">gasa</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact suke, fact sovu and fact ruro.
+The candidates are: k0 abstraction gasa, k1 abstraction gari, k2 abstraction saba and k3 abstraction veta.
+The derivation:
+  - step 0: sovu given nothing
+  - step 1: sovu given nothing
+  - step 2: suke given nothing
+  - step 3: gasa rava (sovu, suke)
+  - step 4: toru ripu (sovu, gasa)
+  - step 5: suke given nothing
+  - step 6: ruro given nothing
+  - step 7: gari riru (suke, ruro)
+  - step 8: sovu given nothing
+  - step 9: suke given nothing
+  - step 10: gasa rava (sovu, suke)
+  - step 11: veta dine (gari, gasa)
+  - step 12: saba tapa (veta)
+  - step 13: sovu given nothing
+  - step 14: sovu given nothing
+  - step 15: suke given nothing
+  - step 16: gasa rava (sovu, suke)
+  - step 17: toru ripu (sovu, gasa)
+  - step 18: keta vake (saba, toru)
+The goals are: toru and keta.
+The rules are:
+  - rule moda: saba if (gasa, veta)
+  - rule tapa: saba if (veta)
+  - rule rava: gasa if (sovu, suke)
+  - rule riru: gari if (suke, ruro)
+  - rule vake: keta if (saba, toru)
+  - rule siba: veta if (gari, toru)
+  - rule dine: veta if (gari, gasa)
+  - rule ripu: toru if (sovu, gasa)
+  - rule kuki: gari if (sovu, ruro)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: gasa | gari | veta | saba
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 19,
+ &quot;goals&quot;: [
+  &quot;toru&quot;,
+  &quot;keta&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  0,
+  0,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">tanu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact keta, fact mige and fact bube.
+The candidates are: k0 abstraction kuso, k1 abstraction tanu, k2 abstraction sebi and k3 abstraction zeri.
+The derivation:
+  - step 0: bube given nothing
+  - step 1: bube given nothing
+  - step 2: tanu tami (bube)
+  - step 3: viva zisi (bube, tanu)
+  - step 4: bube given nothing
+  - step 5: bube given nothing
+  - step 6: tanu tami (bube)
+  - step 7: viva zisi (bube, tanu)
+  - step 8: kuso baza (viva)
+  - step 9: bube given nothing
+  - step 10: bube given nothing
+  - step 11: tanu tami (bube)
+  - step 12: viva zisi (bube, tanu)
+  - step 13: rimo geko (kuso, viva)
+The goals are: viva and rimo.
+The rules are:
+  - rule gumo: kuso if (sebi, tanu)
+  - rule rasu: zeri if (kuso, rimo)
+  - rule baza: kuso if (viva)
+  - rule geko: rimo if (kuso, viva)
+  - rule tami: tanu if (bube)
+  - rule soze: sebi if (bube)
+  - rule zisi: viva if (bube, tanu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: tanu | sebi | kuso | zeri
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 8,
+ &quot;derivation_length&quot;: 14,
+ &quot;goals&quot;: [
+  &quot;viva&quot;,
+  &quot;rimo&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  2,
+  -10,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">biga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact veve, fact mive and fact kega.
+The candidates are: k0 abstraction sezi, k1 abstraction gine, k2 abstraction biga and k3 abstraction bogu.
+The derivation:
+  - step 0: kega given nothing
+  - step 1: bogu suze (kega)
+  - step 2: mive given nothing
+  - step 3: sezi vipi (mive)
+  - step 4: biga rose (bogu, sezi)
+  - step 5: mozo megu (biga)
+  - step 6: kega given nothing
+  - step 7: bogu suze (kega)
+  - step 8: kega given nothing
+  - step 9: bogu suze (kega)
+  - step 10: mive given nothing
+  - step 11: sezi vipi (mive)
+  - step 12: biga rose (bogu, sezi)
+  - step 13: mozo megu (biga)
+  - step 14: gine nino (bogu, mozo)
+  - step 15: kega given nothing
+  - step 16: bogu suze (kega)
+  - step 17: mive given nothing
+  - step 18: sezi vipi (mive)
+  - step 19: biga rose (bogu, sezi)
+  - step 20: mozo megu (biga)
+  - step 21: ruto mumo (gine, mozo)
+The goals are: mozo and ruto.
+The rules are:
+  - rule megu: mozo if (biga)
+  - rule vanu: sezi if (veve, kega)
+  - rule suze: bogu if (kega)
+  - rule rose: biga if (bogu, sezi)
+  - rule vipi: sezi if (mive)
+  - rule vizo: bogu if (kega, sezi)
+  - rule nino: gine if (bogu, mozo)
+  - rule mumo: ruto if (gine, mozo)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: bogu | biga | gine | sezi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 15,
+ &quot;derivation_length&quot;: 22,
+ &quot;goals&quot;: [
+  &quot;mozo&quot;,
+  &quot;ruto&quot;
+ ],
+ &quot;savings&quot;: [
+  3,
+  2,
+  6,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">pame</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact duzu, fact kizi and fact mavo.
+The candidates are: k0 abstraction vadu, k1 abstraction vuge, k2 abstraction pame and k3 abstraction movo.
+The derivation:
+  - step 0: kizi given nothing
+  - step 1: mavo given nothing
+  - step 2: pame ruda (kizi, mavo)
+  - step 3: vuge teri (pame)
+  - step 4: kizi given nothing
+  - step 5: mavo given nothing
+  - step 6: movo nadi (kizi, mavo)
+  - step 7: kizi given nothing
+  - step 8: mavo given nothing
+  - step 9: pame ruda (kizi, mavo)
+  - step 10: nimi gazo (movo, pame)
+  - step 11: siga sida (vuge, nimi)
+  - step 12: kizi given nothing
+  - step 13: mavo given nothing
+  - step 14: movo nadi (kizi, mavo)
+  - step 15: kizi given nothing
+  - step 16: mavo given nothing
+  - step 17: pame ruda (kizi, mavo)
+  - step 18: nimi gazo (movo, pame)
+The goals are: siga and nimi.
+The rules are:
+  - rule tuvi: pame if (mavo)
+  - rule ruda: pame if (kizi, mavo)
+  - rule bezo: vadu if (siga, vuge)
+  - rule sida: siga if (vuge, nimi)
+  - rule kopu: movo if (mavo, duzu)
+  - rule teri: vuge if (pame)
+  - rule nadi: movo if (kizi, mavo)
+  - rule gazo: nimi if (movo, pame)
+  - rule semo: vuge if (nimi, pame)
+  - rule dima: vadu if (vuge, nimi)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: vadu | vuge | movo | pame
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 19,
+ &quot;goals&quot;: [
+  &quot;siga&quot;,
+  &quot;nimi&quot;
+ ],
+ &quot;savings&quot;: [
+  -6,
+  1,
+  0,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">tata</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact komo, fact zime and fact vagu.
+The candidates are: k0 abstraction tata, k1 abstraction guve, k2 abstraction suti and k3 abstraction geri.
+The derivation:
+  - step 0: komo given nothing
+  - step 1: suti vuvo (komo)
+  - step 2: tata bozu (suti)
+  - step 3: maka vepe (tata)
+  - step 4: komo given nothing
+  - step 5: suti vuvo (komo)
+  - step 6: tata bozu (suti)
+  - step 7: maka vepe (tata)
+  - step 8: komo given nothing
+  - step 9: suti vuvo (komo)
+  - step 10: tata bozu (suti)
+  - step 11: nonu data (maka, tata)
+The goals are: maka and nonu.
+The rules are:
+  - rule nino: guve if (geri, komo)
+  - rule data: nonu if (maka, tata)
+  - rule vepa: tata if (geri)
+  - rule bozu: tata if (suti)
+  - rule muvu: geri if (zime, vagu)
+  - rule vepe: maka if (tata)
+  - rule vuvo: suti if (komo)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: tata | guve | suti | geri
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 12,
+ &quot;goals&quot;: [
+  &quot;maka&quot;,
+  &quot;nonu&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  -2,
+  4,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">sode</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact boro, fact riba and fact gipo.
+The candidates are: k0 abstraction bepi, k1 abstraction goke, k2 abstraction maro and k3 abstraction sode.
+The derivation:
+  - step 0: riba given nothing
+  - step 1: boro given nothing
+  - step 2: sode kobo (riba, boro)
+  - step 3: riba given nothing
+  - step 4: dova muma (sode, riba)
+  - step 5: gipo given nothing
+  - step 6: riba given nothing
+  - step 7: bepi kogi (gipo, riba)
+  - step 8: riba given nothing
+  - step 9: boro given nothing
+  - step 10: sode kobo (riba, boro)
+  - step 11: riba given nothing
+  - step 12: dova muma (sode, riba)
+  - step 13: maro dizo (bepi, dova)
+  - step 14: riba given nothing
+  - step 15: boro given nothing
+  - step 16: sode kobo (riba, boro)
+  - step 17: riba given nothing
+  - step 18: dova muma (sode, riba)
+  - step 19: gopu gosa (maro, dova)
+The goals are: dova and gopu.
+The rules are:
+  - rule kuru: goke if (maro, sode)
+  - rule kobo: sode if (riba, boro)
+  - rule gosa: gopu if (maro, dova)
+  - rule kogi: bepi if (gipo, riba)
+  - rule vazi: gopu if (goke, dova)
+  - rule dizo: maro if (bepi, dova)
+  - rule vogo: bepi if (gipo, riba)
+  - rule kuvo: maro if (dova, sode)
+  - rule muma: dova if (sode, riba)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: goke | maro | bepi | sode
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 20,
+ &quot;goals&quot;: [
+  &quot;dova&quot;,
+  &quot;gopu&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  -2,
+  3,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">kozo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact somi, fact vida and fact mezu.
+The candidates are: k0 abstraction muno, k1 abstraction gube, k2 abstraction damo and k3 abstraction kozo.
+The derivation:
+  - step 0: vida given nothing
+  - step 1: mezu given nothing
+  - step 2: somi given nothing
+  - step 3: kozo duru (mezu, somi)
+  - step 4: muno bonu (vida, kozo)
+  - step 5: mezu given nothing
+  - step 6: somi given nothing
+  - step 7: kozo duru (mezu, somi)
+  - step 8: gube bibo (muno, kozo)
+  - step 9: vida given nothing
+  - step 10: mezu given nothing
+  - step 11: somi given nothing
+  - step 12: kozo duru (mezu, somi)
+  - step 13: muno bonu (vida, kozo)
+  - step 14: senu kuna (gube, muno)
+  - step 15: vida given nothing
+  - step 16: mezu given nothing
+  - step 17: somi given nothing
+  - step 18: kozo duru (mezu, somi)
+  - step 19: muno bonu (vida, kozo)
+  - step 20: mezu given nothing
+  - step 21: somi given nothing
+  - step 22: kozo duru (mezu, somi)
+  - step 23: gube bibo (muno, kozo)
+  - step 24: mezu given nothing
+  - step 25: somi given nothing
+  - step 26: kozo duru (mezu, somi)
+  - step 27: kezu nubo (gube, kozo)
+The goals are: senu and kezu.
+The rules are:
+  - rule bonu: muno if (vida, kozo)
+  - rule bibo: gube if (muno, kozo)
+  - rule kase: senu if (kezu, gube)
+  - rule gosi: kozo if (mezu, vida)
+  - rule kuna: senu if (gube, muno)
+  - rule nubo: kezu if (gube, kozo)
+  - rule duru: kozo if (mezu, somi)
+  - rule mame: damo if (gube)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: damo | muno | kozo | gube
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 13,
+ &quot;derivation_length&quot;: 28,
+ &quot;goals&quot;: [
+  &quot;senu&quot;,
+  &quot;kezu&quot;
+ ],
+ &quot;savings&quot;: [
+  4,
+  5,
+  -5,
+  4
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">sope</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact suru, fact tobu and fact dati.
+The candidates are: k0 abstraction poru, k1 abstraction zira, k2 abstraction dise and k3 abstraction sope.
+The derivation:
+  - step 0: tobu given nothing
+  - step 1: suru given nothing
+  - step 2: poru dete (tobu, suru)
+  - step 3: suru given nothing
+  - step 4: sope gidu (poru, suru)
+  - step 5: kegi dumi (sope)
+  - step 6: tobu given nothing
+  - step 7: suru given nothing
+  - step 8: poru dete (tobu, suru)
+  - step 9: suru given nothing
+  - step 10: sope gidu (poru, suru)
+  - step 11: kegi dumi (sope)
+  - step 12: tobu given nothing
+  - step 13: suru given nothing
+  - step 14: poru dete (tobu, suru)
+  - step 15: suru given nothing
+  - step 16: sope gidu (poru, suru)
+  - step 17: dise zamo (kegi, sope)
+  - step 18: tobu given nothing
+  - step 19: suru given nothing
+  - step 20: poru dete (tobu, suru)
+  - step 21: suru given nothing
+  - step 22: sope gidu (poru, suru)
+  - step 23: tobu given nothing
+  - step 24: suru given nothing
+  - step 25: poru dete (tobu, suru)
+  - step 26: suru given nothing
+  - step 27: sope gidu (poru, suru)
+  - step 28: kegi dumi (sope)
+  - step 29: zira sozu (sope, kegi)
+  - step 30: seki zati (dise, zira)
+The goals are: kegi and seki.
+The rules are:
+  - rule dete: poru if (tobu, suru)
+  - rule zati: seki if (dise, zira)
+  - rule nani: sope if (poru, dati)
+  - rule sozu: zira if (sope, kegi)
+  - rule zamo: dise if (kegi, sope)
+  - rule gidu: sope if (poru, suru)
+  - rule dumi: kegi if (sope)
+  - rule zepo: kegi if (dati, sope)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: dise | zira | poru | sope
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 16,
+ &quot;derivation_length&quot;: 31,
+ &quot;goals&quot;: [
+  &quot;kegi&quot;,
+  &quot;seki&quot;
+ ],
+ &quot;savings&quot;: [
+  8,
+  0,
+  0,
+  4
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">nabi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact tiva, fact tuti and fact pebo.
+The candidates are: k0 abstraction sivu, k1 abstraction muru, k2 abstraction nabi and k3 abstraction memu.
+The derivation:
+  - step 0: tuti given nothing
+  - step 1: pebo given nothing
+  - step 2: memu muto (tuti, pebo)
+  - step 3: nabi rake (memu)
+  - step 4: tuti given nothing
+  - step 5: vede bodu (nabi, tuti)
+  - step 6: tuti given nothing
+  - step 7: pebo given nothing
+  - step 8: memu muto (tuti, pebo)
+  - step 9: tuti given nothing
+  - step 10: pebo given nothing
+  - step 11: memu muto (tuti, pebo)
+  - step 12: nabi rake (memu)
+  - step 13: muru zovi (memu, nabi)
+  - step 14: gisi navu (vede, muru)
+  - step 15: tuti given nothing
+  - step 16: pebo given nothing
+  - step 17: memu muto (tuti, pebo)
+  - step 18: nabi rake (memu)
+  - step 19: tuti given nothing
+  - step 20: vede bodu (nabi, tuti)
+The goals are: gisi and vede.
+The rules are:
+  - rule muto: memu if (tuti, pebo)
+  - rule zovi: muru if (memu, nabi)
+  - rule nigo: muru if (nabi, memu)
+  - rule bodu: vede if (nabi, tuti)
+  - rule navu: gisi if (vede, muru)
+  - rule rota: sivu if (vede, gisi)
+  - rule tamo: vede if (tuti, nabi)
+  - rule rake: nabi if (memu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: nabi | muru | sivu | memu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 11,
+ &quot;derivation_length&quot;: 21,
+ &quot;goals&quot;: [
+  &quot;gisi&quot;,
+  &quot;vede&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  4,
+  3,
+  -12
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">zere</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact vita, fact pozu and fact zisu.
+The candidates are: k0 abstraction vomi, k1 abstraction reni, k2 abstraction vugu and k3 abstraction zere.
+The derivation:
+  - step 0: vita given nothing
+  - step 1: zisu given nothing
+  - step 2: zere mata (vita, zisu)
+  - step 3: vita given nothing
+  - step 4: zisu given nothing
+  - step 5: zere mata (vita, zisu)
+  - step 6: vita given nothing
+  - step 7: vita given nothing
+  - step 8: zisu given nothing
+  - step 9: zere mata (vita, zisu)
+  - step 10: reni gime (vita, zere)
+  - step 11: vugu mide (zere, reni)
+  - step 12: diva mara (zere, vugu)
+  - step 13: vita given nothing
+  - step 14: vita given nothing
+  - step 15: zisu given nothing
+  - step 16: zere mata (vita, zisu)
+  - step 17: reni gime (vita, zere)
+  - step 18: seno saro (reni)
+The goals are: diva and seno.
+The rules are:
+  - rule mata: zere if (vita, zisu)
+  - rule kusi: vomi if (pozu)
+  - rule rege: vomi if (zisu, pozu)
+  - rule mara: diva if (zere, vugu)
+  - rule saro: seno if (reni)
+  - rule mide: vugu if (zere, reni)
+  - rule vide: reni if (vita, vomi)
+  - rule gime: reni if (vita, zere)
+  - rule puza: seno if (vugu, reni)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: zere | vugu | vomi | reni
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 19,
+ &quot;goals&quot;: [
+  &quot;diva&quot;,
+  &quot;seno&quot;
+ ],
+ &quot;savings&quot;: [
+  3,
+  2,
+  1,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">kavi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact zike, fact mese and fact gidu.
+The candidates are: k0 abstraction kema, k1 abstraction gozo, k2 abstraction kavi and k3 abstraction tube.
+The derivation:
+  - step 0: mese given nothing
+  - step 1: gidu given nothing
+  - step 2: zike given nothing
+  - step 3: mese given nothing
+  - step 4: gozo toru (zike, mese)
+  - step 5: kavi suno (gidu, gozo)
+  - step 6: vuna vavi (mese, kavi)
+  - step 7: mese given nothing
+  - step 8: gidu given nothing
+  - step 9: zike given nothing
+  - step 10: mese given nothing
+  - step 11: gozo toru (zike, mese)
+  - step 12: kavi suno (gidu, gozo)
+  - step 13: vuna vavi (mese, kavi)
+  - step 14: gidu given nothing
+  - step 15: zike given nothing
+  - step 16: mese given nothing
+  - step 17: gozo toru (zike, mese)
+  - step 18: kavi suno (gidu, gozo)
+  - step 19: moba vozu (vuna, kavi)
+The goals are: vuna and moba.
+The rules are:
+  - rule toru: gozo if (zike, mese)
+  - rule boku: tube if (kema)
+  - rule gipo: kema if (gozo)
+  - rule suno: kavi if (gidu, gozo)
+  - rule vozu: moba if (vuna, kavi)
+  - rule vavi: vuna if (mese, kavi)
+  - rule tere: tube if (kema, moba)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: kema | gozo | tube | kavi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 20,
+ &quot;goals&quot;: [
+  &quot;vuna&quot;,
+  &quot;moba&quot;
+ ],
+ &quot;savings&quot;: [
+  -3,
+  2,
+  4,
+  -2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">nagu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact vidu, fact mabe and fact vora.
+The candidates are: k0 abstraction dena, k1 abstraction siva, k2 abstraction piga and k3 abstraction nagu.
+The derivation:
+  - step 0: vidu given nothing
+  - step 1: vora given nothing
+  - step 2: siva duru (vidu, vora)
+  - step 3: vidu given nothing
+  - step 4: nagu kona (siva, vidu)
+  - step 5: vidu given nothing
+  - step 6: vora given nothing
+  - step 7: siva duru (vidu, vora)
+  - step 8: dena bori (nagu, siva)
+  - step 9: vidu given nothing
+  - step 10: vora given nothing
+  - step 11: siva duru (vidu, vora)
+  - step 12: vidu given nothing
+  - step 13: nagu kona (siva, vidu)
+  - step 14: piga kota (nagu)
+  - step 15: debi viba (dena, piga)
+  - step 16: vidu given nothing
+  - step 17: vora given nothing
+  - step 18: siva duru (vidu, vora)
+  - step 19: vidu given nothing
+  - step 20: nagu kona (siva, vidu)
+  - step 21: vidu given nothing
+  - step 22: vora given nothing
+  - step 23: siva duru (vidu, vora)
+  - step 24: dena bori (nagu, siva)
+  - step 25: kumo kedi (dena)
+The goals are: debi and kumo.
+The rules are:
+  - rule kota: piga if (nagu)
+  - rule kedi: kumo if (dena)
+  - rule bori: dena if (nagu, siva)
+  - rule duru: siva if (vidu, vora)
+  - rule duge: kumo if (piga, nagu)
+  - rule kero: dena if (piga, nagu)
+  - rule kona: nagu if (siva, vidu)
+  - rule zuga: nagu if (siva, vidu)
+  - rule viba: debi if (dena, piga)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: siva | piga | nagu | dena
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 13,
+ &quot;derivation_length&quot;: 26,
+ &quot;goals&quot;: [
+  &quot;debi&quot;,
+  &quot;kumo&quot;
+ ],
+ &quot;savings&quot;: [
+  5,
+  3,
+  4,
+  4
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">nogo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact dodu, fact tari and fact kane.
+The candidates are: k0 abstraction sobu, k1 abstraction gese, k2 abstraction meki and k3 abstraction nogo.
+The derivation:
+  - step 0: kane given nothing
+  - step 1: tari given nothing
+  - step 2: sobu nera (kane, tari)
+  - step 3: nogo rivu (sobu)
+  - step 4: kane given nothing
+  - step 5: gese soda (kane)
+  - step 6: baku nevi (nogo, gese)
+  - step 7: kane given nothing
+  - step 8: gese soda (kane)
+  - step 9: pete nebi (baku, gese)
+  - step 10: kane given nothing
+  - step 11: tari given nothing
+  - step 12: sobu nera (kane, tari)
+  - step 13: nogo rivu (sobu)
+  - step 14: kane given nothing
+  - step 15: gese soda (kane)
+  - step 16: baku nevi (nogo, gese)
+The goals are: pete and baku.
+The rules are:
+  - rule nevi: baku if (nogo, gese)
+  - rule soda: gese if (kane)
+  - rule pide: nogo if (meki, sobu)
+  - rule nebi: pete if (baku, gese)
+  - rule tomu: pete if (baku, nogo)
+  - rule rivu: nogo if (sobu)
+  - rule keso: meki if (kane, dodu)
+  - rule nera: sobu if (kane, tari)
+  - rule tuto: meki if (sobu, dodu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: sobu | gese | meki | nogo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 10,
+ &quot;derivation_length&quot;: 17,
+ &quot;goals&quot;: [
+  &quot;pete&quot;,
+  &quot;baku&quot;
+ ],
+ &quot;savings&quot;: [
+  3,
+  -1,
+  1,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">duzu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact zeva, fact kuga and fact zoze.
+The candidates are: k0 abstraction gubo, k1 abstraction duzu, k2 abstraction bega and k3 abstraction boni.
+The derivation:
+  - step 0: zeva given nothing
+  - step 1: kuga given nothing
+  - step 2: duzu pabi (zeva, kuga)
+  - step 3: kuga given nothing
+  - step 4: zoze given nothing
+  - step 5: gubo digo (kuga, zoze)
+  - step 6: tivu nunu (duzu, gubo)
+  - step 7: zeva given nothing
+  - step 8: kuga given nothing
+  - step 9: duzu pabi (zeva, kuga)
+  - step 10: kuga given nothing
+  - step 11: zoze given nothing
+  - step 12: gubo digo (kuga, zoze)
+  - step 13: tivu nunu (duzu, gubo)
+  - step 14: zeva given nothing
+  - step 15: kuga given nothing
+  - step 16: duzu pabi (zeva, kuga)
+  - step 17: bata keki (tivu, duzu)
+The goals are: tivu and bata.
+The rules are:
+  - rule digo: gubo if (kuga, zoze)
+  - rule vepu: boni if (bata, tivu)
+  - rule nunu: tivu if (duzu, gubo)
+  - rule rizu: boni if (bega, bata)
+  - rule pabi: duzu if (zeva, kuga)
+  - rule pibo: bata if (bega, tivu)
+  - rule keki: bata if (tivu, duzu)
+  - rule bave: duzu if (gubo, kuga)
+  - rule gago: bega if (gubo, duzu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: bega | boni | gubo | duzu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 8,
+ &quot;derivation_length&quot;: 18,
+ &quot;goals&quot;: [
+  &quot;tivu&quot;,
+  &quot;bata&quot;
+ ],
+ &quot;savings&quot;: [
+  1,
+  -9,
+  2,
+  -2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">zedo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact soru, fact pugu and fact tesu.
+The candidates are: k0 abstraction zedo, k1 abstraction muso, k2 abstraction bibo and k3 abstraction pasi.
+The derivation:
+  - step 0: tesu given nothing
+  - step 1: tesu given nothing
+  - step 2: soru given nothing
+  - step 3: bibo tubu (tesu, soru)
+  - step 4: pasi dude (tesu, bibo)
+  - step 5: zedo kusi (pasi)
+  - step 6: niba zuza (zedo)
+  - step 7: tesu given nothing
+  - step 8: tesu given nothing
+  - step 9: soru given nothing
+  - step 10: bibo tubu (tesu, soru)
+  - step 11: pasi dude (tesu, bibo)
+  - step 12: zedo kusi (pasi)
+  - step 13: sino tumi (niba, zedo)
+  - step 14: tesu given nothing
+  - step 15: tesu given nothing
+  - step 16: soru given nothing
+  - step 17: bibo tubu (tesu, soru)
+  - step 18: pasi dude (tesu, bibo)
+  - step 19: zedo kusi (pasi)
+  - step 20: niba zuza (zedo)
+The goals are: sino and niba.
+The rules are:
+  - rule zovo: sino if (niba, muso)
+  - rule gigi: muso if (pasi, zedo)
+  - rule tumi: sino if (niba, zedo)
+  - rule tubu: bibo if (tesu, soru)
+  - rule zuza: niba if (zedo)
+  - rule dude: pasi if (tesu, bibo)
+  - rule kusi: zedo if (pasi)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: pasi | muso | zedo | bibo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 12,
+ &quot;derivation_length&quot;: 21,
+ &quot;goals&quot;: [
+  &quot;sino&quot;,
+  &quot;niba&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  4,
+  6,
+  -3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">zoba</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact diga, fact duba and fact bipe.
+The candidates are: k0 abstraction zoba, k1 abstraction vosa, k2 abstraction monu and k3 abstraction dere.
+The derivation:
+  - step 0: duba given nothing
+  - step 1: diga given nothing
+  - step 2: monu zeza (duba, diga)
+  - step 3: zoba bepe (monu)
+  - step 4: megu kede (zoba)
+  - step 5: duba given nothing
+  - step 6: diga given nothing
+  - step 7: monu zeza (duba, diga)
+  - step 8: zoba bepe (monu)
+  - step 9: duba given nothing
+  - step 10: diga given nothing
+  - step 11: monu zeza (duba, diga)
+  - step 12: zoba bepe (monu)
+  - step 13: megu kede (zoba)
+  - step 14: sopu sebu (zoba, megu)
+The goals are: megu and sopu.
+The rules are:
+  - rule bepe: zoba if (monu)
+  - rule kede: megu if (zoba)
+  - rule naki: zoba if (vosa, monu)
+  - rule nore: dere if (zoba)
+  - rule voka: dere if (vosa)
+  - rule nasa: vosa if (bipe, duba)
+  - rule sada: megu if (monu, dere)
+  - rule zeza: monu if (duba, diga)
+  - rule sebu: sopu if (zoba, megu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: dere | vosa | monu | zoba
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 15,
+ &quot;goals&quot;: [
+  &quot;megu&quot;,
+  &quot;sopu&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  4,
+  -1,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">rura</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact giza, fact kipa and fact teko.
+The candidates are: k0 abstraction kuni, k1 abstraction rura, k2 abstraction naga and k3 abstraction dike.
+The derivation:
+  - step 0: giza given nothing
+  - step 1: kipa given nothing
+  - step 2: naga mese (giza, kipa)
+  - step 3: rura karu (naga)
+  - step 4: giza given nothing
+  - step 5: kipa given nothing
+  - step 6: naga mese (giza, kipa)
+  - step 7: kuni koni (rura, naga)
+  - step 8: giza given nothing
+  - step 9: kipa given nothing
+  - step 10: naga mese (giza, kipa)
+  - step 11: rura karu (naga)
+  - step 12: bogi bedo (kuni, rura)
+  - step 13: giza given nothing
+  - step 14: kipa given nothing
+  - step 15: naga mese (giza, kipa)
+  - step 16: rura karu (naga)
+  - step 17: giza given nothing
+  - step 18: kipa given nothing
+  - step 19: naga mese (giza, kipa)
+  - step 20: kuni koni (rura, naga)
+  - step 21: giza given nothing
+  - step 22: kipa given nothing
+  - step 23: naga mese (giza, kipa)
+  - step 24: rura karu (naga)
+  - step 25: bogi bedo (kuni, rura)
+  - step 26: giza given nothing
+  - step 27: kipa given nothing
+  - step 28: naga mese (giza, kipa)
+  - step 29: rura karu (naga)
+  - step 30: soko sago (bogi, rura)
+The goals are: bogi and soko.
+The rules are:
+  - rule koni: kuni if (rura, naga)
+  - rule mese: naga if (giza, kipa)
+  - rule zita: dike if (naga, teko)
+  - rule sago: soko if (bogi, rura)
+  - rule tuza: rura if (kipa, dike)
+  - rule bedo: bogi if (kuni, rura)
+  - rule karu: rura if (naga)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: dike | kuni | naga | rura
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 17,
+ &quot;derivation_length&quot;: 31,
+ &quot;goals&quot;: [
+  &quot;bogi&quot;,
+  &quot;soko&quot;
+ ],
+ &quot;savings&quot;: [
+  4,
+  8,
+  3,
+  6
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">boka</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact vope, fact desu and fact zeke.
+The candidates are: k0 abstraction guke, k1 abstraction boka, k2 abstraction done and k3 abstraction kepe.
+The derivation:
+  - step 0: zeke given nothing
+  - step 1: desu given nothing
+  - step 2: zeke given nothing
+  - step 3: kepe gebi (desu, zeke)
+  - step 4: guke siza (zeke, kepe)
+  - step 5: vope given nothing
+  - step 6: boka nabo (guke, vope)
+  - step 7: tevo kebi (boka)
+  - step 8: zeke given nothing
+  - step 9: desu given nothing
+  - step 10: zeke given nothing
+  - step 11: kepe gebi (desu, zeke)
+  - step 12: guke siza (zeke, kepe)
+  - step 13: desu given nothing
+  - step 14: zeke given nothing
+  - step 15: kepe gebi (desu, zeke)
+  - step 16: done rigo (guke, kepe)
+  - step 17: zeke given nothing
+  - step 18: desu given nothing
+  - step 19: zeke given nothing
+  - step 20: kepe gebi (desu, zeke)
+  - step 21: guke siza (zeke, kepe)
+  - step 22: vope given nothing
+  - step 23: boka nabo (guke, vope)
+  - step 24: gusi kemu (done, boka)
+The goals are: tevo and gusi.
+The rules are:
+  - rule toge: boka if (guke, kepe)
+  - rule vidu: kepe if (zeke, vope)
+  - rule mose: done if (kepe, boka)
+  - rule kemu: gusi if (done, boka)
+  - rule siza: guke if (zeke, kepe)
+  - rule gebi: kepe if (desu, zeke)
+  - rule nabo: boka if (guke, vope)
+  - rule kebi: tevo if (boka)
+  - rule rigo: done if (guke, kepe)
+  - rule kupa: tevo if (boka, gusi)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: guke | kepe | boka | done
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 12,
+ &quot;derivation_length&quot;: 25,
+ &quot;goals&quot;: [
+  &quot;tevo&quot;,
+  &quot;gusi&quot;
+ ],
+ &quot;savings&quot;: [
+  5,
+  0,
+  4,
+  3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">rinu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact peko, fact rene and fact zesa.
+The candidates are: k0 abstraction take, k1 abstraction rinu, k2 abstraction rosu and k3 abstraction muse.
+The derivation:
+  - step 0: peko given nothing
+  - step 1: rene given nothing
+  - step 2: take zuvi (peko, rene)
+  - step 3: peko given nothing
+  - step 4: rinu puti (take, peko)
+  - step 5: peko given nothing
+  - step 6: rene given nothing
+  - step 7: take zuvi (peko, rene)
+  - step 8: muze govi (rinu, take)
+  - step 9: peko given nothing
+  - step 10: rene given nothing
+  - step 11: take zuvi (peko, rene)
+  - step 12: peko given nothing
+  - step 13: rinu puti (take, peko)
+  - step 14: zesa given nothing
+  - step 15: rene given nothing
+  - step 16: rosu veri (zesa, rene)
+  - step 17: peko given nothing
+  - step 18: rene given nothing
+  - step 19: take zuvi (peko, rene)
+  - step 20: muse deda (rosu, take)
+  - step 21: keke diga (rinu, muse)
+The goals are: muze and keke.
+The rules are:
+  - rule govi: muze if (rinu, take)
+  - rule gure: keke if (rinu, muze)
+  - rule veri: rosu if (zesa, rene)
+  - rule bizu: take if (rosu, rene)
+  - rule deda: muse if (rosu, take)
+  - rule dume: muse if (rinu)
+  - rule puti: rinu if (take, peko)
+  - rule diga: keke if (rinu, muse)
+  - rule bape: rosu if (peko, rene)
+  - rule zuvi: take if (peko, rene)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: rinu | take | rosu | muse
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 10,
+ &quot;derivation_length&quot;: 22,
+ &quot;goals&quot;: [
+  &quot;muze&quot;,
+  &quot;keke&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  3,
+  0,
+  4
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">zizu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact mato, fact dane and fact buta.
+The candidates are: k0 abstraction pebu, k1 abstraction zizu, k2 abstraction dogi and k3 abstraction tomi.
+The derivation:
+  - step 0: buta given nothing
+  - step 1: mato given nothing
+  - step 2: zizu pesu (buta, mato)
+  - step 3: sava rane (zizu)
+  - step 4: buta given nothing
+  - step 5: mato given nothing
+  - step 6: zizu pesu (buta, mato)
+  - step 7: buta given nothing
+  - step 8: mato given nothing
+  - step 9: zizu pesu (buta, mato)
+  - step 10: sava rane (zizu)
+  - step 11: tomi sesi (zizu, sava)
+  - step 12: mato given nothing
+  - step 13: dane given nothing
+  - step 14: pebu bute (mato, dane)
+  - step 15: dogi bava (tomi, pebu)
+  - step 16: davo gasi (dogi)
+The goals are: sava and davo.
+The rules are:
+  - rule tove: davo if (dogi)
+  - rule sesi: tomi if (zizu, sava)
+  - rule bute: pebu if (mato, dane)
+  - rule nipa: zizu if (dane, mato)
+  - rule ripe: sava if (mato, zizu)
+  - rule veni: tomi if (sava, zizu)
+  - rule gasi: davo if (dogi)
+  - rule bava: dogi if (tomi, pebu)
+  - rule rane: sava if (zizu)
+  - rule pesu: zizu if (buta, mato)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: tomi | dogi | zizu | pebu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 17,
+ &quot;goals&quot;: [
+  &quot;sava&quot;,
+  &quot;davo&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  2,
+  0,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">gava</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact bodo, fact seze and fact gaga.
+The candidates are: k0 abstraction geso, k1 abstraction dabo, k2 abstraction gava and k3 abstraction soku.
+The derivation:
+  - step 0: seze given nothing
+  - step 1: seze given nothing
+  - step 2: gaga given nothing
+  - step 3: gava kepu (seze, gaga)
+  - step 4: geso vuba (seze, gava)
+  - step 5: seze given nothing
+  - step 6: gaga given nothing
+  - step 7: gava kepu (seze, gaga)
+  - step 8: seze given nothing
+  - step 9: seze given nothing
+  - step 10: gaga given nothing
+  - step 11: gava kepu (seze, gaga)
+  - step 12: soku gige (seze, gava)
+  - step 13: dabo goba (gava, soku)
+  - step 14: neki kozi (geso, dabo)
+  - step 15: pite rami (neki)
+  - step 16: seze given nothing
+  - step 17: seze given nothing
+  - step 18: gaga given nothing
+  - step 19: gava kepu (seze, gaga)
+  - step 20: geso vuba (seze, gava)
+  - step 21: seze given nothing
+  - step 22: gaga given nothing
+  - step 23: gava kepu (seze, gaga)
+  - step 24: seze given nothing
+  - step 25: seze given nothing
+  - step 26: gaga given nothing
+  - step 27: gava kepu (seze, gaga)
+  - step 28: soku gige (seze, gava)
+  - step 29: dabo goba (gava, soku)
+  - step 30: neki kozi (geso, dabo)
+The goals are: pite and neki.
+The rules are:
+  - rule zure: dabo if (soku, gava)
+  - rule kive: pite if (neki, dabo)
+  - rule gige: soku if (seze, gava)
+  - rule goba: dabo if (gava, soku)
+  - rule rami: pite if (neki)
+  - rule kepu: gava if (seze, gaga)
+  - rule vuba: geso if (seze, gava)
+  - rule kozi: neki if (geso, dabo)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: dabo | gava | geso | soku
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 15,
+ &quot;derivation_length&quot;: 31,
+ &quot;goals&quot;: [
+  &quot;pite&quot;,
+  &quot;neki&quot;
+ ],
+ &quot;savings&quot;: [
+  5,
+  4,
+  2,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">movi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact nidu, fact pero and fact dipe.
+The candidates are: k0 abstraction movi, k1 abstraction zevu, k2 abstraction pabu and k3 abstraction kezu.
+The derivation:
+  - step 0: pero given nothing
+  - step 1: kezu pike (pero)
+  - step 2: dipe given nothing
+  - step 3: movi kura (kezu, dipe)
+  - step 4: zevu sevi (movi)
+  - step 5: nidu given nothing
+  - step 6: pero given nothing
+  - step 7: kezu pike (pero)
+  - step 8: dipe given nothing
+  - step 9: movi kura (kezu, dipe)
+  - step 10: pabu rabo (nidu, movi)
+  - step 11: noka gesa (zevu, pabu)
+  - step 12: nidu given nothing
+  - step 13: pero given nothing
+  - step 14: kezu pike (pero)
+  - step 15: dipe given nothing
+  - step 16: movi kura (kezu, dipe)
+  - step 17: pabu rabo (nidu, movi)
+  - step 18: pero given nothing
+  - step 19: kezu pike (pero)
+  - step 20: dipe given nothing
+  - step 21: movi kura (kezu, dipe)
+  - step 22: gabu gida (pabu, movi)
+The goals are: noka and gabu.
+The rules are:
+  - rule vamu: noka if (zevu, gabu)
+  - rule rabo: pabu if (nidu, movi)
+  - rule gesa: noka if (zevu, pabu)
+  - rule gida: gabu if (pabu, movi)
+  - rule kura: movi if (kezu, dipe)
+  - rule masa: pabu if (movi, nidu)
+  - rule sevi: zevu if (movi)
+  - rule pike: kezu if (pero)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: zevu | pabu | movi | kezu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 13,
+ &quot;derivation_length&quot;: 23,
+ &quot;goals&quot;: [
+  &quot;noka&quot;,
+  &quot;gabu&quot;
+ ],
+ &quot;savings&quot;: [
+  3,
+  0,
+  6,
+  3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">sivu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact sevu, fact movu and fact teve.
+The candidates are: k0 abstraction roma, k1 abstraction seda, k2 abstraction momu and k3 abstraction sivu.
+The derivation:
+  - step 0: movu given nothing
+  - step 1: sevu given nothing
+  - step 2: sivu nika (movu, sevu)
+  - step 3: movu given nothing
+  - step 4: sevu given nothing
+  - step 5: sivu nika (movu, sevu)
+  - step 6: sevu given nothing
+  - step 7: roma kumi (sivu, sevu)
+  - step 8: razu vabi (sivu, roma)
+  - step 9: movu given nothing
+  - step 10: sevu given nothing
+  - step 11: sivu nika (movu, sevu)
+  - step 12: momu sope (sivu)
+  - step 13: zomi gadi (razu, momu)
+  - step 14: movu given nothing
+  - step 15: sevu given nothing
+  - step 16: sivu nika (movu, sevu)
+  - step 17: movu given nothing
+  - step 18: sevu given nothing
+  - step 19: sivu nika (movu, sevu)
+  - step 20: sevu given nothing
+  - step 21: roma kumi (sivu, sevu)
+  - step 22: razu vabi (sivu, roma)
+The goals are: zomi and razu.
+The rules are:
+  - rule sope: momu if (sivu)
+  - rule kumi: roma if (sivu, sevu)
+  - rule gadi: zomi if (razu, momu)
+  - rule nika: sivu if (movu, sevu)
+  - rule vabi: razu if (sivu, roma)
+  - rule bapi: zomi if (momu, razu)
+  - rule vuda: razu if (roma, momu)
+  - rule bisi: momu if (roma)
+  - rule ruri: seda if (razu, momu)
+  - rule zidi: sivu if (movu, teve)
+  - rule neko: seda if (momu, razu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: roma | seda | momu | sivu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 11,
+ &quot;derivation_length&quot;: 23,
+ &quot;goals&quot;: [
+  &quot;zomi&quot;,
+  &quot;razu&quot;
+ ],
+ &quot;savings&quot;: [
+  -7,
+  3,
+  2,
+  4
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">zedu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact kuvo, fact roge and fact nena.
+The candidates are: k0 abstraction sino, k1 abstraction gumu, k2 abstraction veba and k3 abstraction zedu.
+The derivation:
+  - step 0: roge given nothing
+  - step 1: kuvo given nothing
+  - step 2: zedu zuni (roge, kuvo)
+  - step 3: roge given nothing
+  - step 4: miki nopa (zedu, roge)
+  - step 5: roge given nothing
+  - step 6: kuvo given nothing
+  - step 7: zedu zuni (roge, kuvo)
+  - step 8: roge given nothing
+  - step 9: miki nopa (zedu, roge)
+  - step 10: roge given nothing
+  - step 11: kuvo given nothing
+  - step 12: zedu zuni (roge, kuvo)
+  - step 13: sino give (miki, zedu)
+  - step 14: roge given nothing
+  - step 15: kuvo given nothing
+  - step 16: zedu zuni (roge, kuvo)
+  - step 17: roge given nothing
+  - step 18: miki nopa (zedu, roge)
+  - step 19: ritu gipa (sino, miki)
+The goals are: miki and ritu.
+The rules are:
+  - rule veso: miki if (roge, veba)
+  - rule nopa: miki if (zedu, roge)
+  - rule zeki: veba if (zedu, nena)
+  - rule give: sino if (miki, zedu)
+  - rule tisu: gumu if (sino, miki)
+  - rule zuni: zedu if (roge, kuvo)
+  - rule gipa: ritu if (sino, miki)
+  - rule reda: veba if (roge, nena)
+  - rule dogi: gumu if (miki, sino)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: sino | gumu | veba | zedu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 20,
+ &quot;goals&quot;: [
+  &quot;miki&quot;,
+  &quot;ritu&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  3,
+  2,
+  -7
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">dogo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact tize, fact kori and fact mome.
+The candidates are: k0 abstraction dogo, k1 abstraction goka, k2 abstraction gipu and k3 abstraction kase.
+The derivation:
+  - step 0: kori given nothing
+  - step 1: kori given nothing
+  - step 2: mome given nothing
+  - step 3: dogo zisi (kori, mome)
+  - step 4: kori given nothing
+  - step 5: gipu vini (dogo, kori)
+  - step 6: goka tegi (kori, gipu)
+  - step 7: kori given nothing
+  - step 8: mome given nothing
+  - step 9: dogo zisi (kori, mome)
+  - step 10: kemu tadi (dogo)
+  - step 11: bire neta (goka, kemu)
+  - step 12: kori given nothing
+  - step 13: mome given nothing
+  - step 14: dogo zisi (kori, mome)
+  - step 15: kemu tadi (dogo)
+The goals are: bire and kemu.
+The rules are:
+  - rule kege: kase if (gipu)
+  - rule tadi: kemu if (dogo)
+  - rule more: bire if (kase, goka)
+  - rule vini: gipu if (dogo, kori)
+  - rule goke: kemu if (goka, dogo)
+  - rule runi: gipu if (dogo)
+  - rule neta: bire if (goka, kemu)
+  - rule zisi: dogo if (kori, mome)
+  - rule sobo: dogo if (tize, kori)
+  - rule tegi: goka if (kori, gipu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: goka | gipu | dogo | kase
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 8,
+ &quot;derivation_length&quot;: 16,
+ &quot;goals&quot;: [
+  &quot;bire&quot;,
+  &quot;kemu&quot;
+ ],
+ &quot;savings&quot;: [
+  1,
+  0,
+  2,
+  -1
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">pego</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact nume, fact soko and fact tuze.
+The candidates are: k0 abstraction pego, k1 abstraction bona, k2 abstraction turo and k3 abstraction rozo.
+The derivation:
+  - step 0: nume given nothing
+  - step 1: soko given nothing
+  - step 2: turo kega (nume, soko)
+  - step 3: soko given nothing
+  - step 4: pego pete (turo, soko)
+  - step 5: rozo vinu (pego)
+  - step 6: nume given nothing
+  - step 7: soko given nothing
+  - step 8: turo kega (nume, soko)
+  - step 9: soko given nothing
+  - step 10: pego pete (turo, soko)
+  - step 11: nuza mese (rozo, pego)
+  - step 12: nume given nothing
+  - step 13: soko given nothing
+  - step 14: turo kega (nume, soko)
+  - step 15: soko given nothing
+  - step 16: pego pete (turo, soko)
+  - step 17: rozo vinu (pego)
+  - step 18: nume given nothing
+  - step 19: soko given nothing
+  - step 20: turo kega (nume, soko)
+  - step 21: soko given nothing
+  - step 22: pego pete (turo, soko)
+  - step 23: sani vuka (rozo, pego)
+The goals are: nuza and sani.
+The rules are:
+  - rule kega: turo if (nume, soko)
+  - rule dedu: nuza if (rozo, sani)
+  - rule vinu: rozo if (pego)
+  - rule pabu: bona if (turo, tuze)
+  - rule pete: pego if (turo, soko)
+  - rule rotu: turo if (nume, soko)
+  - rule vuka: sani if (rozo, pego)
+  - rule mese: nuza if (rozo, pego)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: turo | rozo | bona | pego
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 12,
+ &quot;derivation_length&quot;: 24,
+ &quot;goals&quot;: [
+  &quot;nuza&quot;,
+  &quot;sani&quot;
+ ],
+ &quot;savings&quot;: [
+  6,
+  3,
+  -2,
+  3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">tipo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact vudu, fact vubi and fact rudo.
+The candidates are: k0 abstraction nubu, k1 abstraction pasi, k2 abstraction reba and k3 abstraction tipo.
+The derivation:
+  - step 0: vudu given nothing
+  - step 1: rudo given nothing
+  - step 2: tipo dabu (vudu, rudo)
+  - step 3: vudu given nothing
+  - step 4: rudo given nothing
+  - step 5: tipo dabu (vudu, rudo)
+  - step 6: vubi given nothing
+  - step 7: reba nazu (tipo, vubi)
+  - step 8: notu kize (tipo, reba)
+  - step 9: teso mize (notu)
+  - step 10: vudu given nothing
+  - step 11: rudo given nothing
+  - step 12: tipo dabu (vudu, rudo)
+  - step 13: vudu given nothing
+  - step 14: rudo given nothing
+  - step 15: tipo dabu (vudu, rudo)
+  - step 16: vubi given nothing
+  - step 17: reba nazu (tipo, vubi)
+  - step 18: notu kize (tipo, reba)
+The goals are: teso and notu.
+The rules are:
+  - rule dabu: tipo if (vudu, rudo)
+  - rule nazu: reba if (tipo, vubi)
+  - rule mize: teso if (notu)
+  - rule kani: pasi if (reba, rudo)
+  - rule seba: pasi if (tipo, rudo)
+  - rule sita: nubu if (reba, notu)
+  - rule kize: notu if (tipo, reba)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: pasi | tipo | reba | nubu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 19,
+ &quot;goals&quot;: [
+  &quot;teso&quot;,
+  &quot;notu&quot;
+ ],
+ &quot;savings&quot;: [
+  3,
+  -7,
+  -2,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">puba</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact dama, fact reva and fact mome.
+The candidates are: k0 abstraction paba, k1 abstraction gezi, k2 abstraction duku and k3 abstraction puba.
+The derivation:
+  - step 0: reva given nothing
+  - step 1: mome given nothing
+  - step 2: puba rupi (reva, mome)
+  - step 3: reva given nothing
+  - step 4: paba vemi (puba, reva)
+  - step 5: reva given nothing
+  - step 6: mome given nothing
+  - step 7: puba rupi (reva, mome)
+  - step 8: bake pipa (paba, puba)
+  - step 9: reva given nothing
+  - step 10: mome given nothing
+  - step 11: puba rupi (reva, mome)
+  - step 12: reva given nothing
+  - step 13: mome given nothing
+  - step 14: puba rupi (reva, mome)
+  - step 15: reva given nothing
+  - step 16: paba vemi (puba, reva)
+  - step 17: pazo ruve (puba, paba)
+The goals are: bake and pazo.
+The rules are:
+  - rule zemu: duku if (bake, pazo)
+  - rule vemi: paba if (puba, reva)
+  - rule pitu: gezi if (bake, paba)
+  - rule pipa: bake if (paba, puba)
+  - rule zura: duku if (bake, pazo)
+  - rule badu: pazo if (bake, paba)
+  - rule geku: puba if (mome, dama)
+  - rule ruve: pazo if (puba, paba)
+  - rule rupi: puba if (reva, mome)
+  - rule gini: bake if (paba, puba)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: duku | paba | puba | gezi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 8,
+ &quot;derivation_length&quot;: 18,
+ &quot;goals&quot;: [
+  &quot;bake&quot;,
+  &quot;pazo&quot;
+ ],
+ &quot;savings&quot;: [
+  -9,
+  -7,
+  3,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">vana</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact bivi, fact kepu and fact kipa.
+The candidates are: k0 abstraction dosu, k1 abstraction vana, k2 abstraction zebi and k3 abstraction miza.
+The derivation:
+  - step 0: kepu given nothing
+  - step 1: bivi given nothing
+  - step 2: vana ruvo (kepu, bivi)
+  - step 3: dono nipi (vana)
+  - step 4: kepu given nothing
+  - step 5: bivi given nothing
+  - step 6: vana ruvo (kepu, bivi)
+  - step 7: dono nipi (vana)
+  - step 8: kepu given nothing
+  - step 9: bivi given nothing
+  - step 10: vana ruvo (kepu, bivi)
+  - step 11: kepu given nothing
+  - step 12: bivi given nothing
+  - step 13: vana ruvo (kepu, bivi)
+  - step 14: dono nipi (vana)
+  - step 15: miza kapo (vana, dono)
+  - step 16: romu sapa (dono, miza)
+The goals are: dono and romu.
+The rules are:
+  - rule bobu: romu if (dono, miza)
+  - rule vetu: zebi if (bivi)
+  - rule kapo: miza if (vana, dono)
+  - rule nipi: dono if (vana)
+  - rule demi: dosu if (dono)
+  - rule nuba: zebi if (bivi, kipa)
+  - rule sapa: romu if (dono, miza)
+  - rule reso: dono if (vana, bivi)
+  - rule ruvo: vana if (kepu, bivi)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: vana | miza | zebi | dosu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 17,
+ &quot;goals&quot;: [
+  &quot;dono&quot;,
+  &quot;romu&quot;
+ ],
+ &quot;savings&quot;: [
+  -1,
+  0,
+  3,
+  -3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">nuza</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact muka, fact vobe and fact pori.
+The candidates are: k0 abstraction susi, k1 abstraction nuza, k2 abstraction vema and k3 abstraction mipo.
+The derivation:
+  - step 0: vobe given nothing
+  - step 1: vobe given nothing
+  - step 2: mipo suta (vobe)
+  - step 3: nuza mama (vobe, mipo)
+  - step 4: buku rave (nuza)
+  - step 5: vobe given nothing
+  - step 6: vobe given nothing
+  - step 7: mipo suta (vobe)
+  - step 8: nuza mama (vobe, mipo)
+  - step 9: vobe given nothing
+  - step 10: vobe given nothing
+  - step 11: mipo suta (vobe)
+  - step 12: nuza mama (vobe, mipo)
+  - step 13: vobe given nothing
+  - step 14: mipo suta (vobe)
+  - step 15: susi getu (nuza, mipo)
+  - step 16: tomu bazi (nuza, susi)
+The goals are: buku and tomu.
+The rules are:
+  - rule kito: buku if (tomu, nuza)
+  - rule bazi: tomu if (nuza, susi)
+  - rule rave: buku if (nuza)
+  - rule mama: nuza if (vobe, mipo)
+  - rule zabu: vema if (muka, vobe)
+  - rule buni: vema if (muka)
+  - rule suta: mipo if (vobe)
+  - rule getu: susi if (nuza, mipo)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: nuza | vema | susi | mipo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 10,
+ &quot;derivation_length&quot;: 17,
+ &quot;goals&quot;: [
+  &quot;buku&quot;,
+  &quot;tomu&quot;
+ ],
+ &quot;savings&quot;: [
+  -1,
+  4,
+  0,
+  3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">tuza</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact nudo, fact rosi and fact boza.
+The candidates are: k0 abstraction sosa, k1 abstraction kovo, k2 abstraction tuza and k3 abstraction vosa.
+The derivation:
+  - step 0: nudo given nothing
+  - step 1: nudo given nothing
+  - step 2: boza given nothing
+  - step 3: tuza kupe (nudo, boza)
+  - step 4: sosa tido (nudo, tuza)
+  - step 5: nudo given nothing
+  - step 6: boza given nothing
+  - step 7: tuza kupe (nudo, boza)
+  - step 8: dide nazo (sosa, tuza)
+  - step 9: nudo given nothing
+  - step 10: boza given nothing
+  - step 11: tuza kupe (nudo, boza)
+  - step 12: nudo given nothing
+  - step 13: nudo given nothing
+  - step 14: boza given nothing
+  - step 15: tuza kupe (nudo, boza)
+  - step 16: sosa tido (nudo, tuza)
+  - step 17: dike vava (tuza, sosa)
+The goals are: dide and dike.
+The rules are:
+  - rule kono: vosa if (boza, rosi)
+  - rule kida: dide if (vosa, sosa)
+  - rule nuve: kovo if (dide)
+  - rule ramu: vosa if (boza)
+  - rule kupe: tuza if (nudo, boza)
+  - rule tido: sosa if (nudo, tuza)
+  - rule vava: dike if (tuza, sosa)
+  - rule toko: kovo if (dike, dide)
+  - rule seza: tuza if (nudo, vosa)
+  - rule nazo: dide if (sosa, tuza)
+  - rule zuze: sosa if (tuza, vosa)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: kovo | tuza | vosa | sosa
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 8,
+ &quot;derivation_length&quot;: 18,
+ &quot;goals&quot;: [
+  &quot;dide&quot;,
+  &quot;dike&quot;
+ ],
+ &quot;savings&quot;: [
+  3,
+  -5,
+  0,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">buku</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact vabi, fact kega and fact vudu.
+The candidates are: k0 abstraction buku, k1 abstraction nige, k2 abstraction kesu and k3 abstraction paba.
+The derivation:
+  - step 0: vudu given nothing
+  - step 1: vabi given nothing
+  - step 2: paba nado (vudu, vabi)
+  - step 3: vudu given nothing
+  - step 4: kesu mazo (vudu)
+  - step 5: vudu given nothing
+  - step 6: vabi given nothing
+  - step 7: paba nado (vudu, vabi)
+  - step 8: buku sapa (kesu, paba)
+  - step 9: peru nuka (paba, buku)
+  - step 10: vudu given nothing
+  - step 11: kesu mazo (vudu)
+  - step 12: vudu given nothing
+  - step 13: vabi given nothing
+  - step 14: paba nado (vudu, vabi)
+  - step 15: buku sapa (kesu, paba)
+  - step 16: mago kapi (buku)
+The goals are: peru and mago.
+The rules are:
+  - rule sapa: buku if (kesu, paba)
+  - rule kapi: mago if (buku)
+  - rule nevi: nige if (buku)
+  - rule bema: peru if (buku, kesu)
+  - rule mazo: kesu if (vudu)
+  - rule sivu: buku if (paba, kesu)
+  - rule nuka: peru if (paba, buku)
+  - rule dinu: paba if (vabi, vudu)
+  - rule nado: paba if (vudu, vabi)
+  - rule rigi: mago if (kesu, buku)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: kesu | nige | buku | paba
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 17,
+ &quot;goals&quot;: [
+  &quot;peru&quot;,
+  &quot;mago&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  3,
+  -4,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">bese</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact pevu, fact pipi and fact pitu.
+The candidates are: k0 abstraction bese, k1 abstraction bosa, k2 abstraction dabu and k3 abstraction kave.
+The derivation:
+  - step 0: pitu given nothing
+  - step 1: pevu given nothing
+  - step 2: bese tusu (pitu, pevu)
+  - step 3: pitu given nothing
+  - step 4: kave duni (bese, pitu)
+  - step 5: pitu given nothing
+  - step 6: pevu given nothing
+  - step 7: bese tusu (pitu, pevu)
+  - step 8: kope pabe (kave, bese)
+  - step 9: pitu given nothing
+  - step 10: pevu given nothing
+  - step 11: bese tusu (pitu, pevu)
+  - step 12: pitu given nothing
+  - step 13: pevu given nothing
+  - step 14: bese tusu (pitu, pevu)
+  - step 15: pitu given nothing
+  - step 16: kave duni (bese, pitu)
+  - step 17: mene geba (bese, kave)
+The goals are: kope and mene.
+The rules are:
+  - rule mugu: dabu if (bosa, mene)
+  - rule zedu: mene if (bese, kave)
+  - rule tusu: bese if (pitu, pevu)
+  - rule pani: bosa if (kope, kave)
+  - rule kero: kave if (bese, pitu)
+  - rule pabe: kope if (kave, bese)
+  - rule geba: mene if (bese, kave)
+  - rule toko: kope if (mene)
+  - rule duni: kave if (bese, pitu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: bese | kave | bosa | dabu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 8,
+ &quot;derivation_length&quot;: 18,
+ &quot;goals&quot;: [
+  &quot;kope&quot;,
+  &quot;mene&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  -7,
+  3,
+  -12
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">vusi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact pipi, fact keti and fact gape.
+The candidates are: k0 abstraction bono, k1 abstraction vami, k2 abstraction tiga and k3 abstraction vusi.
+The derivation:
+  - step 0: keti given nothing
+  - step 1: pipi given nothing
+  - step 2: bono sera (keti, pipi)
+  - step 3: pipi given nothing
+  - step 4: vusi mese (bono, pipi)
+  - step 5: keti given nothing
+  - step 6: pipi given nothing
+  - step 7: bono sera (keti, pipi)
+  - step 8: pipi given nothing
+  - step 9: vusi mese (bono, pipi)
+  - step 10: tiga nema (vusi)
+  - step 11: rozu budo (vusi, tiga)
+  - step 12: kitu tezu (rozu)
+  - step 13: keti given nothing
+  - step 14: pipi given nothing
+  - step 15: bono sera (keti, pipi)
+  - step 16: pipi given nothing
+  - step 17: vusi mese (bono, pipi)
+  - step 18: keti given nothing
+  - step 19: pipi given nothing
+  - step 20: bono sera (keti, pipi)
+  - step 21: pipi given nothing
+  - step 22: vusi mese (bono, pipi)
+  - step 23: tiga nema (vusi)
+  - step 24: rozu budo (vusi, tiga)
+The goals are: kitu and rozu.
+The rules are:
+  - rule sera: bono if (keti, pipi)
+  - rule mese: vusi if (bono, pipi)
+  - rule komu: kitu if (tiga, rozu)
+  - rule rute: vami if (rozu, tiga)
+  - rule tako: bono if (gape, pipi)
+  - rule budo: rozu if (vusi, tiga)
+  - rule nema: tiga if (vusi)
+  - rule tezu: kitu if (rozu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: vami | tiga | bono | vusi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 13,
+ &quot;derivation_length&quot;: 25,
+ &quot;goals&quot;: [
+  &quot;kitu&quot;,
+  &quot;rozu&quot;
+ ],
+ &quot;savings&quot;: [
+  3,
+  6,
+  3,
+  -10
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">tagi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact doba, fact dina and fact mori.
+The candidates are: k0 abstraction mama, k1 abstraction tagi, k2 abstraction dupe and k3 abstraction zeko.
+The derivation:
+  - step 0: doba given nothing
+  - step 1: dina given nothing
+  - step 2: tagi zita (doba, dina)
+  - step 3: doba given nothing
+  - step 4: doba given nothing
+  - step 5: dina given nothing
+  - step 6: tagi zita (doba, dina)
+  - step 7: zeko riki (doba, tagi)
+  - step 8: zabe kopo (tagi, zeko)
+  - step 9: mori given nothing
+  - step 10: dina given nothing
+  - step 11: mama doda (mori, dina)
+  - step 12: dupe gako (mama)
+  - step 13: nini guru (zabe, dupe)
+  - step 14: doba given nothing
+  - step 15: dina given nothing
+  - step 16: tagi zita (doba, dina)
+  - step 17: doba given nothing
+  - step 18: doba given nothing
+  - step 19: dina given nothing
+  - step 20: tagi zita (doba, dina)
+  - step 21: zeko riki (doba, tagi)
+  - step 22: zabe kopo (tagi, zeko)
+The goals are: nini and zabe.
+The rules are:
+  - rule gako: dupe if (mama)
+  - rule doda: mama if (mori, dina)
+  - rule riki: zeko if (doba, tagi)
+  - rule nipu: mama if (mori, doba)
+  - rule kopo: zabe if (tagi, zeko)
+  - rule guru: nini if (zabe, dupe)
+  - rule vuvu: tagi if (doba, mama)
+  - rule zita: tagi if (doba, dina)
+  - rule zupi: dupe if (mama, zeko)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: tagi | mama | dupe | zeko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 11,
+ &quot;derivation_length&quot;: 23,
+ &quot;goals&quot;: [
+  &quot;nini&quot;,
+  &quot;zabe&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  3,
+  0,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">siza</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact dobu, fact gusa and fact tevu.
+The candidates are: k0 abstraction besi, k1 abstraction rodo, k2 abstraction siza and k3 abstraction bana.
+The derivation:
+  - step 0: dobu given nothing
+  - step 1: tevu given nothing
+  - step 2: bana penu (dobu, tevu)
+  - step 3: gusa given nothing
+  - step 4: siza nope (bana, gusa)
+  - step 5: pone pine (siza)
+  - step 6: dobu given nothing
+  - step 7: tevu given nothing
+  - step 8: bana penu (dobu, tevu)
+  - step 9: gusa given nothing
+  - step 10: siza nope (bana, gusa)
+  - step 11: zuta dise (pone, siza)
+  - step 12: dobu given nothing
+  - step 13: tevu given nothing
+  - step 14: bana penu (dobu, tevu)
+  - step 15: gusa given nothing
+  - step 16: siza nope (bana, gusa)
+  - step 17: pone pine (siza)
+The goals are: zuta and pone.
+The rules are:
+  - rule nope: siza if (bana, gusa)
+  - rule zidi: rodo if (besi, siza)
+  - rule tidu: besi if (tevu, gusa)
+  - rule duku: rodo if (siza, pone)
+  - rule riga: besi if (tevu, bana)
+  - rule penu: bana if (dobu, tevu)
+  - rule dise: zuta if (pone, siza)
+  - rule nuvu: zuta if (siza, rodo)
+  - rule pine: pone if (siza)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: siza | besi | rodo | bana
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 18,
+ &quot;goals&quot;: [
+  &quot;zuta&quot;,
+  &quot;pone&quot;
+ ],
+ &quot;savings&quot;: [
+  4,
+  -1,
+  -1,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">zubi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact napu, fact runi and fact sopu.
+The candidates are: k0 abstraction toke, k1 abstraction bova, k2 abstraction zubi and k3 abstraction damo.
+The derivation:
+  - step 0: napu given nothing
+  - step 1: runi given nothing
+  - step 2: bova ziti (napu, runi)
+  - step 3: runi given nothing
+  - step 4: damo suke (bova, runi)
+  - step 5: napu given nothing
+  - step 6: runi given nothing
+  - step 7: bova ziti (napu, runi)
+  - step 8: zubi dito (damo, bova)
+  - step 9: napu given nothing
+  - step 10: runi given nothing
+  - step 11: bova ziti (napu, runi)
+  - step 12: napu given nothing
+  - step 13: runi given nothing
+  - step 14: bova ziti (napu, runi)
+  - step 15: runi given nothing
+  - step 16: damo suke (bova, runi)
+  - step 17: toke suma (bova, damo)
+  - step 18: kasi kumi (zubi, toke)
+  - step 19: napu given nothing
+  - step 20: runi given nothing
+  - step 21: bova ziti (napu, runi)
+  - step 22: napu given nothing
+  - step 23: runi given nothing
+  - step 24: bova ziti (napu, runi)
+  - step 25: runi given nothing
+  - step 26: damo suke (bova, runi)
+  - step 27: toke suma (bova, damo)
+  - step 28: suno koza (toke)
+The goals are: kasi and suno.
+The rules are:
+  - rule suke: damo if (bova, runi)
+  - rule suma: toke if (bova, damo)
+  - rule vezi: toke if (zubi)
+  - rule puni: suno if (zubi)
+  - rule dito: zubi if (damo, bova)
+  - rule zagi: damo if (runi, bova)
+  - rule ziti: bova if (napu, runi)
+  - rule koza: suno if (toke)
+  - rule kumi: kasi if (zubi, toke)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: zubi | bova | toke | damo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 14,
+ &quot;derivation_length&quot;: 29,
+ &quot;goals&quot;: [
+  &quot;kasi&quot;,
+  &quot;suno&quot;
+ ],
+ &quot;savings&quot;: [
+  4,
+  5,
+  4,
+  7
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">puge</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact veme, fact sopo and fact mivi.
+The candidates are: k0 abstraction zono, k1 abstraction piva, k2 abstraction puge and k3 abstraction diko.
+The derivation:
+  - step 0: mivi given nothing
+  - step 1: veme given nothing
+  - step 2: piva vedi (veme)
+  - step 3: zono koge (mivi, piva)
+  - step 4: veme given nothing
+  - step 5: piva vedi (veme)
+  - step 6: mivi given nothing
+  - step 7: veme given nothing
+  - step 8: piva vedi (veme)
+  - step 9: zono koge (mivi, piva)
+  - step 10: diko pike (piva, zono)
+  - step 11: veme given nothing
+  - step 12: piva vedi (veme)
+  - step 13: puge buru (diko, piva)
+  - step 14: ginu kazo (zono, puge)
+  - step 15: veme given nothing
+  - step 16: piva vedi (veme)
+  - step 17: mivi given nothing
+  - step 18: veme given nothing
+  - step 19: piva vedi (veme)
+  - step 20: zono koge (mivi, piva)
+  - step 21: diko pike (piva, zono)
+  - step 22: veme given nothing
+  - step 23: piva vedi (veme)
+  - step 24: puge buru (diko, piva)
+  - step 25: pisa zupi (ginu, puge)
+  - step 26: mivi given nothing
+  - step 27: veme given nothing
+  - step 28: piva vedi (veme)
+  - step 29: zono koge (mivi, piva)
+  - step 30: veme given nothing
+  - step 31: piva vedi (veme)
+  - step 32: mivi given nothing
+  - step 33: veme given nothing
+  - step 34: piva vedi (veme)
+  - step 35: zono koge (mivi, piva)
+  - step 36: diko pike (piva, zono)
+  - step 37: veme given nothing
+  - step 38: piva vedi (veme)
+  - step 39: puge buru (diko, piva)
+  - step 40: ginu kazo (zono, puge)
+The goals are: pisa and ginu.
+The rules are:
+  - rule zupi: pisa if (ginu, puge)
+  - rule pike: diko if (piva, zono)
+  - rule buru: puge if (diko, piva)
+  - rule daka: zono if (piva, mivi)
+  - rule duma: puge if (piva, diko)
+  - rule sebi: piva if (sopo, veme)
+  - rule vedi: piva if (veme)
+  - rule koge: zono if (mivi, piva)
+  - rule kazo: ginu if (zono, puge)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: diko | puge | zono | piva
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 25,
+ &quot;derivation_length&quot;: 41,
+ &quot;goals&quot;: [
+  &quot;pisa&quot;,
+  &quot;ginu&quot;
+ ],
+ &quot;savings&quot;: [
+  8,
+  12,
+  8,
+  10
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">sazi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact rine, fact mube and fact keno.
+The candidates are: k0 abstraction rira, k1 abstraction doko, k2 abstraction sazi and k3 abstraction veba.
+The derivation:
+  - step 0: rine given nothing
+  - step 1: keno given nothing
+  - step 2: rira kani (rine, keno)
+  - step 3: mube given nothing
+  - step 4: veba kuru (mube)
+  - step 5: sazi sako (rira, veba)
+  - step 6: mube given nothing
+  - step 7: veba kuru (mube)
+  - step 8: zepa geza (sazi, veba)
+  - step 9: rine given nothing
+  - step 10: keno given nothing
+  - step 11: rira kani (rine, keno)
+  - step 12: mube given nothing
+  - step 13: veba kuru (mube)
+  - step 14: sazi sako (rira, veba)
+  - step 15: tegi saga (zepa, sazi)
+  - step 16: rine given nothing
+  - step 17: keno given nothing
+  - step 18: rira kani (rine, keno)
+  - step 19: mube given nothing
+  - step 20: veba kuru (mube)
+  - step 21: sazi sako (rira, veba)
+  - step 22: mube given nothing
+  - step 23: veba kuru (mube)
+  - step 24: zepa geza (sazi, veba)
+The goals are: tegi and zepa.
+The rules are:
+  - rule rodo: sazi if (veba, doko)
+  - rule pabu: zepa if (doko, sazi)
+  - rule kuru: veba if (mube)
+  - rule rame: doko if (mube, rira)
+  - rule sako: sazi if (rira, veba)
+  - rule saga: tegi if (zepa, sazi)
+  - rule toma: doko if (rira, mube)
+  - rule bogi: veba if (mube, doko)
+  - rule kani: rira if (rine, keno)
+  - rule geza: zepa if (sazi, veba)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: rira | sazi | veba | doko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 14,
+ &quot;derivation_length&quot;: 25,
+ &quot;goals&quot;: [
+  &quot;tegi&quot;,
+  &quot;zepa&quot;
+ ],
+ &quot;savings&quot;: [
+  6,
+  2,
+  4,
+  3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">tabo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact dano, fact nota and fact zoke.
+The candidates are: k0 abstraction tabo, k1 abstraction kovu, k2 abstraction runo and k3 abstraction saza.
+The derivation:
+  - step 0: zoke given nothing
+  - step 1: dano given nothing
+  - step 2: tabo rimu (zoke, dano)
+  - step 3: dano given nothing
+  - step 4: duro kopi (tabo, dano)
+  - step 5: zoke given nothing
+  - step 6: dano given nothing
+  - step 7: tabo rimu (zoke, dano)
+  - step 8: dano given nothing
+  - step 9: duro kopi (tabo, dano)
+  - step 10: zoke given nothing
+  - step 11: dano given nothing
+  - step 12: tabo rimu (zoke, dano)
+  - step 13: dano given nothing
+  - step 14: runo vupu (tabo, dano)
+  - step 15: kovu nini (duro, runo)
+  - step 16: saza nire (kovu)
+  - step 17: zoke given nothing
+  - step 18: dano given nothing
+  - step 19: tabo rimu (zoke, dano)
+  - step 20: dano given nothing
+  - step 21: duro kopi (tabo, dano)
+  - step 22: kesa siso (saza, duro)
+The goals are: duro and kesa.
+The rules are:
+  - rule nini: kovu if (duro, runo)
+  - rule tebu: duro if (runo, tabo)
+  - rule kopi: duro if (tabo, dano)
+  - rule rimu: tabo if (zoke, dano)
+  - rule vupu: runo if (tabo, dano)
+  - rule tose: runo if (tabo, dano)
+  - rule siso: kesa if (saza, duro)
+  - rule dazu: saza if (duro, kovu)
+  - rule nire: saza if (kovu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: saza | kovu | tabo | runo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 11,
+ &quot;derivation_length&quot;: 23,
+ &quot;goals&quot;: [
+  &quot;duro&quot;,
+  &quot;kesa&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  0,
+  0,
+  3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">siti</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact kuse, fact puru and fact kesi.
+The candidates are: k0 abstraction siti, k1 abstraction pipa, k2 abstraction bove and k3 abstraction rebo.
+The derivation:
+  - step 0: puru given nothing
+  - step 1: kesi given nothing
+  - step 2: siti goba (puru, kesi)
+  - step 3: dasi rugu (siti)
+  - step 4: puru given nothing
+  - step 5: kesi given nothing
+  - step 6: siti goba (puru, kesi)
+  - step 7: puru given nothing
+  - step 8: pipa sobo (siti, puru)
+  - step 9: puru given nothing
+  - step 10: kesi given nothing
+  - step 11: siti goba (puru, kesi)
+  - step 12: bove sova (pipa, siti)
+  - step 13: puru given nothing
+  - step 14: kesi given nothing
+  - step 15: siti goba (puru, kesi)
+  - step 16: puru given nothing
+  - step 17: pipa sobo (siti, puru)
+  - step 18: numi pubo (bove, pipa)
+The goals are: dasi and numi.
+The rules are:
+  - rule pena: pipa if (siti)
+  - rule goba: siti if (puru, kesi)
+  - rule dude: siti if (kuse, puru)
+  - rule sobo: pipa if (siti, puru)
+  - rule mura: rebo if (bove, numi)
+  - rule nora: dasi if (puru, siti)
+  - rule rugu: dasi if (siti)
+  - rule sova: bove if (pipa, siti)
+  - rule pubo: numi if (bove, pipa)
+  - rule sudu: rebo if (numi, bove)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: bove | pipa | rebo | siti
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 19,
+ &quot;goals&quot;: [
+  &quot;dasi&quot;,
+  &quot;numi&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  3,
+  2,
+  -12
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">bupo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact mazu, fact gepe and fact ripa.
+The candidates are: k0 abstraction bede, k1 abstraction bupo, k2 abstraction bupa and k3 abstraction nova.
+The derivation:
+  - step 0: ripa given nothing
+  - step 1: nova tovi (ripa)
+  - step 2: ripa given nothing
+  - step 3: bupo sego (ripa)
+  - step 4: goki zoto (nova, bupo)
+  - step 5: ripa given nothing
+  - step 6: bupo sego (ripa)
+  - step 7: ripa given nothing
+  - step 8: nova tovi (ripa)
+  - step 9: ripa given nothing
+  - step 10: bupo sego (ripa)
+  - step 11: goki zoto (nova, bupo)
+  - step 12: ropa taka (bupo, goki)
+The goals are: goki and ropa.
+The rules are:
+  - rule sego: bupo if (ripa)
+  - rule gagu: bupa if (goki, bede)
+  - rule taka: ropa if (bupo, goki)
+  - rule zoto: goki if (nova, bupo)
+  - rule kuro: ropa if (bupo, goki)
+  - rule geza: bupa if (ropa, bede)
+  - rule tovi: nova if (ripa)
+  - rule suze: bede if (bupo, gepe)
+  - rule mane: bede if (bupo, gepe)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: bede | nova | bupa | bupo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 8,
+ &quot;derivation_length&quot;: 13,
+ &quot;goals&quot;: [
+  &quot;goki&quot;,
+  &quot;ropa&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  1,
+  -2,
+  -6
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">gasa</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact puna, fact kizu and fact poza.
+The candidates are: k0 abstraction rumo, k1 abstraction vuga, k2 abstraction mute and k3 abstraction gasa.
+The derivation:
+  - step 0: kizu given nothing
+  - step 1: poza given nothing
+  - step 2: gasa sima (kizu, poza)
+  - step 3: beto vepu (gasa)
+  - step 4: kizu given nothing
+  - step 5: poza given nothing
+  - step 6: gasa sima (kizu, poza)
+  - step 7: beto vepu (gasa)
+  - step 8: kizu given nothing
+  - step 9: poza given nothing
+  - step 10: gasa sima (kizu, poza)
+  - step 11: poza given nothing
+  - step 12: puna given nothing
+  - step 13: vuga davu (poza, puna)
+  - step 14: rumo dimo (gasa, vuga)
+  - step 15: radi bebu (beto, rumo)
+The goals are: beto and radi.
+The rules are:
+  - rule ziva: vuga if (gasa, poza)
+  - rule bebu: radi if (beto, rumo)
+  - rule davu: vuga if (poza, puna)
+  - rule vepu: beto if (gasa)
+  - rule sima: gasa if (kizu, poza)
+  - rule dori: radi if (mute, rumo)
+  - rule toso: gasa if (poza, puna)
+  - rule tuko: rumo if (gasa, beto)
+  - rule dimo: rumo if (gasa, vuga)
+  - rule dira: mute if (vuga, rumo)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: gasa | mute | vuga | rumo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 8,
+ &quot;derivation_length&quot;: 16,
+ &quot;goals&quot;: [
+  &quot;beto&quot;,
+  &quot;radi&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  -3,
+  0,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">kebo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact rito, fact rope and fact gosi.
+The candidates are: k0 abstraction tapa, k1 abstraction sota, k2 abstraction kebo and k3 abstraction sisi.
+The derivation:
+  - step 0: rito given nothing
+  - step 1: rope given nothing
+  - step 2: rito given nothing
+  - step 3: kebo nibe (rope, rito)
+  - step 4: sota pebe (rito, kebo)
+  - step 5: rope given nothing
+  - step 6: rito given nothing
+  - step 7: kebo nibe (rope, rito)
+  - step 8: rito given nothing
+  - step 9: sisi reku (kebo, rito)
+  - step 10: pise bose (sota, sisi)
+  - step 11: rope given nothing
+  - step 12: rito given nothing
+  - step 13: kebo nibe (rope, rito)
+  - step 14: rito given nothing
+  - step 15: sisi reku (kebo, rito)
+  - step 16: rito given nothing
+  - step 17: rope given nothing
+  - step 18: rito given nothing
+  - step 19: kebo nibe (rope, rito)
+  - step 20: sota pebe (rito, kebo)
+  - step 21: dimo pisa (sisi, sota)
+The goals are: pise and dimo.
+The rules are:
+  - rule nopo: dimo if (pise, sota)
+  - rule rome: tapa if (sisi, pise)
+  - rule reku: sisi if (kebo, rito)
+  - rule nibe: kebo if (rope, rito)
+  - rule pebe: sota if (rito, kebo)
+  - rule pisa: dimo if (sisi, sota)
+  - rule zage: kebo if (gosi)
+  - rule rote: sisi if (kebo, sota)
+  - rule noma: tapa if (sisi)
+  - rule bose: pise if (sota, sisi)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: sota | kebo | sisi | tapa
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 10,
+ &quot;derivation_length&quot;: 22,
+ &quot;goals&quot;: [
+  &quot;pise&quot;,
+  &quot;dimo&quot;
+ ],
+ &quot;savings&quot;: [
+  3,
+  -3,
+  2,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">zosa</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact degi, fact noso and fact dema.
+The candidates are: k0 abstraction zosa, k1 abstraction vibe, k2 abstraction pupi and k3 abstraction sato.
+The derivation:
+  - step 0: noso given nothing
+  - step 1: dema given nothing
+  - step 2: noso given nothing
+  - step 3: pupi keko (dema, noso)
+  - step 4: zosa domi (noso, pupi)
+  - step 5: sato rege (zosa)
+  - step 6: noso given nothing
+  - step 7: dema given nothing
+  - step 8: noso given nothing
+  - step 9: pupi keko (dema, noso)
+  - step 10: zosa domi (noso, pupi)
+  - step 11: kape kive (sato, zosa)
+  - step 12: noso given nothing
+  - step 13: dema given nothing
+  - step 14: noso given nothing
+  - step 15: pupi keko (dema, noso)
+  - step 16: zosa domi (noso, pupi)
+  - step 17: sato rege (zosa)
+  - step 18: duvo tapa (sato)
+The goals are: kape and duvo.
+The rules are:
+  - rule nuke: vibe if (noso, zosa)
+  - rule gina: pupi if (degi, dema)
+  - rule mugo: sato if (vibe, pupi)
+  - rule domi: zosa if (noso, pupi)
+  - rule kive: kape if (sato, zosa)
+  - rule zoru: duvo if (kape, sato)
+  - rule rege: sato if (zosa)
+  - rule tapa: duvo if (sato)
+  - rule keko: pupi if (dema, noso)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: zosa | sato | pupi | vibe
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 10,
+ &quot;derivation_length&quot;: 19,
+ &quot;goals&quot;: [
+  &quot;kape&quot;,
+  &quot;duvo&quot;
+ ],
+ &quot;savings&quot;: [
+  3,
+  2,
+  -1,
+  4
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">tiki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact kodi, fact zora and fact beto.
+The candidates are: k0 abstraction nodo, k1 abstraction dado, k2 abstraction tiki and k3 abstraction ruzu.
+The derivation:
+  - step 0: kodi given nothing
+  - step 1: zora given nothing
+  - step 2: nodo megi (kodi, zora)
+  - step 3: kodi given nothing
+  - step 4: kodi given nothing
+  - step 5: zora given nothing
+  - step 6: nodo megi (kodi, zora)
+  - step 7: tiki mese (kodi, nodo)
+  - step 8: dado somu (nodo, tiki)
+  - step 9: beto given nothing
+  - step 10: kodi given nothing
+  - step 11: kodi given nothing
+  - step 12: zora given nothing
+  - step 13: nodo megi (kodi, zora)
+  - step 14: tiki mese (kodi, nodo)
+  - step 15: ruzu mevi (beto, tiki)
+  - step 16: buna sage (dado, ruzu)
+  - step 17: kodi given nothing
+  - step 18: zora given nothing
+  - step 19: nodo megi (kodi, zora)
+  - step 20: kodi given nothing
+  - step 21: kodi given nothing
+  - step 22: zora given nothing
+  - step 23: nodo megi (kodi, zora)
+  - step 24: tiki mese (kodi, nodo)
+  - step 25: dado somu (nodo, tiki)
+  - step 26: beto given nothing
+  - step 27: kodi given nothing
+  - step 28: kodi given nothing
+  - step 29: zora given nothing
+  - step 30: nodo megi (kodi, zora)
+  - step 31: tiki mese (kodi, nodo)
+  - step 32: ruzu mevi (beto, tiki)
+  - step 33: numi nige (dado, ruzu)
+The goals are: buna and numi.
+The rules are:
+  - rule mese: tiki if (kodi, nodo)
+  - rule sage: buna if (dado, ruzu)
+  - rule voro: ruzu if (beto, tiki)
+  - rule somu: dado if (nodo, tiki)
+  - rule nige: numi if (dado, ruzu)
+  - rule mevi: ruzu if (beto, tiki)
+  - rule megi: nodo if (kodi, zora)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: tiki | ruzu | dado | nodo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 16,
+ &quot;derivation_length&quot;: 34,
+ &quot;goals&quot;: [
+  &quot;buna&quot;,
+  &quot;numi&quot;
+ ],
+ &quot;savings&quot;: [
+  3,
+  6,
+  5,
+  4
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">besu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact bitu, fact besi and fact ripo.
+The candidates are: k0 abstraction nopa, k1 abstraction sivu, k2 abstraction besu and k3 abstraction guge.
+The derivation:
+  - step 0: besi given nothing
+  - step 1: ripo given nothing
+  - step 2: bitu given nothing
+  - step 3: besu pitu (ripo, bitu)
+  - step 4: nopa pepo (besi, besu)
+  - step 5: ripo given nothing
+  - step 6: bitu given nothing
+  - step 7: besu pitu (ripo, bitu)
+  - step 8: vuvo pati (nopa, besu)
+  - step 9: besi given nothing
+  - step 10: ripo given nothing
+  - step 11: bitu given nothing
+  - step 12: besu pitu (ripo, bitu)
+  - step 13: nopa pepo (besi, besu)
+  - step 14: ripo given nothing
+  - step 15: bitu given nothing
+  - step 16: besu pitu (ripo, bitu)
+  - step 17: vuvo pati (nopa, besu)
+  - step 18: pugu nuzi (vuvo)
+The goals are: vuvo and pugu.
+The rules are:
+  - rule pitu: besu if (ripo, bitu)
+  - rule subi: guge if (vuvo, nopa)
+  - rule seki: besu if (bitu, besi)
+  - rule pati: vuvo if (nopa, besu)
+  - rule nuzi: pugu if (vuvo)
+  - rule pepo: nopa if (besi, besu)
+  - rule bini: pugu if (sivu, vuvo)
+  - rule rubo: sivu if (nopa)
+  - rule bora: nopa if (besi, besu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: nopa | besu | guge | sivu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 19,
+ &quot;goals&quot;: [
+  &quot;vuvo&quot;,
+  &quot;pugu&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  3,
+  -3,
+  -7
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">dare</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact teke, fact bero and fact nimo.
+The candidates are: k0 abstraction magi, k1 abstraction dare, k2 abstraction tomu and k3 abstraction vovi.
+The derivation:
+  - step 0: bero given nothing
+  - step 1: teke given nothing
+  - step 2: tomu metu (bero, teke)
+  - step 3: bero given nothing
+  - step 4: teke given nothing
+  - step 5: tomu metu (bero, teke)
+  - step 6: bero given nothing
+  - step 7: dare gere (tomu, bero)
+  - step 8: vovi bima (tomu, dare)
+  - step 9: nimo given nothing
+  - step 10: bero given nothing
+  - step 11: teke given nothing
+  - step 12: tomu metu (bero, teke)
+  - step 13: bero given nothing
+  - step 14: dare gere (tomu, bero)
+  - step 15: raru geze (nimo, dare)
+  - step 16: bave ruvu (vovi, raru)
+  - step 17: nimo given nothing
+  - step 18: bero given nothing
+  - step 19: teke given nothing
+  - step 20: tomu metu (bero, teke)
+  - step 21: bero given nothing
+  - step 22: dare gere (tomu, bero)
+  - step 23: raru geze (nimo, dare)
+The goals are: bave and raru.
+The rules are:
+  - rule geze: raru if (nimo, dare)
+  - rule togi: magi if (bave, raru)
+  - rule metu: tomu if (bero, teke)
+  - rule muvi: magi if (bave)
+  - rule bima: vovi if (tomu, dare)
+  - rule ruvu: bave if (vovi, raru)
+  - rule zeva: tomu if (nimo)
+  - rule gere: dare if (tomu, bero)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: vovi | magi | tomu | dare
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 11,
+ &quot;derivation_length&quot;: 24,
+ &quot;goals&quot;: [
+  &quot;bave&quot;,
+  &quot;raru&quot;
+ ],
+ &quot;savings&quot;: [
+  4,
+  3,
+  0,
+  -9
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">nepo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact zogu, fact puro and fact pero.
+The candidates are: k0 abstraction kegu, k1 abstraction zeda, k2 abstraction devu and k3 abstraction nepo.
+The derivation:
+  - step 0: puro given nothing
+  - step 1: devu riro (puro)
+  - step 2: puro given nothing
+  - step 3: devu riro (puro)
+  - step 4: pero given nothing
+  - step 5: pero given nothing
+  - step 6: nepo godo (pero)
+  - step 7: zeda vezi (pero, nepo)
+  - step 8: kegu nuko (devu, zeda)
+  - step 9: vene gega (devu, kegu)
+  - step 10: pero given nothing
+  - step 11: nepo godo (pero)
+  - step 12: pero given nothing
+  - step 13: pero given nothing
+  - step 14: nepo godo (pero)
+  - step 15: zeda vezi (pero, nepo)
+  - step 16: giga zudi (nepo, zeda)
+The goals are: vene and giga.
+The rules are:
+  - rule gega: vene if (devu, kegu)
+  - rule vezi: zeda if (pero, nepo)
+  - rule zudi: giga if (nepo, zeda)
+  - rule pove: vene if (devu, giga)
+  - rule godo: nepo if (pero)
+  - rule puvo: devu if (zeda)
+  - rule repi: kegu if (devu, giga)
+  - rule gemo: nepo if (pero, puro)
+  - rule riro: devu if (puro)
+  - rule nuko: kegu if (devu, zeda)
+  - rule nazo: zeda if (nepo, puro)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: devu | zeda | kegu | nepo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 10,
+ &quot;derivation_length&quot;: 17,
+ &quot;goals&quot;: [
+  &quot;vene&quot;,
+  &quot;giga&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  1,
+  3,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">bibe</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact sogu, fact zazu and fact nupe.
+The candidates are: k0 abstraction vuvo, k1 abstraction bibe, k2 abstraction mime and k3 abstraction kadu.
+The derivation:
+  - step 0: sogu given nothing
+  - step 1: bibe tepu (sogu)
+  - step 2: zazu given nothing
+  - step 3: mime puni (zazu)
+  - step 4: navi sosu (bibe, mime)
+  - step 5: sogu given nothing
+  - step 6: bibe tepu (sogu)
+  - step 7: pari romi (navi, bibe)
+  - step 8: sogu given nothing
+  - step 9: bibe tepu (sogu)
+  - step 10: zazu given nothing
+  - step 11: mime puni (zazu)
+  - step 12: navi sosu (bibe, mime)
+The goals are: pari and navi.
+The rules are:
+  - rule tepu: bibe if (sogu)
+  - rule romi: pari if (navi, bibe)
+  - rule puni: mime if (zazu)
+  - rule dubi: kadu if (vuvo, navi)
+  - rule rono: vuvo if (zazu, mime)
+  - rule sosu: navi if (bibe, mime)
+  - rule vebu: bibe if (mime, zazu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: vuvo | mime | bibe | kadu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 8,
+ &quot;derivation_length&quot;: 13,
+ &quot;goals&quot;: [
+  &quot;pari&quot;,
+  &quot;navi&quot;
+ ],
+ &quot;savings&quot;: [
+  -2,
+  2,
+  1,
+  -6
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">domo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact vegi, fact dego and fact tidu.
+The candidates are: k0 abstraction rese, k1 abstraction domo, k2 abstraction koru and k3 abstraction puda.
+The derivation:
+  - step 0: dego given nothing
+  - step 1: tidu given nothing
+  - step 2: domo bono (dego, tidu)
+  - step 3: dego given nothing
+  - step 4: tidu given nothing
+  - step 5: domo bono (dego, tidu)
+  - step 6: koru zigu (domo)
+  - step 7: guvi vime (domo, koru)
+  - step 8: dego given nothing
+  - step 9: tidu given nothing
+  - step 10: domo bono (dego, tidu)
+  - step 11: dego given nothing
+  - step 12: tidu given nothing
+  - step 13: domo bono (dego, tidu)
+  - step 14: koru zigu (domo)
+  - step 15: guvi vime (domo, koru)
+  - step 16: vuta seri (guvi)
+The goals are: guvi and vuta.
+The rules are:
+  - rule mute: puda if (domo, dego)
+  - rule tode: rese if (puda, guvi)
+  - rule vime: guvi if (domo, koru)
+  - rule bono: domo if (dego, tidu)
+  - rule seri: vuta if (guvi)
+  - rule numo: domo if (tidu, dego)
+  - rule zigu: koru if (domo)
+  - rule zugi: guvi if (puda, koru)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: domo | puda | rese | koru
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 17,
+ &quot;goals&quot;: [
+  &quot;guvi&quot;,
+  &quot;vuta&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  -7,
+  2,
+  3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">buni</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact nisu, fact sike and fact komo.
+The candidates are: k0 abstraction kate, k1 abstraction tagu, k2 abstraction buni and k3 abstraction karu.
+The derivation:
+  - step 0: nisu given nothing
+  - step 1: komo given nothing
+  - step 2: buni sozu (nisu, komo)
+  - step 3: nisu given nothing
+  - step 4: komo given nothing
+  - step 5: buni sozu (nisu, komo)
+  - step 6: komo given nothing
+  - step 7: karu nere (buni, komo)
+  - step 8: tebe bavo (buni, karu)
+  - step 9: nisu given nothing
+  - step 10: komo given nothing
+  - step 11: buni sozu (nisu, komo)
+  - step 12: nisu given nothing
+  - step 13: komo given nothing
+  - step 14: buni sozu (nisu, komo)
+  - step 15: komo given nothing
+  - step 16: karu nere (buni, komo)
+  - step 17: tebe bavo (buni, karu)
+  - step 18: kate kapi (tebe)
+  - step 19: muki zoka (tebe, kate)
+  - step 20: nisu given nothing
+  - step 21: komo given nothing
+  - step 22: buni sozu (nisu, komo)
+  - step 23: nisu given nothing
+  - step 24: komo given nothing
+  - step 25: buni sozu (nisu, komo)
+  - step 26: komo given nothing
+  - step 27: karu nere (buni, komo)
+  - step 28: tebe bavo (buni, karu)
+The goals are: muki and tebe.
+The rules are:
+  - rule zoka: muki if (tebe, kate)
+  - rule nere: karu if (buni, komo)
+  - rule zato: muki if (kate, tebe)
+  - rule tumi: tagu if (sike, buni)
+  - rule vavo: buni if (sike, komo)
+  - rule buku: karu if (buni, tagu)
+  - rule tito: tebe if (tagu, buni)
+  - rule kapi: kate if (tebe)
+  - rule bavo: tebe if (buni, karu)
+  - rule sozu: buni if (nisu, komo)
+  - rule neke: kate if (tagu, tebe)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: karu | buni | tagu | kate
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 14,
+ &quot;derivation_length&quot;: 29,
+ &quot;goals&quot;: [
+  &quot;muki&quot;,
+  &quot;tebe&quot;
+ ],
+ &quot;savings&quot;: [
+  5,
+  0,
+  4,
+  4
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">nima</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact rumu, fact beru and fact raza.
+The candidates are: k0 abstraction mesa, k1 abstraction tivi, k2 abstraction nima and k3 abstraction nise.
+The derivation:
+  - step 0: rumu given nothing
+  - step 1: nima sero (rumu)
+  - step 2: rumu given nothing
+  - step 3: nona maru (nima, rumu)
+  - step 4: rumu given nothing
+  - step 5: nima sero (rumu)
+  - step 6: nise vupe (nona, nima)
+  - step 7: rumu given nothing
+  - step 8: nima sero (rumu)
+  - step 9: rumu given nothing
+  - step 10: nona maru (nima, rumu)
+  - step 11: givi rude (nise, nona)
+  - step 12: rumu given nothing
+  - step 13: nima sero (rumu)
+  - step 14: rumu given nothing
+  - step 15: nona maru (nima, rumu)
+The goals are: givi and nona.
+The rules are:
+  - rule sodi: mesa if (nona, nise)
+  - rule rude: givi if (nise, nona)
+  - rule mame: givi if (nona, nise)
+  - rule vupe: nise if (nona, nima)
+  - rule maru: nona if (nima, rumu)
+  - rule mipo: tivi if (nima, rumu)
+  - rule sero: nima if (rumu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: nima | mesa | nise | tivi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 16,
+ &quot;goals&quot;: [
+  &quot;givi&quot;,
+  &quot;nona&quot;
+ ],
+ &quot;savings&quot;: [
+  3,
+  -7,
+  -2,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">zedo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact ravu, fact kize and fact puva.
+The candidates are: k0 abstraction reza, k1 abstraction zedo, k2 abstraction dedu and k3 abstraction seda.
+The derivation:
+  - step 0: ravu given nothing
+  - step 1: puva given nothing
+  - step 2: zedo roki (ravu, puva)
+  - step 3: dova numi (zedo)
+  - step 4: puva given nothing
+  - step 5: ravu given nothing
+  - step 6: puva given nothing
+  - step 7: zedo roki (ravu, puva)
+  - step 8: reza zeso (puva, zedo)
+  - step 9: dedu zose (reza)
+  - step 10: ravu given nothing
+  - step 11: puva given nothing
+  - step 12: zedo roki (ravu, puva)
+  - step 13: dova numi (zedo)
+  - step 14: bume geka (dedu, dova)
+The goals are: dova and bume.
+The rules are:
+  - rule zeso: reza if (puva, zedo)
+  - rule bako: dedu if (reza, dova)
+  - rule zose: dedu if (reza)
+  - rule numi: dova if (zedo)
+  - rule vike: seda if (bume)
+  - rule geka: bume if (dedu, dova)
+  - rule roki: zedo if (ravu, puva)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: zedo | dedu | reza | seda
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 8,
+ &quot;derivation_length&quot;: 15,
+ &quot;goals&quot;: [
+  &quot;dova&quot;,
+  &quot;bume&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  0,
+  2,
+  -7
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">nuki</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact geti, fact duze and fact deba.
+The candidates are: k0 abstraction kuro, k1 abstraction nuki, k2 abstraction tago and k3 abstraction sobo.
+The derivation:
+  - step 0: deba given nothing
+  - step 1: duze given nothing
+  - step 2: nuki zadu (deba, duze)
+  - step 3: deba given nothing
+  - step 4: sobo vodi (deba)
+  - step 5: taza paro (nuki, sobo)
+  - step 6: deba given nothing
+  - step 7: duze given nothing
+  - step 8: nuki zadu (deba, duze)
+  - step 9: vero mezo (taza, nuki)
+  - step 10: deba given nothing
+  - step 11: duze given nothing
+  - step 12: nuki zadu (deba, duze)
+  - step 13: deba given nothing
+  - step 14: sobo vodi (deba)
+  - step 15: taza paro (nuki, sobo)
+The goals are: vero and taza.
+The rules are:
+  - rule ruve: sobo if (tago, nuki)
+  - rule mezo: vero if (taza, nuki)
+  - rule paro: taza if (nuki, sobo)
+  - rule sive: taza if (tago, sobo)
+  - rule puge: vero if (taza, nuki)
+  - rule ripo: kuro if (sobo, taza)
+  - rule povi: kuro if (sobo)
+  - rule zadu: nuki if (deba, duze)
+  - rule ramu: nuki if (duze, tago)
+  - rule dire: tago if (deba, geti)
+  - rule vodi: sobo if (deba)
+  - rule siti: tago if (geti, duze)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: sobo | nuki | kuro | tago
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 8,
+ &quot;derivation_length&quot;: 16,
+ &quot;goals&quot;: [
+  &quot;vero&quot;,
+  &quot;taza&quot;
+ ],
+ &quot;savings&quot;: [
+  1,
+  -2,
+  2,
+  1
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">zize</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact dogo, fact dipe and fact rimu.
+The candidates are: k0 abstraction zezo, k1 abstraction zize, k2 abstraction seza and k3 abstraction budo.
+The derivation:
+  - step 0: dogo given nothing
+  - step 1: dipe given nothing
+  - step 2: seza tevi (dogo, dipe)
+  - step 3: dogo given nothing
+  - step 4: rimu given nothing
+  - step 5: zize maki (dogo, rimu)
+  - step 6: dogo given nothing
+  - step 7: povu mapi (zize, dogo)
+  - step 8: budo budi (seza, povu)
+  - step 9: dogo given nothing
+  - step 10: rimu given nothing
+  - step 11: zize maki (dogo, rimu)
+  - step 12: giba rupa (budo, zize)
+  - step 13: dogo given nothing
+  - step 14: rimu given nothing
+  - step 15: zize maki (dogo, rimu)
+  - step 16: dogo given nothing
+  - step 17: povu mapi (zize, dogo)
+The goals are: giba and povu.
+The rules are:
+  - rule vosa: giba if (budo, zize)
+  - rule zupi: zezo if (povu)
+  - rule tevi: seza if (dogo, dipe)
+  - rule rine: zezo if (giba, budo)
+  - rule mapi: povu if (zize, dogo)
+  - rule tome: seza if (rimu, dipe)
+  - rule budi: budo if (seza, povu)
+  - rule vipa: zize if (rimu, seza)
+  - rule maki: zize if (dogo, rimu)
+  - rule rupa: giba if (budo, zize)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: budo | zize | seza | zezo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 8,
+ &quot;derivation_length&quot;: 18,
+ &quot;goals&quot;: [
+  &quot;giba&quot;,
+  &quot;povu&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  2,
+  0,
+  -3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">mago</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact rume, fact dapo and fact pito.
+The candidates are: k0 abstraction vave, k1 abstraction vuze, k2 abstraction mago and k3 abstraction riko.
+The derivation:
+  - step 0: pito given nothing
+  - step 1: mago zoze (pito)
+  - step 2: dapo given nothing
+  - step 3: vave gisa (dapo)
+  - step 4: gava gosa (mago, vave)
+  - step 5: pito given nothing
+  - step 6: mago zoze (pito)
+  - step 7: pito given nothing
+  - step 8: mago zoze (pito)
+  - step 9: dapo given nothing
+  - step 10: vave gisa (dapo)
+  - step 11: gava gosa (mago, vave)
+  - step 12: zubo guko (mago, gava)
+The goals are: gava and zubo.
+The rules are:
+  - rule gosa: gava if (mago, vave)
+  - rule guko: zubo if (mago, gava)
+  - rule tone: gava if (mago, vave)
+  - rule toge: vuze if (zubo)
+  - rule vobi: mago if (rume, vave)
+  - rule gisa: vave if (dapo)
+  - rule zoze: mago if (pito)
+  - rule beta: riko if (mago, vave)
+  - rule dobi: vuze if (zubo, gava)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: mago | riko | vuze | vave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 8,
+ &quot;derivation_length&quot;: 13,
+ &quot;goals&quot;: [
+  &quot;gava&quot;,
+  &quot;zubo&quot;
+ ],
+ &quot;savings&quot;: [
+  -3,
+  -6,
+  2,
+  1
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">muti</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact goge, fact teki and fact sane.
+The candidates are: k0 abstraction ropo, k1 abstraction gesi, k2 abstraction sipa and k3 abstraction muti.
+The derivation:
+  - step 0: goge given nothing
+  - step 1: sane given nothing
+  - step 2: ropo bupi (goge, sane)
+  - step 3: sane given nothing
+  - step 4: teki given nothing
+  - step 5: sipa zopa (sane, teki)
+  - step 6: muti maga (sipa)
+  - step 7: soge duke (ropo, muti)
+  - step 8: goge given nothing
+  - step 9: sane given nothing
+  - step 10: ropo bupi (goge, sane)
+  - step 11: sane given nothing
+  - step 12: teki given nothing
+  - step 13: sipa zopa (sane, teki)
+  - step 14: muti maga (sipa)
+  - step 15: soge duke (ropo, muti)
+  - step 16: sane given nothing
+  - step 17: teki given nothing
+  - step 18: sipa zopa (sane, teki)
+  - step 19: muti maga (sipa)
+  - step 20: buzo kapo (soge, muti)
+The goals are: soge and buzo.
+The rules are:
+  - rule mumi: ropo if (sipa)
+  - rule goso: gesi if (sane, sipa)
+  - rule zave: gesi if (sane)
+  - rule bupi: ropo if (goge, sane)
+  - rule zopa: sipa if (sane, teki)
+  - rule maga: muti if (sipa)
+  - rule bini: soge if (gesi, muti)
+  - rule duke: soge if (ropo, muti)
+  - rule kapo: buzo if (soge, muti)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: gesi | sipa | muti | ropo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 11,
+ &quot;derivation_length&quot;: 21,
+ &quot;goals&quot;: [
+  &quot;soge&quot;,
+  &quot;buzo&quot;
+ ],
+ &quot;savings&quot;: [
+  4,
+  2,
+  1,
+  1
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">kate</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact nivo, fact naro and fact sido.
+The candidates are: k0 abstraction kuto, k1 abstraction bina, k2 abstraction kate and k3 abstraction neda.
+The derivation:
+  - step 0: naro given nothing
+  - step 1: sido given nothing
+  - step 2: kuto kagi (naro, sido)
+  - step 3: sido given nothing
+  - step 4: bina peba (sido)
+  - step 5: neda sipu (bina)
+  - step 6: vuvu tiru (kuto, neda)
+  - step 7: sido given nothing
+  - step 8: bina peba (sido)
+  - step 9: naro given nothing
+  - step 10: sido given nothing
+  - step 11: kuto kagi (naro, sido)
+  - step 12: kate muse (bina, kuto)
+  - step 13: nibe vuto (vuvu, kate)
+  - step 14: naro given nothing
+  - step 15: sido given nothing
+  - step 16: kuto kagi (naro, sido)
+  - step 17: sido given nothing
+  - step 18: bina peba (sido)
+  - step 19: neda sipu (bina)
+  - step 20: vuvu tiru (kuto, neda)
+The goals are: nibe and vuvu.
+The rules are:
+  - rule tiru: vuvu if (kuto, neda)
+  - rule gutu: kate if (bina, kuto)
+  - rule sipu: neda if (bina)
+  - rule geta: vuvu if (kate, kuto)
+  - rule gegu: kuto if (sido, naro)
+  - rule muse: kate if (bina, kuto)
+  - rule kagi: kuto if (naro, sido)
+  - rule vuto: nibe if (vuvu, kate)
+  - rule vaze: neda if (kuto, bina)
+  - rule peba: bina if (sido)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: kuto | bina | neda | kate
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 12,
+ &quot;derivation_length&quot;: 21,
+ &quot;goals&quot;: [
+  &quot;nibe&quot;,
+  &quot;vuvu&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  4,
+  2,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">pepa</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact rena, fact guko and fact dizo.
+The candidates are: k0 abstraction rime, k1 abstraction pepa, k2 abstraction simo and k3 abstraction bira.
+The derivation:
+  - step 0: guko given nothing
+  - step 1: pepa seta (guko)
+  - step 2: guko given nothing
+  - step 3: rada nake (pepa, guko)
+  - step 4: guko given nothing
+  - step 5: pepa seta (guko)
+  - step 6: guko given nothing
+  - step 7: rada nake (pepa, guko)
+  - step 8: guko given nothing
+  - step 9: guko given nothing
+  - step 10: pepa seta (guko)
+  - step 11: simo zigu (guko, pepa)
+  - step 12: guko given nothing
+  - step 13: pepa seta (guko)
+  - step 14: rime tuva (simo, pepa)
+  - step 15: ragi suse (rada, rime)
+The goals are: rada and ragi.
+The rules are:
+  - rule bupa: pepa if (guko, rena)
+  - rule zipa: rime if (rada, pepa)
+  - rule zigu: simo if (guko, pepa)
+  - rule seta: pepa if (guko)
+  - rule nake: rada if (pepa, guko)
+  - rule tuva: rime if (simo, pepa)
+  - rule gopi: bira if (simo, rada)
+  - rule suse: ragi if (rada, rime)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: rime | simo | pepa | bira
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 16,
+ &quot;goals&quot;: [
+  &quot;rada&quot;,
+  &quot;ragi&quot;
+ ],
+ &quot;savings&quot;: [
+  -5,
+  0,
+  0,
+  3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">tesa</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact desa, fact meki and fact nuta.
+The candidates are: k0 abstraction bita, k1 abstraction zuno, k2 abstraction puke and k3 abstraction tesa.
+The derivation:
+  - step 0: nuta given nothing
+  - step 1: tesa vaku (nuta)
+  - step 2: give miko (tesa)
+  - step 3: nuta given nothing
+  - step 4: tesa vaku (nuta)
+  - step 5: bita bade (give, tesa)
+  - step 6: nuta given nothing
+  - step 7: tesa vaku (nuta)
+  - step 8: give miko (tesa)
+  - step 9: nora toru (bita, give)
+  - step 10: nuta given nothing
+  - step 11: tesa vaku (nuta)
+  - step 12: give miko (tesa)
+The goals are: nora and give.
+The rules are:
+  - rule vaku: tesa if (nuta)
+  - rule geku: zuno if (tesa, desa)
+  - rule rotu: puke if (give)
+  - rule nide: puke if (give)
+  - rule bade: bita if (give, tesa)
+  - rule muke: nora if (bita, puke)
+  - rule toru: nora if (bita, give)
+  - rule nita: zuno if (desa)
+  - rule digo: bita if (give, zuno)
+  - rule miko: give if (tesa)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: tesa | puke | zuno | bita
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 13,
+ &quot;goals&quot;: [
+  &quot;nora&quot;,
+  &quot;give&quot;
+ ],
+ &quot;savings&quot;: [
+  -1,
+  0,
+  0,
+  3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">zera</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact mugi, fact nuti and fact duze.
+The candidates are: k0 abstraction siza, k1 abstraction rama, k2 abstraction koga and k3 abstraction zera.
+The derivation:
+  - step 0: mugi given nothing
+  - step 1: nuti given nothing
+  - step 2: zera tigo (mugi, nuti)
+  - step 3: mugi given nothing
+  - step 4: rama kabi (zera, mugi)
+  - step 5: mugi given nothing
+  - step 6: nuti given nothing
+  - step 7: zera tigo (mugi, nuti)
+  - step 8: pimi ravu (rama, zera)
+  - step 9: mugi given nothing
+  - step 10: nuti given nothing
+  - step 11: zera tigo (mugi, nuti)
+  - step 12: mugi given nothing
+  - step 13: rama kabi (zera, mugi)
+  - step 14: mugi given nothing
+  - step 15: nuti given nothing
+  - step 16: zera tigo (mugi, nuti)
+  - step 17: pimi ravu (rama, zera)
+  - step 18: neno rupe (pimi)
+The goals are: pimi and neno.
+The rules are:
+  - rule gibo: pimi if (zera, siza)
+  - rule dosa: neno if (pimi)
+  - rule papa: siza if (zera, koga)
+  - rule kabi: rama if (zera, mugi)
+  - rule remo: koga if (nuti)
+  - rule rupe: neno if (pimi)
+  - rule tigo: zera if (mugi, nuti)
+  - rule venu: koga if (duze)
+  - rule ravu: pimi if (rama, zera)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: rama | zera | koga | siza
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 19,
+ &quot;goals&quot;: [
+  &quot;pimi&quot;,
+  &quot;neno&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  3,
+  -1,
+  1
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">pope</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact tomu, fact piki and fact goda.
+The candidates are: k0 abstraction sosi, k1 abstraction vami, k2 abstraction pope and k3 abstraction rigo.
+The derivation:
+  - step 0: piki given nothing
+  - step 1: rinu kuva (piki)
+  - step 2: tomu given nothing
+  - step 3: piki given nothing
+  - step 4: rigo savi (piki)
+  - step 5: pope sozo (tomu, rigo)
+  - step 6: vami biki (rinu, pope)
+  - step 7: tomu given nothing
+  - step 8: piki given nothing
+  - step 9: rigo savi (piki)
+  - step 10: pope sozo (tomu, rigo)
+  - step 11: vadu ruvi (vami, pope)
+  - step 12: piki given nothing
+  - step 13: rinu kuva (piki)
+The goals are: vadu and rinu.
+The rules are:
+  - rule savi: rigo if (piki)
+  - rule ruvi: vadu if (vami, pope)
+  - rule daso: sosi if (vami, rinu)
+  - rule biki: vami if (rinu, pope)
+  - rule novi: sosi if (vami, vadu)
+  - rule kuva: rinu if (piki)
+  - rule roba: rinu if (pope, rigo)
+  - rule sozo: pope if (tomu, rigo)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: pope | rigo | vami | sosi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 8,
+ &quot;derivation_length&quot;: 14,
+ &quot;goals&quot;: [
+  &quot;vadu&quot;,
+  &quot;rinu&quot;
+ ],
+ &quot;savings&quot;: [
+  1,
+  -6,
+  0,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">bube</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact tudi, fact naro and fact dige.
+The candidates are: k0 abstraction bube, k1 abstraction nisu, k2 abstraction sire and k3 abstraction pemi.
+The derivation:
+  - step 0: naro given nothing
+  - step 1: dige given nothing
+  - step 2: nisu zezi (dige)
+  - step 3: bube puro (naro, nisu)
+  - step 4: pemi take (bube)
+  - step 5: naro given nothing
+  - step 6: dige given nothing
+  - step 7: nisu zezi (dige)
+  - step 8: bube puro (naro, nisu)
+  - step 9: vobu bore (pemi, bube)
+  - step 10: tudi given nothing
+  - step 11: dige given nothing
+  - step 12: sire keta (tudi, dige)
+  - step 13: naro given nothing
+  - step 14: dige given nothing
+  - step 15: nisu zezi (dige)
+  - step 16: bube puro (naro, nisu)
+  - step 17: kogu gete (sire, bube)
+The goals are: vobu and kogu.
+The rules are:
+  - rule keta: sire if (tudi, dige)
+  - rule reki: vobu if (bube, pemi)
+  - rule poro: kogu if (bube, nisu)
+  - rule gete: kogu if (sire, bube)
+  - rule take: pemi if (bube)
+  - rule bore: vobu if (pemi, bube)
+  - rule zezi: nisu if (dige)
+  - rule baba: nisu if (naro, dige)
+  - rule puro: bube if (naro, nisu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: pemi | nisu | bube | sire
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 10,
+ &quot;derivation_length&quot;: 18,
+ &quot;goals&quot;: [
+  &quot;vobu&quot;,
+  &quot;kogu&quot;
+ ],
+ &quot;savings&quot;: [
+  3,
+  4,
+  0,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">zito</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact rupo, fact buvo and fact vidi.
+The candidates are: k0 abstraction zito, k1 abstraction dimo, k2 abstraction suvo and k3 abstraction vege.
+The derivation:
+  - step 0: vidi given nothing
+  - step 1: zito dodi (vidi)
+  - step 2: buvo given nothing
+  - step 3: dimo gobi (buvo)
+  - step 4: vidi given nothing
+  - step 5: zito dodi (vidi)
+  - step 6: mobo nuva (dimo, zito)
+  - step 7: suvo vomi (zito, mobo)
+  - step 8: giru sesu (suvo)
+  - step 9: buvo given nothing
+  - step 10: dimo gobi (buvo)
+  - step 11: vidi given nothing
+  - step 12: zito dodi (vidi)
+  - step 13: mobo nuva (dimo, zito)
+The goals are: giru and mobo.
+The rules are:
+  - rule tada: dimo if (vidi, rupo)
+  - rule sesu: giru if (suvo)
+  - rule nuva: mobo if (dimo, zito)
+  - rule vomi: suvo if (zito, mobo)
+  - rule noma: giru if (vege, suvo)
+  - rule mika: zito if (dimo, vidi)
+  - rule vabi: vege if (suvo, zito)
+  - rule teko: vege if (zito, mobo)
+  - rule gobi: dimo if (buvo)
+  - rule dodi: zito if (vidi)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: vege | dimo | zito | suvo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 14,
+ &quot;goals&quot;: [
+  &quot;giru&quot;,
+  &quot;mobo&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  0,
+  1,
+  -5
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">kisa</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact mape, fact miro and fact nope.
+The candidates are: k0 abstraction kani, k1 abstraction botu, k2 abstraction rado and k3 abstraction kisa.
+The derivation:
+  - step 0: miro given nothing
+  - step 1: botu buvo (miro)
+  - step 2: mape given nothing
+  - step 3: miro given nothing
+  - step 4: nope given nothing
+  - step 5: kani zivu (miro, nope)
+  - step 6: kisa bero (mape, kani)
+  - step 7: penu peru (botu, kisa)
+  - step 8: miro given nothing
+  - step 9: botu buvo (miro)
+  - step 10: mape given nothing
+  - step 11: miro given nothing
+  - step 12: nope given nothing
+  - step 13: kani zivu (miro, nope)
+  - step 14: kisa bero (mape, kani)
+  - step 15: rado nogu (botu, kisa)
+  - step 16: gaka tetu (penu, rado)
+  - step 17: miro given nothing
+  - step 18: botu buvo (miro)
+  - step 19: mape given nothing
+  - step 20: miro given nothing
+  - step 21: nope given nothing
+  - step 22: kani zivu (miro, nope)
+  - step 23: kisa bero (mape, kani)
+  - step 24: penu peru (botu, kisa)
+The goals are: gaka and penu.
+The rules are:
+  - rule peru: penu if (botu, kisa)
+  - rule duda: kani if (nope, miro)
+  - rule zivu: kani if (miro, nope)
+  - rule buvo: botu if (miro)
+  - rule rupe: botu if (kisa, miro)
+  - rule bero: kisa if (mape, kani)
+  - rule tetu: gaka if (penu, rado)
+  - rule guto: kisa if (kani)
+  - rule nogu: rado if (botu, kisa)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: botu | kani | rado | kisa
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 13,
+ &quot;derivation_length&quot;: 25,
+ &quot;goals&quot;: [
+  &quot;gaka&quot;,
+  &quot;penu&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  2,
+  4,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">pisi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact posi, fact puzu and fact baku.
+The candidates are: k0 abstraction toda, k1 abstraction moka, k2 abstraction taru and k3 abstraction pisi.
+The derivation:
+  - step 0: puzu given nothing
+  - step 1: posi given nothing
+  - step 2: pisi domo (puzu, posi)
+  - step 3: posi given nothing
+  - step 4: baku given nothing
+  - step 5: taru vape (posi, baku)
+  - step 6: moka ruzo (pisi, taru)
+  - step 7: puzu given nothing
+  - step 8: posi given nothing
+  - step 9: pisi domo (puzu, posi)
+  - step 10: toda komi (pisi)
+  - step 11: vase kino (moka, toda)
+  - step 12: puzu given nothing
+  - step 13: posi given nothing
+  - step 14: pisi domo (puzu, posi)
+  - step 15: toda komi (pisi)
+  - step 16: puzu given nothing
+  - step 17: posi given nothing
+  - step 18: pisi domo (puzu, posi)
+  - step 19: beba duni (toda, pisi)
+The goals are: vase and beba.
+The rules are:
+  - rule komi: toda if (pisi)
+  - rule vape: taru if (posi, baku)
+  - rule kino: vase if (moka, toda)
+  - rule domo: pisi if (puzu, posi)
+  - rule ruzo: moka if (pisi, taru)
+  - rule duni: beba if (toda, pisi)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: taru | moka | pisi | toda
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 10,
+ &quot;derivation_length&quot;: 20,
+ &quot;goals&quot;: [
+  &quot;vase&quot;,
+  &quot;beba&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  3,
+  2,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">reve</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact kobo, fact dogu and fact mobo.
+The candidates are: k0 abstraction tini, k1 abstraction varu, k2 abstraction reve and k3 abstraction vunu.
+The derivation:
+  - step 0: dogu given nothing
+  - step 1: mobo given nothing
+  - step 2: kobo given nothing
+  - step 3: tini rune (mobo, kobo)
+  - step 4: reve zami (dogu, tini)
+  - step 5: mobo given nothing
+  - step 6: piru rusi (reve, mobo)
+  - step 7: dogu given nothing
+  - step 8: mobo given nothing
+  - step 9: kobo given nothing
+  - step 10: tini rune (mobo, kobo)
+  - step 11: reve zami (dogu, tini)
+  - step 12: pase supu (piru, reve)
+  - step 13: dogu given nothing
+  - step 14: mobo given nothing
+  - step 15: kobo given nothing
+  - step 16: tini rune (mobo, kobo)
+  - step 17: reve zami (dogu, tini)
+  - step 18: mobo given nothing
+  - step 19: piru rusi (reve, mobo)
+The goals are: pase and piru.
+The rules are:
+  - rule gene: tini if (kobo, dogu)
+  - rule supu: pase if (piru, reve)
+  - rule zami: reve if (dogu, tini)
+  - rule tuto: varu if (pase, piru)
+  - rule rusi: piru if (reve, mobo)
+  - rule rune: tini if (mobo, kobo)
+  - rule pabu: reve if (mobo, tini)
+  - rule mone: vunu if (pase, piru)
+  - rule sema: varu if (pase, reve)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: tini | reve | varu | vunu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 20,
+ &quot;goals&quot;: [
+  &quot;pase&quot;,
+  &quot;piru&quot;
+ ],
+ &quot;savings&quot;: [
+  -9,
+  2,
+  4,
+  -10
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">vizi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact moba, fact gabu and fact zazo.
+The candidates are: k0 abstraction vizi, k1 abstraction nosi, k2 abstraction gizi and k3 abstraction sazo.
+The derivation:
+  - step 0: zazo given nothing
+  - step 1: moba given nothing
+  - step 2: vizi tunu (zazo, moba)
+  - step 3: zazo given nothing
+  - step 4: mumi vopu (vizi, zazo)
+  - step 5: moba given nothing
+  - step 6: zazo given nothing
+  - step 7: nosi vudo (moba, zazo)
+  - step 8: zazo given nothing
+  - step 9: moba given nothing
+  - step 10: vizi tunu (zazo, moba)
+  - step 11: gizi kemo (nosi, vizi)
+  - step 12: zege samo (mumi, gizi)
+  - step 13: zazo given nothing
+  - step 14: moba given nothing
+  - step 15: vizi tunu (zazo, moba)
+  - step 16: zazo given nothing
+  - step 17: mumi vopu (vizi, zazo)
+The goals are: zege and mumi.
+The rules are:
+  - rule kano: sazo if (gizi, mumi)
+  - rule mude: mumi if (vizi, zazo)
+  - rule samo: zege if (mumi, gizi)
+  - rule zogo: nosi if (vizi, moba)
+  - rule tunu: vizi if (zazo, moba)
+  - rule kemo: gizi if (nosi, vizi)
+  - rule vopu: mumi if (vizi, zazo)
+  - rule vudo: nosi if (moba, zazo)
+  - rule dogi: gizi if (vizi, mumi)
+  - rule guro: vizi if (moba)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: gizi | vizi | sazo | nosi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 8,
+ &quot;derivation_length&quot;: 18,
+ &quot;goals&quot;: [
+  &quot;zege&quot;,
+  &quot;mumi&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  0,
+  -6,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">geva</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact simi, fact zane and fact tinu.
+The candidates are: k0 abstraction ribo, k1 abstraction gade, k2 abstraction gake and k3 abstraction geva.
+The derivation:
+  - step 0: tinu given nothing
+  - step 1: tinu given nothing
+  - step 2: simi given nothing
+  - step 3: geva posa (tinu, simi)
+  - step 4: ribo tava (tinu, geva)
+  - step 5: tinu given nothing
+  - step 6: simi given nothing
+  - step 7: geva posa (tinu, simi)
+  - step 8: taki mizi (ribo, geva)
+  - step 9: tinu given nothing
+  - step 10: simi given nothing
+  - step 11: geva posa (tinu, simi)
+  - step 12: gade bire (geva)
+  - step 13: tinu given nothing
+  - step 14: tinu given nothing
+  - step 15: simi given nothing
+  - step 16: geva posa (tinu, simi)
+  - step 17: ribo tava (tinu, geva)
+  - step 18: tinu given nothing
+  - step 19: simi given nothing
+  - step 20: geva posa (tinu, simi)
+  - step 21: taki mizi (ribo, geva)
+  - step 22: nidi pugu (gade, taki)
+The goals are: taki and nidi.
+The rules are:
+  - rule tava: ribo if (tinu, geva)
+  - rule mizi: taki if (ribo, geva)
+  - rule ropu: geva if (tinu, gake)
+  - rule geno: gake if (simi, zane)
+  - rule pugu: nidi if (gade, taki)
+  - rule posa: geva if (tinu, simi)
+  - rule bire: gade if (geva)
+  - rule veti: gade if (gake, ribo)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: gade | gake | geva | ribo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 11,
+ &quot;derivation_length&quot;: 23,
+ &quot;goals&quot;: [
+  &quot;taki&quot;,
+  &quot;nidi&quot;
+ ],
+ &quot;savings&quot;: [
+  4,
+  -1,
+  2,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">pine</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact beza, fact sego and fact kibi.
+The candidates are: k0 abstraction samo, k1 abstraction pine, k2 abstraction gaku and k3 abstraction keni.
+The derivation:
+  - step 0: sego given nothing
+  - step 1: beza given nothing
+  - step 2: kibi given nothing
+  - step 3: gaku nemu (beza, kibi)
+  - step 4: kibi given nothing
+  - step 5: pine togu (gaku, kibi)
+  - step 6: keni kazu (sego, pine)
+  - step 7: beza given nothing
+  - step 8: kibi given nothing
+  - step 9: gaku nemu (beza, kibi)
+  - step 10: kibi given nothing
+  - step 11: pine togu (gaku, kibi)
+  - step 12: modo rake (keni, pine)
+  - step 13: sego given nothing
+  - step 14: beza given nothing
+  - step 15: kibi given nothing
+  - step 16: gaku nemu (beza, kibi)
+  - step 17: kibi given nothing
+  - step 18: pine togu (gaku, kibi)
+  - step 19: keni kazu (sego, pine)
+  - step 20: sego given nothing
+  - step 21: beza given nothing
+  - step 22: kibi given nothing
+  - step 23: gaku nemu (beza, kibi)
+  - step 24: kibi given nothing
+  - step 25: pine togu (gaku, kibi)
+  - step 26: keni kazu (sego, pine)
+  - step 27: beza given nothing
+  - step 28: kibi given nothing
+  - step 29: gaku nemu (beza, kibi)
+  - step 30: kibi given nothing
+  - step 31: pine togu (gaku, kibi)
+  - step 32: modo rake (keni, pine)
+  - step 33: Dave rega (keni, modo)
+The goals are: modo and Dave.
+The rules are:
+  - rule pero: keni if (gaku, pine)
+  - rule dive: samo if (pine, keni)
+  - rule kazu: keni if (sego, pine)
+  - rule rake: modo if (keni, pine)
+  - rule togu: pine if (gaku, kibi)
+  - rule rega: Dave if (keni, modo)
+  - rule goro: modo if (samo, keni)
+  - rule zori: Dave if (keni, modo)
+  - rule nemu: gaku if (beza, kibi)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: samo | pine | gaku | keni
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 16,
+ &quot;derivation_length&quot;: 34,
+ &quot;goals&quot;: [
+  &quot;modo&quot;,
+  &quot;dave&quot;
+ ],
+ &quot;savings&quot;: [
+  8,
+  6,
+  -2,
+  4
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">sedo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact gosi, fact gevi and fact gapo.
+The candidates are: k0 abstraction kizi, k1 abstraction sedo, k2 abstraction taki and k3 abstraction doga.
+The derivation:
+  - step 0: gevi given nothing
+  - step 1: gapo given nothing
+  - step 2: sedo movi (gevi, gapo)
+  - step 3: gevi given nothing
+  - step 4: gapo given nothing
+  - step 5: taki zopo (gevi, gapo)
+  - step 6: dino zema (sedo, taki)
+  - step 7: gevi given nothing
+  - step 8: gapo given nothing
+  - step 9: sedo movi (gevi, gapo)
+  - step 10: doga kana (dino, sedo)
+  - step 11: gevi given nothing
+  - step 12: gapo given nothing
+  - step 13: sedo movi (gevi, gapo)
+  - step 14: gevi given nothing
+  - step 15: gapo given nothing
+  - step 16: taki zopo (gevi, gapo)
+  - step 17: dino zema (sedo, taki)
+  - step 18: bunu bovu (doga, dino)
+  - step 19: gevi given nothing
+  - step 20: gapo given nothing
+  - step 21: sedo movi (gevi, gapo)
+  - step 22: gevi given nothing
+  - step 23: gapo given nothing
+  - step 24: taki zopo (gevi, gapo)
+  - step 25: dino zema (sedo, taki)
+The goals are: bunu and dino.
+The rules are:
+  - rule bima: sedo if (gevi, taki)
+  - rule zopo: taki if (gevi, gapo)
+  - rule bovu: bunu if (doga, dino)
+  - rule kana: doga if (dino, sedo)
+  - rule vati: kizi if (dino, doga)
+  - rule zema: dino if (sedo, taki)
+  - rule movi: sedo if (gevi, gapo)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: sedo | doga | taki | kizi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 12,
+ &quot;derivation_length&quot;: 26,
+ &quot;goals&quot;: [
+  &quot;bunu&quot;,
+  &quot;dino&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  -9,
+  0,
+  3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">moku</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact duvu, fact zama and fact roda.
+The candidates are: k0 abstraction pova, k1 abstraction moku, k2 abstraction dumu and k3 abstraction tuku.
+The derivation:
+  - step 0: roda given nothing
+  - step 1: pova ruzi (roda)
+  - step 2: zama given nothing
+  - step 3: duvu given nothing
+  - step 4: tuku neno (zama, duvu)
+  - step 5: moku pomo (tuku)
+  - step 6: gezo gite (pova, moku)
+  - step 7: zama given nothing
+  - step 8: duvu given nothing
+  - step 9: tuku neno (zama, duvu)
+  - step 10: moku pomo (tuku)
+  - step 11: puka vego (gezo, moku)
+  - step 12: roda given nothing
+  - step 13: pova ruzi (roda)
+  - step 14: zama given nothing
+  - step 15: duvu given nothing
+  - step 16: tuku neno (zama, duvu)
+  - step 17: moku pomo (tuku)
+  - step 18: gezo gite (pova, moku)
+The goals are: puka and gezo.
+The rules are:
+  - rule neno: tuku if (zama, duvu)
+  - rule ruzi: pova if (roda)
+  - rule pomo: moku if (tuku)
+  - rule vito: dumu if (pova)
+  - rule gite: gezo if (pova, moku)
+  - rule besu: pova if (tuku)
+  - rule nepo: puka if (gezo, moku)
+  - rule muki: gezo if (pova, moku)
+  - rule vego: puka if (gezo, moku)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: moku | tuku | dumu | pova
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 11,
+ &quot;derivation_length&quot;: 19,
+ &quot;goals&quot;: [
+  &quot;puka&quot;,
+  &quot;gezo&quot;
+ ],
+ &quot;savings&quot;: [
+  -2,
+  1,
+  2,
+  4
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">ziru</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact duve, fact dize and fact zeti.
+The candidates are: k0 abstraction robi, k1 abstraction nevu, k2 abstraction gave and k3 abstraction ziru.
+The derivation:
+  - step 0: dize given nothing
+  - step 1: gave pita (dize)
+  - step 2: dize given nothing
+  - step 3: zeti given nothing
+  - step 4: nevu piko (dize, zeti)
+  - step 5: zeti given nothing
+  - step 6: ziru dutu (nevu, zeti)
+  - step 7: teri zomu (gave, ziru)
+  - step 8: dize given nothing
+  - step 9: zeti given nothing
+  - step 10: nevu piko (dize, zeti)
+  - step 11: zeti given nothing
+  - step 12: ziru dutu (nevu, zeti)
+  - step 13: bizo zatu (teri, ziru)
+  - step 14: dize given nothing
+  - step 15: gave pita (dize)
+  - step 16: dize given nothing
+  - step 17: zeti given nothing
+  - step 18: nevu piko (dize, zeti)
+  - step 19: zeti given nothing
+  - step 20: ziru dutu (nevu, zeti)
+  - step 21: teri zomu (gave, ziru)
+The goals are: bizo and teri.
+The rules are:
+  - rule romo: gave if (duve, dize)
+  - rule zatu: bizo if (teri, ziru)
+  - rule zomu: teri if (gave, ziru)
+  - rule pita: gave if (dize)
+  - rule tupo: robi if (ziru, teri)
+  - rule kevo: robi if (ziru, bizo)
+  - rule piko: nevu if (dize, zeti)
+  - rule dutu: ziru if (nevu, zeti)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: ziru | gave | nevu | robi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 11,
+ &quot;derivation_length&quot;: 22,
+ &quot;goals&quot;: [
+  &quot;bizo&quot;,
+  &quot;teri&quot;
+ ],
+ &quot;savings&quot;: [
+  -7,
+  1,
+  2,
+  4
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">turu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact kudi, fact tevo and fact keri.
+The candidates are: k0 abstraction suku, k1 abstraction doru, k2 abstraction turu and k3 abstraction vore.
+The derivation:
+  - step 0: tevo given nothing
+  - step 1: keri given nothing
+  - step 2: suku zane (tevo, keri)
+  - step 3: tevo given nothing
+  - step 4: turu bote (suku, tevo)
+  - step 5: tevo given nothing
+  - step 6: keri given nothing
+  - step 7: suku zane (tevo, keri)
+  - step 8: pabu riga (turu, suku)
+  - step 9: tevo given nothing
+  - step 10: keri given nothing
+  - step 11: suku zane (tevo, keri)
+  - step 12: tevo given nothing
+  - step 13: turu bote (suku, tevo)
+  - step 14: doru mape (pabu, turu)
+  - step 15: tevo given nothing
+  - step 16: keri given nothing
+  - step 17: suku zane (tevo, keri)
+  - step 18: tevo given nothing
+  - step 19: turu bote (suku, tevo)
+  - step 20: tevo given nothing
+  - step 21: keri given nothing
+  - step 22: suku zane (tevo, keri)
+  - step 23: pabu riga (turu, suku)
+  - step 24: tevo given nothing
+  - step 25: keri given nothing
+  - step 26: suku zane (tevo, keri)
+  - step 27: tevo given nothing
+  - step 28: turu bote (suku, tevo)
+  - step 29: doru mape (pabu, turu)
+  - step 30: vore gipu (doru)
+  - step 31: vego veme (doru, vore)
+  - step 32: tevo given nothing
+  - step 33: keri given nothing
+  - step 34: suku zane (tevo, keri)
+  - step 35: tevo given nothing
+  - step 36: turu bote (suku, tevo)
+  - step 37: tevo given nothing
+  - step 38: keri given nothing
+  - step 39: suku zane (tevo, keri)
+  - step 40: pabu riga (turu, suku)
+The goals are: vego and pabu.
+The rules are:
+  - rule geki: vore if (turu, doru)
+  - rule rode: vego if (doru, vore)
+  - rule suka: turu if (suku, keri)
+  - rule veme: vego if (doru, vore)
+  - rule mape: doru if (pabu, turu)
+  - rule bote: turu if (suku, tevo)
+  - rule zane: suku if (tevo, keri)
+  - rule gipu: vore if (doru)
+  - rule riga: pabu if (turu, suku)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: doru | turu | vore | suku
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 20,
+ &quot;derivation_length&quot;: 41,
+ &quot;goals&quot;: [
+  &quot;vego&quot;,
+  &quot;pabu&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  7,
+  8,
+  7
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">keti</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact veso, fact tigo and fact pedu.
+The candidates are: k0 abstraction keti, k1 abstraction tebe, k2 abstraction nege and k3 abstraction neki.
+The derivation:
+  - step 0: pedu given nothing
+  - step 1: pedu given nothing
+  - step 2: tigo given nothing
+  - step 3: neki voso (pedu, tigo)
+  - step 4: keti puki (pedu, neki)
+  - step 5: pedu given nothing
+  - step 6: vage bedi (keti, pedu)
+  - step 7: pedu given nothing
+  - step 8: pedu given nothing
+  - step 9: tigo given nothing
+  - step 10: neki voso (pedu, tigo)
+  - step 11: keti puki (pedu, neki)
+  - step 12: pedu given nothing
+  - step 13: vage bedi (keti, pedu)
+  - step 14: pedu given nothing
+  - step 15: pedu given nothing
+  - step 16: tigo given nothing
+  - step 17: neki voso (pedu, tigo)
+  - step 18: keti puki (pedu, neki)
+  - step 19: zoke ziba (vage, keti)
+The goals are: vage and zoke.
+The rules are:
+  - rule bedi: vage if (keti, pedu)
+  - rule puki: keti if (pedu, neki)
+  - rule tino: vage if (keti, pedu)
+  - rule voso: neki if (pedu, tigo)
+  - rule duni: neki if (pedu)
+  - rule buko: nege if (neki, keti)
+  - rule ziba: zoke if (vage, keti)
+  - rule doma: tebe if (zoke)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: neki | nege | tebe | keti
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 20,
+ &quot;goals&quot;: [
+  &quot;vage&quot;,
+  &quot;zoke&quot;
+ ],
+ &quot;savings&quot;: [
+  -4,
+  2,
+  4,
+  -7
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">namo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact gesa, fact mivu and fact ziza.
+The candidates are: k0 abstraction puzo, k1 abstraction namo, k2 abstraction dosu and k3 abstraction zave.
+The derivation:
+  - step 0: ziza given nothing
+  - step 1: ziza given nothing
+  - step 2: mivu given nothing
+  - step 3: namo noki (ziza, mivu)
+  - step 4: zave tuma (ziza, namo)
+  - step 5: ziza given nothing
+  - step 6: mivu given nothing
+  - step 7: namo noki (ziza, mivu)
+  - step 8: mezu mami (zave, namo)
+  - step 9: ziza given nothing
+  - step 10: ziza given nothing
+  - step 11: mivu given nothing
+  - step 12: namo noki (ziza, mivu)
+  - step 13: dosu kuvo (ziza, namo)
+  - step 14: dibi bumo (mezu, dosu)
+  - step 15: ziza given nothing
+  - step 16: ziza given nothing
+  - step 17: mivu given nothing
+  - step 18: namo noki (ziza, mivu)
+  - step 19: zave tuma (ziza, namo)
+  - step 20: ziza given nothing
+  - step 21: mivu given nothing
+  - step 22: namo noki (ziza, mivu)
+  - step 23: mezu mami (zave, namo)
+The goals are: dibi and mezu.
+The rules are:
+  - rule koma: puzo if (mezu, zave)
+  - rule noki: namo if (ziza, mivu)
+  - rule damo: puzo if (mezu, zave)
+  - rule kuvo: dosu if (ziza, namo)
+  - rule mami: mezu if (zave, namo)
+  - rule tabu: dibi if (dosu, mezu)
+  - rule tuma: zave if (ziza, namo)
+  - rule bumo: dibi if (mezu, dosu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: puzo | zave | namo | dosu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 11,
+ &quot;derivation_length&quot;: 24,
+ &quot;goals&quot;: [
+  &quot;dibi&quot;,
+  &quot;mezu&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  4,
+  -7,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">ribe</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact pene, fact vasa and fact noge.
+The candidates are: k0 abstraction koke, k1 abstraction rono, k2 abstraction ribe and k3 abstraction dete.
+The derivation:
+  - step 0: vasa given nothing
+  - step 1: rono rudo (vasa)
+  - step 2: vasa given nothing
+  - step 3: rono rudo (vasa)
+  - step 4: noge given nothing
+  - step 5: pene given nothing
+  - step 6: vasa given nothing
+  - step 7: dete rubo (pene, vasa)
+  - step 8: giga goma (noge, dete)
+  - step 9: ribe domi (rono, giga)
+  - step 10: koke zepi (rono, ribe)
+  - step 11: vasa given nothing
+  - step 12: rono rudo (vasa)
+  - step 13: noge given nothing
+  - step 14: pene given nothing
+  - step 15: vasa given nothing
+  - step 16: dete rubo (pene, vasa)
+  - step 17: giga goma (noge, dete)
+  - step 18: ribe domi (rono, giga)
+  - step 19: gaku sari (koke, ribe)
+  - step 20: noge given nothing
+  - step 21: pene given nothing
+  - step 22: vasa given nothing
+  - step 23: dete rubo (pene, vasa)
+  - step 24: giga goma (noge, dete)
+The goals are: gaku and giga.
+The rules are:
+  - rule zoso: dete if (pene)
+  - rule sari: gaku if (koke, ribe)
+  - rule rubo: dete if (pene, vasa)
+  - rule domi: ribe if (rono, giga)
+  - rule gobe: rono if (vasa, noge)
+  - rule gasu: giga if (dete, noge)
+  - rule goma: giga if (noge, dete)
+  - rule zepi: koke if (rono, ribe)
+  - rule rudo: rono if (vasa)
+  - rule titu: gaku if (koke, ribe)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: koke | dete | rono | ribe
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 13,
+ &quot;derivation_length&quot;: 25,
+ &quot;goals&quot;: [
+  &quot;gaku&quot;,
+  &quot;giga&quot;
+ ],
+ &quot;savings&quot;: [
+  4,
+  0,
+  2,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">tato</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact supa, fact pata and fact vita.
+The candidates are: k0 abstraction degi, k1 abstraction meke, k2 abstraction tato and k3 abstraction pomo.
+The derivation:
+  - step 0: supa given nothing
+  - step 1: pata given nothing
+  - step 2: vita given nothing
+  - step 3: degi rogi (pata, vita)
+  - step 4: supa given nothing
+  - step 5: tato pavi (degi, supa)
+  - step 6: meke sapo (supa, tato)
+  - step 7: tuba ruge (meke)
+  - step 8: pata given nothing
+  - step 9: vita given nothing
+  - step 10: degi rogi (pata, vita)
+  - step 11: supa given nothing
+  - step 12: tato pavi (degi, supa)
+  - step 13: zami segi (tuba, tato)
+  - step 14: supa given nothing
+  - step 15: pata given nothing
+  - step 16: vita given nothing
+  - step 17: degi rogi (pata, vita)
+  - step 18: supa given nothing
+  - step 19: tato pavi (degi, supa)
+  - step 20: meke sapo (supa, tato)
+  - step 21: tuba ruge (meke)
+The goals are: zami and tuba.
+The rules are:
+  - rule boti: pomo if (tuba, meke)
+  - rule pavi: tato if (degi, supa)
+  - rule sapo: meke if (supa, tato)
+  - rule rogi: degi if (pata, vita)
+  - rule ruge: tuba if (meke)
+  - rule gupe: pomo if (zami, meke)
+  - rule segi: zami if (tuba, tato)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: degi | meke | tato | pomo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 11,
+ &quot;derivation_length&quot;: 22,
+ &quot;goals&quot;: [
+  &quot;zami&quot;,
+  &quot;tuba&quot;
+ ],
+ &quot;savings&quot;: [
+  -8,
+  3,
+  4,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">zevu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact mero, fact nezu and fact kige.
+The candidates are: k0 abstraction diba, k1 abstraction mapu, k2 abstraction zevu and k3 abstraction buma.
+The derivation:
+  - step 0: mero given nothing
+  - step 1: zevu nagu (mero)
+  - step 2: diba sabo (zevu)
+  - step 3: mero given nothing
+  - step 4: zevu nagu (mero)
+  - step 5: mapu kodi (diba, zevu)
+  - step 6: mero given nothing
+  - step 7: zevu nagu (mero)
+  - step 8: buma rogo (zevu)
+  - step 9: reno miri (mapu, buma)
+  - step 10: mero given nothing
+  - step 11: zevu nagu (mero)
+  - step 12: diba sabo (zevu)
+  - step 13: mero given nothing
+  - step 14: zevu nagu (mero)
+  - step 15: diba sabo (zevu)
+  - step 16: mero given nothing
+  - step 17: zevu nagu (mero)
+  - step 18: mapu kodi (diba, zevu)
+  - step 19: bime mabo (diba, mapu)
+The goals are: reno and bime.
+The rules are:
+  - rule vuba: buma if (mapu, diba)
+  - rule sabo: diba if (zevu)
+  - rule mabo: bime if (diba, mapu)
+  - rule miri: reno if (mapu, buma)
+  - rule zivu: zevu if (kige, mero)
+  - rule kodi: mapu if (diba, zevu)
+  - rule nagu: zevu if (mero)
+  - rule rogo: buma if (zevu)
+  - rule soze: reno if (mapu, bime)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: diba | mapu | buma | zevu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 14,
+ &quot;derivation_length&quot;: 20,
+ &quot;goals&quot;: [
+  &quot;reno&quot;,
+  &quot;bime&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  4,
+  5,
+  4
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">daso</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact padi, fact kosi and fact rara.
+The candidates are: k0 abstraction raza, k1 abstraction titu, k2 abstraction dude and k3 abstraction daso.
+The derivation:
+  - step 0: kosi given nothing
+  - step 1: daso niku (kosi)
+  - step 2: titu mava (daso)
+  - step 3: kosi given nothing
+  - step 4: daso niku (kosi)
+  - step 5: dude senu (daso)
+  - step 6: sivi vito (titu, dude)
+  - step 7: kosi given nothing
+  - step 8: daso niku (kosi)
+  - step 9: kosi given nothing
+  - step 10: daso niku (kosi)
+  - step 11: dude senu (daso)
+  - step 12: teso nepe (daso, dude)
+The goals are: sivi and teso.
+The rules are:
+  - rule rori: teso if (dude, titu)
+  - rule vito: sivi if (titu, dude)
+  - rule mava: titu if (daso)
+  - rule niku: daso if (kosi)
+  - rule senu: dude if (daso)
+  - rule zodu: raza if (titu)
+  - rule nepe: teso if (daso, dude)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: raza | daso | dude | titu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 13,
+ &quot;goals&quot;: [
+  &quot;sivi&quot;,
+  &quot;teso&quot;
+ ],
+ &quot;savings&quot;: [
+  3,
+  2,
+  1,
+  -3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">vudi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact kami, fact dobe and fact puba.
+The candidates are: k0 abstraction vudi, k1 abstraction rubo, k2 abstraction kova and k3 abstraction sere.
+The derivation:
+  - step 0: dobe given nothing
+  - step 1: dobe given nothing
+  - step 2: kami given nothing
+  - step 3: sere seve (dobe, kami)
+  - step 4: vudi pisa (dobe, sere)
+  - step 5: dobe given nothing
+  - step 6: kova buvi (dobe)
+  - step 7: tovu pizo (vudi, kova)
+  - step 8: dobe given nothing
+  - step 9: dobe given nothing
+  - step 10: kami given nothing
+  - step 11: sere seve (dobe, kami)
+  - step 12: vudi pisa (dobe, sere)
+  - step 13: dobe given nothing
+  - step 14: kova buvi (dobe)
+  - step 15: tovu pizo (vudi, kova)
+  - step 16: dobe given nothing
+  - step 17: dobe given nothing
+  - step 18: kami given nothing
+  - step 19: sere seve (dobe, kami)
+  - step 20: vudi pisa (dobe, sere)
+  - step 21: rote kemu (tovu, vudi)
+The goals are: tovu and rote.
+The rules are:
+  - rule sebo: vudi if (sere, kova)
+  - rule gopu: rubo if (tovu, kova)
+  - rule zopo: sere if (puba, kami)
+  - rule tunu: rote if (rubo, tovu)
+  - rule seve: sere if (dobe, kami)
+  - rule buvi: kova if (dobe)
+  - rule pizo: tovu if (vudi, kova)
+  - rule kemu: rote if (tovu, vudi)
+  - rule pogi: rubo if (kova, vudi)
+  - rule pisa: vudi if (dobe, sere)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: sere | kova | rubo | vudi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 11,
+ &quot;derivation_length&quot;: 22,
+ &quot;goals&quot;: [
+  &quot;tovu&quot;,
+  &quot;rote&quot;
+ ],
+ &quot;savings&quot;: [
+  -2,
+  4,
+  1,
+  2
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">saro</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact masa, fact buta and fact mago.
+The candidates are: k0 abstraction voge, k1 abstraction saro, k2 abstraction gera and k3 abstraction rogi.
+The derivation:
+  - step 0: mago given nothing
+  - step 1: masa given nothing
+  - step 2: buta given nothing
+  - step 3: saro pozo (masa, buta)
+  - step 4: voge peta (mago, saro)
+  - step 5: masa given nothing
+  - step 6: buta given nothing
+  - step 7: saro pozo (masa, buta)
+  - step 8: tepu bate (voge, saro)
+  - step 9: mago given nothing
+  - step 10: masa given nothing
+  - step 11: buta given nothing
+  - step 12: saro pozo (masa, buta)
+  - step 13: voge peta (mago, saro)
+  - step 14: masa given nothing
+  - step 15: buta given nothing
+  - step 16: saro pozo (masa, buta)
+  - step 17: tepu bate (voge, saro)
+  - step 18: vore kivu (tepu)
+The goals are: tepu and vore.
+The rules are:
+  - rule keni: rogi if (gera)
+  - rule kivu: vore if (tepu)
+  - rule siku: gera if (tepu)
+  - rule pozo: saro if (masa, buta)
+  - rule vina: voge if (mago, saro)
+  - rule dopa: saro if (mago, masa)
+  - rule bate: tepu if (voge, saro)
+  - rule peta: voge if (mago, saro)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: rogi | voge | saro | gera
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 19,
+ &quot;goals&quot;: [
+  &quot;tepu&quot;,
+  &quot;vore&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  3,
+  -6,
+  -5
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">gugi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact zoda, fact varo and fact more.
+The candidates are: k0 abstraction gugi, k1 abstraction mamu, k2 abstraction koda and k3 abstraction zato.
+The derivation:
+  - step 0: varo given nothing
+  - step 1: gugi guto (varo)
+  - step 2: zoda given nothing
+  - step 3: varo given nothing
+  - step 4: gugi guto (varo)
+  - step 5: dabo sese (zoda, gugi)
+  - step 6: zato muro (gugi, dabo)
+  - step 7: zoda given nothing
+  - step 8: varo given nothing
+  - step 9: gugi guto (varo)
+  - step 10: dabo sese (zoda, gugi)
+  - step 11: pira keso (zato, dabo)
+  - step 12: zoda given nothing
+  - step 13: varo given nothing
+  - step 14: gugi guto (varo)
+  - step 15: dabo sese (zoda, gugi)
+The goals are: pira and dabo.
+The rules are:
+  - rule sese: dabo if (zoda, gugi)
+  - rule nodo: zato if (gugi, dabo)
+  - rule guto: gugi if (varo)
+  - rule mona: koda if (zoda, gugi)
+  - rule keso: pira if (zato, dabo)
+  - rule muro: zato if (gugi, dabo)
+  - rule dika: mamu if (zato, koda)
+  - rule bisa: pira if (mamu, zato)
+  - rule tuda: koda if (gugi, varo)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: mamu | gugi | koda | zato
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 16,
+ &quot;goals&quot;: [
+  &quot;pira&quot;,
+  &quot;dabo&quot;
+ ],
+ &quot;savings&quot;: [
+  -5,
+  3,
+  -2,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">katu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact budi, fact suzu and fact gobe.
+The candidates are: k0 abstraction katu, k1 abstraction pite, k2 abstraction nizo and k3 abstraction teva.
+The derivation:
+  - step 0: budi given nothing
+  - step 1: suzu given nothing
+  - step 2: katu seda (budi, suzu)
+  - step 3: nege nine (katu)
+  - step 4: budi given nothing
+  - step 5: suzu given nothing
+  - step 6: katu seda (budi, suzu)
+  - step 7: budi given nothing
+  - step 8: nizo zusu (katu, budi)
+  - step 9: pite gata (nege, nizo)
+  - step 10: budi given nothing
+  - step 11: suzu given nothing
+  - step 12: katu seda (budi, suzu)
+  - step 13: nege nine (katu)
+  - step 14: toti bevo (pite, nege)
+  - step 15: budi given nothing
+  - step 16: suzu given nothing
+  - step 17: katu seda (budi, suzu)
+  - step 18: nege nine (katu)
+The goals are: toti and nege.
+The rules are:
+  - rule zusu: nizo if (katu, budi)
+  - rule gata: pite if (nege, nizo)
+  - rule nine: nege if (katu)
+  - rule bevo: toti if (pite, nege)
+  - rule seda: katu if (budi, suzu)
+  - rule mabi: teva if (gobe, katu)
+  - rule vivo: katu if (suzu, budi)
+  - rule pupa: nege if (teva, katu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: nizo | katu | teva | pite
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 10,
+ &quot;derivation_length&quot;: 19,
+ &quot;goals&quot;: [
+  &quot;toti&quot;,
+  &quot;nege&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  0,
+  -2,
+  3
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">ruba</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact mene, fact ripe and fact zadu.
+The candidates are: k0 abstraction tepu, k1 abstraction bebo, k2 abstraction ruba and k3 abstraction pamu.
+The derivation:
+  - step 0: ripe given nothing
+  - step 1: ruba dero (ripe)
+  - step 2: ripe given nothing
+  - step 3: ruba dero (ripe)
+  - step 4: zadu given nothing
+  - step 5: ripe given nothing
+  - step 6: bebo neku (zadu, ripe)
+  - step 7: ripe given nothing
+  - step 8: pamu mipo (bebo, ripe)
+  - step 9: tepu moge (ruba, pamu)
+  - step 10: mema suto (ruba, tepu)
+  - step 11: zadu given nothing
+  - step 12: ripe given nothing
+  - step 13: bebo neku (zadu, ripe)
+  - step 14: ripe given nothing
+  - step 15: ruba dero (ripe)
+  - step 16: vave dere (bebo, ruba)
+The goals are: mema and vave.
+The rules are:
+  - rule suto: mema if (ruba, tepu)
+  - rule mipo: pamu if (bebo, ripe)
+  - rule neku: bebo if (zadu, ripe)
+  - rule miso: ruba if (ripe, pamu)
+  - rule redu: pamu if (bebo)
+  - rule gano: tepu if (ruba, vave)
+  - rule dero: ruba if (ripe)
+  - rule dere: vave if (bebo, ruba)
+  - rule moge: tepu if (ruba, pamu)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: ruba | tepu | bebo | pamu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 17,
+ &quot;goals&quot;: [
+  &quot;mema&quot;,
+  &quot;vave&quot;
+ ],
+ &quot;savings&quot;: [
+  2,
+  0,
+  0,
+  1
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">zugu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact kavu, fact nizo and fact nase.
+The candidates are: k0 abstraction kagu, k1 abstraction pezo, k2 abstraction pove and k3 abstraction zugu.
+The derivation:
+  - step 0: kavu given nothing
+  - step 1: nizo given nothing
+  - step 2: pezo zosa (kavu, nizo)
+  - step 3: nizo given nothing
+  - step 4: zugu keku (pezo, nizo)
+  - step 5: guzu neti (zugu)
+  - step 6: kavu given nothing
+  - step 7: nizo given nothing
+  - step 8: pezo zosa (kavu, nizo)
+  - step 9: kavu given nothing
+  - step 10: pove tiki (pezo, kavu)
+  - step 11: kavu given nothing
+  - step 12: nizo given nothing
+  - step 13: pezo zosa (kavu, nizo)
+  - step 14: nizo given nothing
+  - step 15: zugu keku (pezo, nizo)
+  - step 16: kagu komo (pove, zugu)
+  - step 17: kuma supa (kagu)
+The goals are: guzu and kuma.
+The rules are:
+  - rule zure: zugu if (pezo)
+  - rule komo: kagu if (pove, zugu)
+  - rule neti: guzu if (zugu)
+  - rule supa: kuma if (kagu)
+  - rule keku: zugu if (pezo, nizo)
+  - rule dori: pove if (zugu)
+  - rule guni: pezo if (kavu)
+  - rule tiki: pove if (pezo, kavu)
+  - rule sabo: kuma if (pove, kagu)
+  - rule zosa: pezo if (kavu, nizo)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: pove | kagu | pezo | zugu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 9,
+ &quot;derivation_length&quot;: 18,
+ &quot;goals&quot;: [
+  &quot;guzu&quot;,
+  &quot;kuma&quot;
+ ],
+ &quot;savings&quot;: [
+  3,
+  2,
+  0,
+  0
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">tusi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact muzu, fact pido and fact vada.
+The candidates are: k0 abstraction pepo, k1 abstraction tusi, k2 abstraction dise and k3 abstraction rive.
+The derivation:
+  - step 0: vada given nothing
+  - step 1: tusi paga (vada)
+  - step 2: muzu given nothing
+  - step 3: vada given nothing
+  - step 4: rive save (muzu, vada)
+  - step 5: dise gaku (tusi, rive)
+  - step 6: vada given nothing
+  - step 7: tusi paga (vada)
+  - step 8: nama ruso (dise, tusi)
+  - step 9: vada given nothing
+  - step 10: tusi paga (vada)
+  - step 11: muzu given nothing
+  - step 12: vada given nothing
+  - step 13: rive save (muzu, vada)
+  - step 14: dise gaku (tusi, rive)
+  - step 15: vada given nothing
+  - step 16: tusi paga (vada)
+  - step 17: nama ruso (dise, tusi)
+  - step 18: vada given nothing
+  - step 19: tusi paga (vada)
+  - step 20: guse vime (nama, tusi)
+The goals are: nama and guse.
+The rules are:
+  - rule vadi: pepo if (muzu)
+  - rule soso: pepo if (muzu, vada)
+  - rule bina: tusi if (vada, rive)
+  - rule paga: tusi if (vada)
+  - rule gaku: dise if (tusi, rive)
+  - rule tade: rive if (pepo)
+  - rule viga: nama if (tusi, dise)
+  - rule ruso: nama if (dise, tusi)
+  - rule save: rive if (muzu, vada)
+  - rule vime: guse if (nama, tusi)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: pepo | tusi | rive | dise
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 12,
+ &quot;derivation_length&quot;: 21,
+ &quot;goals&quot;: [
+  &quot;nama&quot;,
+  &quot;guse&quot;
+ ],
+ &quot;savings&quot;: [
+  1,
+  3,
+  -1,
+  4
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">nore</span></summary>
+<div class="body">
+<p>prompt</p><pre>The axioms are: fact vasi, fact kopi and fact bubi.
+The candidates are: k0 abstraction popi, k1 abstraction mevi, k2 abstraction nore and k3 abstraction saga.
+The derivation:
+  - step 0: bubi given nothing
+  - step 1: vasi given nothing
+  - step 2: popi roma (bubi, vasi)
+  - step 3: kopi given nothing
+  - step 4: kopi given nothing
+  - step 5: saga sivi (kopi)
+  - step 6: nore gipu (kopi, saga)
+  - step 7: mevi toko (popi, nore)
+  - step 8: pira kevi (mevi)
+  - step 9: kopi given nothing
+  - step 10: kopi given nothing
+  - step 11: saga sivi (kopi)
+  - step 12: nore gipu (kopi, saga)
+  - step 13: dike vizi (nore)
+The goals are: pira and dike.
+The rules are:
+  - rule voze: pira if (nore, dike)
+  - rule gipu: nore if (kopi, saga)
+  - rule pipu: nore if (saga, popi)
+  - rule nena: mevi if (saga, nore)
+  - rule roma: popi if (bubi, vasi)
+  - rule sivi: saga if (kopi)
+  - rule toko: mevi if (popi, nore)
+  - rule kevi: pira if (mevi)
+  - rule vizi: dike if (nore)
+  - rule rugi: saga if (popi, kopi)
+What is the lemma that most compresses the derivation?
+
+Answer with exactly one of: saga | nore | mevi | popi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;base_total&quot;: 8,
+ &quot;derivation_length&quot;: 14,
+ &quot;goals&quot;: [
+  &quot;pira&quot;,
+  &quot;dike&quot;
+ ],
+ &quot;savings&quot;: [
+  0,
+  2,
+  0,
+  3
+ ]
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

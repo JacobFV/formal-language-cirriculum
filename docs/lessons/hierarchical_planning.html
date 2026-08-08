@@ -1,0 +1,2800 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>hierarchical_planning — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#ix">problem formulation and hierarchical agency</a> &rsaquo;
+  hierarchical_planning</p>
+<h1>#106 <code>hierarchical_planning</code></h1>
+<p class="lede">abstract methods expanded to executable primitives</p>
+<div class="tags"><span class="tag ">level 106</span><span class="tag ">section ix</span><span class="tag ">hierarchical_planning</span><span class="tag ">planning</span><span class="tag ">simulation</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.275</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Abstract actions expand into primitives; only one expansion executes.</p><p>    Each candidate method is a sequence of abstract subtasks, each of which
+    expands into primitive operators with preconditions and effects. Executing
+    the full expansion from the initial state decides the question: exactly one
+    method both never violates a precondition and reaches the goal, and the
+    other three are re-simulated to confirm they fail.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>planning_horizon</td><td class='num'>4</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>recursion_depth</td><td class='num'>2</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The candidates are: option_c method (kgvl, pdnn); option_b method (pdnn, kgvl); option_d method (sdld, kgvl); option_a method (msgs, pdnn).
+The operators:
+  - primitive: rkmd, (rvpz) and (dgtz)
+  - primitive: lvrm, (ppkz) and (vlgs)
+  - primitive: mdmn, (dgtz) and (ppkz)
+  - primitive: nsrv, (rtzt) and (dgtz)
+  - primitive: vrzk, (vlgs, dgtz) and (ppkz)
+  - primitive: lplg, (vlgs) and (rtzt)
+The current state is: dgtz and rvpz.
+The task methods: kgvl expands to (lplg); pdnn expands to (mdmn, lvrm); msgs expands to (rkmd); sdld expands to (vrzk, nsrv).
+Which method achieves rtzt?
+
+Answer with exactly one of: option_d | option_b | option_c | option_a
+Reply with the answer only.</pre><h3>spanish</h3><pre>Los candidatos son: opción C el método (kgvl, pdnn); opción B el método (pdnn, kgvl); opción D el método (sdld, kgvl); opción A el método (msgs, pdnn).
+Los operadores son:
+  - la primitiva: rkmd, (rvpz) y (dgtz)
+  - la primitiva: lvrm, (ppkz) y (vlgs)
+  - la primitiva: mdmn, (dgtz) y (ppkz)
+  - la primitiva: nsrv, (rtzt) y (dgtz)
+  - la primitiva: vrzk, (vlgs, dgtz) y (ppkz)
+  - la primitiva: lplg, (vlgs) y (rtzt)
+El estado actual es: dgtz y rvpz.
+Los métodos de la tarea son: kgvl se expande a (lplg); pdnn se expande a (mdmn, lvrm); msgs se expande a (rkmd); sdld se expande a (vrzk, nsrv).
+¿Qué método logra rtzt?
+
+Responde exactamente con una de estas opciones: opción D | opción B | opción C | opción A
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>候选项如下：选项C的方法是(kgvl，pdnn)；选项B的方法是(pdnn，kgvl)；选项D的方法是(sdld，kgvl)；选项A的方法是(msgs，pdnn)。
+算子如下：
+  - 原语：rkmd、(rvpz)和(dgtz)
+  - 原语：lvrm、(ppkz)和(vlgs)
+  - 原语：mdmn、(dgtz)和(ppkz)
+  - 原语：nsrv、(rtzt)和(dgtz)
+  - 原语：vrzk、(vlgs，dgtz)和(ppkz)
+  - 原语：lplg、(vlgs)和(rtzt)
+状态是：dgtz和rvpz。
+任务方法如下：kgvl展开为(lplg)；pdnn展开为(mdmn，lvrm)；msgs展开为(rkmd)；sdld展开为(vrzk，nsrv)。
+达成rtzt的方法是哪一个？
+
+请从以下选项中选出恰好一个作答：选项D | 选项B | 选项C | 选项A
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The candidates are: option_c method (kgvl, pdnn); option_b method (pdnn, kgvl); option_d method (sdld, kgvl); option_a method (msgs, pdnn).
+The operators:
+  - primitive: rkmd, (rvpz) and (dgtz)
+  - primitive: lvrm, (ppkz) and (vlgs)
+  - primitive: mdmn, (dgtz) and (ppkz)
+  - primitive: nsrv, (rtzt) and (dgtz)
+  - primitive: vrzk, (vlgs, dgtz) and (ppkz)
+  - primitive: lplg, (vlgs) and (rtzt)
+The current state is: dgtz and rvpz.
+The task methods: kgvl expands to (lplg); pdnn expands to (mdmn, lvrm); msgs expands to (rkmd); sdld expands to (vrzk, nsrv).
+Which method achieves rtzt?
+
+Answer with exactly one of: option_d | option_b | option_c | option_a
+Reply with the answer only.</pre><h3>symbols</h3><pre>{candidates: [(method option_c [kgvl pdnn]) (method option_b [pdnn kgvl]) (method option_d [sdld kgvl]) (method option_a [msgs pdnn])], operators: [(primitive rkmd [rvpz] [dgtz]) (primitive lvrm [ppkz] [vlgs]) (primitive mdmn [dgtz] [ppkz]) (primitive nsrv [rtzt] [dgtz]) (primitive vrzk [vlgs dgtz] [ppkz]) (primitive lplg [vlgs] [rtzt])], query: (method_achieving rtzt), state: [dgtz rvpz], task_methods: [(expands_to kgvl [lplg]) (expands_to pdnn [mdmn lvrm]) (expands_to msgs [rkmd]) (expands_to sdld [vrzk nsrv])]}
+
+Answer with exactly one of: option_d | option_b | option_c | option_a
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/hierarchical_planning.jsonl</code> &middot; <code>data/samples/spanish/hierarchical_planning.jsonl</code> &middot; <code>data/samples/chinese/hierarchical_planning.jsonl</code> &middot; <code>data/samples/english_synonym/hierarchical_planning.jsonl</code> &middot; <code>data/samples/symbols/hierarchical_planning.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (kgvl, pdnn); option_b method (pdnn, kgvl); option_d method (sdld, kgvl); option_a method (msgs, pdnn).
+The operators:
+  - primitive: rkmd, (rvpz) and (dgtz)
+  - primitive: lvrm, (ppkz) and (vlgs)
+  - primitive: mdmn, (dgtz) and (ppkz)
+  - primitive: nsrv, (rtzt) and (dgtz)
+  - primitive: vrzk, (vlgs, dgtz) and (ppkz)
+  - primitive: lplg, (vlgs) and (rtzt)
+The current state is: dgtz and rvpz.
+The task methods: kgvl expands to (lplg); pdnn expands to (mdmn, lvrm); msgs expands to (rkmd); sdld expands to (vrzk, nsrv).
+Which method achieves rtzt?
+
+Answer with exactly one of: option_d | option_b | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;rtzt&quot;,
+ &quot;initial_state&quot;: [
+  &quot;dgtz&quot;,
+  &quot;rvpz&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (rnmt, vzkp); option_a method (vzkp, rnmt); option_d method (dldd, vzkp); option_b method (ndzm, rnmt).
+The operators:
+  - primitive: knrk, (tgmz) and (mvvv)
+  - primitive: mlkk, (gkdv) and (tgmz)
+  - primitive: pnsp, (mvvv) and (npsm)
+  - primitive: lsns, (vkpp) and (zdsg)
+  - primitive: dkrs, (npsm) and (zdsg)
+  - primitive: vvrs, (mvvv, zdsg) and (tgmz)
+The current state is: gkdv and vkpp.
+The task methods: ndzm expands to (vvrs, dkrs); rnmt expands to (pnsp); vzkp expands to (mlkk, knrk); dldd expands to (lsns).
+Which method achieves npsm?
+
+Answer with exactly one of: option_a | option_c | option_b | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;npsm&quot;,
+ &quot;initial_state&quot;: [
+  &quot;gkdv&quot;,
+  &quot;vkpp&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (pdrl, nrtv); option_a method (nrtv, pdrl); option_d method (tpdd, nrtv); option_b method (gllv, pdrl).
+The operators:
+  - primitive: rzkk, (kgnt) and (kmml)
+  - primitive: lvlp, (kmml) and (tdnz)
+  - primitive: rrlr, (pnpd) and (rlrv)
+  - primitive: prtr, (tdnz) and (zgsg)
+  - primitive: tltt, (tdnz, rlrv) and (kmml)
+  - primitive: tssk, (zgsg) and (rlrv)
+The current state is: kgnt and pnpd.
+The task methods: nrtv expands to (rzkk, lvlp); gllv expands to (tltt, tssk); pdrl expands to (prtr); tpdd expands to (rrlr).
+Which method achieves zgsg?
+
+Answer with exactly one of: option_c | option_a | option_b | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;zgsg&quot;,
+ &quot;initial_state&quot;: [
+  &quot;kgnt&quot;,
+  &quot;pnpd&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (mktv, gvtl); option_a method (gvtl, mktv); option_c method (sznp, mktv); option_d method (nzpr, gvtl).
+The operators:
+  - primitive: dppd, (vzrs) and (rvpn)
+  - primitive: tsnt, (sdvr) and (sgrt)
+  - primitive: kzkz, (gmgk) and (rvpn)
+  - primitive: nmtg, (lgvn) and (gmgk)
+  - primitive: rpdk, (sgrt) and (lgvn)
+  - primitive: vgdp, (lgvn, rvpn) and (sgrt)
+The current state is: sdvr and vzrs.
+The task methods: mktv expands to (nmtg); gvtl expands to (tsnt, rpdk); nzpr expands to (dppd); sznp expands to (vgdp, kzkz).
+Which method achieves gmgk?
+
+Answer with exactly one of: option_a | option_c | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;gmgk&quot;,
+ &quot;initial_state&quot;: [
+  &quot;sdvr&quot;,
+  &quot;vzrs&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (vtsz, kzgd); option_a method (pgzp, zrsp); option_b method (zrsp, kzgd); option_c method (kzgd, zrsp).
+The operators:
+  - primitive: nzzs, (mkpr) and (pvtm)
+  - primitive: tzzn, (pvtm) and (zksr)
+  - primitive: stsv, (zksr, mzsk) and (pvtm)
+  - primitive: lnpr, (rlzt) and (mzsk)
+  - primitive: dlmg, (zksr) and (rlzt)
+  - primitive: zmrz, (szmd) and (mzsk)
+The current state is: mkpr and szmd.
+The task methods: vtsz expands to (zmrz); kzgd expands to (nzzs, tzzn); pgzp expands to (stsv, lnpr); zrsp expands to (dlmg).
+Which method achieves rlzt?
+
+Answer with exactly one of: option_d | option_c | option_b | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;rlzt&quot;,
+ &quot;initial_state&quot;: [
+  &quot;mkpr&quot;,
+  &quot;szmd&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (zggk, nnst); option_a method (tzml, klpt); option_c method (klpt, nnst); option_d method (nnst, klpt).
+The operators:
+  - primitive: sstt, (ddnr, mgsk) and (gzdl)
+  - primitive: tptm, (gzdl) and (ddnr)
+  - primitive: dspz, (kvsn) and (gzdl)
+  - primitive: zlsr, (vspr) and (mgsk)
+  - primitive: ttkk, (ktml) and (mgsk)
+  - primitive: tggv, (ddnr) and (ktml)
+The current state is: kvsn and vspr.
+The task methods: klpt expands to (tggv); nnst expands to (dspz, tptm); tzml expands to (sstt, ttkk); zggk expands to (zlsr).
+Which method achieves ktml?
+
+Answer with exactly one of: option_a | option_d | option_c | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;ktml&quot;,
+ &quot;initial_state&quot;: [
+  &quot;kvsn&quot;,
+  &quot;vspr&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (nlsg, gsnl); option_b method (gsnl, vsrg); option_a method (vsrg, gsnl); option_c method (ndrk, vsrg).
+The operators:
+  - primitive: mplm, (kktn) and (sdpr)
+  - primitive: lpzv, (sdpr) and (rnms)
+  - primitive: nzmk, (lkzv) and (rnms)
+  - primitive: zngn, (gmvz) and (kktn)
+  - primitive: dmsd, (kktn, rnms) and (gmvz)
+  - primitive: grdd, (gvdl) and (gmvz)
+The current state is: gvdl and lkzv.
+The task methods: vsrg expands to (mplm); gsnl expands to (grdd, zngn); nlsg expands to (nzmk); ndrk expands to (dmsd, lpzv).
+Which method achieves sdpr?
+
+Answer with exactly one of: option_c | option_b | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;sdpr&quot;,
+ &quot;initial_state&quot;: [
+  &quot;gvdl&quot;,
+  &quot;lkzv&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (mggn, slmr); option_b method (gsvn, mggn); option_d method (slmr, mggn); option_c method (dmgk, slmr).
+The operators:
+  - primitive: rtzp, (lgkr) and (rpkg)
+  - primitive: trmg, (kmrm, rpkg) and (ltpn)
+  - primitive: msnn, (pmsm) and (ltpn)
+  - primitive: gkgg, (ltpn) and (kmrm)
+  - primitive: zrnt, (skmp) and (rpkg)
+  - primitive: pksk, (kmrm) and (lgkr)
+The current state is: pmsm and skmp.
+The task methods: gsvn expands to (zrnt); slmr expands to (pksk); dmgk expands to (trmg, rtzp); mggn expands to (msnn, gkgg).
+Which method achieves lgkr?
+
+Answer with exactly one of: option_d | option_a | option_c | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;lgkr&quot;,
+ &quot;initial_state&quot;: [
+  &quot;pmsm&quot;,
+  &quot;skmp&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (sgtg, mvnr); option_a method (mvnr, sgtg); option_b method (dstg, mvnr); option_d method (mrkv, sgtg).
+The operators:
+  - primitive: klsd, (vvpv) and (gspm)
+  - primitive: vskd, (pnkv) and (slpt)
+  - primitive: pdmn, (sdkm) and (tsrs)
+  - primitive: gpmn, (sdkm, gspm) and (slpt)
+  - primitive: zrpv, (slpt) and (sdkm)
+  - primitive: zmmp, (tsrs) and (gspm)
+The current state is: pnkv and vvpv.
+The task methods: mvnr expands to (vskd, zrpv); sgtg expands to (pdmn); dstg expands to (klsd); mrkv expands to (gpmn, zmmp).
+Which method achieves tsrs?
+
+Answer with exactly one of: option_d | option_c | option_a | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;tsrs&quot;,
+ &quot;initial_state&quot;: [
+  &quot;pnkv&quot;,
+  &quot;vvpv&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (dkpk, zlks); option_b method (zlks, dkpk); option_c method (spdm, zlks); option_a method (pvtk, dkpk).
+The operators:
+  - primitive: mzsp, (vglz) and (tdvd)
+  - primitive: nsdp, (lrvg, tdvd) and (ttnk)
+  - primitive: dmzs, (mlrg) and (tdvd)
+  - primitive: ptts, (dkdp) and (ttnk)
+  - primitive: gmdp, (lrvg) and (mlrg)
+  - primitive: kmtr, (ttnk) and (lrvg)
+The current state is: dkdp and vglz.
+The task methods: dkpk expands to (gmdp); spdm expands to (mzsp); pvtk expands to (nsdp, dmzs); zlks expands to (ptts, kmtr).
+Which method achieves mlrg?
+
+Answer with exactly one of: option_c | option_d | option_b | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;mlrg&quot;,
+ &quot;initial_state&quot;: [
+  &quot;dkdp&quot;,
+  &quot;vglz&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (pvmn, lnrv); option_a method (glrt, zrls); option_d method (zrls, lnrv); option_c method (lnrv, zrls).
+The operators:
+  - primitive: nzvt, (gkpv) and (vznt)
+  - primitive: ksts, (krvl) and (kptg)
+  - primitive: gpkg, (vznt, kptg) and (gkpv)
+  - primitive: lppz, (gksv) and (gkpv)
+  - primitive: nznl, (vznt) and (msdl)
+  - primitive: tvsv, (msdl) and (kptg)
+The current state is: gksv and krvl.
+The task methods: zrls expands to (lppz, nzvt); pvmn expands to (gpkg, tvsv); glrt expands to (ksts); lnrv expands to (nznl).
+Which method achieves msdl?
+
+Answer with exactly one of: option_c | option_a | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;msdl&quot;,
+ &quot;initial_state&quot;: [
+  &quot;gksv&quot;,
+  &quot;krvl&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (prmd, mvnz); option_c method (zlsr, zvkn); option_b method (zvkn, mvnz); option_d method (mvnz, zvkn).
+The operators:
+  - primitive: srsn, (vrvv) and (nkgp)
+  - primitive: vlvg, (tmvz, nkgp) and (rgst)
+  - primitive: ntgk, (rgst) and (tmvz)
+  - primitive: rmkk, (tmvz) and (tmrd)
+  - primitive: vndg, (rvng) and (rgst)
+  - primitive: ssgk, (tmrd) and (nkgp)
+The current state is: rvng and vrvv.
+The task methods: mvnz expands to (rmkk); zlsr expands to (srsn); prmd expands to (vlvg, ssgk); zvkn expands to (vndg, ntgk).
+Which method achieves tmrd?
+
+Answer with exactly one of: option_b | option_c | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;tmrd&quot;,
+ &quot;initial_state&quot;: [
+  &quot;rvng&quot;,
+  &quot;vrvv&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (rtrm, rtdk); option_b method (rtdk, trlg); option_a method (trlg, rtdk); option_c method (pgpn, trlg).
+The operators:
+  - primitive: nlnp, (nltp) and (klvz)
+  - primitive: gsmr, (vznr) and (nltp)
+  - primitive: mkkn, (klvz) and (gtvl)
+  - primitive: vmnp, (srkn) and (gtvl)
+  - primitive: tlsk, (nvdg) and (vznr)
+  - primitive: rsmp, (nltp, gtvl) and (vznr)
+The current state is: nvdg and srkn.
+The task methods: trlg expands to (tlsk, gsmr); pgpn expands to (vmnp); rtdk expands to (nlnp); rtrm expands to (rsmp, mkkn).
+Which method achieves klvz?
+
+Answer with exactly one of: option_a | option_c | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;klvz&quot;,
+ &quot;initial_state&quot;: [
+  &quot;nvdg&quot;,
+  &quot;srkn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (vrtz, gnzd); option_c method (tvnd, vrgd); option_a method (gnzd, vrgd); option_d method (vrgd, gnzd).
+The operators:
+  - primitive: lnml, (tnsn) and (ptng)
+  - primitive: kztm, (ptng) and (zznn)
+  - primitive: zvdp, (zznn) and (tsnd)
+  - primitive: nlpn, (tsnd, ptng) and (zznn)
+  - primitive: tzls, (tsnd) and (ttmr)
+  - primitive: vrgp, (ttmr) and (ptng)
+The current state is: ptng and tnsn.
+The task methods: vrgd expands to (tzls); gnzd expands to (kztm, zvdp); tvnd expands to (nlpn, vrgp); vrtz expands to (lnml).
+Which method achieves ttmr?
+
+Answer with exactly one of: option_b | option_c | option_a | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;ttmr&quot;,
+ &quot;initial_state&quot;: [
+  &quot;ptng&quot;,
+  &quot;tnsn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (nnmg, gvgm); option_b method (tmdv, gvgm); option_c method (gnnl, nnmg); option_d method (gvgm, nnmg).
+The operators:
+  - primitive: rttr, (mgdn) and (zzdm)
+  - primitive: zspp, (rszd) and (zsll)
+  - primitive: zlnn, (nppm) and (mgdn)
+  - primitive: glkm, (zzdm, zsll) and (mgdn)
+  - primitive: nnzt, (zzdm) and (nvzv)
+  - primitive: knmm, (nvzv) and (zsll)
+The current state is: nppm and rszd.
+The task methods: tmdv expands to (zspp); gnnl expands to (glkm, knmm); nnmg expands to (nnzt); gvgm expands to (zlnn, rttr).
+Which method achieves nvzv?
+
+Answer with exactly one of: option_a | option_b | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;nvzv&quot;,
+ &quot;initial_state&quot;: [
+  &quot;nppm&quot;,
+  &quot;rszd&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (rvtm, mvks); option_b method (trtg, mvks); option_a method (ddkz, trtg); option_c method (mvks, trtg).
+The operators:
+  - primitive: vmvg, (vdlz) and (pzls)
+  - primitive: slls, (lsml) and (ktsk)
+  - primitive: zdrp, (ktsk) and (kntd)
+  - primitive: sgvp, (kntd) and (vdlz)
+  - primitive: lvgl, (kntd, pzls) and (ktsk)
+  - primitive: dnvp, (skrd) and (pzls)
+The current state is: lsml and skrd.
+The task methods: mvks expands to (slls, zdrp); rvtm expands to (dnvp); ddkz expands to (lvgl, vmvg); trtg expands to (sgvp).
+Which method achieves vdlz?
+
+Answer with exactly one of: option_a | option_b | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;vdlz&quot;,
+ &quot;initial_state&quot;: [
+  &quot;lsml&quot;,
+  &quot;skrd&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (gzgk, prnt); option_a method (prnt, gzgk); option_b method (lsvt, prnt); option_c method (zmkr, gzgk).
+The operators:
+  - primitive: szlz, (psvk, tdgz) and (lvvz)
+  - primitive: pmlv, (tdgz) and (tdgz)
+  - primitive: nkvv, (psvk) and (snsk)
+  - primitive: gndz, (snsk) and (tdgz)
+  - primitive: ktgn, (lvvz) and (psvk)
+  - primitive: ksgz, (pndz) and (lvvz)
+The current state is: pndz and tdgz.
+The task methods: zmkr expands to (szlz, gndz); prnt expands to (ksgz, ktgn); gzgk expands to (nkvv); lsvt expands to (pmlv).
+Which method achieves snsk?
+
+Answer with exactly one of: option_d | option_a | option_b | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;snsk&quot;,
+ &quot;initial_state&quot;: [
+  &quot;pndz&quot;,
+  &quot;tdgz&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (tnpr, lkpl); option_a method (kvlg, tnpr); option_b method (gkdl, lkpl); option_c method (lkpl, tnpr).
+The operators:
+  - primitive: rmdn, (pzrl) and (nndp)
+  - primitive: rvng, (rpzl) and (nndp)
+  - primitive: trkt, (kspd) and (ztdd)
+  - primitive: rnsl, (rnzm) and (pzrl)
+  - primitive: mzpm, (rnzm, nndp) and (ztdd)
+  - primitive: stdr, (ztdd) and (rnzm)
+The current state is: kspd and rpzl.
+The task methods: gkdl expands to (mzpm, rmdn); kvlg expands to (rvng); lkpl expands to (rnsl); tnpr expands to (trkt, stdr).
+Which method achieves pzrl?
+
+Answer with exactly one of: option_b | option_d | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;pzrl&quot;,
+ &quot;initial_state&quot;: [
+  &quot;kspd&quot;,
+  &quot;rpzl&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (rzzg, dzrm); option_d method (dzrm, rzzg); option_b method (zvgr, dzrm); option_c method (tvnn, rzzg).
+The operators:
+  - primitive: rlgg, (rnts) and (rnts)
+  - primitive: tssd, (lssv) and (tmnv)
+  - primitive: nvsd, (nvtv) and (zvzs)
+  - primitive: psdp, (nvtv, rnts) and (tmnv)
+  - primitive: zzkl, (zvzs) and (rnts)
+  - primitive: lgrs, (tmnv) and (nvtv)
+The current state is: lssv and rnts.
+The task methods: rzzg expands to (tssd, lgrs); tvnn expands to (rlgg); zvgr expands to (psdp, zzkl); dzrm expands to (nvsd).
+Which method achieves zvzs?
+
+Answer with exactly one of: option_c | option_b | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;zvzs&quot;,
+ &quot;initial_state&quot;: [
+  &quot;lssv&quot;,
+  &quot;rnts&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (gdms, npsr); option_b method (nvmr, npsr); option_a method (pstt, gdms); option_d method (npsr, gdms).
+The operators:
+  - primitive: zgrt, (lzkg) and (lzkg)
+  - primitive: mrvp, (nkrm) and (rspl)
+  - primitive: dmmp, (rspl) and (rzgt)
+  - primitive: kmgd, (rzgt) and (lzkg)
+  - primitive: gsms, (gzmz) and (nkrm)
+  - primitive: ppvn, (rspl, lzkg) and (nkrm)
+The current state is: gzmz and lzkg.
+The task methods: nvmr expands to (zgrt); npsr expands to (gsms, mrvp); gdms expands to (dmmp); pstt expands to (ppvn, kmgd).
+Which method achieves rzgt?
+
+Answer with exactly one of: option_a | option_b | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;rzgt&quot;,
+ &quot;initial_state&quot;: [
+  &quot;gzmz&quot;,
+  &quot;lzkg&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (ztgm, kzds); option_c method (sgsk, kzds); option_d method (kngz, ztgm); option_b method (kzds, ztgm).
+The operators:
+  - primitive: dzzd, (nnml) and (pssl)
+  - primitive: mmsz, (pmmt, pssl) and (dntz)
+  - primitive: nnll, (gtkp) and (dntz)
+  - primitive: gsks, (lvgv) and (pssl)
+  - primitive: vpms, (pmmt) and (lvgv)
+  - primitive: pmnr, (dntz) and (pmmt)
+The current state is: gtkp and nnml.
+The task methods: kzds expands to (vpms); ztgm expands to (nnll, pmnr); sgsk expands to (mmsz, gsks); kngz expands to (dzzd).
+Which method achieves lvgv?
+
+Answer with exactly one of: option_b | option_c | option_a | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;lvgv&quot;,
+ &quot;initial_state&quot;: [
+  &quot;gtkp&quot;,
+  &quot;nnml&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (lpvt, tnkv); option_c method (nngd, lpvt); option_b method (tnkv, lpvt); option_d method (smss, tnkv).
+The operators:
+  - primitive: kpdp, (tpdp) and (nzvs)
+  - primitive: nlkt, (rskk) and (tssd)
+  - primitive: dmmk, (vrtr, tssd) and (nzvs)
+  - primitive: vtrd, (tssd) and (tssd)
+  - primitive: rvdm, (vrtr) and (rskk)
+  - primitive: gvkl, (nzvs) and (vrtr)
+The current state is: tpdp and tssd.
+The task methods: lpvt expands to (kpdp, gvkl); nngd expands to (vtrd); tnkv expands to (rvdm); smss expands to (dmmk, nlkt).
+Which method achieves rskk?
+
+Answer with exactly one of: option_c | option_a | option_b | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;rskk&quot;,
+ &quot;initial_state&quot;: [
+  &quot;tpdp&quot;,
+  &quot;tssd&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (zrzr, tzzn); option_a method (tzzn, dtpk); option_c method (dtpk, tzzn); option_b method (lrkp, dtpk).
+The operators:
+  - primitive: pznr, (szkl) and (dpdk)
+  - primitive: mgrd, (vtdm) and (dnlm)
+  - primitive: zpst, (tskg) and (vtdm)
+  - primitive: gkgz, (dpdk) and (tskg)
+  - primitive: glzt, (vtdm, dpdk) and (tskg)
+  - primitive: gkdl, (dnlm) and (dpdk)
+The current state is: dpdk and szkl.
+The task methods: dtpk expands to (mgrd); lrkp expands to (glzt, gkdl); tzzn expands to (gkgz, zpst); zrzr expands to (pznr).
+Which method achieves dnlm?
+
+Answer with exactly one of: option_d | option_a | option_c | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;dnlm&quot;,
+ &quot;initial_state&quot;: [
+  &quot;dpdk&quot;,
+  &quot;szkl&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (mvtd, vgvn); option_c method (vgvn, mvtd); option_a method (nttt, vgvn); option_d method (rlnr, mvtd).
+The operators:
+  - primitive: lglg, (ltds, mdvp) and (zmkg)
+  - primitive: plks, (zmkg) and (ltds)
+  - primitive: znlg, (zppr) and (mdvp)
+  - primitive: kgln, (ltds) and (zvks)
+  - primitive: krnd, (gvkm) and (zmkg)
+  - primitive: tgsd, (zvks) and (mdvp)
+The current state is: gvkm and zppr.
+The task methods: rlnr expands to (znlg); vgvn expands to (kgln); mvtd expands to (krnd, plks); nttt expands to (lglg, tgsd).
+Which method achieves zvks?
+
+Answer with exactly one of: option_c | option_b | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;zvks&quot;,
+ &quot;initial_state&quot;: [
+  &quot;gvkm&quot;,
+  &quot;zppr&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (vzzr, sngt); option_d method (dmzm, sngt); option_c method (dzsm, dmzm); option_a method (sngt, dmzm).
+The operators:
+  - primitive: rnln, (stst, nmkr) and (dpgt)
+  - primitive: tvdv, (kvvd) and (dpgt)
+  - primitive: ksll, (tdzd) and (nmkr)
+  - primitive: nzvm, (dpgt) and (stst)
+  - primitive: nlzm, (nnmd) and (nmkr)
+  - primitive: nzgt, (stst) and (nnmd)
+The current state is: kvvd and tdzd.
+The task methods: dmzm expands to (tvdv, nzvm); sngt expands to (nzgt); vzzr expands to (rnln, nlzm); dzsm expands to (ksll).
+Which method achieves nnmd?
+
+Answer with exactly one of: option_a | option_b | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;nnmd&quot;,
+ &quot;initial_state&quot;: [
+  &quot;kvvd&quot;,
+  &quot;tdzd&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (ntdk, rtmg); option_a method (pvgr, ntdk); option_d method (sprv, rtmg); option_b method (rtmg, ntdk).
+The operators:
+  - primitive: lsnt, (kzgp) and (gltr)
+  - primitive: pgmr, (mgmg) and (gltr)
+  - primitive: gvmm, (nvkz, gltr) and (pksz)
+  - primitive: lrvr, (gltr) and (pksz)
+  - primitive: mnnm, (pksz) and (nvkz)
+  - primitive: gglp, (nvkz) and (kzgp)
+The current state is: gltr and mgmg.
+The task methods: sprv expands to (gvmm, lsnt); rtmg expands to (gglp); ntdk expands to (lrvr, mnnm); pvgr expands to (pgmr).
+Which method achieves kzgp?
+
+Answer with exactly one of: option_b | option_a | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;kzgp&quot;,
+ &quot;initial_state&quot;: [
+  &quot;gltr&quot;,
+  &quot;mgmg&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (dskz, lnpp); option_c method (lnpp, gnrl); option_d method (gnrl, lnpp); option_a method (sgpp, gnrl).
+The operators:
+  - primitive: plsg, (pgrk) and (tvkd)
+  - primitive: rrmr, (pgrk, pdsd) and (dsns)
+  - primitive: kkdz, (tvkd) and (pdsd)
+  - primitive: knkv, (pdsd) and (pdsd)
+  - primitive: tsgv, (dsns) and (pgrk)
+  - primitive: knst, (npsd) and (dsns)
+The current state is: npsd and pdsd.
+The task methods: dskz expands to (rrmr, kkdz); gnrl expands to (knst, tsgv); sgpp expands to (knkv); lnpp expands to (plsg).
+Which method achieves tvkd?
+
+Answer with exactly one of: option_b | option_a | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;tvkd&quot;,
+ &quot;initial_state&quot;: [
+  &quot;npsd&quot;,
+  &quot;pdsd&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (tnkv, dknr); option_c method (dknr, mtvd); option_b method (mtvd, dknr); option_d method (tzrk, mtvd).
+The operators:
+  - primitive: nsdr, (lpts, ngnm) and (nvdz)
+  - primitive: knvl, (nvdz) and (lpts)
+  - primitive: gppd, (zrlz) and (nvdz)
+  - primitive: knvz, (lpts) and (svmd)
+  - primitive: tmpz, (zsmm) and (ngnm)
+  - primitive: tglg, (svmd) and (ngnm)
+The current state is: zrlz and zsmm.
+The task methods: tzrk expands to (nsdr, tglg); dknr expands to (gppd, knvl); tnkv expands to (tmpz); mtvd expands to (knvz).
+Which method achieves svmd?
+
+Answer with exactly one of: option_d | option_a | option_c | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;svmd&quot;,
+ &quot;initial_state&quot;: [
+  &quot;zrlz&quot;,
+  &quot;zsmm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (kpvl, mrrz); option_c method (tslm, dmgp); option_d method (mrrz, dmgp); option_a method (dmgp, mrrz).
+The operators:
+  - primitive: vtsk, (tnvp, skps) and (mdtr)
+  - primitive: mmpl, (gdts) and (mdtr)
+  - primitive: zgsn, (ttgs) and (skps)
+  - primitive: rddn, (tnvp) and (ttgs)
+  - primitive: znnz, (sstp) and (skps)
+  - primitive: dttr, (mdtr) and (tnvp)
+The current state is: gdts and sstp.
+The task methods: dmgp expands to (rddn); tslm expands to (vtsk, zgsn); mrrz expands to (mmpl, dttr); kpvl expands to (znnz).
+Which method achieves ttgs?
+
+Answer with exactly one of: option_d | option_a | option_c | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;ttgs&quot;,
+ &quot;initial_state&quot;: [
+  &quot;gdts&quot;,
+  &quot;sstp&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (tdlm, zgdn); option_a method (zgdn, vpgm); option_c method (vpgm, zgdn); option_b method (dltz, vpgm).
+The operators:
+  - primitive: zrsp, (gzmr, lgrp) and (rmlg)
+  - primitive: dsvt, (kmvn) and (rmlg)
+  - primitive: vrtz, (slmv) and (lgrp)
+  - primitive: sppn, (rmlg) and (gzmr)
+  - primitive: ngrs, (gzmr) and (lppk)
+  - primitive: rnpz, (lppk) and (lgrp)
+The current state is: kmvn and slmv.
+The task methods: vpgm expands to (ngrs); tdlm expands to (vrtz); zgdn expands to (dsvt, sppn); dltz expands to (zrsp, rnpz).
+Which method achieves lppk?
+
+Answer with exactly one of: option_d | option_c | option_a | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;lppk&quot;,
+ &quot;initial_state&quot;: [
+  &quot;kmvn&quot;,
+  &quot;slmv&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (zrmt, sdlm); option_c method (kpdr, sdlm); option_b method (sdlm, zrmt); option_d method (ztrn, zrmt).
+The operators:
+  - primitive: pksg, (rzgk) and (kppn)
+  - primitive: mnzn, (rskm) and (tgrp)
+  - primitive: nlrm, (gnsz) and (rzgk)
+  - primitive: rmgv, (kppn, tgrp) and (rzgk)
+  - primitive: nzpg, (kppn) and (rskm)
+  - primitive: ztzz, (tmvk) and (tgrp)
+The current state is: gnsz and tmvk.
+The task methods: ztrn expands to (ztzz); kpdr expands to (rmgv, mnzn); sdlm expands to (nzpg); zrmt expands to (nlrm, pksg).
+Which method achieves rskm?
+
+Answer with exactly one of: option_b | option_a | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;rskm&quot;,
+ &quot;initial_state&quot;: [
+  &quot;gnsz&quot;,
+  &quot;tmvk&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (tlts, tpkm); option_a method (tpkm, tlts); option_d method (sspd, tlts); option_c method (drvn, tpkm).
+The operators:
+  - primitive: dspg, (ttdk, rdvr) and (kvmp)
+  - primitive: nrkk, (tnkt) and (rdvr)
+  - primitive: mkpl, (kvmp) and (ttdk)
+  - primitive: sslp, (ttdk) and (nkts)
+  - primitive: psgm, (mrsd) and (kvmp)
+  - primitive: lgss, (nkts) and (rdvr)
+The current state is: mrsd and tnkt.
+The task methods: tlts expands to (psgm, mkpl); tpkm expands to (sslp); sspd expands to (nrkk); drvn expands to (dspg, lgss).
+Which method achieves nkts?
+
+Answer with exactly one of: option_c | option_b | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;nkts&quot;,
+ &quot;initial_state&quot;: [
+  &quot;mrsd&quot;,
+  &quot;tnkt&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (trdz, vzdv); option_d method (kgzs, vzdv); option_a method (gggm, trdz); option_c method (vzdv, trdz).
+The operators:
+  - primitive: rlst, (krtr) and (krtr)
+  - primitive: kpkk, (dsvk, krtr) and (mstz)
+  - primitive: zsvm, (mstz) and (dsvk)
+  - primitive: kvds, (dkml) and (mstz)
+  - primitive: mdtv, (rlkr) and (krtr)
+  - primitive: lmkr, (dsvk) and (rlkr)
+The current state is: dkml and krtr.
+The task methods: gggm expands to (kpkk, mdtv); vzdv expands to (kvds, zsvm); kgzs expands to (rlst); trdz expands to (lmkr).
+Which method achieves rlkr?
+
+Answer with exactly one of: option_a | option_b | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;rlkr&quot;,
+ &quot;initial_state&quot;: [
+  &quot;dkml&quot;,
+  &quot;krtr&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (ptnm, lsrz); option_a method (nzrp, lklr); option_b method (lsrz, lklr); option_c method (lklr, lsrz).
+The operators:
+  - primitive: dgdn, (zvnr) and (rlnr)
+  - primitive: nsmk, (vvzn) and (nmzp)
+  - primitive: lzsm, (rlnr, nmzp) and (zvnr)
+  - primitive: pzlr, (rlnr) and (vvzn)
+  - primitive: dlmn, (rtng) and (nmzp)
+  - primitive: zrvk, (gtns) and (zvnr)
+The current state is: gtns and rtng.
+The task methods: lsrz expands to (zrvk, dgdn); nzrp expands to (lzsm, nsmk); lklr expands to (pzlr); ptnm expands to (dlmn).
+Which method achieves vvzn?
+
+Answer with exactly one of: option_b | option_c | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;vvzn&quot;,
+ &quot;initial_state&quot;: [
+  &quot;gtns&quot;,
+  &quot;rtng&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (snmg, prps); option_b method (ndmv, snmg); option_a method (prps, snmg); option_d method (zpmg, prps).
+The operators:
+  - primitive: svrt, (mgrt, ktrm) and (rlgk)
+  - primitive: tgnz, (mgrt) and (mzlg)
+  - primitive: rdkp, (rlgk) and (mgrt)
+  - primitive: gtgd, (skpl) and (ktrm)
+  - primitive: klzd, (mpzl) and (rlgk)
+  - primitive: zpls, (mzlg) and (ktrm)
+The current state is: mpzl and skpl.
+The task methods: zpmg expands to (gtgd); snmg expands to (tgnz); prps expands to (klzd, rdkp); ndmv expands to (svrt, zpls).
+Which method achieves mzlg?
+
+Answer with exactly one of: option_a | option_d | option_b | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;mzlg&quot;,
+ &quot;initial_state&quot;: [
+  &quot;mpzl&quot;,
+  &quot;skpl&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (dvvl, mntr); option_d method (mntr, dvvl); option_c method (zgvr, mntr); option_a method (pgpk, dvvl).
+The operators:
+  - primitive: kksl, (zgkd) and (rznl)
+  - primitive: klnv, (ltzp) and (zgkd)
+  - primitive: mztg, (rltd) and (krkm)
+  - primitive: dvld, (dgml) and (ltzp)
+  - primitive: mtlt, (rznl) and (krkm)
+  - primitive: gmvl, (zgkd, krkm) and (ltzp)
+The current state is: dgml and rltd.
+The task methods: pgpk expands to (gmvl, mtlt); dvvl expands to (kksl); mntr expands to (dvld, klnv); zgvr expands to (mztg).
+Which method achieves rznl?
+
+Answer with exactly one of: option_b | option_d | option_a | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;rznl&quot;,
+ &quot;initial_state&quot;: [
+  &quot;dgml&quot;,
+  &quot;rltd&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (spls, vdzg); option_d method (vnrz, spls); option_a method (vdzg, spls); option_b method (ksnr, vdzg).
+The operators:
+  - primitive: vdgl, (zrmg) and (pvpl)
+  - primitive: srzt, (tszd) and (zrmg)
+  - primitive: pspt, (lkkz) and (mkrn)
+  - primitive: gpvt, (nplr) and (pvpl)
+  - primitive: mrvd, (mkrn) and (tszd)
+  - primitive: drtk, (tszd, pvpl) and (mkrn)
+The current state is: lkkz and nplr.
+The task methods: vnrz expands to (gpvt); spls expands to (pspt, mrvd); vdzg expands to (srzt); ksnr expands to (drtk, vdgl).
+Which method achieves zrmg?
+
+Answer with exactly one of: option_c | option_b | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;zrmg&quot;,
+ &quot;initial_state&quot;: [
+  &quot;lkkz&quot;,
+  &quot;nplr&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (dgsk, nrlm); option_a method (nrlm, dgsk); option_b method (llrt, dgsk); option_c method (kdks, nrlm).
+The operators:
+  - primitive: ndgk, (rmnv) and (pvtk)
+  - primitive: pmkk, (pvtk) and (pvtk)
+  - primitive: zlnd, (ngmg) and (ndnr)
+  - primitive: pggl, (ndnr) and (rmnv)
+  - primitive: mpmr, (knlv) and (ngmg)
+  - primitive: rgsr, (ndnr, pvtk) and (ngmg)
+The current state is: knlv and pvtk.
+The task methods: dgsk expands to (pggl); llrt expands to (rgsr, ndgk); nrlm expands to (mpmr, zlnd); kdks expands to (pmkk).
+Which method achieves rmnv?
+
+Answer with exactly one of: option_c | option_a | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;rmnv&quot;,
+ &quot;initial_state&quot;: [
+  &quot;knlv&quot;,
+  &quot;pvtk&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (pvzn, mdtv); option_c method (mdtv, mmpz); option_d method (ntlv, mmpz); option_a method (mmpz, mdtv).
+The operators:
+  - primitive: mrvt, (nppd) and (ntgl)
+  - primitive: ngrk, (ntgl, gdzv) and (nppd)
+  - primitive: pldr, (lzdl) and (gdzv)
+  - primitive: gpsg, (mmld) and (nppd)
+  - primitive: prsk, (ntgl) and (lzdl)
+  - primitive: tvmz, (vlkg) and (gdzv)
+The current state is: mmld and vlkg.
+The task methods: mmpz expands to (prsk); mdtv expands to (gpsg, mrvt); pvzn expands to (tvmz); ntlv expands to (ngrk, pldr).
+Which method achieves lzdl?
+
+Answer with exactly one of: option_a | option_d | option_c | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;lzdl&quot;,
+ &quot;initial_state&quot;: [
+  &quot;mmld&quot;,
+  &quot;vlkg&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (lvtr, lzpn); option_a method (lzpn, vgnp); option_c method (pmtz, vgnp); option_d method (vgnp, lzpn).
+The operators:
+  - primitive: dmvp, (sspd) and (nldt)
+  - primitive: kddk, (sspd, lkmp) and (szpk)
+  - primitive: rgzz, (szpk) and (sspd)
+  - primitive: lpmp, (gknz) and (szpk)
+  - primitive: nsgg, (lkmp) and (lkmp)
+  - primitive: zglg, (nldt) and (lkmp)
+The current state is: gknz and lkmp.
+The task methods: pmtz expands to (nsgg); lzpn expands to (dmvp); lvtr expands to (kddk, zglg); vgnp expands to (lpmp, rgzz).
+Which method achieves nldt?
+
+Answer with exactly one of: option_b | option_d | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;nldt&quot;,
+ &quot;initial_state&quot;: [
+  &quot;gknz&quot;,
+  &quot;lkmp&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (gsgg, zdzv); option_a method (zdzv, tgsv); option_b method (tgsv, zdzv); option_d method (prmt, tgsv).
+The operators:
+  - primitive: tztr, (vgrk) and (nsgd)
+  - primitive: trnr, (nstl) and (zdvk)
+  - primitive: mpkl, (zdvk) and (nsgd)
+  - primitive: dlsd, (nstl, nsgd) and (sznn)
+  - primitive: lmzl, (sznn) and (nstl)
+  - primitive: vktg, (nsgd) and (sznn)
+The current state is: nsgd and vgrk.
+The task methods: gsgg expands to (tztr); prmt expands to (dlsd, mpkl); tgsv expands to (trnr); zdzv expands to (vktg, lmzl).
+Which method achieves zdvk?
+
+Answer with exactly one of: option_b | option_c | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;zdvk&quot;,
+ &quot;initial_state&quot;: [
+  &quot;nsgd&quot;,
+  &quot;vgrk&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (dtkz, lsgk); option_b method (lsgk, dtkz); option_a method (kzpt, dtkz); option_d method (ggtp, lsgk).
+The operators:
+  - primitive: vtrn, (rzpd, dltz) and (pgdz)
+  - primitive: pzds, (rzpd) and (gksn)
+  - primitive: kmmt, (plst) and (dltz)
+  - primitive: ndgg, (dltz) and (pgdz)
+  - primitive: kmgk, (pgdz) and (rzpd)
+  - primitive: mdld, (gksn) and (dltz)
+The current state is: dltz and plst.
+The task methods: kzpt expands to (kmmt); ggtp expands to (vtrn, mdld); lsgk expands to (pzds); dtkz expands to (ndgg, kmgk).
+Which method achieves gksn?
+
+Answer with exactly one of: option_a | option_b | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;gksn&quot;,
+ &quot;initial_state&quot;: [
+  &quot;dltz&quot;,
+  &quot;plst&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (llgz, kdvr); option_d method (zngl, llgz); option_a method (mpmr, kdvr); option_c method (kdvr, llgz).
+The operators:
+  - primitive: mmpm, (zsst) and (srgk)
+  - primitive: tdpl, (rmgp) and (srgk)
+  - primitive: ztsl, (dmnd, srgk) and (nmkd)
+  - primitive: drps, (nmkd) and (dmnd)
+  - primitive: rsdn, (kkms) and (nmkd)
+  - primitive: vgzk, (dmnd) and (rmgp)
+The current state is: kkms and zsst.
+The task methods: llgz expands to (rsdn, drps); zngl expands to (mmpm); kdvr expands to (vgzk); mpmr expands to (ztsl, tdpl).
+Which method achieves rmgp?
+
+Answer with exactly one of: option_b | option_a | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;rmgp&quot;,
+ &quot;initial_state&quot;: [
+  &quot;kkms&quot;,
+  &quot;zsst&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (mgnn, zmrg); option_d method (nkmg, mgnn); option_a method (vndl, zmrg); option_b method (zmrg, mgnn).
+The operators:
+  - primitive: zgtp, (gkrp) and (pptk)
+  - primitive: mtrv, (kzdt) and (vlnd)
+  - primitive: mkgk, (vlnd, pptk) and (kzdt)
+  - primitive: tktz, (mvgv) and (pptk)
+  - primitive: tpgr, (vlnd) and (gkrp)
+  - primitive: mmpt, (glgr) and (kzdt)
+The current state is: glgr and mvgv.
+The task methods: mgnn expands to (tpgr); zmrg expands to (mmpt, mtrv); vndl expands to (tktz); nkmg expands to (mkgk, zgtp).
+Which method achieves gkrp?
+
+Answer with exactly one of: option_b | option_d | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;gkrp&quot;,
+ &quot;initial_state&quot;: [
+  &quot;glgr&quot;,
+  &quot;mvgv&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (dkdd, vsst); option_c method (knnp, zdsk); option_d method (zdsk, vsst); option_a method (vsst, zdsk).
+The operators:
+  - primitive: tmrm, (mtps) and (gkmt)
+  - primitive: gmzl, (gkmt) and (npgp)
+  - primitive: dnll, (npgp) and (prrd)
+  - primitive: mlzg, (prrd) and (mtps)
+  - primitive: lpmv, (zksm) and (npgp)
+  - primitive: mnzk, (mtps, npgp) and (prrd)
+The current state is: npgp and zksm.
+The task methods: vsst expands to (dnll, mlzg); zdsk expands to (tmrm); knnp expands to (mnzk, gmzl); dkdd expands to (lpmv).
+Which method achieves gkmt?
+
+Answer with exactly one of: option_d | option_b | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;gkmt&quot;,
+ &quot;initial_state&quot;: [
+  &quot;npgp&quot;,
+  &quot;zksm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (drnr, ndgd); option_a method (nzgn, ndgd); option_d method (kvls, drnr); option_b method (ndgd, drnr).
+The operators:
+  - primitive: kktl, (zmzd) and (nkgm)
+  - primitive: sdpm, (mvkm) and (zpvz)
+  - primitive: gptd, (zpvz) and (zmzd)
+  - primitive: zldl, (nkgm) and (tzdt)
+  - primitive: mpmk, (zmzd, tzdt) and (zpvz)
+  - primitive: llpd, (mzlk) and (tzdt)
+The current state is: mvkm and mzlk.
+The task methods: drnr expands to (sdpm, gptd); nzgn expands to (mpmk, zldl); ndgd expands to (kktl); kvls expands to (llpd).
+Which method achieves nkgm?
+
+Answer with exactly one of: option_a | option_b | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;nkgm&quot;,
+ &quot;initial_state&quot;: [
+  &quot;mvkm&quot;,
+  &quot;mzlk&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (pzls, lvpt); option_d method (lvpt, glmg); option_b method (mgsg, glmg); option_c method (glmg, lvpt).
+The operators:
+  - primitive: dztm, (zrld) and (zrld)
+  - primitive: mpdv, (tgrk) and (mpkg)
+  - primitive: rgmp, (kmln) and (zrld)
+  - primitive: ltvv, (mpkg) and (gsnr)
+  - primitive: slrv, (gsnr, zrld) and (mpkg)
+  - primitive: mvdd, (gsnr) and (kmln)
+The current state is: tgrk and zrld.
+The task methods: pzls expands to (slrv, rgmp); mgsg expands to (dztm); glmg expands to (mpdv, ltvv); lvpt expands to (mvdd).
+Which method achieves kmln?
+
+Answer with exactly one of: option_a | option_c | option_b | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;kmln&quot;,
+ &quot;initial_state&quot;: [
+  &quot;tgrk&quot;,
+  &quot;zrld&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (prrz, lmlg); option_a method (lmlg, prrz); option_c method (mnsd, prrz); option_d method (lsvd, lmlg).
+The operators:
+  - primitive: ddlg, (mkzv) and (drkl)
+  - primitive: gpss, (kpnk) and (vglz)
+  - primitive: sdkt, (lmpr) and (drkl)
+  - primitive: skrl, (rppg) and (mkzv)
+  - primitive: lrgs, (rppg, drkl) and (vglz)
+  - primitive: rrlv, (vglz) and (rppg)
+The current state is: kpnk and lmpr.
+The task methods: lmlg expands to (gpss, rrlv); mnsd expands to (lrgs, ddlg); prrz expands to (skrl); lsvd expands to (sdkt).
+Which method achieves mkzv?
+
+Answer with exactly one of: option_b | option_c | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;mkzv&quot;,
+ &quot;initial_state&quot;: [
+  &quot;kpnk&quot;,
+  &quot;lmpr&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (pgzk, npts); option_c method (lmzg, zntl); option_a method (npts, zntl); option_b method (zntl, npts).
+The operators:
+  - primitive: znkg, (sdpt) and (rrtv)
+  - primitive: ttkd, (drzr) and (tnmv)
+  - primitive: rzld, (tnmv) and (rrtv)
+  - primitive: lmsz, (drzr, rrtv) and (rltr)
+  - primitive: mtvn, (rltr) and (drzr)
+  - primitive: skmp, (nssr) and (rltr)
+The current state is: nssr and sdpt.
+The task methods: lmzg expands to (znkg); zntl expands to (skmp, mtvn); npts expands to (ttkd); pgzk expands to (lmsz, rzld).
+Which method achieves tnmv?
+
+Answer with exactly one of: option_c | option_b | option_a | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;tnmv&quot;,
+ &quot;initial_state&quot;: [
+  &quot;nssr&quot;,
+  &quot;sdpt&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (grlt, mgzr); option_c method (mgzr, grlt); option_d method (vslz, grlt); option_b method (gpgv, mgzr).
+The operators:
+  - primitive: rgsn, (tvdk) and (gzgl)
+  - primitive: pllz, (lrrk) and (nkdz)
+  - primitive: npgg, (nkdz) and (gzgl)
+  - primitive: pksd, (gzgl) and (mlpm)
+  - primitive: tmpd, (mlpm) and (lrrk)
+  - primitive: knpd, (lrrk, gzgl) and (mlpm)
+The current state is: gzgl and tvdk.
+The task methods: grlt expands to (pllz); gpgv expands to (rgsn); mgzr expands to (pksd, tmpd); vslz expands to (knpd, npgg).
+Which method achieves nkdz?
+
+Answer with exactly one of: option_b | option_c | option_a | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;nkdz&quot;,
+ &quot;initial_state&quot;: [
+  &quot;gzgl&quot;,
+  &quot;tvdk&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (srgm, vtzg); option_a method (vtzg, srgm); option_d method (mnrv, vtzg); option_b method (pngd, srgm).
+The operators:
+  - primitive: pdms, (sdvl, ssml) and (vzln)
+  - primitive: kslz, (mrls) and (ssml)
+  - primitive: vzdg, (nrmt) and (ssml)
+  - primitive: mmdg, (vzln) and (sdvl)
+  - primitive: ldnp, (sdvl) and (mrls)
+  - primitive: ggpn, (lmll) and (vzln)
+The current state is: lmll and nrmt.
+The task methods: mnrv expands to (vzdg); srgm expands to (ldnp); pngd expands to (pdms, kslz); vtzg expands to (ggpn, mmdg).
+Which method achieves mrls?
+
+Answer with exactly one of: option_b | option_a | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;mrls&quot;,
+ &quot;initial_state&quot;: [
+  &quot;lmll&quot;,
+  &quot;nrmt&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (gmtr, vknp); option_b method (vknp, gmtr); option_d method (pslm, vknp); option_a method (vrtg, gmtr).
+The operators:
+  - primitive: zkvn, (srrt) and (ssrz)
+  - primitive: kvtv, (ssrz, pzpd) and (srrt)
+  - primitive: tlgz, (ssrz) and (lgnl)
+  - primitive: lvns, (lgnl) and (pzpd)
+  - primitive: kmkr, (drrn) and (srrt)
+  - primitive: kkmd, (prvd) and (pzpd)
+The current state is: drrn and prvd.
+The task methods: vknp expands to (tlgz); gmtr expands to (kmkr, zkvn); pslm expands to (kvtv, lvns); vrtg expands to (kkmd).
+Which method achieves lgnl?
+
+Answer with exactly one of: option_d | option_a | option_b | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;lgnl&quot;,
+ &quot;initial_state&quot;: [
+  &quot;drrn&quot;,
+  &quot;prvd&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (ltdp, dtzm); option_b method (gksk, dtzm); option_c method (dtzm, ltdp); option_d method (gndp, ltdp).
+The operators:
+  - primitive: mgpn, (lvnk) and (ksmt)
+  - primitive: mkgp, (ttpt) and (lvnk)
+  - primitive: lrtt, (ttpt, ksmt) and (zkdr)
+  - primitive: prnr, (vlpk) and (ksmt)
+  - primitive: tvsn, (krpv) and (zkdr)
+  - primitive: zvvp, (zkdr) and (ttpt)
+The current state is: krpv and vlpk.
+The task methods: gndp expands to (lrtt, mgpn); dtzm expands to (tvsn, zvvp); gksk expands to (prnr); ltdp expands to (mkgp).
+Which method achieves lvnk?
+
+Answer with exactly one of: option_d | option_b | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;lvnk&quot;,
+ &quot;initial_state&quot;: [
+  &quot;krpv&quot;,
+  &quot;vlpk&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (nvsl, ntkv); option_d method (ntkv, nvsl); option_c method (gstm, nvsl); option_b method (knmk, ntkv).
+The operators:
+  - primitive: ttlr, (gsvr) and (dvdr)
+  - primitive: nlrn, (dvdr) and (ldvd)
+  - primitive: ppvs, (ktkl) and (ktkl)
+  - primitive: tmnr, (dvdr, ktkl) and (gsvr)
+  - primitive: pklz, (ldvd) and (ktkl)
+  - primitive: svss, (kktl) and (gsvr)
+The current state is: kktl and ktkl.
+The task methods: ntkv expands to (svss, ttlr); knmk expands to (ppvs); gstm expands to (tmnr, pklz); nvsl expands to (nlrn).
+Which method achieves ldvd?
+
+Answer with exactly one of: option_b | option_a | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;ldvd&quot;,
+ &quot;initial_state&quot;: [
+  &quot;kktl&quot;,
+  &quot;ktkl&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (tpsk, dsvp); option_d method (sngk, tpsk); option_b method (gtvs, dsvp); option_c method (dsvp, tpsk).
+The operators:
+  - primitive: zzvg, (vvps) and (vlgd)
+  - primitive: rzpz, (gmrl) and (tvrz)
+  - primitive: rtmn, (tvrz) and (vvps)
+  - primitive: lzks, (vvps, gmrl) and (tvrz)
+  - primitive: dktd, (psds) and (gmrl)
+  - primitive: kpnk, (vlgd) and (gmrl)
+The current state is: gmrl and psds.
+The task methods: tpsk expands to (rzpz, rtmn); gtvs expands to (lzks, kpnk); dsvp expands to (zzvg); sngk expands to (dktd).
+Which method achieves vlgd?
+
+Answer with exactly one of: option_c | option_b | option_a | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;vlgd&quot;,
+ &quot;initial_state&quot;: [
+  &quot;gmrl&quot;,
+  &quot;psds&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (gssv, pzll); option_b method (pzll, zlkm); option_c method (zlkm, pzll); option_a method (ttsz, zlkm).
+The operators:
+  - primitive: gvsk, (zmld) and (nvrp)
+  - primitive: knzk, (prpl) and (mstd)
+  - primitive: ndps, (zmld, dprn) and (mstd)
+  - primitive: psmr, (nvrp) and (dprn)
+  - primitive: srdk, (mstd) and (zmld)
+  - primitive: sspt, (zmdt) and (dprn)
+The current state is: prpl and zmdt.
+The task methods: pzll expands to (gvsk); zlkm expands to (knzk, srdk); gssv expands to (ndps, psmr); ttsz expands to (sspt).
+Which method achieves nvrp?
+
+Answer with exactly one of: option_c | option_d | option_b | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;nvrp&quot;,
+ &quot;initial_state&quot;: [
+  &quot;prpl&quot;,
+  &quot;zmdt&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (rvdn, tstt); option_a method (lknn, rvdn); option_c method (kglk, tstt); option_d method (tstt, rvdn).
+The operators:
+  - primitive: dptn, (dsml, gskg) and (rzrp)
+  - primitive: rtpn, (rkvn) and (rzrp)
+  - primitive: ktps, (rzrp) and (dsml)
+  - primitive: msrn, (zgsk) and (gskg)
+  - primitive: tmgs, (dsml) and (gmln)
+  - primitive: rsvt, (gmln) and (gskg)
+The current state is: rkvn and zgsk.
+The task methods: tstt expands to (rtpn, ktps); rvdn expands to (tmgs); lknn expands to (dptn, rsvt); kglk expands to (msrn).
+Which method achieves gmln?
+
+Answer with exactly one of: option_d | option_c | option_a | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;gmln&quot;,
+ &quot;initial_state&quot;: [
+  &quot;rkvn&quot;,
+  &quot;zgsk&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (lvrk, nspv); option_a method (kpkg, knvv); option_c method (nspv, knvv); option_d method (knvv, nspv).
+The operators:
+  - primitive: gnvr, (pkdt) and (klgg)
+  - primitive: rtgp, (vzpn) and (pmnd)
+  - primitive: zngt, (klgg) and (ksrl)
+  - primitive: lgrr, (ksrl, pmnd) and (klgg)
+  - primitive: sszp, (pmnd) and (pmnd)
+  - primitive: gttp, (ksrl) and (vzpn)
+The current state is: pkdt and pmnd.
+The task methods: kpkg expands to (lgrr, rtgp); lvrk expands to (sszp); knvv expands to (gttp); nspv expands to (gnvr, zngt).
+Which method achieves vzpn?
+
+Answer with exactly one of: option_d | option_c | option_a | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;vzpn&quot;,
+ &quot;initial_state&quot;: [
+  &quot;pkdt&quot;,
+  &quot;pmnd&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (dskz, vttt); option_a method (vttt, dskz); option_d method (vrng, vttt); option_c method (zndm, dskz).
+The operators:
+  - primitive: tzzt, (zvgp) and (vsvm)
+  - primitive: nmts, (zgmk) and (vsvm)
+  - primitive: vrnp, (vplz) and (gssd)
+  - primitive: ggds, (nsks, vsvm) and (gssd)
+  - primitive: ntzk, (nsks) and (zvgp)
+  - primitive: nlkm, (gssd) and (nsks)
+The current state is: vplz and zgmk.
+The task methods: vrng expands to (nmts); vttt expands to (vrnp, nlkm); zndm expands to (ggds, tzzt); dskz expands to (ntzk).
+Which method achieves zvgp?
+
+Answer with exactly one of: option_d | option_c | option_a | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;zvgp&quot;,
+ &quot;initial_state&quot;: [
+  &quot;vplz&quot;,
+  &quot;zgmk&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (pkmv, lgtn); option_c method (lgtn, pkmv); option_a method (lrnp, lgtn); option_b method (zrrs, pkmv).
+The operators:
+  - primitive: mmln, (kngk) and (smnv)
+  - primitive: klzm, (smnv) and (ktzd)
+  - primitive: dngm, (lntr) and (lntr)
+  - primitive: ksdm, (ktzd) and (vpvr)
+  - primitive: ggmz, (vpvr) and (lntr)
+  - primitive: zmng, (ktzd, lntr) and (smnv)
+The current state is: kngk and lntr.
+The task methods: pkmv expands to (ksdm); lrnp expands to (dngm); lgtn expands to (mmln, klzm); zrrs expands to (zmng, ggmz).
+Which method achieves vpvr?
+
+Answer with exactly one of: option_c | option_b | option_a | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;vpvr&quot;,
+ &quot;initial_state&quot;: [
+  &quot;kngk&quot;,
+  &quot;lntr&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (dzsd, sgnm); option_c method (pmrn, dzsd); option_a method (rlvl, sgnm); option_d method (sgnm, dzsd).
+The operators:
+  - primitive: zmst, (zzgt) and (dttz)
+  - primitive: szsr, (lkmn, dttz) and (zsvv)
+  - primitive: kggm, (lkmn) and (ttpk)
+  - primitive: ztkg, (ttpk) and (dttz)
+  - primitive: rgrg, (zsvv) and (lkmn)
+  - primitive: gnnt, (dttz) and (zsvv)
+The current state is: dttz and zzgt.
+The task methods: dzsd expands to (gnnt, rgrg); sgnm expands to (kggm); rlvl expands to (szsr, ztkg); pmrn expands to (zmst).
+Which method achieves ttpk?
+
+Answer with exactly one of: option_c | option_d | option_b | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;ttpk&quot;,
+ &quot;initial_state&quot;: [
+  &quot;dttz&quot;,
+  &quot;zzgt&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (kptm, sttk); option_c method (sttk, rlvk); option_d method (rlvk, sttk); option_a method (rpmz, rlvk).
+The operators:
+  - primitive: gzpp, (mpvl) and (rdmn)
+  - primitive: ttdp, (vtrs) and (lzld)
+  - primitive: vlgl, (tlnk) and (rdmn)
+  - primitive: zzdl, (lzld) and (tlnk)
+  - primitive: nntd, (lzld, rdmn) and (vtrs)
+  - primitive: tlkp, (kvll) and (vtrs)
+The current state is: kvll and mpvl.
+The task methods: kptm expands to (gzpp); rpmz expands to (nntd, vlgl); rlvk expands to (zzdl); sttk expands to (tlkp, ttdp).
+Which method achieves tlnk?
+
+Answer with exactly one of: option_b | option_a | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;tlnk&quot;,
+ &quot;initial_state&quot;: [
+  &quot;kvll&quot;,
+  &quot;mpvl&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (gzst, gdkg); option_d method (ggsk, gdkg); option_c method (gdkg, gzst); option_b method (tstm, gzst).
+The operators:
+  - primitive: vkzz, (vznl, rklg) and (gtms)
+  - primitive: ntds, (rklg) and (gtms)
+  - primitive: pzll, (kznt) and (rklg)
+  - primitive: gpsd, (trtt) and (rklg)
+  - primitive: vgkg, (vznl) and (kznt)
+  - primitive: dmlr, (gtms) and (vznl)
+The current state is: rklg and trtt.
+The task methods: gzst expands to (ntds, dmlr); gdkg expands to (vgkg); ggsk expands to (vkzz, pzll); tstm expands to (gpsd).
+Which method achieves kznt?
+
+Answer with exactly one of: option_b | option_d | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;kznt&quot;,
+ &quot;initial_state&quot;: [
+  &quot;rklg&quot;,
+  &quot;trtt&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (tgkp, lmkg); option_b method (lmkg, tgkp); option_a method (vklk, tgkp); option_d method (lklp, lmkg).
+The operators:
+  - primitive: kkgd, (vnmp) and (szmn)
+  - primitive: tsgr, (szmn) and (zdgk)
+  - primitive: szgn, (dmmn) and (vnmp)
+  - primitive: kklg, (vvzz) and (sntl)
+  - primitive: ppnl, (zdgk) and (sntl)
+  - primitive: vdsm, (szmn, sntl) and (vnmp)
+The current state is: dmmn and vvzz.
+The task methods: lklp expands to (kklg); tgkp expands to (tsgr); lmkg expands to (szgn, kkgd); vklk expands to (vdsm, ppnl).
+Which method achieves zdgk?
+
+Answer with exactly one of: option_a | option_b | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;zdgk&quot;,
+ &quot;initial_state&quot;: [
+  &quot;dmmn&quot;,
+  &quot;vvzz&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (zdld, vrtk); option_a method (sskn, zdld); option_d method (vrtk, zdld); option_b method (ksvt, vrtk).
+The operators:
+  - primitive: szdt, (sdnt, dkmp) and (vmng)
+  - primitive: mkvp, (mpvs) and (dkmp)
+  - primitive: rplr, (szdn) and (dkmp)
+  - primitive: zsrs, (sdnt) and (mpvs)
+  - primitive: mgkg, (vmng) and (sdnt)
+  - primitive: nkmt, (prnk) and (vmng)
+The current state is: prnk and szdn.
+The task methods: ksvt expands to (szdt, mkvp); sskn expands to (rplr); zdld expands to (nkmt, mgkg); vrtk expands to (zsrs).
+Which method achieves mpvs?
+
+Answer with exactly one of: option_b | option_d | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;mpvs&quot;,
+ &quot;initial_state&quot;: [
+  &quot;prnk&quot;,
+  &quot;szdn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (rktt, tklz); option_c method (tklz, lzkt); option_d method (dpmz, lzkt); option_a method (lzkt, tklz).
+The operators:
+  - primitive: dtnm, (pzzr) and (svvr)
+  - primitive: vvkd, (vzsn) and (vgdk)
+  - primitive: zmtr, (vgdk) and (pzzr)
+  - primitive: tdll, (svvr) and (vrln)
+  - primitive: gnlg, (vrln) and (vgdk)
+  - primitive: snsp, (svvr, vgdk) and (pzzr)
+The current state is: vgdk and vzsn.
+The task methods: tklz expands to (zmtr, dtnm); lzkt expands to (tdll); rktt expands to (vvkd); dpmz expands to (snsp, gnlg).
+Which method achieves vrln?
+
+Answer with exactly one of: option_a | option_c | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;vrln&quot;,
+ &quot;initial_state&quot;: [
+  &quot;vgdk&quot;,
+  &quot;vzsn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (gmlv, msln); option_a method (mpzk, lpmz); option_d method (msln, lpmz); option_b method (lpmz, msln).
+The operators:
+  - primitive: vzsz, (vrtd) and (tpdd)
+  - primitive: lkkd, (vzzr) and (mdvt)
+  - primitive: rmpt, (mzps) and (vzzr)
+  - primitive: sdvg, (mdvt) and (tpdd)
+  - primitive: vnrk, (mdld) and (mzps)
+  - primitive: snlg, (vzzr, tpdd) and (mzps)
+The current state is: mdld and vrtd.
+The task methods: gmlv expands to (vzsz); msln expands to (vnrk, rmpt); lpmz expands to (lkkd); mpzk expands to (snlg, sdvg).
+Which method achieves mdvt?
+
+Answer with exactly one of: option_a | option_b | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;mdvt&quot;,
+ &quot;initial_state&quot;: [
+  &quot;mdld&quot;,
+  &quot;vrtd&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (prkg, pklt); option_c method (pklt, prkg); option_d method (vlsk, prkg); option_a method (tgkt, pklt).
+The operators:
+  - primitive: dgkp, (mmpv) and (vgzs)
+  - primitive: kdvd, (vgzs, tmnm) and (mmpv)
+  - primitive: snnn, (zktv) and (tmnm)
+  - primitive: ttlr, (nknt) and (tmnm)
+  - primitive: nrdd, (vgzs) and (nknt)
+  - primitive: vzsp, (pzgp) and (mmpv)
+The current state is: pzgp and zktv.
+The task methods: tgkt expands to (snnn); prkg expands to (nrdd); vlsk expands to (kdvd, ttlr); pklt expands to (vzsp, dgkp).
+Which method achieves nknt?
+
+Answer with exactly one of: option_a | option_b | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;nknt&quot;,
+ &quot;initial_state&quot;: [
+  &quot;pzgp&quot;,
+  &quot;zktv&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (pgdz, tmkv); option_b method (tmkv, tggl); option_c method (mspp, tggl); option_d method (tggl, tmkv).
+The operators:
+  - primitive: sskr, (rmgg) and (spvz)
+  - primitive: rtdn, (rmgg, nmkr) and (dvdd)
+  - primitive: rkgn, (nmkr) and (nmkr)
+  - primitive: dvml, (dnlv) and (dvdd)
+  - primitive: kmgt, (dvdd) and (rmgg)
+  - primitive: pvrp, (spvz) and (nmkr)
+The current state is: dnlv and nmkr.
+The task methods: tmkv expands to (sskr); pgdz expands to (rtdn, pvrp); tggl expands to (dvml, kmgt); mspp expands to (rkgn).
+Which method achieves spvz?
+
+Answer with exactly one of: option_a | option_d | option_b | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;spvz&quot;,
+ &quot;initial_state&quot;: [
+  &quot;dnlv&quot;,
+  &quot;nmkr&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (skts, sztv); option_c method (nmdl, sztv); option_a method (nzrr, skts); option_d method (sztv, skts).
+The operators:
+  - primitive: mzdg, (rpvp, ppmp) and (mgll)
+  - primitive: zsdn, (mgll) and (rpvp)
+  - primitive: ztst, (gvrl) and (mgll)
+  - primitive: lkmm, (nkmt) and (ppmp)
+  - primitive: mpgd, (rrvt) and (ppmp)
+  - primitive: drsm, (rpvp) and (rrvt)
+The current state is: gvrl and nkmt.
+The task methods: nmdl expands to (mzdg, mpgd); sztv expands to (drsm); skts expands to (ztst, zsdn); nzrr expands to (lkmm).
+Which method achieves rrvt?
+
+Answer with exactly one of: option_b | option_c | option_a | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;rrvt&quot;,
+ &quot;initial_state&quot;: [
+  &quot;gvrl&quot;,
+  &quot;nkmt&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (ztgl, pkdd); option_a method (mstg, ztgl); option_d method (rnmd, pkdd); option_c method (pkdd, ztgl).
+The operators:
+  - primitive: gmkr, (tnng) and (mrlz)
+  - primitive: pvmm, (sdnp) and (mzdv)
+  - primitive: tlrs, (vtlm, mrlz) and (mzdv)
+  - primitive: kvlz, (mzdv) and (vtlm)
+  - primitive: tkzv, (vtlm) and (pspn)
+  - primitive: mvdm, (pspn) and (mrlz)
+The current state is: sdnp and tnng.
+The task methods: pkdd expands to (pvmm, kvlz); ztgl expands to (tkzv); rnmd expands to (gmkr); mstg expands to (tlrs, mvdm).
+Which method achieves pspn?
+
+Answer with exactly one of: option_d | option_b | option_a | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;pspn&quot;,
+ &quot;initial_state&quot;: [
+  &quot;sdnp&quot;,
+  &quot;tnng&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (msmz, spkm); option_a method (spkm, gkzl); option_d method (gkzl, spkm); option_b method (tpvv, gkzl).
+The operators:
+  - primitive: gtts, (ztsz, tlnt) and (lrgk)
+  - primitive: mnks, (msrk) and (tlnt)
+  - primitive: klgk, (drlv) and (lrgk)
+  - primitive: drlz, (tlnt) and (tlnt)
+  - primitive: tlpv, (ztsz) and (msrk)
+  - primitive: pngs, (lrgk) and (ztsz)
+The current state is: drlv and tlnt.
+The task methods: gkzl expands to (klgk, pngs); spkm expands to (tlpv); msmz expands to (gtts, mnks); tpvv expands to (drlz).
+Which method achieves msrk?
+
+Answer with exactly one of: option_a | option_b | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;msrk&quot;,
+ &quot;initial_state&quot;: [
+  &quot;drlv&quot;,
+  &quot;tlnt&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (skkl, gltv); option_b method (pkpm, dtzp); option_c method (gltv, dtzp); option_d method (dtzp, gltv).
+The operators:
+  - primitive: slgv, (lzdd) and (tnkd)
+  - primitive: mzmr, (mgdt) and (ngtd)
+  - primitive: ldkp, (ngtd) and (dlsp)
+  - primitive: zzll, (dlsp) and (tnkd)
+  - primitive: slvn, (ngtd, tnkd) and (mgdt)
+  - primitive: svkv, (ldrg) and (mgdt)
+The current state is: ldrg and lzdd.
+The task methods: skkl expands to (slvn, zzll); pkpm expands to (slgv); dtzp expands to (svkv, mzmr); gltv expands to (ldkp).
+Which method achieves dlsp?
+
+Answer with exactly one of: option_a | option_d | option_c | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;dlsp&quot;,
+ &quot;initial_state&quot;: [
+  &quot;ldrg&quot;,
+  &quot;lzdd&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (mnst, pmmn); option_a method (srtg, pmmn); option_c method (pmmn, srtg); option_d method (rtvv, srtg).
+The operators:
+  - primitive: gsdm, (gtvz) and (gmvp)
+  - primitive: zzdk, (rrsv) and (kplr)
+  - primitive: tsks, (gtvz, kplr) and (zmrv)
+  - primitive: vdlz, (gmvp) and (kplr)
+  - primitive: pvrp, (mkzp) and (zmrv)
+  - primitive: tkzg, (zmrv) and (gtvz)
+The current state is: mkzp and rrsv.
+The task methods: pmmn expands to (gsdm); mnst expands to (tsks, vdlz); srtg expands to (pvrp, tkzg); rtvv expands to (zzdk).
+Which method achieves gmvp?
+
+Answer with exactly one of: option_b | option_a | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;gmvp&quot;,
+ &quot;initial_state&quot;: [
+  &quot;mkzp&quot;,
+  &quot;rrsv&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (ptdt, dgvd); option_d method (gtpv, kdmp); option_c method (dgvd, kdmp); option_b method (kdmp, dgvd).
+The operators:
+  - primitive: znpk, (mzts) and (lmvv)
+  - primitive: gpsz, (grml) and (mzts)
+  - primitive: dlkk, (rzvt) and (kdrk)
+  - primitive: gkds, (mzts, kdrk) and (grml)
+  - primitive: rsnt, (lmvv) and (kdrk)
+  - primitive: tsvt, (kdrk) and (grml)
+The current state is: kdrk and rzvt.
+The task methods: ptdt expands to (gkds, rsnt); gtpv expands to (dlkk); kdmp expands to (tsvt, gpsz); dgvd expands to (znpk).
+Which method achieves lmvv?
+
+Answer with exactly one of: option_a | option_b | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;lmvv&quot;,
+ &quot;initial_state&quot;: [
+  &quot;kdrk&quot;,
+  &quot;rzvt&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (zlsk, dkmk); option_c method (mpmz, zlsk); option_b method (lrnm, dkmk); option_d method (dkmk, zlsk).
+The operators:
+  - primitive: gnvn, (kdrn) and (nvnn)
+  - primitive: vkzg, (vdnl) and (vdnl)
+  - primitive: zvgt, (kdrn, vdnl) and (vgpv)
+  - primitive: gnvz, (dlmd) and (vgpv)
+  - primitive: stst, (nvnn) and (vdnl)
+  - primitive: pkpr, (vgpv) and (kdrn)
+The current state is: dlmd and vdnl.
+The task methods: dkmk expands to (gnvz, pkpr); lrnm expands to (vkzg); zlsk expands to (gnvn); mpmz expands to (zvgt, stst).
+Which method achieves nvnn?
+
+Answer with exactly one of: option_b | option_a | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;nvnn&quot;,
+ &quot;initial_state&quot;: [
+  &quot;dlmd&quot;,
+  &quot;vdnl&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (tggp, ksvv); option_c method (drmk, ksvv); option_b method (vrpt, drmk); option_a method (ksvv, drmk).
+The operators:
+  - primitive: zngm, (slrk) and (knpg)
+  - primitive: gpds, (lvps) and (zkps)
+  - primitive: lrvk, (zkps) and (zzvv)
+  - primitive: mnnp, (zzvv) and (smlz)
+  - primitive: nmdd, (zzvv, knpg) and (zkps)
+  - primitive: tmsn, (smlz) and (knpg)
+The current state is: lvps and slrk.
+The task methods: vrpt expands to (zngm); drmk expands to (gpds, lrvk); tggp expands to (nmdd, tmsn); ksvv expands to (mnnp).
+Which method achieves smlz?
+
+Answer with exactly one of: option_a | option_d | option_b | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;smlz&quot;,
+ &quot;initial_state&quot;: [
+  &quot;lvps&quot;,
+  &quot;slrk&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (vnrm, dsdl); option_a method (mrmz, mmgv); option_d method (mmgv, dsdl); option_c method (dsdl, mmgv).
+The operators:
+  - primitive: vsss, (smzv) and (rnnr)
+  - primitive: tllm, (kzkv) and (zlss)
+  - primitive: rmmd, (rgst) and (tsrp)
+  - primitive: mmsd, (rnnr) and (tsrp)
+  - primitive: rvgd, (smzv, tsrp) and (zlss)
+  - primitive: mrzr, (zlss) and (smzv)
+The current state is: kzkv and rgst.
+The task methods: mmgv expands to (vsss); mrmz expands to (rvgd, mmsd); dsdl expands to (tllm, mrzr); vnrm expands to (rmmd).
+Which method achieves rnnr?
+
+Answer with exactly one of: option_a | option_c | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;rnnr&quot;,
+ &quot;initial_state&quot;: [
+  &quot;kzkv&quot;,
+  &quot;rgst&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (nlsp, rndd); option_b method (rndd, pdmd); option_d method (rkmv, pdmd); option_c method (pdmd, rndd).
+The operators:
+  - primitive: zdtn, (smzn) and (sdtl)
+  - primitive: stvz, (vprk) and (sdtl)
+  - primitive: dttl, (dzdp) and (kntn)
+  - primitive: lksm, (kntn) and (vprk)
+  - primitive: tgnr, (kntn, sdtl) and (dzdp)
+  - primitive: plnp, (pnsd) and (dzdp)
+The current state is: pnsd and smzn.
+The task methods: pdmd expands to (lksm); nlsp expands to (zdtn); rkmv expands to (tgnr, stvz); rndd expands to (plnp, dttl).
+Which method achieves vprk?
+
+Answer with exactly one of: option_c | option_a | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;vprk&quot;,
+ &quot;initial_state&quot;: [
+  &quot;pnsd&quot;,
+  &quot;smzn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (lvzt, zlsd); option_b method (mkgn, lvzt); option_c method (drlk, zlsd); option_a method (zlsd, lvzt).
+The operators:
+  - primitive: dvdm, (dvdz) and (tpvd)
+  - primitive: kvmn, (lksm, tpvd) and (tvlg)
+  - primitive: mstp, (tssd) and (tpvd)
+  - primitive: mzvk, (tvlg) and (lksm)
+  - primitive: lgmp, (dvtm) and (tvlg)
+  - primitive: ddld, (lksm) and (dvdz)
+The current state is: dvtm and tssd.
+The task methods: drlk expands to (mstp); lvzt expands to (ddld); zlsd expands to (lgmp, mzvk); mkgn expands to (kvmn, dvdm).
+Which method achieves dvdz?
+
+Answer with exactly one of: option_d | option_b | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;dvdz&quot;,
+ &quot;initial_state&quot;: [
+  &quot;dvtm&quot;,
+  &quot;tssd&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (vdms, ggkl); option_b method (rdkv, ggkl); option_c method (nvrl, vdms); option_a method (ggkl, vdms).
+The operators:
+  - primitive: nszz, (psgk) and (pstr)
+  - primitive: mlmn, (pstr) and (gktv)
+  - primitive: llgt, (zprd) and (psgk)
+  - primitive: kdkt, (psgk, gktv) and (zprd)
+  - primitive: gtts, (plkr) and (zprd)
+  - primitive: rzzl, (pllr) and (gktv)
+The current state is: plkr and pllr.
+The task methods: vdms expands to (nszz); rdkv expands to (rzzl); nvrl expands to (kdkt, mlmn); ggkl expands to (gtts, llgt).
+Which method achieves pstr?
+
+Answer with exactly one of: option_a | option_c | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;pstr&quot;,
+ &quot;initial_state&quot;: [
+  &quot;plkr&quot;,
+  &quot;pllr&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (dmtk, dzgl); option_d method (tsvm, dzgl); option_c method (dzgl, dmtk); option_a method (pnzz, dmtk).
+The operators:
+  - primitive: tpsn, (ttvn) and (gklz)
+  - primitive: plzl, (rpvk) and (ntgm)
+  - primitive: rtdl, (rvlr) and (ttvn)
+  - primitive: krdd, (ttvn, ntgm) and (rvlr)
+  - primitive: srzg, (ntgm) and (rvlr)
+  - primitive: vsdv, (gklz) and (ntgm)
+The current state is: ntgm and rpvk.
+The task methods: pnzz expands to (krdd, vsdv); tsvm expands to (plzl); dzgl expands to (srzg, rtdl); dmtk expands to (tpsn).
+Which method achieves gklz?
+
+Answer with exactly one of: option_b | option_a | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;gklz&quot;,
+ &quot;initial_state&quot;: [
+  &quot;ntgm&quot;,
+  &quot;rpvk&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (lmnm, zksk); option_b method (zksk, zmds); option_a method (gdlk, zmds); option_c method (zmds, zksk).
+The operators:
+  - primitive: rdvp, (tkpv) and (mnll)
+  - primitive: vmvt, (gmsz) and (tvrz)
+  - primitive: nzkl, (rtmv) and (mnll)
+  - primitive: ksld, (tvrz) and (ttnz)
+  - primitive: pznp, (ttnz, mnll) and (tvrz)
+  - primitive: zkrl, (ttnz) and (tkpv)
+The current state is: gmsz and rtmv.
+The task methods: lmnm expands to (pznp, rdvp); zmds expands to (vmvt, ksld); zksk expands to (zkrl); gdlk expands to (nzkl).
+Which method achieves tkpv?
+
+Answer with exactly one of: option_c | option_b | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;tkpv&quot;,
+ &quot;initial_state&quot;: [
+  &quot;gmsz&quot;,
+  &quot;rtmv&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (nmvg, rtgt); option_d method (klvs, rtgt); option_b method (nvgk, klvs); option_c method (rtgt, klvs).
+The operators:
+  - primitive: kvlp, (vvmt) and (pkkn)
+  - primitive: lvvg, (sstz) and (vnds)
+  - primitive: lvst, (pkkn, vnds) and (vvmt)
+  - primitive: dpnr, (mkpt) and (vnds)
+  - primitive: vtkk, (lzrs) and (vvmt)
+  - primitive: gdtr, (pkkn) and (sstz)
+The current state is: lzrs and mkpt.
+The task methods: nmvg expands to (dpnr); klvs expands to (gdtr); nvgk expands to (lvst, lvvg); rtgt expands to (vtkk, kvlp).
+Which method achieves sstz?
+
+Answer with exactly one of: option_c | option_a | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;sstz&quot;,
+ &quot;initial_state&quot;: [
+  &quot;lzrs&quot;,
+  &quot;mkpt&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (ktdd, rmvr); option_c method (zmdm, rmvr); option_a method (vkdg, zmdm); option_d method (rmvr, zmdm).
+The operators:
+  - primitive: gstn, (krnl) and (dzkv)
+  - primitive: tzdm, (vpdl) and (vpdl)
+  - primitive: nzrm, (dlgt) and (vpdl)
+  - primitive: kssp, (svvr, vpdl) and (dzkv)
+  - primitive: tkvr, (svvr) and (dlgt)
+  - primitive: vkrk, (dzkv) and (svvr)
+The current state is: krnl and vpdl.
+The task methods: zmdm expands to (gstn, vkrk); ktdd expands to (kssp, nzrm); vkdg expands to (tzdm); rmvr expands to (tkvr).
+Which method achieves dlgt?
+
+Answer with exactly one of: option_a | option_d | option_b | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;goal&quot;: &quot;dlgt&quot;,
+ &quot;initial_state&quot;: [
+  &quot;krnl&quot;,
+  &quot;vpdl&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (tkzm, kvdl); option_c method (kvdl, rnrs); option_a method (pttl, rnrs); option_d method (rnrs, kvdl).
+The operators:
+  - primitive: nstp, (lgsn) and (vgpm)
+  - primitive: dmlt, (lssv, vgpm) and (sdgm)
+  - primitive: knrm, (nggg) and (sdgm)
+  - primitive: kpgt, (prrs) and (vgpm)
+  - primitive: pvgn, (sdgm) and (lssv)
+  - primitive: vvns, (lssv) and (lgsn)
+The current state is: nggg and prrs.
+The task methods: kvdl expands to (vvns); tkzm expands to (dmlt, nstp); rnrs expands to (knrm, pvgn); pttl expands to (kpgt).
+Which method achieves lgsn?
+
+Answer with exactly one of: option_c | option_b | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;lgsn&quot;,
+ &quot;initial_state&quot;: [
+  &quot;nggg&quot;,
+  &quot;prrs&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (gdvn, dnll); option_c method (npgp, dnll); option_d method (pgzt, npgp); option_b method (dnll, npgp).
+The operators:
+  - primitive: vtvl, (kmdr) and (dnzd)
+  - primitive: pppd, (dnzd) and (sslk)
+  - primitive: ssdk, (kmdr, sslk) and (krld)
+  - primitive: vpmz, (krld) and (kmdr)
+  - primitive: tpzm, (pmrm) and (krld)
+  - primitive: pzlr, (pvkg) and (sslk)
+The current state is: pmrm and pvkg.
+The task methods: npgp expands to (vtvl); pgzt expands to (ssdk, pppd); dnll expands to (tpzm, vpmz); gdvn expands to (pzlr).
+Which method achieves dnzd?
+
+Answer with exactly one of: option_a | option_c | option_b | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;dnzd&quot;,
+ &quot;initial_state&quot;: [
+  &quot;pmrm&quot;,
+  &quot;pvkg&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (mzlk, gzkz); option_d method (gzkz, gnvg); option_b method (gnvg, gzkz); option_c method (ngzv, gnvg).
+The operators:
+  - primitive: dnpl, (mlkz) and (gdmn)
+  - primitive: ndnv, (rdld, gdmn) and (mzln)
+  - primitive: rmzk, (mzln) and (rdld)
+  - primitive: dzpg, (rdld) and (mlkz)
+  - primitive: sztd, (pmvr) and (mzln)
+  - primitive: snls, (tdsr) and (gdmn)
+The current state is: pmvr and tdsr.
+The task methods: mzlk expands to (ndnv, dnpl); gnvg expands to (sztd, rmzk); gzkz expands to (dzpg); ngzv expands to (snls).
+Which method achieves mlkz?
+
+Answer with exactly one of: option_b | option_a | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;mlkz&quot;,
+ &quot;initial_state&quot;: [
+  &quot;pmvr&quot;,
+  &quot;tdsr&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (pvrm, vtpk); option_c method (vtpk, pvrm); option_a method (ttpz, vtpk); option_b method (dnkt, pvrm).
+The operators:
+  - primitive: vdpr, (tgtv) and (plnp)
+  - primitive: tztm, (pslt) and (nkrd)
+  - primitive: rvrk, (klnv, plnp) and (nkrd)
+  - primitive: tksn, (tsmd) and (plnp)
+  - primitive: vlkt, (nkrd) and (klnv)
+  - primitive: svss, (klnv) and (tsmd)
+The current state is: pslt and tgtv.
+The task methods: pvrm expands to (tztm, vlkt); vtpk expands to (svss); ttpz expands to (rvrk, tksn); dnkt expands to (vdpr).
+Which method achieves tsmd?
+
+Answer with exactly one of: option_d | option_b | option_a | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;tsmd&quot;,
+ &quot;initial_state&quot;: [
+  &quot;pslt&quot;,
+  &quot;tgtv&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (knlg, rtdn); option_c method (zrtr, rtdn); option_d method (vpnv, knlg); option_a method (rtdn, knlg).
+The operators:
+  - primitive: dmmp, (mgdz) and (tlmt)
+  - primitive: vkrl, (gtvg) and (mgdz)
+  - primitive: dltk, (dnlm) and (kstg)
+  - primitive: vmpz, (tlmt) and (dnlm)
+  - primitive: dmtl, (plsz) and (kstg)
+  - primitive: ktrs, (tlmt, kstg) and (mgdz)
+The current state is: gtvg and plsz.
+The task methods: knlg expands to (vkrl, dmmp); vpnv expands to (dmtl); rtdn expands to (vmpz); zrtr expands to (ktrs, dltk).
+Which method achieves dnlm?
+
+Answer with exactly one of: option_d | option_b | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;dnlm&quot;,
+ &quot;initial_state&quot;: [
+  &quot;gtvg&quot;,
+  &quot;plsz&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (rprd, sntk); option_a method (sntk, rprd); option_b method (lgzt, sntk); option_c method (mvld, rprd).
+The operators:
+  - primitive: knmk, (nggz) and (zzvz)
+  - primitive: plvm, (lmrd) and (sdmv)
+  - primitive: trrt, (sdmv) and (nggz)
+  - primitive: mrzs, (zzvz) and (tknn)
+  - primitive: mmnp, (nggz, tknn) and (sdmv)
+  - primitive: mkkm, (nlvg) and (tknn)
+The current state is: lmrd and nlvg.
+The task methods: sntk expands to (plvm, trrt); mvld expands to (mmnp, mrzs); rprd expands to (knmk); lgzt expands to (mkkm).
+Which method achieves zzvz?
+
+Answer with exactly one of: option_c | option_d | option_a | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;zzvz&quot;,
+ &quot;initial_state&quot;: [
+  &quot;lmrd&quot;,
+  &quot;nlvg&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (ndzr, krkp); option_b method (ptrs, krkp); option_a method (krkp, ptrs); option_d method (mrpp, ptrs).
+The operators:
+  - primitive: vdrn, (dvvv) and (mgtn)
+  - primitive: drsz, (ntpv) and (pmmn)
+  - primitive: pdnd, (zssg) and (lvss)
+  - primitive: zprl, (mgtn) and (zssg)
+  - primitive: tpnl, (zssg, pmmn) and (mgtn)
+  - primitive: rptl, (lvss) and (pmmn)
+The current state is: dvvv and ntpv.
+The task methods: mrpp expands to (tpnl, rptl); krkp expands to (vdrn, zprl); ptrs expands to (pdnd); ndzr expands to (drsz).
+Which method achieves lvss?
+
+Answer with exactly one of: option_d | option_a | option_c | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;goal&quot;: &quot;lvss&quot;,
+ &quot;initial_state&quot;: [
+  &quot;dvvv&quot;,
+  &quot;ntpv&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (zznm, tsgt); option_c method (sgtv, tsgt); option_d method (tsgt, sgtv); option_a method (kpnz, sgtv).
+The operators:
+  - primitive: mntv, (mgrv) and (knnt)
+  - primitive: gtgg, (knnt) and (prgr)
+  - primitive: kztd, (nlkk) and (knnt)
+  - primitive: dntd, (rgzn) and (mgrv)
+  - primitive: mplp, (rgzn, knnt) and (prgr)
+  - primitive: tdpv, (prgr) and (rgzn)
+The current state is: knnt and nlkk.
+The task methods: zznm expands to (kztd); sgtv expands to (dntd); kpnz expands to (mplp, mntv); tsgt expands to (gtgg, tdpv).
+Which method achieves mgrv?
+
+Answer with exactly one of: option_a | option_c | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;mgrv&quot;,
+ &quot;initial_state&quot;: [
+  &quot;knnt&quot;,
+  &quot;nlkk&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (tlvd, gsgp); option_d method (gsgp, tlvd); option_c method (ddrt, gsgp); option_a method (mvpt, tlvd).
+The operators:
+  - primitive: vtgz, (vgdl) and (mmlt)
+  - primitive: vmmk, (tpmt) and (pmnm)
+  - primitive: tgmm, (mmlt, pmnm) and (vgdl)
+  - primitive: nssn, (mngl) and (vgdl)
+  - primitive: gzls, (mmlt) and (tpmt)
+  - primitive: mzks, (pmnm) and (pmnm)
+The current state is: mngl and pmnm.
+The task methods: tlvd expands to (gzls); gsgp expands to (nssn, vtgz); ddrt expands to (mzks); mvpt expands to (tgmm, vmmk).
+Which method achieves tpmt?
+
+Answer with exactly one of: option_a | option_b | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;tpmt&quot;,
+ &quot;initial_state&quot;: [
+  &quot;mngl&quot;,
+  &quot;pmnm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (ktnd, lszt); option_c method (vgsv, nskv); option_d method (nskv, lszt); option_b method (lszt, nskv).
+The operators:
+  - primitive: vdzm, (pkdp) and (lvls)
+  - primitive: tmnz, (gzrk) and (pkdp)
+  - primitive: krkz, (zpkn) and (lvls)
+  - primitive: lpnl, (gzrk, lvls) and (vlzp)
+  - primitive: vntz, (vlzp) and (gzrk)
+  - primitive: ndkp, (rtmz) and (vlzp)
+The current state is: rtmz and zpkn.
+The task methods: ktnd expands to (lpnl, vdzm); vgsv expands to (krkz); lszt expands to (tmnz); nskv expands to (ndkp, vntz).
+Which method achieves pkdp?
+
+Answer with exactly one of: option_b | option_d | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;pkdp&quot;,
+ &quot;initial_state&quot;: [
+  &quot;rtmz&quot;,
+  &quot;zpkn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_d method (ldrr, vzkk); option_c method (spgp, vzkk); option_b method (vzkk, ldrr); option_a method (glzl, ldrr).
+The operators:
+  - primitive: lgtg, (zskg) and (drgs)
+  - primitive: ntmd, (zskg, nnml) and (kgmn)
+  - primitive: mnln, (tvkt) and (nnml)
+  - primitive: pgzr, (drgs) and (nnml)
+  - primitive: tttp, (kgmn) and (zskg)
+  - primitive: zdpl, (rrdr) and (kgmn)
+The current state is: rrdr and tvkt.
+The task methods: vzkk expands to (zdpl, tttp); spgp expands to (mnln); glzl expands to (ntmd, pgzr); ldrr expands to (lgtg).
+Which method achieves drgs?
+
+Answer with exactly one of: option_c | option_b | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;drgs&quot;,
+ &quot;initial_state&quot;: [
+  &quot;rrdr&quot;,
+  &quot;tvkt&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (zgnz, znsp); option_a method (rlng, zgnz); option_d method (pgkz, znsp); option_c method (znsp, zgnz).
+The operators:
+  - primitive: sdlr, (llnp) and (smlk)
+  - primitive: slmt, (smlk, rkgv) and (llnp)
+  - primitive: rvvl, (nlmz) and (llnp)
+  - primitive: rlkt, (smlk) and (dktp)
+  - primitive: kmvr, (dktp) and (rkgv)
+  - primitive: gdmr, (rkgv) and (rkgv)
+The current state is: nlmz and rkgv.
+The task methods: znsp expands to (rlkt); rlng expands to (gdmr); zgnz expands to (rvvl, sdlr); pgkz expands to (slmt, kmvr).
+Which method achieves dktp?
+
+Answer with exactly one of: option_a | option_d | option_c | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;dktp&quot;,
+ &quot;initial_state&quot;: [
+  &quot;nlmz&quot;,
+  &quot;rkgv&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_b method (tkgt, rslm); option_a method (tdkt, tkgt); option_c method (rslm, tkgt); option_d method (dgsk, rslm).
+The operators:
+  - primitive: msgr, (gkrk) and (kdzl)
+  - primitive: tmdt, (kdzl) and (vnml)
+  - primitive: prst, (kmnv) and (gkrk)
+  - primitive: kvms, (splk) and (sztz)
+  - primitive: mmrr, (vnml) and (sztz)
+  - primitive: zgmd, (kdzl, sztz) and (gkrk)
+The current state is: kmnv and splk.
+The task methods: rslm expands to (tmdt); dgsk expands to (zgmd, mmrr); tdkt expands to (kvms); tkgt expands to (prst, msgr).
+Which method achieves vnml?
+
+Answer with exactly one of: option_a | option_b | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;vnml&quot;,
+ &quot;initial_state&quot;: [
+  &quot;kmnv&quot;,
+  &quot;splk&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_a method (zrmt, lvtd); option_c method (kvdv, rtpt); option_d method (lvtd, rtpt); option_b method (rtpt, lvtd).
+The operators:
+  - primitive: szgr, (vspk) and (kpzl)
+  - primitive: kndd, (dnrm) and (lgkl)
+  - primitive: dprm, (ndlk) and (kpzl)
+  - primitive: ptgr, (pkvz) and (vspk)
+  - primitive: vsrt, (lgkl) and (pkvz)
+  - primitive: tsrs, (pkvz, kpzl) and (lgkl)
+The current state is: dnrm and ndlk.
+The task methods: lvtd expands to (ptgr); kvdv expands to (dprm); rtpt expands to (kndd, vsrt); zrmt expands to (tsrs, szgr).
+Which method achieves vspk?
+
+Answer with exactly one of: option_b | option_c | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;goal&quot;: &quot;vspk&quot;,
+ &quot;initial_state&quot;: [
+  &quot;dnrm&quot;,
+  &quot;ndlk&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: option_c method (sdtd, slrm); option_a method (vrsg, slrm); option_b method (vklt, vrsg); option_d method (slrm, vrsg).
+The operators:
+  - primitive: tglm, (tsst) and (mzdp)
+  - primitive: stvn, (ppsg) and (tsst)
+  - primitive: drnm, (mzdp) and (pdgg)
+  - primitive: vlpk, (tsst, pdgg) and (ppsg)
+  - primitive: zrkp, (rndr) and (pdgg)
+  - primitive: slpn, (mgvs) and (ppsg)
+The current state is: mgvs and rndr.
+The task methods: vklt expands to (vlpk, drnm); vrsg expands to (tglm); slrm expands to (slpn, stvn); sdtd expands to (zrkp).
+Which method achieves mzdp?
+
+Answer with exactly one of: option_b | option_c | option_a | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;goal&quot;: &quot;mzdp&quot;,
+ &quot;initial_state&quot;: [
+  &quot;mgvs&quot;,
+  &quot;rndr&quot;
+ ]
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

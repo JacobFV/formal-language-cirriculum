@@ -1,0 +1,3093 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>teaching — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#viii">epistemics, argument, and teaching</a> &rsaquo;
+  teaching</p>
+<h1>#100 <code>teaching</code></h1>
+<p class="lede">the example that most enlarges what a student can derive</p>
+<div class="tags"><span class="tag ">level 100</span><span class="tag ">section viii</span><span class="tag ">teaching</span><span class="tag ">theory_of_mind</span><span class="tag ">forward_chaining</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.005</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Which single example moves the student furthest.</p><p>    The student&#x27;s knowledge state and the rule base are both given; teaching one
+    fact is worth exactly the size of the deductive closure it unlocks. The four
+    candidate facts are all currently underivable, so &quot;teach something new&quot; is
+    not discriminating — the answer is the fact that completes the most rules,
+    and the episode is rejected unless one candidate strictly dominates.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The candidate examples: teach lplg, teach rvpz, teach rtzt and teach ppkz.
+The rules are:
+  - (ppkz) implies mdmn
+  - (rvpz) implies vlgs
+  - (lplg) implies nsrv
+  - (ppkz, rtzt) implies mgzr
+  - (rvpz) implies dgtz
+  - (mgzr, rvpz) implies lplg
+  - (mgzr, rtzt) implies mdmn
+  - (ppkz, rvpz) implies vlgs
+  - (rvpz, vlgs) implies mgzr
+The student knows: dgtz, lvrm and mdmn.
+What is the most informative example?
+
+Answer with exactly one of: rtzt | rvpz | ppkz | lplg
+Reply with the answer only.</pre><h3>spanish</h3><pre>Los ejemplos candidatos son: enseña: lplg; enseña: rvpz; enseña: rtzt; enseña: ppkz.
+Las reglas son:
+  - (ppkz) implica mdmn
+  - (rvpz) implica vlgs
+  - (lplg) implica nsrv
+  - (ppkz, rtzt) implica mgzr
+  - (rvpz) implica dgtz
+  - (mgzr, rvpz) implica lplg
+  - (mgzr, rtzt) implica mdmn
+  - (ppkz, rvpz) implica vlgs
+  - (rvpz, vlgs) implica mgzr
+El estudiante sabe: dgtz, lvrm y mdmn.
+¿Qué ejemplo es el más informativo?
+
+Responde exactamente con una de estas opciones: rtzt | rvpz | ppkz | lplg
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>候选示例如下：教授：lplg；教授：rvpz；教授：rtzt；教授：ppkz。
+规则如下：
+  - (ppkz)蕴含mdmn
+  - (rvpz)蕴含vlgs
+  - (lplg)蕴含nsrv
+  - (ppkz，rtzt)蕴含mgzr
+  - (rvpz)蕴含dgtz
+  - (mgzr，rvpz)蕴含lplg
+  - (mgzr，rtzt)蕴含mdmn
+  - (ppkz，rvpz)蕴含vlgs
+  - (rvpz，vlgs)蕴含mgzr
+学生已知：dgtz、lvrm和mdmn。
+信息量最大的示例是哪一个？
+
+请从以下选项中选出恰好一个作答：rtzt | rvpz | ppkz | lplg
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The candidate examples: teach lplg, teach rvpz, teach rtzt and teach ppkz.
+The rules are:
+  - (ppkz) implies mdmn
+  - (rvpz) implies vlgs
+  - (lplg) implies nsrv
+  - (ppkz, rtzt) implies mgzr
+  - (rvpz) implies dgtz
+  - (mgzr, rvpz) implies lplg
+  - (mgzr, rtzt) implies mdmn
+  - (ppkz, rvpz) implies vlgs
+  - (rvpz, vlgs) implies mgzr
+The student knows: dgtz, lvrm and mdmn.
+What is the most informative example?
+
+Answer with exactly one of: rtzt | rvpz | ppkz | lplg
+Reply with the answer only.</pre><h3>symbols</h3><pre>{candidate_examples: [(teach lplg) (teach rvpz) (teach rtzt) (teach ppkz)], query: most_informative_example, rules: [(rule [ppkz] mdmn) (rule [rvpz] vlgs) (rule [lplg] nsrv) (rule [ppkz rtzt] mgzr) (rule [rvpz] dgtz) (rule [mgzr rvpz] lplg) (rule [mgzr rtzt] mdmn) (rule [ppkz rvpz] vlgs) (rule [rvpz vlgs] mgzr)], student_knows: [dgtz lvrm mdmn]}
+
+Answer with exactly one of: rtzt | rvpz | ppkz | lplg
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/teaching.jsonl</code> &middot; <code>data/samples/spanish/teaching.jsonl</code> &middot; <code>data/samples/chinese/teaching.jsonl</code> &middot; <code>data/samples/english_synonym/teaching.jsonl</code> &middot; <code>data/samples/symbols/teaching.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">rvpz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach lplg, teach rvpz, teach rtzt and teach ppkz.
+The rules are:
+  - (ppkz) implies mdmn
+  - (rvpz) implies vlgs
+  - (lplg) implies nsrv
+  - (ppkz, rtzt) implies mgzr
+  - (rvpz) implies dgtz
+  - (mgzr, rvpz) implies lplg
+  - (mgzr, rtzt) implies mdmn
+  - (ppkz, rvpz) implies vlgs
+  - (rvpz, vlgs) implies mgzr
+The student knows: dgtz, lvrm and mdmn.
+What is the most informative example?
+
+Answer with exactly one of: rtzt | rvpz | ppkz | lplg
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;rvpz&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;lplg&quot;: 2,
+  &quot;ppkz&quot;: 1,
+  &quot;rtzt&quot;: 1,
+  &quot;rvpz&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">tgmz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach npsm, teach tgmz, teach dkrs and teach mvvv.
+The rules are:
+  - (knrk) implies pnsp
+  - (gkdv, vkpp) implies zdsg
+  - (tgmz) implies npsm
+  - (npsm) implies zdsg
+  - (mvvv, tgmz) implies vkpp
+  - (npsm) implies gkdv
+  - (vkpp) implies mlkk
+  - (gkdv, zdsg) implies knrk
+  - (mvvv, zdsg) implies knrk
+  - (zdsg) implies mlkk
+  - (tgmz) implies vkpp
+  - (mvvv, tgmz) implies npsm
+The student knows: gkdv and zdsg.
+What is the most informative example?
+
+Answer with exactly one of: npsm | mvvv | tgmz | dkrs
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;tgmz&quot;,
+ &quot;closure_size&quot;: 5,
+ &quot;gains&quot;: {
+  &quot;dkrs&quot;: 1,
+  &quot;mvvv&quot;: 1,
+  &quot;npsm&quot;: 1,
+  &quot;tgmz&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">tdnz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach rlrv, teach kmml, teach kgnt and teach tdnz.
+The rules are:
+  - (kgnt) implies rlrv
+  - (kgnt, lvlp) implies tssk
+  - (kgnt, tdnz) implies pnpd
+  - (pnpd) implies lvlp
+  - (kgnt, tdnz) implies rzkk
+  - (tdnz) implies kgnt
+  - (tdnz, zgsg) implies pnpd
+  - (kgnt, zgsg) implies rlrv
+  - (pnpd, zgsg) implies prtr
+  - (rlrv, tdnz) implies tssk
+  - (pnpd, zgsg) implies rzkk
+  - (kmml, tdnz) implies zgsg
+The student knows:
+  - lvlp
+  - pnpd
+  - rzkk
+  - tssk
+  - zgsg
+What is the most informative example?
+
+Answer with exactly one of: kgnt | kmml | rlrv | tdnz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;tdnz&quot;,
+ &quot;closure_size&quot;: 6,
+ &quot;gains&quot;: {
+  &quot;kgnt&quot;: 2,
+  &quot;kmml&quot;: 1,
+  &quot;rlrv&quot;: 1,
+  &quot;tdnz&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">sgrt</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach tsnt, teach gmgk, teach sgrt and teach rpdk.
+The rules are:
+  - (gmgk, lgvn) implies rvpn
+  - (tsnt) implies rpdk
+  - (sdvr, vzrs) implies tsnt
+  - (gmgk) implies rpdk
+  - (lgvn, sgrt) implies gmgk
+  - (rvpn) implies nmtg
+  - (gmgk, sdvr) implies tsnt
+The student knows: lgvn, nmtg, rvpn and sdvr.
+What is the most informative example?
+
+Answer with exactly one of: gmgk | tsnt | rpdk | sgrt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sgrt&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;gmgk&quot;: 3,
+  &quot;rpdk&quot;: 1,
+  &quot;sgrt&quot;: 4,
+  &quot;tsnt&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">szmd</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach pvtm, teach mkpr, teach szmd and teach nzzs.
+The rules are:
+  - (mzsk, szmd) implies nzzs
+  - (mkpr, mzsk) implies dlmg
+  - (nzzs) implies lnpr
+  - (rlzt, zksr) implies mzsk
+  - (szmd) implies mkpr
+  - (zksr) implies rlzt
+  - (mzsk, tzzn) implies dlmg
+  - (pvtm) implies zksr
+  - (pvtm) implies mzsk
+  - (pvtm, szmd) implies zksr
+The student knows: tzzn and zksr.
+What is the most informative example?
+
+Answer with exactly one of: szmd | nzzs | mkpr | pvtm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;szmd&quot;,
+ &quot;closure_size&quot;: 5,
+ &quot;gains&quot;: {
+  &quot;mkpr&quot;: 1,
+  &quot;nzzs&quot;: 2,
+  &quot;pvtm&quot;: 1,
+  &quot;szmd&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">ddnr</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach ttkk, teach tggv, teach ddnr and teach vspr.
+The rules are:
+  - (vspr) implies tptm
+  - (kvsn) implies dspz
+  - (ddnr, vspr) implies mgsk
+  - (mgsk, tptm) implies ttkk
+  - (vspr) implies tggv
+  - (ddnr, gzdl) implies ktml
+  - (gzdl) implies kvsn
+  - (gzdl, kvsn) implies mgsk
+  - (ddnr) implies vspr
+The student knows: gzdl, ktml and kvsn.
+What is the most informative example?
+
+Answer with exactly one of: ttkk | tggv | ddnr | vspr
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;ddnr&quot;,
+ &quot;closure_size&quot;: 5,
+ &quot;gains&quot;: {
+  &quot;ddnr&quot;: 5,
+  &quot;tggv&quot;: 1,
+  &quot;ttkk&quot;: 1,
+  &quot;vspr&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">sdpr</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach sdpr, teach lpzv, teach lkzv and teach mplm.
+The rules are:
+  - (sdpr) implies mplm
+  - (gmvz, lkzv) implies sdpr
+  - (gmvz, gvdl) implies lkzv
+  - (sdpr) implies grdd
+  - (grdd) implies lpzv
+  - (gmvz) implies zngn
+  - (gvdl, sdpr) implies zngn
+The student knows: gvdl, kktn, rnms and zngn.
+What is the most informative example?
+
+Answer with exactly one of: sdpr | lpzv | mplm | lkzv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sdpr&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;lkzv&quot;: 1,
+  &quot;lpzv&quot;: 1,
+  &quot;mplm&quot;: 1,
+  &quot;sdpr&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">kmrm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach pmsm, teach rtzp, teach kmrm and teach rpkg.
+The rules are:
+  - (kmrm) implies lgkr
+  - (pmsm, rpkg) implies gkgg
+  - (lgkr) implies skmp
+  - (lgkr, ltpn) implies pmsm
+  - (lgkr, rpkg) implies pksk
+  - (gkgg, pmsm) implies pksk
+  - (skmp) implies rtzp
+The student knows: ltpn, msnn and pksk.
+What is the most informative example?
+
+Answer with exactly one of: kmrm | rtzp | rpkg | pmsm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;kmrm&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;kmrm&quot;: 5,
+  &quot;pmsm&quot;: 1,
+  &quot;rpkg&quot;: 1,
+  &quot;rtzp&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">sdkm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach vskd, teach pdmn, teach sdkm and teach vvpv.
+The rules are:
+  - (pnkv, zrpv) implies zmmp
+  - (sdkm, slpt) implies tsrs
+  - (gspm, vvpv) implies vskd
+  - (tsrs, vvpv) implies zrpv
+  - (sdkm, vskd) implies zrpv
+  - (tsrs) implies pnkv
+  - (sdkm) implies vskd
+  - (slpt) implies tsrs
+The student knows: tsrs.
+What is the most informative example?
+
+Answer with exactly one of: vvpv | sdkm | pdmn | vskd
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sdkm&quot;,
+ &quot;closure_size&quot;: 2,
+ &quot;gains&quot;: {
+  &quot;pdmn&quot;: 1,
+  &quot;sdkm&quot;: 4,
+  &quot;vskd&quot;: 1,
+  &quot;vvpv&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">ttnk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach ptts, teach lrvg, teach ttnk and teach dmzs.
+The rules are:
+  - (mlrg) implies kmtr
+  - (ttnk, vglz) implies kmtr
+  - (mlrg) implies tdvd
+  - (ttnk, vglz) implies lrvg
+  - (lrvg, ttnk) implies mlrg
+The student knows:
+  - dkdp
+  - gmdp
+  - kmtr
+  - mlrg
+  - tdvd
+  - vglz
+What is the most informative example?
+
+Answer with exactly one of: ttnk | ptts | dmzs | lrvg
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;ttnk&quot;,
+ &quot;closure_size&quot;: 6,
+ &quot;gains&quot;: {
+  &quot;dmzs&quot;: 1,
+  &quot;lrvg&quot;: 1,
+  &quot;ptts&quot;: 1,
+  &quot;ttnk&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">gksv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach msdl, teach nzvt, teach krvl and teach gksv.
+The rules are:
+  - (gksv, msdl) implies kptg
+  - (gksv, vznt) implies tvsv
+  - (gksv, msdl) implies nznl
+  - (gkpv) implies vznt
+  - (gksv, vznt) implies krvl
+  - (msdl) implies kptg
+  - (nzvt) implies tvsv
+  - (gkpv, gksv) implies lppz
+  - (vznt) implies nznl
+  - (gksv, krvl) implies msdl
+The student knows:
+  - gkpv
+  - kptg
+  - lppz
+  - nznl
+  - tvsv
+What is the most informative example?
+
+Answer with exactly one of: msdl | gksv | krvl | nzvt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gksv&quot;,
+ &quot;closure_size&quot;: 6,
+ &quot;gains&quot;: {
+  &quot;gksv&quot;: 3,
+  &quot;krvl&quot;: 1,
+  &quot;msdl&quot;: 1,
+  &quot;nzvt&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">vrvv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach vrvv, teach ssgk, teach tmrd and teach vndg.
+The rules are:
+  - (rgst, vrvv) implies ssgk
+  - (rvng) implies tmvz
+  - (rvng, vrvv) implies tmrd
+  - (rgst) implies rvng
+  - (tmrd) implies ssgk
+  - (rgst) implies tmvz
+  - (rgst, vrvv) implies rvng
+  - (rgst, rvng) implies nkgp
+The student knows: ntgk, rgst and rvng.
+What is the most informative example?
+
+Answer with exactly one of: ssgk | vrvv | vndg | tmrd
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vrvv&quot;,
+ &quot;closure_size&quot;: 5,
+ &quot;gains&quot;: {
+  &quot;ssgk&quot;: 1,
+  &quot;tmrd&quot;: 2,
+  &quot;vndg&quot;: 1,
+  &quot;vrvv&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">nltp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach nltp, teach gsmr, teach vznr and teach gtvl.
+The rules are:
+  - (gtvl, srkn) implies tlsk
+  - (gtvl) implies gsmr
+  - (nltp) implies gsmr
+  - (nltp, srkn) implies mkkn
+  - (nltp) implies klvz
+  - (gtvl) implies mkkn
+  - (nvdg, srkn) implies tlsk
+  - (klvz) implies nvdg
+  - (nltp, vznr) implies nvdg
+  - (nltp) implies srkn
+  - (gtvl, tlsk) implies nlnp
+The student knows: nlnp and srkn.
+What is the most informative example?
+
+Answer with exactly one of: gtvl | gsmr | nltp | vznr
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nltp&quot;,
+ &quot;closure_size&quot;: 2,
+ &quot;gains&quot;: {
+  &quot;gsmr&quot;: 1,
+  &quot;gtvl&quot;: 4,
+  &quot;nltp&quot;: 6,
+  &quot;vznr&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">ktdk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach mrdz, teach tgnd, teach ktdk and teach tvzk.
+The rules are:
+  - (ktdk, tgnd) implies tvzk
+  - (ktdk, mrdz) implies mlnp
+  - (ktdk, rkrz) implies zlss
+  - (ktdk, mrdz) implies tgnd
+  - (ktdk) implies dzkm
+  - (tgnd) implies dzkm
+  - (ktdk) implies mzpp
+The student knows: mlnp, rkrz and zlss.
+What is the most informative example?
+
+Answer with exactly one of: tgnd | tvzk | mrdz | ktdk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;ktdk&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;ktdk&quot;: 3,
+  &quot;mrdz&quot;: 1,
+  &quot;tgnd&quot;: 2,
+  &quot;tvzk&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">ksnp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach mtdt, teach ksnp, teach rlvg and teach dtsz.
+The rules are:
+  - (vlmz) implies mtsk
+  - (ksnp, rlvg) implies dtsz
+  - (ksnp) implies ptvs
+  - (rlvg) implies vlmz
+  - (rlvg) implies ptvs
+  - (ksnp, vlmz) implies dtsz
+The student knows: vlmz and vvtr.
+What is the most informative example?
+
+Answer with exactly one of: ksnp | mtdt | rlvg | dtsz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;ksnp&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;dtsz&quot;: 1,
+  &quot;ksnp&quot;: 3,
+  &quot;mtdt&quot;: 1,
+  &quot;rlvg&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">skrd</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach pzls, teach skrd, teach kntd and teach zdrp.
+The rules are:
+  - (ktsk) implies lsml
+  - (skrd) implies vdlz
+  - (ktsk, skrd) implies pzls
+  - (skrd) implies zdrp
+  - (ktsk, lsml) implies sgvp
+  - (skrd) implies lsml
+  - (lsml) implies vmvg
+  - (ktsk, skrd) implies kntd
+  - (pzls, vdlz) implies zdrp
+The student knows: ktsk and vmvg.
+What is the most informative example?
+
+Answer with exactly one of: kntd | pzls | zdrp | skrd
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;skrd&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;kntd&quot;: 1,
+  &quot;pzls&quot;: 1,
+  &quot;skrd&quot;: 5,
+  &quot;zdrp&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">pglv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach gksr, teach mslm, teach pglv and teach dzst.
+The rules are:
+  - (rnnn, skpn) implies kptn
+  - (dmrm, mslm) implies skpn
+  - (pglv, rnnn) implies mslm
+  - (kmdn) implies dzst
+  - (rknn) implies rnnn
+  - (dmrm, rknn) implies skpn
+  - (mslm) implies dzst
+The student knows: dmrm, rknn, rnnn and skpn.
+What is the most informative example?
+
+Answer with exactly one of: gksr | mslm | dzst | pglv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;pglv&quot;,
+ &quot;closure_size&quot;: 5,
+ &quot;gains&quot;: {
+  &quot;dzst&quot;: 1,
+  &quot;gksr&quot;: 1,
+  &quot;mslm&quot;: 2,
+  &quot;pglv&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">lmgg</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach sztn, teach dszz, teach lmgg and teach dgpt.
+The rules are:
+  - (lkvd, lmgg) implies mddv
+  - (lkvd, lmgg) implies dszz
+  - (lkvd) implies zvnk
+  - (lmgg, zvnk) implies kggr
+  - (lmgg, ntpv) implies sztn
+  - (dszz) implies dgpt
+The student knows: lkvd, mddv and ntpv.
+What is the most informative example?
+
+Answer with exactly one of: sztn | dszz | dgpt | lmgg
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;lmgg&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;dgpt&quot;: 1,
+  &quot;dszz&quot;: 2,
+  &quot;lmgg&quot;: 5,
+  &quot;sztn&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">lssv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach zvzs, teach lssv, teach lgrs and teach zdml.
+The rules are:
+  - (lssv) implies zdml
+  - (zdml) implies tssd
+  - (lssv) implies nvtv
+  - (lssv, zvzs) implies rnts
+  - (zvzs) implies zdml
+  - (lgrs) implies nvsd
+  - (lssv, tmnv) implies nvtv
+  - (rnts, tssd) implies lgrs
+  - (lssv, zvzs) implies zzkl
+  - (lssv) implies zvzs
+  - (rnts) implies tssd
+The student knows: nvtv.
+What is the most informative example?
+
+Answer with exactly one of: zdml | zvzs | lgrs | lssv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;lssv&quot;,
+ &quot;closure_size&quot;: 1,
+ &quot;gains&quot;: {
+  &quot;lgrs&quot;: 2,
+  &quot;lssv&quot;: 8,
+  &quot;zdml&quot;: 2,
+  &quot;zvzs&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">rspl</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach rspl, teach kmgd, teach rzgt and teach lzkg.
+The rules are:
+  - (rspl) implies rzgt
+  - (mrvp, rspl) implies kmgd
+  - (rspl) implies plzm
+  - (gzmz) implies plzm
+  - (nkrm) implies dmmp
+  - (mrvp, rzgt) implies kmgd
+  - (gzmz) implies gsms
+  - (nkrm, plzm) implies gsms
+  - (nkrm) implies gzmz
+  - (nkrm, rspl) implies rzgt
+  - (gzmz, rzgt) implies mrvp
+  - (nkrm) implies mrvp
+The student knows: gsms, mrvp and nkrm.
+What is the most informative example?
+
+Answer with exactly one of: kmgd | rzgt | lzkg | rspl
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;rspl&quot;,
+ &quot;closure_size&quot;: 6,
+ &quot;gains&quot;: {
+  &quot;kmgd&quot;: 1,
+  &quot;lzkg&quot;: 1,
+  &quot;rspl&quot;: 3,
+  &quot;rzgt&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">nnml</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach nnml, teach dntz, teach pmmt and teach lvgv.
+The rules are: (gtkp, nnml) implies lvgv; (dntz) implies gsks; (pmmt) implies vpms; (lvgv) implies pssl.
+The student knows: gtkp and vpms.
+What is the most informative example?
+
+Answer with exactly one of: nnml | dntz | lvgv | pmmt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nnml&quot;,
+ &quot;closure_size&quot;: 2,
+ &quot;gains&quot;: {
+  &quot;dntz&quot;: 2,
+  &quot;lvgv&quot;: 2,
+  &quot;nnml&quot;: 3,
+  &quot;pmmt&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">lgpm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach lgpm, teach nzvs, teach nlkt and teach tssd.
+The rules are:
+  - (rskk) implies rvdm
+  - (nzvs) implies rvdm
+  - (tssd) implies kpdp
+  - (lgpm, rskk) implies tssd
+  - (lgpm) implies tssd
+The student knows: rskk and tpdp.
+What is the most informative example?
+
+Answer with exactly one of: tssd | nzvs | lgpm | nlkt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;lgpm&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;lgpm&quot;: 3,
+  &quot;nlkt&quot;: 1,
+  &quot;nzvs&quot;: 1,
+  &quot;tssd&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">vtdm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach dnlm, teach dpdk, teach mgrd and teach vtdm.
+The rules are:
+  - (szkl) implies gtrn
+  - (gtrn) implies mgrd
+  - (gkgz, gtrn) implies mgrd
+  - (gtrn, szkl) implies zpst
+  - (tskg, vtdm) implies dnlm
+  - (szkl) implies gkgz
+  - (vtdm) implies szkl
+The student knows: gkgz and tskg.
+What is the most informative example?
+
+Answer with exactly one of: dpdk | vtdm | mgrd | dnlm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vtdm&quot;,
+ &quot;closure_size&quot;: 2,
+ &quot;gains&quot;: {
+  &quot;dnlm&quot;: 1,
+  &quot;dpdk&quot;: 1,
+  &quot;mgrd&quot;: 1,
+  &quot;vtdm&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">zvks</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach kgln, teach zvks, teach plks and teach ltds.
+The rules are:
+  - (zmkg, zppr) implies gvkm
+  - (zvks) implies gvkm
+  - (mdvp, zppr) implies tgsd
+  - (gvkm, zppr) implies mdvp
+  - (zmkg, zppr) implies ltds
+  - (gvkm) implies tgsd
+The student knows: krnd, mdvp and zppr.
+What is the most informative example?
+
+Answer with exactly one of: zvks | kgln | ltds | plks
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zvks&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;kgln&quot;: 1,
+  &quot;ltds&quot;: 1,
+  &quot;plks&quot;: 1,
+  &quot;zvks&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">nnmd</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach nzvm, teach tvdv, teach nmkr and teach nnmd.
+The rules are:
+  - (nnmd) implies nzgt
+  - (dpgt) implies tvdv
+  - (dpgt, nnmd) implies tdzd
+  - (stst) implies kvvd
+  - (kvvd, nzvm) implies nzgt
+  - (nnmd) implies nzvm
+  - (dpgt) implies nnmd
+  - (stst) implies nlzm
+  - (kvvd, nnmd) implies nmkr
+  - (nmkr) implies nzvm
+The student knows: nlzm and stst.
+What is the most informative example?
+
+Answer with exactly one of: nnmd | nzvm | nmkr | tvdv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nnmd&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;nmkr&quot;: 3,
+  &quot;nnmd&quot;: 4,
+  &quot;nzvm&quot;: 2,
+  &quot;tvdv&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">vvnp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach rrvl, teach vvnp, teach kkrt and teach vplr.
+The rules are:
+  - (zlvv) implies mdzg
+  - (mzpl) implies kdgg
+  - (vvnp, zlvv) implies kdgg
+  - (rrvl) implies mzpl
+  - (vvnp) implies vplr
+The student knows:
+  - dgzr
+  - kdgg
+  - mdzg
+  - mzpl
+  - sgkt
+  - zlvv
+What is the most informative example?
+
+Answer with exactly one of: kkrt | rrvl | vvnp | vplr
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vvnp&quot;,
+ &quot;closure_size&quot;: 6,
+ &quot;gains&quot;: {
+  &quot;kkrt&quot;: 1,
+  &quot;rrvl&quot;: 1,
+  &quot;vplr&quot;: 1,
+  &quot;vvnp&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">gmkl</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach gndp, teach mnsm, teach gmkl and teach kgtg.
+The rules are:
+  - (mnsm) implies kdkp
+  - (gndp) implies kdkp
+  - (gmkl, tnzl) implies gndp
+  - (lrvg) implies kgtg
+  - (gmkl) implies lrvg
+  - (mgdv, pdkk) implies kgtg
+The student knows: tnzl.
+What is the most informative example?
+
+Answer with exactly one of: kgtg | gmkl | gndp | mnsm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gmkl&quot;,
+ &quot;closure_size&quot;: 1,
+ &quot;gains&quot;: {
+  &quot;gmkl&quot;: 5,
+  &quot;gndp&quot;: 2,
+  &quot;kgtg&quot;: 1,
+  &quot;mnsm&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">nvdz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach nvdz, teach lpts, teach zrlz and teach knvl.
+The rules are:
+  - (nvdz, zrlz) implies gppd
+  - (zrlz) implies gppd
+  - (zrlz) implies svmd
+  - (ngnm, svmd) implies knvz
+  - (nvdz) implies lpts
+  - (nvdz) implies zrlz
+  - (zrlz, zsmm) implies knvl
+  - (nvdz, zrlz) implies lpts
+  - (zsmm) implies svmd
+  - (nvdz, zrlz) implies knvl
+The student knows:
+  - gppd
+  - knvz
+  - svmd
+  - tglg
+  - zsmm
+What is the most informative example?
+
+Answer with exactly one of: lpts | nvdz | knvl | zrlz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nvdz&quot;,
+ &quot;closure_size&quot;: 5,
+ &quot;gains&quot;: {
+  &quot;knvl&quot;: 1,
+  &quot;lpts&quot;: 1,
+  &quot;nvdz&quot;: 4,
+  &quot;zrlz&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">rvgp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach rvgp, teach tnps, teach dvrs and teach vtnr.
+The rules are:
+  - (vzvs) implies skkp
+  - (pnrz, tnps) implies vtnr
+  - (tnps, vzvs) implies vtnr
+  - (pmvt, tnps) implies vzvs
+  - (rknv) implies lnlm
+  - (dvrs, pmvt) implies rvgp
+  - (rvgp) implies tnps
+The student knows is empty.
+What is the most informative example?
+
+Answer with exactly one of: dvrs | rvgp | vtnr | tnps
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;rvgp&quot;,
+ &quot;closure_size&quot;: 0,
+ &quot;gains&quot;: {
+  &quot;dvrs&quot;: 1,
+  &quot;rvgp&quot;: 2,
+  &quot;tnps&quot;: 1,
+  &quot;vtnr&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">kmvn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach rnpz, teach kmvn, teach dsvt and teach rmlg.
+The rules are:
+  - (kmvn, lgrp) implies dsvt
+  - (kmvn, rmlg) implies lgrp
+  - (lppk) implies sppn
+  - (gzmr, lppk) implies kmvn
+  - (lppk) implies slmv
+  - (lgrp, slmv) implies sppn
+  - (gzmr) implies kmvn
+  - (gzmr) implies lppk
+  - (dsvt, rmlg) implies ngrs
+The student knows: lgrp, ngrs, slmv and sppn.
+What is the most informative example?
+
+Answer with exactly one of: kmvn | rmlg | rnpz | dsvt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;kmvn&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;dsvt&quot;: 1,
+  &quot;kmvn&quot;: 2,
+  &quot;rmlg&quot;: 1,
+  &quot;rnpz&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">kppn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach kppn, teach rskm, teach mnzn and teach tmvk.
+The rules are:
+  - (gnsz, rzgk) implies tmvk
+  - (gnsz, rskm) implies pksg
+  - (tmvk) implies pksg
+  - (rskm, tgrp) implies nzpg
+  - (kppn) implies rskm
+  - (rzgk) implies mnzn
+The student knows: nlrm and tgrp.
+What is the most informative example?
+
+Answer with exactly one of: kppn | rskm | mnzn | tmvk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;kppn&quot;,
+ &quot;closure_size&quot;: 2,
+ &quot;gains&quot;: {
+  &quot;kppn&quot;: 3,
+  &quot;mnzn&quot;: 1,
+  &quot;rskm&quot;: 2,
+  &quot;tmvk&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">mrsd</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach mrsd, teach tnkt, teach ttdk and teach sslp.
+The rules are:
+  - (mrsd, tnkt) implies rdvr
+  - (kvmp, tnkt) implies mrsd
+  - (ttdk) implies psgm
+  - (mrsd, nkts) implies sslp
+  - (kvmp, ttdk) implies nkts
+  - (rdvr, ttdk) implies lgss
+  - (nkts) implies lgss
+  - (kvmp, mrsd) implies ttdk
+  - (tnkt) implies rdvr
+The student knows: nkts, psgm and rdvr.
+What is the most informative example?
+
+Answer with exactly one of: ttdk | mrsd | tnkt | sslp
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mrsd&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;mrsd&quot;: 2,
+  &quot;sslp&quot;: 1,
+  &quot;tnkt&quot;: 1,
+  &quot;ttdk&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">llvv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach psvp, teach llvv, teach grss and teach kgtl.
+The rules are:
+  - (sglr) implies lsrt
+  - (llvv) implies ltgs
+  - (grss, ppgd) implies gnln
+  - (ltgs, sglr) implies kgtl
+  - (llvv, sglr) implies ppgd
+The student knows: gnln, kvkm, ppgd and sglr.
+What is the most informative example?
+
+Answer with exactly one of: psvp | llvv | grss | kgtl
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;llvv&quot;,
+ &quot;closure_size&quot;: 5,
+ &quot;gains&quot;: {
+  &quot;grss&quot;: 1,
+  &quot;kgtl&quot;: 1,
+  &quot;llvv&quot;: 3,
+  &quot;psvp&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">mnsk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach lgrv, teach dmgd, teach mnsk and teach ldtv.
+The rules are:
+  - (mnsk, rnvd) implies ldtv
+  - (mnsk, vppl) implies rnvd
+  - (ldtv, rnvd) implies dgvk
+  - (rnvd, zvmk) implies rpzv
+  - (lgrv, zvmk) implies vppl
+The student knows:
+  - dgvk
+  - rnvd
+  - vppl
+  - zvmk
+  - zvzp
+What is the most informative example?
+
+Answer with exactly one of: mnsk | ldtv | dmgd | lgrv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mnsk&quot;,
+ &quot;closure_size&quot;: 6,
+ &quot;gains&quot;: {
+  &quot;dmgd&quot;: 1,
+  &quot;ldtv&quot;: 1,
+  &quot;lgrv&quot;: 1,
+  &quot;mnsk&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">ktrm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach mpzl, teach mzlg, teach klzd and teach ktrm.
+The rules are:
+  - (mzlg, skpl) implies ktrm
+  - (mgrt, rlgk) implies klzd
+  - (mgrt) implies rdkp
+  - (mgrt) implies tgnz
+  - (ktrm, mgrt) implies klzd
+  - (mgrt, rlgk) implies ktrm
+  - (mpzl) implies mgrt
+  - (rlgk, skpl) implies mpzl
+  - (mzlg, skpl) implies zpls
+  - (mpzl, rlgk) implies mgrt
+The student knows: mgrt.
+What is the most informative example?
+
+Answer with exactly one of: mzlg | klzd | mpzl | ktrm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;ktrm&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;klzd&quot;: 1,
+  &quot;ktrm&quot;: 2,
+  &quot;mpzl&quot;: 1,
+  &quot;mzlg&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">trzr</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach dtkt, teach trzr, teach vdpk and teach gzrr.
+The rules are:
+  - (dtkt, trzr) implies vdpk
+  - (dtkt, dvgg) implies knvr
+  - (dvgg, trzr) implies zvnm
+  - (dtkt, knvr) implies trzr
+  - (dvgg) implies vdpk
+  - (trzr) implies dprd
+  - (dprd) implies tlgv
+  - (trzr) implies gzrr
+  - (dtkt, trzr) implies dprd
+  - (trzr, vdpk) implies lrmg
+The student knows: dprd and tlgv.
+What is the most informative example?
+
+Answer with exactly one of: gzrr | dtkt | trzr | vdpk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;trzr&quot;,
+ &quot;closure_size&quot;: 2,
+ &quot;gains&quot;: {
+  &quot;dtkt&quot;: 1,
+  &quot;gzrr&quot;: 1,
+  &quot;trzr&quot;: 2,
+  &quot;vdpk&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">mkrn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach srzt, teach lkkz, teach vdgl and teach mkrn.
+The rules are:
+  - (lkkz, nplr) implies zrmg
+  - (lkkz) implies nplr
+  - (mkrn) implies tszd
+  - (mkrn, tszd) implies zrmg
+  - (mkrn, zrmg) implies pspt
+  - (lkkz, mkrn) implies nplr
+  - (lkkz) implies mrvd
+  - (pspt, pvpl) implies srzt
+The student knows: mrvd, pvpl and tszd.
+What is the most informative example?
+
+Answer with exactly one of: vdgl | mkrn | srzt | lkkz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mkrn&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;lkkz&quot;: 3,
+  &quot;mkrn&quot;: 4,
+  &quot;srzt&quot;: 1,
+  &quot;vdgl&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">ngmg</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach knlv, teach ngmg, teach zlnd and teach pggl.
+The rules are: (ndnr, ngmg) implies knlv; (gzpd, ndnr) implies mpmr; (gzpd, rmnv) implies ndgk; (ndnr) implies gzpd.
+The student knows: gzpd, mpmr, ndgk and ndnr.
+What is the most informative example?
+
+Answer with exactly one of: knlv | zlnd | ngmg | pggl
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;ngmg&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;knlv&quot;: 1,
+  &quot;ngmg&quot;: 2,
+  &quot;pggl&quot;: 1,
+  &quot;zlnd&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">mmld</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach pldr, teach mmld, teach ntgl and teach gpsg.
+The rules are:
+  - (gdzv, vlkg) implies mrvt
+  - (mmld, nppd) implies ntgl
+  - (gdzv, mmld) implies gpsg
+  - (ntgl) implies mrvt
+  - (gdzv) implies prsk
+  - (gdzv, ntgl) implies gpsg
+  - (lzdl, nppd) implies gdzv
+The student knows: lzdl, nppd and vlkg.
+What is the most informative example?
+
+Answer with exactly one of: gpsg | ntgl | mmld | pldr
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mmld&quot;,
+ &quot;closure_size&quot;: 6,
+ &quot;gains&quot;: {
+  &quot;gpsg&quot;: 1,
+  &quot;mmld&quot;: 3,
+  &quot;ntgl&quot;: 2,
+  &quot;pldr&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">mgvl</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach nsrs, teach sgms, teach mgvl and teach rzds.
+The rules are:
+  - (mgvl) implies ztkm
+  - (mgvl, ttll) implies mvrv
+  - (dstr) implies rzds
+  - (dstr, nsrs) implies mgvl
+  - (rsgt) implies ztkm
+  - (ztkm) implies kmnm
+The student knows: kmnm.
+What is the most informative example?
+
+Answer with exactly one of: nsrs | mgvl | sgms | rzds
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mgvl&quot;,
+ &quot;closure_size&quot;: 1,
+ &quot;gains&quot;: {
+  &quot;mgvl&quot;: 2,
+  &quot;nsrs&quot;: 1,
+  &quot;rzds&quot;: 1,
+  &quot;sgms&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">vgrk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach zdvk, teach vgrk, teach rdtk and teach nstl.
+The rules are:
+  - (rdtk) implies vktg
+  - (lmzl) implies mpkl
+  - (vgrk, zdvk) implies rdtk
+  - (vgrk) implies nstl
+  - (vgrk, zdvk) implies nsgd
+  - (sznn, zdvk) implies mpkl
+  - (nstl) implies zdvk
+The student knows: mpkl.
+What is the most informative example?
+
+Answer with exactly one of: rdtk | vgrk | nstl | zdvk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vgrk&quot;,
+ &quot;closure_size&quot;: 1,
+ &quot;gains&quot;: {
+  &quot;nstl&quot;: 2,
+  &quot;rdtk&quot;: 2,
+  &quot;vgrk&quot;: 6,
+  &quot;zdvk&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">mndt</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach ndpv, teach pdlg, teach mndt and teach mgrp.
+The rules are:
+  - (ndpv) implies mnzr
+  - (mndt) implies ndpv
+  - (dkdn, mndt) implies pndd
+  - (dkdn) implies pndd
+  - (ndpv, pndd) implies snsz
+  - (dkdn, mndt) implies gmss
+  - (gmss, pldv) implies mnzr
+  - (dkdn) implies mgrp
+  - (dkdn, pndd) implies pdlg
+  - (mgrp) implies pldv
+The student knows: pldv and snsz.
+What is the most informative example?
+
+Answer with exactly one of: mndt | ndpv | pdlg | mgrp
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mndt&quot;,
+ &quot;closure_size&quot;: 2,
+ &quot;gains&quot;: {
+  &quot;mgrp&quot;: 1,
+  &quot;mndt&quot;: 3,
+  &quot;ndpv&quot;: 2,
+  &quot;pdlg&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">zsst</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach zsst, teach rsdn, teach vgzk and teach drps.
+The rules are:
+  - (nmkd) implies dmnd
+  - (kkms) implies srgk
+  - (rmgp) implies srgk
+  - (nmkd) implies rmgp
+  - (rmgp, zsst) implies tdpl
+  - (kkms, zsst) implies rsdn
+  - (dmnd, nmkd) implies kkms
+  - (dmnd) implies kkms
+The student knows: kkms and tdpl.
+What is the most informative example?
+
+Answer with exactly one of: drps | vgzk | zsst | rsdn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zsst&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;drps&quot;: 1,
+  &quot;rsdn&quot;: 1,
+  &quot;vgzk&quot;: 1,
+  &quot;zsst&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">vlnd</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach vlnd, teach pptk, teach mvgv and teach glgr.
+The rules are: (glgr, kzdt) implies mmpt; (vlnd) implies pptk.
+The student knows: mtrv and tpgr.
+What is the most informative example?
+
+Answer with exactly one of: glgr | mvgv | vlnd | pptk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vlnd&quot;,
+ &quot;closure_size&quot;: 2,
+ &quot;gains&quot;: {
+  &quot;glgr&quot;: 1,
+  &quot;mvgv&quot;: 1,
+  &quot;pptk&quot;: 1,
+  &quot;vlnd&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">ttnd</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach ttnd, teach ngvm, teach skzv and teach lmsg.
+The rules are:
+  - (dkpk, ngvm) implies ttnd
+  - (dkpk, kgnz) implies nmzm
+  - (dkpk, lmsg) implies ngvm
+  - (dkpk, kgnz) implies zmrg
+  - (dkpk, kgnz) implies drnn
+  - (lmsg, ttnd) implies drnn
+  - (ttnd) implies kpzt
+  - (lmsg, ttnd) implies skzv
+The student knows: drnn and kgnz.
+What is the most informative example?
+
+Answer with exactly one of: ttnd | skzv | lmsg | ngvm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;ttnd&quot;,
+ &quot;closure_size&quot;: 2,
+ &quot;gains&quot;: {
+  &quot;lmsg&quot;: 1,
+  &quot;ngvm&quot;: 1,
+  &quot;skzv&quot;: 1,
+  &quot;ttnd&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">vslz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach tmnd, teach dtpg, teach vslz and teach vmtg.
+The rules are:
+  - (tkgz) implies vmtg
+  - (snnr) implies tkgz
+  - (vslz) implies nsvk
+  - (snnr) implies dtpg
+  - (snnr) implies nsvk
+  - (snnr, vslz) implies tkgz
+The student knows: ndvp.
+What is the most informative example?
+
+Answer with exactly one of: dtpg | vslz | vmtg | tmnd
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vslz&quot;,
+ &quot;closure_size&quot;: 1,
+ &quot;gains&quot;: {
+  &quot;dtpg&quot;: 1,
+  &quot;tmnd&quot;: 1,
+  &quot;vmtg&quot;: 1,
+  &quot;vslz&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">tgrk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach ltvv, teach kmln, teach tgrk and teach mvdd.
+The rules are:
+  - (tgrk) implies kmln
+  - (tgrk) implies kktr
+  - (gsnr, kmln) implies zrld
+  - (zrld) implies rgmp
+  - (gsnr, mpkg) implies tgrk
+  - (mpkg, tgrk) implies ltvv
+  - (gsnr, tgrk) implies zrld
+The student knows: zrld.
+What is the most informative example?
+
+Answer with exactly one of: mvdd | tgrk | ltvv | kmln
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;tgrk&quot;,
+ &quot;closure_size&quot;: 2,
+ &quot;gains&quot;: {
+  &quot;kmln&quot;: 1,
+  &quot;ltvv&quot;: 1,
+  &quot;mvdd&quot;: 1,
+  &quot;tgrk&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">drkl</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach vglz, teach ddlg, teach kpnk and teach drkl.
+The rules are:
+  - (gpss) implies rrlv
+  - (lmpr, vglz) implies mkzv
+  - (drkl, rppg) implies rrlv
+  - (lmpr) implies rppg
+  - (lmpr, vglz) implies drkl
+  - (kpnk, vglz) implies drkl
+  - (kpnk, lmpr) implies skrl
+  - (kpnk, mkzv) implies ddlg
+The student knows: rppg.
+What is the most informative example?
+
+Answer with exactly one of: ddlg | drkl | kpnk | vglz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;drkl&quot;,
+ &quot;closure_size&quot;: 1,
+ &quot;gains&quot;: {
+  &quot;ddlg&quot;: 1,
+  &quot;drkl&quot;: 2,
+  &quot;kpnk&quot;: 1,
+  &quot;vglz&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">tmmn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach rrdl, teach zmnr, teach tmmn and teach lppg.
+The rules are:
+  - (vvdd) implies spzl
+  - (vvdd) implies llsg
+  - (lppg) implies rrdl
+  - (llsg, zmnr) implies tvrm
+  - (spzl, vvdd) implies nmgr
+  - (tmmn) implies zmnr
+  - (tmmn, vvdd) implies nmgr
+  - (tmmn, zmnr) implies spzl
+  - (tmmn) implies llsg
+  - (spzl) implies ztsd
+  - (tmmn, zmnr) implies lppg
+The student knows: spzl and vvdd.
+What is the most informative example?
+
+Answer with exactly one of: zmnr | rrdl | tmmn | lppg
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;tmmn&quot;,
+ &quot;closure_size&quot;: 5,
+ &quot;gains&quot;: {
+  &quot;lppg&quot;: 2,
+  &quot;rrdl&quot;: 1,
+  &quot;tmmn&quot;: 5,
+  &quot;zmnr&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">nkdz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach nkdz, teach nrrs, teach mlpm and teach tvdk.
+The rules are:
+  - (lrrk, tvdk) implies nrrs
+  - (nkdz) implies tvdk
+  - (nkdz, tvdk) implies gzgl
+  - (nrrs) implies pksd
+  - (mlpm) implies npgg
+  - (nkdz, tvdk) implies pksd
+  - (lrrk) implies tmpd
+The student knows: gzgl, npgg and pksd.
+What is the most informative example?
+
+Answer with exactly one of: tvdk | mlpm | nrrs | nkdz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nkdz&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;mlpm&quot;: 1,
+  &quot;nkdz&quot;: 2,
+  &quot;nrrs&quot;: 1,
+  &quot;tvdk&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">lkkm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach rnnr, teach lkkm, teach vnng and teach ndlk.
+The rules are:
+  - (lkkm, rnnr) implies ktkz
+  - (lkkm) implies rnnr
+  - (vmpm) implies vnng
+  - (kzll, vnng) implies psmn
+  - (vmpm) implies kzll
+  - (kzll, lkkm) implies rnnr
+The student knows: mktt, psmn and vmzt.
+What is the most informative example?
+
+Answer with exactly one of: lkkm | rnnr | vnng | ndlk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;lkkm&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;lkkm&quot;: 3,
+  &quot;ndlk&quot;: 1,
+  &quot;rnnr&quot;: 1,
+  &quot;vnng&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">drrn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach drrn, teach kmkr, teach lgnl and teach tlgz.
+The rules are:
+  - (srrt) implies drrn
+  - (drrn, zkvn) implies tlgz
+  - (drrn) implies zkvn
+  - (prvd) implies zkvn
+  - (drrn, srrt) implies kmkr
+  - (ssrz) implies drrn
+The student knows: lvns, prvd and pzpd.
+What is the most informative example?
+
+Answer with exactly one of: drrn | tlgz | lgnl | kmkr
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;drrn&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;drrn&quot;: 2,
+  &quot;kmkr&quot;: 1,
+  &quot;lgnl&quot;: 1,
+  &quot;tlgz&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">tppr</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach pdnt, teach tppr, teach tdnp and teach zrzm.
+The rules are: (tppr) implies tdnp; (dgdm, gszn) implies rrdn; (pdnt, tppr) implies zrzm; (tppr, zrzm) implies gszn.
+The student knows:
+  - dgdm
+  - gggk
+  - gszn
+  - lnng
+  - lpnk
+What is the most informative example?
+
+Answer with exactly one of: tppr | pdnt | zrzm | tdnp
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;tppr&quot;,
+ &quot;closure_size&quot;: 6,
+ &quot;gains&quot;: {
+  &quot;pdnt&quot;: 1,
+  &quot;tdnp&quot;: 1,
+  &quot;tppr&quot;: 2,
+  &quot;zrzm&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">pmpp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach lttz, teach pmpp, teach mztn and teach szss.
+The rules are:
+  - (pmpp, psvg) implies stsr
+  - (pmpp) implies szss
+  - (gvvp) implies mksg
+  - (psvg, zmdn) implies stsr
+  - (pmpp, zmdn) implies psvg
+  - (zmdn) implies gvvp
+  - (pmpp, zmdn) implies lttz
+  - (szss) implies lttz
+  - (mztn, pmpp) implies psvg
+  - (szss, zmdn) implies vldp
+The student knows: gvvp, stsr and zmdn.
+What is the most informative example?
+
+Answer with exactly one of: pmpp | mztn | szss | lttz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;pmpp&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;lttz&quot;: 1,
+  &quot;mztn&quot;: 1,
+  &quot;pmpp&quot;: 5,
+  &quot;szss&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">lppp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach lppp, teach dzmv, teach gntp and teach rlvz.
+The rules are:
+  - (ptpl) implies gmtr
+  - (zkmg) implies lvpd
+  - (lppp) implies rlvz
+  - (gmtr, ptpl) implies lzdt
+  - (lppp, ptpl) implies gntp
+The student knows: lzdt, ptpl, rrdz and zkmg.
+What is the most informative example?
+
+Answer with exactly one of: dzmv | lppp | rlvz | gntp
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;lppp&quot;,
+ &quot;closure_size&quot;: 6,
+ &quot;gains&quot;: {
+  &quot;dzmv&quot;: 1,
+  &quot;gntp&quot;: 1,
+  &quot;lppp&quot;: 3,
+  &quot;rlvz&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">nzks</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach nzks, teach rpzn, teach ndlp and teach nkkl.
+The rules are:
+  - (nzks) implies dnsv
+  - (pvgt, zspr) implies nzks
+  - (nzks, zspr) implies lvrz
+  - (nzks, zrlm) implies rpzn
+  - (zrlm) implies pvgt
+The student knows: ldlr, lvrz and zspr.
+What is the most informative example?
+
+Answer with exactly one of: nzks | nkkl | rpzn | ndlp
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nzks&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;ndlp&quot;: 1,
+  &quot;nkkl&quot;: 1,
+  &quot;nzks&quot;: 2,
+  &quot;rpzn&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">rkvn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach rtpn, teach rzrp, teach tmgs and teach rkvn.
+The rules are:
+  - (gmln, zgsk) implies tmgs
+  - (gmln, rkvn) implies rsvt
+  - (dsml, rkvn) implies zgsk
+  - (rkvn) implies dsml
+  - (rkvn) implies gmln
+  - (dsml) implies zgsk
+  - (gskg) implies rsvt
+  - (gmln, gskg) implies tmgs
+The student knows: dsml and ktps.
+What is the most informative example?
+
+Answer with exactly one of: tmgs | rtpn | rkvn | rzrp
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;rkvn&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;rkvn&quot;: 4,
+  &quot;rtpn&quot;: 1,
+  &quot;rzrp&quot;: 1,
+  &quot;tmgs&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">vzpn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach rtgp, teach vzpn, teach ksrl and teach gnvr.
+The rules are:
+  - (klgg, pkdt) implies pmnd
+  - (klgg) implies rtgp
+  - (zngt) implies gttp
+  - (pmnd, vzpn) implies zngt
+  - (klgg, ksrl) implies pkdt
+  - (vzpn) implies gnvr
+  - (rglp) implies pmnd
+  - (klgg, ksrl) implies vzpn
+  - (klgg, pkdt) implies rglp
+  - (klgg, vzpn) implies rglp
+The student knows: gttp, pkdt, pmnd and zngt.
+What is the most informative example?
+
+Answer with exactly one of: ksrl | gnvr | rtgp | vzpn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vzpn&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;gnvr&quot;: 1,
+  &quot;ksrl&quot;: 1,
+  &quot;rtgp&quot;: 1,
+  &quot;vzpn&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">gssd</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach gssd, teach zvgp, teach vrnp and teach tzzt.
+The rules are:
+  - (gssd) implies zgmk
+  - (nlkm, nsks) implies ntzk
+  - (gssd, vplz) implies zvgp
+  - (zvgp) implies ntzk
+  - (nsks, vplz) implies nlkm
+  - (gssd) implies vplz
+  - (zgmk, zvgp) implies vrnp
+  - (gssd, zvgp) implies vsvm
+The student knows: nsks, ntzk and vsvm.
+What is the most informative example?
+
+Answer with exactly one of: vrnp | gssd | zvgp | tzzt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gssd&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;gssd&quot;: 6,
+  &quot;tzzt&quot;: 1,
+  &quot;vrnp&quot;: 1,
+  &quot;zvgp&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">nnvd</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach ptdt, teach nskd, teach nnvd and teach lprr.
+The rules are:
+  - (nnvd) implies vztd
+  - (ptdt) implies lprr
+  - (nnvd, sksn) implies ptdt
+  - (ptdt, sksn) implies vztd
+  - (nnvd, sksn) implies nskd
+  - (ptdt, trgr) implies zslg
+  - (nnvd) implies trgr
+The student knows is empty.
+What is the most informative example?
+
+Answer with exactly one of: nskd | nnvd | ptdt | lprr
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nnvd&quot;,
+ &quot;closure_size&quot;: 0,
+ &quot;gains&quot;: {
+  &quot;lprr&quot;: 1,
+  &quot;nnvd&quot;: 3,
+  &quot;nskd&quot;: 1,
+  &quot;ptdt&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">gnpk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach gnpk, teach nkdm, teach zlzp and teach kstr.
+The rules are:
+  - (nkdm) implies zlzp
+  - (gnpk, vldk) implies kstr
+  - (glzz, vldk) implies nkdm
+  - (glzz, vldk) implies gnpk
+  - (kstr) implies srtm
+  - (gnpk, vldk) implies slsd
+  - (glzz, nkdm) implies kstr
+  - (gnpk, vldk) implies rsdr
+  - (gnpk) implies slsd
+The student knows: vldk and vszt.
+What is the most informative example?
+
+Answer with exactly one of: kstr | gnpk | nkdm | zlzp
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gnpk&quot;,
+ &quot;closure_size&quot;: 2,
+ &quot;gains&quot;: {
+  &quot;gnpk&quot;: 5,
+  &quot;kstr&quot;: 2,
+  &quot;nkdm&quot;: 2,
+  &quot;zlzp&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">lzld</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach tlnk, teach lzld, teach kvll and teach tlkp.
+The rules are:
+  - (tlkp) implies vlgl
+  - (mpvl) implies ttdp
+  - (ttdp) implies zzdl
+  - (vtrs) implies mpvl
+  - (mpvl, vtrs) implies rdmn
+  - (lzld, vtrs) implies kvll
+The student knows: mpvl, ttdp, vlgl and vtrs.
+What is the most informative example?
+
+Answer with exactly one of: tlkp | kvll | tlnk | lzld
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;lzld&quot;,
+ &quot;closure_size&quot;: 6,
+ &quot;gains&quot;: {
+  &quot;kvll&quot;: 1,
+  &quot;lzld&quot;: 2,
+  &quot;tlkp&quot;: 1,
+  &quot;tlnk&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">vznl</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach vznl, teach dmlr, teach mkvv and teach trtt.
+The rules are:
+  - (dmlr, trtt) implies vgkg
+  - (gtms, vznl) implies trtt
+  - (kznt, trtt) implies dmlr
+  - (gtms) implies ntds
+  - (ntds, vgkg) implies pzll
+  - (vznl) implies trtt
+  - (vznl) implies rklg
+  - (gtms) implies kznt
+The student knows: ntds, rklg and vgkg.
+What is the most informative example?
+
+Answer with exactly one of: trtt | dmlr | mkvv | vznl
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vznl&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;dmlr&quot;: 1,
+  &quot;mkvv&quot;: 1,
+  &quot;trtt&quot;: 1,
+  &quot;vznl&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">lzzm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach mllr, teach nzrs, teach lzzm and teach tztr.
+The rules are:
+  - (lzzm, vgzg) implies mllr
+  - (llvl, vgzg) implies nmtl
+  - (lzzm) implies mllr
+  - (lzzm, vgzg) implies llvl
+  - (glnd, vgzg) implies llvl
+  - (llvl, vgzg) implies tztr
+  - (llvl) implies nmtl
+  - (vgzg) implies lppz
+The student knows: lppz, nmtl and vgzg.
+What is the most informative example?
+
+Answer with exactly one of: nzrs | lzzm | mllr | tztr
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;lzzm&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;lzzm&quot;: 4,
+  &quot;mllr&quot;: 1,
+  &quot;nzrs&quot;: 1,
+  &quot;tztr&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">prnk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach vmng, teach prnk, teach sdnt and teach mgkg.
+The rules are:
+  - (vmng) implies dkmp
+  - (dkmp) implies nkmt
+  - (prnk) implies mpvs
+  - (vmng) implies mpvs
+  - (dkmp) implies mgkg
+  - (sdnt) implies mkvp
+  - (prnk) implies dkmp
+  - (szdn) implies zsrs
+  - (prnk, szdn) implies sdnt
+  - (prnk, vmng) implies szdn
+The student knows: mkvp, szdn and zsrs.
+What is the most informative example?
+
+Answer with exactly one of: vmng | prnk | sdnt | mgkg
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;prnk&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;mgkg&quot;: 1,
+  &quot;prnk&quot;: 6,
+  &quot;sdnt&quot;: 1,
+  &quot;vmng&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">svvr</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach svvr, teach tdll, teach vrln and teach gnlg.
+The rules are:
+  - (pzzr, vrln) implies vzsn
+  - (pzzr, vrln) implies psmr
+  - (svvr, vgdk) implies tdll
+  - (svvr) implies vrln
+  - (pzzr, vrln) implies vgdk
+  - (svvr) implies psmr
+  - (vzsn) implies dtnm
+  - (tdll, vgdk) implies gnlg
+  - (vrln, vzsn) implies tdll
+The student knows: pzzr, vzsn and zmtr.
+What is the most informative example?
+
+Answer with exactly one of: vrln | gnlg | svvr | tdll
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;svvr&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;gnlg&quot;: 1,
+  &quot;svvr&quot;: 6,
+  &quot;tdll&quot;: 1,
+  &quot;vrln&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">mzps</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach mzps, teach mdvt, teach vzzr and teach lkkd.
+The rules are:
+  - (rmpt, tpdd) implies sdvg
+  - (vrtd) implies tpdd
+  - (mdvt, mzps) implies vrtd
+  - (mzps, vnrk) implies lkkd
+  - (vnrk) implies sdvg
+  - (mzps, vzzr) implies mdvt
+  - (mzps, vrtd) implies mdld
+  - (mdld) implies vnrk
+The student knows: mdld, rmpt and vrtd.
+What is the most informative example?
+
+Answer with exactly one of: mdvt | mzps | lkkd | vzzr
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mzps&quot;,
+ &quot;closure_size&quot;: 6,
+ &quot;gains&quot;: {
+  &quot;lkkd&quot;: 1,
+  &quot;mdvt&quot;: 1,
+  &quot;mzps&quot;: 2,
+  &quot;vzzr&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">vslm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach znsr, teach rdpn, teach rnsv and teach vslm.
+The rules are:
+  - (nmzm, vslm) implies rnsv
+  - (vslm, vzzg) implies rnsv
+  - (vzzg) implies znsr
+  - (znsr) implies kvgr
+  - (vzzg) implies kvgr
+  - (vzzg) implies rdlk
+  - (rdpn) implies mtgz
+  - (nmzm, vslm) implies kdnz
+  - (vslm) implies rdpn
+The student knows: kdnz.
+What is the most informative example?
+
+Answer with exactly one of: rdpn | znsr | rnsv | vslm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vslm&quot;,
+ &quot;closure_size&quot;: 1,
+ &quot;gains&quot;: {
+  &quot;rdpn&quot;: 2,
+  &quot;rnsv&quot;: 1,
+  &quot;vslm&quot;: 3,
+  &quot;znsr&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">pnzk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach gslv, teach mgzg, teach rllm and teach pnzk.
+The rules are:
+  - (pnzk, vrrv) implies mgzg
+  - (knrm) implies vsgz
+  - (gslv, znmm) implies tgvp
+  - (knrm, vsgz) implies gslv
+  - (knrm, pnzk) implies gslv
+  - (vrrv, vsgz) implies znmm
+  - (pnzk, vrrv) implies knrm
+The student knows: tlkz, vrrv and znmm.
+What is the most informative example?
+
+Answer with exactly one of: rllm | mgzg | pnzk | gslv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;pnzk&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;gslv&quot;: 2,
+  &quot;mgzg&quot;: 1,
+  &quot;pnzk&quot;: 6,
+  &quot;rllm&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">mgll</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach drsm, teach mgll, teach rpvp and teach ztst.
+The rules are:
+  - (rpvp) implies ztst
+  - (nkmt, rpvp) implies gvrl
+  - (mgll) implies ppmp
+  - (nkmt, ztst) implies drsm
+  - (mgll) implies mpgd
+  - (nkmt, ppmp) implies zsdn
+The student knows: gvrl and zsdn.
+What is the most informative example?
+
+Answer with exactly one of: ztst | mgll | rpvp | drsm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mgll&quot;,
+ &quot;closure_size&quot;: 2,
+ &quot;gains&quot;: {
+  &quot;drsm&quot;: 1,
+  &quot;mgll&quot;: 3,
+  &quot;rpvp&quot;: 2,
+  &quot;ztst&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">tnng</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach tnng, teach mzdv, teach kvlz and teach pspn.
+The rules are:
+  - (tnng) implies pspn
+  - (pspn, tnng) implies mvdm
+  - (pspn) implies pvmm
+  - (kvlz, vtlm) implies tkzv
+  - (mzdv, vtlm) implies tnng
+  - (pspn) implies mvdm
+The student knows: mrlz and tkzv.
+What is the most informative example?
+
+Answer with exactly one of: mzdv | kvlz | tnng | pspn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;tnng&quot;,
+ &quot;closure_size&quot;: 2,
+ &quot;gains&quot;: {
+  &quot;kvlz&quot;: 1,
+  &quot;mzdv&quot;: 1,
+  &quot;pspn&quot;: 3,
+  &quot;tnng&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">rrzs</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach zzpr, teach rrzs, teach ztkv and teach gmsn.
+The rules are:
+  - (rrzs) implies gmsn
+  - (dkks, svld) implies rrzs
+  - (dkks, rrzs) implies gmsn
+  - (gmsn, rvst) implies vzvp
+  - (dkks, rrzs) implies zzpr
+  - (rvst) implies dlgv
+  - (gmsn, rvst) implies dlgv
+The student knows: dlgv.
+What is the most informative example?
+
+Answer with exactly one of: rrzs | ztkv | zzpr | gmsn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;rrzs&quot;,
+ &quot;closure_size&quot;: 1,
+ &quot;gains&quot;: {
+  &quot;gmsn&quot;: 1,
+  &quot;rrzs&quot;: 2,
+  &quot;ztkv&quot;: 1,
+  &quot;zzpr&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">ldrg</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach ngtd, teach dlsp, teach ldrg and teach svkv.
+The rules are:
+  - (ldrg) implies svkv
+  - (mzmr) implies ldkp
+  - (mgdt, ngtd) implies ldkp
+  - (ngtd) implies svkv
+  - (lzdd) implies tnkd
+  - (lzdd, mgdt) implies ngtd
+  - (lzdd, mgdt) implies dlsp
+  - (mzmr, tnkd) implies zzll
+  - (mgdt) implies tnkd
+  - (ngtd) implies mzmr
+  - (dlsp) implies zzll
+  - (ldrg, mgdt) implies lzdd
+The student knows: mgdt, mzmr, tnkd and zzll.
+What is the most informative example?
+
+Answer with exactly one of: ngtd | svkv | ldrg | dlsp
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;ldrg&quot;,
+ &quot;closure_size&quot;: 5,
+ &quot;gains&quot;: {
+  &quot;dlsp&quot;: 1,
+  &quot;ldrg&quot;: 5,
+  &quot;ngtd&quot;: 2,
+  &quot;svkv&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">smrz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach tpkn, teach smrz, teach ppzd and teach ksmk.
+The rules are:
+  - (dmmn, mnsl) implies ksmk
+  - (pmvk, ppzd) implies mnsl
+  - (dmmn, zrvr) implies mnsl
+  - (smrz) implies zrvr
+  - (dmmn, ppzd) implies ksmk
+  - (ksmk, pmvk) implies dzsd
+  - (dmmn) implies zrvr
+  - (smrz) implies pmvk
+  - (pmvk) implies dmmn
+  - (ppzd, tpkn) implies dggp
+The student knows is empty.
+What is the most informative example?
+
+Answer with exactly one of: ksmk | ppzd | smrz | tpkn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;smrz&quot;,
+ &quot;closure_size&quot;: 0,
+ &quot;gains&quot;: {
+  &quot;ksmk&quot;: 1,
+  &quot;ppzd&quot;: 1,
+  &quot;smrz&quot;: 7,
+  &quot;tpkn&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">grml</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach grml, teach rzvt, teach lzrg and teach znpk.
+The rules are:
+  - (kdrk, rzvt) implies tsvt
+  - (grml, lmvv) implies rzvt
+  - (gpsz) implies rsnt
+  - (tsvt) implies gpsz
+  - (kdrk) implies tsvt
+  - (gpsz, rzvt) implies znpk
+  - (rzvt) implies znpk
+The student knows: kdrk, lmvv and mzts.
+What is the most informative example?
+
+Answer with exactly one of: grml | znpk | lzrg | rzvt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;grml&quot;,
+ &quot;closure_size&quot;: 6,
+ &quot;gains&quot;: {
+  &quot;grml&quot;: 3,
+  &quot;lzrg&quot;: 1,
+  &quot;rzvt&quot;: 2,
+  &quot;znpk&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">vgpv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach lmzz, teach vgpv, teach dlmd and teach nvnn.
+The rules are:
+  - (kdrn, vgpv) implies nvnn
+  - (gnvz) implies stst
+  - (lmzz) implies gnvn
+  - (vgpv) implies lmzz
+  - (kdrn, vgpv) implies gnvz
+  - (dlmd, lmzz) implies stst
+  - (kdrn, vdnl) implies gnvn
+The student knows: gnvz and pkpr.
+What is the most informative example?
+
+Answer with exactly one of: nvnn | vgpv | dlmd | lmzz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vgpv&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;dlmd&quot;: 1,
+  &quot;lmzz&quot;: 2,
+  &quot;nvnn&quot;: 1,
+  &quot;vgpv&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">smlz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach lvps, teach smlz, teach gpds and teach tmsn.
+The rules are:
+  - (gpds, zkps) implies mnnp
+  - (lrvk) implies mnnp
+  - (gpds, zzvv) implies tmsn
+  - (lrvk) implies tmsn
+  - (zzvv) implies smlz
+  - (smlz, zkps) implies lrvk
+The student knows: knpg, mnnp, slrk and zkps.
+What is the most informative example?
+
+Answer with exactly one of: tmsn | gpds | lvps | smlz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;smlz&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;gpds&quot;: 1,
+  &quot;lvps&quot;: 1,
+  &quot;smlz&quot;: 3,
+  &quot;tmsn&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">zrmk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach kkvt, teach ksnr, teach zrmk and teach tttk.
+The rules are:
+  - (dnmt, zrmk) implies vlpg
+  - (zrmk) implies mnvm
+  - (dnmt, zrmk) implies kkvt
+  - (dnmt) implies mnvm
+  - (pvmt) implies ksnr
+  - (zrmk) implies vlpg
+  - (vlpg, zrmk) implies kkvt
+The student knows: dnmt and szsm.
+What is the most informative example?
+
+Answer with exactly one of: kkvt | tttk | ksnr | zrmk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zrmk&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;kkvt&quot;: 1,
+  &quot;ksnr&quot;: 1,
+  &quot;tttk&quot;: 1,
+  &quot;zrmk&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">ngvl</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach lpnn, teach ngvl, teach tmzg and teach nzgs.
+The rules are:
+  - (ngvl, zkzv) implies nzgs
+  - (ltrt) implies lpnn
+  - (ngvl) implies kgvg
+  - (dvgs, pdzn) implies dnrt
+  - (dvgs) implies dnrt
+  - (lpnn, ltrt) implies ngvl
+The student knows: zkzv.
+What is the most informative example?
+
+Answer with exactly one of: lpnn | tmzg | ngvl | nzgs
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;ngvl&quot;,
+ &quot;closure_size&quot;: 1,
+ &quot;gains&quot;: {
+  &quot;lpnn&quot;: 1,
+  &quot;ngvl&quot;: 3,
+  &quot;nzgs&quot;: 1,
+  &quot;tmzg&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">tvlg</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach tssd, teach tpvd, teach lgmp and teach tvlg.
+The rules are:
+  - (ddld) implies dvdm
+  - (tvlg) implies lgmp
+  - (dvtm, tssd) implies dvdz
+  - (dvtm, lksm) implies tpvd
+  - (tvlg) implies lksm
+  - (dvdz) implies ddld
+  - (tssd) implies mzvk
+  - (dvtm) implies lksm
+The student knows: dvdm.
+What is the most informative example?
+
+Answer with exactly one of: tssd | tvlg | lgmp | tpvd
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;tvlg&quot;,
+ &quot;closure_size&quot;: 1,
+ &quot;gains&quot;: {
+  &quot;lgmp&quot;: 1,
+  &quot;tpvd&quot;: 1,
+  &quot;tssd&quot;: 2,
+  &quot;tvlg&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">plkr</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach plkr, teach psgk, teach nszz and teach zprd.
+The rules are:
+  - (plkr, pstr) implies llgt
+  - (plkr, pllr) implies pstr
+  - (gktv, llgt) implies mlmn
+  - (pstr) implies mlmn
+  - (gktv, zprd) implies gtts
+The student knows: gktv, gtts, pllr and pstr.
+What is the most informative example?
+
+Answer with exactly one of: zprd | nszz | plkr | psgk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;plkr&quot;,
+ &quot;closure_size&quot;: 5,
+ &quot;gains&quot;: {
+  &quot;nszz&quot;: 1,
+  &quot;plkr&quot;: 2,
+  &quot;psgk&quot;: 1,
+  &quot;zprd&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">rpvk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach rpvk, teach gklz, teach dlsz and teach srzg.
+The rules are:
+  - (gklz) implies ntgm
+  - (ntgm, rpvk) implies srzg
+  - (rvlr) implies rtdl
+  - (rtdl, srzg) implies tpsn
+  - (rpvk, ttvn) implies gklz
+  - (rpvk) implies rtdl
+The student knows:
+  - ntgm
+  - rvlr
+  - tpsn
+  - ttvn
+  - vsdv
+What is the most informative example?
+
+Answer with exactly one of: srzg | dlsz | rpvk | gklz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;rpvk&quot;,
+ &quot;closure_size&quot;: 6,
+ &quot;gains&quot;: {
+  &quot;dlsz&quot;: 1,
+  &quot;gklz&quot;: 1,
+  &quot;rpvk&quot;: 3,
+  &quot;srzg&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">pkkm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach gknd, teach pzkr, teach smrr and teach pkkm.
+The rules are:
+  - (pkkm, svtk) implies vlmm
+  - (pkkm) implies pzkr
+  - (svtk) implies rddk
+  - (gknd, vlmm) implies pzkr
+  - (gknd) implies rddk
+  - (rddk) implies rdvl
+  - (pkkm) implies tzdm
+  - (tzdm) implies szkp
+The student knows: svtk.
+What is the most informative example?
+
+Answer with exactly one of: pkkm | pzkr | gknd | smrr
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;pkkm&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;gknd&quot;: 1,
+  &quot;pkkm&quot;: 5,
+  &quot;pzkr&quot;: 1,
+  &quot;smrr&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">srgn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach vmgd, teach dnmk, teach dvpm and teach srgn.
+The rules are:
+  - (srgn, zgkr) implies pvnp
+  - (pgtg, vmgd) implies dvpm
+  - (srgn) implies pgtg
+  - (dnmk) implies rpnk
+  - (zvdm) implies pgtg
+  - (srgn) implies dnmk
+  - (zgkr) implies dvpm
+The student knows: pvnp, vtkv and zvdm.
+What is the most informative example?
+
+Answer with exactly one of: dnmk | dvpm | vmgd | srgn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;srgn&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;dnmk&quot;: 2,
+  &quot;dvpm&quot;: 1,
+  &quot;srgn&quot;: 3,
+  &quot;vmgd&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">krnl</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach tkvr, teach gstn, teach nzrm and teach krnl.
+The rules are:
+  - (krnl) implies dlgt
+  - (svvr) implies nzrm
+  - (svvr) implies tkvr
+  - (dzkv, krnl) implies rdzr
+  - (dzkv, vpdl) implies tkvr
+The student knows: dzkv and vkrk.
+What is the most informative example?
+
+Answer with exactly one of: krnl | tkvr | nzrm | gstn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;krnl&quot;,
+ &quot;closure_size&quot;: 2,
+ &quot;gains&quot;: {
+  &quot;gstn&quot;: 1,
+  &quot;krnl&quot;: 3,
+  &quot;nzrm&quot;: 1,
+  &quot;tkvr&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">tkks</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach mdsm, teach sznd, teach ltmr and teach tkks.
+The rules are:
+  - (pttl, tzmd) implies mdsm
+  - (ktvz, sznd) implies vntm
+  - (dzmz, tzmd) implies ktvz
+  - (pttl, tkks) implies dzmz
+  - (dzmz, ltmr) implies sznd
+  - (smmd) implies vntm
+  - (tzmd) implies dzmz
+  - (dzmz, smmd) implies ltmr
+  - (dzmz, pttl) implies ltmr
+The student knows: ktvz, pttl and vntm.
+What is the most informative example?
+
+Answer with exactly one of: ltmr | tkks | sznd | mdsm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;tkks&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;ltmr&quot;: 1,
+  &quot;mdsm&quot;: 1,
+  &quot;sznd&quot;: 1,
+  &quot;tkks&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">tpzm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach tpzm, teach vpmz, teach sslk and teach pppd.
+The rules are:
+  - (kmdr, pmrm) implies pvkg
+  - (vtvl) implies pppd
+  - (krld) implies dnzd
+  - (dnzd, krld) implies pvkg
+  - (dnzd, kmdr) implies pmrm
+  - (tpzm) implies vtvl
+The student knows: krld and pmrm.
+What is the most informative example?
+
+Answer with exactly one of: tpzm | vpmz | sslk | pppd
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;tpzm&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;pppd&quot;: 1,
+  &quot;sslk&quot;: 1,
+  &quot;tpzm&quot;: 3,
+  &quot;vpmz&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">glkn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach trkk, teach prsg, teach klpl and teach glkn.
+The rules are:
+  - (rpzt) implies kggk
+  - (glkn, prsg) implies kggk
+  - (vslz) implies srlg
+  - (prsg, rpzt) implies trkk
+  - (glkn, prsg) implies nslt
+  - (nlss, prsg) implies glkn
+  - (glkn) implies nslt
+The student knows is empty.
+What is the most informative example?
+
+Answer with exactly one of: glkn | prsg | klpl | trkk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;glkn&quot;,
+ &quot;closure_size&quot;: 0,
+ &quot;gains&quot;: {
+  &quot;glkn&quot;: 2,
+  &quot;klpl&quot;: 1,
+  &quot;prsg&quot;: 1,
+  &quot;trkk&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">vlkt</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach pslt, teach vlkt, teach klnv and teach tsmd.
+The rules are:
+  - (tgtv) implies tztm
+  - (vlkt) implies tksn
+  - (nkrd, pslt) implies klnv
+  - (klnv, pslt) implies plnp
+  - (nkrd) implies klnv
+  - (tsmd) implies tgtv
+  - (tztm) implies svss
+  - (plnp, vlkt) implies svss
+  - (nkrd) implies tgtv
+The student knows: tgtv.
+What is the most informative example?
+
+Answer with exactly one of: vlkt | tsmd | klnv | pslt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vlkt&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;klnv&quot;: 1,
+  &quot;pslt&quot;: 1,
+  &quot;tsmd&quot;: 1,
+  &quot;vlkt&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">plsz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach dmmp, teach gtvg, teach kstg and teach plsz.
+The rules are:
+  - (mgdz, plsz) implies kstg
+  - (gtvg, plsz) implies dmmp
+  - (gtvg, tlmt) implies vkrl
+  - (plsz) implies dnlm
+  - (kstg, vkrl) implies dmmp
+  - (gtvg) implies vmpz
+  - (gtvg, vkrl) implies dltk
+The student knows: dltk and mgdz.
+What is the most informative example?
+
+Answer with exactly one of: plsz | kstg | gtvg | dmmp
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;plsz&quot;,
+ &quot;closure_size&quot;: 2,
+ &quot;gains&quot;: {
+  &quot;dmmp&quot;: 1,
+  &quot;gtvg&quot;: 2,
+  &quot;kstg&quot;: 1,
+  &quot;plsz&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">lmrd</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach mrzs, teach nggz, teach lmrd and teach trrt.
+The rules are:
+  - (sdmv) implies lmrd
+  - (tknn, trrt) implies mrzs
+  - (nlvg, trrt) implies knmk
+  - (knmk, sdmv) implies mrzs
+  - (sdmv) implies tknn
+  - (zzvz) implies plvm
+  - (lmrd) implies trrt
+  - (nlvg, tknn) implies plvm
+The student knows: knmk, plvm and tknn.
+What is the most informative example?
+
+Answer with exactly one of: trrt | nggz | lmrd | mrzs
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;lmrd&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;lmrd&quot;: 3,
+  &quot;mrzs&quot;: 1,
+  &quot;nggz&quot;: 1,
+  &quot;trrt&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">zsll</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach zsll, teach mpnn, teach ztkt and teach mggg.
+The rules are:
+  - (ssgr, zsll) implies mggg
+  - (pgsp, zsll) implies ztkt
+  - (mpnn) implies nzrz
+  - (mpnn) implies ssgr
+  - (ssgr) implies plvn
+  - (zsll) implies ptmv
+  - (mpnn, zsll) implies plvn
+  - (pgsp) implies nzrz
+  - (ssgr) implies pgsp
+The student knows: ptmv and ssgr.
+What is the most informative example?
+
+Answer with exactly one of: mggg | zsll | mpnn | ztkt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zsll&quot;,
+ &quot;closure_size&quot;: 5,
+ &quot;gains&quot;: {
+  &quot;mggg&quot;: 1,
+  &quot;mpnn&quot;: 1,
+  &quot;zsll&quot;: 3,
+  &quot;ztkt&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">nrmk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach dsnp, teach przt, teach nslv and teach nrmk.
+The rules are:
+  - (lkkm, mtrl) implies nrmk
+  - (drmp, nslv) implies przt
+  - (tnrg) implies lvnm
+  - (lkkm) implies nrmk
+  - (lkkm, lvnm) implies mtrl
+  - (nrmk, prsn) implies dsnp
+  - (nrmk) implies drmp
+  - (drmp, mtrl) implies prsn
+The student knows: tnrg.
+What is the most informative example?
+
+Answer with exactly one of: nslv | przt | nrmk | dsnp
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nrmk&quot;,
+ &quot;closure_size&quot;: 2,
+ &quot;gains&quot;: {
+  &quot;dsnp&quot;: 1,
+  &quot;nrmk&quot;: 2,
+  &quot;nslv&quot;: 1,
+  &quot;przt&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">mmlt</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach pmnm, teach tpmt, teach mmlt and teach vmmk.
+The rules are:
+  - (mmlt, tpmt) implies pmnm
+  - (vgdl) implies tpmt
+  - (gkgr) implies nssn
+  - (mmlt) implies mngl
+  - (mmlt, mngl) implies nssn
+  - (pmnm) implies vtgz
+  - (mmlt, mngl) implies gzls
+The student knows: gkgr and vtgz.
+What is the most informative example?
+
+Answer with exactly one of: tpmt | vmmk | pmnm | mmlt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mmlt&quot;,
+ &quot;closure_size&quot;: 3,
+ &quot;gains&quot;: {
+  &quot;mmlt&quot;: 3,
+  &quot;pmnm&quot;: 1,
+  &quot;tpmt&quot;: 1,
+  &quot;vmmk&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">zpkn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach zpkn, teach lvls, teach rtmz and teach gzrk.
+The rules are:
+  - (vlzp) implies vdzm
+  - (pkdp, zpkn) implies ndkp
+  - (rtmz, zpkn) implies vlzp
+  - (rtmz) implies lvls
+  - (lvls) implies vntz
+  - (vlzp, zpkn) implies lvls
+  - (rtmz) implies pkdp
+  - (pkdp) implies vntz
+The student knows: pkdp, tmnz, vdzm and vlzp.
+What is the most informative example?
+
+Answer with exactly one of: gzrk | zpkn | rtmz | lvls
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zpkn&quot;,
+ &quot;closure_size&quot;: 5,
+ &quot;gains&quot;: {
+  &quot;gzrk&quot;: 1,
+  &quot;lvls&quot;: 1,
+  &quot;rtmz&quot;: 2,
+  &quot;zpkn&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">drgs</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach drgs, teach zskg, teach tttp and teach tvkt.
+The rules are:
+  - (rrdr) implies kgmn
+  - (drgs, zskg) implies zdpl
+  - (rrdr) implies lgtg
+  - (drgs, kgmn) implies nnml
+  - (rrdr, tvkt) implies zskg
+The student knows: kgmn.
+What is the most informative example?
+
+Answer with exactly one of: tttp | drgs | zskg | tvkt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;drgs&quot;,
+ &quot;closure_size&quot;: 1,
+ &quot;gains&quot;: {
+  &quot;drgs&quot;: 2,
+  &quot;tttp&quot;: 1,
+  &quot;tvkt&quot;: 1,
+  &quot;zskg&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">dktp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach kmvr, teach dktp, teach rvvl and teach llzt.
+The rules are:
+  - (llzt, rkgv) implies rvvl
+  - (rkgv) implies sdlr
+  - (llnp, rkgv) implies sdlr
+  - (dktp, smlk) implies rlkt
+  - (dktp, nlmz) implies llzt
+  - (llnp, nlmz) implies rlkt
+  - (llnp, smlk) implies dktp
+  - (llnp, rvvl) implies kmvr
+  - (llnp, nlmz) implies rkgv
+The student knows: nlmz and smlk.
+What is the most informative example?
+
+Answer with exactly one of: kmvr | dktp | llzt | rvvl
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;dktp&quot;,
+ &quot;closure_size&quot;: 2,
+ &quot;gains&quot;: {
+  &quot;dktp&quot;: 3,
+  &quot;kmvr&quot;: 1,
+  &quot;llzt&quot;: 1,
+  &quot;rvvl&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">gkrk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach gkrk, teach prst, teach msgr and teach sztz.
+The rules are:
+  - (gkrk, prst) implies mmrr
+  - (gkrk) implies prst
+  - (splk) implies mmrr
+  - (splk, vnml) implies tmdt
+  - (splk) implies kmnv
+  - (splk) implies kdzl
+  - (kdzl) implies vnml
+The student knows: kmnv and splk.
+What is the most informative example?
+
+Answer with exactly one of: sztz | msgr | prst | gkrk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gkrk&quot;,
+ &quot;closure_size&quot;: 6,
+ &quot;gains&quot;: {
+  &quot;gkrk&quot;: 2,
+  &quot;msgr&quot;: 1,
+  &quot;prst&quot;: 1,
+  &quot;sztz&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">ndlk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach ndlk, teach szgr, teach vsrt and teach dnrm.
+The rules are:
+  - (pkvz) implies kpzl
+  - (ndlk, vspk) implies szgr
+  - (dnrm) implies vspk
+  - (ndlk) implies vsrt
+  - (pkvz) implies vspk
+  - (lgkl) implies dnrm
+  - (dnrm, ndlk) implies vsrt
+  - (lgkl, vspk) implies ndlk
+The student knows: pkvz, ptgr and vspk.
+What is the most informative example?
+
+Answer with exactly one of: ndlk | vsrt | szgr | dnrm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;ndlk&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;dnrm&quot;: 1,
+  &quot;ndlk&quot;: 3,
+  &quot;szgr&quot;: 1,
+  &quot;vsrt&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">ppsg</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidate examples: teach rndr, teach drnm, teach stvn and teach ppsg.
+The rules are:
+  - (ppsg) implies slpn
+  - (tsst) implies pdgg
+  - (rndr) implies mgvs
+  - (mzdp, ppsg) implies rndr
+  - (ppsg, tsst) implies mzdp
+  - (mzdp) implies mgvs
+  - (slpn, tsst) implies drnm
+  - (mgvs) implies slpn
+The student knows: mzdp and pdgg.
+What is the most informative example?
+
+Answer with exactly one of: drnm | rndr | ppsg | stvn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;ppsg&quot;,
+ &quot;closure_size&quot;: 4,
+ &quot;gains&quot;: {
+  &quot;drnm&quot;: 1,
+  &quot;ppsg&quot;: 2,
+  &quot;rndr&quot;: 1,
+  &quot;stvn&quot;: 1
+ }
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

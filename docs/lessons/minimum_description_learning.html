@@ -1,0 +1,4556 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>minimum_description_learning — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#xiii">self-modeling and architecture adaptation</a> &rsaquo;
+  minimum_description_learning</p>
+<h1>#145 <code>minimum_description_learning</code></h1>
+<p class="lede">theory length traded against unexplained data</p>
+<div class="tags"><span class="tag ">level 145</span><span class="tag ">section xiii</span><span class="tag ">abstraction</span><span class="tag ">scientific_induction</span><span class="tag ">metareasoning</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.29</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>The explicit MDL trade: theory length plus the cost of listing its exceptions.</p><p>    A rule set that covers everything is long; a short one leaves exceptions that
+    must be paid for one by one. Because the exception price varies from episode
+    to episode, neither the shortest theory nor the most accurate one wins
+    reliably — the total has to be summed.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The candidates are:
+  - predicts yes if: theory2, colour and green
+  - theory0 theory size 2
+  - theory1 theory size 2
+  - theory3 theory size 4
+  - theory2 theory size 4
+  - predicts yes if: theory1, shape and sphere
+  - predicts yes if: theory2, shape and sphere
+  - predicts yes if: theory3, colour and green
+  - predicts yes if: theory3, colour and red
+  - predicts yes if: theory0, shape and sphere
+Costs: exception cost 4.
+The data are:
+  - i4: blue, sphere, no
+  - i0: blue, sphere, no
+  - i3: blue, sphere, no
+  - i5: green, cube, no
+  - i1: red, sphere, no
+  - i2: green, sphere, yes
+  - i6: green, cube, no
+  - i7: blue, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory0 | theory3 | theory2
+Reply with the answer only.</pre><h3>spanish</h3><pre>Los candidatos son:
+  - predice que sí si: theory2, color y verde
+  - theory0 el tamaño de la teoría 2
+  - theory1 el tamaño de la teoría 2
+  - theory3 el tamaño de la teoría 4
+  - theory2 el tamaño de la teoría 4
+  - predice que sí si: theory1, forma y esfera
+  - predice que sí si: theory2, forma y esfera
+  - predice que sí si: theory3, color y verde
+  - predice que sí si: theory3, color y rojo
+  - predice que sí si: theory0, forma y esfera
+Costes: el coste de la excepción: 4.
+Los datos son:
+  - i4: azul, esfera, no
+  - i0: azul, esfera, no
+  - i3: azul, esfera, no
+  - i5: verde, cubo, no
+  - i1: rojo, esfera, no
+  - i2: verde, esfera, sí
+  - i6: verde, cubo, no
+  - i7: azul, cubo, sí
+Las reglas son:
+  - la regla: a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - la regla: an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - la regla: total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - la regla: choose_the_theory_of_least_total_cost
+¿Qué teoría es óptima según el principio MDL?
+
+Responde exactamente con una de estas opciones: theory1 | theory0 | theory3 | theory2
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>候选项如下：
+  - 预测为是的条件：theory2、颜色和绿色
+  - theory0的理论规模是2
+  - theory1的理论规模是2
+  - theory3的理论规模是4
+  - theory2的理论规模是4
+  - 预测为是的条件：theory1、形状和球体
+  - 预测为是的条件：theory2、形状和球体
+  - 预测为是的条件：theory3、颜色和绿色
+  - 预测为是的条件：theory3、颜色和红色
+  - 预测为是的条件：theory0、形状和球体
+代价模型如下：异常成本：4。
+数据如下：
+  - i4：蓝色，球体，否
+  - i0：蓝色，球体，否
+  - i3：蓝色，球体，否
+  - i5：绿色，立方体，否
+  - i1：红色，球体，否
+  - i2：绿色，球体，是
+  - i6：绿色，立方体，否
+  - i7：蓝色，立方体，是
+规则如下：
+  - 规则：a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - 规则：an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - 规则：total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - 规则：choose_the_theory_of_least_total_cost
+最小描述长度最优的理论是哪一个？
+
+请从以下选项中选出恰好一个作答：theory1 | theory0 | theory3 | theory2
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The candidates are:
+  - predicts yes if: theory2, colour and green
+  - theory0 theory size 2
+  - theory1 theory size 2
+  - theory3 theory size 4
+  - theory2 theory size 4
+  - predicts yes if: theory1, shape and sphere
+  - predicts yes if: theory2, shape and sphere
+  - predicts yes if: theory3, colour and green
+  - predicts yes if: theory3, colour and red
+  - predicts yes if: theory0, shape and sphere
+Costs: exception cost 4.
+The data are:
+  - i4: blue, sphere, no
+  - i0: blue, sphere, no
+  - i3: blue, sphere, no
+  - i5: green, cube, no
+  - i1: red, sphere, no
+  - i2: green, sphere, yes
+  - i6: green, cube, no
+  - i7: blue, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory0 | theory3 | theory2
+Reply with the answer only.</pre><h3>symbols</h3><pre>{candidates: [(predicts_yes_if theory2 color green) (theory_size theory0 2) (theory_size theory1 2) (theory_size theory3 4) (theory_size theory2 4) (predicts_yes_if theory1 shape sphere) (predicts_yes_if theory2 shape sphere) (predicts_yes_if theory3 color green) (predicts_yes_if theory3 color red) (predicts_yes_if theory0 shape sphere)], cost_model: [(exception_cost 4)], data: [(item i4 blue sphere no) (item i0 blue sphere no) (item i3 blue sphere no) (item i5 green cube no) (item i1 red sphere no) (item i2 green sphere yes) (item i6 green cube no) (item i7 blue cube yes)], query: mdl_optimal_theory, rules: [(rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item) (rule an_exception_is_an_item_whose_prediction_differs_from_its_label) (rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions) (rule choose_the_theory_of_least_total_cost)]}
+
+Answer with exactly one of: theory1 | theory0 | theory3 | theory2
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/minimum_description_learning.jsonl</code> &middot; <code>data/samples/spanish/minimum_description_learning.jsonl</code> &middot; <code>data/samples/chinese/minimum_description_learning.jsonl</code> &middot; <code>data/samples/english_synonym/minimum_description_learning.jsonl</code> &middot; <code>data/samples/symbols/minimum_description_learning.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory2, colour and green
+  - theory0 theory size 2
+  - theory1 theory size 2
+  - theory3 theory size 4
+  - theory2 theory size 4
+  - predicts yes if: theory1, shape and sphere
+  - predicts yes if: theory2, shape and sphere
+  - predicts yes if: theory3, colour and green
+  - predicts yes if: theory3, colour and red
+  - predicts yes if: theory0, shape and sphere
+Costs: exception cost 4.
+The data are:
+  - i4: blue, sphere, no
+  - i0: blue, sphere, no
+  - i3: blue, sphere, no
+  - i5: green, cube, no
+  - i1: red, sphere, no
+  - i2: green, sphere, yes
+  - i6: green, cube, no
+  - i7: blue, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory0 | theory3 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 22,
+  &quot;theory1&quot;: 22,
+  &quot;theory2&quot;: 32,
+  &quot;theory3&quot;: 20
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory2 theory size 2
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory1, shape and sphere
+  - theory1 theory size 2
+  - theory3 theory size 4
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory2, colour and red
+  - predicts yes if: theory3, shape and cone
+  - theory0 theory size 4
+Costs: exception cost 4.
+The data are:
+  - i5: green, cone, no
+  - i0: green, cone, yes
+  - i7: green, sphere, yes
+  - i1: green, sphere, no
+  - i6: red, cube, yes
+  - i2: blue, cone, yes
+  - i3: red, cube, no
+  - i4: green, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory0 | theory1 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 16,
+  &quot;theory1&quot;: 22,
+  &quot;theory2&quot;: 22,
+  &quot;theory3&quot;: 20
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory2 theory size 2
+  - theory3 theory size 4
+  - predicts yes if: theory3, colour and green
+  - predicts yes if: theory0, colour and red
+  - predicts yes if: theory1, colour and blue
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory2, shape and sphere
+  - theory1 theory size 2
+  - theory0 theory size 2
+Costs: exception cost 2.
+The data are:
+  - i0: red, cube, no
+  - i1: red, sphere, no
+  - i5: red, cone, yes
+  - i7: green, cube, no
+  - i4: blue, cone, no
+  - i6: red, cone, no
+  - i3: green, sphere, no
+  - i2: red, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory3 | theory0 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 10,
+  &quot;theory1&quot;: 6,
+  &quot;theory2&quot;: 8,
+  &quot;theory3&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, colour and red
+  - theory1 theory size 4
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory1, colour and green
+  - theory3 theory size 2
+  - predicts yes if: theory2, shape and cone
+  - predicts yes if: theory3, shape and cube
+  - theory0 theory size 4
+  - predicts yes if: theory2, shape and cube
+  - theory2 theory size 4
+  - predicts yes if: theory0, shape and cone
+Costs: exception cost 4.
+The data are:
+  - i0: red, cone, yes
+  - i5: green, cube, no
+  - i4: green, cube, yes
+  - i6: blue, sphere, yes
+  - i7: green, cube, yes
+  - i1: green, cube, no
+  - i3: blue, cone, no
+  - i2: blue, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory1 | theory2 | theory0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 24,
+  &quot;theory1&quot;: 16,
+  &quot;theory2&quot;: 24,
+  &quot;theory3&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory2, colour and green
+  - predicts yes if: theory2, shape and cube
+  - predicts yes if: theory0, colour and blue
+  - predicts yes if: theory3, colour and blue
+  - theory3 theory size 4
+  - theory0 theory size 2
+  - predicts yes if: theory3, colour and red
+  - theory2 theory size 4
+  - predicts yes if: theory1, shape and cone
+  - predicts yes if: theory1, shape and cube
+  - theory1 theory size 4
+Costs: exception cost 3.
+The data are:
+  - i0: red, sphere, no
+  - i5: blue, cone, no
+  - i1: red, cone, yes
+  - i2: blue, sphere, yes
+  - i4: red, cube, yes
+  - i6: blue, cube, no
+  - i7: red, cone, no
+  - i3: red, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory1 | theory3 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 17,
+  &quot;theory1&quot;: 16,
+  &quot;theory2&quot;: 13,
+  &quot;theory3&quot;: 16
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory0 theory size 2
+  - theory1 theory size 4
+  - predicts yes if: theory1, colour and blue
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory2, shape and sphere
+  - predicts yes if: theory1, shape and cone
+  - predicts yes if: theory0, colour and blue
+  - theory2 theory size 2
+  - theory3 theory size 2
+Costs: exception cost 3.
+The data are:
+  - i3: green, cube, yes
+  - i2: red, cube, no
+  - i6: blue, cube, yes
+  - i4: blue, sphere, no
+  - i1: green, cone, yes
+  - i5: red, sphere, yes
+  - i0: red, cone, yes
+  - i7: red, sphere, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory1 | theory0 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 17,
+  &quot;theory1&quot;: 13,
+  &quot;theory2&quot;: 20,
+  &quot;theory3&quot;: 20
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory0 theory size 2
+  - predicts yes if: theory0, shape and sphere
+  - theory3 theory size 2
+  - theory2 theory size 4
+  - predicts yes if: theory1, colour and red
+  - predicts yes if: theory1, shape and cone
+  - theory1 theory size 4
+  - predicts yes if: theory2, colour and red
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory2, colour and green
+Costs: exception cost 3.
+The data are:
+  - i7: blue, sphere, no
+  - i6: blue, cube, no
+  - i4: green, sphere, no
+  - i3: red, cone, no
+  - i1: blue, sphere, no
+  - i2: red, cube, yes
+  - i5: green, sphere, yes
+  - i0: green, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory3 | theory2 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 14,
+  &quot;theory1&quot;: 10,
+  &quot;theory2&quot;: 13,
+  &quot;theory3&quot;: 14
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory2, colour and green
+  - theory3 theory size 2
+  - theory1 theory size 4
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory0, colour and red
+  - predicts yes if: theory1, colour and red
+  - predicts yes if: theory1, colour and green
+  - theory2 theory size 2
+  - theory0 theory size 4
+  - predicts yes if: theory0, colour and blue
+Costs: exception cost 2.
+The data are:
+  - i7: red, sphere, no
+  - i2: red, cube, no
+  - i5: red, cone, no
+  - i6: red, cube, no
+  - i3: green, cube, yes
+  - i1: blue, cone, yes
+  - i4: blue, cone, no
+  - i0: blue, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory2 | theory3 | theory0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 16,
+  &quot;theory1&quot;: 16,
+  &quot;theory2&quot;: 6,
+  &quot;theory3&quot;: 10
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory2, colour and blue
+  - theory1 theory size 2
+  - predicts yes if: theory1, shape and cone
+  - theory2 theory size 2
+  - theory3 theory size 4
+  - theory0 theory size 4
+  - predicts yes if: theory0, colour and blue
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory3, colour and blue
+Costs: exception cost 3.
+The data are:
+  - i7: blue, cone, no
+  - i1: red, cone, yes
+  - i4: red, sphere, yes
+  - i5: green, cube, yes
+  - i6: red, cone, no
+  - i2: red, cone, no
+  - i3: red, cone, no
+  - i0: green, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory1 | theory2 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 16,
+  &quot;theory1&quot;: 23,
+  &quot;theory2&quot;: 14,
+  &quot;theory3&quot;: 25
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory3 theory size 2
+  - predicts yes if: theory3, colour and green
+  - theory1 theory size 2
+  - predicts yes if: theory1, colour and blue
+  - theory0 theory size 4
+  - predicts yes if: theory0, colour and blue
+  - predicts yes if: theory2, colour and green
+  - predicts yes if: theory0, colour and blue
+  - theory2 theory size 2
+Costs: exception cost 2.
+The data are:
+  - i4: red, cube, yes
+  - i2: blue, cube, no
+  - i6: green, cube, no
+  - i1: green, cube, no
+  - i3: blue, sphere, yes
+  - i5: red, sphere, yes
+  - i7: green, cube, yes
+  - i0: red, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory2 | theory0 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 14,
+  &quot;theory1&quot;: 12,
+  &quot;theory2&quot;: 14,
+  &quot;theory3&quot;: 14
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory3, shape and cube
+  - predicts yes if: theory1, colour and blue
+  - predicts yes if: theory1, colour and blue
+  - theory2 theory size 2
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory0, colour and red
+  - predicts yes if: theory0, colour and green
+  - theory3 theory size 4
+  - predicts yes if: theory2, colour and blue
+  - theory0 theory size 4
+  - theory1 theory size 4
+Costs: exception cost 4.
+The data are:
+  - i1: blue, sphere, no
+  - i4: blue, sphere, yes
+  - i5: green, cube, yes
+  - i2: green, cube, no
+  - i0: green, cube, yes
+  - i6: red, cone, yes
+  - i3: red, sphere, yes
+  - i7: blue, sphere, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory0 | theory2 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 16,
+  &quot;theory1&quot;: 24,
+  &quot;theory2&quot;: 22,
+  &quot;theory3&quot;: 20
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory2 theory size 2
+  - predicts yes if: theory1, colour and green
+  - theory3 theory size 2
+  - theory1 theory size 2
+  - predicts yes if: theory0, colour and red
+  - theory0 theory size 2
+  - predicts yes if: theory2, colour and green
+  - predicts yes if: theory3, shape and sphere
+Costs: exception cost 4.
+The data are:
+  - i1: blue, sphere, no
+  - i4: green, sphere, no
+  - i6: red, cube, yes
+  - i0: blue, cone, yes
+  - i7: blue, sphere, no
+  - i2: green, cone, no
+  - i5: green, cone, yes
+  - i3: red, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory0 | theory1 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 14,
+  &quot;theory1&quot;: 18,
+  &quot;theory2&quot;: 18,
+  &quot;theory3&quot;: 26
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, shape and cone
+  - theory3 theory size 2
+  - theory0 theory size 4
+  - theory1 theory size 2
+  - predicts yes if: theory3, colour and blue
+  - predicts yes if: theory0, colour and red
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory2, colour and green
+  - theory2 theory size 4
+  - predicts yes if: theory2, shape and cube
+Costs: exception cost 2.
+The data are:
+  - i3: red, sphere, no
+  - i2: green, sphere, no
+  - i5: blue, sphere, yes
+  - i7: green, cone, no
+  - i6: green, sphere, yes
+  - i1: green, cone, yes
+  - i4: red, sphere, yes
+  - i0: blue, sphere, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory2 | theory3 | theory0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 14,
+  &quot;theory1&quot;: 12,
+  &quot;theory2&quot;: 14,
+  &quot;theory3&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory2 theory size 2
+  - theory0 theory size 4
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory3, shape and sphere
+  - theory3 theory size 4
+  - theory1 theory size 4
+  - predicts yes if: theory2, shape and cone
+  - predicts yes if: theory1, shape and cube
+  - predicts yes if: theory1, shape and cone
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory0, shape and cube
+Costs: exception cost 2.
+The data are:
+  - i7: red, cone, no
+  - i0: blue, sphere, no
+  - i4: red, cube, no
+  - i1: green, cone, no
+  - i6: red, cube, no
+  - i5: green, cone, no
+  - i3: red, cone, yes
+  - i2: red, cone, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory0 | theory3 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 14,
+  &quot;theory1&quot;: 14,
+  &quot;theory2&quot;: 8,
+  &quot;theory3&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory2 theory size 4
+  - predicts yes if: theory1, colour and green
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory2, colour and red
+  - theory1 theory size 2
+  - theory3 theory size 4
+  - theory0 theory size 4
+  - predicts yes if: theory3, colour and red
+  - predicts yes if: theory2, shape and cube
+  - predicts yes if: theory3, colour and red
+  - predicts yes if: theory0, shape and cone
+Costs: exception cost 4.
+The data are:
+  - i7: blue, sphere, yes
+  - i2: green, cube, no
+  - i4: blue, sphere, yes
+  - i6: green, sphere, yes
+  - i3: blue, cone, yes
+  - i0: red, cone, no
+  - i1: green, cone, yes
+  - i5: green, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory0 | theory1 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 20,
+  &quot;theory1&quot;: 22,
+  &quot;theory2&quot;: 36,
+  &quot;theory3&quot;: 28
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, colour and red
+  - theory2 theory size 4
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory0, shape and sphere
+  - theory1 theory size 2
+  - predicts yes if: theory2, colour and blue
+  - theory0 theory size 4
+  - predicts yes if: theory0, colour and blue
+  - predicts yes if: theory2, shape and sphere
+  - predicts yes if: theory3, colour and green
+  - theory3 theory size 4
+Costs: exception cost 3.
+The data are:
+  - i2: red, cube, yes
+  - i6: blue, cube, yes
+  - i5: red, cone, yes
+  - i0: red, cube, yes
+  - i1: green, cone, yes
+  - i3: red, cube, yes
+  - i7: red, sphere, yes
+  - i4: red, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory0 | theory1 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 19,
+  &quot;theory1&quot;: 11,
+  &quot;theory2&quot;: 19,
+  &quot;theory3&quot;: 19
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory0, shape and cone
+  - theory3 theory size 4
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory1, shape and cube
+  - predicts yes if: theory3, shape and cube
+  - predicts yes if: theory2, colour and blue
+  - theory2 theory size 2
+  - theory0 theory size 4
+  - predicts yes if: theory1, shape and sphere
+  - theory1 theory size 4
+  - predicts yes if: theory3, shape and sphere
+Costs: exception cost 2.
+The data are:
+  - i5: green, sphere, yes
+  - i6: red, cone, yes
+  - i7: red, cube, no
+  - i3: blue, cube, no
+  - i1: blue, sphere, no
+  - i2: blue, cube, no
+  - i4: blue, cone, no
+  - i0: blue, sphere, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory0 | theory3 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 8,
+  &quot;theory1&quot;: 14,
+  &quot;theory2&quot;: 14,
+  &quot;theory3&quot;: 14
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory0, colour and green
+  - theory1 theory size 4
+  - predicts yes if: theory2, colour and blue
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory1, shape and cone
+  - theory2 theory size 2
+  - theory3 theory size 2
+  - predicts yes if: theory1, colour and green
+  - theory0 theory size 2
+Costs: exception cost 2.
+The data are:
+  - i7: blue, cone, no
+  - i1: blue, sphere, no
+  - i4: green, cone, no
+  - i6: red, cube, yes
+  - i2: blue, cube, no
+  - i3: green, cone, no
+  - i0: green, sphere, yes
+  - i5: blue, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory1 | theory0 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 8,
+  &quot;theory1&quot;: 12,
+  &quot;theory2&quot;: 14,
+  &quot;theory3&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory2 theory size 2
+  - predicts yes if: theory3, shape and sphere
+  - theory0 theory size 2
+  - theory3 theory size 4
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory3, shape and cube
+  - predicts yes if: theory1, shape and cube
+  - theory1 theory size 2
+  - predicts yes if: theory2, shape and cone
+Costs: exception cost 2.
+The data are:
+  - i3: red, sphere, no
+  - i6: blue, sphere, no
+  - i1: green, sphere, no
+  - i0: red, cube, yes
+  - i2: blue, cube, yes
+  - i5: red, sphere, no
+  - i7: blue, cube, yes
+  - i4: green, sphere, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory3 | theory2 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 8,
+  &quot;theory1&quot;: 2,
+  &quot;theory2&quot;: 8,
+  &quot;theory3&quot;: 14
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory2 theory size 2
+  - theory1 theory size 4
+  - predicts yes if: theory1, shape and sphere
+  - theory0 theory size 2
+  - predicts yes if: theory1, shape and cone
+  - predicts yes if: theory2, colour and green
+  - predicts yes if: theory0, shape and sphere
+  - theory3 theory size 2
+  - predicts yes if: theory3, colour and blue
+Costs: exception cost 2.
+The data are:
+  - i2: green, cube, no
+  - i1: green, cube, no
+  - i7: red, sphere, no
+  - i0: green, cube, yes
+  - i5: green, cube, yes
+  - i4: green, sphere, no
+  - i6: green, sphere, no
+  - i3: blue, sphere, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory2 | theory3 | theory0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 14,
+  &quot;theory1&quot;: 16,
+  &quot;theory2&quot;: 10,
+  &quot;theory3&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory0 theory size 4
+  - predicts yes if: theory3, colour and red
+  - theory2 theory size 4
+  - theory1 theory size 2
+  - predicts yes if: theory2, colour and green
+  - theory3 theory size 2
+  - predicts yes if: theory2, shape and cube
+  - predicts yes if: theory0, shape and sphere
+  - predicts yes if: theory1, colour and red
+  - predicts yes if: theory0, shape and cube
+Costs: exception cost 4.
+The data are:
+  - i7: red, cube, yes
+  - i2: green, cone, yes
+  - i0: green, cone, yes
+  - i5: red, sphere, no
+  - i4: green, cube, yes
+  - i1: red, sphere, no
+  - i6: blue, cube, yes
+  - i3: red, sphere, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory3 | theory2 | theory0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 20,
+  &quot;theory1&quot;: 26,
+  &quot;theory2&quot;: 8,
+  &quot;theory3&quot;: 26
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory1, colour and red
+  - theory1 theory size 2
+  - predicts yes if: theory3, shape and cube
+  - theory2 theory size 2
+  - predicts yes if: theory3, colour and green
+  - theory0 theory size 4
+  - predicts yes if: theory0, shape and cube
+  - predicts yes if: theory2, shape and cube
+  - theory3 theory size 4
+Costs: exception cost 4.
+The data are:
+  - i6: green, cube, yes
+  - i7: red, cube, no
+  - i4: blue, cone, yes
+  - i3: blue, cube, no
+  - i0: red, sphere, yes
+  - i5: red, cone, yes
+  - i1: green, sphere, no
+  - i2: green, sphere, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory2 | theory1 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 20,
+  &quot;theory1&quot;: 18,
+  &quot;theory2&quot;: 26,
+  &quot;theory3&quot;: 28
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory0 theory size 2
+  - theory2 theory size 4
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory2, colour and red
+  - predicts yes if: theory2, shape and cube
+  - theory3 theory size 4
+  - predicts yes if: theory1, shape and sphere
+  - predicts yes if: theory3, shape and cube
+  - theory1 theory size 2
+Costs: exception cost 3.
+The data are:
+  - i7: red, sphere, yes
+  - i1: red, cone, yes
+  - i6: red, sphere, no
+  - i2: blue, cube, no
+  - i3: green, cube, no
+  - i0: red, cube, no
+  - i4: green, cone, yes
+  - i5: blue, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory0 | theory1 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 5,
+  &quot;theory1&quot;: 11,
+  &quot;theory2&quot;: 22,
+  &quot;theory3&quot;: 25
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory2 theory size 4
+  - predicts yes if: theory2, shape and cone
+  - predicts yes if: theory2, shape and cone
+  - theory1 theory size 4
+  - predicts yes if: theory1, colour and green
+  - theory0 theory size 2
+  - predicts yes if: theory1, colour and green
+  - theory3 theory size 4
+  - predicts yes if: theory3, colour and green
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory3, colour and blue
+Costs: exception cost 2.
+The data are:
+  - i5: green, cube, yes
+  - i0: blue, cube, no
+  - i3: blue, cone, no
+  - i7: red, cube, yes
+  - i4: blue, cube, yes
+  - i6: blue, sphere, no
+  - i1: red, cone, no
+  - i2: blue, sphere, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory1 | theory0 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 8,
+  &quot;theory1&quot;: 10,
+  &quot;theory2&quot;: 16,
+  &quot;theory3&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory1, shape and cone
+  - theory3 theory size 2
+  - theory0 theory size 2
+  - theory2 theory size 2
+  - theory1 theory size 4
+  - predicts yes if: theory1, shape and cube
+  - predicts yes if: theory2, colour and blue
+  - predicts yes if: theory0, shape and sphere
+Costs: exception cost 3.
+The data are:
+  - i6: red, cone, yes
+  - i2: red, cube, yes
+  - i3: red, cube, no
+  - i5: red, cone, yes
+  - i7: blue, cone, yes
+  - i1: green, cube, yes
+  - i0: green, sphere, no
+  - i4: green, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory1 | theory0 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 20,
+  &quot;theory1&quot;: 10,
+  &quot;theory2&quot;: 14,
+  &quot;theory3&quot;: 11
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory3 theory size 4
+  - predicts yes if: theory1, colour and green
+  - theory1 theory size 2
+  - theory2 theory size 2
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory3, colour and green
+  - theory0 theory size 2
+  - predicts yes if: theory2, shape and cube
+Costs: exception cost 3.
+The data are:
+  - i6: red, cone, yes
+  - i2: green, sphere, no
+  - i3: red, sphere, no
+  - i5: green, sphere, no
+  - i7: red, cone, yes
+  - i1: red, sphere, no
+  - i4: red, sphere, no
+  - i0: blue, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory0 | theory1 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 2,
+  &quot;theory1&quot;: 14,
+  &quot;theory2&quot;: 11,
+  &quot;theory3&quot;: 25
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, colour and green
+  - theory2 theory size 4
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory3, colour and red
+  - theory1 theory size 2
+  - theory0 theory size 4
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory2, shape and sphere
+  - predicts yes if: theory2, colour and green
+  - theory3 theory size 2
+Costs: exception cost 2.
+The data are:
+  - i1: green, cube, no
+  - i0: green, cube, no
+  - i2: blue, cone, no
+  - i4: red, sphere, no
+  - i3: green, cube, yes
+  - i7: green, cube, yes
+  - i6: green, cone, no
+  - i5: red, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory1 | theory0 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 10,
+  &quot;theory1&quot;: 8,
+  &quot;theory2&quot;: 12,
+  &quot;theory3&quot;: 10
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory3, shape and cube
+  - predicts yes if: theory1, colour and red
+  - theory1 theory size 2
+  - theory3 theory size 2
+  - predicts yes if: theory0, shape and cone
+  - theory2 theory size 4
+  - predicts yes if: theory2, colour and blue
+  - theory0 theory size 2
+  - predicts yes if: theory2, shape and cone
+Costs: exception cost 3.
+The data are:
+  - i6: green, cube, yes
+  - i4: blue, cone, yes
+  - i1: green, cube, no
+  - i5: red, sphere, yes
+  - i7: red, cone, no
+  - i2: green, cone, yes
+  - i3: red, cube, no
+  - i0: blue, sphere, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory2 | theory3 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 14,
+  &quot;theory1&quot;: 20,
+  &quot;theory2&quot;: 13,
+  &quot;theory3&quot;: 20
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, shape and cube
+  - predicts yes if: theory0, shape and cone
+  - theory3 theory size 2
+  - predicts yes if: theory3, colour and green
+  - predicts yes if: theory1, colour and green
+  - predicts yes if: theory0, colour and green
+  - theory0 theory size 4
+  - predicts yes if: theory2, colour and blue
+  - theory1 theory size 4
+  - theory2 theory size 2
+Costs: exception cost 4.
+The data are:
+  - i3: red, cube, yes
+  - i5: blue, sphere, yes
+  - i6: red, cube, yes
+  - i4: red, cone, yes
+  - i0: red, cone, yes
+  - i7: red, sphere, no
+  - i1: red, cone, no
+  - i2: green, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory3 | theory0 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 24,
+  &quot;theory1&quot;: 20,
+  &quot;theory2&quot;: 18,
+  &quot;theory3&quot;: 26
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory0 theory size 2
+  - theory2 theory size 2
+  - theory3 theory size 2
+  - theory1 theory size 4
+  - predicts yes if: theory1, colour and blue
+  - predicts yes if: theory0, shape and sphere
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory1, shape and cone
+  - predicts yes if: theory2, shape and sphere
+Costs: exception cost 2.
+The data are:
+  - i0: green, cube, yes
+  - i3: red, cone, yes
+  - i4: blue, sphere, no
+  - i7: blue, cone, yes
+  - i2: green, sphere, no
+  - i1: blue, cone, yes
+  - i6: red, cube, no
+  - i5: blue, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory2 | theory3 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 16,
+  &quot;theory1&quot;: 8,
+  &quot;theory2&quot;: 16,
+  &quot;theory3&quot;: 16
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory1 theory size 4
+  - predicts yes if: theory1, colour and blue
+  - theory2 theory size 2
+  - theory3 theory size 4
+  - predicts yes if: theory3, colour and green
+  - predicts yes if: theory0, colour and green
+  - theory0 theory size 4
+  - predicts yes if: theory2, shape and sphere
+  - predicts yes if: theory1, colour and red
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory3, shape and sphere
+Costs: exception cost 4.
+The data are:
+  - i4: red, sphere, yes
+  - i6: red, cube, no
+  - i3: red, sphere, yes
+  - i0: green, sphere, no
+  - i7: blue, cube, no
+  - i5: blue, cone, no
+  - i1: green, cube, no
+  - i2: green, cone, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory2 | theory1 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 24,
+  &quot;theory1&quot;: 20,
+  &quot;theory2&quot;: 10,
+  &quot;theory3&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory0, colour and red
+  - predicts yes if: theory0, colour and blue
+  - predicts yes if: theory2, colour and red
+  - theory1 theory size 4
+  - theory0 theory size 4
+  - theory3 theory size 2
+  - predicts yes if: theory2, shape and sphere
+  - predicts yes if: theory1, colour and blue
+  - predicts yes if: theory1, colour and red
+  - theory2 theory size 4
+  - predicts yes if: theory3, colour and red
+Costs: exception cost 3.
+The data are:
+  - i4: red, cone, yes
+  - i0: red, sphere, no
+  - i5: red, cone, no
+  - i6: red, cube, yes
+  - i2: red, cone, no
+  - i7: green, cube, yes
+  - i1: red, sphere, yes
+  - i3: red, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory2 | theory3 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 16,
+  &quot;theory1&quot;: 16,
+  &quot;theory2&quot;: 16,
+  &quot;theory3&quot;: 14
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, colour and red
+  - theory0 theory size 2
+  - predicts yes if: theory0, colour and blue
+  - theory2 theory size 2
+  - predicts yes if: theory3, colour and red
+  - predicts yes if: theory3, colour and blue
+  - theory3 theory size 4
+  - theory1 theory size 4
+  - predicts yes if: theory2, shape and sphere
+  - predicts yes if: theory1, colour and green
+Costs: exception cost 4.
+The data are:
+  - i6: green, sphere, yes
+  - i3: red, cone, yes
+  - i5: red, cone, yes
+  - i4: green, cube, no
+  - i0: red, sphere, no
+  - i2: blue, sphere, no
+  - i7: blue, cone, no
+  - i1: blue, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory1 | theory3 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 22,
+  &quot;theory1&quot;: 16,
+  &quot;theory2&quot;: 22,
+  &quot;theory3&quot;: 20
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory2, shape and cube
+  - predicts yes if: theory3, colour and red
+  - theory0 theory size 2
+  - predicts yes if: theory2, colour and green
+  - predicts yes if: theory0, shape and sphere
+  - theory2 theory size 4
+  - predicts yes if: theory1, colour and green
+  - theory1 theory size 2
+  - theory3 theory size 4
+  - predicts yes if: theory3, shape and sphere
+Costs: exception cost 4.
+The data are:
+  - i6: green, sphere, no
+  - i0: green, cube, yes
+  - i1: green, cube, yes
+  - i3: green, cone, yes
+  - i2: blue, sphere, no
+  - i7: green, cone, no
+  - i4: green, cube, yes
+  - i5: green, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory0 | theory2 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 26,
+  &quot;theory1&quot;: 14,
+  &quot;theory2&quot;: 16,
+  &quot;theory3&quot;: 28
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory0 theory size 4
+  - predicts yes if: theory2, shape and cube
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory3, shape and cube
+  - theory2 theory size 4
+  - predicts yes if: theory0, shape and sphere
+  - theory1 theory size 2
+  - predicts yes if: theory0, shape and cube
+  - predicts yes if: theory1, shape and sphere
+  - theory3 theory size 4
+  - predicts yes if: theory2, colour and red
+Costs: exception cost 4.
+The data are:
+  - i1: green, sphere, no
+  - i2: red, cube, yes
+  - i6: blue, sphere, yes
+  - i0: green, sphere, no
+  - i3: green, cube, yes
+  - i4: green, cone, no
+  - i7: blue, cube, no
+  - i5: green, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory2 | theory0 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 20,
+  &quot;theory1&quot;: 18,
+  &quot;theory2&quot;: 16,
+  &quot;theory3&quot;: 20
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, colour and green
+  - theory0 theory size 2
+  - theory2 theory size 2
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory3, colour and red
+  - predicts yes if: theory2, shape and sphere
+  - theory1 theory size 2
+  - theory3 theory size 4
+Costs: exception cost 3.
+The data are:
+  - i2: green, cube, no
+  - i4: green, cone, no
+  - i3: green, cube, yes
+  - i6: blue, sphere, no
+  - i7: green, sphere, yes
+  - i5: blue, sphere, yes
+  - i0: blue, cube, yes
+  - i1: blue, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory2 | theory3 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 17,
+  &quot;theory1&quot;: 14,
+  &quot;theory2&quot;: 11,
+  &quot;theory3&quot;: 13
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory0, shape and cube
+  - predicts yes if: theory2, shape and cube
+  - predicts yes if: theory3, shape and sphere
+  - theory0 theory size 2
+  - predicts yes if: theory2, colour and green
+  - theory1 theory size 2
+  - theory2 theory size 4
+  - theory3 theory size 2
+  - predicts yes if: theory1, shape and cube
+Costs: exception cost 4.
+The data are:
+  - i3: red, cube, yes
+  - i1: blue, cone, yes
+  - i0: blue, cube, yes
+  - i4: green, cone, yes
+  - i5: blue, cone, yes
+  - i2: blue, cone, yes
+  - i6: green, sphere, yes
+  - i7: blue, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory1 | theory2 | theory0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 22,
+  &quot;theory1&quot;: 22,
+  &quot;theory2&quot;: 16,
+  &quot;theory3&quot;: 26
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory0, shape and cube
+  - theory0 theory size 2
+  - predicts yes if: theory1, colour and green
+  - theory1 theory size 4
+  - predicts yes if: theory1, shape and sphere
+  - predicts yes if: theory3, colour and green
+  - theory2 theory size 2
+  - predicts yes if: theory2, colour and green
+  - predicts yes if: theory3, shape and cone
+  - theory3 theory size 4
+Costs: exception cost 2.
+The data are:
+  - i3: green, cone, no
+  - i5: blue, sphere, no
+  - i7: green, sphere, no
+  - i1: red, cone, yes
+  - i4: red, cone, yes
+  - i6: green, cube, no
+  - i2: green, cone, yes
+  - i0: green, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory1 | theory2 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 10,
+  &quot;theory1&quot;: 18,
+  &quot;theory2&quot;: 14,
+  &quot;theory3&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory2 theory size 4
+  - predicts yes if: theory1, colour and green
+  - theory0 theory size 2
+  - predicts yes if: theory3, colour and blue
+  - theory3 theory size 4
+  - predicts yes if: theory1, colour and blue
+  - predicts yes if: theory2, colour and red
+  - predicts yes if: theory0, shape and cube
+  - predicts yes if: theory2, shape and cone
+  - theory1 theory size 4
+  - predicts yes if: theory3, colour and red
+Costs: exception cost 2.
+The data are:
+  - i0: green, sphere, yes
+  - i6: green, cube, yes
+  - i1: blue, cone, no
+  - i4: blue, sphere, no
+  - i5: red, cone, no
+  - i3: blue, cone, yes
+  - i7: green, sphere, no
+  - i2: red, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory3 | theory0 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 8,
+  &quot;theory1&quot;: 10,
+  &quot;theory2&quot;: 14,
+  &quot;theory3&quot;: 16
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory2 theory size 4
+  - theory1 theory size 2
+  - predicts yes if: theory1, colour and green
+  - theory0 theory size 4
+  - predicts yes if: theory3, shape and cone
+  - theory3 theory size 2
+  - predicts yes if: theory2, shape and cone
+  - predicts yes if: theory2, shape and cone
+  - predicts yes if: theory0, colour and blue
+  - predicts yes if: theory0, shape and sphere
+Costs: exception cost 2.
+The data are:
+  - i0: red, sphere, no
+  - i4: green, cube, yes
+  - i7: green, cube, no
+  - i1: blue, cube, yes
+  - i3: blue, cone, no
+  - i2: red, cube, no
+  - i5: green, sphere, yes
+  - i6: green, sphere, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory3 | theory2 | theory0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 10,
+  &quot;theory1&quot;: 6,
+  &quot;theory2&quot;: 14,
+  &quot;theory3&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory3 theory size 2
+  - predicts yes if: theory2, shape and cone
+  - predicts yes if: theory3, colour and blue
+  - theory0 theory size 2
+  - theory1 theory size 4
+  - theory2 theory size 2
+  - predicts yes if: theory1, colour and green
+  - predicts yes if: theory0, shape and sphere
+  - predicts yes if: theory1, colour and blue
+Costs: exception cost 3.
+The data are:
+  - i0: blue, cone, no
+  - i2: red, sphere, yes
+  - i6: blue, cone, yes
+  - i5: red, sphere, no
+  - i7: blue, cube, no
+  - i1: green, cube, no
+  - i3: green, cone, yes
+  - i4: green, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory1 | theory0 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 11,
+  &quot;theory1&quot;: 19,
+  &quot;theory2&quot;: 8,
+  &quot;theory3&quot;: 14
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory3 theory size 2
+  - predicts yes if: theory3, colour and green
+  - predicts yes if: theory0, colour and red
+  - predicts yes if: theory0, shape and cube
+  - predicts yes if: theory1, colour and green
+  - predicts yes if: theory2, shape and sphere
+  - theory2 theory size 2
+  - theory1 theory size 2
+  - theory0 theory size 4
+Costs: exception cost 4.
+The data are:
+  - i4: green, sphere, no
+  - i3: green, sphere, no
+  - i5: blue, cone, yes
+  - i7: red, cone, no
+  - i1: red, cube, yes
+  - i6: green, cube, yes
+  - i2: blue, cone, no
+  - i0: blue, sphere, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory2 | theory1 | theory0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 12,
+  &quot;theory1&quot;: 18,
+  &quot;theory2&quot;: 26,
+  &quot;theory3&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory2, shape and cube
+  - predicts yes if: theory1, shape and sphere
+  - predicts yes if: theory0, shape and cube
+  - theory3 theory size 4
+  - theory2 theory size 2
+  - predicts yes if: theory3, shape and cube
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory0, colour and red
+  - theory0 theory size 4
+  - theory1 theory size 4
+  - predicts yes if: theory1, colour and red
+Costs: exception cost 3.
+The data are:
+  - i1: red, cone, yes
+  - i7: green, sphere, yes
+  - i3: red, cube, no
+  - i5: green, cone, no
+  - i2: blue, cube, yes
+  - i4: green, cube, no
+  - i0: green, cube, yes
+  - i6: green, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory0 | theory1 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 16,
+  &quot;theory1&quot;: 13,
+  &quot;theory2&quot;: 17,
+  &quot;theory3&quot;: 19
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory0 theory size 2
+  - theory3 theory size 2
+  - theory2 theory size 4
+  - predicts yes if: theory0, colour and red
+  - theory1 theory size 4
+  - predicts yes if: theory1, colour and blue
+  - predicts yes if: theory2, colour and green
+  - predicts yes if: theory1, shape and cone
+  - predicts yes if: theory3, shape and cube
+  - predicts yes if: theory2, colour and red
+Costs: exception cost 2.
+The data are:
+  - i1: green, cube, no
+  - i3: green, cone, no
+  - i2: blue, sphere, no
+  - i6: green, cube, yes
+  - i5: green, sphere, yes
+  - i7: green, sphere, yes
+  - i0: red, sphere, no
+  - i4: red, sphere, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory1 | theory2 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 12,
+  &quot;theory1&quot;: 14,
+  &quot;theory2&quot;: 12,
+  &quot;theory3&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory3, colour and green
+  - predicts yes if: theory2, shape and sphere
+  - predicts yes if: theory1, shape and sphere
+  - predicts yes if: theory3, colour and red
+  - theory1 theory size 4
+  - theory2 theory size 2
+  - predicts yes if: theory0, shape and cube
+  - predicts yes if: theory1, shape and cube
+  - theory0 theory size 2
+  - theory3 theory size 4
+Costs: exception cost 3.
+The data are:
+  - i3: blue, cube, no
+  - i6: green, cube, no
+  - i2: red, cube, yes
+  - i7: red, cube, yes
+  - i0: blue, cone, no
+  - i1: green, cone, no
+  - i5: red, cube, no
+  - i4: blue, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory2 | theory0 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 14,
+  &quot;theory1&quot;: 16,
+  &quot;theory2&quot;: 8,
+  &quot;theory3&quot;: 13
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory0 theory size 2
+  - theory3 theory size 4
+  - predicts yes if: theory2, colour and red
+  - predicts yes if: theory1, shape and cube
+  - predicts yes if: theory3, shape and cube
+  - predicts yes if: theory0, shape and sphere
+  - predicts yes if: theory3, shape and cone
+  - theory1 theory size 2
+  - predicts yes if: theory2, colour and green
+  - theory2 theory size 4
+Costs: exception cost 3.
+The data are:
+  - i6: green, cone, no
+  - i7: red, sphere, yes
+  - i3: green, cone, no
+  - i2: green, cone, yes
+  - i5: green, sphere, yes
+  - i4: green, cone, yes
+  - i0: blue, cone, no
+  - i1: green, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory2 | theory3 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 8,
+  &quot;theory1&quot;: 14,
+  &quot;theory2&quot;: 13,
+  &quot;theory3&quot;: 22
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory0, shape and cone
+  - theory0 theory size 4
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory3, shape and cube
+  - predicts yes if: theory0, shape and cube
+  - theory3 theory size 4
+  - predicts yes if: theory2, shape and cube
+  - theory1 theory size 2
+  - theory2 theory size 2
+  - predicts yes if: theory1, shape and cone
+Costs: exception cost 4.
+The data are:
+  - i5: green, cube, no
+  - i7: blue, cone, yes
+  - i0: red, sphere, no
+  - i6: red, cube, no
+  - i3: green, cone, no
+  - i2: green, cube, yes
+  - i4: red, cone, no
+  - i1: red, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory0 | theory1 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 24,
+  &quot;theory1&quot;: 18,
+  &quot;theory2&quot;: 14,
+  &quot;theory3&quot;: 20
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory2, colour and green
+  - predicts yes if: theory1, colour and green
+  - theory1 theory size 4
+  - theory0 theory size 2
+  - theory2 theory size 2
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory1, shape and cube
+  - theory3 theory size 4
+Costs: exception cost 3.
+The data are:
+  - i7: green, cube, yes
+  - i5: blue, cone, yes
+  - i0: blue, cube, no
+  - i6: red, sphere, no
+  - i3: blue, sphere, no
+  - i4: green, sphere, no
+  - i2: blue, cone, no
+  - i1: blue, cone, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory0 | theory3 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 11,
+  &quot;theory1&quot;: 16,
+  &quot;theory2&quot;: 11,
+  &quot;theory3&quot;: 10
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, shape and cone
+  - theory0 theory size 2
+  - theory3 theory size 2
+  - predicts yes if: theory2, shape and cone
+  - predicts yes if: theory3, shape and sphere
+  - theory2 theory size 4
+  - theory1 theory size 2
+  - predicts yes if: theory2, shape and cube
+  - predicts yes if: theory0, colour and red
+Costs: exception cost 3.
+The data are:
+  - i5: blue, cube, yes
+  - i6: red, cone, yes
+  - i0: green, sphere, no
+  - i7: red, sphere, yes
+  - i4: red, cone, yes
+  - i3: blue, cone, no
+  - i1: red, cone, yes
+  - i2: green, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory3 | theory1 | theory0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 5,
+  &quot;theory1&quot;: 14,
+  &quot;theory2&quot;: 13,
+  &quot;theory3&quot;: 17
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, colour and green
+  - predicts yes if: theory0, shape and sphere
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory3, colour and green
+  - theory1 theory size 2
+  - predicts yes if: theory2, shape and cube
+  - predicts yes if: theory2, shape and cube
+  - theory3 theory size 4
+  - theory0 theory size 4
+  - predicts yes if: theory0, shape and cone
+  - theory2 theory size 4
+Costs: exception cost 3.
+The data are:
+  - i2: blue, cone, no
+  - i0: red, sphere, no
+  - i1: blue, cube, no
+  - i4: green, cube, no
+  - i3: green, cube, no
+  - i6: red, sphere, yes
+  - i5: green, sphere, yes
+  - i7: green, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory1 | theory3 | theory0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 13,
+  &quot;theory1&quot;: 11,
+  &quot;theory2&quot;: 19,
+  &quot;theory3&quot;: 16
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory0, colour and blue
+  - theory2 theory size 2
+  - theory0 theory size 4
+  - predicts yes if: theory2, colour and green
+  - theory3 theory size 2
+  - theory1 theory size 4
+  - predicts yes if: theory1, shape and sphere
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory3, colour and blue
+  - predicts yes if: theory1, colour and green
+Costs: exception cost 2.
+The data are:
+  - i0: blue, cone, no
+  - i2: green, cube, yes
+  - i1: red, cone, no
+  - i6: green, sphere, yes
+  - i5: red, cone, yes
+  - i3: blue, cone, no
+  - i7: blue, cone, no
+  - i4: green, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory0 | theory2 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 14,
+  &quot;theory1&quot;: 8,
+  &quot;theory2&quot;: 6,
+  &quot;theory3&quot;: 14
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory2, shape and sphere
+  - predicts yes if: theory3, colour and green
+  - predicts yes if: theory2, colour and blue
+  - theory0 theory size 4
+  - theory1 theory size 4
+  - predicts yes if: theory1, colour and red
+  - theory2 theory size 4
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory0, colour and red
+  - predicts yes if: theory1, shape and cube
+  - theory3 theory size 2
+Costs: exception cost 2.
+The data are:
+  - i7: green, cone, no
+  - i4: blue, cone, no
+  - i5: blue, cone, yes
+  - i3: green, sphere, yes
+  - i0: red, cone, yes
+  - i2: red, cube, yes
+  - i1: green, cube, no
+  - i6: green, cone, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory2 | theory0 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 10,
+  &quot;theory1&quot;: 12,
+  &quot;theory2&quot;: 12,
+  &quot;theory3&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, shape and cone
+  - predicts yes if: theory2, shape and cube
+  - predicts yes if: theory1, colour and green
+  - predicts yes if: theory0, colour and red
+  - predicts yes if: theory3, colour and green
+  - theory3 theory size 2
+  - theory0 theory size 4
+  - theory2 theory size 2
+  - theory1 theory size 4
+  - predicts yes if: theory0, shape and cone
+Costs: exception cost 3.
+The data are:
+  - i2: blue, sphere, yes
+  - i7: green, cube, no
+  - i3: blue, cube, yes
+  - i5: blue, cube, yes
+  - i1: green, cone, yes
+  - i0: blue, cube, yes
+  - i4: red, cube, yes
+  - i6: blue, sphere, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory1 | theory3 | theory0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 19,
+  &quot;theory1&quot;: 25,
+  &quot;theory2&quot;: 14,
+  &quot;theory3&quot;: 23
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory3, colour and blue
+  - predicts yes if: theory1, colour and green
+  - predicts yes if: theory0, colour and green
+  - theory1 theory size 2
+  - theory2 theory size 4
+  - predicts yes if: theory2, shape and cube
+  - predicts yes if: theory2, shape and sphere
+  - theory0 theory size 4
+  - theory3 theory size 2
+  - predicts yes if: theory0, shape and sphere
+Costs: exception cost 4.
+The data are:
+  - i2: green, sphere, no
+  - i6: red, cube, yes
+  - i7: red, sphere, yes
+  - i4: blue, cone, yes
+  - i5: blue, cone, yes
+  - i0: green, cube, no
+  - i1: blue, cone, yes
+  - i3: green, cone, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory3 | theory2 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 28,
+  &quot;theory1&quot;: 30,
+  &quot;theory2&quot;: 28,
+  &quot;theory3&quot;: 14
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory0 theory size 2
+  - predicts yes if: theory2, colour and red
+  - theory2 theory size 4
+  - predicts yes if: theory3, colour and blue
+  - theory3 theory size 4
+  - predicts yes if: theory1, shape and sphere
+  - predicts yes if: theory3, colour and blue
+  - predicts yes if: theory2, colour and red
+  - theory1 theory size 2
+  - predicts yes if: theory0, shape and cube
+Costs: exception cost 2.
+The data are:
+  - i5: green, cone, no
+  - i2: blue, sphere, no
+  - i0: red, sphere, yes
+  - i6: blue, cube, no
+  - i1: green, sphere, no
+  - i4: blue, sphere, no
+  - i3: blue, cube, no
+  - i7: green, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory1 | theory3 | theory0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 8,
+  &quot;theory1&quot;: 10,
+  &quot;theory2&quot;: 6,
+  &quot;theory3&quot;: 16
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, shape and sphere
+  - theory3 theory size 2
+  - theory2 theory size 2
+  - theory0 theory size 2
+  - predicts yes if: theory2, shape and cone
+  - theory1 theory size 4
+  - predicts yes if: theory0, shape and cube
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory1, shape and cube
+Costs: exception cost 4.
+The data are:
+  - i5: red, cube, no
+  - i3: blue, sphere, no
+  - i1: blue, cube, yes
+  - i0: red, sphere, yes
+  - i6: blue, cube, no
+  - i4: blue, cone, no
+  - i2: red, sphere, yes
+  - i7: red, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory3 | theory0 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 22,
+  &quot;theory1&quot;: 20,
+  &quot;theory2&quot;: 18,
+  &quot;theory3&quot;: 10
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory0 theory size 2
+  - predicts yes if: theory1, shape and cone
+  - predicts yes if: theory1, colour and green
+  - predicts yes if: theory3, colour and blue
+  - predicts yes if: theory2, colour and blue
+  - theory1 theory size 4
+  - theory3 theory size 4
+  - theory2 theory size 2
+  - predicts yes if: theory3, colour and red
+  - predicts yes if: theory0, shape and sphere
+Costs: exception cost 2.
+The data are:
+  - i2: red, cone, yes
+  - i5: red, cone, yes
+  - i3: blue, cone, no
+  - i0: green, cube, yes
+  - i1: red, cube, no
+  - i7: green, sphere, no
+  - i6: green, cube, yes
+  - i4: green, sphere, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory0 | theory1 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 14,
+  &quot;theory1&quot;: 10,
+  &quot;theory2&quot;: 12,
+  &quot;theory3&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, colour and red
+  - theory3 theory size 2
+  - theory0 theory size 4
+  - predicts yes if: theory2, shape and sphere
+  - predicts yes if: theory3, colour and blue
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory0, colour and green
+  - theory2 theory size 2
+  - theory1 theory size 2
+Costs: exception cost 4.
+The data are:
+  - i2: red, cube, yes
+  - i1: green, cone, no
+  - i5: blue, cone, no
+  - i4: blue, sphere, no
+  - i7: green, cube, no
+  - i0: red, sphere, no
+  - i3: green, sphere, no
+  - i6: blue, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory0 | theory1 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 24,
+  &quot;theory1&quot;: 6,
+  &quot;theory2&quot;: 18,
+  &quot;theory3&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, colour and red
+  - theory3 theory size 4
+  - predicts yes if: theory2, colour and red
+  - theory0 theory size 4
+  - theory1 theory size 4
+  - theory2 theory size 2
+  - predicts yes if: theory1, colour and blue
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory0, shape and cube
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory0, colour and red
+Costs: exception cost 2.
+The data are:
+  - i2: green, cube, no
+  - i7: green, cone, yes
+  - i1: red, cube, no
+  - i6: blue, cone, yes
+  - i5: green, cube, yes
+  - i0: blue, cube, yes
+  - i4: blue, cone, yes
+  - i3: red, sphere, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory0 | theory1 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 16,
+  &quot;theory1&quot;: 12,
+  &quot;theory2&quot;: 16,
+  &quot;theory3&quot;: 10
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, colour and green
+  - predicts yes if: theory3, colour and red
+  - theory0 theory size 2
+  - predicts yes if: theory0, shape and sphere
+  - theory2 theory size 2
+  - theory3 theory size 2
+  - predicts yes if: theory1, colour and blue
+  - theory1 theory size 4
+  - predicts yes if: theory2, colour and blue
+Costs: exception cost 3.
+The data are:
+  - i1: green, sphere, yes
+  - i5: green, cube, no
+  - i4: red, cone, yes
+  - i2: red, cube, no
+  - i3: blue, cone, no
+  - i7: blue, cone, yes
+  - i6: blue, sphere, no
+  - i0: red, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory3 | theory2 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 14,
+  &quot;theory1&quot;: 19,
+  &quot;theory2&quot;: 17,
+  &quot;theory3&quot;: 11
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory2, colour and red
+  - theory3 theory size 2
+  - predicts yes if: theory3, colour and green
+  - predicts yes if: theory0, shape and cube
+  - theory0 theory size 2
+  - theory2 theory size 4
+  - theory1 theory size 2
+  - predicts yes if: theory1, colour and blue
+  - predicts yes if: theory2, colour and green
+Costs: exception cost 4.
+The data are:
+  - i6: red, cube, no
+  - i0: blue, sphere, yes
+  - i7: blue, cube, no
+  - i5: red, cone, yes
+  - i3: blue, sphere, no
+  - i2: blue, cube, yes
+  - i4: blue, cube, yes
+  - i1: green, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory3 | theory0 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 22,
+  &quot;theory1&quot;: 14,
+  &quot;theory2&quot;: 24,
+  &quot;theory3&quot;: 22
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, colour and green
+  - predicts yes if: theory2, shape and cube
+  - theory2 theory size 4
+  - theory3 theory size 4
+  - predicts yes if: theory1, shape and cube
+  - theory1 theory size 4
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory3, colour and green
+  - predicts yes if: theory0, shape and cube
+  - predicts yes if: theory2, shape and cone
+  - theory0 theory size 2
+Costs: exception cost 3.
+The data are:
+  - i7: red, sphere, yes
+  - i2: blue, cube, no
+  - i6: blue, cone, yes
+  - i4: blue, cube, yes
+  - i1: red, cone, no
+  - i3: blue, cube, yes
+  - i5: red, sphere, yes
+  - i0: blue, sphere, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory2 | theory3 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 17,
+  &quot;theory1&quot;: 19,
+  &quot;theory2&quot;: 19,
+  &quot;theory3&quot;: 22
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, shape and cube
+  - theory2 theory size 4
+  - theory3 theory size 2
+  - predicts yes if: theory2, shape and sphere
+  - predicts yes if: theory3, shape and cone
+  - theory1 theory size 4
+  - theory0 theory size 4
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory0, shape and sphere
+  - predicts yes if: theory1, shape and cube
+  - predicts yes if: theory2, colour and blue
+Costs: exception cost 4.
+The data are:
+  - i2: blue, sphere, yes
+  - i7: green, cube, no
+  - i6: red, sphere, no
+  - i4: red, cone, no
+  - i5: red, cube, no
+  - i1: red, cube, yes
+  - i0: green, cube, no
+  - i3: green, sphere, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory2 | theory0 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 20,
+  &quot;theory1&quot;: 24,
+  &quot;theory2&quot;: 12,
+  &quot;theory3&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory2 theory size 2
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory1, colour and red
+  - predicts yes if: theory0, colour and red
+  - predicts yes if: theory3, shape and cone
+  - theory3 theory size 4
+  - predicts yes if: theory2, shape and cone
+  - theory0 theory size 2
+  - theory1 theory size 2
+Costs: exception cost 2.
+The data are:
+  - i7: red, cone, no
+  - i1: blue, sphere, no
+  - i5: red, cone, yes
+  - i6: red, sphere, yes
+  - i3: red, sphere, no
+  - i0: blue, sphere, yes
+  - i4: green, cube, no
+  - i2: blue, cone, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory1 | theory0 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 10,
+  &quot;theory1&quot;: 10,
+  &quot;theory2&quot;: 8,
+  &quot;theory3&quot;: 10
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory2 theory size 2
+  - predicts yes if: theory3, shape and cube
+  - theory3 theory size 4
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory2, shape and sphere
+  - theory0 theory size 2
+  - predicts yes if: theory0, shape and cube
+  - predicts yes if: theory1, colour and red
+  - theory1 theory size 2
+Costs: exception cost 4.
+The data are:
+  - i2: blue, cone, yes
+  - i5: green, cone, no
+  - i3: green, cube, yes
+  - i6: red, cone, no
+  - i0: blue, cube, yes
+  - i1: green, cone, yes
+  - i4: red, sphere, yes
+  - i7: green, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory1 | theory3 | theory0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 14,
+  &quot;theory1&quot;: 26,
+  &quot;theory2&quot;: 22,
+  &quot;theory3&quot;: 16
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory0 theory size 2
+  - theory1 theory size 2
+  - predicts yes if: theory2, shape and cube
+  - theory2 theory size 4
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory1, colour and blue
+  - predicts yes if: theory2, colour and red
+  - theory3 theory size 4
+Costs: exception cost 4.
+The data are:
+  - i2: red, sphere, yes
+  - i7: red, cone, yes
+  - i5: blue, cone, yes
+  - i6: blue, cube, no
+  - i3: blue, cone, no
+  - i1: blue, cone, yes
+  - i0: blue, sphere, yes
+  - i4: blue, cone, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory2 | theory0 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 26,
+  &quot;theory1&quot;: 18,
+  &quot;theory2&quot;: 24,
+  &quot;theory3&quot;: 16
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, shape and cube
+  - predicts yes if: theory3, colour and red
+  - predicts yes if: theory3, colour and green
+  - theory2 theory size 2
+  - predicts yes if: theory0, colour and green
+  - theory0 theory size 4
+  - predicts yes if: theory2, shape and cone
+  - theory3 theory size 4
+  - theory1 theory size 4
+  - predicts yes if: theory1, shape and cube
+  - predicts yes if: theory0, shape and cone
+Costs: exception cost 2.
+The data are:
+  - i1: blue, cube, yes
+  - i5: blue, cube, no
+  - i7: red, cone, no
+  - i6: blue, cone, no
+  - i2: blue, sphere, yes
+  - i3: blue, cone, no
+  - i0: red, sphere, yes
+  - i4: red, cone, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory2 | theory0 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 16,
+  &quot;theory1&quot;: 12,
+  &quot;theory2&quot;: 14,
+  &quot;theory3&quot;: 10
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory3, colour and green
+  - theory1 theory size 2
+  - predicts yes if: theory1, shape and cube
+  - theory3 theory size 4
+  - theory0 theory size 2
+  - theory2 theory size 2
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory2, colour and blue
+  - predicts yes if: theory3, colour and blue
+Costs: exception cost 3.
+The data are:
+  - i3: green, sphere, no
+  - i5: blue, cube, yes
+  - i2: blue, sphere, yes
+  - i6: green, cube, no
+  - i7: green, cube, no
+  - i4: blue, cone, yes
+  - i1: blue, sphere, yes
+  - i0: red, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory0 | theory1 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 14,
+  &quot;theory1&quot;: 17,
+  &quot;theory2&quot;: 5,
+  &quot;theory3&quot;: 16
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory3 theory size 2
+  - predicts yes if: theory1, colour and green
+  - theory0 theory size 2
+  - theory2 theory size 2
+  - predicts yes if: theory2, shape and sphere
+  - theory1 theory size 4
+  - predicts yes if: theory1, colour and green
+  - predicts yes if: theory3, colour and red
+  - predicts yes if: theory0, colour and green
+Costs: exception cost 3.
+The data are:
+  - i4: red, sphere, no
+  - i7: blue, sphere, yes
+  - i1: green, cone, yes
+  - i3: green, cone, no
+  - i5: blue, sphere, yes
+  - i0: green, sphere, no
+  - i6: green, cone, no
+  - i2: green, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory2 | theory0 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 20,
+  &quot;theory1&quot;: 22,
+  &quot;theory2&quot;: 11,
+  &quot;theory3&quot;: 14
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory3, shape and sphere
+  - theory2 theory size 2
+  - predicts yes if: theory0, colour and blue
+  - theory3 theory size 4
+  - predicts yes if: theory1, colour and red
+  - predicts yes if: theory2, colour and green
+  - predicts yes if: theory3, shape and cone
+  - theory0 theory size 2
+  - theory1 theory size 2
+Costs: exception cost 3.
+The data are:
+  - i7: red, cube, yes
+  - i2: green, cone, yes
+  - i6: red, sphere, yes
+  - i3: red, sphere, no
+  - i1: green, cone, yes
+  - i0: red, sphere, no
+  - i5: blue, sphere, yes
+  - i4: blue, sphere, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory2 | theory1 | theory0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 14,
+  &quot;theory1&quot;: 20,
+  &quot;theory2&quot;: 14,
+  &quot;theory3&quot;: 13
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory2, shape and cube
+  - predicts yes if: theory2, shape and cube
+  - theory0 theory size 4
+  - theory1 theory size 2
+  - predicts yes if: theory3, shape and cube
+  - predicts yes if: theory1, colour and red
+  - predicts yes if: theory3, colour and blue
+  - theory3 theory size 4
+  - predicts yes if: theory0, shape and sphere
+  - theory2 theory size 4
+Costs: exception cost 3.
+The data are:
+  - i0: green, cone, no
+  - i3: blue, cone, yes
+  - i7: red, cube, yes
+  - i5: blue, cone, yes
+  - i6: red, cone, no
+  - i1: blue, sphere, yes
+  - i4: red, cone, yes
+  - i2: red, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory0 | theory1 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 22,
+  &quot;theory1&quot;: 14,
+  &quot;theory2&quot;: 16,
+  &quot;theory3&quot;: 7
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, shape and cube
+  - theory3 theory size 2
+  - predicts yes if: theory3, colour and blue
+  - theory1 theory size 4
+  - theory0 theory size 2
+  - predicts yes if: theory1, colour and red
+  - predicts yes if: theory2, colour and blue
+  - predicts yes if: theory2, shape and cone
+  - theory2 theory size 4
+  - predicts yes if: theory0, colour and red
+Costs: exception cost 3.
+The data are:
+  - i2: blue, cube, no
+  - i3: red, sphere, yes
+  - i4: red, cube, yes
+  - i5: green, cube, no
+  - i1: green, cube, no
+  - i6: green, cube, yes
+  - i7: green, cube, no
+  - i0: blue, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory3 | theory2 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 5,
+  &quot;theory1&quot;: 16,
+  &quot;theory2&quot;: 19,
+  &quot;theory3&quot;: 17
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory2, shape and sphere
+  - theory3 theory size 4
+  - predicts yes if: theory3, shape and sphere
+  - theory1 theory size 4
+  - theory2 theory size 2
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory1, colour and blue
+  - predicts yes if: theory1, shape and cone
+  - theory0 theory size 2
+  - predicts yes if: theory3, colour and blue
+Costs: exception cost 3.
+The data are:
+  - i2: blue, cone, yes
+  - i4: blue, sphere, no
+  - i7: red, cone, yes
+  - i0: red, cone, no
+  - i6: green, cone, yes
+  - i3: green, cone, yes
+  - i1: green, cube, yes
+  - i5: green, cone, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory2 | theory3 | theory0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 8,
+  &quot;theory1&quot;: 13,
+  &quot;theory2&quot;: 23,
+  &quot;theory3&quot;: 22
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory0 theory size 4
+  - predicts yes if: theory0, colour and blue
+  - theory3 theory size 4
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory3, shape and cube
+  - predicts yes if: theory3, colour and red
+  - theory2 theory size 2
+  - theory1 theory size 2
+  - predicts yes if: theory1, colour and green
+  - predicts yes if: theory2, shape and sphere
+Costs: exception cost 2.
+The data are:
+  - i3: blue, sphere, yes
+  - i2: green, cube, no
+  - i4: green, cube, yes
+  - i7: red, sphere, yes
+  - i6: green, cone, no
+  - i5: blue, sphere, yes
+  - i0: blue, cube, yes
+  - i1: green, sphere, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory1 | theory0 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 10,
+  &quot;theory1&quot;: 14,
+  &quot;theory2&quot;: 6,
+  &quot;theory3&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, shape and sphere
+  - predicts yes if: theory0, shape and cube
+  - predicts yes if: theory2, colour and green
+  - theory1 theory size 2
+  - theory3 theory size 2
+  - theory0 theory size 2
+  - predicts yes if: theory2, colour and green
+  - predicts yes if: theory3, colour and green
+  - theory2 theory size 4
+Costs: exception cost 3.
+The data are:
+  - i1: red, sphere, no
+  - i2: red, sphere, yes
+  - i0: green, cone, yes
+  - i7: blue, cube, no
+  - i3: red, cube, no
+  - i4: blue, cube, yes
+  - i5: blue, sphere, no
+  - i6: green, sphere, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory3 | theory2 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 17,
+  &quot;theory1&quot;: 14,
+  &quot;theory2&quot;: 10,
+  &quot;theory3&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory3, colour and red
+  - theory3 theory size 4
+  - theory0 theory size 2
+  - predicts yes if: theory1, colour and blue
+  - predicts yes if: theory3, shape and cone
+  - theory1 theory size 4
+  - predicts yes if: theory2, colour and red
+  - theory2 theory size 2
+  - predicts yes if: theory0, colour and blue
+  - predicts yes if: theory1, colour and blue
+Costs: exception cost 2.
+The data are:
+  - i5: green, cone, yes
+  - i4: green, sphere, no
+  - i1: blue, sphere, yes
+  - i2: red, cone, yes
+  - i6: green, sphere, no
+  - i3: green, cone, yes
+  - i7: red, cone, yes
+  - i0: blue, cone, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory1 | theory0 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 10,
+  &quot;theory1&quot;: 12,
+  &quot;theory2&quot;: 10,
+  &quot;theory3&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory2, colour and green
+  - theory2 theory size 2
+  - predicts yes if: theory1, colour and green
+  - predicts yes if: theory0, colour and green
+  - theory3 theory size 2
+  - theory0 theory size 2
+  - theory1 theory size 4
+  - predicts yes if: theory3, colour and green
+  - predicts yes if: theory1, shape and sphere
+Costs: exception cost 4.
+The data are:
+  - i3: green, sphere, no
+  - i4: blue, cone, yes
+  - i2: red, cone, yes
+  - i6: red, cone, no
+  - i1: blue, sphere, yes
+  - i5: blue, cube, yes
+  - i0: red, cube, yes
+  - i7: green, sphere, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory2 | theory1 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 30,
+  &quot;theory1&quot;: 28,
+  &quot;theory2&quot;: 30,
+  &quot;theory3&quot;: 30
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, shape and cone
+  - theory0 theory size 2
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory2, colour and red
+  - theory3 theory size 4
+  - theory1 theory size 4
+  - predicts yes if: theory3, colour and red
+  - predicts yes if: theory3, colour and red
+  - predicts yes if: theory1, colour and red
+  - theory2 theory size 4
+  - predicts yes if: theory2, colour and green
+Costs: exception cost 3.
+The data are:
+  - i3: blue, sphere, yes
+  - i2: red, cube, no
+  - i1: red, cube, yes
+  - i5: red, cube, yes
+  - i4: green, cone, no
+  - i0: blue, sphere, yes
+  - i6: green, cone, no
+  - i7: green, cone, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory1 | theory0 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 20,
+  &quot;theory1&quot;: 19,
+  &quot;theory2&quot;: 19,
+  &quot;theory3&quot;: 16
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory1, colour and red
+  - theory2 theory size 4
+  - predicts yes if: theory0, colour and red
+  - theory0 theory size 4
+  - predicts yes if: theory1, colour and red
+  - theory3 theory size 2
+  - predicts yes if: theory2, colour and blue
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory2, shape and cube
+  - theory1 theory size 4
+Costs: exception cost 4.
+The data are:
+  - i5: green, cube, yes
+  - i2: green, cone, yes
+  - i3: blue, cone, yes
+  - i4: red, cone, no
+  - i7: green, sphere, yes
+  - i0: red, cone, yes
+  - i1: green, cone, no
+  - i6: red, sphere, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory2 | theory3 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 20,
+  &quot;theory1&quot;: 28,
+  &quot;theory2&quot;: 16,
+  &quot;theory3&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory2, shape and sphere
+  - predicts yes if: theory1, colour and red
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory0, colour and green
+  - theory2 theory size 4
+  - theory0 theory size 4
+  - theory1 theory size 2
+  - predicts yes if: theory2, colour and green
+  - predicts yes if: theory3, colour and red
+  - theory3 theory size 4
+  - predicts yes if: theory3, shape and cube
+Costs: exception cost 3.
+The data are:
+  - i1: blue, cone, yes
+  - i3: red, cone, yes
+  - i5: red, cube, yes
+  - i7: red, cube, yes
+  - i4: green, sphere, no
+  - i6: blue, cube, no
+  - i0: red, sphere, no
+  - i2: red, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory3 | theory0 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 16,
+  &quot;theory1&quot;: 8,
+  &quot;theory2&quot;: 25,
+  &quot;theory3&quot;: 13
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, colour and blue
+  - theory2 theory size 2
+  - predicts yes if: theory3, colour and blue
+  - theory1 theory size 2
+  - predicts yes if: theory2, colour and red
+  - predicts yes if: theory3, shape and sphere
+  - theory0 theory size 4
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory0, colour and blue
+  - theory3 theory size 4
+Costs: exception cost 4.
+The data are:
+  - i1: green, cone, yes
+  - i0: blue, sphere, yes
+  - i6: blue, cube, yes
+  - i2: blue, sphere, no
+  - i4: blue, sphere, yes
+  - i7: green, cube, yes
+  - i5: red, cone, yes
+  - i3: blue, cone, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory2 | theory1 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 12,
+  &quot;theory1&quot;: 18,
+  &quot;theory2&quot;: 26,
+  &quot;theory3&quot;: 20
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory1, shape and cone
+  - theory0 theory size 4
+  - predicts yes if: theory0, colour and red
+  - predicts yes if: theory2, shape and cube
+  - theory3 theory size 4
+  - predicts yes if: theory1, shape and sphere
+  - theory1 theory size 4
+  - predicts yes if: theory2, colour and green
+  - predicts yes if: theory3, colour and green
+  - predicts yes if: theory3, colour and blue
+  - theory2 theory size 4
+Costs: exception cost 2.
+The data are:
+  - i7: blue, sphere, no
+  - i2: green, sphere, no
+  - i0: green, sphere, no
+  - i3: blue, cube, no
+  - i5: blue, cone, no
+  - i1: blue, cone, yes
+  - i6: green, cube, no
+  - i4: red, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory0 | theory3 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 6,
+  &quot;theory1&quot;: 14,
+  &quot;theory2&quot;: 14,
+  &quot;theory3&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory3, shape and cube
+  - predicts yes if: theory2, colour and green
+  - theory2 theory size 4
+  - theory3 theory size 2
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory2, shape and cone
+  - theory1 theory size 2
+  - theory0 theory size 2
+  - predicts yes if: theory1, colour and green
+Costs: exception cost 3.
+The data are:
+  - i5: red, sphere, no
+  - i7: blue, cube, yes
+  - i0: green, cone, yes
+  - i1: green, cone, no
+  - i2: blue, sphere, no
+  - i3: red, cone, no
+  - i4: green, cube, yes
+  - i6: blue, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory3 | theory2 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 17,
+  &quot;theory1&quot;: 8,
+  &quot;theory2&quot;: 16,
+  &quot;theory3&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory2, shape and sphere
+  - theory0 theory size 4
+  - theory3 theory size 2
+  - predicts yes if: theory2, shape and sphere
+  - theory2 theory size 4
+  - predicts yes if: theory0, colour and green
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory1, colour and blue
+  - theory1 theory size 2
+  - predicts yes if: theory3, colour and green
+Costs: exception cost 2.
+The data are:
+  - i6: red, cube, no
+  - i4: red, cube, no
+  - i5: red, sphere, no
+  - i1: red, cube, no
+  - i3: red, cone, no
+  - i7: blue, cube, no
+  - i0: blue, sphere, yes
+  - i2: blue, cube, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory1 | theory0 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 10,
+  &quot;theory1&quot;: 4,
+  &quot;theory2&quot;: 8,
+  &quot;theory3&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory0, colour and blue
+  - theory0 theory size 4
+  - theory2 theory size 4
+  - predicts yes if: theory2, colour and red
+  - predicts yes if: theory2, colour and red
+  - predicts yes if: theory0, colour and blue
+  - predicts yes if: theory1, colour and red
+  - predicts yes if: theory3, shape and cone
+  - theory3 theory size 2
+  - theory1 theory size 2
+Costs: exception cost 3.
+The data are:
+  - i5: blue, cone, no
+  - i6: green, sphere, no
+  - i2: red, cone, yes
+  - i7: green, cube, yes
+  - i0: green, sphere, no
+  - i4: red, sphere, no
+  - i3: green, sphere, yes
+  - i1: red, sphere, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory2 | theory0 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 16,
+  &quot;theory1&quot;: 14,
+  &quot;theory2&quot;: 16,
+  &quot;theory3&quot;: 11
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory2 theory size 2
+  - theory3 theory size 4
+  - predicts yes if: theory0, colour and blue
+  - theory0 theory size 2
+  - predicts yes if: theory3, colour and green
+  - theory1 theory size 2
+  - predicts yes if: theory1, shape and cone
+  - predicts yes if: theory2, shape and cube
+  - predicts yes if: theory3, shape and cone
+Costs: exception cost 4.
+The data are:
+  - i4: blue, cone, yes
+  - i5: red, cone, no
+  - i7: green, cube, yes
+  - i1: green, cube, no
+  - i2: blue, cube, no
+  - i3: red, sphere, no
+  - i6: blue, cone, yes
+  - i0: red, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory1 | theory3 | theory0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 10,
+  &quot;theory1&quot;: 14,
+  &quot;theory2&quot;: 18,
+  &quot;theory3&quot;: 16
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory0, colour and blue
+  - predicts yes if: theory2, shape and sphere
+  - theory3 theory size 4
+  - predicts yes if: theory1, shape and cube
+  - predicts yes if: theory1, shape and sphere
+  - theory0 theory size 4
+  - theory1 theory size 4
+  - predicts yes if: theory3, colour and red
+  - predicts yes if: theory3, shape and sphere
+  - theory2 theory size 2
+  - predicts yes if: theory0, shape and cube
+Costs: exception cost 3.
+The data are:
+  - i0: red, cone, no
+  - i2: red, cube, yes
+  - i1: blue, cone, yes
+  - i4: green, cone, yes
+  - i3: green, cone, no
+  - i7: green, cube, no
+  - i6: blue, cube, no
+  - i5: blue, cone, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory0 | theory1 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 13,
+  &quot;theory1&quot;: 19,
+  &quot;theory2&quot;: 14,
+  &quot;theory3&quot;: 16
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, colour and green
+  - predicts yes if: theory3, shape and cube
+  - predicts yes if: theory2, shape and cube
+  - predicts yes if: theory2, shape and cube
+  - theory0 theory size 4
+  - theory2 theory size 4
+  - theory1 theory size 4
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory1, shape and cube
+  - predicts yes if: theory0, shape and sphere
+  - theory3 theory size 2
+Costs: exception cost 4.
+The data are:
+  - i1: red, cone, yes
+  - i6: red, sphere, yes
+  - i2: red, sphere, yes
+  - i5: blue, cone, no
+  - i0: red, cone, yes
+  - i7: red, sphere, no
+  - i3: blue, cone, no
+  - i4: green, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory1 | theory2 | theory0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 20,
+  &quot;theory1&quot;: 24,
+  &quot;theory2&quot;: 20,
+  &quot;theory3&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory0, colour and red
+  - theory0 theory size 2
+  - theory3 theory size 4
+  - predicts yes if: theory1, colour and green
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory3, colour and blue
+  - predicts yes if: theory2, colour and blue
+  - theory2 theory size 2
+  - theory1 theory size 2
+Costs: exception cost 2.
+The data are:
+  - i2: green, cube, yes
+  - i5: green, sphere, yes
+  - i4: red, sphere, yes
+  - i6: red, cube, yes
+  - i0: blue, cube, yes
+  - i3: green, cone, no
+  - i1: blue, cube, yes
+  - i7: red, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory2 | theory3 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 12,
+  &quot;theory1&quot;: 12,
+  &quot;theory2&quot;: 10,
+  &quot;theory3&quot;: 16
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory3 theory size 2
+  - predicts yes if: theory1, colour and blue
+  - theory2 theory size 2
+  - predicts yes if: theory3, colour and blue
+  - theory1 theory size 4
+  - predicts yes if: theory2, colour and red
+  - predicts yes if: theory1, shape and cone
+  - theory0 theory size 4
+  - predicts yes if: theory0, colour and red
+  - predicts yes if: theory0, colour and red
+Costs: exception cost 4.
+The data are:
+  - i0: red, cone, no
+  - i3: red, cube, yes
+  - i4: blue, sphere, no
+  - i1: green, sphere, yes
+  - i7: blue, cube, yes
+  - i6: green, cone, yes
+  - i5: red, sphere, no
+  - i2: red, sphere, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory2 | theory0 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 28,
+  &quot;theory1&quot;: 20,
+  &quot;theory2&quot;: 26,
+  &quot;theory3&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory0 theory size 2
+  - theory1 theory size 2
+  - predicts yes if: theory3, shape and cone
+  - theory2 theory size 4
+  - predicts yes if: theory2, shape and sphere
+  - predicts yes if: theory3, shape and sphere
+  - theory3 theory size 4
+  - predicts yes if: theory2, colour and green
+  - predicts yes if: theory1, colour and green
+  - predicts yes if: theory0, shape and cube
+Costs: exception cost 2.
+The data are:
+  - i0: red, cone, no
+  - i7: blue, cube, no
+  - i5: blue, cone, no
+  - i6: blue, cone, yes
+  - i1: red, cube, yes
+  - i2: green, sphere, no
+  - i4: red, sphere, no
+  - i3: green, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory0 | theory3 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 6,
+  &quot;theory1&quot;: 10,
+  &quot;theory2&quot;: 14,
+  &quot;theory3&quot;: 16
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory3 theory size 4
+  - theory2 theory size 4
+  - predicts yes if: theory2, colour and green
+  - predicts yes if: theory1, shape and sphere
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory0, colour and blue
+  - theory0 theory size 4
+  - predicts yes if: theory0, colour and blue
+  - predicts yes if: theory2, colour and blue
+  - theory1 theory size 2
+  - predicts yes if: theory3, shape and sphere
+Costs: exception cost 4.
+The data are:
+  - i0: red, cone, no
+  - i7: red, cone, no
+  - i6: blue, cube, no
+  - i2: green, cube, yes
+  - i5: blue, sphere, yes
+  - i3: blue, sphere, no
+  - i4: green, sphere, yes
+  - i1: red, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory0 | theory2 | theory3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 20,
+  &quot;theory1&quot;: 10,
+  &quot;theory2&quot;: 12,
+  &quot;theory3&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory2 theory size 2
+  - predicts yes if: theory3, colour and green
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory0, shape and sphere
+  - theory1 theory size 4
+  - theory3 theory size 4
+  - theory0 theory size 2
+  - predicts yes if: theory1, colour and blue
+  - predicts yes if: theory1, colour and green
+  - predicts yes if: theory2, colour and blue
+Costs: exception cost 2.
+The data are:
+  - i2: green, cone, no
+  - i5: green, sphere, yes
+  - i0: blue, cone, no
+  - i7: green, cone, no
+  - i1: green, cone, yes
+  - i4: red, cone, no
+  - i6: red, cube, no
+  - i3: blue, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory1 | theory0 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 4,
+  &quot;theory1&quot;: 12,
+  &quot;theory2&quot;: 10,
+  &quot;theory3&quot;: 14
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory2, shape and cone
+  - theory1 theory size 4
+  - predicts yes if: theory2, shape and cube
+  - theory0 theory size 2
+  - predicts yes if: theory0, colour and green
+  - theory3 theory size 2
+  - predicts yes if: theory1, shape and cube
+  - theory2 theory size 4
+  - predicts yes if: theory1, colour and blue
+Costs: exception cost 4.
+The data are:
+  - i6: green, cone, yes
+  - i3: green, cube, yes
+  - i7: red, cone, yes
+  - i5: red, cube, no
+  - i4: red, sphere, yes
+  - i0: green, sphere, no
+  - i2: red, sphere, yes
+  - i1: green, cone, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory1 | theory0 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 18,
+  &quot;theory1&quot;: 28,
+  &quot;theory2&quot;: 16,
+  &quot;theory3&quot;: 14
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">theory1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory1, colour and green
+  - theory0 theory size 4
+  - theory3 theory size 2
+  - predicts yes if: theory0, shape and cone
+  - predicts yes if: theory2, shape and cube
+  - predicts yes if: theory0, colour and blue
+  - theory2 theory size 2
+  - theory1 theory size 4
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory1, colour and blue
+Costs: exception cost 4.
+The data are:
+  - i7: green, cube, yes
+  - i4: blue, sphere, yes
+  - i3: red, cone, no
+  - i0: green, cube, yes
+  - i6: green, sphere, no
+  - i2: blue, sphere, yes
+  - i1: red, sphere, no
+  - i5: blue, sphere, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory3 | theory0 | theory1 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 16,
+  &quot;theory1&quot;: 8,
+  &quot;theory2&quot;: 14,
+  &quot;theory3&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory0 theory size 4
+  - theory3 theory size 2
+  - predicts yes if: theory2, shape and sphere
+  - predicts yes if: theory1, colour and red
+  - predicts yes if: theory2, colour and green
+  - predicts yes if: theory0, colour and blue
+  - predicts yes if: theory3, colour and green
+  - predicts yes if: theory0, colour and red
+  - theory2 theory size 4
+  - theory1 theory size 2
+Costs: exception cost 3.
+The data are:
+  - i4: red, cube, no
+  - i7: blue, cone, no
+  - i0: blue, cone, no
+  - i3: green, cube, no
+  - i1: blue, cube, yes
+  - i2: red, cube, no
+  - i6: red, cone, no
+  - i5: green, sphere, yes
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory2 | theory3 | theory0 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 3,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 22,
+  &quot;theory1&quot;: 17,
+  &quot;theory2&quot;: 10,
+  &quot;theory3&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory0, colour and green
+  - theory0 theory size 2
+  - predicts yes if: theory1, colour and red
+  - theory1 theory size 4
+  - predicts yes if: theory3, colour and blue
+  - predicts yes if: theory1, shape and sphere
+  - predicts yes if: theory3, colour and green
+  - theory3 theory size 4
+  - predicts yes if: theory2, colour and blue
+  - theory2 theory size 2
+Costs: exception cost 2.
+The data are:
+  - i1: red, cube, yes
+  - i7: green, cube, yes
+  - i4: red, cone, no
+  - i3: red, sphere, yes
+  - i2: green, cone, yes
+  - i0: blue, cone, yes
+  - i5: green, cube, no
+  - i6: green, sphere, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory1 | theory3 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 12,
+  &quot;theory1&quot;: 14,
+  &quot;theory2&quot;: 10,
+  &quot;theory3&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">theory3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory3, shape and cone
+  - predicts yes if: theory2, colour and blue
+  - theory0 theory size 2
+  - theory2 theory size 2
+  - predicts yes if: theory0, shape and sphere
+  - theory3 theory size 2
+  - predicts yes if: theory1, colour and blue
+  - theory1 theory size 2
+Costs: exception cost 2.
+The data are:
+  - i4: green, cone, yes
+  - i2: red, cone, yes
+  - i7: blue, cube, no
+  - i3: green, cone, yes
+  - i5: green, cube, no
+  - i6: green, cube, no
+  - i1: blue, sphere, no
+  - i0: red, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory1 | theory3 | theory0 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 2,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 10,
+  &quot;theory1&quot;: 12,
+  &quot;theory2&quot;: 12,
+  &quot;theory3&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">theory0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - predicts yes if: theory0, shape and sphere
+  - theory0 theory size 2
+  - theory3 theory size 4
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory2, shape and cone
+  - predicts yes if: theory1, shape and cone
+  - theory2 theory size 2
+  - theory1 theory size 2
+Costs: exception cost 4.
+The data are:
+  - i1: green, cone, no
+  - i2: blue, sphere, yes
+  - i5: blue, cone, yes
+  - i7: blue, cone, no
+  - i4: green, cube, yes
+  - i3: blue, cube, no
+  - i0: blue, cone, no
+  - i6: green, cube, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory2 | theory3 | theory1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 10,
+  &quot;theory1&quot;: 22,
+  &quot;theory2&quot;: 22,
+  &quot;theory3&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">theory2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - theory3 theory size 2
+  - theory2 theory size 2
+  - predicts yes if: theory1, colour and blue
+  - theory1 theory size 4
+  - predicts yes if: theory1, colour and blue
+  - predicts yes if: theory2, colour and blue
+  - predicts yes if: theory3, shape and sphere
+  - predicts yes if: theory0, shape and cube
+  - theory0 theory size 2
+Costs: exception cost 4.
+The data are:
+  - i2: red, cube, yes
+  - i5: green, sphere, no
+  - i0: blue, sphere, yes
+  - i3: red, cube, no
+  - i6: green, cone, no
+  - i1: red, cone, no
+  - i4: red, sphere, no
+  - i7: green, cone, no
+The rules are:
+  - rule a_theory_predicts_yes_for_an_item_iff_some_of_its_conditions_matches_that_item
+  - rule an_exception_is_an_item_whose_prediction_differs_from_its_label
+  - rule total_cost_is_theory_size_plus_exception_cost_times_number_of_exceptions
+  - rule choose_the_theory_of_least_total_cost
+What is the mdl optimal theory?
+
+Answer with exactly one of: theory0 | theory3 | theory1 | theory2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;penalty&quot;: 4,
+ &quot;totals&quot;: {
+  &quot;theory0&quot;: 10,
+  &quot;theory1&quot;: 8,
+  &quot;theory2&quot;: 6,
+  &quot;theory3&quot;: 14
+ }
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

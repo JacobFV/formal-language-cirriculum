@@ -1,0 +1,2054 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>palindrome — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#supplementary">supplementary syntax and semantics</a> &rsaquo;
+  palindrome</p>
+<h1>supplementary <code>palindrome</code></h1>
+<p class="lede">mirror symmetry over a whole string</p>
+<div class="tags"><span class="tag ">level 15</span><span class="tag ">section supplementary</span></div>
+<div class="stats">
+<div class="stat"><span class="n">2.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.5</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.565</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Is this symbol string a palindrome? Negatives are one edit away, so the
+    only thing that separates the classes is the mirror relation itself.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>grammar_complexity</td><td class='num'>2</td></tr><tr><td>reasoning_depth</td><td class='num'>2</td></tr><tr><td>recursion_depth</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The symbols are:
+  - d
+  - d
+  - a
+  - c
+  - e
+  - f
+  - a
+  - d
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre><h3>spanish</h3><pre>Los símbolos son:
+  - d
+  - d
+  - a
+  - c
+  - e
+  - f
+  - a
+  - d
+  - d
+¿Es la cadena un palíndromo?
+
+Responde exactamente con una de estas opciones: no | sí
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>符号如下：
+  - d
+  - d
+  - a
+  - c
+  - e
+  - f
+  - a
+  - d
+  - d
+该字符串是回文吗？
+
+请从以下选项中选出恰好一个作答：否 | 是
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The symbols are:
+  - d
+  - d
+  - a
+  - c
+  - e
+  - f
+  - a
+  - d
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre><h3>symbols</h3><pre>{query: palindrome, symbols: [d d a c e f a d d]}
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/palindrome.jsonl</code> &middot; <code>data/samples/spanish/palindrome.jsonl</code> &middot; <code>data/samples/chinese/palindrome.jsonl</code> &middot; <code>data/samples/english_synonym/palindrome.jsonl</code> &middot; <code>data/samples/symbols/palindrome.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - d
+  - d
+  - a
+  - c
+  - e
+  - f
+  - a
+  - d
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 9,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;ddacefadd&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: e, a, an and d.
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;eaad&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - a
+  - a
+  - a
+  - c
+  - b
+  - c
+  - a
+  - a
+  - a
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 9,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;aaacbcaaa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: e, e, e and f.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;eeef&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: c, a, an and c.
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;caac&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - c
+  - f
+  - c
+  - f
+  - c
+  - f
+  - c
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 7,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;cfcfcfc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - e
+  - a
+  - d
+  - c
+  - a
+  - c
+  - d
+  - d
+  - e
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 9,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;eadcacdde&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - b
+  - d
+  - f
+  - d
+  - a
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 5,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;bdfda&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: a, d, d and c.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;addc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - e
+  - c
+  - c
+  - c
+  - c
+  - a
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 6,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;ecccca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - a
+  - d
+  - d
+  - e
+  - d
+  - d
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 7,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;addeddd&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - e
+  - d
+  - d
+  - d
+  - d
+  - e
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 6,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;edddde&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - c
+  - f
+  - e
+  - e
+  - f
+  - c
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 6,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;cfeefc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - c
+  - f
+  - f
+  - f
+  - c
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 5,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;cfffc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: e, f and e.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 3,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;efe&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: a, e, e and a.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;aeea&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - d
+  - d
+  - c
+  - a
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 5,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;ddcad&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - d
+  - c
+  - c
+  - c
+  - c
+  - f
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 7,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;dccccfd&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: a, b, f and a.
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;abfa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - a
+  - e
+  - a
+  - e
+  - e
+  - f
+  - e
+  - a
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 8,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;aeaeefea&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - f
+  - b
+  - c
+  - f
+  - f
+  - c
+  - b
+  - f
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 8,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;fbcffcbf&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: d, f, d and d.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;dfdd&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: b, a, an and b.
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;baab&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - c
+  - a
+  - a
+  - e
+  - c
+  - e
+  - a
+  - a
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 9,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;caaeceaad&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - d
+  - e
+  - b
+  - b
+  - b
+  - b
+  - e
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 8,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;debbbbed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - a
+  - b
+  - c
+  - c
+  - b
+  - a
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 6,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;abccba&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - b
+  - f
+  - b
+  - d
+  - d
+  - b
+  - f
+  - b
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 8,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;bfbddbfb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - d
+  - c
+  - c
+  - c
+  - c
+  - c
+  - f
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 8,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;dcccccfd&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: f, b and f.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 3,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;fbf&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - a
+  - c
+  - e
+  - e
+  - c
+  - c
+  - a
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 7,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;aceecca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - c
+  - e
+  - a
+  - e
+  - a
+  - e
+  - c
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 7,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;ceaeaec&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: d, an and d.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 3,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;dad&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: e, b and b.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 3,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;ebb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - b
+  - f
+  - b
+  - c
+  - f
+  - f
+  - b
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 7,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;bfbcffb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - c
+  - e
+  - a
+  - b
+  - a
+  - e
+  - c
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 7,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;ceabaec&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - c
+  - b
+  - f
+  - c
+  - f
+  - b
+  - c
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 7,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;cbfcfbc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - a
+  - a
+  - c
+  - a
+  - a
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 5,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;aacaa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - e
+  - a
+  - e
+  - f
+  - f
+  - e
+  - a
+  - e
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 8,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;eaeffeae&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - d
+  - d
+  - f
+  - a
+  - a
+  - f
+  - d
+  - c
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 8,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;ddfaafdc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: c, e, d and c.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;cedc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - e
+  - e
+  - a
+  - a
+  - e
+  - b
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 6,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;eeaaeb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - c
+  - b
+  - b
+  - b
+  - b
+  - c
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 6,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;cbbbbc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - a
+  - a
+  - a
+  - c
+  - c
+  - f
+  - a
+  - a
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 8,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;aaaccfaa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: c, f and c.
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 3,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;cfc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - e
+  - e
+  - f
+  - f
+  - e
+  - e
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 6,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;eeffee&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - e
+  - d
+  - c
+  - d
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 5,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;edcdd&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: d, an and d.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 3,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;dad&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - a
+  - d
+  - e
+  - d
+  - e
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 5,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;adede&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - c
+  - b
+  - e
+  - f
+  - e
+  - b
+  - c
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 7,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;cbefebc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: c, d and c.
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 3,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;cdc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - c
+  - c
+  - f
+  - f
+  - c
+  - c
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 6,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;ccffcc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: e, f, e and e.
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;efee&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - c
+  - f
+  - e
+  - f
+  - a
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 5,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;cfefa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - b
+  - d
+  - e
+  - f
+  - e
+  - f
+  - b
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 7,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;bdefefb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: d, e, e and e.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;deee&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: b, b and b.
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 3,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;bbb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - e
+  - a
+  - d
+  - f
+  - e
+  - f
+  - d
+  - a
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 9,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;eadfefdad&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: c, e and c.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 3,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;cec&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - b
+  - b
+  - f
+  - f
+  - f
+  - b
+  - b
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 7,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;bbfffbb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: a, f, f and a.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;affa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - c
+  - e
+  - b
+  - d
+  - c
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 5,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;cebdc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - b
+  - e
+  - b
+  - b
+  - e
+  - b
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 6,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;bebbeb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - b
+  - a
+  - b
+  - d
+  - b
+  - d
+  - b
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 7,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;babdbdb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - e
+  - c
+  - c
+  - c
+  - c
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 6,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;eccccd&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - a
+  - f
+  - e
+  - e
+  - f
+  - b
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 6,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;afeefb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - c
+  - c
+  - e
+  - e
+  - c
+  - c
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 6,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;cceecc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: c, d and c.
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 3,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;cdc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: a, d and a.
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 3,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;ada&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - d
+  - f
+  - f
+  - d
+  - e
+  - f
+  - f
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 8,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;dffdeffd&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - a
+  - a
+  - b
+  - a
+  - a
+  - b
+  - a
+  - a
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 8,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;aabaabaa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: d, f and c.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 3,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;dfc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - e
+  - b
+  - a
+  - e
+  - e
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 5,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;ebaee&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: e, f and e.
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 3,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;efe&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - a
+  - e
+  - d
+  - e
+  - a
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 5,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;aedea&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - e
+  - e
+  - a
+  - c
+  - a
+  - c
+  - a
+  - e
+  - e
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 9,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;eeacacaee&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - e
+  - d
+  - d
+  - d
+  - e
+  - e
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 6,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;edddee&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - d
+  - d
+  - b
+  - d
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 5,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;ddbdd&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - c
+  - c
+  - b
+  - b
+  - b
+  - b
+  - b
+  - c
+  - c
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 9,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;ccbbbbbcc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - b
+  - a
+  - c
+  - f
+  - f
+  - f
+  - c
+  - a
+  - b
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 9,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;bacfffcab&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: d, c, c and d.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;dccd&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - d
+  - e
+  - f
+  - e
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 5,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;defed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - d
+  - c
+  - e
+  - e
+  - e
+  - c
+  - a
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 7,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;dceeeca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: d, b, e and d.
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;dbed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - b
+  - a
+  - b
+  - b
+  - a
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 6,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;babbad&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - c
+  - a
+  - d
+  - a
+  - a
+  - d
+  - a
+  - c
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 8,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;cadaadac&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: f, e, e and f.
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;feef&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - a
+  - e
+  - c
+  - f
+  - a
+  - f
+  - c
+  - e
+  - a
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 9,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;aecfafcea&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: f, b, b and f.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;fbbf&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - b
+  - c
+  - b
+  - b
+  - c
+  - b
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 6,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;bcbbcb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: e, f and e.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 3,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;efe&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: f, a, d and f.
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;fadf&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: e, b and e.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 3,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;ebe&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - e
+  - e
+  - e
+  - e
+  - e
+  - e
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 6,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;eeeeee&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - d
+  - e
+  - b
+  - c
+  - a
+  - c
+  - f
+  - e
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 9,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;debcacfed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - e
+  - a
+  - c
+  - c
+  - c
+  - a
+  - b
+Is the string a palindrome?
+
+Answer with exactly one of: yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 7,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;eacccab&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - e
+  - e
+  - f
+  - e
+  - b
+  - e
+  - f
+  - e
+  - e
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 9,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;eefebefee&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - c
+  - f
+  - d
+  - f
+  - c
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 5,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;cfdfc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are: d, c, c and d.
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 4,
+ &quot;palindrome&quot;: true,
+ &quot;string&quot;: &quot;dccd&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - e
+  - a
+  - c
+  - d
+  - e
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 5,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;eacde&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The symbols are:
+  - d
+  - c
+  - e
+  - e
+  - b
+  - d
+Is the string a palindrome?
+
+Answer with exactly one of: no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;length&quot;: 6,
+ &quot;palindrome&quot;: false,
+ &quot;string&quot;: &quot;dceebd&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

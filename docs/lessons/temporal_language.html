@@ -1,0 +1,4786 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>temporal_language — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#ii">compositional semantics and logical language</a> &rsaquo;
+  temporal_language</p>
+<h1>#17 <code>temporal_language</code></h1>
+<p class="lede">before / after / while / until over a trace</p>
+<div class="tags"><span class="tag ">level 17</span><span class="tag ">section ii</span><span class="tag ">temporal_reasoning</span><span class="tag ">sequence_memory</span></div>
+<div class="stats">
+<div class="stat"><span class="n">5.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.2</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.17</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Interval traces with ``before / after / while / until``.</p><p>    The generator enumerates every (relation, anchor) pair whose denotation is a
+    *singleton* under the interval semantics and samples one of those, so the
+    ordering question always has exactly one correct event.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>discourse_horizon</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>3</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The connectives: before, after, while and until.
+The trace is:
+  - harvest runs from 6 to 8
+  - recital runs from 8 to 9
+  - storm runs from 9 to 10
+  - eclipse runs from 7 to 9
+  - blackout runs from 8 to 11
+Which event until blackout?
+
+Answer with exactly one of: harvest | storm | recital | blackout | eclipse
+Reply with the answer only.</pre><h3>spanish</h3><pre>Las conectivas son: before, after, while y until.
+La traza es:
+  - cosecha va de 6 a 8
+  - recital va de 8 a 9
+  - tormenta va de 9 a 10
+  - eclipse va de 7 a 9
+  - apagón va de 8 a 11
+¿Cuál es qué evento para until apagón?
+
+Responde exactamente con una de estas opciones: cosecha | tormenta | recital | apagón | eclipse
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>联结词如下：before、after、while和until。
+执行轨迹如下：
+  - 收获从6持续到8
+  - 独奏会从8持续到9
+  - 风暴从9持续到10
+  - 日食从7持续到9
+  - 停电从8持续到11
+until停电的事件是什么？
+
+请从以下选项中选出恰好一个作答：收获 | 风暴 | 独奏会 | 停电 | 日食
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The connectives: before, after, while and until.
+The trace is:
+  - harvest runs from 6 to 8
+  - recital runs from 8 to 9
+  - storm runs from 9 to 10
+  - eclipse runs from 7 to 9
+  - blackout runs from 8 to 11
+Which event until blackout?
+
+Answer with exactly one of: harvest | storm | recital | blackout | eclipse
+Reply with the answer only.</pre><h3>symbols</h3><pre>{connectives: [before after while until], query: (which_event until blackout), trace: [(event harvest 6 8) (event recital 8 9) (event storm 9 10) (event eclipse 7 9) (event blackout 8 11)]}
+
+Answer with exactly one of: harvest | storm | recital | blackout | eclipse
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/temporal_language.jsonl</code> &middot; <code>data/samples/spanish/temporal_language.jsonl</code> &middot; <code>data/samples/chinese/temporal_language.jsonl</code> &middot; <code>data/samples/english_synonym/temporal_language.jsonl</code> &middot; <code>data/samples/symbols/temporal_language.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">harvest</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - harvest runs from 6 to 8
+  - recital runs from 8 to 9
+  - storm runs from 9 to 10
+  - eclipse runs from 7 to 9
+  - blackout runs from 8 to 11
+Which event until blackout?
+
+Answer with exactly one of: harvest | storm | recital | blackout | eclipse
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;blackout&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;blackout&quot;,
+   8,
+   11
+  ],
+  [
+   &quot;harvest&quot;,
+   6,
+   8
+  ],
+  [
+   &quot;eclipse&quot;,
+   7,
+   9
+  ],
+  [
+   &quot;storm&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;recital&quot;,
+   8,
+   9
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - harvest runs from 7 to 8
+  - recital runs from 7 to 10
+  - rehearsal runs from 6 to 9
+  - auction runs from 7 to 10
+  - storm runs from 3 to 4
+Which event before rehearsal?
+
+Answer with exactly one of: auction | rehearsal | harvest | recital | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;rehearsal&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;recital&quot;,
+   7,
+   10
+  ],
+  [
+   &quot;auction&quot;,
+   7,
+   10
+  ],
+  [
+   &quot;storm&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;harvest&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;rehearsal&quot;,
+   6,
+   9
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">parade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - harvest runs from 4 to 5
+  - recital runs from 9 to 10
+  - storm runs from 10 to 12
+  - blackout runs from 9 to 10
+  - parade runs from 6 to 9
+Which event until recital?
+
+Answer with exactly one of: storm | parade | harvest | recital | blackout
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;recital&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;storm&quot;,
+   10,
+   12
+  ],
+  [
+   &quot;harvest&quot;,
+   4,
+   5
+  ],
+  [
+   &quot;blackout&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;recital&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;parade&quot;,
+   6,
+   9
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">auction</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - blackout runs from 9 to 10
+  - eclipse runs from 9 to 12
+  - auction runs from 10 to 11
+  - parade runs from 7 to 9
+  - recital runs from 8 to 9
+Which event after blackout?
+
+Answer with exactly one of: eclipse | parade | blackout | recital | auction
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;blackout&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;eclipse&quot;,
+   9,
+   12
+  ],
+  [
+   &quot;auction&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;blackout&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;parade&quot;,
+   7,
+   9
+  ],
+  [
+   &quot;recital&quot;,
+   8,
+   9
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">harvest</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - recital runs from 1 to 2
+  - harvest runs from 0 to 1
+  - auction runs from 8 to 10
+  - storm runs from 6 to 8
+  - eclipse runs from 2 to 3
+Which event before recital?
+
+Answer with exactly one of: recital | harvest | eclipse | auction | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;recital&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;eclipse&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;recital&quot;,
+   1,
+   2
+  ],
+  [
+   &quot;storm&quot;,
+   6,
+   8
+  ],
+  [
+   &quot;harvest&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;auction&quot;,
+   8,
+   10
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">rehearsal</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - storm runs from 3 to 6
+  - recital runs from 2 to 3
+  - harvest runs from 5 to 8
+  - rehearsal runs from 10 to 11
+  - auction runs from 7 to 8
+Which event after auction?
+
+Answer with exactly one of: storm | recital | auction | harvest | rehearsal
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;auction&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;auction&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;rehearsal&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;recital&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;harvest&quot;,
+   5,
+   8
+  ],
+  [
+   &quot;storm&quot;,
+   3,
+   6
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - storm runs from 7 to 8
+  - recital runs from 0 to 2
+  - eclipse runs from 5 to 7
+  - parade runs from 2 to 5
+  - auction runs from 6 to 7
+Which event before parade?
+
+Answer with exactly one of: auction | storm | eclipse | recital | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;parade&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;parade&quot;,
+   2,
+   5
+  ],
+  [
+   &quot;eclipse&quot;,
+   5,
+   7
+  ],
+  [
+   &quot;recital&quot;,
+   0,
+   2
+  ],
+  [
+   &quot;storm&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;auction&quot;,
+   6,
+   7
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - parade runs from 5 to 6
+  - eclipse runs from 8 to 9
+  - auction runs from 6 to 9
+  - storm runs from 0 to 1
+  - rehearsal runs from 8 to 9
+Which event before parade?
+
+Answer with exactly one of: storm | auction | eclipse | rehearsal | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;parade&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;rehearsal&quot;,
+   8,
+   9
+  ],
+  [
+   &quot;parade&quot;,
+   5,
+   6
+  ],
+  [
+   &quot;eclipse&quot;,
+   8,
+   9
+  ],
+  [
+   &quot;storm&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;auction&quot;,
+   6,
+   9
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">parade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - harvest runs from 8 to 9
+  - eclipse runs from 0 to 1
+  - auction runs from 7 to 10
+  - recital runs from 2 to 3
+  - parade runs from 6 to 7
+Which event until auction?
+
+Answer with exactly one of: harvest | auction | eclipse | recital | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;auction&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;eclipse&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;recital&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;harvest&quot;,
+   8,
+   9
+  ],
+  [
+   &quot;parade&quot;,
+   6,
+   7
+  ],
+  [
+   &quot;auction&quot;,
+   7,
+   10
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">auction</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - rehearsal runs from 5 to 6
+  - recital runs from 9 to 10
+  - harvest runs from 2 to 3
+  - parade runs from 6 to 7
+  - auction runs from 5 to 8
+Which event while parade?
+
+Answer with exactly one of: rehearsal | parade | recital | auction | harvest
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;parade&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;harvest&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;auction&quot;,
+   5,
+   8
+  ],
+  [
+   &quot;recital&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;rehearsal&quot;,
+   5,
+   6
+  ],
+  [
+   &quot;parade&quot;,
+   6,
+   7
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">auction</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - blackout runs from 10 to 11
+  - eclipse runs from 7 to 9
+  - harvest runs from 5 to 6
+  - auction runs from 0 to 3
+  - storm runs from 3 to 6
+Which event before harvest?
+
+Answer with exactly one of: storm | blackout | eclipse | harvest | auction
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;storm&quot;,
+   3,
+   6
+  ],
+  [
+   &quot;eclipse&quot;,
+   7,
+   9
+  ],
+  [
+   &quot;blackout&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;auction&quot;,
+   0,
+   3
+  ],
+  [
+   &quot;harvest&quot;,
+   5,
+   6
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">auction</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - auction runs from 10 to 11
+  - harvest runs from 8 to 9
+  - blackout runs from 2 to 5
+  - eclipse runs from 1 to 4
+  - rehearsal runs from 4 to 5
+Which event after harvest?
+
+Answer with exactly one of: blackout | eclipse | auction | harvest | rehearsal
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;harvest&quot;,
+   8,
+   9
+  ],
+  [
+   &quot;blackout&quot;,
+   2,
+   5
+  ],
+  [
+   &quot;auction&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;eclipse&quot;,
+   1,
+   4
+  ],
+  [
+   &quot;rehearsal&quot;,
+   4,
+   5
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - harvest runs from 2 to 5
+  - rehearsal runs from 7 to 9
+  - auction runs from 10 to 13
+  - recital runs from 0 to 2
+  - blackout runs from 9 to 10
+Which event until harvest?
+
+Answer with exactly one of: blackout | auction | harvest | rehearsal | recital
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;harvest&quot;,
+   2,
+   5
+  ],
+  [
+   &quot;recital&quot;,
+   0,
+   2
+  ],
+  [
+   &quot;rehearsal&quot;,
+   7,
+   9
+  ],
+  [
+   &quot;auction&quot;,
+   10,
+   13
+  ],
+  [
+   &quot;blackout&quot;,
+   9,
+   10
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">rehearsal</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - rehearsal runs from 2 to 3
+  - parade runs from 8 to 9
+  - recital runs from 3 to 4
+  - auction runs from 10 to 11
+  - harvest runs from 4 to 5
+Which event before recital?
+
+Answer with exactly one of: harvest | parade | recital | rehearsal | auction
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;recital&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;auction&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;recital&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;rehearsal&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;parade&quot;,
+   8,
+   9
+  ],
+  [
+   &quot;harvest&quot;,
+   4,
+   5
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">harvest</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - parade runs from 4 to 6
+  - harvest runs from 10 to 13
+  - blackout runs from 4 to 7
+  - auction runs from 4 to 5
+  - rehearsal runs from 10 to 13
+Which event while rehearsal?
+
+Answer with exactly one of: auction | parade | blackout | harvest | rehearsal
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;rehearsal&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;parade&quot;,
+   4,
+   6
+  ],
+  [
+   &quot;auction&quot;,
+   4,
+   5
+  ],
+  [
+   &quot;rehearsal&quot;,
+   10,
+   13
+  ],
+  [
+   &quot;blackout&quot;,
+   4,
+   7
+  ],
+  [
+   &quot;harvest&quot;,
+   10,
+   13
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - storm runs from 0 to 1
+  - blackout runs from 1 to 3
+  - eclipse runs from 3 to 4
+  - parade runs from 7 to 9
+  - auction runs from 5 to 6
+Which event before blackout?
+
+Answer with exactly one of: blackout | storm | eclipse | parade | auction
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;blackout&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;eclipse&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;storm&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;auction&quot;,
+   5,
+   6
+  ],
+  [
+   &quot;blackout&quot;,
+   1,
+   3
+  ],
+  [
+   &quot;parade&quot;,
+   7,
+   9
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">eclipse</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - harvest runs from 0 to 2
+  - recital runs from 3 to 4
+  - rehearsal runs from 3 to 6
+  - blackout runs from 10 to 12
+  - eclipse runs from 0 to 3
+Which event until recital?
+
+Answer with exactly one of: eclipse | recital | rehearsal | blackout | harvest
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;recital&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;rehearsal&quot;,
+   3,
+   6
+  ],
+  [
+   &quot;eclipse&quot;,
+   0,
+   3
+  ],
+  [
+   &quot;blackout&quot;,
+   10,
+   12
+  ],
+  [
+   &quot;recital&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;harvest&quot;,
+   0,
+   2
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - harvest runs from 1 to 2
+  - recital runs from 3 to 6
+  - rehearsal runs from 6 to 8
+  - blackout runs from 2 to 4
+  - auction runs from 8 to 10
+Which event while blackout?
+
+Answer with exactly one of: recital | blackout | rehearsal | auction | harvest
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;blackout&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;blackout&quot;,
+   2,
+   4
+  ],
+  [
+   &quot;harvest&quot;,
+   1,
+   2
+  ],
+  [
+   &quot;recital&quot;,
+   3,
+   6
+  ],
+  [
+   &quot;rehearsal&quot;,
+   6,
+   8
+  ],
+  [
+   &quot;auction&quot;,
+   8,
+   10
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - storm runs from 7 to 10
+  - harvest runs from 4 to 5
+  - eclipse runs from 4 to 7
+  - rehearsal runs from 2 to 5
+  - recital runs from 3 to 4
+Which event until harvest?
+
+Answer with exactly one of: eclipse | rehearsal | recital | harvest | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;recital&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;storm&quot;,
+   7,
+   10
+  ],
+  [
+   &quot;rehearsal&quot;,
+   2,
+   5
+  ],
+  [
+   &quot;eclipse&quot;,
+   4,
+   7
+  ],
+  [
+   &quot;harvest&quot;,
+   4,
+   5
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - harvest runs from 9 to 11
+  - parade runs from 1 to 3
+  - blackout runs from 8 to 10
+  - storm runs from 6 to 8
+  - auction runs from 9 to 10
+Which event until blackout?
+
+Answer with exactly one of: harvest | auction | parade | blackout | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;blackout&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;storm&quot;,
+   6,
+   8
+  ],
+  [
+   &quot;blackout&quot;,
+   8,
+   10
+  ],
+  [
+   &quot;auction&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;harvest&quot;,
+   9,
+   11
+  ],
+  [
+   &quot;parade&quot;,
+   1,
+   3
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">rehearsal</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - recital runs from 9 to 10
+  - rehearsal runs from 6 to 7
+  - storm runs from 1 to 2
+  - blackout runs from 5 to 8
+  - harvest runs from 0 to 3
+Which event while blackout?
+
+Answer with exactly one of: blackout | harvest | recital | storm | rehearsal
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;blackout&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;recital&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;harvest&quot;,
+   0,
+   3
+  ],
+  [
+   &quot;rehearsal&quot;,
+   6,
+   7
+  ],
+  [
+   &quot;storm&quot;,
+   1,
+   2
+  ],
+  [
+   &quot;blackout&quot;,
+   5,
+   8
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">rehearsal</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - blackout runs from 0 to 1
+  - recital runs from 7 to 8
+  - rehearsal runs from 8 to 9
+  - harvest runs from 5 to 8
+  - eclipse runs from 7 to 8
+Which event after recital?
+
+Answer with exactly one of: recital | eclipse | rehearsal | harvest | blackout
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;recital&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;recital&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;eclipse&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;rehearsal&quot;,
+   8,
+   9
+  ],
+  [
+   &quot;blackout&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;harvest&quot;,
+   5,
+   8
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">auction</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - auction runs from 4 to 5
+  - parade runs from 10 to 12
+  - storm runs from 1 to 2
+  - eclipse runs from 5 to 6
+  - recital runs from 2 to 3
+Which event until eclipse?
+
+Answer with exactly one of: parade | eclipse | recital | auction | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;eclipse&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;recital&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;parade&quot;,
+   10,
+   12
+  ],
+  [
+   &quot;storm&quot;,
+   1,
+   2
+  ],
+  [
+   &quot;auction&quot;,
+   4,
+   5
+  ],
+  [
+   &quot;eclipse&quot;,
+   5,
+   6
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">auction</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - storm runs from 2 to 3
+  - blackout runs from 8 to 10
+  - rehearsal runs from 4 to 7
+  - recital runs from 0 to 1
+  - auction runs from 6 to 9
+Which event while rehearsal?
+
+Answer with exactly one of: recital | blackout | storm | auction | rehearsal
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;rehearsal&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;auction&quot;,
+   6,
+   9
+  ],
+  [
+   &quot;blackout&quot;,
+   8,
+   10
+  ],
+  [
+   &quot;storm&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;rehearsal&quot;,
+   4,
+   7
+  ],
+  [
+   &quot;recital&quot;,
+   0,
+   1
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">rehearsal</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - blackout runs from 2 to 3
+  - harvest runs from 2 to 3
+  - auction runs from 2 to 4
+  - rehearsal runs from 7 to 8
+  - parade runs from 0 to 3
+Which event after harvest?
+
+Answer with exactly one of: rehearsal | harvest | auction | blackout | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;blackout&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;harvest&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;auction&quot;,
+   2,
+   4
+  ],
+  [
+   &quot;parade&quot;,
+   0,
+   3
+  ],
+  [
+   &quot;rehearsal&quot;,
+   7,
+   8
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">blackout</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - blackout runs from 10 to 13
+  - recital runs from 1 to 2
+  - parade runs from 9 to 12
+  - storm runs from 0 to 2
+  - harvest runs from 0 to 2
+Which event while parade?
+
+Answer with exactly one of: harvest | parade | storm | blackout | recital
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;parade&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;blackout&quot;,
+   10,
+   13
+  ],
+  [
+   &quot;harvest&quot;,
+   0,
+   2
+  ],
+  [
+   &quot;storm&quot;,
+   0,
+   2
+  ],
+  [
+   &quot;parade&quot;,
+   9,
+   12
+  ],
+  [
+   &quot;recital&quot;,
+   1,
+   2
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">parade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - eclipse runs from 2 to 5
+  - harvest runs from 3 to 6
+  - parade runs from 10 to 13
+  - storm runs from 3 to 4
+  - rehearsal runs from 0 to 1
+Which event after eclipse?
+
+Answer with exactly one of: rehearsal | storm | eclipse | parade | harvest
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;eclipse&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;eclipse&quot;,
+   2,
+   5
+  ],
+  [
+   &quot;rehearsal&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;parade&quot;,
+   10,
+   13
+  ],
+  [
+   &quot;harvest&quot;,
+   3,
+   6
+  ],
+  [
+   &quot;storm&quot;,
+   3,
+   4
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - blackout runs from 6 to 7
+  - rehearsal runs from 4 to 6
+  - recital runs from 4 to 6
+  - harvest runs from 1 to 2
+  - parade runs from 3 to 4
+Which event while rehearsal?
+
+Answer with exactly one of: parade | rehearsal | recital | harvest | blackout
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;rehearsal&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;harvest&quot;,
+   1,
+   2
+  ],
+  [
+   &quot;rehearsal&quot;,
+   4,
+   6
+  ],
+  [
+   &quot;recital&quot;,
+   4,
+   6
+  ],
+  [
+   &quot;blackout&quot;,
+   6,
+   7
+  ],
+  [
+   &quot;parade&quot;,
+   3,
+   4
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">rehearsal</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - harvest runs from 6 to 7
+  - auction runs from 3 to 4
+  - blackout runs from 6 to 7
+  - parade runs from 3 to 4
+  - rehearsal runs from 10 to 13
+Which event after harvest?
+
+Answer with exactly one of: auction | harvest | rehearsal | blackout | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;parade&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;rehearsal&quot;,
+   10,
+   13
+  ],
+  [
+   &quot;harvest&quot;,
+   6,
+   7
+  ],
+  [
+   &quot;auction&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;blackout&quot;,
+   6,
+   7
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">auction</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - parade runs from 1 to 3
+  - recital runs from 6 to 9
+  - blackout runs from 10 to 11
+  - auction runs from 0 to 1
+  - rehearsal runs from 1 to 4
+Which event until parade?
+
+Answer with exactly one of: blackout | auction | parade | rehearsal | recital
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;parade&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;parade&quot;,
+   1,
+   3
+  ],
+  [
+   &quot;recital&quot;,
+   6,
+   9
+  ],
+  [
+   &quot;auction&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;rehearsal&quot;,
+   1,
+   4
+  ],
+  [
+   &quot;blackout&quot;,
+   10,
+   11
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - auction runs from 4 to 5
+  - parade runs from 0 to 1
+  - storm runs from 10 to 11
+  - blackout runs from 1 to 4
+  - harvest runs from 6 to 9
+Which event after harvest?
+
+Answer with exactly one of: storm | blackout | harvest | auction | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;auction&quot;,
+   4,
+   5
+  ],
+  [
+   &quot;harvest&quot;,
+   6,
+   9
+  ],
+  [
+   &quot;storm&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;blackout&quot;,
+   1,
+   4
+  ],
+  [
+   &quot;parade&quot;,
+   0,
+   1
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - storm runs from 10 to 11
+  - eclipse runs from 2 to 3
+  - harvest runs from 8 to 9
+  - blackout runs from 2 to 3
+  - parade runs from 0 to 1
+Which event after harvest?
+
+Answer with exactly one of: parade | harvest | blackout | storm | eclipse
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;storm&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;eclipse&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;harvest&quot;,
+   8,
+   9
+  ],
+  [
+   &quot;blackout&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;parade&quot;,
+   0,
+   1
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">rehearsal</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - blackout runs from 5 to 7
+  - recital runs from 0 to 3
+  - harvest runs from 0 to 1
+  - parade runs from 7 to 8
+  - rehearsal runs from 5 to 6
+Which event while blackout?
+
+Answer with exactly one of: rehearsal | parade | recital | harvest | blackout
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;blackout&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;parade&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;harvest&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;blackout&quot;,
+   5,
+   7
+  ],
+  [
+   &quot;recital&quot;,
+   0,
+   3
+  ],
+  [
+   &quot;rehearsal&quot;,
+   5,
+   6
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">harvest</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - eclipse runs from 10 to 11
+  - rehearsal runs from 10 to 12
+  - recital runs from 10 to 11
+  - harvest runs from 7 to 9
+  - parade runs from 10 to 13
+Which event before eclipse?
+
+Answer with exactly one of: rehearsal | recital | harvest | eclipse | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;eclipse&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;recital&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;rehearsal&quot;,
+   10,
+   12
+  ],
+  [
+   &quot;parade&quot;,
+   10,
+   13
+  ],
+  [
+   &quot;harvest&quot;,
+   7,
+   9
+  ],
+  [
+   &quot;eclipse&quot;,
+   10,
+   11
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - storm runs from 4 to 6
+  - harvest runs from 1 to 3
+  - parade runs from 1 to 2
+  - rehearsal runs from 6 to 8
+  - auction runs from 1 to 4
+Which event until rehearsal?
+
+Answer with exactly one of: harvest | parade | auction | rehearsal | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;rehearsal&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;rehearsal&quot;,
+   6,
+   8
+  ],
+  [
+   &quot;auction&quot;,
+   1,
+   4
+  ],
+  [
+   &quot;storm&quot;,
+   4,
+   6
+  ],
+  [
+   &quot;parade&quot;,
+   1,
+   2
+  ],
+  [
+   &quot;harvest&quot;,
+   1,
+   3
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">blackout</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - parade runs from 8 to 10
+  - blackout runs from 4 to 5
+  - recital runs from 10 to 12
+  - rehearsal runs from 4 to 7
+  - harvest runs from 9 to 10
+Which event while rehearsal?
+
+Answer with exactly one of: recital | harvest | blackout | rehearsal | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;rehearsal&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;rehearsal&quot;,
+   4,
+   7
+  ],
+  [
+   &quot;blackout&quot;,
+   4,
+   5
+  ],
+  [
+   &quot;parade&quot;,
+   8,
+   10
+  ],
+  [
+   &quot;recital&quot;,
+   10,
+   12
+  ],
+  [
+   &quot;harvest&quot;,
+   9,
+   10
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - rehearsal runs from 0 to 1
+  - blackout runs from 10 to 13
+  - storm runs from 3 to 5
+  - harvest runs from 8 to 9
+  - recital runs from 5 to 7
+Which event until recital?
+
+Answer with exactly one of: harvest | blackout | rehearsal | recital | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;recital&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;rehearsal&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;storm&quot;,
+   3,
+   5
+  ],
+  [
+   &quot;blackout&quot;,
+   10,
+   13
+  ],
+  [
+   &quot;recital&quot;,
+   5,
+   7
+  ],
+  [
+   &quot;harvest&quot;,
+   8,
+   9
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - rehearsal runs from 10 to 13
+  - blackout runs from 9 to 11
+  - auction runs from 7 to 8
+  - storm runs from 6 to 9
+  - parade runs from 10 to 12
+Which event while auction?
+
+Answer with exactly one of: parade | blackout | auction | rehearsal | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;auction&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;parade&quot;,
+   10,
+   12
+  ],
+  [
+   &quot;auction&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;rehearsal&quot;,
+   10,
+   13
+  ],
+  [
+   &quot;blackout&quot;,
+   9,
+   11
+  ],
+  [
+   &quot;storm&quot;,
+   6,
+   9
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">rehearsal</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - eclipse runs from 5 to 6
+  - rehearsal runs from 9 to 10
+  - blackout runs from 5 to 8
+  - auction runs from 5 to 7
+  - storm runs from 9 to 11
+Which event while storm?
+
+Answer with exactly one of: rehearsal | eclipse | blackout | storm | auction
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;storm&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;blackout&quot;,
+   5,
+   8
+  ],
+  [
+   &quot;eclipse&quot;,
+   5,
+   6
+  ],
+  [
+   &quot;rehearsal&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;storm&quot;,
+   9,
+   11
+  ],
+  [
+   &quot;auction&quot;,
+   5,
+   7
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - recital runs from 9 to 10
+  - storm runs from 10 to 12
+  - parade runs from 2 to 3
+  - harvest runs from 10 to 12
+  - eclipse runs from 3 to 6
+Which event until storm?
+
+Answer with exactly one of: parade | eclipse | recital | harvest | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;storm&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;eclipse&quot;,
+   3,
+   6
+  ],
+  [
+   &quot;recital&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;harvest&quot;,
+   10,
+   12
+  ],
+  [
+   &quot;storm&quot;,
+   10,
+   12
+  ],
+  [
+   &quot;parade&quot;,
+   2,
+   3
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">blackout</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - storm runs from 0 to 1
+  - parade runs from 0 to 1
+  - harvest runs from 4 to 5
+  - blackout runs from 4 to 7
+  - auction runs from 2 to 4
+Which event while harvest?
+
+Answer with exactly one of: storm | harvest | parade | auction | blackout
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;harvest&quot;,
+   4,
+   5
+  ],
+  [
+   &quot;auction&quot;,
+   2,
+   4
+  ],
+  [
+   &quot;blackout&quot;,
+   4,
+   7
+  ],
+  [
+   &quot;storm&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;parade&quot;,
+   0,
+   1
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">rehearsal</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - eclipse runs from 7 to 8
+  - blackout runs from 9 to 11
+  - rehearsal runs from 3 to 4
+  - parade runs from 6 to 7
+  - recital runs from 8 to 10
+Which event before parade?
+
+Answer with exactly one of: rehearsal | parade | recital | eclipse | blackout
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;parade&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;blackout&quot;,
+   9,
+   11
+  ],
+  [
+   &quot;recital&quot;,
+   8,
+   10
+  ],
+  [
+   &quot;parade&quot;,
+   6,
+   7
+  ],
+  [
+   &quot;rehearsal&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;eclipse&quot;,
+   7,
+   8
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - parade runs from 3 to 4
+  - recital runs from 0 to 1
+  - rehearsal runs from 9 to 12
+  - storm runs from 1 to 2
+  - harvest runs from 1 to 2
+Which event before storm?
+
+Answer with exactly one of: parade | harvest | rehearsal | recital | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;storm&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;parade&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;storm&quot;,
+   1,
+   2
+  ],
+  [
+   &quot;rehearsal&quot;,
+   9,
+   12
+  ],
+  [
+   &quot;recital&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;harvest&quot;,
+   1,
+   2
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - eclipse runs from 9 to 11
+  - rehearsal runs from 9 to 10
+  - parade runs from 8 to 11
+  - storm runs from 5 to 6
+  - recital runs from 7 to 10
+Which event before eclipse?
+
+Answer with exactly one of: eclipse | rehearsal | storm | recital | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;eclipse&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;storm&quot;,
+   5,
+   6
+  ],
+  [
+   &quot;recital&quot;,
+   7,
+   10
+  ],
+  [
+   &quot;rehearsal&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;parade&quot;,
+   8,
+   11
+  ],
+  [
+   &quot;eclipse&quot;,
+   9,
+   11
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">harvest</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - blackout runs from 6 to 7
+  - auction runs from 4 to 5
+  - harvest runs from 3 to 4
+  - parade runs from 1 to 2
+  - storm runs from 9 to 10
+Which event until auction?
+
+Answer with exactly one of: storm | parade | auction | blackout | harvest
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;auction&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;blackout&quot;,
+   6,
+   7
+  ],
+  [
+   &quot;auction&quot;,
+   4,
+   5
+  ],
+  [
+   &quot;harvest&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;storm&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;parade&quot;,
+   1,
+   2
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">blackout</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - storm runs from 1 to 3
+  - auction runs from 4 to 6
+  - recital runs from 1 to 3
+  - blackout runs from 7 to 8
+  - eclipse runs from 0 to 1
+Which event after auction?
+
+Answer with exactly one of: blackout | storm | auction | recital | eclipse
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;auction&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;auction&quot;,
+   4,
+   6
+  ],
+  [
+   &quot;eclipse&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;blackout&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;recital&quot;,
+   1,
+   3
+  ],
+  [
+   &quot;storm&quot;,
+   1,
+   3
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - eclipse runs from 9 to 10
+  - parade runs from 10 to 11
+  - auction runs from 5 to 6
+  - storm runs from 0 to 1
+  - harvest runs from 0 to 1
+Which event while harvest?
+
+Answer with exactly one of: storm | parade | eclipse | harvest | auction
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;parade&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;eclipse&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;storm&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;auction&quot;,
+   5,
+   6
+  ],
+  [
+   &quot;harvest&quot;,
+   0,
+   1
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">harvest</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - auction runs from 6 to 7
+  - eclipse runs from 6 to 7
+  - storm runs from 4 to 7
+  - rehearsal runs from 9 to 11
+  - harvest runs from 1 to 2
+Which event before eclipse?
+
+Answer with exactly one of: rehearsal | auction | eclipse | harvest | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;eclipse&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;rehearsal&quot;,
+   9,
+   11
+  ],
+  [
+   &quot;storm&quot;,
+   4,
+   7
+  ],
+  [
+   &quot;eclipse&quot;,
+   6,
+   7
+  ],
+  [
+   &quot;auction&quot;,
+   6,
+   7
+  ],
+  [
+   &quot;harvest&quot;,
+   1,
+   2
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">auction</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - auction runs from 2 to 3
+  - harvest runs from 7 to 8
+  - parade runs from 6 to 7
+  - recital runs from 3 to 4
+  - rehearsal runs from 8 to 9
+Which event before recital?
+
+Answer with exactly one of: recital | rehearsal | auction | harvest | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;recital&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;rehearsal&quot;,
+   8,
+   9
+  ],
+  [
+   &quot;parade&quot;,
+   6,
+   7
+  ],
+  [
+   &quot;auction&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;harvest&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;recital&quot;,
+   3,
+   4
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - storm runs from 7 to 8
+  - parade runs from 8 to 9
+  - recital runs from 10 to 11
+  - eclipse runs from 4 to 5
+  - blackout runs from 10 to 11
+Which event while blackout?
+
+Answer with exactly one of: eclipse | storm | parade | blackout | recital
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;blackout&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;parade&quot;,
+   8,
+   9
+  ],
+  [
+   &quot;recital&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;eclipse&quot;,
+   4,
+   5
+  ],
+  [
+   &quot;storm&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;blackout&quot;,
+   10,
+   11
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">rehearsal</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - rehearsal runs from 2 to 4
+  - recital runs from 3 to 4
+  - parade runs from 1 to 3
+  - harvest runs from 7 to 9
+  - blackout runs from 1 to 3
+Which event while recital?
+
+Answer with exactly one of: rehearsal | blackout | recital | parade | harvest
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;recital&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;harvest&quot;,
+   7,
+   9
+  ],
+  [
+   &quot;blackout&quot;,
+   1,
+   3
+  ],
+  [
+   &quot;recital&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;rehearsal&quot;,
+   2,
+   4
+  ],
+  [
+   &quot;parade&quot;,
+   1,
+   3
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">eclipse</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - blackout runs from 8 to 10
+  - auction runs from 6 to 9
+  - parade runs from 9 to 11
+  - eclipse runs from 3 to 4
+  - rehearsal runs from 8 to 10
+Which event before auction?
+
+Answer with exactly one of: rehearsal | blackout | eclipse | auction | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;auction&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;eclipse&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;blackout&quot;,
+   8,
+   10
+  ],
+  [
+   &quot;auction&quot;,
+   6,
+   9
+  ],
+  [
+   &quot;rehearsal&quot;,
+   8,
+   10
+  ],
+  [
+   &quot;parade&quot;,
+   9,
+   11
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - storm runs from 0 to 1
+  - rehearsal runs from 2 to 5
+  - eclipse runs from 7 to 8
+  - auction runs from 5 to 8
+  - harvest runs from 2 to 4
+Which event before harvest?
+
+Answer with exactly one of: rehearsal | auction | harvest | eclipse | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;auction&quot;,
+   5,
+   8
+  ],
+  [
+   &quot;storm&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;rehearsal&quot;,
+   2,
+   5
+  ],
+  [
+   &quot;harvest&quot;,
+   2,
+   4
+  ],
+  [
+   &quot;eclipse&quot;,
+   7,
+   8
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">harvest</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - recital runs from 2 to 3
+  - auction runs from 5 to 6
+  - eclipse runs from 7 to 8
+  - harvest runs from 0 to 1
+  - blackout runs from 4 to 5
+Which event before recital?
+
+Answer with exactly one of: eclipse | recital | blackout | auction | harvest
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;recital&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;eclipse&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;harvest&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;auction&quot;,
+   5,
+   6
+  ],
+  [
+   &quot;blackout&quot;,
+   4,
+   5
+  ],
+  [
+   &quot;recital&quot;,
+   2,
+   3
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">auction</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - recital runs from 7 to 10
+  - eclipse runs from 3 to 6
+  - harvest runs from 3 to 4
+  - auction runs from 5 to 8
+  - blackout runs from 0 to 3
+Which event while recital?
+
+Answer with exactly one of: eclipse | recital | blackout | auction | harvest
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;recital&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;recital&quot;,
+   7,
+   10
+  ],
+  [
+   &quot;eclipse&quot;,
+   3,
+   6
+  ],
+  [
+   &quot;auction&quot;,
+   5,
+   8
+  ],
+  [
+   &quot;harvest&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;blackout&quot;,
+   0,
+   3
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - recital runs from 8 to 11
+  - harvest runs from 1 to 3
+  - blackout runs from 10 to 13
+  - parade runs from 2 to 4
+  - storm runs from 6 to 9
+Which event while storm?
+
+Answer with exactly one of: recital | storm | blackout | harvest | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;storm&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;parade&quot;,
+   2,
+   4
+  ],
+  [
+   &quot;harvest&quot;,
+   1,
+   3
+  ],
+  [
+   &quot;blackout&quot;,
+   10,
+   13
+  ],
+  [
+   &quot;recital&quot;,
+   8,
+   11
+  ],
+  [
+   &quot;storm&quot;,
+   6,
+   9
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">eclipse</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - rehearsal runs from 5 to 6
+  - recital runs from 9 to 10
+  - auction runs from 5 to 7
+  - eclipse runs from 3 to 4
+  - storm runs from 8 to 11
+Which event before rehearsal?
+
+Answer with exactly one of: recital | rehearsal | storm | auction | eclipse
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;rehearsal&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;storm&quot;,
+   8,
+   11
+  ],
+  [
+   &quot;eclipse&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;rehearsal&quot;,
+   5,
+   6
+  ],
+  [
+   &quot;auction&quot;,
+   5,
+   7
+  ],
+  [
+   &quot;recital&quot;,
+   9,
+   10
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">rehearsal</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - harvest runs from 8 to 10
+  - recital runs from 7 to 9
+  - auction runs from 6 to 9
+  - rehearsal runs from 0 to 1
+  - storm runs from 3 to 5
+Which event before storm?
+
+Answer with exactly one of: rehearsal | storm | auction | recital | harvest
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;storm&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;storm&quot;,
+   3,
+   5
+  ],
+  [
+   &quot;recital&quot;,
+   7,
+   9
+  ],
+  [
+   &quot;auction&quot;,
+   6,
+   9
+  ],
+  [
+   &quot;rehearsal&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;harvest&quot;,
+   8,
+   10
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">parade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - rehearsal runs from 4 to 6
+  - storm runs from 4 to 5
+  - eclipse runs from 3 to 6
+  - blackout runs from 7 to 10
+  - parade runs from 6 to 8
+Which event while blackout?
+
+Answer with exactly one of: eclipse | parade | rehearsal | blackout | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;blackout&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;eclipse&quot;,
+   3,
+   6
+  ],
+  [
+   &quot;parade&quot;,
+   6,
+   8
+  ],
+  [
+   &quot;rehearsal&quot;,
+   4,
+   6
+  ],
+  [
+   &quot;blackout&quot;,
+   7,
+   10
+  ],
+  [
+   &quot;storm&quot;,
+   4,
+   5
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - storm runs from 0 to 1
+  - blackout runs from 2 to 4
+  - harvest runs from 7 to 9
+  - rehearsal runs from 7 to 10
+  - eclipse runs from 2 to 4
+Which event before eclipse?
+
+Answer with exactly one of: storm | harvest | eclipse | blackout | rehearsal
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;eclipse&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;eclipse&quot;,
+   2,
+   4
+  ],
+  [
+   &quot;storm&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;rehearsal&quot;,
+   7,
+   10
+  ],
+  [
+   &quot;harvest&quot;,
+   7,
+   9
+  ],
+  [
+   &quot;blackout&quot;,
+   2,
+   4
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">parade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - recital runs from 7 to 9
+  - blackout runs from 2 to 5
+  - harvest runs from 0 to 1
+  - parade runs from 10 to 11
+  - auction runs from 3 to 6
+Which event after recital?
+
+Answer with exactly one of: blackout | auction | parade | harvest | recital
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;recital&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;auction&quot;,
+   3,
+   6
+  ],
+  [
+   &quot;recital&quot;,
+   7,
+   9
+  ],
+  [
+   &quot;harvest&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;parade&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;blackout&quot;,
+   2,
+   5
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - parade runs from 0 to 3
+  - blackout runs from 1 to 4
+  - auction runs from 5 to 7
+  - recital runs from 7 to 9
+  - harvest runs from 4 to 6
+Which event after auction?
+
+Answer with exactly one of: recital | blackout | parade | harvest | auction
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;auction&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;harvest&quot;,
+   4,
+   6
+  ],
+  [
+   &quot;parade&quot;,
+   0,
+   3
+  ],
+  [
+   &quot;auction&quot;,
+   5,
+   7
+  ],
+  [
+   &quot;blackout&quot;,
+   1,
+   4
+  ],
+  [
+   &quot;recital&quot;,
+   7,
+   9
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - parade runs from 2 to 3
+  - eclipse runs from 4 to 5
+  - storm runs from 2 to 3
+  - recital runs from 10 to 12
+  - harvest runs from 1 to 2
+Which event while parade?
+
+Answer with exactly one of: eclipse | parade | harvest | recital | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;parade&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;recital&quot;,
+   10,
+   12
+  ],
+  [
+   &quot;storm&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;parade&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;eclipse&quot;,
+   4,
+   5
+  ],
+  [
+   &quot;harvest&quot;,
+   1,
+   2
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - rehearsal runs from 4 to 5
+  - blackout runs from 10 to 12
+  - harvest runs from 10 to 11
+  - recital runs from 1 to 2
+  - eclipse runs from 6 to 7
+Which event before rehearsal?
+
+Answer with exactly one of: eclipse | recital | rehearsal | harvest | blackout
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;rehearsal&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;harvest&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;eclipse&quot;,
+   6,
+   7
+  ],
+  [
+   &quot;recital&quot;,
+   1,
+   2
+  ],
+  [
+   &quot;rehearsal&quot;,
+   4,
+   5
+  ],
+  [
+   &quot;blackout&quot;,
+   10,
+   12
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">auction</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - rehearsal runs from 10 to 11
+  - auction runs from 10 to 11
+  - storm runs from 3 to 5
+  - eclipse runs from 1 to 4
+  - harvest runs from 8 to 9
+Which event while rehearsal?
+
+Answer with exactly one of: auction | rehearsal | eclipse | storm | harvest
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;rehearsal&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;harvest&quot;,
+   8,
+   9
+  ],
+  [
+   &quot;storm&quot;,
+   3,
+   5
+  ],
+  [
+   &quot;rehearsal&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;auction&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;eclipse&quot;,
+   1,
+   4
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - blackout runs from 7 to 10
+  - auction runs from 10 to 13
+  - parade runs from 3 to 4
+  - recital runs from 8 to 11
+  - harvest runs from 8 to 10
+Which event while auction?
+
+Answer with exactly one of: harvest | auction | recital | blackout | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;auction&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;blackout&quot;,
+   7,
+   10
+  ],
+  [
+   &quot;recital&quot;,
+   8,
+   11
+  ],
+  [
+   &quot;harvest&quot;,
+   8,
+   10
+  ],
+  [
+   &quot;auction&quot;,
+   10,
+   13
+  ],
+  [
+   &quot;parade&quot;,
+   3,
+   4
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">harvest</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - recital runs from 8 to 9
+  - parade runs from 4 to 6
+  - eclipse runs from 7 to 8
+  - rehearsal runs from 1 to 3
+  - harvest runs from 7 to 8
+Which event while eclipse?
+
+Answer with exactly one of: eclipse | harvest | recital | parade | rehearsal
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;eclipse&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;parade&quot;,
+   4,
+   6
+  ],
+  [
+   &quot;recital&quot;,
+   8,
+   9
+  ],
+  [
+   &quot;eclipse&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;harvest&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;rehearsal&quot;,
+   1,
+   3
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">eclipse</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - auction runs from 4 to 5
+  - rehearsal runs from 10 to 11
+  - eclipse runs from 3 to 4
+  - parade runs from 4 to 7
+  - storm runs from 7 to 9
+Which event before auction?
+
+Answer with exactly one of: auction | storm | parade | eclipse | rehearsal
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;auction&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;parade&quot;,
+   4,
+   7
+  ],
+  [
+   &quot;storm&quot;,
+   7,
+   9
+  ],
+  [
+   &quot;eclipse&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;rehearsal&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;auction&quot;,
+   4,
+   5
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">harvest</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - rehearsal runs from 6 to 9
+  - auction runs from 7 to 9
+  - storm runs from 2 to 3
+  - blackout runs from 4 to 6
+  - harvest runs from 9 to 10
+Which event after auction?
+
+Answer with exactly one of: auction | blackout | harvest | rehearsal | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;auction&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;harvest&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;rehearsal&quot;,
+   6,
+   9
+  ],
+  [
+   &quot;blackout&quot;,
+   4,
+   6
+  ],
+  [
+   &quot;auction&quot;,
+   7,
+   9
+  ],
+  [
+   &quot;storm&quot;,
+   2,
+   3
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - recital runs from 8 to 11
+  - parade runs from 9 to 12
+  - harvest runs from 7 to 10
+  - storm runs from 5 to 8
+  - blackout runs from 8 to 10
+Which event before blackout?
+
+Answer with exactly one of: parade | blackout | storm | recital | harvest
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;blackout&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;storm&quot;,
+   5,
+   8
+  ],
+  [
+   &quot;harvest&quot;,
+   7,
+   10
+  ],
+  [
+   &quot;parade&quot;,
+   9,
+   12
+  ],
+  [
+   &quot;blackout&quot;,
+   8,
+   10
+  ],
+  [
+   &quot;recital&quot;,
+   8,
+   11
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - parade runs from 2 to 4
+  - eclipse runs from 10 to 13
+  - recital runs from 1 to 2
+  - rehearsal runs from 10 to 11
+  - auction runs from 6 to 7
+Which event until parade?
+
+Answer with exactly one of: recital | rehearsal | auction | parade | eclipse
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;parade&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;parade&quot;,
+   2,
+   4
+  ],
+  [
+   &quot;recital&quot;,
+   1,
+   2
+  ],
+  [
+   &quot;rehearsal&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;eclipse&quot;,
+   10,
+   13
+  ],
+  [
+   &quot;auction&quot;,
+   6,
+   7
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - recital runs from 8 to 9
+  - auction runs from 4 to 5
+  - rehearsal runs from 2 to 3
+  - storm runs from 9 to 10
+  - blackout runs from 3 to 4
+Which event until storm?
+
+Answer with exactly one of: blackout | storm | recital | rehearsal | auction
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;storm&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;rehearsal&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;auction&quot;,
+   4,
+   5
+  ],
+  [
+   &quot;blackout&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;storm&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;recital&quot;,
+   8,
+   9
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">blackout</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - auction runs from 5 to 6
+  - recital runs from 10 to 11
+  - blackout runs from 4 to 5
+  - parade runs from 8 to 10
+  - harvest runs from 6 to 7
+Which event until auction?
+
+Answer with exactly one of: harvest | blackout | recital | parade | auction
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;auction&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;parade&quot;,
+   8,
+   10
+  ],
+  [
+   &quot;blackout&quot;,
+   4,
+   5
+  ],
+  [
+   &quot;auction&quot;,
+   5,
+   6
+  ],
+  [
+   &quot;harvest&quot;,
+   6,
+   7
+  ],
+  [
+   &quot;recital&quot;,
+   10,
+   11
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - parade runs from 7 to 8
+  - harvest runs from 7 to 10
+  - storm runs from 9 to 10
+  - auction runs from 7 to 9
+  - eclipse runs from 8 to 9
+Which event after eclipse?
+
+Answer with exactly one of: auction | harvest | storm | eclipse | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;eclipse&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;auction&quot;,
+   7,
+   9
+  ],
+  [
+   &quot;storm&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;harvest&quot;,
+   7,
+   10
+  ],
+  [
+   &quot;eclipse&quot;,
+   8,
+   9
+  ],
+  [
+   &quot;parade&quot;,
+   7,
+   8
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">parade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - recital runs from 1 to 4
+  - storm runs from 7 to 9
+  - blackout runs from 7 to 8
+  - parade runs from 3 to 5
+  - harvest runs from 5 to 7
+Which event until harvest?
+
+Answer with exactly one of: parade | harvest | storm | recital | blackout
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;parade&quot;,
+   3,
+   5
+  ],
+  [
+   &quot;recital&quot;,
+   1,
+   4
+  ],
+  [
+   &quot;storm&quot;,
+   7,
+   9
+  ],
+  [
+   &quot;blackout&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;harvest&quot;,
+   5,
+   7
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">eclipse</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - storm runs from 4 to 7
+  - auction runs from 10 to 12
+  - harvest runs from 8 to 11
+  - rehearsal runs from 1 to 3
+  - eclipse runs from 1 to 3
+Which event while rehearsal?
+
+Answer with exactly one of: auction | harvest | eclipse | rehearsal | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;rehearsal&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;harvest&quot;,
+   8,
+   11
+  ],
+  [
+   &quot;auction&quot;,
+   10,
+   12
+  ],
+  [
+   &quot;eclipse&quot;,
+   1,
+   3
+  ],
+  [
+   &quot;rehearsal&quot;,
+   1,
+   3
+  ],
+  [
+   &quot;storm&quot;,
+   4,
+   7
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">blackout</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - recital runs from 1 to 3
+  - eclipse runs from 3 to 5
+  - parade runs from 7 to 8
+  - rehearsal runs from 0 to 3
+  - blackout runs from 4 to 7
+Which event until parade?
+
+Answer with exactly one of: eclipse | rehearsal | blackout | parade | recital
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;parade&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;rehearsal&quot;,
+   0,
+   3
+  ],
+  [
+   &quot;eclipse&quot;,
+   3,
+   5
+  ],
+  [
+   &quot;blackout&quot;,
+   4,
+   7
+  ],
+  [
+   &quot;parade&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;recital&quot;,
+   1,
+   3
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - rehearsal runs from 4 to 5
+  - auction runs from 1 to 3
+  - harvest runs from 7 to 8
+  - parade runs from 2 to 3
+  - recital runs from 7 to 8
+Which event while harvest?
+
+Answer with exactly one of: harvest | recital | rehearsal | parade | auction
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;auction&quot;,
+   1,
+   3
+  ],
+  [
+   &quot;recital&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;parade&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;rehearsal&quot;,
+   4,
+   5
+  ],
+  [
+   &quot;harvest&quot;,
+   7,
+   8
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">eclipse</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - eclipse runs from 0 to 1
+  - harvest runs from 8 to 9
+  - storm runs from 10 to 13
+  - rehearsal runs from 7 to 10
+  - recital runs from 10 to 11
+Which event before rehearsal?
+
+Answer with exactly one of: eclipse | recital | rehearsal | harvest | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;rehearsal&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;eclipse&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;storm&quot;,
+   10,
+   13
+  ],
+  [
+   &quot;recital&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;rehearsal&quot;,
+   7,
+   10
+  ],
+  [
+   &quot;harvest&quot;,
+   8,
+   9
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">harvest</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - recital runs from 3 to 4
+  - eclipse runs from 7 to 8
+  - harvest runs from 1 to 3
+  - parade runs from 1 to 4
+  - auction runs from 0 to 1
+Which event until recital?
+
+Answer with exactly one of: harvest | auction | eclipse | recital | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;recital&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;recital&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;eclipse&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;harvest&quot;,
+   1,
+   3
+  ],
+  [
+   &quot;auction&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;parade&quot;,
+   1,
+   4
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">blackout</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - recital runs from 6 to 7
+  - auction runs from 5 to 8
+  - harvest runs from 8 to 11
+  - blackout runs from 3 to 4
+  - eclipse runs from 5 to 6
+Which event before auction?
+
+Answer with exactly one of: auction | harvest | blackout | recital | eclipse
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;auction&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;auction&quot;,
+   5,
+   8
+  ],
+  [
+   &quot;eclipse&quot;,
+   5,
+   6
+  ],
+  [
+   &quot;harvest&quot;,
+   8,
+   11
+  ],
+  [
+   &quot;blackout&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;recital&quot;,
+   6,
+   7
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">rehearsal</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - auction runs from 7 to 8
+  - recital runs from 2 to 3
+  - rehearsal runs from 5 to 7
+  - harvest runs from 7 to 8
+  - eclipse runs from 5 to 6
+Which event until harvest?
+
+Answer with exactly one of: harvest | rehearsal | auction | recital | eclipse
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;harvest&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;recital&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;auction&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;rehearsal&quot;,
+   5,
+   7
+  ],
+  [
+   &quot;eclipse&quot;,
+   5,
+   6
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">blackout</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - eclipse runs from 2 to 3
+  - auction runs from 6 to 9
+  - recital runs from 2 to 3
+  - blackout runs from 10 to 12
+  - harvest runs from 9 to 10
+Which event after harvest?
+
+Answer with exactly one of: harvest | auction | blackout | eclipse | recital
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;recital&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;blackout&quot;,
+   10,
+   12
+  ],
+  [
+   &quot;eclipse&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;auction&quot;,
+   6,
+   9
+  ],
+  [
+   &quot;harvest&quot;,
+   9,
+   10
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">harvest</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - parade runs from 0 to 3
+  - harvest runs from 6 to 7
+  - storm runs from 4 to 5
+  - blackout runs from 0 to 1
+  - eclipse runs from 3 to 4
+Which event after storm?
+
+Answer with exactly one of: parade | eclipse | harvest | blackout | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;storm&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;harvest&quot;,
+   6,
+   7
+  ],
+  [
+   &quot;blackout&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;eclipse&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;storm&quot;,
+   4,
+   5
+  ],
+  [
+   &quot;parade&quot;,
+   0,
+   3
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - blackout runs from 3 to 6
+  - auction runs from 8 to 10
+  - rehearsal runs from 8 to 10
+  - storm runs from 7 to 9
+  - eclipse runs from 9 to 10
+Which event until eclipse?
+
+Answer with exactly one of: rehearsal | storm | auction | eclipse | blackout
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;eclipse&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;auction&quot;,
+   8,
+   10
+  ],
+  [
+   &quot;blackout&quot;,
+   3,
+   6
+  ],
+  [
+   &quot;storm&quot;,
+   7,
+   9
+  ],
+  [
+   &quot;eclipse&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;rehearsal&quot;,
+   8,
+   10
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">rehearsal</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - rehearsal runs from 7 to 9
+  - storm runs from 10 to 13
+  - auction runs from 9 to 10
+  - recital runs from 8 to 9
+  - eclipse runs from 3 to 4
+Which event while recital?
+
+Answer with exactly one of: eclipse | rehearsal | auction | recital | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;recital&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;eclipse&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;rehearsal&quot;,
+   7,
+   9
+  ],
+  [
+   &quot;auction&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;storm&quot;,
+   10,
+   13
+  ],
+  [
+   &quot;recital&quot;,
+   8,
+   9
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">blackout</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - blackout runs from 0 to 1
+  - recital runs from 8 to 9
+  - harvest runs from 6 to 9
+  - auction runs from 6 to 7
+  - storm runs from 8 to 10
+Which event before harvest?
+
+Answer with exactly one of: recital | blackout | auction | harvest | storm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;storm&quot;,
+   8,
+   10
+  ],
+  [
+   &quot;auction&quot;,
+   6,
+   7
+  ],
+  [
+   &quot;recital&quot;,
+   8,
+   9
+  ],
+  [
+   &quot;harvest&quot;,
+   6,
+   9
+  ],
+  [
+   &quot;blackout&quot;,
+   0,
+   1
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - storm runs from 6 to 7
+  - auction runs from 0 to 2
+  - recital runs from 4 to 6
+  - parade runs from 1 to 3
+  - rehearsal runs from 10 to 12
+Which event until storm?
+
+Answer with exactly one of: auction | rehearsal | storm | recital | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;storm&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;recital&quot;,
+   4,
+   6
+  ],
+  [
+   &quot;rehearsal&quot;,
+   10,
+   12
+  ],
+  [
+   &quot;parade&quot;,
+   1,
+   3
+  ],
+  [
+   &quot;auction&quot;,
+   0,
+   2
+  ],
+  [
+   &quot;storm&quot;,
+   6,
+   7
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">harvest</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - storm runs from 9 to 10
+  - parade runs from 5 to 8
+  - blackout runs from 8 to 9
+  - harvest runs from 1 to 2
+  - recital runs from 2 to 3
+Which event before recital?
+
+Answer with exactly one of: harvest | recital | storm | blackout | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;recital&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;blackout&quot;,
+   8,
+   9
+  ],
+  [
+   &quot;parade&quot;,
+   5,
+   8
+  ],
+  [
+   &quot;recital&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;harvest&quot;,
+   1,
+   2
+  ],
+  [
+   &quot;storm&quot;,
+   9,
+   10
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">blackout</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - auction runs from 5 to 6
+  - recital runs from 4 to 6
+  - harvest runs from 1 to 2
+  - blackout runs from 2 to 5
+  - parade runs from 5 to 6
+Which event until auction?
+
+Answer with exactly one of: blackout | harvest | recital | auction | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;auction&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;parade&quot;,
+   5,
+   6
+  ],
+  [
+   &quot;blackout&quot;,
+   2,
+   5
+  ],
+  [
+   &quot;auction&quot;,
+   5,
+   6
+  ],
+  [
+   &quot;recital&quot;,
+   4,
+   6
+  ],
+  [
+   &quot;harvest&quot;,
+   1,
+   2
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">eclipse</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - rehearsal runs from 7 to 9
+  - recital runs from 1 to 2
+  - eclipse runs from 10 to 12
+  - harvest runs from 4 to 6
+  - storm runs from 4 to 7
+Which event after rehearsal?
+
+Answer with exactly one of: harvest | storm | eclipse | rehearsal | recital
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;rehearsal&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;eclipse&quot;,
+   10,
+   12
+  ],
+  [
+   &quot;rehearsal&quot;,
+   7,
+   9
+  ],
+  [
+   &quot;storm&quot;,
+   4,
+   7
+  ],
+  [
+   &quot;harvest&quot;,
+   4,
+   6
+  ],
+  [
+   &quot;recital&quot;,
+   1,
+   2
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">harvest</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - rehearsal runs from 3 to 5
+  - auction runs from 7 to 10
+  - harvest runs from 4 to 5
+  - eclipse runs from 7 to 8
+  - parade runs from 7 to 10
+Which event while rehearsal?
+
+Answer with exactly one of: parade | rehearsal | auction | harvest | eclipse
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;rehearsal&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;parade&quot;,
+   7,
+   10
+  ],
+  [
+   &quot;auction&quot;,
+   7,
+   10
+  ],
+  [
+   &quot;harvest&quot;,
+   4,
+   5
+  ],
+  [
+   &quot;rehearsal&quot;,
+   3,
+   5
+  ],
+  [
+   &quot;eclipse&quot;,
+   7,
+   8
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - rehearsal runs from 9 to 11
+  - blackout runs from 10 to 11
+  - harvest runs from 2 to 3
+  - auction runs from 9 to 12
+  - recital runs from 0 to 1
+Which event before harvest?
+
+Answer with exactly one of: auction | blackout | harvest | recital | rehearsal
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;blackout&quot;,
+   10,
+   11
+  ],
+  [
+   &quot;auction&quot;,
+   9,
+   12
+  ],
+  [
+   &quot;harvest&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;rehearsal&quot;,
+   9,
+   11
+  ],
+  [
+   &quot;recital&quot;,
+   0,
+   1
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">storm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - auction runs from 2 to 3
+  - recital runs from 2 to 3
+  - rehearsal runs from 6 to 7
+  - storm runs from 9 to 10
+  - harvest runs from 1 to 3
+Which event after rehearsal?
+
+Answer with exactly one of: rehearsal | storm | harvest | recital | auction
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;rehearsal&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;harvest&quot;,
+   1,
+   3
+  ],
+  [
+   &quot;auction&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;rehearsal&quot;,
+   6,
+   7
+  ],
+  [
+   &quot;recital&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;storm&quot;,
+   9,
+   10
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">harvest</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - eclipse runs from 6 to 7
+  - recital runs from 0 to 3
+  - storm runs from 5 to 7
+  - rehearsal runs from 8 to 9
+  - harvest runs from 6 to 8
+Which event until rehearsal?
+
+Answer with exactly one of: harvest | eclipse | storm | rehearsal | recital
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;rehearsal&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;recital&quot;,
+   0,
+   3
+  ],
+  [
+   &quot;storm&quot;,
+   5,
+   7
+  ],
+  [
+   &quot;harvest&quot;,
+   6,
+   8
+  ],
+  [
+   &quot;rehearsal&quot;,
+   8,
+   9
+  ],
+  [
+   &quot;eclipse&quot;,
+   6,
+   7
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - eclipse runs from 10 to 12
+  - rehearsal runs from 10 to 11
+  - recital runs from 9 to 10
+  - storm runs from 3 to 4
+  - parade runs from 9 to 10
+Which event while parade?
+
+Answer with exactly one of: storm | recital | rehearsal | parade | eclipse
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;parade&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;recital&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;eclipse&quot;,
+   10,
+   12
+  ],
+  [
+   &quot;storm&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;parade&quot;,
+   9,
+   10
+  ],
+  [
+   &quot;rehearsal&quot;,
+   10,
+   11
+  ]
+ ],
+ &quot;relation&quot;: &quot;while&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">recital</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - eclipse runs from 10 to 12
+  - rehearsal runs from 1 to 3
+  - parade runs from 1 to 3
+  - recital runs from 0 to 1
+  - harvest runs from 2 to 5
+Which event before harvest?
+
+Answer with exactly one of: rehearsal | recital | harvest | eclipse | parade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;harvest&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;rehearsal&quot;,
+   1,
+   3
+  ],
+  [
+   &quot;recital&quot;,
+   0,
+   1
+  ],
+  [
+   &quot;harvest&quot;,
+   2,
+   5
+  ],
+  [
+   &quot;eclipse&quot;,
+   10,
+   12
+  ],
+  [
+   &quot;parade&quot;,
+   1,
+   3
+  ]
+ ],
+ &quot;relation&quot;: &quot;before&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">auction</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - eclipse runs from 8 to 9
+  - auction runs from 7 to 8
+  - storm runs from 1 to 4
+  - harvest runs from 0 to 2
+  - recital runs from 5 to 6
+Which event until eclipse?
+
+Answer with exactly one of: storm | recital | eclipse | harvest | auction
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;eclipse&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;eclipse&quot;,
+   8,
+   9
+  ],
+  [
+   &quot;harvest&quot;,
+   0,
+   2
+  ],
+  [
+   &quot;recital&quot;,
+   5,
+   6
+  ],
+  [
+   &quot;storm&quot;,
+   1,
+   4
+  ],
+  [
+   &quot;auction&quot;,
+   7,
+   8
+  ]
+ ],
+ &quot;relation&quot;: &quot;until&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">eclipse</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - eclipse runs from 10 to 12
+  - rehearsal runs from 0 to 3
+  - auction runs from 4 to 5
+  - storm runs from 7 to 8
+  - recital runs from 6 to 7
+Which event after storm?
+
+Answer with exactly one of: eclipse | rehearsal | storm | auction | recital
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;storm&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;rehearsal&quot;,
+   0,
+   3
+  ],
+  [
+   &quot;auction&quot;,
+   4,
+   5
+  ],
+  [
+   &quot;storm&quot;,
+   7,
+   8
+  ],
+  [
+   &quot;recital&quot;,
+   6,
+   7
+  ],
+  [
+   &quot;eclipse&quot;,
+   10,
+   12
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">rehearsal</span></summary>
+<div class="body">
+<p>prompt</p><pre>The connectives: before, after, while and until.
+The trace is:
+  - blackout runs from 3 to 4
+  - parade runs from 4 to 7
+  - auction runs from 8 to 9
+  - eclipse runs from 2 to 3
+  - rehearsal runs from 9 to 12
+Which event after auction?
+
+Answer with exactly one of: parade | blackout | auction | rehearsal | eclipse
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;auction&quot;,
+ &quot;events&quot;: [
+  [
+   &quot;blackout&quot;,
+   3,
+   4
+  ],
+  [
+   &quot;eclipse&quot;,
+   2,
+   3
+  ],
+  [
+   &quot;parade&quot;,
+   4,
+   7
+  ],
+  [
+   &quot;auction&quot;,
+   8,
+   9
+  ],
+  [
+   &quot;rehearsal&quot;,
+   9,
+   12
+  ]
+ ],
+ &quot;relation&quot;: &quot;after&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

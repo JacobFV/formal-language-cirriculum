@@ -1,0 +1,6134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>civilization_simulator — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#xvi">civilization-scale symbolic learning</a> &rsaquo;
+  civilization_simulator</p>
+<h1>#163 <code>civilization_simulator</code></h1>
+<p class="lede">multi-generation cultural transmission under a stated rule</p>
+<div class="tags"><span class="tag ">level 163</span><span class="tag ">section xvi</span><span class="tag ">multi_agent_coordination</span><span class="tag ">planning</span><span class="tag ">abstraction</span></div>
+<div class="stats">
+<div class="stat"><span class="n">3.5</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.293</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.01</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>A ring of agents, each holding a convention, transmitting for G
+    generations under one of two explicitly stated rules; which convention ends
+    up dominant?</p><p>    The rule (``copy the majority of your neighbourhood`` vs ``copy the most
+    prestigious member of your neighbourhood``) is drawn per episode and written
+    into the observation, so the dynamics have to be read, not assumed. Ring
+    adjacency is given as facts over shuffled agent ids, so list order is not
+    the ring. Episodes are rejection-sampled so that ``answer == the initial
+    plurality`` happens at the chance rate ``1/k``: counting the starting
+    distribution, the obvious shortcut, is worth 0.29-0.37 depending on ``k``
+    against 0.25-0.33 chance — the residue is the minority of worlds whose
+    dynamics simply cannot be made to overturn the starting plurality.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>discourse_horizon</td><td class='num'>4</td></tr><tr><td>lexical_novelty</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>5</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g1, kiro), facing 60
+  - at (g3, kiro), facing 33
+  - at (g6, kiro), facing 45
+  - at (g0, pivi), facing 70
+  - at (g7, pivi), facing 48
+  - at (g4, kiro), facing 35
+  - at (g5, dere), facing 87
+  - at (g2, kiro), facing 22
+The structure:
+  - g1 neighbour g5
+  - g5 neighbour g4
+  - g4 neighbour g7
+  - g0 neighbour g1
+  - g3 neighbour g2
+  - g7 neighbour g6
+  - g2 neighbour g0
+  - g6 neighbour g3
+What is the dominant convention after generations?
+
+Answer with exactly one of: kiro | pivi | dere | zena
+Reply with the answer only.</pre><h3>spanish</h3><pre>La dinámica es:
+  - la regla: copy_prestige
+  - el desempate: highest_prestige
+  - el vecindario: self_and_both_neighbours
+  - actualiza: simultaneous
+  - las generaciones: 4
+La población es:
+  - el agente: g1, kiro y 60
+  - el agente: g3, kiro y 33
+  - el agente: g6, kiro y 45
+  - el agente: g0, pivi y 70
+  - el agente: g7, pivi y 48
+  - el agente: g4, kiro y 35
+  - el agente: g5, dere y 87
+  - el agente: g2, kiro y 22
+La estructura es:
+  - g1 es vecino de g5
+  - g5 es vecino de g4
+  - g4 es vecino de g7
+  - g0 es vecino de g1
+  - g3 es vecino de g2
+  - g7 es vecino de g6
+  - g2 es vecino de g0
+  - g6 es vecino de g3
+¿Qué convención domina al cabo de las generaciones?
+
+Responde exactamente con una de estas opciones: kiro | pivi | dere | zena
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>动态规律如下：
+  - 规则：copy_prestige
+  - 平局裁决：highest_prestige
+  - 邻域：self_and_both_neighbours
+  - 更新为：simultaneous
+  - 代数：4
+群体如下：
+  - 智能体：g1、kiro和60
+  - 智能体：g3、kiro和33
+  - 智能体：g6、kiro和45
+  - 智能体：g0、pivi和70
+  - 智能体：g7、pivi和48
+  - 智能体：g4、kiro和35
+  - 智能体：g5、dere和87
+  - 智能体：g2、kiro和22
+结构如下：
+  - g1的邻居是g5
+  - g5的邻居是g4
+  - g4的邻居是g7
+  - g0的邻居是g1
+  - g3的邻居是g2
+  - g7的邻居是g6
+  - g2的邻居是g0
+  - g6的邻居是g3
+若干代之后占主导的惯例是哪一个？
+
+请从以下选项中选出恰好一个作答：kiro | pivi | dere | zena
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g1, kiro), facing 60
+  - at (g3, kiro), facing 33
+  - at (g6, kiro), facing 45
+  - at (g0, pivi), facing 70
+  - at (g7, pivi), facing 48
+  - at (g4, kiro), facing 35
+  - at (g5, dere), facing 87
+  - at (g2, kiro), facing 22
+The structure:
+  - g1 neighbour g5
+  - g5 neighbour g4
+  - g4 neighbour g7
+  - g0 neighbour g1
+  - g3 neighbour g2
+  - g7 neighbour g6
+  - g2 neighbour g0
+  - g6 neighbour g3
+What is the dominant convention after generations?
+
+Answer with exactly one of: kiro | pivi | dere | zena
+Reply with the answer only.</pre><h3>symbols</h3><pre>{dynamics: [(rule copy_prestige) (tiebreak highest_prestige) (neighbourhood self_and_both_neighbours) (update simultaneous) (generations 4)], population: [(agent g1 kiro 60) (agent g3 kiro 33) (agent g6 kiro 45) (agent g0 pivi 70) (agent g7 pivi 48) (agent g4 kiro 35) (agent g5 dere 87) (agent g2 kiro 22)], query: dominant_convention_after_generations, structure: [(neighbour g1 g5) (neighbour g5 g4) (neighbour g4 g7) (neighbour g0 g1) (neighbour g3 g2) (neighbour g7 g6) (neighbour g2 g0) (neighbour g6 g3)]}
+
+Answer with exactly one of: kiro | pivi | dere | zena
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/civilization_simulator.jsonl</code> &middot; <code>data/samples/spanish/civilization_simulator.jsonl</code> &middot; <code>data/samples/chinese/civilization_simulator.jsonl</code> &middot; <code>data/samples/english_synonym/civilization_simulator.jsonl</code> &middot; <code>data/samples/symbols/civilization_simulator.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">pivi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g1, kiro), facing 60
+  - at (g3, kiro), facing 33
+  - at (g6, kiro), facing 45
+  - at (g0, pivi), facing 70
+  - at (g7, pivi), facing 48
+  - at (g4, kiro), facing 35
+  - at (g5, dere), facing 87
+  - at (g2, kiro), facing 22
+The structure:
+  - g1 neighbour g5
+  - g5 neighbour g4
+  - g4 neighbour g7
+  - g0 neighbour g1
+  - g3 neighbour g2
+  - g7 neighbour g6
+  - g2 neighbour g0
+  - g6 neighbour g3
+What is the dominant convention after generations?
+
+Answer with exactly one of: kiro | pivi | dere | zena
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;pivi&quot;,
+ &quot;final&quot;: [
+  &quot;dere&quot;,
+  &quot;dere&quot;,
+  &quot;pivi&quot;,
+  &quot;pivi&quot;,
+  &quot;pivi&quot;,
+  &quot;pivi&quot;,
+  &quot;pivi&quot;,
+  &quot;dere&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;dere&quot;,
+  &quot;kiro&quot;,
+  &quot;pivi&quot;,
+  &quot;kiro&quot;,
+  &quot;kiro&quot;,
+  &quot;kiro&quot;,
+  &quot;pivi&quot;,
+  &quot;kiro&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;kiro&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">vone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g1, zavo), facing 54
+  - at (g2, vone), facing 80
+  - at (g0, zavo), facing 73
+  - at (g6, moko), facing 66
+  - at (g4, vone), facing 38
+  - at (g3, moko), facing 39
+  - at (g5, moko), facing 85
+The structure:
+  - g6 neighbour g0
+  - g5 neighbour g4
+  - g3 neighbour g1
+  - g2 neighbour g3
+  - g0 neighbour g2
+  - g1 neighbour g5
+  - g4 neighbour g6
+What is the dominant convention after generations?
+
+Answer with exactly one of: zavo | moko | vone
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vone&quot;,
+ &quot;final&quot;: [
+  &quot;moko&quot;,
+  &quot;vone&quot;,
+  &quot;vone&quot;,
+  &quot;vone&quot;,
+  &quot;vone&quot;,
+  &quot;moko&quot;,
+  &quot;moko&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;vone&quot;,
+  &quot;moko&quot;,
+  &quot;zavo&quot;,
+  &quot;vone&quot;,
+  &quot;moko&quot;,
+  &quot;zavo&quot;,
+  &quot;moko&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;moko&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">zusu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g5, kuge), facing 72
+  - at (g0, kuge), facing 49
+  - at (g1, kuge), facing 62
+  - at (g4, kuge), facing 36
+  - at (g6, zusu), facing 88
+  - at (g3, kuge), facing 85
+  - at (g2, kuge), facing 75
+The structure:
+  - g5 neighbour g2
+  - g0 neighbour g4
+  - g2 neighbour g6
+  - g6 neighbour g3
+  - g3 neighbour g1
+  - g4 neighbour g5
+  - g1 neighbour g0
+What is the dominant convention after generations?
+
+Answer with exactly one of: kuge | miti | zusu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zusu&quot;,
+ &quot;final&quot;: [
+  &quot;zusu&quot;,
+  &quot;zusu&quot;,
+  &quot;zusu&quot;,
+  &quot;zusu&quot;,
+  &quot;zusu&quot;,
+  &quot;zusu&quot;,
+  &quot;zusu&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;zusu&quot;,
+  &quot;kuge&quot;,
+  &quot;kuge&quot;,
+  &quot;kuge&quot;,
+  &quot;kuge&quot;,
+  &quot;kuge&quot;,
+  &quot;kuge&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;kuge&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">muko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g4, zuse), facing 11
+  - at (g1, muko), facing 59
+  - at (g5, muko), facing 76
+  - at (g2, luvu), facing 30
+  - at (g6, luvu), facing 48
+  - at (g3, luvu), facing 18
+  - at (g0, zuse), facing 15
+The structure:
+  - g4 neighbour g3
+  - g2 neighbour g0
+  - g0 neighbour g6
+  - g3 neighbour g2
+  - g1 neighbour g4
+  - g6 neighbour g5
+  - g5 neighbour g1
+What is the dominant convention after generations?
+
+Answer with exactly one of: luvu | muko | zuse
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;muko&quot;,
+ &quot;final&quot;: [
+  &quot;muko&quot;,
+  &quot;muko&quot;,
+  &quot;muko&quot;,
+  &quot;luvu&quot;,
+  &quot;luvu&quot;,
+  &quot;muko&quot;,
+  &quot;muko&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;muko&quot;,
+  &quot;muko&quot;,
+  &quot;zuse&quot;,
+  &quot;luvu&quot;,
+  &quot;luvu&quot;,
+  &quot;zuse&quot;,
+  &quot;luvu&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;luvu&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">rina</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g3, rina), facing 62
+  - at (g2, rina), facing 75
+  - at (g6, suri), facing 49
+  - at (g5, mako), facing 10
+  - at (g4, move), facing 34
+  - at (g1, mako), facing 83
+  - at (g0, mako), facing 47
+The structure:
+  - g5 neighbour g0
+  - g0 neighbour g1
+  - g2 neighbour g4
+  - g3 neighbour g5
+  - g1 neighbour g6
+  - g4 neighbour g3
+  - g6 neighbour g2
+What is the dominant convention after generations?
+
+Answer with exactly one of: suri | move | rina | mako
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;rina&quot;,
+ &quot;final&quot;: [
+  &quot;rina&quot;,
+  &quot;mako&quot;,
+  &quot;mako&quot;,
+  &quot;mako&quot;,
+  &quot;rina&quot;,
+  &quot;rina&quot;,
+  &quot;rina&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;mako&quot;,
+  &quot;mako&quot;,
+  &quot;mako&quot;,
+  &quot;suri&quot;,
+  &quot;rina&quot;,
+  &quot;move&quot;,
+  &quot;rina&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;mako&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">kone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g8, kone), facing 37
+  - at (g3, kone), facing 83
+  - at (g5, loso), facing 47
+  - at (g0, loso), facing 89
+  - at (g6, kone), facing 87
+  - at (g2, gata), facing 10
+  - at (g7, kone), facing 26
+  - at (g1, loso), facing 36
+  - at (g4, binu), facing 31
+The structure:
+  - g6 neighbour g1
+  - g5 neighbour g7
+  - g4 neighbour g3
+  - g7 neighbour g0
+  - g3 neighbour g5
+  - g1 neighbour g8
+  - g2 neighbour g6
+  - g8 neighbour g4
+  - g0 neighbour g2
+What is the dominant convention after generations?
+
+Answer with exactly one of: loso | gata | kone | binu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;kone&quot;,
+ &quot;final&quot;: [
+  &quot;loso&quot;,
+  &quot;loso&quot;,
+  &quot;loso&quot;,
+  &quot;kone&quot;,
+  &quot;kone&quot;,
+  &quot;kone&quot;,
+  &quot;kone&quot;,
+  &quot;kone&quot;,
+  &quot;kone&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;kone&quot;,
+  &quot;loso&quot;,
+  &quot;gata&quot;,
+  &quot;kone&quot;,
+  &quot;loso&quot;,
+  &quot;kone&quot;,
+  &quot;binu&quot;,
+  &quot;kone&quot;,
+  &quot;loso&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;kone&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">vika</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g7, vika), facing 58
+  - at (g0, lazo), facing 35
+  - at (g2, tuvi), facing 74
+  - at (g8, vika), facing 77
+  - at (g1, tuvi), facing 49
+  - at (g3, lazo), facing 86
+  - at (g6, tuvi), facing 24
+  - at (g4, tuvi), facing 44
+  - at (g5, lazo), facing 21
+The structure:
+  - g3 neighbour g7
+  - g4 neighbour g1
+  - g6 neighbour g4
+  - g5 neighbour g2
+  - g0 neighbour g6
+  - g2 neighbour g8
+  - g8 neighbour g0
+  - g1 neighbour g3
+  - g7 neighbour g5
+What is the dominant convention after generations?
+
+Answer with exactly one of: vika | tuvi | lazo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vika&quot;,
+ &quot;final&quot;: [
+  &quot;vika&quot;,
+  &quot;vika&quot;,
+  &quot;vika&quot;,
+  &quot;vika&quot;,
+  &quot;tuvi&quot;,
+  &quot;tuvi&quot;,
+  &quot;tuvi&quot;,
+  &quot;lazo&quot;,
+  &quot;lazo&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;lazo&quot;,
+  &quot;tuvi&quot;,
+  &quot;vika&quot;,
+  &quot;lazo&quot;,
+  &quot;tuvi&quot;,
+  &quot;tuvi&quot;,
+  &quot;tuvi&quot;,
+  &quot;lazo&quot;,
+  &quot;vika&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;tuvi&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">pamu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g2, reka), facing 15
+  - at (g7, pamu), facing 38
+  - at (g0, pamu), facing 89
+  - at (g4, reka), facing 17
+  - at (g3, pamu), facing 16
+  - at (g1, reka), facing 60
+  - at (g5, pamu), facing 84
+  - at (g6, mida), facing 83
+The structure:
+  - g3 neighbour g7
+  - g6 neighbour g0
+  - g0 neighbour g1
+  - g2 neighbour g5
+  - g7 neighbour g2
+  - g5 neighbour g4
+  - g1 neighbour g3
+  - g4 neighbour g6
+What is the dominant convention after generations?
+
+Answer with exactly one of: pamu | reka | mida
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;pamu&quot;,
+ &quot;final&quot;: [
+  &quot;pamu&quot;,
+  &quot;pamu&quot;,
+  &quot;pamu&quot;,
+  &quot;pamu&quot;,
+  &quot;pamu&quot;,
+  &quot;pamu&quot;,
+  &quot;pamu&quot;,
+  &quot;pamu&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;pamu&quot;,
+  &quot;reka&quot;,
+  &quot;mida&quot;,
+  &quot;pamu&quot;,
+  &quot;reka&quot;,
+  &quot;pamu&quot;,
+  &quot;pamu&quot;,
+  &quot;reka&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;pamu&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">vovo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g0, pesa), facing 22
+  - at (g4, vovo), facing 59
+  - at (g1, vovo), facing 24
+  - at (g5, pesa), facing 58
+  - at (g6, mesu), facing 43
+  - at (g2, vovo), facing 70
+  - at (g3, soga), facing 18
+The structure:
+  - g1 neighbour g6
+  - g6 neighbour g0
+  - g5 neighbour g1
+  - g3 neighbour g4
+  - g4 neighbour g2
+  - g2 neighbour g5
+  - g0 neighbour g3
+What is the dominant convention after generations?
+
+Answer with exactly one of: pesa | vovo | soga | mesu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vovo&quot;,
+ &quot;final&quot;: [
+  &quot;vovo&quot;,
+  &quot;vovo&quot;,
+  &quot;vovo&quot;,
+  &quot;mesu&quot;,
+  &quot;mesu&quot;,
+  &quot;vovo&quot;,
+  &quot;vovo&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;vovo&quot;,
+  &quot;pesa&quot;,
+  &quot;vovo&quot;,
+  &quot;mesu&quot;,
+  &quot;pesa&quot;,
+  &quot;soga&quot;,
+  &quot;vovo&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;vovo&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">zeta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g1, babo), facing 65
+  - at (g2, luvu), facing 64
+  - at (g5, zeta), facing 78
+  - at (g6, miru), facing 68
+  - at (g3, miru), facing 46
+  - at (g7, babo), facing 45
+  - at (g4, luvu), facing 47
+  - at (g0, miru), facing 23
+The structure:
+  - g0 neighbour g7
+  - g1 neighbour g5
+  - g6 neighbour g4
+  - g4 neighbour g3
+  - g7 neighbour g6
+  - g2 neighbour g0
+  - g3 neighbour g1
+  - g5 neighbour g2
+What is the dominant convention after generations?
+
+Answer with exactly one of: miru | zeta | luvu | babo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zeta&quot;,
+ &quot;final&quot;: [
+  &quot;miru&quot;,
+  &quot;miru&quot;,
+  &quot;miru&quot;,
+  &quot;zeta&quot;,
+  &quot;zeta&quot;,
+  &quot;zeta&quot;,
+  &quot;zeta&quot;,
+  &quot;zeta&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;babo&quot;,
+  &quot;miru&quot;,
+  &quot;luvu&quot;,
+  &quot;miru&quot;,
+  &quot;babo&quot;,
+  &quot;zeta&quot;,
+  &quot;luvu&quot;,
+  &quot;miru&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;miru&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">poda</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g0, geku), facing 78
+  - at (g6, poda), facing 67
+  - at (g4, poda), facing 80
+  - at (g5, poda), facing 65
+  - at (g8, geku), facing 50
+  - at (g3, sovi), facing 56
+  - at (g7, poda), facing 40
+  - at (g1, poda), facing 70
+  - at (g2, sovi), facing 48
+The structure:
+  - g7 neighbour g8
+  - g4 neighbour g6
+  - g2 neighbour g0
+  - g0 neighbour g3
+  - g5 neighbour g1
+  - g1 neighbour g2
+  - g8 neighbour g4
+  - g6 neighbour g5
+  - g3 neighbour g7
+What is the dominant convention after generations?
+
+Answer with exactly one of: geku | poda | sovi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;poda&quot;,
+ &quot;final&quot;: [
+  &quot;geku&quot;,
+  &quot;geku&quot;,
+  &quot;geku&quot;,
+  &quot;geku&quot;,
+  &quot;poda&quot;,
+  &quot;poda&quot;,
+  &quot;poda&quot;,
+  &quot;poda&quot;,
+  &quot;poda&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;sovi&quot;,
+  &quot;geku&quot;,
+  &quot;sovi&quot;,
+  &quot;poda&quot;,
+  &quot;geku&quot;,
+  &quot;poda&quot;,
+  &quot;poda&quot;,
+  &quot;poda&quot;,
+  &quot;poda&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;poda&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">zemu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g4, zemu), facing 84
+  - at (g7, tuvu), facing 11
+  - at (g2, vude), facing 52
+  - at (g3, nemo), facing 21
+  - at (g6, zemu), facing 88
+  - at (g0, vude), facing 47
+  - at (g1, tuvu), facing 59
+  - at (g5, tuvu), facing 19
+The structure:
+  - g1 neighbour g5
+  - g0 neighbour g1
+  - g7 neighbour g6
+  - g2 neighbour g0
+  - g3 neighbour g7
+  - g5 neighbour g4
+  - g6 neighbour g2
+  - g4 neighbour g3
+What is the dominant convention after generations?
+
+Answer with exactly one of: zemu | nemo | vude | tuvu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zemu&quot;,
+ &quot;final&quot;: [
+  &quot;zemu&quot;,
+  &quot;zemu&quot;,
+  &quot;vude&quot;,
+  &quot;vude&quot;,
+  &quot;tuvu&quot;,
+  &quot;tuvu&quot;,
+  &quot;zemu&quot;,
+  &quot;zemu&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;tuvu&quot;,
+  &quot;zemu&quot;,
+  &quot;vude&quot;,
+  &quot;vude&quot;,
+  &quot;tuvu&quot;,
+  &quot;tuvu&quot;,
+  &quot;zemu&quot;,
+  &quot;nemo&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;tuvu&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">vigo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g5, vigo), facing 21
+  - at (g3, toki), facing 89
+  - at (g1, gugi), facing 38
+  - at (g7, vigo), facing 53
+  - at (g0, toki), facing 12
+  - at (g2, busu), facing 75
+  - at (g6, gugi), facing 17
+  - at (g4, toki), facing 61
+The structure:
+  - g2 neighbour g7
+  - g4 neighbour g5
+  - g7 neighbour g4
+  - g6 neighbour g3
+  - g1 neighbour g2
+  - g5 neighbour g0
+  - g0 neighbour g6
+  - g3 neighbour g1
+What is the dominant convention after generations?
+
+Answer with exactly one of: toki | busu | vigo | gugi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vigo&quot;,
+ &quot;final&quot;: [
+  &quot;busu&quot;,
+  &quot;busu&quot;,
+  &quot;vigo&quot;,
+  &quot;vigo&quot;,
+  &quot;vigo&quot;,
+  &quot;gugi&quot;,
+  &quot;toki&quot;,
+  &quot;gugi&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;busu&quot;,
+  &quot;vigo&quot;,
+  &quot;toki&quot;,
+  &quot;vigo&quot;,
+  &quot;toki&quot;,
+  &quot;gugi&quot;,
+  &quot;toki&quot;,
+  &quot;gugi&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;toki&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">biko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g7, biko), facing 62
+  - at (g0, biko), facing 49
+  - at (g3, gege), facing 26
+  - at (g1, gese), facing 77
+  - at (g6, gege), facing 25
+  - at (g2, gese), facing 10
+  - at (g4, tare), facing 48
+  - at (g5, gege), facing 21
+The structure:
+  - g0 neighbour g6
+  - g4 neighbour g5
+  - g7 neighbour g4
+  - g5 neighbour g1
+  - g2 neighbour g3
+  - g1 neighbour g2
+  - g6 neighbour g7
+  - g3 neighbour g0
+What is the dominant convention after generations?
+
+Answer with exactly one of: gege | tare | biko | gese
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;biko&quot;,
+ &quot;final&quot;: [
+  &quot;gese&quot;,
+  &quot;gese&quot;,
+  &quot;gese&quot;,
+  &quot;biko&quot;,
+  &quot;biko&quot;,
+  &quot;biko&quot;,
+  &quot;biko&quot;,
+  &quot;biko&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;gege&quot;,
+  &quot;gese&quot;,
+  &quot;gese&quot;,
+  &quot;gege&quot;,
+  &quot;biko&quot;,
+  &quot;gege&quot;,
+  &quot;biko&quot;,
+  &quot;tare&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;gege&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">gozo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g5, ziza), facing 58
+  - at (g0, gozo), facing 24
+  - at (g1, ziza), facing 56
+  - at (g4, gozo), facing 84
+  - at (g6, ziza), facing 66
+  - at (g2, gopa), facing 61
+  - at (g3, ziza), facing 22
+The structure:
+  - g6 neighbour g3
+  - g3 neighbour g0
+  - g2 neighbour g4
+  - g4 neighbour g6
+  - g0 neighbour g1
+  - g1 neighbour g5
+  - g5 neighbour g2
+What is the dominant convention after generations?
+
+Answer with exactly one of: gozo | gopa | ziza
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gozo&quot;,
+ &quot;final&quot;: [
+  &quot;gozo&quot;,
+  &quot;gozo&quot;,
+  &quot;gozo&quot;,
+  &quot;gozo&quot;,
+  &quot;gozo&quot;,
+  &quot;ziza&quot;,
+  &quot;gopa&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;ziza&quot;,
+  &quot;gopa&quot;,
+  &quot;gozo&quot;,
+  &quot;ziza&quot;,
+  &quot;ziza&quot;,
+  &quot;gozo&quot;,
+  &quot;ziza&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;ziza&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">bisa</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g2, bisa), facing 79
+  - at (g5, rate), facing 74
+  - at (g3, kane), facing 61
+  - at (g1, bisa), facing 88
+  - at (g6, rate), facing 39
+  - at (g0, kane), facing 55
+  - at (g4, kane), facing 32
+The structure:
+  - g2 neighbour g1
+  - g6 neighbour g4
+  - g1 neighbour g0
+  - g0 neighbour g3
+  - g3 neighbour g5
+  - g5 neighbour g6
+  - g4 neighbour g2
+What is the dominant convention after generations?
+
+Answer with exactly one of: bisa | kane | rate
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;bisa&quot;,
+ &quot;final&quot;: [
+  &quot;rate&quot;,
+  &quot;rate&quot;,
+  &quot;rate&quot;,
+  &quot;bisa&quot;,
+  &quot;bisa&quot;,
+  &quot;bisa&quot;,
+  &quot;bisa&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;kane&quot;,
+  &quot;rate&quot;,
+  &quot;rate&quot;,
+  &quot;kane&quot;,
+  &quot;bisa&quot;,
+  &quot;bisa&quot;,
+  &quot;kane&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;kane&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">vipe</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g2, zige), facing 11
+  - at (g4, vipe), facing 68
+  - at (g0, seki), facing 38
+  - at (g5, vipe), facing 18
+  - at (g3, seki), facing 10
+  - at (g7, seki), facing 36
+  - at (g1, vapi), facing 34
+  - at (g6, zige), facing 60
+The structure:
+  - g5 neighbour g0
+  - g6 neighbour g5
+  - g3 neighbour g6
+  - g0 neighbour g1
+  - g2 neighbour g3
+  - g7 neighbour g2
+  - g4 neighbour g7
+  - g1 neighbour g4
+What is the dominant convention after generations?
+
+Answer with exactly one of: vipe | seki | zige | vapi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vipe&quot;,
+ &quot;final&quot;: [
+  &quot;zige&quot;,
+  &quot;zige&quot;,
+  &quot;seki&quot;,
+  &quot;vipe&quot;,
+  &quot;vipe&quot;,
+  &quot;vipe&quot;,
+  &quot;vipe&quot;,
+  &quot;zige&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;zige&quot;,
+  &quot;vipe&quot;,
+  &quot;seki&quot;,
+  &quot;vapi&quot;,
+  &quot;vipe&quot;,
+  &quot;seki&quot;,
+  &quot;zige&quot;,
+  &quot;seki&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;seki&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">maso</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g1, tugi), facing 49
+  - at (g3, tugi), facing 28
+  - at (g2, tugi), facing 70
+  - at (g7, tugi), facing 20
+  - at (g5, nili), facing 85
+  - at (g4, tugi), facing 74
+  - at (g8, nili), facing 62
+  - at (g0, maso), facing 87
+  - at (g6, bozu), facing 18
+The structure:
+  - g2 neighbour g3
+  - g0 neighbour g5
+  - g3 neighbour g0
+  - g6 neighbour g1
+  - g8 neighbour g7
+  - g4 neighbour g2
+  - g1 neighbour g8
+  - g7 neighbour g4
+  - g5 neighbour g6
+What is the dominant convention after generations?
+
+Answer with exactly one of: tugi | bozu | nili | maso
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;maso&quot;,
+ &quot;final&quot;: [
+  &quot;maso&quot;,
+  &quot;nili&quot;,
+  &quot;nili&quot;,
+  &quot;tugi&quot;,
+  &quot;tugi&quot;,
+  &quot;tugi&quot;,
+  &quot;maso&quot;,
+  &quot;maso&quot;,
+  &quot;maso&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;bozu&quot;,
+  &quot;tugi&quot;,
+  &quot;nili&quot;,
+  &quot;tugi&quot;,
+  &quot;tugi&quot;,
+  &quot;tugi&quot;,
+  &quot;tugi&quot;,
+  &quot;maso&quot;,
+  &quot;nili&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;tugi&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">tozo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g5, tozo), facing 73
+  - at (g2, tozo), facing 24
+  - at (g0, sogo), facing 71
+  - at (g6, sogo), facing 28
+  - at (g1, tozo), facing 74
+  - at (g4, tozo), facing 82
+  - at (g3, sogo), facing 46
+The structure:
+  - g2 neighbour g3
+  - g5 neighbour g2
+  - g4 neighbour g1
+  - g0 neighbour g4
+  - g1 neighbour g6
+  - g3 neighbour g0
+  - g6 neighbour g5
+What is the dominant convention after generations?
+
+Answer with exactly one of: gole | sogo | tozo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;tozo&quot;,
+ &quot;final&quot;: [
+  &quot;tozo&quot;,
+  &quot;tozo&quot;,
+  &quot;tozo&quot;,
+  &quot;tozo&quot;,
+  &quot;tozo&quot;,
+  &quot;tozo&quot;,
+  &quot;tozo&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;tozo&quot;,
+  &quot;sogo&quot;,
+  &quot;sogo&quot;,
+  &quot;tozo&quot;,
+  &quot;tozo&quot;,
+  &quot;sogo&quot;,
+  &quot;tozo&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;tozo&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">solu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g3, solu), facing 68
+  - at (g8, solu), facing 19
+  - at (g1, zutu), facing 22
+  - at (g2, solu), facing 35
+  - at (g6, solu), facing 79
+  - at (g5, numu), facing 59
+  - at (g4, zutu), facing 89
+  - at (g7, numu), facing 24
+  - at (g0, numu), facing 63
+The structure:
+  - g7 neighbour g6
+  - g3 neighbour g5
+  - g8 neighbour g2
+  - g0 neighbour g8
+  - g5 neighbour g4
+  - g1 neighbour g0
+  - g2 neighbour g7
+  - g4 neighbour g1
+  - g6 neighbour g3
+What is the dominant convention after generations?
+
+Answer with exactly one of: zutu | solu | numu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;solu&quot;,
+ &quot;final&quot;: [
+  &quot;numu&quot;,
+  &quot;solu&quot;,
+  &quot;solu&quot;,
+  &quot;solu&quot;,
+  &quot;solu&quot;,
+  &quot;zutu&quot;,
+  &quot;zutu&quot;,
+  &quot;zutu&quot;,
+  &quot;numu&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;solu&quot;,
+  &quot;solu&quot;,
+  &quot;numu&quot;,
+  &quot;solu&quot;,
+  &quot;solu&quot;,
+  &quot;numu&quot;,
+  &quot;zutu&quot;,
+  &quot;zutu&quot;,
+  &quot;numu&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;solu&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">zalu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g4, mati), facing 20
+  - at (g7, tapo), facing 41
+  - at (g2, tapo), facing 83
+  - at (g5, mati), facing 36
+  - at (g8, tapo), facing 14
+  - at (g1, zalu), facing 35
+  - at (g0, zalu), facing 76
+  - at (g6, zalu), facing 72
+  - at (g3, tapo), facing 61
+The structure:
+  - g4 neighbour g5
+  - g8 neighbour g1
+  - g6 neighbour g3
+  - g3 neighbour g4
+  - g5 neighbour g2
+  - g2 neighbour g7
+  - g7 neighbour g8
+  - g1 neighbour g0
+  - g0 neighbour g6
+What is the dominant convention after generations?
+
+Answer with exactly one of: zalu | tapo | mati
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zalu&quot;,
+ &quot;final&quot;: [
+  &quot;zalu&quot;,
+  &quot;zalu&quot;,
+  &quot;zalu&quot;,
+  &quot;zalu&quot;,
+  &quot;tapo&quot;,
+  &quot;tapo&quot;,
+  &quot;tapo&quot;,
+  &quot;tapo&quot;,
+  &quot;zalu&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;zalu&quot;,
+  &quot;zalu&quot;,
+  &quot;tapo&quot;,
+  &quot;mati&quot;,
+  &quot;mati&quot;,
+  &quot;tapo&quot;,
+  &quot;tapo&quot;,
+  &quot;tapo&quot;,
+  &quot;zalu&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;tapo&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">rena</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g0, nutu), facing 85
+  - at (g5, rena), facing 84
+  - at (g3, bogi), facing 41
+  - at (g6, veno), facing 43
+  - at (g2, veno), facing 63
+  - at (g1, veno), facing 51
+  - at (g4, nutu), facing 13
+The structure:
+  - g1 neighbour g3
+  - g5 neighbour g2
+  - g0 neighbour g1
+  - g3 neighbour g5
+  - g4 neighbour g6
+  - g6 neighbour g0
+  - g2 neighbour g4
+What is the dominant convention after generations?
+
+Answer with exactly one of: bogi | nutu | rena | veno
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;rena&quot;,
+ &quot;final&quot;: [
+  &quot;rena&quot;,
+  &quot;nutu&quot;,
+  &quot;veno&quot;,
+  &quot;nutu&quot;,
+  &quot;rena&quot;,
+  &quot;rena&quot;,
+  &quot;rena&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;nutu&quot;,
+  &quot;veno&quot;,
+  &quot;nutu&quot;,
+  &quot;veno&quot;,
+  &quot;bogi&quot;,
+  &quot;rena&quot;,
+  &quot;veno&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;veno&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">nasi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g6, nasi), facing 44
+  - at (g2, kuve), facing 34
+  - at (g0, babi), facing 15
+  - at (g5, kuve), facing 19
+  - at (g3, babi), facing 65
+  - at (g4, nasi), facing 86
+  - at (g1, kuve), facing 32
+The structure:
+  - g4 neighbour g3
+  - g6 neighbour g1
+  - g5 neighbour g2
+  - g3 neighbour g6
+  - g2 neighbour g4
+  - g1 neighbour g0
+  - g0 neighbour g5
+What is the dominant convention after generations?
+
+Answer with exactly one of: babi | nasi | kuve
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nasi&quot;,
+ &quot;final&quot;: [
+  &quot;nasi&quot;,
+  &quot;nasi&quot;,
+  &quot;nasi&quot;,
+  &quot;nasi&quot;,
+  &quot;kuve&quot;,
+  &quot;kuve&quot;,
+  &quot;kuve&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;nasi&quot;,
+  &quot;babi&quot;,
+  &quot;nasi&quot;,
+  &quot;kuve&quot;,
+  &quot;babi&quot;,
+  &quot;kuve&quot;,
+  &quot;kuve&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;kuve&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">pule</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g7, kuzo), facing 46
+  - at (g3, kuzo), facing 41
+  - at (g5, kuzo), facing 37
+  - at (g6, kuzo), facing 31
+  - at (g1, pule), facing 47
+  - at (g4, pule), facing 84
+  - at (g2, pule), facing 33
+  - at (g0, bezo), facing 38
+The structure:
+  - g4 neighbour g3
+  - g7 neighbour g2
+  - g2 neighbour g1
+  - g6 neighbour g7
+  - g0 neighbour g4
+  - g3 neighbour g6
+  - g1 neighbour g5
+  - g5 neighbour g0
+What is the dominant convention after generations?
+
+Answer with exactly one of: bezo | pule | kuzo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;pule&quot;,
+ &quot;final&quot;: [
+  &quot;pule&quot;,
+  &quot;pule&quot;,
+  &quot;pule&quot;,
+  &quot;pule&quot;,
+  &quot;kuzo&quot;,
+  &quot;kuzo&quot;,
+  &quot;kuzo&quot;,
+  &quot;pule&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;pule&quot;,
+  &quot;kuzo&quot;,
+  &quot;bezo&quot;,
+  &quot;pule&quot;,
+  &quot;kuzo&quot;,
+  &quot;kuzo&quot;,
+  &quot;kuzo&quot;,
+  &quot;pule&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;kuzo&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">beni</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g1, sega), facing 84
+  - at (g7, sega), facing 42
+  - at (g4, dese), facing 63
+  - at (g8, bavo), facing 87
+  - at (g3, beni), facing 53
+  - at (g5, bavo), facing 39
+  - at (g0, dese), facing 32
+  - at (g2, sega), facing 35
+  - at (g6, beni), facing 88
+The structure:
+  - g8 neighbour g5
+  - g2 neighbour g3
+  - g1 neighbour g2
+  - g6 neighbour g7
+  - g0 neighbour g4
+  - g4 neighbour g6
+  - g3 neighbour g0
+  - g5 neighbour g1
+  - g7 neighbour g8
+What is the dominant convention after generations?
+
+Answer with exactly one of: sega | dese | bavo | beni
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;beni&quot;,
+ &quot;final&quot;: [
+  &quot;bavo&quot;,
+  &quot;bavo&quot;,
+  &quot;sega&quot;,
+  &quot;sega&quot;,
+  &quot;beni&quot;,
+  &quot;dese&quot;,
+  &quot;dese&quot;,
+  &quot;beni&quot;,
+  &quot;beni&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;bavo&quot;,
+  &quot;bavo&quot;,
+  &quot;sega&quot;,
+  &quot;sega&quot;,
+  &quot;beni&quot;,
+  &quot;dese&quot;,
+  &quot;dese&quot;,
+  &quot;beni&quot;,
+  &quot;sega&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;sega&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">sigo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g4, kiki), facing 44
+  - at (g0, sigo), facing 56
+  - at (g2, kiki), facing 71
+  - at (g3, sigo), facing 79
+  - at (g1, domu), facing 17
+  - at (g5, kiki), facing 30
+  - at (g7, kiki), facing 60
+  - at (g6, domu), facing 33
+The structure:
+  - g1 neighbour g3
+  - g7 neighbour g4
+  - g5 neighbour g1
+  - g0 neighbour g5
+  - g6 neighbour g0
+  - g2 neighbour g7
+  - g4 neighbour g6
+  - g3 neighbour g2
+What is the dominant convention after generations?
+
+Answer with exactly one of: kiki | domu | sigo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sigo&quot;,
+ &quot;final&quot;: [
+  &quot;kiki&quot;,
+  &quot;kiki&quot;,
+  &quot;kiki&quot;,
+  &quot;sigo&quot;,
+  &quot;sigo&quot;,
+  &quot;sigo&quot;,
+  &quot;sigo&quot;,
+  &quot;sigo&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;kiki&quot;,
+  &quot;kiki&quot;,
+  &quot;kiki&quot;,
+  &quot;domu&quot;,
+  &quot;sigo&quot;,
+  &quot;kiki&quot;,
+  &quot;domu&quot;,
+  &quot;sigo&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;kiki&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">kure</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g2, gepu), facing 71
+  - at (g1, gepu), facing 83
+  - at (g5, gepu), facing 56
+  - at (g6, rato), facing 37
+  - at (g7, kure), facing 86
+  - at (g8, gepu), facing 47
+  - at (g3, kure), facing 59
+  - at (g4, gepu), facing 13
+  - at (g0, kure), facing 41
+The structure:
+  - g0 neighbour g4
+  - g2 neighbour g3
+  - g3 neighbour g5
+  - g6 neighbour g7
+  - g7 neighbour g2
+  - g1 neighbour g8
+  - g5 neighbour g0
+  - g8 neighbour g6
+  - g4 neighbour g1
+What is the dominant convention after generations?
+
+Answer with exactly one of: rato | kure | gepu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;kure&quot;,
+ &quot;final&quot;: [
+  &quot;kure&quot;,
+  &quot;kure&quot;,
+  &quot;kure&quot;,
+  &quot;kure&quot;,
+  &quot;gepu&quot;,
+  &quot;kure&quot;,
+  &quot;gepu&quot;,
+  &quot;gepu&quot;,
+  &quot;gepu&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;rato&quot;,
+  &quot;kure&quot;,
+  &quot;gepu&quot;,
+  &quot;kure&quot;,
+  &quot;gepu&quot;,
+  &quot;kure&quot;,
+  &quot;gepu&quot;,
+  &quot;gepu&quot;,
+  &quot;gepu&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;gepu&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">mazu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g5, mazu), facing 49
+  - at (g8, teso), facing 83
+  - at (g6, mazu), facing 54
+  - at (g0, bize), facing 18
+  - at (g7, bize), facing 66
+  - at (g4, bize), facing 29
+  - at (g1, mazu), facing 86
+  - at (g3, bize), facing 67
+  - at (g2, lilo), facing 63
+The structure:
+  - g2 neighbour g0
+  - g1 neighbour g2
+  - g5 neighbour g7
+  - g8 neighbour g1
+  - g3 neighbour g4
+  - g0 neighbour g5
+  - g6 neighbour g8
+  - g4 neighbour g6
+  - g7 neighbour g3
+What is the dominant convention after generations?
+
+Answer with exactly one of: teso | bize | mazu | lilo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mazu&quot;,
+ &quot;final&quot;: [
+  &quot;bize&quot;,
+  &quot;bize&quot;,
+  &quot;mazu&quot;,
+  &quot;mazu&quot;,
+  &quot;mazu&quot;,
+  &quot;mazu&quot;,
+  &quot;mazu&quot;,
+  &quot;bize&quot;,
+  &quot;bize&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;bize&quot;,
+  &quot;bize&quot;,
+  &quot;mazu&quot;,
+  &quot;teso&quot;,
+  &quot;mazu&quot;,
+  &quot;lilo&quot;,
+  &quot;bize&quot;,
+  &quot;mazu&quot;,
+  &quot;bize&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;bize&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">rube</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g2, rube), facing 26
+  - at (g5, sego), facing 32
+  - at (g1, rube), facing 50
+  - at (g6, rube), facing 63
+  - at (g0, rube), facing 18
+  - at (g4, rube), facing 74
+  - at (g3, nose), facing 22
+The structure:
+  - g3 neighbour g6
+  - g4 neighbour g0
+  - g1 neighbour g2
+  - g6 neighbour g1
+  - g5 neighbour g4
+  - g2 neighbour g5
+  - g0 neighbour g3
+What is the dominant convention after generations?
+
+Answer with exactly one of: rube | sego | nose
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;rube&quot;,
+ &quot;final&quot;: [
+  &quot;rube&quot;,
+  &quot;rube&quot;,
+  &quot;rube&quot;,
+  &quot;rube&quot;,
+  &quot;rube&quot;,
+  &quot;rube&quot;,
+  &quot;rube&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;rube&quot;,
+  &quot;nose&quot;,
+  &quot;rube&quot;,
+  &quot;rube&quot;,
+  &quot;rube&quot;,
+  &quot;sego&quot;,
+  &quot;rube&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;rube&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">mulo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g7, ludi), facing 60
+  - at (g6, paka), facing 28
+  - at (g3, mulo), facing 85
+  - at (g4, paka), facing 27
+  - at (g1, mulo), facing 49
+  - at (g0, paka), facing 70
+  - at (g8, mulo), facing 48
+  - at (g2, mulo), facing 57
+  - at (g5, mulo), facing 22
+The structure:
+  - g1 neighbour g8
+  - g7 neighbour g5
+  - g8 neighbour g3
+  - g4 neighbour g6
+  - g3 neighbour g0
+  - g2 neighbour g4
+  - g5 neighbour g2
+  - g6 neighbour g1
+  - g0 neighbour g7
+What is the dominant convention after generations?
+
+Answer with exactly one of: paka | ludi | mulo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mulo&quot;,
+ &quot;final&quot;: [
+  &quot;mulo&quot;,
+  &quot;mulo&quot;,
+  &quot;mulo&quot;,
+  &quot;mulo&quot;,
+  &quot;mulo&quot;,
+  &quot;mulo&quot;,
+  &quot;mulo&quot;,
+  &quot;mulo&quot;,
+  &quot;mulo&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;paka&quot;,
+  &quot;mulo&quot;,
+  &quot;mulo&quot;,
+  &quot;mulo&quot;,
+  &quot;paka&quot;,
+  &quot;ludi&quot;,
+  &quot;mulo&quot;,
+  &quot;mulo&quot;,
+  &quot;paka&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;mulo&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">dade</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g4, dade), facing 69
+  - at (g1, gemo), facing 56
+  - at (g7, zapo), facing 22
+  - at (g6, gemo), facing 50
+  - at (g8, dade), facing 75
+  - at (g2, kusa), facing 30
+  - at (g0, gemo), facing 29
+  - at (g3, gemo), facing 42
+  - at (g5, dade), facing 44
+The structure:
+  - g1 neighbour g0
+  - g2 neighbour g1
+  - g6 neighbour g4
+  - g7 neighbour g3
+  - g5 neighbour g8
+  - g4 neighbour g7
+  - g8 neighbour g2
+  - g0 neighbour g6
+  - g3 neighbour g5
+What is the dominant convention after generations?
+
+Answer with exactly one of: gemo | zapo | kusa | dade
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;dade&quot;,
+ &quot;final&quot;: [
+  &quot;gemo&quot;,
+  &quot;gemo&quot;,
+  &quot;dade&quot;,
+  &quot;dade&quot;,
+  &quot;dade&quot;,
+  &quot;dade&quot;,
+  &quot;dade&quot;,
+  &quot;dade&quot;,
+  &quot;gemo&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;gemo&quot;,
+  &quot;gemo&quot;,
+  &quot;dade&quot;,
+  &quot;zapo&quot;,
+  &quot;gemo&quot;,
+  &quot;dade&quot;,
+  &quot;dade&quot;,
+  &quot;kusa&quot;,
+  &quot;gemo&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;gemo&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">gate</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g3, tare), facing 37
+  - at (g1, mota), facing 52
+  - at (g0, gate), facing 86
+  - at (g5, beta), facing 41
+  - at (g4, tare), facing 36
+  - at (g2, mota), facing 60
+  - at (g6, mota), facing 56
+The structure:
+  - g2 neighbour g6
+  - g3 neighbour g1
+  - g6 neighbour g0
+  - g0 neighbour g5
+  - g5 neighbour g4
+  - g4 neighbour g3
+  - g1 neighbour g2
+What is the dominant convention after generations?
+
+Answer with exactly one of: mota | beta | gate | tare
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gate&quot;,
+ &quot;final&quot;: [
+  &quot;mota&quot;,
+  &quot;mota&quot;,
+  &quot;gate&quot;,
+  &quot;gate&quot;,
+  &quot;gate&quot;,
+  &quot;gate&quot;,
+  &quot;mota&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;mota&quot;,
+  &quot;mota&quot;,
+  &quot;mota&quot;,
+  &quot;gate&quot;,
+  &quot;beta&quot;,
+  &quot;tare&quot;,
+  &quot;tare&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;mota&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">vaba</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g6, miri), facing 35
+  - at (g3, vaba), facing 72
+  - at (g5, miri), facing 87
+  - at (g0, tibe), facing 67
+  - at (g2, miri), facing 20
+  - at (g1, vaba), facing 11
+  - at (g4, tibe), facing 46
+The structure:
+  - g1 neighbour g3
+  - g0 neighbour g2
+  - g5 neighbour g0
+  - g6 neighbour g4
+  - g4 neighbour g5
+  - g2 neighbour g1
+  - g3 neighbour g6
+What is the dominant convention after generations?
+
+Answer with exactly one of: miri | vaba | tibe
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vaba&quot;,
+ &quot;final&quot;: [
+  &quot;vaba&quot;,
+  &quot;vaba&quot;,
+  &quot;vaba&quot;,
+  &quot;tibe&quot;,
+  &quot;miri&quot;,
+  &quot;tibe&quot;,
+  &quot;miri&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;vaba&quot;,
+  &quot;vaba&quot;,
+  &quot;miri&quot;,
+  &quot;tibe&quot;,
+  &quot;miri&quot;,
+  &quot;tibe&quot;,
+  &quot;miri&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;miri&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">gure</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g0, gure), facing 18
+  - at (g2, gezo), facing 78
+  - at (g3, guri), facing 49
+  - at (g8, gezo), facing 85
+  - at (g5, gure), facing 70
+  - at (g4, gure), facing 55
+  - at (g6, guri), facing 68
+  - at (g7, gure), facing 72
+  - at (g1, gure), facing 86
+The structure:
+  - g0 neighbour g1
+  - g3 neighbour g7
+  - g7 neighbour g0
+  - g8 neighbour g2
+  - g4 neighbour g8
+  - g6 neighbour g3
+  - g2 neighbour g6
+  - g5 neighbour g4
+  - g1 neighbour g5
+What is the dominant convention after generations?
+
+Answer with exactly one of: gezo | gure | guri
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gure&quot;,
+ &quot;final&quot;: [
+  &quot;gure&quot;,
+  &quot;gure&quot;,
+  &quot;gezo&quot;,
+  &quot;gezo&quot;,
+  &quot;gezo&quot;,
+  &quot;gezo&quot;,
+  &quot;gure&quot;,
+  &quot;gure&quot;,
+  &quot;gure&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;gure&quot;,
+  &quot;gure&quot;,
+  &quot;gure&quot;,
+  &quot;gezo&quot;,
+  &quot;gezo&quot;,
+  &quot;guri&quot;,
+  &quot;guri&quot;,
+  &quot;gure&quot;,
+  &quot;gure&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;gure&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">remi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g2, dasa), facing 32
+  - at (g7, zimu), facing 67
+  - at (g3, remi), facing 53
+  - at (g0, remi), facing 24
+  - at (g6, dasa), facing 61
+  - at (g8, remi), facing 21
+  - at (g4, remi), facing 84
+  - at (g1, pimo), facing 35
+  - at (g5, pimo), facing 46
+The structure:
+  - g0 neighbour g4
+  - g6 neighbour g3
+  - g7 neighbour g8
+  - g5 neighbour g1
+  - g3 neighbour g7
+  - g4 neighbour g5
+  - g1 neighbour g2
+  - g2 neighbour g6
+  - g8 neighbour g0
+What is the dominant convention after generations?
+
+Answer with exactly one of: pimo | zimu | dasa | remi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;remi&quot;,
+ &quot;final&quot;: [
+  &quot;remi&quot;,
+  &quot;remi&quot;,
+  &quot;remi&quot;,
+  &quot;remi&quot;,
+  &quot;dasa&quot;,
+  &quot;dasa&quot;,
+  &quot;zimu&quot;,
+  &quot;zimu&quot;,
+  &quot;zimu&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;remi&quot;,
+  &quot;remi&quot;,
+  &quot;pimo&quot;,
+  &quot;pimo&quot;,
+  &quot;dasa&quot;,
+  &quot;dasa&quot;,
+  &quot;remi&quot;,
+  &quot;zimu&quot;,
+  &quot;remi&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;remi&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">nebi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g8, nebi), facing 40
+  - at (g3, nebi), facing 51
+  - at (g4, nebi), facing 53
+  - at (g7, dabu), facing 31
+  - at (g6, nigi), facing 20
+  - at (g0, dabu), facing 30
+  - at (g2, nigi), facing 82
+  - at (g1, nebi), facing 19
+  - at (g5, nebi), facing 71
+The structure:
+  - g6 neighbour g0
+  - g3 neighbour g6
+  - g7 neighbour g2
+  - g5 neighbour g8
+  - g0 neighbour g4
+  - g1 neighbour g5
+  - g2 neighbour g1
+  - g4 neighbour g7
+  - g8 neighbour g3
+What is the dominant convention after generations?
+
+Answer with exactly one of: tipi | dabu | nebi | nigi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nebi&quot;,
+ &quot;final&quot;: [
+  &quot;nebi&quot;,
+  &quot;nebi&quot;,
+  &quot;nebi&quot;,
+  &quot;nebi&quot;,
+  &quot;dabu&quot;,
+  &quot;nigi&quot;,
+  &quot;nigi&quot;,
+  &quot;nebi&quot;,
+  &quot;nebi&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;nebi&quot;,
+  &quot;nebi&quot;,
+  &quot;nigi&quot;,
+  &quot;dabu&quot;,
+  &quot;nebi&quot;,
+  &quot;dabu&quot;,
+  &quot;nigi&quot;,
+  &quot;nebi&quot;,
+  &quot;nebi&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;nebi&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">resi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g1, resi), facing 77
+  - at (g4, kima), facing 47
+  - at (g3, resi), facing 25
+  - at (g2, resi), facing 73
+  - at (g0, resi), facing 36
+  - at (g7, resi), facing 33
+  - at (g6, resi), facing 75
+  - at (g5, kima), facing 72
+The structure:
+  - g4 neighbour g7
+  - g7 neighbour g5
+  - g2 neighbour g0
+  - g0 neighbour g1
+  - g6 neighbour g2
+  - g3 neighbour g6
+  - g5 neighbour g3
+  - g1 neighbour g4
+What is the dominant convention after generations?
+
+Answer with exactly one of: bolu | kima | resi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;resi&quot;,
+ &quot;final&quot;: [
+  &quot;resi&quot;,
+  &quot;resi&quot;,
+  &quot;resi&quot;,
+  &quot;resi&quot;,
+  &quot;resi&quot;,
+  &quot;resi&quot;,
+  &quot;kima&quot;,
+  &quot;kima&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;resi&quot;,
+  &quot;resi&quot;,
+  &quot;resi&quot;,
+  &quot;resi&quot;,
+  &quot;resi&quot;,
+  &quot;kima&quot;,
+  &quot;resi&quot;,
+  &quot;kima&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;resi&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">godi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g8, duki), facing 13
+  - at (g4, duki), facing 12
+  - at (g6, vuna), facing 84
+  - at (g5, vuna), facing 30
+  - at (g2, duki), facing 51
+  - at (g0, duki), facing 38
+  - at (g1, godi), facing 77
+  - at (g3, godi), facing 11
+  - at (g7, godi), facing 55
+The structure:
+  - g8 neighbour g2
+  - g5 neighbour g4
+  - g0 neighbour g8
+  - g1 neighbour g5
+  - g7 neighbour g1
+  - g3 neighbour g6
+  - g2 neighbour g7
+  - g4 neighbour g3
+  - g6 neighbour g0
+What is the dominant convention after generations?
+
+Answer with exactly one of: godi | vuna | duki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;godi&quot;,
+ &quot;final&quot;: [
+  &quot;vuna&quot;,
+  &quot;vuna&quot;,
+  &quot;godi&quot;,
+  &quot;godi&quot;,
+  &quot;godi&quot;,
+  &quot;godi&quot;,
+  &quot;godi&quot;,
+  &quot;godi&quot;,
+  &quot;vuna&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;vuna&quot;,
+  &quot;duki&quot;,
+  &quot;duki&quot;,
+  &quot;duki&quot;,
+  &quot;godi&quot;,
+  &quot;godi&quot;,
+  &quot;vuna&quot;,
+  &quot;duki&quot;,
+  &quot;godi&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;duki&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">bola</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g2, libi), facing 24
+  - at (g5, bola), facing 78
+  - at (g1, libi), facing 57
+  - at (g3, bola), facing 28
+  - at (g4, pami), facing 74
+  - at (g0, bola), facing 23
+  - at (g8, libi), facing 13
+  - at (g7, pami), facing 42
+  - at (g6, libi), facing 70
+The structure:
+  - g8 neighbour g3
+  - g2 neighbour g1
+  - g0 neighbour g7
+  - g5 neighbour g4
+  - g1 neighbour g5
+  - g7 neighbour g2
+  - g6 neighbour g0
+  - g4 neighbour g8
+  - g3 neighbour g6
+What is the dominant convention after generations?
+
+Answer with exactly one of: bola | pami | libi | dedi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;bola&quot;,
+ &quot;final&quot;: [
+  &quot;bola&quot;,
+  &quot;bola&quot;,
+  &quot;bola&quot;,
+  &quot;bola&quot;,
+  &quot;libi&quot;,
+  &quot;libi&quot;,
+  &quot;libi&quot;,
+  &quot;pami&quot;,
+  &quot;bola&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;libi&quot;,
+  &quot;bola&quot;,
+  &quot;pami&quot;,
+  &quot;libi&quot;,
+  &quot;bola&quot;,
+  &quot;libi&quot;,
+  &quot;bola&quot;,
+  &quot;pami&quot;,
+  &quot;libi&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;libi&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">gibe</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g4, gibe), facing 68
+  - at (g5, pase), facing 10
+  - at (g3, kiga), facing 65
+  - at (g2, pase), facing 42
+  - at (g1, kiga), facing 83
+  - at (g6, gibe), facing 82
+  - at (g0, gibe), facing 51
+The structure:
+  - g4 neighbour g3
+  - g0 neighbour g6
+  - g5 neighbour g4
+  - g3 neighbour g2
+  - g1 neighbour g0
+  - g2 neighbour g1
+  - g6 neighbour g5
+What is the dominant convention after generations?
+
+Answer with exactly one of: gibe | puki | kiga | pase
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gibe&quot;,
+ &quot;final&quot;: [
+  &quot;gibe&quot;,
+  &quot;gibe&quot;,
+  &quot;kiga&quot;,
+  &quot;kiga&quot;,
+  &quot;kiga&quot;,
+  &quot;gibe&quot;,
+  &quot;gibe&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;gibe&quot;,
+  &quot;kiga&quot;,
+  &quot;pase&quot;,
+  &quot;kiga&quot;,
+  &quot;gibe&quot;,
+  &quot;gibe&quot;,
+  &quot;pase&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;gibe&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">sige</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g1, sige), facing 74
+  - at (g4, tizo), facing 89
+  - at (g7, sige), facing 65
+  - at (g0, sige), facing 17
+  - at (g6, sige), facing 37
+  - at (g3, kube), facing 33
+  - at (g2, sige), facing 63
+  - at (g5, tizo), facing 40
+The structure:
+  - g3 neighbour g0
+  - g5 neighbour g3
+  - g4 neighbour g6
+  - g0 neighbour g1
+  - g2 neighbour g7
+  - g7 neighbour g5
+  - g1 neighbour g4
+  - g6 neighbour g2
+What is the dominant convention after generations?
+
+Answer with exactly one of: sige | tizo | kube
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sige&quot;,
+ &quot;final&quot;: [
+  &quot;sige&quot;,
+  &quot;sige&quot;,
+  &quot;sige&quot;,
+  &quot;sige&quot;,
+  &quot;sige&quot;,
+  &quot;sige&quot;,
+  &quot;sige&quot;,
+  &quot;sige&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;tizo&quot;,
+  &quot;kube&quot;,
+  &quot;sige&quot;,
+  &quot;sige&quot;,
+  &quot;tizo&quot;,
+  &quot;sige&quot;,
+  &quot;sige&quot;,
+  &quot;sige&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;sige&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">puke</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g4, biri), facing 17
+  - at (g7, gave), facing 12
+  - at (g5, puke), facing 61
+  - at (g1, biri), facing 23
+  - at (g6, biri), facing 62
+  - at (g3, sepu), facing 21
+  - at (g0, puke), facing 28
+  - at (g2, sepu), facing 48
+The structure:
+  - g2 neighbour g5
+  - g1 neighbour g3
+  - g6 neighbour g7
+  - g5 neighbour g0
+  - g0 neighbour g1
+  - g3 neighbour g6
+  - g7 neighbour g4
+  - g4 neighbour g2
+What is the dominant convention after generations?
+
+Answer with exactly one of: biri | gave | puke | sepu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;puke&quot;,
+ &quot;final&quot;: [
+  &quot;puke&quot;,
+  &quot;puke&quot;,
+  &quot;puke&quot;,
+  &quot;puke&quot;,
+  &quot;puke&quot;,
+  &quot;biri&quot;,
+  &quot;biri&quot;,
+  &quot;biri&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;biri&quot;,
+  &quot;sepu&quot;,
+  &quot;puke&quot;,
+  &quot;puke&quot;,
+  &quot;biri&quot;,
+  &quot;sepu&quot;,
+  &quot;biri&quot;,
+  &quot;gave&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;biri&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">mupa</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g3, mupa), facing 38
+  - at (g1, mupa), facing 30
+  - at (g2, mupa), facing 64
+  - at (g8, mupa), facing 85
+  - at (g5, mupa), facing 63
+  - at (g6, kise), facing 67
+  - at (g0, kise), facing 45
+  - at (g4, mupa), facing 53
+  - at (g7, mupa), facing 10
+The structure:
+  - g2 neighbour g4
+  - g5 neighbour g3
+  - g8 neighbour g0
+  - g7 neighbour g1
+  - g4 neighbour g5
+  - g6 neighbour g8
+  - g0 neighbour g7
+  - g3 neighbour g6
+  - g1 neighbour g2
+What is the dominant convention after generations?
+
+Answer with exactly one of: tagu | kise | mupa
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mupa&quot;,
+ &quot;final&quot;: [
+  &quot;mupa&quot;,
+  &quot;mupa&quot;,
+  &quot;mupa&quot;,
+  &quot;mupa&quot;,
+  &quot;mupa&quot;,
+  &quot;mupa&quot;,
+  &quot;mupa&quot;,
+  &quot;mupa&quot;,
+  &quot;mupa&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;mupa&quot;,
+  &quot;mupa&quot;,
+  &quot;kise&quot;,
+  &quot;mupa&quot;,
+  &quot;kise&quot;,
+  &quot;mupa&quot;,
+  &quot;mupa&quot;,
+  &quot;mupa&quot;,
+  &quot;mupa&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;mupa&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">bevi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g2, bevi), facing 76
+  - at (g4, bevi), facing 84
+  - at (g3, gavu), facing 23
+  - at (g1, bevi), facing 19
+  - at (g6, pulu), facing 47
+  - at (g0, gavu), facing 17
+  - at (g5, bevi), facing 45
+The structure:
+  - g3 neighbour g4
+  - g2 neighbour g3
+  - g0 neighbour g6
+  - g6 neighbour g5
+  - g5 neighbour g1
+  - g4 neighbour g0
+  - g1 neighbour g2
+What is the dominant convention after generations?
+
+Answer with exactly one of: bevi | pulu | gavu | vuku
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;bevi&quot;,
+ &quot;final&quot;: [
+  &quot;pulu&quot;,
+  &quot;pulu&quot;,
+  &quot;bevi&quot;,
+  &quot;bevi&quot;,
+  &quot;bevi&quot;,
+  &quot;bevi&quot;,
+  &quot;bevi&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;pulu&quot;,
+  &quot;bevi&quot;,
+  &quot;bevi&quot;,
+  &quot;bevi&quot;,
+  &quot;gavu&quot;,
+  &quot;bevi&quot;,
+  &quot;gavu&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;bevi&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">kemu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g0, katu), facing 11
+  - at (g3, katu), facing 38
+  - at (g4, tosi), facing 79
+  - at (g2, katu), facing 81
+  - at (g1, kemu), facing 87
+  - at (g5, kemu), facing 30
+  - at (g6, kemu), facing 45
+  - at (g7, katu), facing 84
+The structure:
+  - g3 neighbour g1
+  - g1 neighbour g7
+  - g0 neighbour g3
+  - g2 neighbour g4
+  - g7 neighbour g2
+  - g5 neighbour g0
+  - g6 neighbour g5
+  - g4 neighbour g6
+What is the dominant convention after generations?
+
+Answer with exactly one of: kemu | tosi | katu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;kemu&quot;,
+ &quot;final&quot;: [
+  &quot;kemu&quot;,
+  &quot;katu&quot;,
+  &quot;kemu&quot;,
+  &quot;kemu&quot;,
+  &quot;kemu&quot;,
+  &quot;kemu&quot;,
+  &quot;kemu&quot;,
+  &quot;kemu&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;kemu&quot;,
+  &quot;kemu&quot;,
+  &quot;katu&quot;,
+  &quot;katu&quot;,
+  &quot;kemu&quot;,
+  &quot;katu&quot;,
+  &quot;katu&quot;,
+  &quot;tosi&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;katu&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">vimi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g4, vimi), facing 86
+  - at (g3, kaza), facing 85
+  - at (g1, zada), facing 17
+  - at (g0, vimi), facing 87
+  - at (g5, lamo), facing 39
+  - at (g6, kaza), facing 69
+  - at (g2, zada), facing 83
+  - at (g7, zada), facing 38
+The structure:
+  - g1 neighbour g5
+  - g4 neighbour g7
+  - g2 neighbour g4
+  - g0 neighbour g6
+  - g7 neighbour g0
+  - g3 neighbour g1
+  - g5 neighbour g2
+  - g6 neighbour g3
+What is the dominant convention after generations?
+
+Answer with exactly one of: lamo | zada | vimi | kaza
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vimi&quot;,
+ &quot;final&quot;: [
+  &quot;kaza&quot;,
+  &quot;kaza&quot;,
+  &quot;kaza&quot;,
+  &quot;zada&quot;,
+  &quot;vimi&quot;,
+  &quot;vimi&quot;,
+  &quot;vimi&quot;,
+  &quot;vimi&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;kaza&quot;,
+  &quot;kaza&quot;,
+  &quot;zada&quot;,
+  &quot;lamo&quot;,
+  &quot;zada&quot;,
+  &quot;vimi&quot;,
+  &quot;zada&quot;,
+  &quot;vimi&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;zada&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">niga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g0, gutu), facing 59
+  - at (g3, niga), facing 42
+  - at (g2, gutu), facing 33
+  - at (g6, gutu), facing 30
+  - at (g1, niga), facing 52
+  - at (g5, raka), facing 25
+  - at (g4, kude), facing 46
+The structure:
+  - g3 neighbour g0
+  - g0 neighbour g6
+  - g6 neighbour g4
+  - g1 neighbour g3
+  - g2 neighbour g1
+  - g4 neighbour g5
+  - g5 neighbour g2
+What is the dominant convention after generations?
+
+Answer with exactly one of: niga | kude | raka | gutu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;niga&quot;,
+ &quot;final&quot;: [
+  &quot;niga&quot;,
+  &quot;gutu&quot;,
+  &quot;gutu&quot;,
+  &quot;kude&quot;,
+  &quot;kude&quot;,
+  &quot;niga&quot;,
+  &quot;niga&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;niga&quot;,
+  &quot;gutu&quot;,
+  &quot;gutu&quot;,
+  &quot;kude&quot;,
+  &quot;raka&quot;,
+  &quot;gutu&quot;,
+  &quot;niga&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;gutu&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">puko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g3, liro), facing 35
+  - at (g4, puko), facing 59
+  - at (g5, liro), facing 22
+  - at (g6, puko), facing 14
+  - at (g1, puko), facing 52
+  - at (g2, liro), facing 26
+  - at (g0, puko), facing 56
+  - at (g7, puko), facing 40
+The structure:
+  - g7 neighbour g6
+  - g3 neighbour g7
+  - g4 neighbour g3
+  - g5 neighbour g0
+  - g6 neighbour g2
+  - g1 neighbour g5
+  - g0 neighbour g4
+  - g2 neighbour g1
+What is the dominant convention after generations?
+
+Answer with exactly one of: puvu | puko | liro
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;puko&quot;,
+ &quot;final&quot;: [
+  &quot;puko&quot;,
+  &quot;puko&quot;,
+  &quot;puko&quot;,
+  &quot;puko&quot;,
+  &quot;puko&quot;,
+  &quot;puko&quot;,
+  &quot;puko&quot;,
+  &quot;puko&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;liro&quot;,
+  &quot;puko&quot;,
+  &quot;puko&quot;,
+  &quot;liro&quot;,
+  &quot;puko&quot;,
+  &quot;liro&quot;,
+  &quot;puko&quot;,
+  &quot;puko&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;puko&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">vesu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g8, tena), facing 50
+  - at (g2, vesu), facing 10
+  - at (g3, vesu), facing 57
+  - at (g6, vesu), facing 61
+  - at (g7, vesu), facing 29
+  - at (g5, tubu), facing 64
+  - at (g4, tena), facing 43
+  - at (g1, tubu), facing 70
+  - at (g0, tena), facing 84
+The structure:
+  - g2 neighbour g0
+  - g3 neighbour g8
+  - g5 neighbour g4
+  - g7 neighbour g3
+  - g0 neighbour g6
+  - g1 neighbour g5
+  - g6 neighbour g1
+  - g8 neighbour g2
+  - g4 neighbour g7
+What is the dominant convention after generations?
+
+Answer with exactly one of: zuso | tena | vesu | tubu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vesu&quot;,
+ &quot;final&quot;: [
+  &quot;vesu&quot;,
+  &quot;vesu&quot;,
+  &quot;vesu&quot;,
+  &quot;tena&quot;,
+  &quot;tubu&quot;,
+  &quot;tubu&quot;,
+  &quot;tubu&quot;,
+  &quot;vesu&quot;,
+  &quot;vesu&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;tena&quot;,
+  &quot;vesu&quot;,
+  &quot;tena&quot;,
+  &quot;vesu&quot;,
+  &quot;tubu&quot;,
+  &quot;tubu&quot;,
+  &quot;tena&quot;,
+  &quot;vesu&quot;,
+  &quot;vesu&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;vesu&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">raga</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g5, nito), facing 68
+  - at (g0, raga), facing 73
+  - at (g4, bagu), facing 62
+  - at (g1, bagu), facing 66
+  - at (g2, bagu), facing 23
+  - at (g6, nito), facing 87
+  - at (g3, raga), facing 53
+The structure:
+  - g0 neighbour g5
+  - g3 neighbour g2
+  - g6 neighbour g4
+  - g4 neighbour g0
+  - g1 neighbour g3
+  - g5 neighbour g1
+  - g2 neighbour g6
+What is the dominant convention after generations?
+
+Answer with exactly one of: nito | raga | palu | bagu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;raga&quot;,
+ &quot;final&quot;: [
+  &quot;raga&quot;,
+  &quot;raga&quot;,
+  &quot;bagu&quot;,
+  &quot;nito&quot;,
+  &quot;bagu&quot;,
+  &quot;raga&quot;,
+  &quot;raga&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;bagu&quot;,
+  &quot;raga&quot;,
+  &quot;bagu&quot;,
+  &quot;nito&quot;,
+  &quot;bagu&quot;,
+  &quot;raga&quot;,
+  &quot;nito&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;bagu&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">lebo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g5, mela), facing 44
+  - at (g7, lebo), facing 87
+  - at (g0, legu), facing 53
+  - at (g6, lebo), facing 65
+  - at (g3, lebo), facing 39
+  - at (g4, lebo), facing 23
+  - at (g2, legu), facing 35
+  - at (g1, mela), facing 66
+The structure:
+  - g2 neighbour g1
+  - g6 neighbour g4
+  - g0 neighbour g5
+  - g3 neighbour g0
+  - g5 neighbour g6
+  - g1 neighbour g7
+  - g4 neighbour g2
+  - g7 neighbour g3
+What is the dominant convention after generations?
+
+Answer with exactly one of: legu | mela | nimu | lebo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;lebo&quot;,
+ &quot;final&quot;: [
+  &quot;lebo&quot;,
+  &quot;legu&quot;,
+  &quot;lebo&quot;,
+  &quot;lebo&quot;,
+  &quot;lebo&quot;,
+  &quot;lebo&quot;,
+  &quot;lebo&quot;,
+  &quot;lebo&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;lebo&quot;,
+  &quot;legu&quot;,
+  &quot;mela&quot;,
+  &quot;lebo&quot;,
+  &quot;lebo&quot;,
+  &quot;legu&quot;,
+  &quot;mela&quot;,
+  &quot;lebo&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;lebo&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">puvu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g4, seri), facing 48
+  - at (g2, seri), facing 54
+  - at (g0, ridi), facing 57
+  - at (g5, seri), facing 32
+  - at (g6, puvu), facing 67
+  - at (g1, seri), facing 34
+  - at (g3, puvu), facing 13
+The structure:
+  - g4 neighbour g0
+  - g2 neighbour g4
+  - g3 neighbour g5
+  - g6 neighbour g1
+  - g0 neighbour g6
+  - g1 neighbour g3
+  - g5 neighbour g2
+What is the dominant convention after generations?
+
+Answer with exactly one of: ridi | puvu | seri
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;puvu&quot;,
+ &quot;final&quot;: [
+  &quot;seri&quot;,
+  &quot;seri&quot;,
+  &quot;puvu&quot;,
+  &quot;puvu&quot;,
+  &quot;puvu&quot;,
+  &quot;puvu&quot;,
+  &quot;puvu&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;seri&quot;,
+  &quot;seri&quot;,
+  &quot;seri&quot;,
+  &quot;ridi&quot;,
+  &quot;puvu&quot;,
+  &quot;seri&quot;,
+  &quot;puvu&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;seri&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">buvi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g6, buvi), facing 14
+  - at (g1, noti), facing 71
+  - at (g0, buvi), facing 25
+  - at (g7, pate), facing 39
+  - at (g4, buvi), facing 63
+  - at (g3, buvi), facing 73
+  - at (g2, buvi), facing 72
+  - at (g5, pate), facing 45
+The structure:
+  - g0 neighbour g6
+  - g1 neighbour g7
+  - g5 neighbour g2
+  - g3 neighbour g4
+  - g2 neighbour g3
+  - g6 neighbour g1
+  - g7 neighbour g5
+  - g4 neighbour g0
+What is the dominant convention after generations?
+
+Answer with exactly one of: pate | noti | buvi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;buvi&quot;,
+ &quot;final&quot;: [
+  &quot;noti&quot;,
+  &quot;noti&quot;,
+  &quot;buvi&quot;,
+  &quot;buvi&quot;,
+  &quot;buvi&quot;,
+  &quot;buvi&quot;,
+  &quot;buvi&quot;,
+  &quot;noti&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;noti&quot;,
+  &quot;pate&quot;,
+  &quot;pate&quot;,
+  &quot;buvi&quot;,
+  &quot;buvi&quot;,
+  &quot;buvi&quot;,
+  &quot;buvi&quot;,
+  &quot;buvi&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;buvi&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">vubo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g2, vubo), facing 17
+  - at (g7, vubo), facing 27
+  - at (g5, vubo), facing 75
+  - at (g8, bulo), facing 50
+  - at (g4, vubo), facing 52
+  - at (g6, bake), facing 26
+  - at (g0, bulo), facing 61
+  - at (g1, vubo), facing 54
+  - at (g3, vubo), facing 74
+The structure:
+  - g4 neighbour g6
+  - g2 neighbour g4
+  - g7 neighbour g1
+  - g8 neighbour g5
+  - g5 neighbour g0
+  - g0 neighbour g2
+  - g6 neighbour g7
+  - g1 neighbour g3
+  - g3 neighbour g8
+What is the dominant convention after generations?
+
+Answer with exactly one of: vubo | bulo | bake
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vubo&quot;,
+ &quot;final&quot;: [
+  &quot;vubo&quot;,
+  &quot;vubo&quot;,
+  &quot;vubo&quot;,
+  &quot;vubo&quot;,
+  &quot;vubo&quot;,
+  &quot;vubo&quot;,
+  &quot;vubo&quot;,
+  &quot;vubo&quot;,
+  &quot;vubo&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;bake&quot;,
+  &quot;vubo&quot;,
+  &quot;vubo&quot;,
+  &quot;vubo&quot;,
+  &quot;bulo&quot;,
+  &quot;vubo&quot;,
+  &quot;bulo&quot;,
+  &quot;vubo&quot;,
+  &quot;vubo&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;vubo&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">pevi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g6, dose), facing 41
+  - at (g3, konu), facing 32
+  - at (g1, pevi), facing 84
+  - at (g0, rivo), facing 67
+  - at (g2, pevi), facing 36
+  - at (g4, rivo), facing 13
+  - at (g5, pevi), facing 58
+The structure:
+  - g3 neighbour g6
+  - g1 neighbour g3
+  - g4 neighbour g2
+  - g6 neighbour g4
+  - g5 neighbour g1
+  - g2 neighbour g0
+  - g0 neighbour g5
+What is the dominant convention after generations?
+
+Answer with exactly one of: konu | pevi | rivo | dose
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;pevi&quot;,
+ &quot;final&quot;: [
+  &quot;dose&quot;,
+  &quot;dose&quot;,
+  &quot;rivo&quot;,
+  &quot;rivo&quot;,
+  &quot;pevi&quot;,
+  &quot;pevi&quot;,
+  &quot;pevi&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;dose&quot;,
+  &quot;rivo&quot;,
+  &quot;pevi&quot;,
+  &quot;rivo&quot;,
+  &quot;pevi&quot;,
+  &quot;pevi&quot;,
+  &quot;konu&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;pevi&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">time</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g5, zalo), facing 39
+  - at (g4, ropu), facing 11
+  - at (g0, ropu), facing 69
+  - at (g1, zalo), facing 38
+  - at (g6, time), facing 83
+  - at (g2, ropu), facing 75
+  - at (g3, time), facing 16
+The structure:
+  - g0 neighbour g1
+  - g4 neighbour g6
+  - g2 neighbour g4
+  - g6 neighbour g0
+  - g1 neighbour g3
+  - g5 neighbour g2
+  - g3 neighbour g5
+What is the dominant convention after generations?
+
+Answer with exactly one of: ropu | time | zalo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;time&quot;,
+ &quot;final&quot;: [
+  &quot;ropu&quot;,
+  &quot;ropu&quot;,
+  &quot;time&quot;,
+  &quot;time&quot;,
+  &quot;time&quot;,
+  &quot;time&quot;,
+  &quot;ropu&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;zalo&quot;,
+  &quot;ropu&quot;,
+  &quot;ropu&quot;,
+  &quot;time&quot;,
+  &quot;ropu&quot;,
+  &quot;zalo&quot;,
+  &quot;time&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;ropu&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">pemi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g0, vuzu), facing 39
+  - at (g4, dali), facing 61
+  - at (g3, pemi), facing 88
+  - at (g1, vuzu), facing 27
+  - at (g6, pemi), facing 82
+  - at (g2, dali), facing 78
+  - at (g7, dali), facing 50
+  - at (g8, vuzu), facing 24
+  - at (g5, vuzu), facing 36
+The structure:
+  - g4 neighbour g0
+  - g6 neighbour g8
+  - g3 neighbour g7
+  - g0 neighbour g5
+  - g2 neighbour g6
+  - g8 neighbour g4
+  - g1 neighbour g2
+  - g5 neighbour g3
+  - g7 neighbour g1
+What is the dominant convention after generations?
+
+Answer with exactly one of: pemi | vuzu | dali
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;pemi&quot;,
+ &quot;final&quot;: [
+  &quot;pemi&quot;,
+  &quot;pemi&quot;,
+  &quot;vuzu&quot;,
+  &quot;vuzu&quot;,
+  &quot;vuzu&quot;,
+  &quot;pemi&quot;,
+  &quot;pemi&quot;,
+  &quot;pemi&quot;,
+  &quot;pemi&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;pemi&quot;,
+  &quot;vuzu&quot;,
+  &quot;dali&quot;,
+  &quot;vuzu&quot;,
+  &quot;vuzu&quot;,
+  &quot;pemi&quot;,
+  &quot;dali&quot;,
+  &quot;vuzu&quot;,
+  &quot;dali&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;vuzu&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">duke</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g2, duke), facing 83
+  - at (g1, rivi), facing 30
+  - at (g6, poke), facing 32
+  - at (g3, rivi), facing 13
+  - at (g0, rivi), facing 23
+  - at (g5, poke), facing 80
+  - at (g4, duke), facing 67
+The structure:
+  - g0 neighbour g1
+  - g6 neighbour g3
+  - g1 neighbour g4
+  - g2 neighbour g5
+  - g4 neighbour g2
+  - g3 neighbour g0
+  - g5 neighbour g6
+What is the dominant convention after generations?
+
+Answer with exactly one of: rulo | poke | duke | rivi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;duke&quot;,
+ &quot;final&quot;: [
+  &quot;duke&quot;,
+  &quot;duke&quot;,
+  &quot;duke&quot;,
+  &quot;poke&quot;,
+  &quot;duke&quot;,
+  &quot;duke&quot;,
+  &quot;duke&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;duke&quot;,
+  &quot;poke&quot;,
+  &quot;poke&quot;,
+  &quot;rivi&quot;,
+  &quot;rivi&quot;,
+  &quot;rivi&quot;,
+  &quot;duke&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;rivi&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">nivu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g1, voli), facing 35
+  - at (g3, nivu), facing 78
+  - at (g7, nivu), facing 13
+  - at (g5, voli), facing 49
+  - at (g4, seke), facing 72
+  - at (g2, seke), facing 15
+  - at (g8, voli), facing 64
+  - at (g6, seke), facing 66
+  - at (g0, seke), facing 25
+The structure:
+  - g8 neighbour g7
+  - g2 neighbour g1
+  - g5 neighbour g0
+  - g3 neighbour g5
+  - g6 neighbour g2
+  - g0 neighbour g8
+  - g4 neighbour g3
+  - g7 neighbour g6
+  - g1 neighbour g4
+What is the dominant convention after generations?
+
+Answer with exactly one of: voli | nivu | seke
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nivu&quot;,
+ &quot;final&quot;: [
+  &quot;nivu&quot;,
+  &quot;nivu&quot;,
+  &quot;voli&quot;,
+  &quot;voli&quot;,
+  &quot;seke&quot;,
+  &quot;seke&quot;,
+  &quot;seke&quot;,
+  &quot;nivu&quot;,
+  &quot;nivu&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;nivu&quot;,
+  &quot;voli&quot;,
+  &quot;seke&quot;,
+  &quot;voli&quot;,
+  &quot;nivu&quot;,
+  &quot;seke&quot;,
+  &quot;seke&quot;,
+  &quot;voli&quot;,
+  &quot;seke&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;seke&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">goke</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g4, zagu), facing 52
+  - at (g2, kopo), facing 18
+  - at (g3, zagu), facing 47
+  - at (g1, zagu), facing 51
+  - at (g0, goke), facing 22
+  - at (g5, zagu), facing 55
+  - at (g6, goke), facing 78
+The structure:
+  - g6 neighbour g4
+  - g0 neighbour g3
+  - g2 neighbour g1
+  - g1 neighbour g6
+  - g4 neighbour g5
+  - g3 neighbour g2
+  - g5 neighbour g0
+What is the dominant convention after generations?
+
+Answer with exactly one of: kopo | goke | zagu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;goke&quot;,
+ &quot;final&quot;: [
+  &quot;goke&quot;,
+  &quot;goke&quot;,
+  &quot;goke&quot;,
+  &quot;zagu&quot;,
+  &quot;zagu&quot;,
+  &quot;zagu&quot;,
+  &quot;goke&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;zagu&quot;,
+  &quot;goke&quot;,
+  &quot;zagu&quot;,
+  &quot;zagu&quot;,
+  &quot;goke&quot;,
+  &quot;zagu&quot;,
+  &quot;kopo&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;zagu&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">kage</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g4, toke), facing 14
+  - at (g7, novi), facing 41
+  - at (g3, deze), facing 13
+  - at (g1, kage), facing 44
+  - at (g0, kage), facing 43
+  - at (g2, toke), facing 42
+  - at (g6, toke), facing 87
+  - at (g5, novi), facing 48
+The structure:
+  - g1 neighbour g0
+  - g6 neighbour g1
+  - g2 neighbour g7
+  - g4 neighbour g5
+  - g0 neighbour g2
+  - g7 neighbour g4
+  - g3 neighbour g6
+  - g5 neighbour g3
+What is the dominant convention after generations?
+
+Answer with exactly one of: novi | toke | kage | deze
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;kage&quot;,
+ &quot;final&quot;: [
+  &quot;toke&quot;,
+  &quot;kage&quot;,
+  &quot;kage&quot;,
+  &quot;kage&quot;,
+  &quot;kage&quot;,
+  &quot;novi&quot;,
+  &quot;novi&quot;,
+  &quot;toke&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;toke&quot;,
+  &quot;kage&quot;,
+  &quot;kage&quot;,
+  &quot;toke&quot;,
+  &quot;novi&quot;,
+  &quot;toke&quot;,
+  &quot;novi&quot;,
+  &quot;deze&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;toke&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">zina</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g3, zina), facing 13
+  - at (g7, vila), facing 30
+  - at (g4, zina), facing 88
+  - at (g5, vila), facing 36
+  - at (g1, zina), facing 67
+  - at (g0, zina), facing 74
+  - at (g2, reni), facing 57
+  - at (g6, vila), facing 69
+The structure:
+  - g2 neighbour g5
+  - g0 neighbour g6
+  - g7 neighbour g0
+  - g1 neighbour g3
+  - g3 neighbour g2
+  - g4 neighbour g7
+  - g5 neighbour g4
+  - g6 neighbour g1
+What is the dominant convention after generations?
+
+Answer with exactly one of: zina | vila | reni
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zina&quot;,
+ &quot;final&quot;: [
+  &quot;zina&quot;,
+  &quot;reni&quot;,
+  &quot;zina&quot;,
+  &quot;zina&quot;,
+  &quot;zina&quot;,
+  &quot;zina&quot;,
+  &quot;zina&quot;,
+  &quot;zina&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;zina&quot;,
+  &quot;reni&quot;,
+  &quot;vila&quot;,
+  &quot;zina&quot;,
+  &quot;vila&quot;,
+  &quot;zina&quot;,
+  &quot;vila&quot;,
+  &quot;zina&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;zina&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">gitu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g5, gitu), facing 88
+  - at (g1, gitu), facing 82
+  - at (g2, teki), facing 11
+  - at (g3, mevi), facing 35
+  - at (g6, mevi), facing 34
+  - at (g4, gitu), facing 45
+  - at (g8, gitu), facing 13
+  - at (g0, teki), facing 83
+  - at (g7, gitu), facing 32
+The structure:
+  - g4 neighbour g6
+  - g8 neighbour g0
+  - g3 neighbour g2
+  - g2 neighbour g5
+  - g6 neighbour g7
+  - g5 neighbour g4
+  - g7 neighbour g8
+  - g1 neighbour g3
+  - g0 neighbour g1
+What is the dominant convention after generations?
+
+Answer with exactly one of: mevi | gitu | teki
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gitu&quot;,
+ &quot;final&quot;: [
+  &quot;gitu&quot;,
+  &quot;gitu&quot;,
+  &quot;gitu&quot;,
+  &quot;gitu&quot;,
+  &quot;gitu&quot;,
+  &quot;gitu&quot;,
+  &quot;gitu&quot;,
+  &quot;gitu&quot;,
+  &quot;gitu&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;gitu&quot;,
+  &quot;gitu&quot;,
+  &quot;mevi&quot;,
+  &quot;gitu&quot;,
+  &quot;gitu&quot;,
+  &quot;teki&quot;,
+  &quot;gitu&quot;,
+  &quot;mevi&quot;,
+  &quot;teki&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;gitu&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">ziva</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g4, ziva), facing 78
+  - at (g6, ziva), facing 42
+  - at (g7, buke), facing 19
+  - at (g5, ziva), facing 54
+  - at (g3, zagi), facing 18
+  - at (g0, pame), facing 16
+  - at (g1, zagi), facing 79
+  - at (g2, buke), facing 64
+The structure:
+  - g4 neighbour g3
+  - g5 neighbour g2
+  - g6 neighbour g1
+  - g1 neighbour g4
+  - g0 neighbour g5
+  - g7 neighbour g6
+  - g3 neighbour g0
+  - g2 neighbour g7
+What is the dominant convention after generations?
+
+Answer with exactly one of: zagi | buke | ziva | pame
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;ziva&quot;,
+ &quot;final&quot;: [
+  &quot;ziva&quot;,
+  &quot;buke&quot;,
+  &quot;buke&quot;,
+  &quot;buke&quot;,
+  &quot;zagi&quot;,
+  &quot;ziva&quot;,
+  &quot;ziva&quot;,
+  &quot;ziva&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;pame&quot;,
+  &quot;ziva&quot;,
+  &quot;buke&quot;,
+  &quot;buke&quot;,
+  &quot;ziva&quot;,
+  &quot;zagi&quot;,
+  &quot;ziva&quot;,
+  &quot;zagi&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;ziva&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">gasi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g5, gasi), facing 80
+  - at (g7, bebe), facing 10
+  - at (g3, gupu), facing 16
+  - at (g2, gasi), facing 47
+  - at (g0, bebe), facing 17
+  - at (g4, bebe), facing 20
+  - at (g1, gasi), facing 40
+  - at (g6, bebe), facing 54
+The structure:
+  - g4 neighbour g2
+  - g2 neighbour g3
+  - g7 neighbour g5
+  - g1 neighbour g6
+  - g5 neighbour g1
+  - g6 neighbour g0
+  - g0 neighbour g4
+  - g3 neighbour g7
+What is the dominant convention after generations?
+
+Answer with exactly one of: bebe | gupu | gasi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gasi&quot;,
+ &quot;final&quot;: [
+  &quot;gasi&quot;,
+  &quot;gasi&quot;,
+  &quot;gasi&quot;,
+  &quot;gasi&quot;,
+  &quot;gasi&quot;,
+  &quot;bebe&quot;,
+  &quot;bebe&quot;,
+  &quot;bebe&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;gasi&quot;,
+  &quot;gupu&quot;,
+  &quot;bebe&quot;,
+  &quot;gasi&quot;,
+  &quot;gasi&quot;,
+  &quot;bebe&quot;,
+  &quot;bebe&quot;,
+  &quot;bebe&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;bebe&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">vuvu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g2, losa), facing 40
+  - at (g4, losa), facing 74
+  - at (g7, vuvu), facing 60
+  - at (g1, losa), facing 45
+  - at (g6, vuvu), facing 27
+  - at (g5, vuvu), facing 63
+  - at (g0, zuso), facing 49
+  - at (g3, losa), facing 29
+The structure:
+  - g3 neighbour g5
+  - g1 neighbour g2
+  - g6 neighbour g4
+  - g2 neighbour g0
+  - g7 neighbour g3
+  - g4 neighbour g1
+  - g0 neighbour g7
+  - g5 neighbour g6
+What is the dominant convention after generations?
+
+Answer with exactly one of: roze | vuvu | zuso | losa
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vuvu&quot;,
+ &quot;final&quot;: [
+  &quot;vuvu&quot;,
+  &quot;vuvu&quot;,
+  &quot;vuvu&quot;,
+  &quot;vuvu&quot;,
+  &quot;vuvu&quot;,
+  &quot;losa&quot;,
+  &quot;losa&quot;,
+  &quot;losa&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;losa&quot;,
+  &quot;zuso&quot;,
+  &quot;vuvu&quot;,
+  &quot;losa&quot;,
+  &quot;vuvu&quot;,
+  &quot;vuvu&quot;,
+  &quot;losa&quot;,
+  &quot;losa&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;losa&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">rena</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g3, rena), facing 71
+  - at (g2, rena), facing 10
+  - at (g4, moto), facing 50
+  - at (g1, rena), facing 57
+  - at (g5, peno), facing 56
+  - at (g6, peno), facing 33
+  - at (g0, rena), facing 37
+The structure:
+  - g0 neighbour g6
+  - g5 neighbour g0
+  - g3 neighbour g1
+  - g4 neighbour g3
+  - g2 neighbour g4
+  - g1 neighbour g5
+  - g6 neighbour g2
+What is the dominant convention after generations?
+
+Answer with exactly one of: zinu | rena | peno | moto
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;rena&quot;,
+ &quot;final&quot;: [
+  &quot;rena&quot;,
+  &quot;rena&quot;,
+  &quot;rena&quot;,
+  &quot;rena&quot;,
+  &quot;rena&quot;,
+  &quot;rena&quot;,
+  &quot;rena&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;moto&quot;,
+  &quot;rena&quot;,
+  &quot;rena&quot;,
+  &quot;peno&quot;,
+  &quot;rena&quot;,
+  &quot;peno&quot;,
+  &quot;rena&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;rena&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">disa</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g0, zupo), facing 65
+  - at (g1, disa), facing 15
+  - at (g3, novo), facing 55
+  - at (g6, disa), facing 81
+  - at (g4, disa), facing 30
+  - at (g5, zupo), facing 59
+  - at (g2, novo), facing 39
+The structure:
+  - g1 neighbour g3
+  - g4 neighbour g0
+  - g5 neighbour g1
+  - g2 neighbour g5
+  - g3 neighbour g4
+  - g6 neighbour g2
+  - g0 neighbour g6
+What is the dominant convention after generations?
+
+Answer with exactly one of: novo | disa | zupo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;disa&quot;,
+ &quot;final&quot;: [
+  &quot;disa&quot;,
+  &quot;zupo&quot;,
+  &quot;zupo&quot;,
+  &quot;zupo&quot;,
+  &quot;disa&quot;,
+  &quot;disa&quot;,
+  &quot;disa&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;novo&quot;,
+  &quot;zupo&quot;,
+  &quot;disa&quot;,
+  &quot;novo&quot;,
+  &quot;disa&quot;,
+  &quot;zupo&quot;,
+  &quot;disa&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;disa&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">bumu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g0, depo), facing 19
+  - at (g2, zivu), facing 68
+  - at (g6, bumu), facing 20
+  - at (g8, lera), facing 63
+  - at (g3, depo), facing 13
+  - at (g4, depo), facing 51
+  - at (g5, bumu), facing 66
+  - at (g7, depo), facing 61
+  - at (g1, zivu), facing 30
+The structure:
+  - g2 neighbour g1
+  - g4 neighbour g2
+  - g1 neighbour g0
+  - g5 neighbour g8
+  - g7 neighbour g3
+  - g0 neighbour g5
+  - g3 neighbour g4
+  - g8 neighbour g6
+  - g6 neighbour g7
+What is the dominant convention after generations?
+
+Answer with exactly one of: zivu | lera | depo | bumu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;bumu&quot;,
+ &quot;final&quot;: [
+  &quot;bumu&quot;,
+  &quot;bumu&quot;,
+  &quot;bumu&quot;,
+  &quot;depo&quot;,
+  &quot;depo&quot;,
+  &quot;depo&quot;,
+  &quot;zivu&quot;,
+  &quot;zivu&quot;,
+  &quot;bumu&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;bumu&quot;,
+  &quot;lera&quot;,
+  &quot;bumu&quot;,
+  &quot;depo&quot;,
+  &quot;depo&quot;,
+  &quot;depo&quot;,
+  &quot;zivu&quot;,
+  &quot;zivu&quot;,
+  &quot;depo&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;depo&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">popu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g6, popu), facing 22
+  - at (g2, popu), facing 85
+  - at (g4, popu), facing 41
+  - at (g5, memu), facing 29
+  - at (g7, linu), facing 45
+  - at (g3, linu), facing 28
+  - at (g0, memu), facing 13
+  - at (g1, memu), facing 71
+  - at (g8, popu), facing 37
+The structure:
+  - g7 neighbour g5
+  - g2 neighbour g7
+  - g6 neighbour g8
+  - g1 neighbour g6
+  - g8 neighbour g0
+  - g4 neighbour g2
+  - g0 neighbour g3
+  - g3 neighbour g4
+  - g5 neighbour g1
+What is the dominant convention after generations?
+
+Answer with exactly one of: memu | popu | linu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;popu&quot;,
+ &quot;final&quot;: [
+  &quot;memu&quot;,
+  &quot;popu&quot;,
+  &quot;popu&quot;,
+  &quot;popu&quot;,
+  &quot;popu&quot;,
+  &quot;popu&quot;,
+  &quot;popu&quot;,
+  &quot;memu&quot;,
+  &quot;memu&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;popu&quot;,
+  &quot;popu&quot;,
+  &quot;memu&quot;,
+  &quot;linu&quot;,
+  &quot;popu&quot;,
+  &quot;popu&quot;,
+  &quot;linu&quot;,
+  &quot;memu&quot;,
+  &quot;memu&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;popu&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">sono</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g5, bove), facing 67
+  - at (g2, soga), facing 17
+  - at (g4, latu), facing 13
+  - at (g6, latu), facing 75
+  - at (g0, sono), facing 70
+  - at (g3, latu), facing 26
+  - at (g1, sono), facing 78
+The structure:
+  - g3 neighbour g2
+  - g2 neighbour g0
+  - g4 neighbour g6
+  - g6 neighbour g3
+  - g0 neighbour g1
+  - g1 neighbour g5
+  - g5 neighbour g4
+What is the dominant convention after generations?
+
+Answer with exactly one of: soga | latu | bove | sono
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sono&quot;,
+ &quot;final&quot;: [
+  &quot;sono&quot;,
+  &quot;sono&quot;,
+  &quot;sono&quot;,
+  &quot;sono&quot;,
+  &quot;latu&quot;,
+  &quot;latu&quot;,
+  &quot;latu&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;soga&quot;,
+  &quot;sono&quot;,
+  &quot;sono&quot;,
+  &quot;bove&quot;,
+  &quot;latu&quot;,
+  &quot;latu&quot;,
+  &quot;latu&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;latu&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">zene</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g0, kusu), facing 77
+  - at (g2, zene), facing 33
+  - at (g4, zene), facing 46
+  - at (g1, zasu), facing 49
+  - at (g5, zasu), facing 44
+  - at (g3, zasu), facing 79
+  - at (g7, zasu), facing 63
+  - at (g6, zene), facing 86
+The structure:
+  - g3 neighbour g7
+  - g4 neighbour g1
+  - g5 neighbour g3
+  - g0 neighbour g5
+  - g7 neighbour g2
+  - g6 neighbour g0
+  - g2 neighbour g4
+  - g1 neighbour g6
+What is the dominant convention after generations?
+
+Answer with exactly one of: kusu | zene | zasu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zene&quot;,
+ &quot;final&quot;: [
+  &quot;zene&quot;,
+  &quot;zene&quot;,
+  &quot;zasu&quot;,
+  &quot;zasu&quot;,
+  &quot;zasu&quot;,
+  &quot;zene&quot;,
+  &quot;zene&quot;,
+  &quot;zene&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;zene&quot;,
+  &quot;kusu&quot;,
+  &quot;zasu&quot;,
+  &quot;zasu&quot;,
+  &quot;zasu&quot;,
+  &quot;zene&quot;,
+  &quot;zene&quot;,
+  &quot;zasu&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;zasu&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">sota</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g0, sota), facing 13
+  - at (g6, zuti), facing 55
+  - at (g3, zuti), facing 62
+  - at (g4, ludi), facing 75
+  - at (g2, sota), facing 76
+  - at (g1, ludi), facing 59
+  - at (g5, zuti), facing 31
+The structure:
+  - g2 neighbour g4
+  - g6 neighbour g5
+  - g3 neighbour g1
+  - g5 neighbour g2
+  - g1 neighbour g0
+  - g4 neighbour g3
+  - g0 neighbour g6
+What is the dominant convention after generations?
+
+Answer with exactly one of: sota | ludi | zuti
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sota&quot;,
+ &quot;final&quot;: [
+  &quot;zuti&quot;,
+  &quot;sota&quot;,
+  &quot;sota&quot;,
+  &quot;sota&quot;,
+  &quot;sota&quot;,
+  &quot;zuti&quot;,
+  &quot;zuti&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;zuti&quot;,
+  &quot;sota&quot;,
+  &quot;ludi&quot;,
+  &quot;zuti&quot;,
+  &quot;ludi&quot;,
+  &quot;sota&quot;,
+  &quot;zuti&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;zuti&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">vida</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g4, vida), facing 65
+  - at (g6, vida), facing 43
+  - at (g7, vida), facing 21
+  - at (g3, vida), facing 80
+  - at (g2, voru), facing 82
+  - at (g0, rode), facing 33
+  - at (g5, vida), facing 35
+  - at (g1, vida), facing 17
+The structure:
+  - g1 neighbour g6
+  - g0 neighbour g1
+  - g6 neighbour g2
+  - g4 neighbour g0
+  - g2 neighbour g5
+  - g7 neighbour g3
+  - g3 neighbour g4
+  - g5 neighbour g7
+What is the dominant convention after generations?
+
+Answer with exactly one of: rode | voru | vida
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vida&quot;,
+ &quot;final&quot;: [
+  &quot;vida&quot;,
+  &quot;vida&quot;,
+  &quot;vida&quot;,
+  &quot;vida&quot;,
+  &quot;vida&quot;,
+  &quot;vida&quot;,
+  &quot;vida&quot;,
+  &quot;vida&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;vida&quot;,
+  &quot;vida&quot;,
+  &quot;rode&quot;,
+  &quot;vida&quot;,
+  &quot;vida&quot;,
+  &quot;voru&quot;,
+  &quot;vida&quot;,
+  &quot;vida&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;vida&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">tela</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g3, vori), facing 29
+  - at (g7, lani), facing 17
+  - at (g5, tela), facing 26
+  - at (g2, tela), facing 66
+  - at (g1, lani), facing 39
+  - at (g6, vori), facing 23
+  - at (g4, tela), facing 70
+  - at (g8, vori), facing 33
+  - at (g0, tela), facing 73
+The structure:
+  - g1 neighbour g8
+  - g4 neighbour g3
+  - g2 neighbour g0
+  - g6 neighbour g1
+  - g8 neighbour g7
+  - g3 neighbour g6
+  - g0 neighbour g5
+  - g7 neighbour g2
+  - g5 neighbour g4
+What is the dominant convention after generations?
+
+Answer with exactly one of: lani | tela | vori
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;tela&quot;,
+ &quot;final&quot;: [
+  &quot;lani&quot;,
+  &quot;lani&quot;,
+  &quot;lani&quot;,
+  &quot;tela&quot;,
+  &quot;tela&quot;,
+  &quot;tela&quot;,
+  &quot;tela&quot;,
+  &quot;tela&quot;,
+  &quot;tela&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;vori&quot;,
+  &quot;lani&quot;,
+  &quot;vori&quot;,
+  &quot;lani&quot;,
+  &quot;tela&quot;,
+  &quot;tela&quot;,
+  &quot;tela&quot;,
+  &quot;tela&quot;,
+  &quot;vori&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;tela&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">vabu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g0, gogi), facing 27
+  - at (g1, vabu), facing 70
+  - at (g5, vabu), facing 79
+  - at (g2, mimi), facing 53
+  - at (g6, gogi), facing 57
+  - at (g4, mimi), facing 37
+  - at (g3, mimi), facing 15
+  - at (g7, zobi), facing 67
+The structure:
+  - g7 neighbour g3
+  - g1 neighbour g4
+  - g4 neighbour g6
+  - g6 neighbour g0
+  - g5 neighbour g2
+  - g3 neighbour g1
+  - g2 neighbour g7
+  - g0 neighbour g5
+What is the dominant convention after generations?
+
+Answer with exactly one of: gogi | vabu | zobi | mimi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vabu&quot;,
+ &quot;final&quot;: [
+  &quot;vabu&quot;,
+  &quot;vabu&quot;,
+  &quot;gogi&quot;,
+  &quot;vabu&quot;,
+  &quot;vabu&quot;,
+  &quot;vabu&quot;,
+  &quot;zobi&quot;,
+  &quot;vabu&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;vabu&quot;,
+  &quot;mimi&quot;,
+  &quot;gogi&quot;,
+  &quot;gogi&quot;,
+  &quot;vabu&quot;,
+  &quot;mimi&quot;,
+  &quot;zobi&quot;,
+  &quot;mimi&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;mimi&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">pezi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g1, mize), facing 12
+  - at (g0, pezi), facing 29
+  - at (g4, nove), facing 86
+  - at (g3, peza), facing 76
+  - at (g2, mize), facing 25
+  - at (g7, pezi), facing 21
+  - at (g5, pezi), facing 78
+  - at (g6, pezi), facing 83
+The structure:
+  - g4 neighbour g1
+  - g2 neighbour g4
+  - g1 neighbour g0
+  - g7 neighbour g3
+  - g5 neighbour g2
+  - g0 neighbour g7
+  - g3 neighbour g6
+  - g6 neighbour g5
+What is the dominant convention after generations?
+
+Answer with exactly one of: pezi | mize | peza | nove
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;pezi&quot;,
+ &quot;final&quot;: [
+  &quot;pezi&quot;,
+  &quot;nove&quot;,
+  &quot;nove&quot;,
+  &quot;nove&quot;,
+  &quot;pezi&quot;,
+  &quot;pezi&quot;,
+  &quot;pezi&quot;,
+  &quot;pezi&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;pezi&quot;,
+  &quot;mize&quot;,
+  &quot;nove&quot;,
+  &quot;mize&quot;,
+  &quot;pezi&quot;,
+  &quot;pezi&quot;,
+  &quot;peza&quot;,
+  &quot;pezi&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;pezi&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">kiko</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g2, kiko), facing 64
+  - at (g3, sesa), facing 50
+  - at (g6, seru), facing 19
+  - at (g4, zoru), facing 47
+  - at (g0, kiko), facing 88
+  - at (g5, sesa), facing 46
+  - at (g7, seru), facing 13
+  - at (g1, sesa), facing 65
+The structure:
+  - g6 neighbour g7
+  - g5 neighbour g2
+  - g3 neighbour g6
+  - g7 neighbour g5
+  - g1 neighbour g3
+  - g2 neighbour g0
+  - g4 neighbour g1
+  - g0 neighbour g4
+What is the dominant convention after generations?
+
+Answer with exactly one of: kiko | sesa | seru | zoru
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;kiko&quot;,
+ &quot;final&quot;: [
+  &quot;sesa&quot;,
+  &quot;sesa&quot;,
+  &quot;seru&quot;,
+  &quot;seru&quot;,
+  &quot;kiko&quot;,
+  &quot;kiko&quot;,
+  &quot;kiko&quot;,
+  &quot;kiko&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;sesa&quot;,
+  &quot;sesa&quot;,
+  &quot;seru&quot;,
+  &quot;seru&quot;,
+  &quot;sesa&quot;,
+  &quot;kiko&quot;,
+  &quot;kiko&quot;,
+  &quot;zoru&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;sesa&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">kego</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g6, nebo), facing 36
+  - at (g5, zibo), facing 62
+  - at (g4, kego), facing 56
+  - at (g3, zibo), facing 32
+  - at (g0, kego), facing 16
+  - at (g1, kego), facing 86
+  - at (g2, nebo), facing 33
+The structure:
+  - g2 neighbour g3
+  - g6 neighbour g5
+  - g3 neighbour g4
+  - g5 neighbour g2
+  - g4 neighbour g1
+  - g1 neighbour g0
+  - g0 neighbour g6
+What is the dominant convention after generations?
+
+Answer with exactly one of: nebo | kego | zibo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;kego&quot;,
+ &quot;final&quot;: [
+  &quot;zibo&quot;,
+  &quot;zibo&quot;,
+  &quot;kego&quot;,
+  &quot;kego&quot;,
+  &quot;kego&quot;,
+  &quot;kego&quot;,
+  &quot;zibo&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;zibo&quot;,
+  &quot;nebo&quot;,
+  &quot;zibo&quot;,
+  &quot;kego&quot;,
+  &quot;kego&quot;,
+  &quot;kego&quot;,
+  &quot;nebo&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;kego&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">lasa</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g0, lute), facing 68
+  - at (g3, lasa), facing 88
+  - at (g4, lasa), facing 52
+  - at (g1, lute), facing 24
+  - at (g2, lute), facing 17
+  - at (g5, bobi), facing 20
+  - at (g6, bobi), facing 22
+The structure:
+  - g0 neighbour g5
+  - g2 neighbour g3
+  - g1 neighbour g4
+  - g5 neighbour g2
+  - g6 neighbour g1
+  - g3 neighbour g6
+  - g4 neighbour g0
+What is the dominant convention after generations?
+
+Answer with exactly one of: bobi | sota | lute | lasa
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;lasa&quot;,
+ &quot;final&quot;: [
+  &quot;lute&quot;,
+  &quot;lute&quot;,
+  &quot;lute&quot;,
+  &quot;lasa&quot;,
+  &quot;lasa&quot;,
+  &quot;lasa&quot;,
+  &quot;lasa&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;lasa&quot;,
+  &quot;lute&quot;,
+  &quot;bobi&quot;,
+  &quot;lute&quot;,
+  &quot;lasa&quot;,
+  &quot;bobi&quot;,
+  &quot;lute&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;lute&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">roli</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g3, roli), facing 86
+  - at (g0, rosu), facing 31
+  - at (g5, rola), facing 54
+  - at (g6, rosu), facing 37
+  - at (g1, rola), facing 25
+  - at (g7, kose), facing 51
+  - at (g4, roli), facing 47
+  - at (g2, rosu), facing 29
+The structure:
+  - g0 neighbour g1
+  - g2 neighbour g7
+  - g4 neighbour g5
+  - g7 neighbour g4
+  - g1 neighbour g6
+  - g6 neighbour g2
+  - g5 neighbour g3
+  - g3 neighbour g0
+What is the dominant convention after generations?
+
+Answer with exactly one of: roli | rosu | kose | rola
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;roli&quot;,
+ &quot;final&quot;: [
+  &quot;kose&quot;,
+  &quot;roli&quot;,
+  &quot;roli&quot;,
+  &quot;roli&quot;,
+  &quot;roli&quot;,
+  &quot;rosu&quot;,
+  &quot;rosu&quot;,
+  &quot;rosu&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;kose&quot;,
+  &quot;roli&quot;,
+  &quot;rola&quot;,
+  &quot;roli&quot;,
+  &quot;rosu&quot;,
+  &quot;rola&quot;,
+  &quot;rosu&quot;,
+  &quot;rosu&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;rosu&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">vate</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g8, zisi), facing 47
+  - at (g4, vate), facing 54
+  - at (g7, vuki), facing 65
+  - at (g5, vate), facing 86
+  - at (g1, vuki), facing 12
+  - at (g3, zisi), facing 45
+  - at (g2, zisi), facing 22
+  - at (g6, vate), facing 81
+  - at (g0, vate), facing 84
+The structure:
+  - g5 neighbour g3
+  - g7 neighbour g4
+  - g2 neighbour g1
+  - g6 neighbour g7
+  - g8 neighbour g5
+  - g4 neighbour g8
+  - g0 neighbour g2
+  - g1 neighbour g6
+  - g3 neighbour g0
+What is the dominant convention after generations?
+
+Answer with exactly one of: vuki | luro | vate | zisi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vate&quot;,
+ &quot;final&quot;: [
+  &quot;vate&quot;,
+  &quot;vate&quot;,
+  &quot;vate&quot;,
+  &quot;vate&quot;,
+  &quot;zisi&quot;,
+  &quot;vate&quot;,
+  &quot;vate&quot;,
+  &quot;vate&quot;,
+  &quot;vate&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;vuki&quot;,
+  &quot;vate&quot;,
+  &quot;vuki&quot;,
+  &quot;vate&quot;,
+  &quot;zisi&quot;,
+  &quot;vate&quot;,
+  &quot;zisi&quot;,
+  &quot;vate&quot;,
+  &quot;zisi&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;vate&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">dasi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g2, negi), facing 38
+  - at (g0, tapo), facing 60
+  - at (g4, negi), facing 35
+  - at (g1, negi), facing 21
+  - at (g6, dasi), facing 42
+  - at (g5, tapo), facing 28
+  - at (g3, dasi), facing 68
+The structure:
+  - g6 neighbour g3
+  - g5 neighbour g1
+  - g4 neighbour g6
+  - g3 neighbour g2
+  - g1 neighbour g4
+  - g0 neighbour g5
+  - g2 neighbour g0
+What is the dominant convention after generations?
+
+Answer with exactly one of: negi | dasi | tapo | rine
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;dasi&quot;,
+ &quot;final&quot;: [
+  &quot;negi&quot;,
+  &quot;dasi&quot;,
+  &quot;dasi&quot;,
+  &quot;dasi&quot;,
+  &quot;tapo&quot;,
+  &quot;tapo&quot;,
+  &quot;negi&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;negi&quot;,
+  &quot;dasi&quot;,
+  &quot;dasi&quot;,
+  &quot;negi&quot;,
+  &quot;tapo&quot;,
+  &quot;tapo&quot;,
+  &quot;negi&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;negi&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">zako</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g0, tizu), facing 70
+  - at (g1, tizu), facing 20
+  - at (g5, kese), facing 28
+  - at (g4, mepa), facing 34
+  - at (g3, tizu), facing 24
+  - at (g7, zako), facing 44
+  - at (g6, kese), facing 17
+  - at (g2, zako), facing 38
+The structure:
+  - g2 neighbour g1
+  - g0 neighbour g3
+  - g5 neighbour g0
+  - g6 neighbour g5
+  - g3 neighbour g4
+  - g1 neighbour g7
+  - g7 neighbour g6
+  - g4 neighbour g2
+What is the dominant convention after generations?
+
+Answer with exactly one of: mepa | tizu | kese | zako
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zako&quot;,
+ &quot;final&quot;: [
+  &quot;zako&quot;,
+  &quot;zako&quot;,
+  &quot;zako&quot;,
+  &quot;zako&quot;,
+  &quot;kese&quot;,
+  &quot;kese&quot;,
+  &quot;tizu&quot;,
+  &quot;tizu&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;mepa&quot;,
+  &quot;zako&quot;,
+  &quot;tizu&quot;,
+  &quot;zako&quot;,
+  &quot;kese&quot;,
+  &quot;kese&quot;,
+  &quot;tizu&quot;,
+  &quot;tizu&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;tizu&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">vuni</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g6, vuni), facing 87
+  - at (g0, nava), facing 13
+  - at (g1, nava), facing 80
+  - at (g3, nava), facing 27
+  - at (g2, nava), facing 34
+  - at (g8, nava), facing 43
+  - at (g4, deri), facing 30
+  - at (g7, vuni), facing 71
+  - at (g5, riso), facing 33
+The structure:
+  - g7 neighbour g0
+  - g5 neighbour g7
+  - g8 neighbour g5
+  - g2 neighbour g4
+  - g4 neighbour g8
+  - g1 neighbour g2
+  - g3 neighbour g1
+  - g6 neighbour g3
+  - g0 neighbour g6
+What is the dominant convention after generations?
+
+Answer with exactly one of: nava | riso | deri | vuni
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vuni&quot;,
+ &quot;final&quot;: [
+  &quot;vuni&quot;,
+  &quot;vuni&quot;,
+  &quot;vuni&quot;,
+  &quot;vuni&quot;,
+  &quot;nava&quot;,
+  &quot;nava&quot;,
+  &quot;nava&quot;,
+  &quot;nava&quot;,
+  &quot;vuni&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;vuni&quot;,
+  &quot;nava&quot;,
+  &quot;vuni&quot;,
+  &quot;nava&quot;,
+  &quot;nava&quot;,
+  &quot;nava&quot;,
+  &quot;deri&quot;,
+  &quot;nava&quot;,
+  &quot;riso&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;nava&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">nide</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g1, nide), facing 80
+  - at (g3, goru), facing 28
+  - at (g0, leso), facing 74
+  - at (g4, leso), facing 11
+  - at (g2, nide), facing 82
+  - at (g6, goru), facing 30
+  - at (g5, leso), facing 58
+The structure:
+  - g5 neighbour g2
+  - g1 neighbour g6
+  - g6 neighbour g4
+  - g0 neighbour g1
+  - g4 neighbour g5
+  - g3 neighbour g0
+  - g2 neighbour g3
+What is the dominant convention after generations?
+
+Answer with exactly one of: nide | leso | goru
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nide&quot;,
+ &quot;final&quot;: [
+  &quot;nide&quot;,
+  &quot;leso&quot;,
+  &quot;leso&quot;,
+  &quot;nide&quot;,
+  &quot;nide&quot;,
+  &quot;nide&quot;,
+  &quot;nide&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;goru&quot;,
+  &quot;leso&quot;,
+  &quot;leso&quot;,
+  &quot;nide&quot;,
+  &quot;goru&quot;,
+  &quot;leso&quot;,
+  &quot;nide&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;leso&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">bana</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g5, bubi), facing 47
+  - at (g0, mova), facing 71
+  - at (g3, mova), facing 64
+  - at (g1, mova), facing 57
+  - at (g2, bomu), facing 27
+  - at (g4, bana), facing 73
+  - at (g6, bana), facing 84
+The structure:
+  - g5 neighbour g0
+  - g6 neighbour g5
+  - g0 neighbour g2
+  - g1 neighbour g3
+  - g4 neighbour g1
+  - g3 neighbour g6
+  - g2 neighbour g4
+What is the dominant convention after generations?
+
+Answer with exactly one of: bana | mova | bomu | bubi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;bana&quot;,
+ &quot;final&quot;: [
+  &quot;bana&quot;,
+  &quot;bana&quot;,
+  &quot;bana&quot;,
+  &quot;bana&quot;,
+  &quot;mova&quot;,
+  &quot;mova&quot;,
+  &quot;bana&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;bubi&quot;,
+  &quot;mova&quot;,
+  &quot;bomu&quot;,
+  &quot;bana&quot;,
+  &quot;mova&quot;,
+  &quot;mova&quot;,
+  &quot;bana&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;mova&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">razi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g0, gubi), facing 42
+  - at (g2, bala), facing 20
+  - at (g6, razi), facing 49
+  - at (g3, razi), facing 45
+  - at (g5, bala), facing 81
+  - at (g4, bala), facing 13
+  - at (g1, bala), facing 33
+The structure:
+  - g2 neighbour g6
+  - g1 neighbour g5
+  - g0 neighbour g1
+  - g5 neighbour g2
+  - g4 neighbour g3
+  - g6 neighbour g4
+  - g3 neighbour g0
+What is the dominant convention after generations?
+
+Answer with exactly one of: bala | gubi | razi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;razi&quot;,
+ &quot;final&quot;: [
+  &quot;razi&quot;,
+  &quot;bala&quot;,
+  &quot;bala&quot;,
+  &quot;bala&quot;,
+  &quot;razi&quot;,
+  &quot;razi&quot;,
+  &quot;razi&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;gubi&quot;,
+  &quot;bala&quot;,
+  &quot;bala&quot;,
+  &quot;bala&quot;,
+  &quot;razi&quot;,
+  &quot;bala&quot;,
+  &quot;razi&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;bala&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">teme</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g0, ralo), facing 54
+  - at (g6, lega), facing 16
+  - at (g7, ralo), facing 40
+  - at (g5, teme), facing 51
+  - at (g4, ralo), facing 62
+  - at (g1, teme), facing 65
+  - at (g3, teme), facing 38
+  - at (g2, ralo), facing 14
+The structure:
+  - g2 neighbour g6
+  - g4 neighbour g0
+  - g7 neighbour g1
+  - g6 neighbour g5
+  - g3 neighbour g4
+  - g5 neighbour g7
+  - g0 neighbour g2
+  - g1 neighbour g3
+What is the dominant convention after generations?
+
+Answer with exactly one of: lega | ralo | teme
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;teme&quot;,
+ &quot;final&quot;: [
+  &quot;teme&quot;,
+  &quot;teme&quot;,
+  &quot;ralo&quot;,
+  &quot;ralo&quot;,
+  &quot;ralo&quot;,
+  &quot;teme&quot;,
+  &quot;teme&quot;,
+  &quot;teme&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;teme&quot;,
+  &quot;teme&quot;,
+  &quot;ralo&quot;,
+  &quot;ralo&quot;,
+  &quot;ralo&quot;,
+  &quot;lega&quot;,
+  &quot;teme&quot;,
+  &quot;ralo&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;ralo&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">time</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g2, time), facing 35
+  - at (g3, pisi), facing 36
+  - at (g6, toda), facing 33
+  - at (g1, toda), facing 59
+  - at (g5, time), facing 67
+  - at (g4, bimu), facing 23
+  - at (g0, toda), facing 65
+The structure:
+  - g1 neighbour g5
+  - g5 neighbour g3
+  - g3 neighbour g0
+  - g2 neighbour g6
+  - g0 neighbour g2
+  - g6 neighbour g4
+  - g4 neighbour g1
+What is the dominant convention after generations?
+
+Answer with exactly one of: time | toda | pisi | bimu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;time&quot;,
+ &quot;final&quot;: [
+  &quot;time&quot;,
+  &quot;toda&quot;,
+  &quot;toda&quot;,
+  &quot;toda&quot;,
+  &quot;time&quot;,
+  &quot;time&quot;,
+  &quot;time&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;pisi&quot;,
+  &quot;toda&quot;,
+  &quot;time&quot;,
+  &quot;toda&quot;,
+  &quot;bimu&quot;,
+  &quot;toda&quot;,
+  &quot;time&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;toda&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">dizo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g4, dizo), facing 79
+  - at (g0, gino), facing 33
+  - at (g2, vudi), facing 26
+  - at (g6, dizo), facing 77
+  - at (g3, dizo), facing 68
+  - at (g1, vudi), facing 23
+  - at (g5, gino), facing 16
+The structure:
+  - g1 neighbour g2
+  - g2 neighbour g4
+  - g4 neighbour g6
+  - g6 neighbour g0
+  - g0 neighbour g5
+  - g5 neighbour g3
+  - g3 neighbour g1
+What is the dominant convention after generations?
+
+Answer with exactly one of: dizo | gino | vudi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;dizo&quot;,
+ &quot;final&quot;: [
+  &quot;dizo&quot;,
+  &quot;dizo&quot;,
+  &quot;dizo&quot;,
+  &quot;dizo&quot;,
+  &quot;dizo&quot;,
+  &quot;dizo&quot;,
+  &quot;dizo&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;dizo&quot;,
+  &quot;vudi&quot;,
+  &quot;vudi&quot;,
+  &quot;dizo&quot;,
+  &quot;dizo&quot;,
+  &quot;gino&quot;,
+  &quot;gino&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;dizo&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">novo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g3, novo), facing 60
+  - at (g6, gepo), facing 37
+  - at (g2, novo), facing 81
+  - at (g4, novo), facing 76
+  - at (g0, novo), facing 43
+  - at (g1, zesu), facing 17
+  - at (g5, gepo), facing 15
+The structure:
+  - g2 neighbour g6
+  - g4 neighbour g1
+  - g3 neighbour g2
+  - g6 neighbour g0
+  - g5 neighbour g4
+  - g0 neighbour g5
+  - g1 neighbour g3
+What is the dominant convention after generations?
+
+Answer with exactly one of: gepo | zesu | novo
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;novo&quot;,
+ &quot;final&quot;: [
+  &quot;novo&quot;,
+  &quot;novo&quot;,
+  &quot;novo&quot;,
+  &quot;novo&quot;,
+  &quot;novo&quot;,
+  &quot;novo&quot;,
+  &quot;novo&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;novo&quot;,
+  &quot;gepo&quot;,
+  &quot;novo&quot;,
+  &quot;gepo&quot;,
+  &quot;novo&quot;,
+  &quot;zesu&quot;,
+  &quot;novo&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;novo&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">vemu</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g3, vemu), facing 65
+  - at (g1, nadu), facing 26
+  - at (g5, nadu), facing 50
+  - at (g4, kede), facing 81
+  - at (g6, nadu), facing 36
+  - at (g2, vemu), facing 53
+  - at (g0, gika), facing 69
+  - at (g7, kede), facing 18
+The structure:
+  - g1 neighbour g5
+  - g4 neighbour g1
+  - g2 neighbour g4
+  - g7 neighbour g6
+  - g6 neighbour g3
+  - g3 neighbour g2
+  - g5 neighbour g0
+  - g0 neighbour g7
+What is the dominant convention after generations?
+
+Answer with exactly one of: kede | vemu | nadu | gika
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vemu&quot;,
+ &quot;final&quot;: [
+  &quot;kede&quot;,
+  &quot;nadu&quot;,
+  &quot;nadu&quot;,
+  &quot;gika&quot;,
+  &quot;gika&quot;,
+  &quot;vemu&quot;,
+  &quot;vemu&quot;,
+  &quot;vemu&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;kede&quot;,
+  &quot;nadu&quot;,
+  &quot;nadu&quot;,
+  &quot;gika&quot;,
+  &quot;kede&quot;,
+  &quot;nadu&quot;,
+  &quot;vemu&quot;,
+  &quot;vemu&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;nadu&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">tome</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g6, dadu), facing 20
+  - at (g1, dadu), facing 31
+  - at (g3, tome), facing 18
+  - at (g0, dadu), facing 23
+  - at (g5, tome), facing 70
+  - at (g7, tome), facing 17
+  - at (g4, tome), facing 83
+  - at (g2, mulo), facing 88
+The structure:
+  - g6 neighbour g4
+  - g3 neighbour g2
+  - g7 neighbour g1
+  - g4 neighbour g5
+  - g5 neighbour g3
+  - g1 neighbour g0
+  - g0 neighbour g6
+  - g2 neighbour g7
+What is the dominant convention after generations?
+
+Answer with exactly one of: tome | mulo | dadu | male
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;tome&quot;,
+ &quot;final&quot;: [
+  &quot;tome&quot;,
+  &quot;tome&quot;,
+  &quot;tome&quot;,
+  &quot;tome&quot;,
+  &quot;dadu&quot;,
+  &quot;dadu&quot;,
+  &quot;dadu&quot;,
+  &quot;tome&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;tome&quot;,
+  &quot;tome&quot;,
+  &quot;mulo&quot;,
+  &quot;tome&quot;,
+  &quot;dadu&quot;,
+  &quot;dadu&quot;,
+  &quot;dadu&quot;,
+  &quot;tome&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;tome&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">koli</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 3
+The population:
+  - at (g5, koli), facing 19
+  - at (g7, puzu), facing 70
+  - at (g8, puzu), facing 48
+  - at (g3, koli), facing 30
+  - at (g4, koli), facing 43
+  - at (g6, mizo), facing 45
+  - at (g1, koli), facing 69
+  - at (g0, koli), facing 26
+  - at (g2, mizo), facing 21
+The structure:
+  - g6 neighbour g5
+  - g5 neighbour g1
+  - g2 neighbour g8
+  - g3 neighbour g4
+  - g0 neighbour g2
+  - g7 neighbour g6
+  - g8 neighbour g7
+  - g4 neighbour g0
+  - g1 neighbour g3
+What is the dominant convention after generations?
+
+Answer with exactly one of: koli | mizo | puzu
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;koli&quot;,
+ &quot;final&quot;: [
+  &quot;koli&quot;,
+  &quot;koli&quot;,
+  &quot;koli&quot;,
+  &quot;koli&quot;,
+  &quot;puzu&quot;,
+  &quot;puzu&quot;,
+  &quot;puzu&quot;,
+  &quot;puzu&quot;,
+  &quot;koli&quot;
+ ],
+ &quot;generations&quot;: 3,
+ &quot;initial&quot;: [
+  &quot;koli&quot;,
+  &quot;koli&quot;,
+  &quot;koli&quot;,
+  &quot;koli&quot;,
+  &quot;mizo&quot;,
+  &quot;puzu&quot;,
+  &quot;puzu&quot;,
+  &quot;mizo&quot;,
+  &quot;koli&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;koli&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">dagi</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g4, vata), facing 50
+  - at (g6, vata), facing 80
+  - at (g2, neku), facing 58
+  - at (g5, dagi), facing 77
+  - at (g0, dagi), facing 83
+  - at (g1, vata), facing 67
+  - at (g8, neku), facing 54
+  - at (g3, vata), facing 20
+  - at (g7, dagi), facing 88
+The structure:
+  - g0 neighbour g4
+  - g6 neighbour g8
+  - g8 neighbour g1
+  - g5 neighbour g7
+  - g2 neighbour g3
+  - g7 neighbour g6
+  - g3 neighbour g0
+  - g4 neighbour g5
+  - g1 neighbour g2
+What is the dominant convention after generations?
+
+Answer with exactly one of: neku | vata | dagi
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;dagi&quot;,
+ &quot;final&quot;: [
+  &quot;dagi&quot;,
+  &quot;dagi&quot;,
+  &quot;vata&quot;,
+  &quot;vata&quot;,
+  &quot;dagi&quot;,
+  &quot;dagi&quot;,
+  &quot;dagi&quot;,
+  &quot;dagi&quot;,
+  &quot;dagi&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;vata&quot;,
+  &quot;neku&quot;,
+  &quot;vata&quot;,
+  &quot;neku&quot;,
+  &quot;vata&quot;,
+  &quot;dagi&quot;,
+  &quot;vata&quot;,
+  &quot;dagi&quot;,
+  &quot;dagi&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;vata&quot;,
+ &quot;n_agents&quot;: 9,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">gosa</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g6, laba), facing 76
+  - at (g1, laba), facing 81
+  - at (g2, togi), facing 74
+  - at (g3, togi), facing 83
+  - at (g5, mili), facing 30
+  - at (g7, laba), facing 78
+  - at (g0, gosa), facing 84
+  - at (g4, mili), facing 66
+The structure:
+  - g2 neighbour g5
+  - g0 neighbour g3
+  - g6 neighbour g0
+  - g1 neighbour g6
+  - g7 neighbour g1
+  - g4 neighbour g2
+  - g5 neighbour g7
+  - g3 neighbour g4
+What is the dominant convention after generations?
+
+Answer with exactly one of: togi | mili | gosa | laba
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gosa&quot;,
+ &quot;final&quot;: [
+  &quot;gosa&quot;,
+  &quot;gosa&quot;,
+  &quot;gosa&quot;,
+  &quot;gosa&quot;,
+  &quot;togi&quot;,
+  &quot;laba&quot;,
+  &quot;laba&quot;,
+  &quot;laba&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;laba&quot;,
+  &quot;gosa&quot;,
+  &quot;togi&quot;,
+  &quot;mili&quot;,
+  &quot;togi&quot;,
+  &quot;mili&quot;,
+  &quot;laba&quot;,
+  &quot;laba&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;laba&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">dara</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g3, nina), facing 55
+  - at (g4, nina), facing 66
+  - at (g2, mova), facing 46
+  - at (g0, dara), facing 88
+  - at (g1, nina), facing 25
+  - at (g6, mova), facing 62
+  - at (g5, nina), facing 32
+The structure:
+  - g0 neighbour g2
+  - g3 neighbour g5
+  - g5 neighbour g4
+  - g1 neighbour g0
+  - g6 neighbour g3
+  - g4 neighbour g1
+  - g2 neighbour g6
+What is the dominant convention after generations?
+
+Answer with exactly one of: mova | kila | dara | nina
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;dara&quot;,
+ &quot;final&quot;: [
+  &quot;mova&quot;,
+  &quot;mova&quot;,
+  &quot;nina&quot;,
+  &quot;nina&quot;,
+  &quot;dara&quot;,
+  &quot;dara&quot;,
+  &quot;dara&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;mova&quot;,
+  &quot;nina&quot;,
+  &quot;nina&quot;,
+  &quot;nina&quot;,
+  &quot;nina&quot;,
+  &quot;dara&quot;,
+  &quot;mova&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;nina&quot;,
+ &quot;n_agents&quot;: 7,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">zumo</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_majority
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 2
+The population:
+  - at (g1, loko), facing 60
+  - at (g7, loko), facing 62
+  - at (g5, loko), facing 17
+  - at (g0, loko), facing 50
+  - at (g4, soki), facing 85
+  - at (g2, zumo), facing 43
+  - at (g3, zumo), facing 67
+  - at (g6, zumo), facing 87
+The structure:
+  - g0 neighbour g5
+  - g7 neighbour g6
+  - g6 neighbour g4
+  - g1 neighbour g2
+  - g3 neighbour g7
+  - g4 neighbour g0
+  - g5 neighbour g1
+  - g2 neighbour g3
+What is the dominant convention after generations?
+
+Answer with exactly one of: zumo | soki | loko
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zumo&quot;,
+ &quot;final&quot;: [
+  &quot;zumo&quot;,
+  &quot;zumo&quot;,
+  &quot;loko&quot;,
+  &quot;loko&quot;,
+  &quot;loko&quot;,
+  &quot;zumo&quot;,
+  &quot;zumo&quot;,
+  &quot;zumo&quot;
+ ],
+ &quot;generations&quot;: 2,
+ &quot;initial&quot;: [
+  &quot;zumo&quot;,
+  &quot;soki&quot;,
+  &quot;loko&quot;,
+  &quot;loko&quot;,
+  &quot;loko&quot;,
+  &quot;zumo&quot;,
+  &quot;zumo&quot;,
+  &quot;loko&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;loko&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;majority&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">zoru</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics:
+  - rule copy_prestige
+  - tiebreak highest_prestige
+  - neighbourhood self_and_both_neighbours
+  - update simultaneous
+  - generations 4
+The population:
+  - at (g7, sena), facing 70
+  - at (g3, sena), facing 15
+  - at (g1, muve), facing 61
+  - at (g2, sena), facing 50
+  - at (g6, zoru), facing 77
+  - at (g5, muve), facing 21
+  - at (g4, sena), facing 20
+  - at (g0, zoru), facing 44
+The structure:
+  - g7 neighbour g2
+  - g5 neighbour g7
+  - g4 neighbour g6
+  - g1 neighbour g3
+  - g3 neighbour g0
+  - g6 neighbour g5
+  - g2 neighbour g1
+  - g0 neighbour g4
+What is the dominant convention after generations?
+
+Answer with exactly one of: zoru | sena | muve | sute
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zoru&quot;,
+ &quot;final&quot;: [
+  &quot;zoru&quot;,
+  &quot;zoru&quot;,
+  &quot;zoru&quot;,
+  &quot;sena&quot;,
+  &quot;sena&quot;,
+  &quot;muve&quot;,
+  &quot;muve&quot;,
+  &quot;zoru&quot;
+ ],
+ &quot;generations&quot;: 4,
+ &quot;initial&quot;: [
+  &quot;sena&quot;,
+  &quot;zoru&quot;,
+  &quot;muve&quot;,
+  &quot;sena&quot;,
+  &quot;sena&quot;,
+  &quot;muve&quot;,
+  &quot;sena&quot;,
+  &quot;zoru&quot;
+ ],
+ &quot;initial_plurality&quot;: &quot;sena&quot;,
+ &quot;n_agents&quot;: 8,
+ &quot;rule&quot;: &quot;prestige&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

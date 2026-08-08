@@ -1,0 +1,2083 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>self_repair — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#xiii">self-modeling and architecture adaptation</a> &rsaquo;
+  self_repair</p>
+<h1>#138 <code>self_repair</code></h1>
+<p class="lede">the patch that restores competence</p>
+<div class="tags"><span class="tag ">level 138</span><span class="tag ">section xiii</span><span class="tag ">self_modeling</span><span class="tag ">architecture_adaptation</span><span class="tag ">planning</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.275</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>One slot of the described architecture is under-powered; which patch fixes it?</p><p>    A repair names a slot and the module that would replace it. Distractor
+    repairs either upgrade a slot that was never the problem or install a module
+    into the broken slot that is still below requirement, so both the *locus* of
+    the fault and the *sufficiency* of the patch have to be checked.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>3</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The agent is: installed: parser, rete and 6; installed: reasoner, bfs and 3; installed: planner, kv and 4.
+The repairs: repair: fix1, parser, cegis and 6; repair: fix3, reasoner, earley and 4; repair: fix0, reasoner, chart and 4; repair: fix2, reasoner, astar and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 5 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix1 | fix0 | fix2
+Reply with the answer only.</pre><h3>spanish</h3><pre>El agente es: instaló: analizador sintáctico, Rete y 6; instaló: razonador, BFS y 3; instaló: planificador, kv y 4.
+Las reparaciones son: la reparación: fix1, analizador sintáctico, CEGIS y 6; la reparación: fix3, razonador, Earley y 4; la reparación: fix0, razonador, gráfico y 4; la reparación: fix2, razonador, A* y 5.
+Las reglas son:
+  - la regla: a_repair_replaces_only_the_slot_it_names
+  - la regla: the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+La tarea es: analizador sintáctico requiere 5, razonador requiere 5 y planificador requiere 2.
+¿Qué reparación resuelve la tarea?
+
+Responde exactamente con una de estas opciones: fix3 | fix1 | fix0 | fix2
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>智能体是：安装了：语法分析器、Rete算法和6；安装了：推理器、广度优先搜索和3；安装了：规划器、kv和4。
+修复方案如下：修复：fix1、语法分析器、反例引导的归纳合成和6；修复：fix3、推理器、厄利算法和4；修复：fix0、推理器、图表和4；修复：fix2、推理器、A星搜索和5。
+规则如下：
+  - 规则：a_repair_replaces_only_the_slot_it_names
+  - 规则：the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+任务是：语法分析器需要5；推理器需要5；规划器需要2。
+哪一项修复能解决该任务？
+
+请从以下选项中选出恰好一个作答：fix3 | fix1 | fix0 | fix2
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The agent is: installed: parser, rete and 6; installed: reasoner, bfs and 3; installed: planner, kv and 4.
+The repairs: repair: fix1, parser, cegis and 6; repair: fix3, reasoner, earley and 4; repair: fix0, reasoner, chart and 4; repair: fix2, reasoner, astar and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 5 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix1 | fix0 | fix2
+Reply with the answer only.</pre><h3>symbols</h3><pre>{agent: [(installed parser rete 6) (installed reasoner bfs 3) (installed planner kv 4)], query: which_repair_solves_the_task, repairs: [(repair fix1 parser cegis 6) (repair fix3 reasoner earley 4) (repair fix0 reasoner chart 4) (repair fix2 reasoner astar 5)], rules: [(rule a_repair_replaces_only_the_slot_it_names) (rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement)], task: [(requires parser 5) (requires reasoner 5) (requires planner 2)]}
+
+Answer with exactly one of: fix3 | fix1 | fix0 | fix2
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/self_repair.jsonl</code> &middot; <code>data/samples/spanish/self_repair.jsonl</code> &middot; <code>data/samples/chinese/self_repair.jsonl</code> &middot; <code>data/samples/english_synonym/self_repair.jsonl</code> &middot; <code>data/samples/symbols/self_repair.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, rete and 6; installed: reasoner, bfs and 3; installed: planner, kv and 4.
+The repairs: repair: fix1, parser, cegis and 6; repair: fix3, reasoner, earley and 4; repair: fix0, reasoner, chart and 4; repair: fix2, reasoner, astar and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 5 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix1 | fix0 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 3,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, beam and 1; installed: reasoner, sat and 5; installed: planner, tabling and 5.
+The repairs: repair: fix3, parser, lexer and 1; repair: fix2, reasoner, trie and 4; repair: fix1, reasoner, rete and 5; repair: fix0, parser, astar and 3.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 2 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix2 | fix1 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, kv and 3; installed: reasoner, tabling and 1; installed: planner, cegis and 4.
+The repairs: repair: fix0, reasoner, astar and 5; repair: fix1, reasoner, rete and 0; repair: fix2, planner, bfs and 3; repair: fix3, reasoner, sat and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 2 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix2 | fix1 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, rete and 6; installed: reasoner, astar and 3; installed: planner, trie and 0.
+The repairs: repair: fix1, planner, sat and 5; repair: fix0, planner, chart and 0; repair: fix3, parser, earley and 1; repair: fix2, reasoner, kv and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 3 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix2 | fix3 | fix0 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, chart and 6; installed: reasoner, cegis and 5; installed: planner, lexer and 0.
+The repairs: repair: fix0, planner, bfs and 2; repair: fix2, planner, astar and 1; repair: fix3, planner, tabling and 0; repair: fix1, parser, rete and 6.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 4 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix1 | fix0 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, chart and 4; installed: reasoner, bfs and 0; installed: planner, rete and 3.
+The repairs: repair: fix1, parser, tabling and 1; repair: fix3, planner, beam and 1; repair: fix2, planner, lexer and 1; repair: fix0, reasoner, astar and 4.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 4 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix2 | fix0 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, kv and 0; installed: reasoner, rete and 5; installed: planner, bfs and 6.
+The repairs: repair: fix2, parser, beam and 5; repair: fix1, parser, trie and 1; repair: fix3, parser, tabling and 0; repair: fix0, parser, astar and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 5 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix0 | fix1 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, chart and 4; installed: reasoner, bfs and 3; installed: planner, kv and 4.
+The repairs: repair: fix0, planner, lexer and 4; repair: fix3, reasoner, trie and 0; repair: fix2, planner, astar and 0; repair: fix1, planner, earley and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 3 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix2 | fix0 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 4,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, chart and 0; installed: reasoner, earley and 6; installed: planner, tabling and 5.
+The repairs: repair: fix3, planner, sat and 4; repair: fix2, parser, beam and 1; repair: fix0, reasoner, cegis and 6; repair: fix1, parser, kv and 6.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 4 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix1 | fix2 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, bfs and 1; installed: reasoner, trie and 6; installed: planner, rete and 4.
+The repairs: repair: fix0, parser, tabling and 6; repair: fix2, reasoner, earley and 0; repair: fix1, parser, sat and 0; repair: fix3, reasoner, beam and 6.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 4 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix3 | fix2 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, rete and 2; installed: reasoner, astar and 5; installed: planner, earley and 3.
+The repairs: repair: fix0, reasoner, tabling and 5; repair: fix1, reasoner, bfs and 2; repair: fix3, parser, chart and 4; repair: fix2, planner, trie and 6.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 5 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix2 | fix0 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 3,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, rete and 5; installed: reasoner, beam and 5; installed: planner, kv and 4.
+The repairs: repair: fix3, planner, chart and 3; repair: fix0, planner, astar and 5; repair: fix1, planner, bfs and 4; repair: fix2, planner, earley and 4.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 5 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix0 | fix2 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 4,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, rete and 3; installed: reasoner, astar and 4; installed: planner, cegis and 5.
+The repairs: repair: fix0, parser, sat and 5; repair: fix1, reasoner, earley and 0; repair: fix2, planner, chart and 5; repair: fix3, parser, kv and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 4 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix2 | fix0 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 3,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, tabling and 4; installed: reasoner, beam and 6; installed: planner, earley and 0.
+The repairs: repair: fix3, planner, lexer and 0; repair: fix2, planner, trie and 0; repair: fix0, planner, chart and 3; repair: fix1, planner, rete and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 4 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix0 | fix1 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, beam and 4; installed: reasoner, rete and 5; installed: planner, astar and 0.
+The repairs: repair: fix2, reasoner, cegis and 1; repair: fix1, planner, bfs and 1; repair: fix3, planner, earley and 4; repair: fix0, reasoner, chart and 2.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 3 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix2 | fix1 | fix3 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, beam and 0; installed: reasoner, earley and 2; installed: planner, bfs and 2.
+The repairs: repair: fix0, planner, astar and 1; repair: fix2, reasoner, rete and 6; repair: fix3, planner, sat and 1; repair: fix1, parser, tabling and 6.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 2 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix2 | fix3 | fix0 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, lexer and 5; installed: reasoner, sat and 1; installed: planner, astar and 6.
+The repairs: repair: fix1, parser, tabling and 6; repair: fix2, parser, kv and 4; repair: fix0, reasoner, cegis and 4; repair: fix3, reasoner, rete and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 5 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix0 | fix3 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, lexer and 5; installed: reasoner, tabling and 2; installed: planner, sat and 4.
+The repairs: repair: fix0, parser, astar and 2; repair: fix3, reasoner, kv and 5; repair: fix1, parser, earley and 4; repair: fix2, reasoner, chart and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 4 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix2 | fix0 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, beam and 4; installed: reasoner, rete and 0; installed: planner, earley and 6.
+The repairs: repair: fix0, parser, astar and 6; repair: fix3, planner, lexer and 4; repair: fix1, reasoner, sat and 3; repair: fix2, reasoner, bfs and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 2 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix3 | fix1 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, kv and 4; installed: reasoner, astar and 1; installed: planner, chart and 4.
+The repairs: repair: fix1, reasoner, tabling and 2; repair: fix3, reasoner, rete and 0; repair: fix2, reasoner, lexer and 1; repair: fix0, reasoner, earley and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 2 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix3 | fix2 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, sat and 4; installed: reasoner, chart and 0; installed: planner, beam and 5.
+The repairs: repair: fix2, parser, astar and 5; repair: fix3, reasoner, earley and 3; repair: fix1, reasoner, tabling and 5; repair: fix0, reasoner, trie and 2.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 4 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix2 | fix3 | fix1 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, rete and 5; installed: reasoner, trie and 6; installed: planner, earley and 1.
+The repairs: repair: fix2, reasoner, chart and 4; repair: fix3, planner, kv and 0; repair: fix0, planner, beam and 6; repair: fix1, reasoner, cegis and 4.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 5 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix2 | fix1 | fix3 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, cegis and 6; installed: reasoner, beam and 4; installed: planner, bfs and 0.
+The repairs: repair: fix1, planner, earley and 0; repair: fix3, planner, astar and 0; repair: fix2, planner, sat and 5; repair: fix0, planner, kv and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 3 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix0 | fix3 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, trie and 5; installed: reasoner, bfs and 5; installed: planner, earley and 1.
+The repairs: repair: fix1, planner, kv and 0; repair: fix2, planner, beam and 1; repair: fix3, reasoner, lexer and 2; repair: fix0, planner, astar and 2.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 2 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix0 | fix3 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, cegis and 1; installed: reasoner, earley and 4; installed: planner, astar and 3.
+The repairs: repair: fix3, parser, lexer and 6; repair: fix0, parser, rete and 2; repair: fix1, parser, bfs and 0; repair: fix2, parser, tabling and 3.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 3 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix2 | fix3 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, lexer and 6; installed: reasoner, astar and 0; installed: planner, kv and 5.
+The repairs: repair: fix2, reasoner, rete and 6; repair: fix3, reasoner, earley and 1; repair: fix1, reasoner, cegis and 1; repair: fix0, parser, trie and 4.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 2 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix2 | fix0 | fix1 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, lexer and 3; installed: reasoner, beam and 4; installed: planner, kv and 3.
+The repairs: repair: fix1, reasoner, sat and 2; repair: fix0, planner, rete and 0; repair: fix2, parser, cegis and 4; repair: fix3, planner, astar and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 3 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix3 | fix2 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 3,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, trie and 0; installed: reasoner, bfs and 4; installed: planner, astar and 5.
+The repairs: repair: fix1, parser, kv and 3; repair: fix3, parser, tabling and 4; repair: fix0, parser, beam and 5; repair: fix2, parser, lexer and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 4 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix3 | fix0 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, tabling and 0; installed: reasoner, cegis and 6; installed: planner, earley and 6.
+The repairs: repair: fix0, planner, beam and 4; repair: fix3, planner, chart and 1; repair: fix1, planner, bfs and 2; repair: fix2, parser, lexer and 3.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 3 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix2 | fix1 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, lexer and 1; installed: reasoner, cegis and 5; installed: planner, chart and 5.
+The repairs: repair: fix1, parser, tabling and 0; repair: fix2, parser, astar and 5; repair: fix0, reasoner, kv and 1; repair: fix3, parser, sat and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 4 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix2 | fix3 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, beam and 4; installed: reasoner, earley and 1; installed: planner, chart and 6.
+The repairs: repair: fix3, parser, sat and 6; repair: fix1, reasoner, tabling and 6; repair: fix2, reasoner, astar and 1; repair: fix0, reasoner, trie and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 2 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix2 | fix1 | fix3 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, chart and 3; installed: reasoner, trie and 0; installed: planner, tabling and 3.
+The repairs: repair: fix0, reasoner, sat and 0; repair: fix1, planner, rete and 2; repair: fix3, reasoner, astar and 6; repair: fix2, reasoner, bfs and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 5 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix3 | fix2 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, cegis and 3; installed: reasoner, lexer and 1; installed: planner, chart and 3.
+The repairs: repair: fix2, reasoner, sat and 0; repair: fix1, reasoner, kv and 0; repair: fix0, reasoner, beam and 3; repair: fix3, reasoner, astar and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 3 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix2 | fix1 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, trie and 4; installed: reasoner, bfs and 2; installed: planner, cegis and 6.
+The repairs: repair: fix2, reasoner, rete and 2; repair: fix0, reasoner, astar and 6; repair: fix3, reasoner, beam and 1; repair: fix1, reasoner, earley and 2.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 3 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix2 | fix3 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, sat and 3; installed: reasoner, astar and 4; installed: planner, bfs and 3.
+The repairs: repair: fix2, parser, cegis and 2; repair: fix3, parser, trie and 0; repair: fix1, parser, rete and 4; repair: fix0, reasoner, lexer and 6.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 2 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix0 | fix3 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 3,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, kv and 2; installed: reasoner, lexer and 6; installed: planner, trie and 5.
+The repairs: repair: fix3, parser, bfs and 2; repair: fix1, parser, chart and 2; repair: fix2, parser, beam and 0; repair: fix0, parser, sat and 4.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 3 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix1 | fix2 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, beam and 4; installed: reasoner, earley and 0; installed: planner, tabling and 6.
+The repairs: repair: fix3, reasoner, kv and 5; repair: fix2, reasoner, lexer and 1; repair: fix0, reasoner, cegis and 1; repair: fix1, reasoner, sat and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 2 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix2 | fix3 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, rete and 6; installed: reasoner, kv and 0; installed: planner, astar and 6.
+The repairs: repair: fix1, reasoner, lexer and 1; repair: fix3, reasoner, tabling and 6; repair: fix2, reasoner, beam and 1; repair: fix0, planner, earley and 2.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 2 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix2 | fix0 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, lexer and 2; installed: reasoner, kv and 6; installed: planner, earley and 4.
+The repairs: repair: fix1, parser, trie and 5; repair: fix3, planner, beam and 4; repair: fix2, planner, cegis and 5; repair: fix0, reasoner, sat and 4.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 5 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix2 | fix3 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, cegis and 0; installed: reasoner, kv and 4; installed: planner, lexer and 6.
+The repairs: repair: fix2, planner, beam and 2; repair: fix3, reasoner, sat and 6; repair: fix1, parser, bfs and 5; repair: fix0, reasoner, chart and 3.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 4 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix1 | fix2 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, astar and 5; installed: reasoner, rete and 0; installed: planner, lexer and 5.
+The repairs: repair: fix1, reasoner, sat and 4; repair: fix3, planner, chart and 2; repair: fix0, reasoner, kv and 1; repair: fix2, parser, tabling and 3.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 2 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix2 | fix3 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, trie and 3; installed: reasoner, astar and 6; installed: planner, sat and 5.
+The repairs: repair: fix0, parser, beam and 5; repair: fix2, parser, cegis and 0; repair: fix3, planner, rete and 6; repair: fix1, reasoner, earley and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 4 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix2 | fix3 | fix1 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 3,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, chart and 0; installed: reasoner, beam and 3; installed: planner, trie and 6.
+The repairs: repair: fix2, parser, kv and 1; repair: fix1, parser, earley and 0; repair: fix0, planner, rete and 6; repair: fix3, parser, lexer and 6.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 2 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix3 | fix1 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, kv and 4; installed: reasoner, rete and 0; installed: planner, cegis and 6.
+The repairs: repair: fix3, parser, beam and 6; repair: fix2, reasoner, tabling and 4; repair: fix0, reasoner, chart and 3; repair: fix1, parser, sat and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 4 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix2 | fix3 | fix0 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, tabling and 5; installed: reasoner, chart and 1; installed: planner, kv and 3.
+The repairs: repair: fix0, parser, rete and 4; repair: fix3, reasoner, beam and 3; repair: fix2, planner, cegis and 4; repair: fix1, reasoner, trie and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 2 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix2 | fix3 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, lexer and 4; installed: reasoner, chart and 2; installed: planner, rete and 6.
+The repairs: repair: fix1, parser, earley and 1; repair: fix3, reasoner, cegis and 3; repair: fix0, planner, beam and 1; repair: fix2, reasoner, sat and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 5 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix2 | fix0 | fix1 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, kv and 6; installed: reasoner, trie and 5; installed: planner, lexer and 0.
+The repairs: repair: fix3, planner, bfs and 1; repair: fix0, reasoner, beam and 3; repair: fix1, parser, tabling and 3; repair: fix2, planner, chart and 6.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 5 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix1 | fix2 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, astar and 5; installed: reasoner, trie and 6; installed: planner, sat and 2.
+The repairs: repair: fix2, planner, cegis and 2; repair: fix3, planner, earley and 6; repair: fix1, planner, lexer and 3; repair: fix0, planner, chart and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 2 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix2 | fix1 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, earley and 4; installed: reasoner, beam and 6; installed: planner, chart and 1.
+The repairs: repair: fix0, planner, astar and 4; repair: fix3, reasoner, tabling and 2; repair: fix1, reasoner, cegis and 0; repair: fix2, parser, bfs and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 3 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix1 | fix0 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, beam and 1; installed: reasoner, lexer and 6; installed: planner, astar and 5.
+The repairs: repair: fix0, parser, rete and 5; repair: fix2, reasoner, sat and 0; repair: fix3, parser, bfs and 1; repair: fix1, parser, chart and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 4 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix2 | fix3 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, bfs and 5; installed: reasoner, chart and 6; installed: planner, trie and 3.
+The repairs: repair: fix1, parser, rete and 6; repair: fix3, planner, earley and 5; repair: fix2, planner, kv and 0; repair: fix0, planner, tabling and 3.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 4 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix3 | fix2 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 3,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, trie and 2; installed: reasoner, rete and 5; installed: planner, cegis and 6.
+The repairs: repair: fix2, parser, lexer and 5; repair: fix0, parser, astar and 0; repair: fix1, parser, sat and 0; repair: fix3, reasoner, bfs and 2.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 3 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix2 | fix1 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, earley and 5; installed: reasoner, sat and 0; installed: planner, cegis and 5.
+The repairs: repair: fix1, planner, astar and 3; repair: fix0, parser, trie and 3; repair: fix2, reasoner, lexer and 1; repair: fix3, reasoner, beam and 3.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 2 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix2 | fix0 | fix1 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, lexer and 5; installed: reasoner, earley and 6; installed: planner, bfs and 0.
+The repairs: repair: fix1, planner, sat and 3; repair: fix3, planner, tabling and 2; repair: fix0, planner, trie and 6; repair: fix2, parser, chart and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 5 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix1 | fix2 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, rete and 6; installed: reasoner, bfs and 3; installed: planner, kv and 4.
+The repairs: repair: fix3, reasoner, lexer and 2; repair: fix1, reasoner, beam and 6; repair: fix2, reasoner, cegis and 3; repair: fix0, parser, astar and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 5 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix2 | fix1 | fix0 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 3,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, earley and 4; installed: reasoner, astar and 3; installed: planner, chart and 2.
+The repairs: repair: fix2, planner, trie and 4; repair: fix1, planner, cegis and 0; repair: fix3, planner, bfs and 0; repair: fix0, planner, kv and 2.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 3 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix2 | fix0 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, bfs and 5; installed: reasoner, kv and 5; installed: planner, chart and 0.
+The repairs: repair: fix1, planner, astar and 6; repair: fix2, planner, sat and 1; repair: fix3, parser, cegis and 3; repair: fix0, planner, lexer and 3.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 5 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix0 | fix2 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, sat and 1; installed: reasoner, beam and 5; installed: planner, cegis and 4.
+The repairs: repair: fix1, parser, rete and 1; repair: fix0, planner, bfs and 4; repair: fix2, parser, lexer and 6; repair: fix3, parser, kv and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 4 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix0 | fix2 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, bfs and 0; installed: reasoner, astar and 6; installed: planner, beam and 6.
+The repairs: repair: fix2, parser, tabling and 5; repair: fix1, parser, lexer and 1; repair: fix3, reasoner, cegis and 2; repair: fix0, reasoner, chart and 3.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 3 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix3 | fix0 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, beam and 0; installed: reasoner, kv and 4; installed: planner, lexer and 5.
+The repairs: repair: fix2, parser, sat and 0; repair: fix3, parser, earley and 1; repair: fix0, parser, tabling and 2; repair: fix1, parser, trie and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 2 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix0 | fix1 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, bfs and 4; installed: reasoner, lexer and 3; installed: planner, chart and 6.
+The repairs: repair: fix3, parser, earley and 4; repair: fix1, reasoner, trie and 0; repair: fix2, reasoner, sat and 4; repair: fix0, reasoner, cegis and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 4 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix2 | fix1 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 3,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, rete and 6; installed: reasoner, bfs and 1; installed: planner, beam and 3.
+The repairs: repair: fix3, reasoner, earley and 2; repair: fix1, reasoner, kv and 3; repair: fix2, parser, sat and 2; repair: fix0, parser, lexer and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 3 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix0 | fix2 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, trie and 5; installed: reasoner, earley and 1; installed: planner, beam and 4.
+The repairs: repair: fix2, reasoner, lexer and 2; repair: fix3, reasoner, kv and 1; repair: fix0, reasoner, bfs and 0; repair: fix1, reasoner, astar and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 2 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix3 | fix1 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, cegis and 6; installed: reasoner, chart and 0; installed: planner, beam and 5.
+The repairs: repair: fix1, planner, earley and 3; repair: fix2, planner, lexer and 4; repair: fix0, reasoner, astar and 0; repair: fix3, reasoner, sat and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 5 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix3 | fix1 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, cegis and 5; installed: reasoner, beam and 3; installed: planner, tabling and 2.
+The repairs: repair: fix1, planner, kv and 6; repair: fix2, planner, astar and 0; repair: fix0, parser, trie and 4; repair: fix3, planner, lexer and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 2 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix3 | fix1 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, trie and 5; installed: reasoner, rete and 5; installed: planner, cegis and 3.
+The repairs: repair: fix0, planner, chart and 0; repair: fix2, planner, beam and 0; repair: fix3, parser, earley and 6; repair: fix1, planner, kv and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 4 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix1 | fix2 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 3,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, trie and 1; installed: reasoner, chart and 5; installed: planner, rete and 6.
+The repairs: repair: fix0, parser, tabling and 0; repair: fix3, parser, astar and 1; repair: fix1, parser, cegis and 1; repair: fix2, parser, sat and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 4 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix2 | fix3 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, rete and 5; installed: reasoner, kv and 1; installed: planner, astar and 6.
+The repairs: repair: fix2, parser, chart and 3; repair: fix3, parser, bfs and 3; repair: fix1, reasoner, tabling and 0; repair: fix0, reasoner, lexer and 4.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 2 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix3 | fix2 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, rete and 6; installed: reasoner, trie and 1; installed: planner, bfs and 5.
+The repairs: repair: fix3, reasoner, cegis and 2; repair: fix0, parser, beam and 1; repair: fix2, reasoner, lexer and 0; repair: fix1, reasoner, earley and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 2 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix3 | fix2 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, rete and 1; installed: reasoner, sat and 4; installed: planner, kv and 6.
+The repairs: repair: fix2, parser, tabling and 0; repair: fix3, parser, lexer and 2; repair: fix1, planner, trie and 1; repair: fix0, reasoner, earley and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 2 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix1 | fix3 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, earley and 3; installed: reasoner, beam and 2; installed: planner, kv and 5.
+The repairs: repair: fix3, planner, rete and 6; repair: fix1, reasoner, lexer and 5; repair: fix0, reasoner, astar and 2; repair: fix2, parser, sat and 3.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 4 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix0 | fix3 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, tabling and 1; installed: reasoner, trie and 4; installed: planner, lexer and 4.
+The repairs: repair: fix0, reasoner, astar and 1; repair: fix2, parser, cegis and 5; repair: fix3, planner, beam and 4; repair: fix1, parser, rete and 3.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 2 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix3 | fix2 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, cegis and 6; installed: reasoner, beam and 5; installed: planner, kv and 2.
+The repairs: repair: fix3, planner, earley and 5; repair: fix0, planner, sat and 1; repair: fix1, reasoner, lexer and 0; repair: fix2, planner, bfs and 3.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 3 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix2 | fix3 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, kv and 4; installed: reasoner, chart and 5; installed: planner, rete and 2.
+The repairs: repair: fix2, planner, tabling and 3; repair: fix3, planner, astar and 5; repair: fix0, reasoner, lexer and 3; repair: fix1, planner, earley and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 2 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix2 | fix0 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, chart and 3; installed: reasoner, rete and 1; installed: planner, beam and 4.
+The repairs: repair: fix2, planner, cegis and 0; repair: fix3, parser, bfs and 3; repair: fix1, reasoner, sat and 5; repair: fix0, planner, lexer and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 4 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix2 | fix1 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, chart and 4; installed: reasoner, bfs and 6; installed: planner, cegis and 6.
+The repairs: repair: fix1, parser, astar and 6; repair: fix3, reasoner, sat and 1; repair: fix0, planner, kv and 5; repair: fix2, reasoner, lexer and 6.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 5 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix1 | fix2 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 4,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, tabling and 2; installed: reasoner, astar and 5; installed: planner, beam and 6.
+The repairs: repair: fix0, planner, sat and 4; repair: fix1, parser, chart and 3; repair: fix2, parser, rete and 6; repair: fix3, parser, earley and 2.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 5 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix1 | fix2 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, rete and 1; installed: reasoner, trie and 4; installed: planner, kv and 5.
+The repairs: repair: fix2, planner, beam and 0; repair: fix0, parser, chart and 4; repair: fix3, parser, lexer and 3; repair: fix1, parser, sat and 2.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 4 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix0 | fix3 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, beam and 5; installed: reasoner, earley and 5; installed: planner, sat and 0.
+The repairs: repair: fix3, reasoner, lexer and 5; repair: fix1, planner, chart and 5; repair: fix0, planner, cegis and 2; repair: fix2, planner, trie and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 2 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix2 | fix1 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, cegis and 4; installed: reasoner, rete and 5; installed: planner, earley and 1.
+The repairs: repair: fix2, reasoner, chart and 6; repair: fix3, planner, kv and 6; repair: fix0, reasoner, tabling and 0; repair: fix1, parser, sat and 3.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 5 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix3 | fix0 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, bfs and 5; installed: reasoner, lexer and 4; installed: planner, trie and 6.
+The repairs: repair: fix3, reasoner, kv and 5; repair: fix1, planner, astar and 4; repair: fix2, parser, tabling and 1; repair: fix0, parser, sat and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 5 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix2 | fix3 | fix1 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 4,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, rete and 5; installed: reasoner, beam and 1; installed: planner, kv and 5.
+The repairs: repair: fix0, reasoner, chart and 1; repair: fix2, reasoner, astar and 2; repair: fix3, reasoner, tabling and 1; repair: fix1, reasoner, bfs and 6.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 4 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix0 | fix1 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, lexer and 0; installed: reasoner, sat and 6; installed: planner, rete and 4.
+The repairs: repair: fix0, planner, trie and 5; repair: fix1, parser, beam and 6; repair: fix2, planner, earley and 6; repair: fix3, reasoner, chart and 6.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 5 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix2 | fix3 | fix1 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, beam and 3; installed: reasoner, tabling and 5; installed: planner, cegis and 2.
+The repairs: repair: fix2, parser, rete and 5; repair: fix3, reasoner, trie and 0; repair: fix0, reasoner, earley and 6; repair: fix1, parser, kv and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 5 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix2 | fix1 | fix3 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 3,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, rete and 2; installed: reasoner, trie and 3; installed: planner, bfs and 6.
+The repairs: repair: fix3, parser, sat and 0; repair: fix0, planner, kv and 0; repair: fix1, parser, chart and 6; repair: fix2, planner, astar and 4.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 2 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix2 | fix1 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, kv and 0; installed: reasoner, tabling and 5; installed: planner, sat and 5.
+The repairs: repair: fix2, parser, rete and 2; repair: fix0, planner, chart and 4; repair: fix1, parser, bfs and 4; repair: fix3, parser, lexer and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 2 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix1 | fix0 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, chart and 1; installed: reasoner, trie and 6; installed: planner, cegis and 5.
+The repairs: repair: fix2, reasoner, astar and 3; repair: fix3, parser, earley and 1; repair: fix0, parser, sat and 5; repair: fix1, planner, lexer and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 4 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix2 | fix1 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, cegis and 5; installed: reasoner, bfs and 2; installed: planner, chart and 6.
+The repairs: repair: fix2, reasoner, trie and 3; repair: fix1, reasoner, kv and 0; repair: fix3, reasoner, earley and 0; repair: fix0, parser, sat and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 3 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix1 | fix0 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, beam and 0; installed: reasoner, rete and 3; installed: planner, earley and 5.
+The repairs: repair: fix1, reasoner, sat and 3; repair: fix0, planner, tabling and 0; repair: fix3, planner, kv and 1; repair: fix2, parser, trie and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 3 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix2 | fix1 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, bfs and 2; installed: reasoner, tabling and 1; installed: planner, astar and 6.
+The repairs: repair: fix3, parser, sat and 0; repair: fix2, reasoner, rete and 5; repair: fix1, parser, lexer and 4; repair: fix0, parser, chart and 3.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 4 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix0 | fix2 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, kv and 5; installed: reasoner, astar and 4; installed: planner, beam and 3.
+The repairs: repair: fix3, parser, sat and 0; repair: fix2, parser, earley and 1; repair: fix1, planner, lexer and 4; repair: fix0, planner, cegis and 6.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 2 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix1 | fix0 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 3,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">fix1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, rete and 5; installed: reasoner, cegis and 2; installed: planner, astar and 6.
+The repairs: repair: fix2, reasoner, tabling and 0; repair: fix3, reasoner, beam and 2; repair: fix0, planner, kv and 3; repair: fix1, reasoner, lexer and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 2, reasoner requires 3 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix2 | fix1 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, kv and 6; installed: reasoner, beam and 4; installed: planner, bfs and 0.
+The repairs: repair: fix1, parser, earley and 5; repair: fix3, planner, sat and 0; repair: fix2, planner, cegis and 2; repair: fix0, planner, tabling and 0.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 4 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix0 | fix2 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, sat and 2; installed: reasoner, chart and 4; installed: planner, earley and 3.
+The repairs: repair: fix0, parser, lexer and 4; repair: fix1, parser, kv and 1; repair: fix3, parser, tabling and 3; repair: fix2, parser, trie and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 4 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix2 | fix1 | fix0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, rete and 6; installed: reasoner, bfs and 0; installed: planner, astar and 6.
+The repairs: repair: fix1, reasoner, lexer and 1; repair: fix0, reasoner, kv and 4; repair: fix2, parser, trie and 5; repair: fix3, reasoner, tabling and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 2 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix3 | fix0 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, tabling and 0; installed: reasoner, lexer and 5; installed: planner, kv and 4.
+The repairs: repair: fix1, parser, earley and 2; repair: fix2, parser, astar and 6; repair: fix3, planner, sat and 2; repair: fix0, parser, trie and 2.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 5 and planner requires 2.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix0 | fix1 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, cegis and 0; installed: reasoner, lexer and 5; installed: planner, earley and 5.
+The repairs: repair: fix2, parser, astar and 3; repair: fix0, parser, sat and 4; repair: fix1, parser, rete and 0; repair: fix3, parser, trie and 3.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 4 and planner requires 5.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix1 | fix3 | fix2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">fix2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, lexer and 2; installed: reasoner, cegis and 5; installed: planner, astar and 6.
+The repairs: repair: fix3, planner, earley and 4; repair: fix2, parser, tabling and 4; repair: fix0, reasoner, trie and 1; repair: fix1, planner, kv and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 3, reasoner requires 5 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix0 | fix3 | fix2 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;parser&quot;,
+ &quot;level&quot;: 2,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">fix0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, cegis and 4; installed: reasoner, beam and 1; installed: planner, trie and 5.
+The repairs: repair: fix0, reasoner, sat and 5; repair: fix2, reasoner, lexer and 1; repair: fix1, reasoner, kv and 0; repair: fix3, planner, bfs and 1.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 4, reasoner requires 2 and planner requires 4.
+Which repair solves the task?
+
+Answer with exactly one of: fix3 | fix2 | fix0 | fix1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;reasoner&quot;,
+ &quot;level&quot;: 1,
+ &quot;requirement&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">fix3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agent is: installed: parser, earley and 5; installed: reasoner, chart and 5; installed: planner, astar and 0.
+The repairs: repair: fix0, planner, kv and 2; repair: fix3, planner, rete and 4; repair: fix1, planner, sat and 1; repair: fix2, reasoner, trie and 5.
+The rules are:
+  - rule a_repair_replaces_only_the_slot_it_names
+  - rule the_task_is_solved_iff_every_slot_level_is_at_least_its_requirement
+The task: parser requires 5, reasoner requires 5 and planner requires 3.
+Which repair solves the task?
+
+Answer with exactly one of: fix1 | fix2 | fix0 | fix3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;broken_slot&quot;: &quot;planner&quot;,
+ &quot;level&quot;: 0,
+ &quot;requirement&quot;: 3
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

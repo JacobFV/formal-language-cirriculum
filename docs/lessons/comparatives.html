@@ -1,0 +1,1854 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>comparatives — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#supplementary">supplementary syntax and semantics</a> &rsaquo;
+  comparatives</p>
+<h1>supplementary <code>comparatives</code></h1>
+<p class="lede">orderings over numeric attributes</p>
+<div class="tags"><span class="tag ">level 25</span><span class="tag ">section supplementary</span></div>
+<div class="stats">
+<div class="stat"><span class="n">2.6</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.42</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.36</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Orderings read off numeric attributes: bigger / smaller of a pair, the
+    superlative over the scene, and proximity to an anchor. Sizes and positions
+    are sampled without replacement so no comparison is ever a tie.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>2</td></tr><tr><td>reasoning_depth</td><td class='num'>3</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>In the scene: item: o2, purple, prism, 17 and 3; item: o1, yellow, cone, 5 and 8; item: o0, yellow, disc, 10 and 17; item: o3, green, sphere, 18 and 4.
+What is the largest?
+
+Answer with exactly one of: o1 | o3 | o0 | o2
+Reply with the answer only.</pre><h3>spanish</h3><pre>En la escena: el elemento: o2, morado, prisma, 17 y 3; el elemento: o1, amarillo, cono, 5 y 8; el elemento: o0, amarillo, disco, 10 y 17; el elemento: o3, verde, esfera, 18 y 4.
+¿Cuál es el mayor?
+
+Responde exactamente con una de estas opciones: o1 | o3 | o0 | o2
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>场景中：物品：o2、紫色、棱镜、17和3；物品：o1、黄色、圆锥、5和8；物品：o0、黄色、圆盘、10和17；物品：o3、绿色、球体、18和4。
+最大的是哪一个？
+
+请从以下选项中选出恰好一个作答：o1 | o3 | o0 | o2
+只回答答案本身。</pre><h3>english_synonym</h3><pre>In the scene: item: o2, purple, prism, 17 and 3; item: o1, yellow, cone, 5 and 8; item: o0, yellow, disc, 10 and 17; item: o3, green, sphere, 18 and 4.
+What is the largest?
+
+Answer with exactly one of: o1 | o3 | o0 | o2
+Reply with the answer only.</pre><h3>symbols</h3><pre>{query: largest, scene: [(item o2 purple prism 17 3) (item o1 yellow cone 5 8) (item o0 yellow disc 10 17) (item o3 green sphere 18 4)]}
+
+Answer with exactly one of: o1 | o3 | o0 | o2
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/comparatives.jsonl</code> &middot; <code>data/samples/spanish/comparatives.jsonl</code> &middot; <code>data/samples/chinese/comparatives.jsonl</code> &middot; <code>data/samples/english_synonym/comparatives.jsonl</code> &middot; <code>data/samples/symbols/comparatives.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, purple, prism, 17 and 3; item: o1, yellow, cone, 5 and 8; item: o0, yellow, disc, 10 and 17; item: o3, green, sphere, 18 and 4.
+What is the largest?
+
+Answer with exactly one of: o1 | o3 | o0 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 10,
+  &quot;o1&quot;: 5,
+  &quot;o2&quot;: 17,
+  &quot;o3&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, green, prism, 13 and 15; item: o0, red, prism, 7 and 0; item: o2, yellow, rod, 4 and 12.
+What is the smallest?
+
+Answer with exactly one of: o0 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 7,
+  &quot;o1&quot;: 13,
+  &quot;o2&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, green, rod, 7 and 13; item: o2, blue, cone, 2 and 12; item: o0, orange, cone, 6 and 16.
+What is the largest?
+
+Answer with exactly one of: o1 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 6,
+  &quot;o1&quot;: 7,
+  &quot;o2&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, green, rod, 1 and 17; item: o0, purple, disc, 16 and 7; item: o2, yellow, cube, 9 and 6.
+What is the smallest?
+
+Answer with exactly one of: o1 | o0 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 16,
+  &quot;o1&quot;: 1,
+  &quot;o2&quot;: 9
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, orange, sphere, 1 and 1; item: o0, yellow, cube, 13 and 7; item: o1, yellow, cube, 10 and 16.
+What is the nearer for o1 o2 o0?
+
+Answer with exactly one of: o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;o0&quot;,
+ &quot;kind&quot;: &quot;nearer&quot;,
+ &quot;xs&quot;: {
+  &quot;o0&quot;: 7,
+  &quot;o1&quot;: 16,
+  &quot;o2&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, yellow, sphere, 8 and 0; item: o0, blue, cube, 13 and 6; item: o3, orange, cone, 4 and 13; item: o2, red, prism, 19 and 8.
+What is the smaller for o2 o1?
+
+Answer with exactly one of: o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o1&quot;: 8,
+  &quot;o2&quot;: 19
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, red, rod, 12 and 8; item: o2, red, disc, 11 and 15; item: o1, blue, prism, 1 and 6.
+What is the smallest?
+
+Answer with exactly one of: o2 | o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 12,
+  &quot;o1&quot;: 1,
+  &quot;o2&quot;: 11
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, red, disc, 2 and 2; item: o0, purple, cube, 3 and 7; item: o3, red, disc, 14 and 19; item: o1, green, sphere, 17 and 13.
+What is the bigger for o2 o1?
+
+Answer with exactly one of: o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o1&quot;: 17,
+  &quot;o2&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, blue, cube, 8 and 12; item: o2, blue, cube, 17 and 0; item: o1, orange, sphere, 7 and 14.
+What is the smallest?
+
+Answer with exactly one of: o0 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 8,
+  &quot;o1&quot;: 7,
+  &quot;o2&quot;: 17
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o3, blue, disc, 11 and 5; item: o0, orange, prism, 18 and 14; item: o1, red, disc, 2 and 13; item: o2, green, cube, 13 and 19.
+What is the smaller for o0 o3?
+
+Answer with exactly one of: o3 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 18,
+  &quot;o3&quot;: 11
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, purple, prism, 6 and 15; item: o2, red, prism, 2 and 10; item: o1, blue, cone, 17 and 2.
+What is the smaller for o1 o2?
+
+Answer with exactly one of: o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o1&quot;: 17,
+  &quot;o2&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, blue, disc, 10 and 19; item: o0, purple, sphere, 5 and 12; item: o1, yellow, cube, 3 and 14; item: o3, orange, prism, 2 and 5.
+What is the nearer for o1 o3 o2?
+
+Answer with exactly one of: o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;o2&quot;,
+ &quot;kind&quot;: &quot;nearer&quot;,
+ &quot;xs&quot;: {
+  &quot;o1&quot;: 14,
+  &quot;o2&quot;: 19,
+  &quot;o3&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, blue, prism, 8 and 14; item: o1, yellow, cone, 18 and 11; item: o3, red, rod, 1 and 5; item: o2, green, prism, 5 and 10.
+What is the smaller for o0 o3?
+
+Answer with exactly one of: o3 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 8,
+  &quot;o3&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, orange, sphere, 5 and 0; item: o0, blue, rod, 3 and 13; item: o3, orange, rod, 7 and 4; item: o2, blue, sphere, 10 and 19.
+What is the largest?
+
+Answer with exactly one of: o3 | o2 | o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 3,
+  &quot;o1&quot;: 5,
+  &quot;o2&quot;: 10,
+  &quot;o3&quot;: 7
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, green, cone, 15 and 12; item: o0, orange, rod, 10 and 19; item: o2, green, cube, 19 and 3.
+What is the largest?
+
+Answer with exactly one of: o2 | o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 10,
+  &quot;o1&quot;: 15,
+  &quot;o2&quot;: 19
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, blue, cube, 12 and 10; item: o2, blue, rod, 8 and 14; item: o0, red, sphere, 4 and 11.
+What is the largest?
+
+Answer with exactly one of: o1 | o0 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 4,
+  &quot;o1&quot;: 12,
+  &quot;o2&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, yellow, prism, 8 and 9; item: o2, blue, rod, 19 and 10; item: o1, yellow, rod, 1 and 4; item: o3, red, cone, 10 and 19.
+What is the bigger for o2 o1?
+
+Answer with exactly one of: o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o1&quot;: 1,
+  &quot;o2&quot;: 19
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, blue, rod, 8 and 16; item: o3, orange, cone, 13 and 10; item: o1, orange, cube, 14 and 12; item: o2, purple, cube, 9 and 4.
+What is the nearer for o2 o1 o0?
+
+Answer with exactly one of: o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;o0&quot;,
+ &quot;kind&quot;: &quot;nearer&quot;,
+ &quot;xs&quot;: {
+  &quot;o0&quot;: 16,
+  &quot;o1&quot;: 12,
+  &quot;o2&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, green, prism, 6 and 14; item: o1, blue, rod, 16 and 8; item: o0, blue, prism, 10 and 6.
+What is the largest?
+
+Answer with exactly one of: o1 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 10,
+  &quot;o1&quot;: 16,
+  &quot;o2&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, purple, cone, 19 and 3; item: o0, blue, disc, 5 and 8; item: o2, yellow, cone, 9 and 13.
+What is the largest?
+
+Answer with exactly one of: o2 | o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 5,
+  &quot;o1&quot;: 19,
+  &quot;o2&quot;: 9
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, green, cube, 3 and 10; item: o0, purple, prism, 4 and 15; item: o1, blue, prism, 5 and 14.
+What is the smallest?
+
+Answer with exactly one of: o0 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 4,
+  &quot;o1&quot;: 5,
+  &quot;o2&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, orange, sphere, 6 and 7; item: o2, green, prism, 17 and 0; item: o1, yellow, disc, 18 and 18.
+What is the largest?
+
+Answer with exactly one of: o0 | o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 6,
+  &quot;o1&quot;: 18,
+  &quot;o2&quot;: 17
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, purple, rod, 12 and 8; item: o2, yellow, cube, 3 and 1; item: o0, blue, rod, 8 and 10.
+What is the nearer for o2 o0 o1?
+
+Answer with exactly one of: o0 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;o1&quot;,
+ &quot;kind&quot;: &quot;nearer&quot;,
+ &quot;xs&quot;: {
+  &quot;o0&quot;: 10,
+  &quot;o1&quot;: 8,
+  &quot;o2&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, yellow, sphere, 15 and 0; item: o1, yellow, rod, 1 and 3; item: o3, purple, sphere, 8 and 2; item: o0, green, cone, 19 and 15.
+What is the smallest?
+
+Answer with exactly one of: o0 | o1 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 19,
+  &quot;o1&quot;: 1,
+  &quot;o2&quot;: 15,
+  &quot;o3&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o3, blue, cube, 10 and 3; item: o2, blue, rod, 1 and 0; item: o0, orange, sphere, 15 and 16; item: o1, orange, rod, 17 and 5.
+What is the smallest?
+
+Answer with exactly one of: o3 | o2 | o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 15,
+  &quot;o1&quot;: 17,
+  &quot;o2&quot;: 1,
+  &quot;o3&quot;: 10
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, orange, cube, 4 and 5; item: o1, yellow, cone, 19 and 17; item: o3, red, disc, 7 and 11; item: o0, green, prism, 11 and 16.
+What is the smallest?
+
+Answer with exactly one of: o1 | o0 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 11,
+  &quot;o1&quot;: 19,
+  &quot;o2&quot;: 4,
+  &quot;o3&quot;: 7
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, yellow, cube, 2 and 13; item: o0, purple, sphere, 17 and 7; item: o2, purple, prism, 6 and 19.
+What is the smaller for o2 o1?
+
+Answer with exactly one of: o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o1&quot;: 2,
+  &quot;o2&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o3, red, cone, 6 and 2; item: o0, red, cone, 8 and 18; item: o1, green, cone, 18 and 19; item: o2, purple, prism, 16 and 13.
+What is the smallest?
+
+Answer with exactly one of: o2 | o0 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 8,
+  &quot;o1&quot;: 18,
+  &quot;o2&quot;: 16,
+  &quot;o3&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, purple, sphere, 15 and 6; item: o0, purple, sphere, 14 and 4; item: o2, orange, sphere, 7 and 12.
+What is the smaller for o1 o2?
+
+Answer with exactly one of: o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o1&quot;: 15,
+  &quot;o2&quot;: 7
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, red, prism, 2 and 7; item: o2, purple, prism, 4 and 11; item: o1, green, cube, 15 and 2.
+What is the smallest?
+
+Answer with exactly one of: o0 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 2,
+  &quot;o1&quot;: 15,
+  &quot;o2&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, green, rod, 1 and 2; item: o3, red, sphere, 17 and 5; item: o2, yellow, cube, 8 and 16; item: o0, yellow, prism, 19 and 12.
+What is the largest?
+
+Answer with exactly one of: o2 | o0 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 19,
+  &quot;o1&quot;: 1,
+  &quot;o2&quot;: 8,
+  &quot;o3&quot;: 17
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, yellow, cube, 18 and 4; item: o0, blue, sphere, 8 and 1; item: o1, orange, cube, 5 and 18.
+What is the smaller for o2 o0?
+
+Answer with exactly one of: o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 8,
+  &quot;o2&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, green, prism, 2 and 16; item: o2, orange, cube, 4 and 10; item: o0, blue, rod, 11 and 1.
+What is the nearer for o2 o1 o0?
+
+Answer with exactly one of: o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;o0&quot;,
+ &quot;kind&quot;: &quot;nearer&quot;,
+ &quot;xs&quot;: {
+  &quot;o0&quot;: 1,
+  &quot;o1&quot;: 16,
+  &quot;o2&quot;: 10
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, green, disc, 17 and 15; item: o0, yellow, disc, 11 and 14; item: o2, orange, sphere, 19 and 9.
+What is the bigger for o0 o2?
+
+Answer with exactly one of: o0 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 11,
+  &quot;o2&quot;: 19
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, yellow, cone, 17 and 11; item: o2, green, cone, 5 and 0; item: o3, red, cube, 4 and 4; item: o0, yellow, disc, 9 and 16.
+What is the bigger for o1 o2?
+
+Answer with exactly one of: o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o1&quot;: 17,
+  &quot;o2&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, blue, disc, 9 and 0; item: o3, green, cube, 12 and 16; item: o2, yellow, rod, 4 and 19; item: o1, green, disc, 18 and 3.
+What is the smallest?
+
+Answer with exactly one of: o3 | o0 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 9,
+  &quot;o1&quot;: 18,
+  &quot;o2&quot;: 4,
+  &quot;o3&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, red, sphere, 14 and 18; item: o1, red, sphere, 12 and 13; item: o3, purple, cone, 9 and 15; item: o0, orange, rod, 3 and 12.
+What is the largest?
+
+Answer with exactly one of: o3 | o1 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 3,
+  &quot;o1&quot;: 12,
+  &quot;o2&quot;: 14,
+  &quot;o3&quot;: 9
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, orange, disc, 15 and 13; item: o0, green, cube, 10 and 14; item: o2, yellow, rod, 13 and 4.
+What is the bigger for o1 o0?
+
+Answer with exactly one of: o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 10,
+  &quot;o1&quot;: 15
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, red, cone, 6 and 10; item: o0, green, cube, 12 and 9; item: o2, orange, disc, 11 and 15; item: o3, yellow, rod, 9 and 12.
+What is the smaller for o1 o2?
+
+Answer with exactly one of: o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o1&quot;: 6,
+  &quot;o2&quot;: 11
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, red, prism, 1 and 5; item: o2, blue, rod, 9 and 0; item: o1, blue, disc, 12 and 9.
+What is the bigger for o2 o0?
+
+Answer with exactly one of: o0 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 1,
+  &quot;o2&quot;: 9
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, orange, sphere, 15 and 1; item: o1, orange, cone, 1 and 6; item: o3, orange, cone, 17 and 14; item: o0, blue, rod, 5 and 19.
+What is the smaller for o3 o2?
+
+Answer with exactly one of: o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o2&quot;: 15,
+  &quot;o3&quot;: 17
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, yellow, disc, 19 and 14; item: o3, purple, cone, 1 and 4; item: o0, orange, prism, 8 and 18; item: o2, green, rod, 18 and 10.
+What is the smaller for o0 o2?
+
+Answer with exactly one of: o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 8,
+  &quot;o2&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, blue, rod, 18 and 1; item: o1, blue, cube, 3 and 0; item: o0, blue, rod, 14 and 2.
+What is the smaller for o2 o0?
+
+Answer with exactly one of: o0 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 14,
+  &quot;o2&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, yellow, rod, 16 and 13; item: o0, green, cube, 1 and 18; item: o1, orange, prism, 17 and 11.
+What is the nearer for o0 o2 o1?
+
+Answer with exactly one of: o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;o1&quot;,
+ &quot;kind&quot;: &quot;nearer&quot;,
+ &quot;xs&quot;: {
+  &quot;o0&quot;: 18,
+  &quot;o1&quot;: 11,
+  &quot;o2&quot;: 13
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, blue, cube, 6 and 18; item: o1, green, disc, 17 and 12; item: o3, red, cube, 10 and 10; item: o0, blue, cube, 13 and 11.
+What is the bigger for o3 o1?
+
+Answer with exactly one of: o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o1&quot;: 17,
+  &quot;o3&quot;: 10
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, red, cube, 10 and 19; item: o2, green, prism, 4 and 2; item: o1, green, cube, 19 and 4; item: o3, red, cube, 2 and 8.
+What is the smaller for o2 o1?
+
+Answer with exactly one of: o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o1&quot;: 19,
+  &quot;o2&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, purple, rod, 19 and 0; item: o0, purple, disc, 18 and 2; item: o1, blue, sphere, 2 and 10.
+What is the bigger for o2 o1?
+
+Answer with exactly one of: o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o1&quot;: 2,
+  &quot;o2&quot;: 19
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o3, purple, prism, 14 and 8; item: o2, green, prism, 1 and 15; item: o1, green, disc, 4 and 17; item: o0, purple, cube, 18 and 0.
+What is the largest?
+
+Answer with exactly one of: o2 | o1 | o3 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 18,
+  &quot;o1&quot;: 4,
+  &quot;o2&quot;: 1,
+  &quot;o3&quot;: 14
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, purple, sphere, 16 and 15; item: o3, blue, sphere, 8 and 6; item: o2, orange, rod, 7 and 0; item: o1, yellow, cube, 5 and 2.
+What is the smallest?
+
+Answer with exactly one of: o2 | o3 | o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 16,
+  &quot;o1&quot;: 5,
+  &quot;o2&quot;: 7,
+  &quot;o3&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, red, disc, 2 and 14; item: o2, green, cube, 9 and 1; item: o1, purple, rod, 5 and 17.
+What is the nearer for o2 o1 o0?
+
+Answer with exactly one of: o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;o0&quot;,
+ &quot;kind&quot;: &quot;nearer&quot;,
+ &quot;xs&quot;: {
+  &quot;o0&quot;: 14,
+  &quot;o1&quot;: 17,
+  &quot;o2&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o3, orange, disc, 18 and 3; item: o0, yellow, cone, 3 and 11; item: o1, green, sphere, 5 and 10; item: o2, red, rod, 12 and 7.
+What is the smaller for o3 o0?
+
+Answer with exactly one of: o3 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 3,
+  &quot;o3&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, blue, cone, 15 and 10; item: o0, blue, prism, 18 and 18; item: o2, purple, disc, 17 and 11.
+What is the smallest?
+
+Answer with exactly one of: o1 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 18,
+  &quot;o1&quot;: 15,
+  &quot;o2&quot;: 17
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o3, green, sphere, 15 and 14; item: o1, yellow, prism, 1 and 0; item: o2, red, sphere, 2 and 7; item: o0, blue, cone, 13 and 2.
+What is the smaller for o1 o0?
+
+Answer with exactly one of: o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 13,
+  &quot;o1&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, orange, rod, 1 and 11; item: o2, purple, prism, 2 and 4; item: o1, green, rod, 6 and 8.
+What is the bigger for o0 o1?
+
+Answer with exactly one of: o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 1,
+  &quot;o1&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, yellow, sphere, 19 and 6; item: o2, yellow, prism, 13 and 1; item: o1, yellow, cone, 7 and 15.
+What is the nearer for o0 o1 o2?
+
+Answer with exactly one of: o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;o2&quot;,
+ &quot;kind&quot;: &quot;nearer&quot;,
+ &quot;xs&quot;: {
+  &quot;o0&quot;: 6,
+  &quot;o1&quot;: 15,
+  &quot;o2&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, orange, rod, 3 and 17; item: o2, green, sphere, 12 and 12; item: o0, red, cone, 16 and 18.
+What is the nearer for o0 o1 o2?
+
+Answer with exactly one of: o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;o2&quot;,
+ &quot;kind&quot;: &quot;nearer&quot;,
+ &quot;xs&quot;: {
+  &quot;o0&quot;: 18,
+  &quot;o1&quot;: 17,
+  &quot;o2&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, purple, sphere, 3 and 18; item: o2, yellow, cube, 11 and 6; item: o1, orange, cone, 9 and 0.
+What is the nearer for o1 o2 o0?
+
+Answer with exactly one of: o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;o0&quot;,
+ &quot;kind&quot;: &quot;nearer&quot;,
+ &quot;xs&quot;: {
+  &quot;o0&quot;: 18,
+  &quot;o1&quot;: 0,
+  &quot;o2&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, blue, prism, 13 and 16; item: o0, purple, cone, 1 and 11; item: o1, green, prism, 6 and 12.
+What is the smallest?
+
+Answer with exactly one of: o1 | o0 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 1,
+  &quot;o1&quot;: 6,
+  &quot;o2&quot;: 13
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, red, prism, 9 and 9; item: o2, blue, cone, 15 and 18; item: o0, yellow, cone, 14 and 3.
+What is the bigger for o2 o1?
+
+Answer with exactly one of: o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o1&quot;: 9,
+  &quot;o2&quot;: 15
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, red, rod, 1 and 15; item: o1, blue, cube, 16 and 17; item: o0, green, rod, 13 and 9.
+What is the smaller for o0 o1?
+
+Answer with exactly one of: o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 13,
+  &quot;o1&quot;: 16
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, green, cone, 6 and 7; item: o0, blue, cube, 5 and 0; item: o3, yellow, cube, 13 and 13; item: o2, yellow, rod, 2 and 5.
+What is the smaller for o3 o2?
+
+Answer with exactly one of: o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o2&quot;: 2,
+  &quot;o3&quot;: 13
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o3, green, cube, 3 and 5; item: o0, green, prism, 13 and 10; item: o2, green, cone, 15 and 0; item: o1, orange, cone, 11 and 16.
+What is the bigger for o0 o1?
+
+Answer with exactly one of: o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 13,
+  &quot;o1&quot;: 11
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, yellow, cone, 6 and 8; item: o2, green, sphere, 19 and 5; item: o0, orange, disc, 1 and 3.
+What is the bigger for o2 o0?
+
+Answer with exactly one of: o0 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 1,
+  &quot;o2&quot;: 19
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, yellow, rod, 7 and 19; item: o2, orange, cube, 10 and 1; item: o1, red, cube, 3 and 7; item: o3, yellow, rod, 18 and 4.
+What is the largest?
+
+Answer with exactly one of: o1 | o0 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 7,
+  &quot;o1&quot;: 3,
+  &quot;o2&quot;: 10,
+  &quot;o3&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o3, purple, cone, 5 and 6; item: o1, orange, rod, 3 and 0; item: o2, red, rod, 14 and 2; item: o0, blue, sphere, 15 and 12.
+What is the bigger for o3 o0?
+
+Answer with exactly one of: o0 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 15,
+  &quot;o3&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o3, yellow, disc, 8 and 6; item: o0, yellow, cone, 3 and 15; item: o1, purple, rod, 15 and 1; item: o2, yellow, prism, 9 and 8.
+What is the bigger for o0 o1?
+
+Answer with exactly one of: o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 3,
+  &quot;o1&quot;: 15
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, blue, cone, 16 and 16; item: o2, yellow, disc, 6 and 4; item: o1, green, cube, 15 and 2.
+What is the largest?
+
+Answer with exactly one of: o2 | o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 16,
+  &quot;o1&quot;: 15,
+  &quot;o2&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, yellow, disc, 9 and 5; item: o1, yellow, prism, 7 and 9; item: o0, green, prism, 2 and 1.
+What is the smaller for o1 o2?
+
+Answer with exactly one of: o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o1&quot;: 7,
+  &quot;o2&quot;: 9
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, yellow, rod, 12 and 17; item: o3, yellow, cone, 6 and 15; item: o2, green, prism, 4 and 3; item: o0, orange, disc, 2 and 10.
+What is the bigger for o1 o2?
+
+Answer with exactly one of: o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o1&quot;: 12,
+  &quot;o2&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, red, cone, 15 and 16; item: o2, purple, disc, 14 and 10; item: o0, green, prism, 19 and 17.
+What is the nearer for o1 o0 o2?
+
+Answer with exactly one of: o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;o2&quot;,
+ &quot;kind&quot;: &quot;nearer&quot;,
+ &quot;xs&quot;: {
+  &quot;o0&quot;: 17,
+  &quot;o1&quot;: 16,
+  &quot;o2&quot;: 10
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, yellow, cube, 7 and 7; item: o2, blue, sphere, 14 and 12; item: o1, green, rod, 13 and 2.
+What is the nearer for o1 o0 o2?
+
+Answer with exactly one of: o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;o2&quot;,
+ &quot;kind&quot;: &quot;nearer&quot;,
+ &quot;xs&quot;: {
+  &quot;o0&quot;: 7,
+  &quot;o1&quot;: 2,
+  &quot;o2&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, blue, disc, 17 and 14; item: o3, green, cube, 1 and 4; item: o1, red, disc, 19 and 11; item: o0, blue, sphere, 12 and 5.
+What is the bigger for o1 o0?
+
+Answer with exactly one of: o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 12,
+  &quot;o1&quot;: 19
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, green, disc, 5 and 12; item: o0, orange, cone, 11 and 4; item: o2, purple, cone, 8 and 0.
+What is the smaller for o0 o1?
+
+Answer with exactly one of: o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 11,
+  &quot;o1&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o3, purple, disc, 17 and 3; item: o1, blue, cube, 19 and 0; item: o2, yellow, prism, 7 and 8; item: o0, green, prism, 15 and 13.
+What is the bigger for o0 o1?
+
+Answer with exactly one of: o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 15,
+  &quot;o1&quot;: 19
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, green, cone, 15 and 14; item: o0, blue, cube, 17 and 5; item: o1, blue, prism, 9 and 10.
+What is the largest?
+
+Answer with exactly one of: o0 | o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 17,
+  &quot;o1&quot;: 9,
+  &quot;o2&quot;: 15
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, orange, prism, 12 and 8; item: o0, purple, rod, 4 and 19; item: o1, orange, rod, 11 and 15; item: o3, orange, rod, 3 and 11.
+What is the nearer for o0 o1 o3?
+
+Answer with exactly one of: o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;o3&quot;,
+ &quot;kind&quot;: &quot;nearer&quot;,
+ &quot;xs&quot;: {
+  &quot;o0&quot;: 19,
+  &quot;o1&quot;: 15,
+  &quot;o3&quot;: 11
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, green, cone, 8 and 7; item: o0, red, cone, 3 and 10; item: o1, yellow, prism, 11 and 17; item: o3, blue, prism, 10 and 1.
+What is the bigger for o3 o1?
+
+Answer with exactly one of: o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o1&quot;: 11,
+  &quot;o3&quot;: 10
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, blue, disc, 18 and 0; item: o3, red, disc, 17 and 15; item: o0, green, sphere, 1 and 5; item: o2, yellow, sphere, 9 and 6.
+What is the nearer for o1 o3 o2?
+
+Answer with exactly one of: o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;o2&quot;,
+ &quot;kind&quot;: &quot;nearer&quot;,
+ &quot;xs&quot;: {
+  &quot;o1&quot;: 0,
+  &quot;o2&quot;: 6,
+  &quot;o3&quot;: 15
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, orange, rod, 5 and 15; item: o1, orange, prism, 13 and 12; item: o0, green, cube, 7 and 17.
+What is the bigger for o2 o0?
+
+Answer with exactly one of: o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 7,
+  &quot;o2&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, purple, sphere, 16 and 11; item: o2, blue, rod, 5 and 0; item: o1, blue, rod, 3 and 6.
+What is the bigger for o1 o2?
+
+Answer with exactly one of: o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o1&quot;: 3,
+  &quot;o2&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, green, cone, 8 and 5; item: o1, green, cube, 2 and 16; item: o2, purple, disc, 13 and 0; item: o3, yellow, prism, 19 and 4.
+What is the smallest?
+
+Answer with exactly one of: o3 | o2 | o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 8,
+  &quot;o1&quot;: 2,
+  &quot;o2&quot;: 13,
+  &quot;o3&quot;: 19
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, yellow, prism, 11 and 9; item: o1, red, rod, 10 and 4; item: o3, blue, disc, 12 and 2; item: o2, blue, cube, 8 and 6.
+What is the nearer for o2 o0 o3?
+
+Answer with exactly one of: o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;o3&quot;,
+ &quot;kind&quot;: &quot;nearer&quot;,
+ &quot;xs&quot;: {
+  &quot;o0&quot;: 9,
+  &quot;o2&quot;: 6,
+  &quot;o3&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, blue, cone, 14 and 6; item: o2, blue, sphere, 16 and 9; item: o1, orange, cube, 4 and 17.
+What is the smaller for o0 o2?
+
+Answer with exactly one of: o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smaller&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 14,
+  &quot;o2&quot;: 16
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, yellow, sphere, 3 and 11; item: o2, red, sphere, 2 and 9; item: o0, red, sphere, 14 and 17; item: o3, orange, cone, 5 and 6.
+What is the smallest?
+
+Answer with exactly one of: o0 | o1 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 14,
+  &quot;o1&quot;: 3,
+  &quot;o2&quot;: 2,
+  &quot;o3&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, purple, prism, 12 and 12; item: o3, orange, prism, 5 and 10; item: o1, green, disc, 9 and 7; item: o0, blue, rod, 15 and 4.
+What is the smallest?
+
+Answer with exactly one of: o3 | o0 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 15,
+  &quot;o1&quot;: 9,
+  &quot;o2&quot;: 12,
+  &quot;o3&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, green, prism, 8 and 18; item: o0, blue, cone, 13 and 19; item: o2, blue, disc, 19 and 14.
+What is the nearer for o1 o2 o0?
+
+Answer with exactly one of: o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: &quot;o0&quot;,
+ &quot;kind&quot;: &quot;nearer&quot;,
+ &quot;xs&quot;: {
+  &quot;o0&quot;: 19,
+  &quot;o1&quot;: 18,
+  &quot;o2&quot;: 14
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, orange, rod, 10 and 16; item: o1, red, disc, 13 and 3; item: o2, red, rod, 4 and 13.
+What is the smallest?
+
+Answer with exactly one of: o1 | o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 10,
+  &quot;o1&quot;: 13,
+  &quot;o2&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, purple, cone, 11 and 0; item: o0, red, rod, 4 and 8; item: o2, green, disc, 12 and 12.
+What is the bigger for o0 o1?
+
+Answer with exactly one of: o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 4,
+  &quot;o1&quot;: 11
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, orange, cube, 5 and 19; item: o0, red, cone, 8 and 5; item: o3, purple, rod, 4 and 14; item: o1, orange, prism, 19 and 13.
+What is the largest?
+
+Answer with exactly one of: o3 | o0 | o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 8,
+  &quot;o1&quot;: 19,
+  &quot;o2&quot;: 5,
+  &quot;o3&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, blue, sphere, 7 and 2; item: o1, green, prism, 10 and 18; item: o2, red, cone, 11 and 5.
+What is the smallest?
+
+Answer with exactly one of: o1 | o0 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 7,
+  &quot;o1&quot;: 10,
+  &quot;o2&quot;: 11
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, yellow, disc, 12 and 8; item: o0, orange, cone, 15 and 15; item: o2, purple, rod, 10 and 19.
+What is the largest?
+
+Answer with exactly one of: o0 | o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 15,
+  &quot;o1&quot;: 12,
+  &quot;o2&quot;: 10
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, orange, prism, 15 and 8; item: o0, orange, prism, 19 and 7; item: o2, blue, rod, 18 and 6.
+What is the bigger for o2 o1?
+
+Answer with exactly one of: o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o1&quot;: 15,
+  &quot;o2&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, purple, cube, 11 and 5; item: o0, purple, disc, 2 and 18; item: o3, yellow, rod, 18 and 19; item: o2, blue, rod, 1 and 17.
+What is the smallest?
+
+Answer with exactly one of: o0 | o1 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 2,
+  &quot;o1&quot;: 11,
+  &quot;o2&quot;: 1,
+  &quot;o3&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, green, cube, 18 and 3; item: o3, blue, sphere, 4 and 2; item: o0, blue, disc, 12 and 6; item: o2, yellow, cube, 13 and 7.
+What is the smallest?
+
+Answer with exactly one of: o1 | o2 | o0 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 12,
+  &quot;o1&quot;: 18,
+  &quot;o2&quot;: 13,
+  &quot;o3&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, green, rod, 10 and 17; item: o1, yellow, prism, 14 and 0; item: o0, red, cone, 9 and 13.
+What is the bigger for o0 o1?
+
+Answer with exactly one of: o0 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 9,
+  &quot;o1&quot;: 14
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o2, blue, cube, 7 and 19; item: o0, red, rod, 2 and 6; item: o1, purple, cone, 17 and 3.
+What is the largest?
+
+Answer with exactly one of: o2 | o1 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 2,
+  &quot;o1&quot;: 17,
+  &quot;o2&quot;: 7
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, blue, rod, 11 and 11; item: o1, red, cube, 3 and 8; item: o3, green, sphere, 9 and 4; item: o2, red, prism, 19 and 16.
+What is the bigger for o2 o3?
+
+Answer with exactly one of: o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o2&quot;: 19,
+  &quot;o3&quot;: 9
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o0, red, disc, 9 and 2; item: o2, purple, cube, 12 and 14; item: o1, red, cube, 1 and 15.
+What is the bigger for o2 o0?
+
+Answer with exactly one of: o2 | o0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;bigger&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 9,
+  &quot;o2&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o3, red, rod, 7 and 0; item: o2, yellow, disc, 13 and 19; item: o1, green, cube, 2 and 12; item: o0, orange, prism, 12 and 9.
+What is the largest?
+
+Answer with exactly one of: o0 | o2 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;largest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 12,
+  &quot;o1&quot;: 2,
+  &quot;o2&quot;: 13,
+  &quot;o3&quot;: 7
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: item: o1, blue, cone, 18 and 13; item: o2, blue, rod, 3 and 18; item: o0, blue, prism, 16 and 6; item: o3, red, disc, 7 and 11.
+What is the smallest?
+
+Answer with exactly one of: o0 | o3 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;kind&quot;: &quot;smallest&quot;,
+ &quot;sizes&quot;: {
+  &quot;o0&quot;: 16,
+  &quot;o1&quot;: 18,
+  &quot;o2&quot;: 3,
+  &quot;o3&quot;: 7
+ }
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

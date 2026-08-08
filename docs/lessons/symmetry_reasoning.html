@@ -1,0 +1,3797 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>symmetry_reasoning — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#vi">scientific induction and model discovery</a> &rsaquo;
+  symmetry_reasoning</p>
+<h1>#78 <code>symmetry_reasoning</code></h1>
+<p class="lede">infer an unseen state from a symmetry group</p>
+<div class="tags"><span class="tag ">level 78</span><span class="tag ">section vi</span><span class="tag ">abstraction</span><span class="tag ">spatial_reasoning</span><span class="tag ">scientific_induction</span></div>
+<div class="stats">
+<div class="stat"><span class="n">6.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.167</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.195</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Use a symmetry to infer a state you were never shown.</p><p>    The world is declared invariant under a stated permutation, so colour is
+    constant on each orbit of that permutation; one site is hidden and its colour
+    is fixed by any other site in its orbit. This is symmetry used as an
+    inference rule rather than recognized as a pattern. The hidden site never
+    sits in the largest orbit, so answering &quot;the commonest visible colour&quot; is
+    wrong more often than not.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The current state is:
+  - 0 site purple
+  - 1 site red
+  - 2 site blue
+  - 3 site blue
+  - 5 site blue
+  - 6 site orange
+The symmetry is invariant under (4, 1, 5, 2, 0, 3, 6).
+What colour is at position 4?
+
+Answer with exactly one of: orange | purple | yellow | green | red | blue
+Reply with the answer only.</pre><h3>spanish</h3><pre>El estado actual es:
+  - 0 el sitio morado
+  - 1 el sitio rojo
+  - 2 el sitio azul
+  - 3 el sitio azul
+  - 5 el sitio azul
+  - 6 el sitio naranja
+La simetría es es invariante bajo: (4, 1, 5, 2, 0, 3, 6).
+¿Qué color hay en la posición 4?
+
+Responde exactamente con una de estas opciones: naranja | morado | amarillo | verde | rojo | azul
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>状态是：
+  - 0的地点是紫色
+  - 1的地点是红色
+  - 2的地点是蓝色
+  - 3的地点是蓝色
+  - 5的地点是蓝色
+  - 6的地点是橙色
+对称性是保持不变的变换：(4，1，5，2，0，3，6)。
+4处的颜色是什么？
+
+请从以下选项中选出恰好一个作答：橙色 | 紫色 | 黄色 | 绿色 | 红色 | 蓝色
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The current state is:
+  - 0 site purple
+  - 1 site red
+  - 2 site blue
+  - 3 site blue
+  - 5 site blue
+  - 6 site orange
+The symmetry is invariant under (4, 1, 5, 2, 0, 3, 6).
+What colour is at position 4?
+
+Answer with exactly one of: orange | purple | yellow | green | red | blue
+Reply with the answer only.</pre><h3>symbols</h3><pre>{query: (color_at 4), state: [(site 0 purple) (site 1 red) (site 2 blue) (site 3 blue) (site 5 blue) (site 6 orange)], symmetry: (invariant_under [4 1 5 2 0 3 6])}
+
+Answer with exactly one of: orange | purple | yellow | green | red | blue
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/symmetry_reasoning.jsonl</code> &middot; <code>data/samples/spanish/symmetry_reasoning.jsonl</code> &middot; <code>data/samples/chinese/symmetry_reasoning.jsonl</code> &middot; <code>data/samples/english_synonym/symmetry_reasoning.jsonl</code> &middot; <code>data/samples/symbols/symmetry_reasoning.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site purple
+  - 1 site red
+  - 2 site blue
+  - 3 site blue
+  - 5 site blue
+  - 6 site orange
+The symmetry is invariant under (4, 1, 5, 2, 0, 3, 6).
+What colour is at position 4?
+
+Answer with exactly one of: orange | purple | yellow | green | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 4,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   4
+  ],
+  [
+   1
+  ],
+  [
+   2,
+   5,
+   3
+  ],
+  [
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 1 site orange
+  - 3 site orange
+  - 4 site orange
+  - 5 site green
+  - 6 site orange
+The symmetry is invariant under (2, 4, 0, 1, 6, 5, 3).
+What colour is at position 2?
+
+Answer with exactly one of: green | yellow | purple | red | blue | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 2,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   2
+  ],
+  [
+   1,
+   4,
+   6,
+   3
+  ],
+  [
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site red
+  - 1 site red
+  - 2 site blue
+  - 3 site red
+  - 5 site red
+  - 6 site purple
+The symmetry is invariant under (5, 3, 2, 0, 6, 1, 4).
+What colour is at position 4?
+
+Answer with exactly one of: orange | purple | blue | yellow | green | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 4,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   5,
+   1,
+   3
+  ],
+  [
+   2
+  ],
+  [
+   4,
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 1 site yellow
+  - 2 site yellow
+  - 3 site yellow
+  - 4 site green
+The symmetry is invariant under (0, 2, 3, 1, 5, 4).
+What colour is at position 5?
+
+Answer with exactly one of: red | yellow | green | orange | blue | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 5,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0
+  ],
+  [
+   1,
+   2,
+   3
+  ],
+  [
+   4,
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 1 site green
+  - 2 site red
+  - 3 site purple
+  - 4 site red
+  - 5 site red
+The symmetry is invariant under (1, 0, 5, 3, 2, 4).
+What colour is at position 0?
+
+Answer with exactly one of: blue | red | yellow | orange | purple | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 0,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   1
+  ],
+  [
+   2,
+   5,
+   4
+  ],
+  [
+   3
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site green
+  - 1 site green
+  - 2 site green
+  - 3 site green
+  - 5 site green
+  - 6 site green
+  - 7 site yellow
+The symmetry is invariant under (6, 3, 1, 0, 7, 2, 5, 4).
+What colour is at position 4?
+
+Answer with exactly one of: blue | orange | green | red | purple | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yellow&quot;,
+ &quot;masked&quot;: 4,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6,
+   5,
+   2,
+   1,
+   3
+  ],
+  [
+   4,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site yellow
+  - 2 site yellow
+  - 3 site yellow
+  - 4 site yellow
+  - 5 site yellow
+  - 6 site yellow
+  - 7 site blue
+The symmetry is invariant under (5, 7, 6, 4, 0, 2, 3, 1).
+What colour is at position 1?
+
+Answer with exactly one of: green | blue | purple | red | yellow | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 1,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   5,
+   2,
+   6,
+   3,
+   4
+  ],
+  [
+   1,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 1 site blue
+  - 2 site blue
+  - 3 site blue
+  - 5 site blue
+  - 6 site green
+The symmetry is invariant under (3, 2, 5, 1, 6, 0, 4).
+What colour is at position 4?
+
+Answer with exactly one of: yellow | orange | green | blue | red | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 4,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   3,
+   1,
+   2,
+   5
+  ],
+  [
+   4,
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 2 site green
+  - 3 site purple
+  - 4 site purple
+  - 5 site purple
+  - 6 site purple
+The symmetry is invariant under (1, 0, 2, 4, 5, 6, 3).
+What colour is at position 1?
+
+Answer with exactly one of: purple | blue | green | red | orange | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 1,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   1
+  ],
+  [
+   2
+  ],
+  [
+   3,
+   4,
+   5,
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site red
+  - 1 site red
+  - 2 site red
+  - 3 site red
+  - 5 site red
+  - 6 site purple
+The symmetry is invariant under (2, 5, 1, 0, 6, 3, 4).
+What colour is at position 4?
+
+Answer with exactly one of: purple | green | yellow | red | orange | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 4,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   2,
+   1,
+   5,
+   3
+  ],
+  [
+   4,
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 2 site blue
+  - 3 site green
+  - 4 site orange
+  - 5 site blue
+  - 6 site blue
+  - 7 site orange
+The symmetry is invariant under (6, 7, 0, 3, 1, 2, 5, 4).
+What colour is at position 1?
+
+Answer with exactly one of: yellow | orange | red | purple | green | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;orange&quot;,
+ &quot;masked&quot;: 1,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6,
+   5,
+   2
+  ],
+  [
+   1,
+   7,
+   4
+  ],
+  [
+   3
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site orange
+  - 2 site red
+  - 3 site green
+  - 4 site green
+  - 5 site green
+  - 6 site yellow
+The symmetry is invariant under (1, 0, 2, 5, 3, 4, 6).
+What colour is at position 1?
+
+Answer with exactly one of: purple | yellow | orange | red | blue | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;orange&quot;,
+ &quot;masked&quot;: 1,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   1
+  ],
+  [
+   2
+  ],
+  [
+   3,
+   5,
+   4
+  ],
+  [
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site yellow
+  - 1 site purple
+  - 2 site purple
+  - 3 site purple
+  - 4 site red
+  - 6 site red
+  - 7 site purple
+The symmetry is invariant under (5, 2, 7, 1, 6, 0, 4, 3).
+What colour is at position 5?
+
+Answer with exactly one of: blue | green | purple | red | yellow | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yellow&quot;,
+ &quot;masked&quot;: 5,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   5
+  ],
+  [
+   1,
+   2,
+   7,
+   3
+  ],
+  [
+   4,
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site yellow
+  - 1 site yellow
+  - 3 site yellow
+  - 4 site yellow
+  - 5 site red
+  - 6 site green
+The symmetry is invariant under (3, 0, 6, 4, 1, 5, 2).
+What colour is at position 2?
+
+Answer with exactly one of: green | orange | purple | red | blue | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 2,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   3,
+   4,
+   1
+  ],
+  [
+   2,
+   6
+  ],
+  [
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site purple
+  - 1 site orange
+  - 2 site orange
+  - 3 site orange
+  - 4 site blue
+The symmetry is invariant under (0, 2, 3, 1, 5, 4).
+What colour is at position 5?
+
+Answer with exactly one of: orange | purple | yellow | blue | green | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 5,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0
+  ],
+  [
+   1,
+   2,
+   3
+  ],
+  [
+   4,
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site green
+  - 1 site blue
+  - 2 site green
+  - 3 site green
+  - 4 site green
+  - 6 site blue
+The symmetry is invariant under (3, 5, 0, 4, 2, 6, 1).
+What colour is at position 5?
+
+Answer with exactly one of: orange | purple | blue | green | yellow | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 5,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   3,
+   4,
+   2
+  ],
+  [
+   1,
+   5,
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site yellow
+  - 1 site yellow
+  - 3 site yellow
+  - 4 site orange
+  - 5 site yellow
+The symmetry is invariant under (5, 0, 4, 1, 2, 3).
+What colour is at position 2?
+
+Answer with exactly one of: orange | yellow | red | green | purple | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;orange&quot;,
+ &quot;masked&quot;: 2,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   5,
+   3,
+   1
+  ],
+  [
+   2,
+   4
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site purple
+  - 1 site green
+  - 2 site purple
+  - 3 site purple
+  - 4 site purple
+  - 5 site purple
+  - 6 site yellow
+The symmetry is invariant under (3, 1, 0, 4, 5, 2, 7, 6).
+What colour is at position 7?
+
+Answer with exactly one of: purple | red | green | blue | yellow | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yellow&quot;,
+ &quot;masked&quot;: 7,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   3,
+   4,
+   5,
+   2
+  ],
+  [
+   1
+  ],
+  [
+   6,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site green
+  - 1 site green
+  - 2 site yellow
+  - 3 site yellow
+  - 4 site green
+  - 6 site green
+The symmetry is invariant under (6, 4, 3, 5, 0, 2, 1).
+What colour is at position 5?
+
+Answer with exactly one of: orange | red | purple | green | blue | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yellow&quot;,
+ &quot;masked&quot;: 5,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6,
+   1,
+   4
+  ],
+  [
+   2,
+   3,
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site red
+  - 1 site yellow
+  - 3 site yellow
+  - 4 site red
+  - 5 site red
+  - 6 site orange
+  - 7 site red
+The symmetry is invariant under (5, 2, 3, 1, 7, 4, 6, 0).
+What colour is at position 2?
+
+Answer with exactly one of: orange | blue | red | purple | green | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yellow&quot;,
+ &quot;masked&quot;: 2,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   5,
+   4,
+   7
+  ],
+  [
+   1,
+   2,
+   3
+  ],
+  [
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 2 site green
+  - 3 site green
+  - 4 site blue
+  - 5 site orange
+  - 6 site green
+  - 7 site green
+The symmetry is invariant under (1, 4, 3, 6, 0, 5, 7, 2).
+What colour is at position 1?
+
+Answer with exactly one of: green | red | blue | orange | purple | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 1,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   1,
+   4
+  ],
+  [
+   2,
+   3,
+   6,
+   7
+  ],
+  [
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 1 site green
+  - 2 site red
+  - 3 site green
+  - 4 site green
+  - 5 site purple
+The symmetry is invariant under (5, 4, 2, 1, 3, 0).
+What colour is at position 0?
+
+Answer with exactly one of: yellow | orange | green | purple | blue | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 0,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   5
+  ],
+  [
+   1,
+   4,
+   3
+  ],
+  [
+   2
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site orange
+  - 1 site red
+  - 2 site orange
+  - 3 site orange
+  - 5 site orange
+  - 6 site green
+  - 7 site orange
+The symmetry is invariant under (3, 4, 7, 2, 1, 0, 6, 5).
+What colour is at position 4?
+
+Answer with exactly one of: purple | orange | red | blue | yellow | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;red&quot;,
+ &quot;masked&quot;: 4,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   3,
+   2,
+   7,
+   5
+  ],
+  [
+   1,
+   4
+  ],
+  [
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site orange
+  - 1 site orange
+  - 2 site orange
+  - 3 site orange
+  - 4 site orange
+  - 5 site green
+  - 6 site orange
+The symmetry is invariant under (3, 0, 4, 2, 6, 7, 1, 5).
+What colour is at position 7?
+
+Answer with exactly one of: green | purple | blue | orange | red | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 7,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   3,
+   2,
+   4,
+   6,
+   1
+  ],
+  [
+   5,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site purple
+  - 1 site purple
+  - 2 site purple
+  - 3 site purple
+  - 4 site purple
+  - 5 site purple
+  - 6 site yellow
+The symmetry is invariant under (3, 2, 0, 5, 1, 4, 7, 6).
+What colour is at position 7?
+
+Answer with exactly one of: blue | orange | green | purple | red | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yellow&quot;,
+ &quot;masked&quot;: 7,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   3,
+   5,
+   4,
+   1,
+   2
+  ],
+  [
+   6,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 1 site yellow
+  - 2 site green
+  - 3 site green
+  - 4 site blue
+  - 5 site green
+The symmetry is invariant under (4, 1, 3, 5, 0, 2).
+What colour is at position 0?
+
+Answer with exactly one of: blue | red | orange | yellow | green | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 0,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   4
+  ],
+  [
+   1
+  ],
+  [
+   2,
+   3,
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site orange
+  - 1 site yellow
+  - 2 site orange
+  - 3 site orange
+  - 4 site orange
+  - 6 site yellow
+  - 7 site orange
+The symmetry is invariant under (2, 6, 4, 0, 7, 1, 5, 3).
+What colour is at position 5?
+
+Answer with exactly one of: purple | orange | green | red | blue | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yellow&quot;,
+ &quot;masked&quot;: 5,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   2,
+   4,
+   7,
+   3
+  ],
+  [
+   1,
+   6,
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site purple
+  - 1 site purple
+  - 2 site purple
+  - 4 site purple
+  - 5 site blue
+  - 6 site red
+  - 7 site red
+The symmetry is invariant under (2, 4, 1, 5, 0, 3, 7, 6).
+What colour is at position 3?
+
+Answer with exactly one of: blue | orange | purple | green | yellow | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 3,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   2,
+   1,
+   4
+  ],
+  [
+   3,
+   5
+  ],
+  [
+   6,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 1 site green
+  - 2 site yellow
+  - 3 site green
+  - 4 site green
+  - 5 site green
+  - 6 site red
+  - 7 site purple
+The symmetry is invariant under (2, 5, 0, 4, 1, 3, 6, 7).
+What colour is at position 0?
+
+Answer with exactly one of: green | purple | blue | yellow | orange | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yellow&quot;,
+ &quot;masked&quot;: 0,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   2
+  ],
+  [
+   1,
+   5,
+   3,
+   4
+  ],
+  [
+   6
+  ],
+  [
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 1 site green
+  - 2 site blue
+  - 3 site blue
+  - 5 site purple
+  - 6 site blue
+  - 7 site green
+The symmetry is invariant under (3, 7, 0, 6, 5, 4, 2, 1).
+What colour is at position 4?
+
+Answer with exactly one of: purple | orange | blue | yellow | red | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 4,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   3,
+   6,
+   2
+  ],
+  [
+   1,
+   7
+  ],
+  [
+   4,
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site green
+  - 1 site green
+  - 2 site green
+  - 3 site green
+  - 4 site purple
+  - 5 site green
+  - 6 site purple
+The symmetry is invariant under (2, 5, 3, 1, 6, 0, 7, 4).
+What colour is at position 7?
+
+Answer with exactly one of: green | orange | yellow | purple | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 7,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   2,
+   3,
+   1,
+   5
+  ],
+  [
+   4,
+   6,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site yellow
+  - 1 site yellow
+  - 2 site yellow
+  - 4 site yellow
+  - 5 site purple
+The symmetry is invariant under (1, 2, 4, 5, 0, 3).
+What colour is at position 3?
+
+Answer with exactly one of: green | yellow | purple | blue | red | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 3,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   1,
+   2,
+   4
+  ],
+  [
+   3,
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site green
+  - 1 site green
+  - 3 site blue
+  - 4 site green
+  - 5 site green
+The symmetry is invariant under (4, 0, 3, 2, 5, 1).
+What colour is at position 2?
+
+Answer with exactly one of: blue | red | orange | green | yellow | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 2,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   4,
+   5,
+   1
+  ],
+  [
+   2,
+   3
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site red
+  - 1 site red
+  - 2 site blue
+  - 3 site yellow
+  - 5 site red
+  - 6 site red
+  - 7 site blue
+The symmetry is invariant under (6, 0, 4, 3, 7, 1, 5, 2).
+What colour is at position 4?
+
+Answer with exactly one of: purple | yellow | blue | green | red | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 4,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6,
+   5,
+   1
+  ],
+  [
+   2,
+   4,
+   7
+  ],
+  [
+   3
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site red
+  - 2 site red
+  - 3 site yellow
+  - 4 site red
+  - 5 site yellow
+  - 6 site red
+  - 7 site red
+The symmetry is invariant under (7, 5, 0, 1, 6, 3, 2, 4).
+What colour is at position 1?
+
+Answer with exactly one of: yellow | green | orange | purple | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yellow&quot;,
+ &quot;masked&quot;: 1,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   7,
+   4,
+   6,
+   2
+  ],
+  [
+   1,
+   5,
+   3
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site purple
+  - 2 site purple
+  - 3 site purple
+  - 4 site yellow
+  - 5 site purple
+  - 6 site purple
+  - 7 site blue
+The symmetry is invariant under (6, 7, 3, 5, 4, 0, 2, 1).
+What colour is at position 1?
+
+Answer with exactly one of: purple | orange | yellow | red | green | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 1,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6,
+   2,
+   3,
+   5
+  ],
+  [
+   1,
+   7
+  ],
+  [
+   4
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site green
+  - 1 site purple
+  - 2 site purple
+  - 3 site red
+  - 4 site red
+  - 5 site red
+  - 6 site red
+The symmetry is invariant under (0, 2, 7, 6, 5, 3, 4, 1).
+What colour is at position 7?
+
+Answer with exactly one of: red | purple | orange | yellow | blue | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 7,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0
+  ],
+  [
+   1,
+   2,
+   7
+  ],
+  [
+   3,
+   6,
+   4,
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site green
+  - 1 site purple
+  - 2 site purple
+  - 3 site purple
+  - 4 site purple
+  - 6 site purple
+The symmetry is invariant under (5, 6, 1, 2, 3, 0, 4).
+What colour is at position 5?
+
+Answer with exactly one of: blue | red | purple | orange | yellow | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 5,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   5
+  ],
+  [
+   1,
+   6,
+   4,
+   3,
+   2
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site purple
+  - 1 site yellow
+  - 3 site purple
+  - 4 site purple
+  - 5 site orange
+  - 6 site purple
+  - 7 site purple
+The symmetry is invariant under (7, 2, 1, 4, 0, 5, 3, 6).
+What colour is at position 2?
+
+Answer with exactly one of: red | yellow | blue | purple | green | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yellow&quot;,
+ &quot;masked&quot;: 2,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   7,
+   6,
+   3,
+   4
+  ],
+  [
+   1,
+   2
+  ],
+  [
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site green
+  - 1 site yellow
+  - 3 site purple
+  - 4 site green
+  - 5 site green
+  - 6 site green
+The symmetry is invariant under (6, 1, 3, 2, 0, 4, 5).
+What colour is at position 2?
+
+Answer with exactly one of: purple | orange | blue | green | yellow | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 2,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6,
+   5,
+   4
+  ],
+  [
+   1
+  ],
+  [
+   2,
+   3
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site red
+  - 1 site red
+  - 3 site red
+  - 4 site purple
+  - 5 site purple
+  - 6 site red
+The symmetry is invariant under (3, 6, 4, 1, 5, 2, 0).
+What colour is at position 2?
+
+Answer with exactly one of: green | red | orange | yellow | blue | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 2,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   3,
+   1,
+   6
+  ],
+  [
+   2,
+   4,
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 1 site red
+  - 3 site yellow
+  - 4 site red
+  - 5 site red
+  - 6 site orange
+The symmetry is invariant under (0, 4, 6, 3, 5, 1, 2).
+What colour is at position 2?
+
+Answer with exactly one of: red | orange | green | purple | blue | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;orange&quot;,
+ &quot;masked&quot;: 2,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0
+  ],
+  [
+   1,
+   4,
+   5
+  ],
+  [
+   2,
+   6
+  ],
+  [
+   3
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 1 site yellow
+  - 2 site yellow
+  - 3 site red
+  - 4 site yellow
+  - 5 site purple
+  - 6 site green
+  - 7 site yellow
+The symmetry is invariant under (5, 2, 7, 3, 1, 0, 6, 4).
+What colour is at position 0?
+
+Answer with exactly one of: yellow | blue | red | purple | orange | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 0,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   5
+  ],
+  [
+   1,
+   2,
+   7,
+   4
+  ],
+  [
+   3
+  ],
+  [
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site orange
+  - 1 site red
+  - 2 site blue
+  - 3 site orange
+  - 5 site orange
+  - 6 site yellow
+The symmetry is invariant under (5, 1, 2, 0, 6, 3, 4).
+What colour is at position 4?
+
+Answer with exactly one of: purple | green | orange | blue | yellow | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yellow&quot;,
+ &quot;masked&quot;: 4,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   5,
+   3
+  ],
+  [
+   1
+  ],
+  [
+   2
+  ],
+  [
+   4,
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site yellow
+  - 1 site purple
+  - 2 site blue
+  - 3 site orange
+  - 4 site orange
+  - 6 site red
+  - 7 site orange
+The symmetry is invariant under (0, 1, 2, 7, 3, 6, 5, 4).
+What colour is at position 5?
+
+Answer with exactly one of: yellow | orange | blue | green | red | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;red&quot;,
+ &quot;masked&quot;: 5,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0
+  ],
+  [
+   1
+  ],
+  [
+   2
+  ],
+  [
+   3,
+   7,
+   4
+  ],
+  [
+   5,
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 2 site green
+  - 3 site blue
+  - 4 site green
+  - 5 site blue
+  - 6 site blue
+The symmetry is invariant under (5, 4, 1, 0, 2, 6, 3).
+What colour is at position 1?
+
+Answer with exactly one of: orange | blue | yellow | purple | red | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 1,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   5,
+   6,
+   3
+  ],
+  [
+   1,
+   4,
+   2
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site orange
+  - 1 site red
+  - 3 site yellow
+  - 4 site orange
+  - 5 site purple
+  - 6 site orange
+  - 7 site orange
+The symmetry is invariant under (6, 1, 5, 3, 0, 2, 7, 4).
+What colour is at position 2?
+
+Answer with exactly one of: red | purple | orange | green | blue | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 2,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6,
+   7,
+   4
+  ],
+  [
+   1
+  ],
+  [
+   2,
+   5
+  ],
+  [
+   3
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 1 site blue
+  - 2 site orange
+  - 3 site red
+  - 5 site blue
+The symmetry is invariant under (1, 5, 4, 3, 2, 0).
+What colour is at position 4?
+
+Answer with exactly one of: purple | orange | yellow | green | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;orange&quot;,
+ &quot;masked&quot;: 4,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   1,
+   5
+  ],
+  [
+   2,
+   4
+  ],
+  [
+   3
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site purple
+  - 1 site purple
+  - 3 site green
+  - 4 site red
+  - 5 site red
+  - 6 site purple
+  - 7 site red
+The symmetry is invariant under (6, 0, 3, 2, 7, 4, 1, 5).
+What colour is at position 2?
+
+Answer with exactly one of: green | red | yellow | orange | purple | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 2,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6,
+   1
+  ],
+  [
+   2,
+   3
+  ],
+  [
+   4,
+   7,
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site red
+  - 1 site blue
+  - 2 site blue
+  - 4 site blue
+  - 5 site yellow
+The symmetry is invariant under (3, 2, 4, 0, 1, 5).
+What colour is at position 3?
+
+Answer with exactly one of: yellow | red | green | blue | purple | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;red&quot;,
+ &quot;masked&quot;: 3,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   3
+  ],
+  [
+   1,
+   2,
+   4
+  ],
+  [
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 1 site yellow
+  - 2 site purple
+  - 4 site purple
+  - 5 site purple
+  - 6 site orange
+The symmetry is invariant under (0, 3, 4, 1, 5, 2, 6).
+What colour is at position 3?
+
+Answer with exactly one of: blue | yellow | orange | purple | green | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yellow&quot;,
+ &quot;masked&quot;: 3,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0
+  ],
+  [
+   1,
+   3
+  ],
+  [
+   2,
+   4,
+   5
+  ],
+  [
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site red
+  - 1 site red
+  - 2 site red
+  - 3 site red
+  - 4 site blue
+The symmetry is invariant under (3, 2, 0, 1, 5, 4).
+What colour is at position 5?
+
+Answer with exactly one of: blue | red | purple | orange | green | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 5,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   3,
+   1,
+   2
+  ],
+  [
+   4,
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 1 site blue
+  - 2 site orange
+  - 3 site green
+  - 4 site blue
+  - 5 site blue
+The symmetry is invariant under (2, 4, 0, 3, 5, 1).
+What colour is at position 0?
+
+Answer with exactly one of: green | yellow | purple | orange | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;orange&quot;,
+ &quot;masked&quot;: 0,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   2
+  ],
+  [
+   1,
+   4,
+   5
+  ],
+  [
+   3
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site orange
+  - 1 site orange
+  - 2 site yellow
+  - 4 site orange
+  - 5 site orange
+  - 6 site purple
+  - 7 site orange
+The symmetry is invariant under (4, 5, 3, 2, 1, 7, 6, 0).
+What colour is at position 3?
+
+Answer with exactly one of: green | yellow | red | purple | orange | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yellow&quot;,
+ &quot;masked&quot;: 3,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   4,
+   1,
+   5,
+   7
+  ],
+  [
+   2,
+   3
+  ],
+  [
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 1 site blue
+  - 2 site blue
+  - 3 site orange
+  - 4 site blue
+  - 6 site blue
+The symmetry is invariant under (6, 4, 0, 5, 2, 3, 1).
+What colour is at position 5?
+
+Answer with exactly one of: purple | orange | red | blue | green | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;orange&quot;,
+ &quot;masked&quot;: 5,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6,
+   1,
+   4,
+   2
+  ],
+  [
+   3,
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 1 site blue
+  - 2 site blue
+  - 3 site orange
+  - 4 site orange
+  - 5 site blue
+  - 6 site purple
+The symmetry is invariant under (6, 5, 1, 4, 3, 2, 0).
+What colour is at position 0?
+
+Answer with exactly one of: blue | green | orange | yellow | red | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 0,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6
+  ],
+  [
+   1,
+   5,
+   2
+  ],
+  [
+   3,
+   4
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site green
+  - 1 site yellow
+  - 2 site purple
+  - 3 site purple
+  - 4 site red
+  - 5 site blue
+  - 6 site purple
+The symmetry is invariant under (7, 1, 6, 2, 4, 5, 3, 0).
+What colour is at position 7?
+
+Answer with exactly one of: orange | yellow | green | red | blue | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 7,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   7
+  ],
+  [
+   1
+  ],
+  [
+   2,
+   6,
+   3
+  ],
+  [
+   4
+  ],
+  [
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site red
+  - 1 site red
+  - 2 site yellow
+  - 3 site red
+  - 4 site red
+  - 5 site red
+The symmetry is invariant under (1, 4, 6, 0, 5, 3, 2).
+What colour is at position 6?
+
+Answer with exactly one of: yellow | red | orange | blue | green | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yellow&quot;,
+ &quot;masked&quot;: 6,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   1,
+   4,
+   5,
+   3
+  ],
+  [
+   2,
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site red
+  - 1 site orange
+  - 2 site red
+  - 3 site red
+  - 5 site blue
+  - 6 site orange
+  - 7 site red
+The symmetry is invariant under (2, 4, 7, 0, 6, 5, 1, 3).
+What colour is at position 4?
+
+Answer with exactly one of: green | yellow | blue | orange | red | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;orange&quot;,
+ &quot;masked&quot;: 4,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   2,
+   7,
+   3
+  ],
+  [
+   1,
+   4,
+   6
+  ],
+  [
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site red
+  - 2 site yellow
+  - 3 site orange
+  - 4 site red
+  - 5 site red
+  - 6 site red
+  - 7 site red
+The symmetry is invariant under (6, 2, 1, 3, 7, 4, 5, 0).
+What colour is at position 1?
+
+Answer with exactly one of: yellow | purple | blue | orange | green | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yellow&quot;,
+ &quot;masked&quot;: 1,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6,
+   5,
+   4,
+   7
+  ],
+  [
+   1,
+   2
+  ],
+  [
+   3
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 1 site purple
+  - 2 site blue
+  - 3 site blue
+  - 4 site purple
+  - 6 site blue
+The symmetry is invariant under (3, 5, 0, 6, 1, 4, 2).
+What colour is at position 5?
+
+Answer with exactly one of: green | yellow | purple | orange | blue | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 5,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   3,
+   6,
+   2
+  ],
+  [
+   1,
+   5,
+   4
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 1 site blue
+  - 2 site orange
+  - 3 site blue
+  - 4 site blue
+  - 6 site blue
+The symmetry is invariant under (6, 3, 5, 4, 0, 2, 1).
+What colour is at position 5?
+
+Answer with exactly one of: red | purple | blue | yellow | orange | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;orange&quot;,
+ &quot;masked&quot;: 5,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6,
+   1,
+   3,
+   4
+  ],
+  [
+   2,
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site yellow
+  - 2 site red
+  - 3 site red
+  - 4 site red
+  - 5 site green
+  - 6 site yellow
+  - 7 site red
+The symmetry is invariant under (6, 5, 4, 7, 3, 1, 0, 2).
+What colour is at position 1?
+
+Answer with exactly one of: green | purple | blue | yellow | orange | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 1,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6
+  ],
+  [
+   1,
+   5
+  ],
+  [
+   2,
+   4,
+   3,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 1 site blue
+  - 2 site orange
+  - 4 site orange
+  - 5 site orange
+  - 6 site green
+The symmetry is invariant under (1, 0, 4, 6, 5, 2, 3).
+What colour is at position 3?
+
+Answer with exactly one of: blue | purple | yellow | red | green | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 3,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   1
+  ],
+  [
+   2,
+   4,
+   5
+  ],
+  [
+   3,
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site yellow
+  - 1 site green
+  - 2 site red
+  - 3 site yellow
+  - 4 site yellow
+The symmetry is invariant under (3, 5, 2, 4, 0, 1).
+What colour is at position 5?
+
+Answer with exactly one of: red | yellow | purple | orange | green | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 5,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   3,
+   4
+  ],
+  [
+   1,
+   5
+  ],
+  [
+   2
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 1 site red
+  - 2 site purple
+  - 3 site red
+  - 4 site red
+  - 5 site purple
+  - 6 site red
+  - 7 site orange
+The symmetry is invariant under (5, 6, 0, 1, 3, 2, 4, 7).
+What colour is at position 0?
+
+Answer with exactly one of: yellow | red | green | orange | purple | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 0,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   5,
+   2
+  ],
+  [
+   1,
+   6,
+   4,
+   3
+  ],
+  [
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site purple
+  - 1 site purple
+  - 2 site orange
+  - 3 site purple
+  - 4 site purple
+  - 5 site red
+The symmetry is invariant under (1, 4, 2, 0, 3, 6, 5).
+What colour is at position 6?
+
+Answer with exactly one of: red | orange | yellow | green | blue | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;red&quot;,
+ &quot;masked&quot;: 6,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   1,
+   4,
+   3
+  ],
+  [
+   2
+  ],
+  [
+   5,
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site purple
+  - 1 site purple
+  - 3 site purple
+  - 4 site yellow
+  - 5 site yellow
+  - 6 site purple
+  - 7 site purple
+The symmetry is invariant under (7, 0, 5, 1, 2, 4, 3, 6).
+What colour is at position 2?
+
+Answer with exactly one of: green | purple | blue | yellow | orange | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yellow&quot;,
+ &quot;masked&quot;: 2,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   7,
+   6,
+   3,
+   1
+  ],
+  [
+   2,
+   5,
+   4
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site red
+  - 1 site red
+  - 2 site blue
+  - 3 site red
+  - 4 site purple
+  - 5 site green
+  - 7 site orange
+The symmetry is invariant under (1, 3, 2, 0, 4, 6, 5, 7).
+What colour is at position 6?
+
+Answer with exactly one of: green | orange | yellow | red | purple | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 6,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   1,
+   3
+  ],
+  [
+   2
+  ],
+  [
+   4
+  ],
+  [
+   5,
+   6
+  ],
+  [
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site green
+  - 2 site red
+  - 3 site green
+  - 4 site green
+  - 5 site green
+  - 6 site red
+  - 7 site yellow
+The symmetry is invariant under (4, 2, 6, 0, 5, 3, 1, 7).
+What colour is at position 1?
+
+Answer with exactly one of: purple | green | blue | orange | yellow | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;red&quot;,
+ &quot;masked&quot;: 1,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   4,
+   5,
+   3
+  ],
+  [
+   1,
+   2,
+   6
+  ],
+  [
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site orange
+  - 1 site yellow
+  - 2 site orange
+  - 4 site green
+  - 5 site orange
+The symmetry is invariant under (5, 1, 0, 4, 3, 2).
+What colour is at position 3?
+
+Answer with exactly one of: purple | orange | blue | green | red | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 3,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   5,
+   2
+  ],
+  [
+   1
+  ],
+  [
+   3,
+   4
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site green
+  - 1 site green
+  - 2 site orange
+  - 4 site green
+  - 5 site green
+  - 6 site green
+The symmetry is invariant under (6, 4, 3, 2, 0, 1, 5).
+What colour is at position 3?
+
+Answer with exactly one of: yellow | purple | green | blue | orange | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;orange&quot;,
+ &quot;masked&quot;: 3,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6,
+   5,
+   1,
+   4
+  ],
+  [
+   2,
+   3
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site red
+  - 1 site yellow
+  - 2 site orange
+  - 4 site yellow
+  - 5 site yellow
+The symmetry is invariant under (0, 5, 3, 2, 1, 4).
+What colour is at position 3?
+
+Answer with exactly one of: green | purple | yellow | orange | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;orange&quot;,
+ &quot;masked&quot;: 3,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0
+  ],
+  [
+   1,
+   5,
+   4
+  ],
+  [
+   2,
+   3
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 1 site orange
+  - 2 site orange
+  - 3 site orange
+  - 4 site orange
+  - 5 site orange
+  - 6 site green
+The symmetry is invariant under (6, 2, 5, 1, 3, 4, 0).
+What colour is at position 0?
+
+Answer with exactly one of: purple | blue | orange | yellow | green | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 0,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6
+  ],
+  [
+   1,
+   2,
+   5,
+   4,
+   3
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site orange
+  - 2 site orange
+  - 3 site blue
+  - 4 site orange
+  - 5 site orange
+  - 6 site orange
+  - 7 site blue
+The symmetry is invariant under (4, 3, 5, 7, 6, 0, 2, 1).
+What colour is at position 1?
+
+Answer with exactly one of: blue | yellow | purple | red | orange | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 1,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   4,
+   6,
+   2,
+   5
+  ],
+  [
+   1,
+   3,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site red
+  - 1 site purple
+  - 2 site purple
+  - 3 site red
+  - 4 site purple
+  - 5 site blue
+  - 6 site red
+The symmetry is invariant under (3, 4, 1, 6, 2, 7, 0, 5).
+What colour is at position 7?
+
+Answer with exactly one of: blue | red | green | yellow | orange | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 7,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   3,
+   6
+  ],
+  [
+   1,
+   4,
+   2
+  ],
+  [
+   5,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site red
+  - 2 site red
+  - 3 site red
+  - 4 site yellow
+  - 5 site red
+  - 6 site red
+The symmetry is invariant under (5, 4, 0, 2, 1, 6, 3).
+What colour is at position 1?
+
+Answer with exactly one of: purple | red | yellow | blue | orange | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yellow&quot;,
+ &quot;masked&quot;: 1,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   5,
+   6,
+   3,
+   2
+  ],
+  [
+   1,
+   4
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 1 site green
+  - 2 site orange
+  - 3 site green
+  - 4 site green
+  - 5 site green
+  - 6 site orange
+The symmetry is invariant under (6, 3, 0, 4, 5, 1, 2).
+What colour is at position 0?
+
+Answer with exactly one of: red | orange | green | purple | blue | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;orange&quot;,
+ &quot;masked&quot;: 0,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6,
+   2
+  ],
+  [
+   1,
+   3,
+   4,
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site purple
+  - 1 site orange
+  - 2 site green
+  - 3 site green
+  - 4 site green
+The symmetry is invariant under (5, 1, 3, 4, 2, 0).
+What colour is at position 5?
+
+Answer with exactly one of: yellow | orange | green | blue | red | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 5,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   5
+  ],
+  [
+   1
+  ],
+  [
+   2,
+   3,
+   4
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site green
+  - 2 site green
+  - 3 site purple
+  - 4 site green
+  - 5 site green
+  - 6 site purple
+  - 7 site blue
+The symmetry is invariant under (4, 7, 5, 6, 2, 0, 3, 1).
+What colour is at position 1?
+
+Answer with exactly one of: red | green | purple | yellow | orange | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 1,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   4,
+   2,
+   5
+  ],
+  [
+   1,
+   7
+  ],
+  [
+   3,
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site orange
+  - 1 site yellow
+  - 2 site blue
+  - 3 site yellow
+  - 5 site red
+  - 6 site yellow
+The symmetry is invariant under (4, 6, 2, 1, 0, 5, 3).
+What colour is at position 4?
+
+Answer with exactly one of: blue | orange | purple | red | green | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;orange&quot;,
+ &quot;masked&quot;: 4,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   4
+  ],
+  [
+   1,
+   6,
+   3
+  ],
+  [
+   2
+  ],
+  [
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site purple
+  - 1 site purple
+  - 2 site purple
+  - 3 site red
+  - 4 site green
+  - 6 site purple
+  - 7 site yellow
+The symmetry is invariant under (6, 0, 1, 3, 5, 4, 2, 7).
+What colour is at position 5?
+
+Answer with exactly one of: purple | red | yellow | blue | green | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 5,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6,
+   2,
+   1
+  ],
+  [
+   3
+  ],
+  [
+   4,
+   5
+  ],
+  [
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site purple
+  - 1 site purple
+  - 2 site yellow
+  - 3 site red
+  - 5 site purple
+  - 6 site purple
+  - 7 site red
+The symmetry is invariant under (6, 5, 2, 7, 3, 0, 1, 4).
+What colour is at position 4?
+
+Answer with exactly one of: purple | blue | red | yellow | orange | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;red&quot;,
+ &quot;masked&quot;: 4,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6,
+   1,
+   5
+  ],
+  [
+   2
+  ],
+  [
+   3,
+   7,
+   4
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 1 site blue
+  - 2 site green
+  - 3 site blue
+  - 4 site blue
+  - 5 site purple
+The symmetry is invariant under (2, 3, 0, 4, 1, 5).
+What colour is at position 0?
+
+Answer with exactly one of: purple | green | red | orange | blue | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 0,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   2
+  ],
+  [
+   1,
+   3,
+   4
+  ],
+  [
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 1 site red
+  - 2 site orange
+  - 3 site orange
+  - 4 site orange
+  - 5 site orange
+The symmetry is invariant under (1, 0, 4, 2, 5, 3).
+What colour is at position 0?
+
+Answer with exactly one of: blue | purple | green | red | yellow | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;red&quot;,
+ &quot;masked&quot;: 0,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   1
+  ],
+  [
+   2,
+   4,
+   5,
+   3
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site red
+  - 1 site yellow
+  - 3 site yellow
+  - 4 site green
+  - 5 site yellow
+The symmetry is invariant under (0, 5, 4, 1, 2, 3).
+What colour is at position 2?
+
+Answer with exactly one of: yellow | green | blue | orange | purple | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 2,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0
+  ],
+  [
+   1,
+   5,
+   3
+  ],
+  [
+   2,
+   4
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 1 site blue
+  - 2 site blue
+  - 3 site blue
+  - 4 site green
+  - 5 site blue
+  - 6 site blue
+  - 7 site blue
+The symmetry is invariant under (4, 5, 7, 6, 0, 2, 1, 3).
+What colour is at position 0?
+
+Answer with exactly one of: red | purple | blue | orange | green | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 0,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   4
+  ],
+  [
+   1,
+   5,
+   2,
+   7,
+   3,
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 1 site red
+  - 2 site red
+  - 3 site blue
+  - 4 site red
+  - 5 site yellow
+The symmetry is invariant under (3, 2, 4, 0, 1, 5).
+What colour is at position 0?
+
+Answer with exactly one of: orange | purple | blue | red | yellow | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 0,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   3
+  ],
+  [
+   1,
+   2,
+   4
+  ],
+  [
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site purple
+  - 1 site purple
+  - 3 site purple
+  - 4 site purple
+  - 5 site orange
+  - 6 site purple
+The symmetry is invariant under (4, 3, 5, 0, 6, 2, 1).
+What colour is at position 2?
+
+Answer with exactly one of: red | blue | purple | green | orange | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;orange&quot;,
+ &quot;masked&quot;: 2,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   4,
+   6,
+   1,
+   3
+  ],
+  [
+   2,
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site yellow
+  - 1 site purple
+  - 2 site purple
+  - 3 site yellow
+  - 4 site yellow
+  - 5 site yellow
+  - 6 site yellow
+The symmetry is invariant under (4, 2, 7, 6, 5, 3, 0, 1).
+What colour is at position 7?
+
+Answer with exactly one of: green | purple | yellow | orange | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 7,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   4,
+   5,
+   3,
+   6
+  ],
+  [
+   1,
+   2,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 2 site blue
+  - 3 site orange
+  - 4 site purple
+  - 5 site blue
+  - 6 site blue
+The symmetry is invariant under (6, 3, 5, 1, 4, 0, 2).
+What colour is at position 1?
+
+Answer with exactly one of: blue | yellow | purple | green | orange | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;orange&quot;,
+ &quot;masked&quot;: 1,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   6,
+   2,
+   5
+  ],
+  [
+   1,
+   3
+  ],
+  [
+   4
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site green
+  - 1 site red
+  - 3 site red
+  - 4 site green
+  - 5 site red
+  - 6 site red
+  - 7 site orange
+The symmetry is invariant under (4, 5, 0, 1, 2, 6, 3, 7).
+What colour is at position 2?
+
+Answer with exactly one of: red | orange | blue | green | purple | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 2,
+ &quot;orbit_size&quot;: 3,
+ &quot;orbits&quot;: [
+  [
+   0,
+   4,
+   2
+  ],
+  [
+   1,
+   5,
+   6,
+   3
+  ],
+  [
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 1 site blue
+  - 3 site green
+  - 4 site red
+  - 5 site red
+  - 6 site red
+The symmetry is invariant under (1, 0, 3, 2, 5, 6, 4).
+What colour is at position 2?
+
+Answer with exactly one of: yellow | purple | green | blue | orange | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;green&quot;,
+ &quot;masked&quot;: 2,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   1
+  ],
+  [
+   2,
+   3
+  ],
+  [
+   4,
+   5,
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site orange
+  - 1 site orange
+  - 2 site yellow
+  - 3 site orange
+  - 4 site blue
+  - 5 site yellow
+  - 6 site yellow
+The symmetry is invariant under (1, 3, 6, 0, 7, 2, 5, 4).
+What colour is at position 7?
+
+Answer with exactly one of: green | blue | purple | yellow | orange | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 7,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   1,
+   3
+  ],
+  [
+   2,
+   6,
+   5
+  ],
+  [
+   4,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 1 site purple
+  - 2 site green
+  - 3 site green
+  - 4 site blue
+  - 5 site green
+  - 6 site green
+The symmetry is invariant under (1, 0, 5, 6, 4, 3, 2).
+What colour is at position 0?
+
+Answer with exactly one of: green | purple | blue | yellow | red | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 0,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   1
+  ],
+  [
+   2,
+   5,
+   3,
+   6
+  ],
+  [
+   4
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site yellow
+  - 1 site yellow
+  - 2 site purple
+  - 3 site yellow
+  - 4 site yellow
+  - 5 site yellow
+  - 6 site yellow
+The symmetry is invariant under (4, 6, 7, 5, 1, 0, 3, 2).
+What colour is at position 7?
+
+Answer with exactly one of: blue | purple | red | orange | yellow | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 7,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   4,
+   1,
+   6,
+   3,
+   5
+  ],
+  [
+   2,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 1 site yellow
+  - 2 site yellow
+  - 3 site yellow
+  - 4 site orange
+  - 5 site blue
+The symmetry is invariant under (4, 2, 3, 1, 0, 5).
+What colour is at position 0?
+
+Answer with exactly one of: red | green | blue | orange | yellow | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;orange&quot;,
+ &quot;masked&quot;: 0,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   4
+  ],
+  [
+   1,
+   2,
+   3
+  ],
+  [
+   5
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site yellow
+  - 1 site yellow
+  - 3 site yellow
+  - 4 site blue
+  - 5 site yellow
+The symmetry is invariant under (1, 5, 4, 0, 2, 3).
+What colour is at position 2?
+
+Answer with exactly one of: blue | orange | green | purple | yellow | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;blue&quot;,
+ &quot;masked&quot;: 2,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   1,
+   5,
+   3
+  ],
+  [
+   2,
+   4
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site blue
+  - 1 site blue
+  - 2 site blue
+  - 3 site blue
+  - 4 site orange
+  - 5 site purple
+The symmetry is invariant under (2, 3, 1, 0, 4, 6, 5).
+What colour is at position 6?
+
+Answer with exactly one of: blue | orange | purple | yellow | red | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;purple&quot;,
+ &quot;masked&quot;: 6,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   2,
+   1,
+   3
+  ],
+  [
+   4
+  ],
+  [
+   5,
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>The current state is:
+  - 0 site green
+  - 1 site green
+  - 2 site red
+  - 3 site orange
+  - 5 site green
+The symmetry is invariant under (1, 5, 4, 3, 2, 0).
+What colour is at position 4?
+
+Answer with exactly one of: green | red | yellow | purple | blue | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;red&quot;,
+ &quot;masked&quot;: 4,
+ &quot;orbit_size&quot;: 2,
+ &quot;orbits&quot;: [
+  [
+   0,
+   1,
+   5
+  ],
+  [
+   2,
+   4
+  ],
+  [
+   3
+  ]
+ ]
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

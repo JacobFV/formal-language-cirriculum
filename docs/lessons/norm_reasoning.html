@@ -1,0 +1,2551 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>norm_reasoning — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#xi">protocols, institutions, and distributed intelligence</a> &rsaquo;
+  norm_reasoning</p>
+<h1>#124 <code>norm_reasoning</code></h1>
+<p class="lede">obligation, permission and prohibition under prioritized conflicting norms</p>
+<div class="tags"><span class="tag ">level 124</span><span class="tag ">section xi</span><span class="tag ">belief_modeling</span><span class="tag ">abstraction</span><span class="tag ">metareasoning</span></div>
+<div class="stats">
+<div class="stat"><span class="n">3.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.333</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.37</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Obligation, permission or prohibition — under conflicting norms.</p><p>    Norms carry conditions and an explicit, total priority order. Several
+    applicable norms disagree about the queried action and several inapplicable
+    ones (their condition is false in this situation) sit at *higher* priority
+    as decoys, so the answer is decided by the highest-priority norm whose
+    condition actually holds.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>ambiguity</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 7): if raining then obligatory to transfer
+  - n7 (priority 9): if night then permitted to depart
+  - n5 (priority 4): if holiday then permitted to depart
+  - n6 (priority 8): if alarm then forbidden to depart
+  - n2 (priority 5): if on_duty then permitted to depart
+  - n4 (priority 3): if raining then forbidden to report
+  - n1 (priority 2): if always then obligatory to depart
+The situation: holds emergency, holds holiday and holds raining.
+What is the status of depart?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre><h3>spanish</h3><pre>La regla de conflicto es resolver por highest_priority_applicable.
+Las normas son:
+  - n3 (prioridad 7): si raining entonces obligatorio transferencia
+  - n7 (prioridad 9): si night entonces permitido depart
+  - n5 (prioridad 4): si holiday entonces permitido depart
+  - n6 (prioridad 8): si alarm entonces prohibido depart
+  - n2 (prioridad 5): si on_duty entonces permitido depart
+  - n4 (prioridad 3): si raining entonces prohibido report
+  - n1 (prioridad 2): si always entonces obligatorio depart
+La situación es: se cumple: emergency; se cumple: holiday; se cumple: raining.
+¿Cuál es el estado de depart?
+
+Responde exactamente con una de estas opciones: obligatorio | prohibido | permitido
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>冲突规则是按highest_priority_applicable裁决。
+规范如下：
+  - n3（优先级7）：若raining，则迁移为义务
+  - n7（优先级9）：若night，则depart为允许
+  - n5（优先级4）：若holiday，则depart为允许
+  - n6（优先级8）：若alarm，则depart为禁止
+  - n2（优先级5）：若on_duty，则depart为允许
+  - n4（优先级3）：若raining，则report为禁止
+  - n1（优先级2）：若always，则depart为义务
+情形是：成立于：emergency；成立于：holiday；成立于：raining。
+depart的状态是什么？
+
+请从以下选项中选出恰好一个作答：义务 | 禁止 | 允许
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 7): if raining then obligatory to transfer
+  - n7 (priority 9): if night then permitted to depart
+  - n5 (priority 4): if holiday then permitted to depart
+  - n6 (priority 8): if alarm then forbidden to depart
+  - n2 (priority 5): if on_duty then permitted to depart
+  - n4 (priority 3): if raining then forbidden to report
+  - n1 (priority 2): if always then obligatory to depart
+The situation: holds emergency, holds holiday and holds raining.
+What is the status of depart?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre><h3>symbols</h3><pre>{conflict_rule: (resolve_by highest_priority_applicable), norms: [(norm n3 7 raining obligatory transfer) (norm n7 9 night permitted depart) (norm n5 4 holiday permitted depart) (norm n6 8 alarm forbidden depart) (norm n2 5 on_duty permitted depart) (norm n4 3 raining forbidden report) (norm n1 2 always obligatory depart)], query: (status_of depart), situation: [(holds emergency) (holds holiday) (holds raining)]}
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/norm_reasoning.jsonl</code> &middot; <code>data/samples/spanish/norm_reasoning.jsonl</code> &middot; <code>data/samples/chinese/norm_reasoning.jsonl</code> &middot; <code>data/samples/english_synonym/norm_reasoning.jsonl</code> &middot; <code>data/samples/symbols/norm_reasoning.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 7): if raining then obligatory to transfer
+  - n7 (priority 9): if night then permitted to depart
+  - n5 (priority 4): if holiday then permitted to depart
+  - n6 (priority 8): if alarm then forbidden to depart
+  - n2 (priority 5): if on_duty then permitted to depart
+  - n4 (priority 3): if raining then forbidden to report
+  - n1 (priority 2): if always then obligatory to depart
+The situation: holds emergency, holds holiday and holds raining.
+What is the status of depart?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n4 (priority 4): if always then permitted to depart
+  - n6 (priority 6): if emergency then obligatory to depart
+  - n7 (priority 5): if emergency then permitted to report
+  - n2 (priority 2): if night then forbidden to depart
+  - n1 (priority 9): if alarm then permitted to depart
+  - n3 (priority 3): if emergency then permitted to depart
+  - n5 (priority 8): if on_duty then obligatory to depart
+The situation: holds raining and holds emergency.
+What is the status of depart?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n4 (priority 8): if always then obligatory to report
+  - n2 (priority 2): if emergency then permitted to report
+  - n7 (priority 1): if always then obligatory to depart
+  - n8 (priority 9): if holiday then forbidden to report
+  - n1 (priority 7): if always then forbidden to report
+  - n3 (priority 6): if holiday then obligatory to report
+  - n5 (priority 5): if holiday then obligatory to report
+  - n6 (priority 3): if always then forbidden to transfer
+The situation: holds raining and holds emergency.
+What is the status of report?
+
+Answer with exactly one of: obligatory | permitted | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 8,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n1 (priority 8): if on_duty then obligatory to depart
+  - n5 (priority 7): if emergency then permitted to depart
+  - n4 (priority 2): if always then permitted to transfer
+  - n6 (priority 6): if always then permitted to depart
+  - n2 (priority 3): if emergency then obligatory to report
+  - n7 (priority 5): if alarm then forbidden to depart
+  - n3 (priority 9): if raining then permitted to depart
+The situation: holds emergency and holds on_duty.
+What is the status of depart?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n4 (priority 7): if raining then obligatory to report
+  - n5 (priority 2): if holiday then obligatory to depart
+  - n6 (priority 5): if always then permitted to report
+  - n2 (priority 1): if always then forbidden to report
+  - n3 (priority 3): if night then forbidden to report
+  - n7 (priority 8): if on_duty then obligatory to transfer
+  - n1 (priority 9): if emergency then forbidden to report
+The situation: holds holiday, holds raining and holds on_duty.
+What is the status of report?
+
+Answer with exactly one of: permitted | forbidden | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 8): if emergency then obligatory to enter
+  - n4 (priority 5): if emergency then permitted to depart
+  - n2 (priority 9): if emergency then forbidden to depart
+  - n1 (priority 7): if night then forbidden to depart
+  - n5 (priority 3): if night then obligatory to depart
+The situation: holds emergency, holds raining and holds alarm.
+What is the status of depart?
+
+Answer with exactly one of: forbidden | obligatory | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 5,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n2 (priority 5): if emergency then obligatory to enter
+  - n4 (priority 8): if always then forbidden to enter
+  - n7 (priority 6): if raining then obligatory to enter
+  - n5 (priority 1): if emergency then obligatory to transfer
+  - n3 (priority 3): if always then obligatory to enter
+  - n1 (priority 2): if alarm then permitted to enter
+  - n6 (priority 9): if raining then obligatory to enter
+The situation: holds emergency and holds holiday.
+What is the status of enter?
+
+Answer with exactly one of: permitted | forbidden | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 8): if holiday then forbidden to depart
+  - n4 (priority 2): if always then obligatory to enter
+  - n2 (priority 9): if alarm then obligatory to enter
+  - n7 (priority 3): if always then obligatory to enter
+  - n1 (priority 1): if always then obligatory to depart
+  - n3 (priority 7): if raining then permitted to enter
+  - n6 (priority 4): if emergency then permitted to enter
+The situation: holds raining and holds holiday.
+What is the status of enter?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n6 (priority 4): if holiday then obligatory to enter
+  - n4 (priority 7): if holiday then permitted to depart
+  - n8 (priority 3): if holiday then forbidden to enter
+  - n2 (priority 6): if emergency then forbidden to enter
+  - n1 (priority 9): if emergency then forbidden to enter
+  - n7 (priority 8): if emergency then obligatory to enter
+  - n5 (priority 1): if holiday then permitted to depart
+  - n3 (priority 2): if on_duty then permitted to enter
+The situation: holds on_duty, holds holiday and holds night.
+What is the status of enter?
+
+Answer with exactly one of: forbidden | obligatory | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 8,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n1 (priority 4): if night then permitted to transfer
+  - n6 (priority 1): if emergency then obligatory to transfer
+  - n5 (priority 9): if alarm then obligatory to enter
+  - n4 (priority 2): if alarm then obligatory to enter
+  - n2 (priority 5): if on_duty then obligatory to enter
+  - n3 (priority 8): if emergency then permitted to enter
+The situation: holds on_duty, holds emergency and holds night.
+What is the status of enter?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n7 (priority 6): if holiday then obligatory to enter
+  - n3 (priority 4): if raining then forbidden to enter
+  - n5 (priority 5): if holiday then permitted to report
+  - n4 (priority 2): if alarm then permitted to enter
+  - n2 (priority 7): if on_duty then obligatory to enter
+  - n1 (priority 9): if always then forbidden to enter
+  - n6 (priority 8): if emergency then forbidden to enter
+The situation: holds holiday and holds alarm.
+What is the status of enter?
+
+Answer with exactly one of: forbidden | permitted | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n2 (priority 5): if always then forbidden to transfer
+  - n4 (priority 3): if night then forbidden to report
+  - n3 (priority 9): if alarm then obligatory to report
+  - n5 (priority 8): if raining then obligatory to report
+  - n1 (priority 4): if on_duty then permitted to report
+The situation: holds night, holds holiday and holds on_duty.
+What is the status of report?
+
+Answer with exactly one of: forbidden | obligatory | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 5,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n1 (priority 8): if raining then obligatory to report
+  - n5 (priority 5): if on_duty then permitted to report
+  - n3 (priority 9): if night then forbidden to report
+  - n2 (priority 1): if alarm then obligatory to report
+  - n4 (priority 7): if alarm then permitted to enter
+The situation: holds emergency, holds on_duty and holds alarm.
+What is the status of report?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 5,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n1 (priority 8): if always then permitted to report
+  - n2 (priority 2): if always then obligatory to report
+  - n4 (priority 7): if emergency then permitted to report
+  - n3 (priority 3): if always then forbidden to depart
+  - n5 (priority 9): if emergency then permitted to report
+The situation: holds night, holds alarm and holds on_duty.
+What is the status of report?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 5,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 3): if always then permitted to report
+  - n3 (priority 9): if holiday then obligatory to transfer
+  - n1 (priority 7): if alarm then obligatory to enter
+  - n2 (priority 2): if always then forbidden to transfer
+  - n6 (priority 8): if raining then obligatory to transfer
+  - n4 (priority 4): if always then obligatory to transfer
+The situation: holds alarm and holds emergency.
+What is the status of transfer?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n2 (priority 5): if holiday then permitted to report
+  - n6 (priority 1): if always then permitted to report
+  - n3 (priority 3): if on_duty then obligatory to transfer
+  - n7 (priority 8): if alarm then permitted to report
+  - n5 (priority 4): if raining then permitted to depart
+  - n1 (priority 9): if alarm then obligatory to report
+  - n4 (priority 7): if raining then obligatory to report
+  - n8 (priority 6): if always then permitted to report
+The situation: holds raining and holds on_duty.
+What is the status of report?
+
+Answer with exactly one of: forbidden | obligatory | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 8,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 7): if raining then forbidden to report
+  - n1 (priority 3): if always then obligatory to report
+  - n5 (priority 6): if alarm then permitted to transfer
+  - n7 (priority 9): if raining then forbidden to report
+  - n2 (priority 5): if night then permitted to report
+  - n6 (priority 8): if always then permitted to report
+  - n4 (priority 4): if alarm then permitted to enter
+The situation: holds alarm, holds holiday and holds emergency.
+What is the status of report?
+
+Answer with exactly one of: forbidden | permitted | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n6 (priority 7): if on_duty then permitted to report
+  - n4 (priority 4): if emergency then forbidden to transfer
+  - n5 (priority 8): if holiday then obligatory to report
+  - n3 (priority 5): if emergency then obligatory to report
+  - n2 (priority 2): if holiday then forbidden to report
+  - n1 (priority 9): if always then forbidden to report
+The situation: holds emergency, holds alarm and holds on_duty.
+What is the status of report?
+
+Answer with exactly one of: obligatory | permitted | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 6): if raining then permitted to transfer
+  - n2 (priority 7): if always then obligatory to transfer
+  - n4 (priority 2): if alarm then permitted to transfer
+  - n6 (priority 9): if night then forbidden to transfer
+  - n1 (priority 5): if alarm then permitted to transfer
+  - n7 (priority 1): if holiday then forbidden to depart
+  - n8 (priority 8): if night then forbidden to transfer
+  - n5 (priority 4): if always then forbidden to depart
+The situation: holds alarm and holds holiday.
+What is the status of transfer?
+
+Answer with exactly one of: permitted | forbidden | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 8,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 8): if emergency then obligatory to report
+  - n4 (priority 2): if always then permitted to depart
+  - n3 (priority 1): if alarm then permitted to report
+  - n2 (priority 9): if raining then forbidden to report
+  - n6 (priority 4): if night then permitted to report
+  - n1 (priority 5): if always then obligatory to report
+The situation: holds on_duty and holds raining.
+What is the status of report?
+
+Answer with exactly one of: permitted | forbidden | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n1 (priority 8): if on_duty then permitted to transfer
+  - n5 (priority 7): if emergency then obligatory to depart
+  - n4 (priority 4): if raining then forbidden to transfer
+  - n7 (priority 9): if night then obligatory to transfer
+  - n3 (priority 1): if emergency then permitted to transfer
+  - n2 (priority 5): if emergency then obligatory to depart
+  - n6 (priority 2): if raining then permitted to transfer
+The situation: holds emergency and holds raining.
+What is the status of transfer?
+
+Answer with exactly one of: obligatory | permitted | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 1): if always then obligatory to enter
+  - n2 (priority 3): if emergency then permitted to depart
+  - n3 (priority 6): if raining then forbidden to depart
+  - n6 (priority 5): if raining then obligatory to depart
+  - n7 (priority 8): if always then obligatory to depart
+  - n1 (priority 7): if always then permitted to depart
+  - n4 (priority 9): if night then forbidden to depart
+The situation: holds holiday, holds emergency and holds alarm.
+What is the status of depart?
+
+Answer with exactly one of: forbidden | permitted | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n2 (priority 6): if on_duty then permitted to transfer
+  - n3 (priority 7): if always then obligatory to depart
+  - n4 (priority 8): if night then forbidden to depart
+  - n1 (priority 4): if raining then forbidden to depart
+  - n5 (priority 9): if holiday then permitted to depart
+The situation: holds raining and holds on_duty.
+What is the status of depart?
+
+Answer with exactly one of: forbidden | obligatory | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 5,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 2): if on_duty then forbidden to depart
+  - n2 (priority 7): if alarm then permitted to transfer
+  - n5 (priority 9): if always then permitted to transfer
+  - n4 (priority 8): if on_duty then obligatory to transfer
+  - n1 (priority 6): if night then forbidden to transfer
+  - n6 (priority 5): if emergency then forbidden to transfer
+The situation: holds raining and holds on_duty.
+What is the status of transfer?
+
+Answer with exactly one of: obligatory | permitted | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n1 (priority 1): if alarm then forbidden to enter
+  - n7 (priority 9): if raining then forbidden to report
+  - n2 (priority 4): if always then forbidden to report
+  - n5 (priority 3): if on_duty then obligatory to report
+  - n6 (priority 5): if alarm then permitted to enter
+  - n3 (priority 6): if raining then forbidden to report
+  - n4 (priority 2): if holiday then permitted to report
+The situation: holds on_duty, holds alarm and holds night.
+What is the status of report?
+
+Answer with exactly one of: permitted | forbidden | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n4 (priority 9): if alarm then permitted to depart
+  - n3 (priority 5): if raining then forbidden to depart
+  - n1 (priority 6): if emergency then obligatory to transfer
+  - n5 (priority 1): if emergency then obligatory to depart
+  - n2 (priority 3): if always then permitted to depart
+The situation: holds emergency and holds night.
+What is the status of depart?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 5,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n2 (priority 9): if on_duty then permitted to depart
+  - n3 (priority 8): if raining then obligatory to depart
+  - n6 (priority 1): if alarm then forbidden to transfer
+  - n1 (priority 7): if always then forbidden to depart
+  - n4 (priority 2): if alarm then obligatory to depart
+  - n5 (priority 5): if alarm then permitted to transfer
+The situation: holds alarm and holds night.
+What is the status of depart?
+
+Answer with exactly one of: obligatory | permitted | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n2 (priority 2): if emergency then obligatory to report
+  - n6 (priority 4): if always then permitted to enter
+  - n5 (priority 9): if holiday then permitted to report
+  - n3 (priority 6): if alarm then forbidden to report
+  - n1 (priority 8): if holiday then permitted to report
+  - n4 (priority 3): if night then permitted to report
+The situation: holds emergency, holds alarm and holds on_duty.
+What is the status of report?
+
+Answer with exactly one of: forbidden | obligatory | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 9): if emergency then forbidden to report
+  - n1 (priority 6): if holiday then obligatory to report
+  - n7 (priority 8): if night then forbidden to report
+  - n2 (priority 7): if on_duty then obligatory to report
+  - n4 (priority 1): if always then forbidden to report
+  - n3 (priority 5): if always then forbidden to transfer
+  - n6 (priority 4): if on_duty then forbidden to report
+The situation: holds on_duty and holds alarm.
+What is the status of report?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 9): if always then forbidden to transfer
+  - n4 (priority 6): if alarm then forbidden to transfer
+  - n6 (priority 2): if night then forbidden to transfer
+  - n3 (priority 1): if always then obligatory to report
+  - n2 (priority 8): if alarm then obligatory to transfer
+  - n1 (priority 7): if always then permitted to transfer
+  - n7 (priority 5): if always then obligatory to report
+The situation: holds emergency and holds on_duty.
+What is the status of transfer?
+
+Answer with exactly one of: forbidden | permitted | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 6): if holiday then forbidden to transfer
+  - n2 (priority 7): if alarm then forbidden to transfer
+  - n1 (priority 8): if always then forbidden to transfer
+  - n6 (priority 9): if emergency then permitted to transfer
+  - n4 (priority 4): if on_duty then forbidden to depart
+  - n5 (priority 3): if always then permitted to transfer
+The situation: holds night, holds on_duty and holds raining.
+What is the status of transfer?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 7): if night then forbidden to enter
+  - n2 (priority 1): if raining then obligatory to transfer
+  - n1 (priority 8): if on_duty then permitted to enter
+  - n6 (priority 6): if on_duty then permitted to enter
+  - n3 (priority 3): if holiday then forbidden to report
+  - n4 (priority 9): if holiday then obligatory to enter
+The situation: holds night, holds raining and holds holiday.
+What is the status of enter?
+
+Answer with exactly one of: forbidden | permitted | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n4 (priority 8): if night then obligatory to report
+  - n3 (priority 2): if alarm then obligatory to report
+  - n1 (priority 4): if night then permitted to transfer
+  - n5 (priority 9): if raining then forbidden to report
+  - n2 (priority 1): if emergency then permitted to report
+The situation: holds emergency and holds night.
+What is the status of report?
+
+Answer with exactly one of: forbidden | permitted | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 5,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n1 (priority 4): if night then obligatory to transfer
+  - n5 (priority 1): if night then obligatory to depart
+  - n4 (priority 9): if raining then permitted to transfer
+  - n3 (priority 8): if night then obligatory to report
+  - n7 (priority 6): if emergency then obligatory to transfer
+  - n2 (priority 2): if always then permitted to transfer
+  - n6 (priority 7): if night then forbidden to transfer
+The situation: holds night and holds alarm.
+What is the status of transfer?
+
+Answer with exactly one of: permitted | forbidden | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n6 (priority 2): if raining then forbidden to depart
+  - n1 (priority 9): if alarm then forbidden to enter
+  - n3 (priority 3): if always then obligatory to enter
+  - n7 (priority 1): if emergency then forbidden to enter
+  - n2 (priority 4): if on_duty then forbidden to enter
+  - n4 (priority 8): if always then forbidden to report
+  - n5 (priority 5): if holiday then permitted to enter
+The situation: holds raining, holds on_duty and holds night.
+What is the status of enter?
+
+Answer with exactly one of: forbidden | permitted | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n6 (priority 6): if always then forbidden to transfer
+  - n4 (priority 1): if emergency then obligatory to transfer
+  - n5 (priority 8): if holiday then obligatory to transfer
+  - n2 (priority 7): if night then permitted to report
+  - n3 (priority 3): if on_duty then permitted to transfer
+  - n1 (priority 9): if raining then permitted to transfer
+The situation: holds night, holds emergency and holds alarm.
+What is the status of transfer?
+
+Answer with exactly one of: forbidden | permitted | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 4): if raining then permitted to report
+  - n6 (priority 3): if always then permitted to enter
+  - n1 (priority 2): if always then forbidden to enter
+  - n5 (priority 6): if holiday then obligatory to enter
+  - n7 (priority 9): if holiday then forbidden to enter
+  - n4 (priority 8): if alarm then forbidden to enter
+  - n2 (priority 5): if always then permitted to report
+The situation: holds emergency and holds raining.
+What is the status of enter?
+
+Answer with exactly one of: forbidden | permitted | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 7): if raining then obligatory to enter
+  - n2 (priority 3): if alarm then forbidden to transfer
+  - n6 (priority 8): if alarm then permitted to enter
+  - n3 (priority 9): if alarm then forbidden to enter
+  - n4 (priority 2): if on_duty then permitted to enter
+  - n1 (priority 6): if emergency then obligatory to enter
+The situation: holds alarm and holds on_duty.
+What is the status of enter?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n7 (priority 6): if holiday then forbidden to transfer
+  - n3 (priority 8): if alarm then obligatory to transfer
+  - n2 (priority 9): if alarm then forbidden to transfer
+  - n5 (priority 2): if holiday then obligatory to transfer
+  - n1 (priority 5): if always then obligatory to enter
+  - n4 (priority 7): if night then permitted to transfer
+  - n6 (priority 1): if holiday then permitted to transfer
+The situation: holds holiday, holds on_duty and holds raining.
+What is the status of transfer?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 2): if night then forbidden to depart
+  - n6 (priority 3): if always then forbidden to report
+  - n1 (priority 5): if raining then obligatory to report
+  - n2 (priority 4): if holiday then forbidden to depart
+  - n3 (priority 6): if alarm then permitted to report
+  - n4 (priority 9): if emergency then permitted to report
+The situation: holds holiday, holds night and holds raining.
+What is the status of report?
+
+Answer with exactly one of: permitted | forbidden | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n2 (priority 7): if emergency then obligatory to depart
+  - n4 (priority 6): if always then permitted to report
+  - n1 (priority 9): if on_duty then obligatory to report
+  - n5 (priority 1): if emergency then obligatory to report
+  - n3 (priority 3): if raining then permitted to report
+The situation: holds night and holds emergency.
+What is the status of report?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 5,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n6 (priority 6): if alarm then obligatory to transfer
+  - n4 (priority 9): if alarm then permitted to transfer
+  - n3 (priority 8): if emergency then forbidden to transfer
+  - n5 (priority 7): if holiday then obligatory to transfer
+  - n2 (priority 2): if alarm then forbidden to enter
+  - n1 (priority 5): if on_duty then forbidden to transfer
+The situation: holds alarm, holds night and holds holiday.
+What is the status of transfer?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 1): if emergency then obligatory to enter
+  - n2 (priority 2): if emergency then obligatory to report
+  - n3 (priority 7): if raining then permitted to transfer
+  - n1 (priority 8): if on_duty then obligatory to report
+  - n4 (priority 9): if raining then forbidden to report
+  - n6 (priority 5): if alarm then permitted to report
+The situation: holds emergency and holds raining.
+What is the status of report?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 6): if alarm then obligatory to enter
+  - n4 (priority 2): if alarm then permitted to transfer
+  - n5 (priority 1): if night then permitted to transfer
+  - n1 (priority 4): if on_duty then permitted to transfer
+  - n6 (priority 9): if emergency then obligatory to transfer
+  - n2 (priority 5): if alarm then obligatory to transfer
+The situation: holds night, holds alarm and holds holiday.
+What is the status of transfer?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n2 (priority 3): if holiday then forbidden to enter
+  - n6 (priority 4): if raining then permitted to report
+  - n7 (priority 5): if holiday then permitted to report
+  - n5 (priority 2): if holiday then forbidden to report
+  - n1 (priority 7): if holiday then obligatory to transfer
+  - n4 (priority 9): if on_duty then obligatory to report
+  - n3 (priority 1): if night then obligatory to report
+The situation: holds night and holds holiday.
+What is the status of report?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n6 (priority 2): if night then permitted to transfer
+  - n2 (priority 9): if raining then permitted to transfer
+  - n4 (priority 8): if alarm then permitted to transfer
+  - n3 (priority 6): if holiday then permitted to enter
+  - n5 (priority 1): if emergency then forbidden to transfer
+  - n1 (priority 3): if raining then obligatory to transfer
+The situation: holds holiday, holds raining and holds emergency.
+What is the status of transfer?
+
+Answer with exactly one of: forbidden | permitted | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n7 (priority 3): if always then obligatory to transfer
+  - n2 (priority 8): if emergency then permitted to report
+  - n1 (priority 6): if alarm then forbidden to report
+  - n8 (priority 5): if alarm then permitted to report
+  - n5 (priority 9): if always then obligatory to report
+  - n6 (priority 1): if on_duty then forbidden to report
+  - n3 (priority 2): if night then obligatory to enter
+  - n4 (priority 7): if night then permitted to report
+The situation: holds raining, holds on_duty and holds night.
+What is the status of report?
+
+Answer with exactly one of: forbidden | obligatory | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 8,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n7 (priority 2): if emergency then forbidden to depart
+  - n6 (priority 9): if always then permitted to depart
+  - n4 (priority 7): if emergency then permitted to depart
+  - n3 (priority 1): if holiday then obligatory to transfer
+  - n5 (priority 8): if night then obligatory to depart
+  - n2 (priority 3): if holiday then forbidden to depart
+  - n1 (priority 5): if always then obligatory to transfer
+The situation: holds on_duty and holds holiday.
+What is the status of depart?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n7 (priority 7): if night then obligatory to report
+  - n6 (priority 8): if night then forbidden to report
+  - n4 (priority 4): if emergency then forbidden to depart
+  - n3 (priority 9): if holiday then forbidden to report
+  - n2 (priority 1): if always then obligatory to transfer
+  - n1 (priority 5): if raining then forbidden to report
+  - n5 (priority 6): if raining then permitted to report
+The situation: holds emergency, holds on_duty and holds night.
+What is the status of report?
+
+Answer with exactly one of: permitted | forbidden | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n6 (priority 4): if always then obligatory to report
+  - n5 (priority 1): if alarm then forbidden to enter
+  - n7 (priority 9): if night then forbidden to enter
+  - n2 (priority 2): if raining then forbidden to enter
+  - n4 (priority 7): if always then forbidden to transfer
+  - n1 (priority 6): if raining then forbidden to enter
+  - n3 (priority 8): if holiday then obligatory to enter
+The situation: holds raining, holds holiday and holds emergency.
+What is the status of enter?
+
+Answer with exactly one of: obligatory | permitted | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n7 (priority 8): if emergency then permitted to transfer
+  - n6 (priority 3): if alarm then forbidden to transfer
+  - n3 (priority 5): if always then obligatory to depart
+  - n4 (priority 2): if always then forbidden to transfer
+  - n5 (priority 7): if always then permitted to enter
+  - n2 (priority 9): if on_duty then permitted to transfer
+  - n1 (priority 6): if alarm then permitted to transfer
+The situation: holds emergency, holds night and holds holiday.
+What is the status of transfer?
+
+Answer with exactly one of: forbidden | permitted | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n2 (priority 1): if always then obligatory to depart
+  - n4 (priority 8): if raining then permitted to transfer
+  - n5 (priority 2): if on_duty then obligatory to transfer
+  - n1 (priority 4): if on_duty then forbidden to transfer
+  - n6 (priority 9): if always then obligatory to transfer
+  - n3 (priority 5): if night then permitted to transfer
+  - n7 (priority 6): if alarm then permitted to transfer
+The situation: holds night and holds alarm.
+What is the status of transfer?
+
+Answer with exactly one of: obligatory | permitted | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n7 (priority 6): if alarm then obligatory to depart
+  - n4 (priority 9): if alarm then permitted to depart
+  - n1 (priority 3): if on_duty then forbidden to depart
+  - n2 (priority 1): if raining then forbidden to depart
+  - n3 (priority 2): if raining then obligatory to depart
+  - n6 (priority 8): if emergency then forbidden to depart
+  - n5 (priority 5): if always then forbidden to report
+The situation: holds on_duty and holds alarm.
+What is the status of depart?
+
+Answer with exactly one of: permitted | forbidden | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n1 (priority 9): if emergency then forbidden to depart
+  - n3 (priority 1): if holiday then obligatory to depart
+  - n2 (priority 3): if on_duty then forbidden to depart
+  - n4 (priority 7): if always then permitted to transfer
+  - n5 (priority 2): if emergency then permitted to depart
+The situation: holds on_duty and holds holiday.
+What is the status of depart?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 5,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 9): if raining then forbidden to depart
+  - n6 (priority 5): if on_duty then obligatory to report
+  - n1 (priority 6): if raining then permitted to depart
+  - n2 (priority 8): if night then permitted to depart
+  - n5 (priority 4): if emergency then forbidden to depart
+  - n4 (priority 7): if holiday then obligatory to depart
+The situation: holds holiday, holds on_duty and holds emergency.
+What is the status of depart?
+
+Answer with exactly one of: forbidden | obligatory | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n1 (priority 7): if night then permitted to enter
+  - n2 (priority 5): if alarm then permitted to enter
+  - n7 (priority 1): if night then permitted to enter
+  - n6 (priority 8): if holiday then permitted to enter
+  - n3 (priority 9): if night then obligatory to enter
+  - n8 (priority 4): if night then obligatory to depart
+  - n4 (priority 6): if on_duty then obligatory to enter
+  - n5 (priority 3): if night then obligatory to report
+The situation: holds night and holds emergency.
+What is the status of enter?
+
+Answer with exactly one of: forbidden | obligatory | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 8,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 3): if holiday then obligatory to transfer
+  - n4 (priority 4): if raining then forbidden to transfer
+  - n6 (priority 9): if night then permitted to transfer
+  - n3 (priority 1): if holiday then permitted to transfer
+  - n1 (priority 8): if always then forbidden to transfer
+  - n2 (priority 5): if always then obligatory to depart
+  - n7 (priority 7): if alarm then obligatory to transfer
+The situation: holds on_duty and holds holiday.
+What is the status of transfer?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n2 (priority 1): if always then forbidden to transfer
+  - n4 (priority 7): if holiday then forbidden to report
+  - n7 (priority 4): if raining then forbidden to report
+  - n3 (priority 2): if on_duty then permitted to report
+  - n6 (priority 6): if night then forbidden to report
+  - n5 (priority 9): if raining then obligatory to report
+  - n1 (priority 8): if night then forbidden to report
+The situation: holds raining, holds on_duty and holds alarm.
+What is the status of report?
+
+Answer with exactly one of: obligatory | permitted | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 6): if emergency then permitted to enter
+  - n4 (priority 7): if night then forbidden to enter
+  - n1 (priority 2): if always then obligatory to report
+  - n2 (priority 1): if night then permitted to enter
+  - n5 (priority 5): if alarm then permitted to enter
+  - n7 (priority 9): if holiday then permitted to enter
+  - n6 (priority 8): if emergency then forbidden to enter
+The situation: holds night and holds alarm.
+What is the status of enter?
+
+Answer with exactly one of: forbidden | obligatory | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n2 (priority 9): if raining then obligatory to enter
+  - n4 (priority 1): if alarm then obligatory to transfer
+  - n7 (priority 3): if alarm then permitted to enter
+  - n1 (priority 8): if holiday then obligatory to enter
+  - n6 (priority 6): if always then permitted to enter
+  - n3 (priority 7): if raining then permitted to enter
+  - n5 (priority 5): if raining then permitted to enter
+The situation: holds alarm and holds holiday.
+What is the status of enter?
+
+Answer with exactly one of: obligatory | permitted | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 7): if emergency then permitted to report
+  - n2 (priority 6): if emergency then obligatory to depart
+  - n4 (priority 2): if emergency then obligatory to report
+  - n3 (priority 8): if alarm then obligatory to report
+  - n1 (priority 9): if alarm then forbidden to report
+  - n6 (priority 5): if night then permitted to enter
+The situation: holds night, holds on_duty and holds emergency.
+What is the status of report?
+
+Answer with exactly one of: permitted | forbidden | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 8): if alarm then permitted to transfer
+  - n5 (priority 4): if night then forbidden to report
+  - n2 (priority 9): if alarm then obligatory to transfer
+  - n1 (priority 7): if on_duty then permitted to transfer
+  - n6 (priority 1): if always then obligatory to depart
+  - n4 (priority 6): if on_duty then forbidden to transfer
+The situation: holds night and holds on_duty.
+What is the status of transfer?
+
+Answer with exactly one of: forbidden | obligatory | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 9): if emergency then forbidden to depart
+  - n1 (priority 6): if emergency then permitted to depart
+  - n5 (priority 4): if raining then forbidden to depart
+  - n6 (priority 3): if always then permitted to depart
+  - n4 (priority 1): if night then forbidden to report
+  - n2 (priority 7): if night then permitted to report
+The situation: holds night and holds raining.
+What is the status of depart?
+
+Answer with exactly one of: permitted | forbidden | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 5): if emergency then obligatory to report
+  - n2 (priority 7): if on_duty then permitted to enter
+  - n6 (priority 3): if always then obligatory to enter
+  - n1 (priority 1): if holiday then obligatory to depart
+  - n3 (priority 8): if on_duty then forbidden to enter
+  - n4 (priority 9): if alarm then permitted to enter
+The situation: holds emergency, holds holiday and holds alarm.
+What is the status of enter?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n7 (priority 3): if holiday then obligatory to depart
+  - n1 (priority 7): if on_duty then forbidden to transfer
+  - n6 (priority 9): if night then forbidden to depart
+  - n2 (priority 8): if on_duty then forbidden to transfer
+  - n4 (priority 1): if alarm then forbidden to depart
+  - n3 (priority 6): if alarm then permitted to depart
+  - n5 (priority 5): if alarm then obligatory to depart
+The situation: holds on_duty and holds alarm.
+What is the status of depart?
+
+Answer with exactly one of: forbidden | permitted | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 2): if always then obligatory to depart
+  - n2 (priority 7): if holiday then forbidden to depart
+  - n1 (priority 1): if always then permitted to report
+  - n6 (priority 8): if holiday then permitted to depart
+  - n3 (priority 4): if night then obligatory to depart
+  - n4 (priority 9): if on_duty then permitted to depart
+The situation: holds emergency, holds night and holds on_duty.
+What is the status of depart?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n1 (priority 6): if night then permitted to report
+  - n2 (priority 2): if alarm then forbidden to enter
+  - n5 (priority 3): if holiday then forbidden to transfer
+  - n3 (priority 5): if raining then forbidden to transfer
+  - n6 (priority 4): if alarm then obligatory to transfer
+  - n4 (priority 1): if emergency then obligatory to transfer
+The situation: holds alarm, holds holiday and holds night.
+What is the status of transfer?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n7 (priority 5): if night then obligatory to depart
+  - n5 (priority 6): if always then forbidden to transfer
+  - n2 (priority 9): if raining then permitted to depart
+  - n4 (priority 2): if alarm then obligatory to enter
+  - n3 (priority 8): if holiday then obligatory to depart
+  - n1 (priority 7): if raining then forbidden to depart
+  - n6 (priority 3): if alarm then permitted to depart
+The situation: holds alarm and holds holiday.
+What is the status of depart?
+
+Answer with exactly one of: obligatory | permitted | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n4 (priority 2): if on_duty then permitted to report
+  - n6 (priority 5): if alarm then forbidden to depart
+  - n5 (priority 7): if raining then forbidden to report
+  - n1 (priority 9): if holiday then obligatory to report
+  - n2 (priority 6): if always then forbidden to depart
+  - n3 (priority 8): if night then obligatory to report
+The situation: holds raining, holds on_duty and holds alarm.
+What is the status of report?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n7 (priority 3): if night then obligatory to enter
+  - n2 (priority 1): if raining then obligatory to report
+  - n6 (priority 6): if raining then obligatory to enter
+  - n5 (priority 9): if night then forbidden to enter
+  - n1 (priority 7): if holiday then obligatory to enter
+  - n3 (priority 2): if raining then obligatory to report
+  - n4 (priority 8): if emergency then permitted to enter
+The situation: holds raining and holds night.
+What is the status of enter?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n2 (priority 6): if raining then obligatory to report
+  - n1 (priority 1): if raining then permitted to report
+  - n5 (priority 7): if holiday then permitted to report
+  - n6 (priority 9): if holiday then obligatory to report
+  - n3 (priority 5): if raining then permitted to report
+  - n7 (priority 8): if holiday then forbidden to report
+  - n4 (priority 2): if alarm then forbidden to enter
+The situation: holds holiday, holds on_duty and holds alarm.
+What is the status of report?
+
+Answer with exactly one of: forbidden | obligatory | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 1): if alarm then obligatory to report
+  - n4 (priority 5): if emergency then permitted to report
+  - n6 (priority 3): if night then forbidden to report
+  - n5 (priority 2): if always then obligatory to report
+  - n8 (priority 9): if holiday then forbidden to report
+  - n7 (priority 4): if holiday then forbidden to report
+  - n1 (priority 7): if emergency then permitted to depart
+  - n2 (priority 8): if night then obligatory to enter
+The situation: holds emergency and holds night.
+What is the status of report?
+
+Answer with exactly one of: forbidden | permitted | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 8,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 7): if always then obligatory to report
+  - n1 (priority 2): if on_duty then forbidden to transfer
+  - n2 (priority 3): if always then obligatory to transfer
+  - n5 (priority 9): if raining then permitted to transfer
+  - n4 (priority 8): if holiday then permitted to transfer
+The situation: holds emergency and holds on_duty.
+What is the status of transfer?
+
+Answer with exactly one of: permitted | forbidden | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 5,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 3): if holiday then forbidden to report
+  - n2 (priority 1): if night then forbidden to report
+  - n6 (priority 2): if holiday then forbidden to report
+  - n1 (priority 5): if emergency then permitted to report
+  - n3 (priority 4): if on_duty then permitted to enter
+  - n4 (priority 6): if on_duty then permitted to report
+The situation: holds on_duty and holds holiday.
+What is the status of report?
+
+Answer with exactly one of: permitted | forbidden | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n2 (priority 7): if emergency then forbidden to transfer
+  - n6 (priority 3): if emergency then obligatory to transfer
+  - n4 (priority 1): if raining then permitted to transfer
+  - n5 (priority 9): if alarm then obligatory to transfer
+  - n1 (priority 8): if holiday then forbidden to transfer
+  - n3 (priority 6): if emergency then forbidden to depart
+The situation: holds emergency and holds raining.
+What is the status of transfer?
+
+Answer with exactly one of: permitted | forbidden | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n4 (priority 4): if night then permitted to transfer
+  - n5 (priority 9): if on_duty then obligatory to transfer
+  - n1 (priority 7): if always then forbidden to transfer
+  - n3 (priority 5): if emergency then forbidden to transfer
+  - n7 (priority 1): if holiday then obligatory to transfer
+  - n2 (priority 6): if alarm then forbidden to report
+  - n6 (priority 3): if holiday then permitted to enter
+  - n8 (priority 8): if alarm then permitted to transfer
+The situation: holds alarm, holds raining and holds holiday.
+What is the status of transfer?
+
+Answer with exactly one of: permitted | forbidden | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 8,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 6): if raining then obligatory to enter
+  - n1 (priority 8): if always then permitted to enter
+  - n2 (priority 2): if alarm then forbidden to enter
+  - n6 (priority 1): if night then forbidden to enter
+  - n4 (priority 7): if holiday then forbidden to depart
+  - n3 (priority 5): if night then obligatory to enter
+  - n7 (priority 9): if alarm then forbidden to enter
+  - n8 (priority 3): if holiday then obligatory to report
+The situation: holds night, holds emergency and holds holiday.
+What is the status of enter?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 8,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 4): if alarm then obligatory to enter
+  - n4 (priority 1): if night then obligatory to enter
+  - n5 (priority 7): if raining then obligatory to enter
+  - n1 (priority 9): if emergency then forbidden to enter
+  - n6 (priority 3): if always then forbidden to report
+  - n2 (priority 8): if always then permitted to enter
+The situation: holds night, holds alarm and holds on_duty.
+What is the status of enter?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n2 (priority 9): if raining then obligatory to depart
+  - n1 (priority 7): if holiday then forbidden to depart
+  - n3 (priority 4): if alarm then permitted to depart
+  - n5 (priority 1): if emergency then forbidden to transfer
+  - n4 (priority 5): if alarm then obligatory to depart
+  - n6 (priority 8): if holiday then obligatory to depart
+The situation: holds alarm and holds emergency.
+What is the status of depart?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n2 (priority 8): if emergency then obligatory to enter
+  - n4 (priority 2): if alarm then obligatory to report
+  - n5 (priority 9): if night then obligatory to report
+  - n1 (priority 6): if emergency then forbidden to report
+  - n6 (priority 3): if on_duty then forbidden to report
+  - n3 (priority 4): if holiday then forbidden to report
+The situation: holds emergency, holds on_duty and holds night.
+What is the status of report?
+
+Answer with exactly one of: obligatory | permitted | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 2): if emergency then permitted to enter
+  - n4 (priority 6): if on_duty then permitted to transfer
+  - n5 (priority 3): if raining then forbidden to transfer
+  - n2 (priority 4): if emergency then obligatory to transfer
+  - n1 (priority 8): if night then permitted to transfer
+  - n6 (priority 5): if on_duty then forbidden to transfer
+The situation: holds holiday, holds on_duty and holds emergency.
+What is the status of transfer?
+
+Answer with exactly one of: forbidden | obligatory | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n4 (priority 7): if alarm then permitted to depart
+  - n3 (priority 8): if raining then forbidden to depart
+  - n7 (priority 4): if always then obligatory to depart
+  - n1 (priority 6): if alarm then forbidden to depart
+  - n5 (priority 9): if emergency then forbidden to depart
+  - n8 (priority 3): if holiday then forbidden to report
+  - n2 (priority 1): if holiday then forbidden to transfer
+  - n6 (priority 5): if on_duty then obligatory to depart
+The situation: holds holiday, holds on_duty and holds emergency.
+What is the status of depart?
+
+Answer with exactly one of: forbidden | obligatory | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 8,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n2 (priority 7): if alarm then permitted to report
+  - n5 (priority 4): if always then forbidden to report
+  - n1 (priority 6): if holiday then forbidden to report
+  - n3 (priority 1): if night then obligatory to depart
+  - n7 (priority 5): if night then forbidden to transfer
+  - n6 (priority 8): if on_duty then obligatory to report
+  - n4 (priority 9): if raining then obligatory to report
+The situation: holds emergency, holds night and holds on_duty.
+What is the status of report?
+
+Answer with exactly one of: obligatory | permitted | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n2 (priority 9): if on_duty then permitted to enter
+  - n1 (priority 6): if emergency then obligatory to enter
+  - n3 (priority 2): if always then forbidden to transfer
+  - n6 (priority 7): if raining then permitted to enter
+  - n5 (priority 3): if always then forbidden to enter
+  - n4 (priority 1): if night then forbidden to depart
+The situation: holds night, holds raining and holds holiday.
+What is the status of enter?
+
+Answer with exactly one of: forbidden | permitted | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n7 (priority 9): if alarm then forbidden to transfer
+  - n4 (priority 8): if night then obligatory to transfer
+  - n2 (priority 7): if emergency then obligatory to transfer
+  - n1 (priority 6): if night then permitted to transfer
+  - n5 (priority 4): if raining then permitted to enter
+  - n6 (priority 3): if alarm then obligatory to transfer
+  - n3 (priority 5): if raining then permitted to transfer
+The situation: holds holiday, holds raining and holds alarm.
+What is the status of transfer?
+
+Answer with exactly one of: forbidden | permitted | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n1 (priority 9): if raining then permitted to report
+  - n6 (priority 7): if night then obligatory to report
+  - n2 (priority 3): if alarm then forbidden to report
+  - n5 (priority 1): if emergency then forbidden to report
+  - n3 (priority 5): if night then forbidden to enter
+  - n4 (priority 2): if night then forbidden to report
+The situation: holds emergency and holds night.
+What is the status of report?
+
+Answer with exactly one of: permitted | forbidden | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 6): if alarm then permitted to depart
+  - n4 (priority 4): if alarm then forbidden to transfer
+  - n1 (priority 5): if alarm then obligatory to transfer
+  - n2 (priority 9): if emergency then permitted to transfer
+  - n6 (priority 7): if emergency then forbidden to transfer
+  - n5 (priority 8): if emergency then permitted to transfer
+The situation: holds alarm, holds raining and holds on_duty.
+What is the status of transfer?
+
+Answer with exactly one of: obligatory | permitted | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n6 (priority 7): if alarm then permitted to transfer
+  - n4 (priority 9): if always then obligatory to transfer
+  - n5 (priority 5): if on_duty then permitted to transfer
+  - n2 (priority 8): if holiday then permitted to transfer
+  - n3 (priority 2): if raining then obligatory to depart
+  - n1 (priority 6): if always then permitted to depart
+The situation: holds raining and holds on_duty.
+What is the status of transfer?
+
+Answer with exactly one of: permitted | forbidden | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n1 (priority 7): if night then forbidden to transfer
+  - n4 (priority 5): if always then permitted to transfer
+  - n2 (priority 9): if raining then obligatory to enter
+  - n3 (priority 1): if emergency then obligatory to enter
+  - n5 (priority 8): if night then permitted to enter
+  - n7 (priority 2): if raining then obligatory to enter
+  - n6 (priority 6): if alarm then obligatory to enter
+The situation: holds night and holds emergency.
+What is the status of enter?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n4 (priority 9): if night then obligatory to report
+  - n3 (priority 8): if on_duty then forbidden to report
+  - n2 (priority 7): if holiday then obligatory to report
+  - n5 (priority 4): if always then forbidden to report
+  - n6 (priority 1): if emergency then permitted to report
+  - n1 (priority 3): if emergency then forbidden to depart
+The situation: holds emergency, holds night and holds raining.
+What is the status of report?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 6): if on_duty then obligatory to transfer
+  - n4 (priority 2): if holiday then forbidden to transfer
+  - n1 (priority 8): if holiday then obligatory to enter
+  - n2 (priority 4): if holiday then forbidden to enter
+  - n6 (priority 9): if night then obligatory to transfer
+  - n5 (priority 1): if raining then forbidden to transfer
+The situation: holds on_duty and holds holiday.
+What is the status of transfer?
+
+Answer with exactly one of: forbidden | permitted | obligatory
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n4 (priority 9): if always then obligatory to depart
+  - n2 (priority 3): if alarm then permitted to transfer
+  - n5 (priority 6): if on_duty then forbidden to depart
+  - n1 (priority 7): if holiday then permitted to depart
+  - n6 (priority 8): if always then permitted to depart
+  - n3 (priority 2): if night then forbidden to depart
+  - n7 (priority 5): if alarm then permitted to transfer
+  - n8 (priority 4): if on_duty then obligatory to depart
+The situation: holds alarm and holds night.
+What is the status of depart?
+
+Answer with exactly one of: forbidden | obligatory | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;depart&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 8,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n4 (priority 6): if alarm then permitted to report
+  - n3 (priority 7): if on_duty then obligatory to report
+  - n6 (priority 5): if alarm then permitted to transfer
+  - n1 (priority 1): if alarm then obligatory to report
+  - n5 (priority 8): if night then forbidden to report
+  - n2 (priority 9): if emergency then permitted to report
+The situation: holds raining, holds alarm and holds holiday.
+What is the status of report?
+
+Answer with exactly one of: forbidden | obligatory | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 1): if alarm then forbidden to report
+  - n5 (priority 9): if holiday then obligatory to report
+  - n1 (priority 2): if always then obligatory to report
+  - n2 (priority 3): if emergency then permitted to enter
+  - n4 (priority 5): if alarm then forbidden to enter
+  - n6 (priority 4): if emergency then permitted to report
+  - n8 (priority 8): if night then forbidden to report
+  - n7 (priority 6): if night then obligatory to report
+The situation: holds raining, holds alarm and holds emergency.
+What is the status of report?
+
+Answer with exactly one of: forbidden | obligatory | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 8,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 4): if always then obligatory to enter
+  - n2 (priority 2): if emergency then forbidden to report
+  - n1 (priority 7): if on_duty then permitted to transfer
+  - n4 (priority 8): if emergency then forbidden to transfer
+  - n6 (priority 6): if raining then permitted to transfer
+  - n5 (priority 9): if holiday then permitted to transfer
+The situation: holds emergency and holds raining.
+What is the status of transfer?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;transfer&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">forbidden</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n3 (priority 1): if holiday then obligatory to transfer
+  - n1 (priority 6): if emergency then forbidden to report
+  - n7 (priority 9): if on_duty then forbidden to report
+  - n6 (priority 5): if night then forbidden to report
+  - n5 (priority 7): if always then forbidden to depart
+  - n2 (priority 3): if holiday then permitted to report
+  - n4 (priority 8): if raining then forbidden to report
+The situation: holds holiday and holds raining.
+What is the status of report?
+
+Answer with exactly one of: obligatory | permitted | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;forbidden&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 2): if always then obligatory to enter
+  - n6 (priority 8): if alarm then permitted to enter
+  - n1 (priority 9): if emergency then forbidden to enter
+  - n2 (priority 7): if always then forbidden to report
+  - n4 (priority 4): if emergency then permitted to enter
+  - n3 (priority 6): if emergency then obligatory to enter
+The situation: holds alarm, holds holiday and holds night.
+What is the status of enter?
+
+Answer with exactly one of: obligatory | forbidden | permitted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 2,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">obligatory</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n6 (priority 2): if night then obligatory to enter
+  - n3 (priority 4): if emergency then permitted to enter
+  - n4 (priority 8): if raining then obligatory to enter
+  - n5 (priority 6): if emergency then permitted to enter
+  - n1 (priority 9): if holiday then forbidden to enter
+  - n2 (priority 7): if emergency then obligatory to transfer
+The situation: holds on_duty, holds emergency and holds raining.
+What is the status of enter?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;obligatory&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n5 (priority 9): if night then permitted to enter
+  - n4 (priority 2): if emergency then forbidden to depart
+  - n2 (priority 8): if always then permitted to enter
+  - n1 (priority 6): if night then permitted to enter
+  - n3 (priority 3): if holiday then forbidden to enter
+  - n6 (priority 7): if always then obligatory to enter
+The situation: holds emergency and holds holiday.
+What is the status of enter?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;enter&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 6,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">permitted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The conflict rule is resolve by highest_priority_applicable.
+The norms:
+  - n4 (priority 8): if raining then permitted to report
+  - n6 (priority 9): if night then permitted to report
+  - n3 (priority 1): if alarm then obligatory to report
+  - n2 (priority 5): if raining then forbidden to report
+  - n1 (priority 4): if alarm then forbidden to enter
+  - n5 (priority 2): if on_duty then permitted to transfer
+  - n7 (priority 7): if always then forbidden to report
+The situation: holds alarm, holds on_duty and holds night.
+What is the status of report?
+
+Answer with exactly one of: permitted | obligatory | forbidden
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;action&quot;: &quot;report&quot;,
+ &quot;n_applicable&quot;: 3,
+ &quot;n_norms&quot;: 7,
+ &quot;status&quot;: &quot;permitted&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

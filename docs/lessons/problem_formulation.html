@@ -1,0 +1,4429 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>problem_formulation — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#ix">problem formulation and hierarchical agency</a> &rsaquo;
+  problem_formulation</p>
+<h1>#103 <code>problem_formulation</code></h1>
+<p class="lede">recovering objective and constraints from outcomes</p>
+<div class="tags"><span class="tag ">level 103</span><span class="tag ">section ix</span><span class="tag ">problem_formulation</span><span class="tag ">induction</span><span class="tag ">constraint_reasoning</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.29</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>The scenario never states its objective; the outcomes do.</p><p>    All that is given is a set of items with attributes and a handful of past
+    plans marked acceptable or not. Recovering the problem means recovering the
+    constraint pair that generated those labels, and each candidate is executed
+    against every labelled plan — the three wrong formalizations are kept only
+    if they actually misclassify something, so agreement with the data is the
+    only thing that separates them.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>representation_freedom</td><td class='num'>3</td></tr><tr><td>world_complexity</td><td class='num'>4</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The candidates are:
+  - option_b formalization (time must be at_most 18, value must be at_least 7)
+  - option_a formalization (weight must be at_least 18, value must be at_least 7)
+  - option_c formalization (time must be at_least 18, value must be at_least 7)
+  - option_d formalization (time must be at_least 18, value must be at_most 7)
+The items:
+  - ppkz: weight 3, value 5, time 2
+  - rvpz: weight 2, value 6, time 8
+  - vlgs: weight 9, value 2, time 6
+  - rtzt: weight 7, value 6, time 4
+  - mgzr: weight 9, value 8, time 8
+The observed outcomes:
+  - (ppkz, rvpz, vlgs) outcome unacceptable
+  - (ppkz, rtzt, vlgs) outcome unacceptable
+  - (mgzr, rvpz) outcome unacceptable
+  - (vlgs) outcome unacceptable
+  - (mgzr, ppkz, rtzt, rvpz) outcome acceptable
+  - (mgzr, ppkz, rvpz, vlgs) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_d | option_a | option_b
+Reply with the answer only.</pre><h3>spanish</h3><pre>Los candidatos son:
+  - opción B la formalización (requiere: at_most, tiempo y 18, requiere: at_least, valor y 7)
+  - opción A la formalización (requiere: at_least, peso y 18, requiere: at_least, valor y 7)
+  - opción C la formalización (requiere: at_least, tiempo y 18, requiere: at_least, valor y 7)
+  - opción D la formalización (requiere: at_least, tiempo y 18, requiere: at_most, valor y 7)
+Los elementos son:
+  - ppkz: el peso: 3, el valor: 5, el tiempo: 2
+  - rvpz: el peso: 2, el valor: 6, el tiempo: 8
+  - vlgs: el peso: 9, el valor: 2, el tiempo: 6
+  - rtzt: el peso: 7, el valor: 6, el tiempo: 4
+  - mgzr: el peso: 9, el valor: 8, el tiempo: 8
+Los resultados observados son:
+  - (ppkz, rvpz, vlgs) el resultado unacceptable
+  - (ppkz, rtzt, vlgs) el resultado unacceptable
+  - (mgzr, rvpz) el resultado unacceptable
+  - (vlgs) el resultado unacceptable
+  - (mgzr, ppkz, rtzt, rvpz) el resultado acceptable
+  - (mgzr, ppkz, rvpz, vlgs) el resultado acceptable
+¿Qué formalización encaja?
+
+Responde exactamente con una de estas opciones: opción C | opción D | opción A | opción B
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>候选项如下：选项B的形式化是(需要：at_most、时间和18，需要：at_least、值和7)；选项A的形式化是(需要：at_least、重量和18，需要：at_least、值和7)；选项C的形式化是(需要：at_least、时间和18，需要：at_least、值和7)；选项D的形式化是(需要：at_least、时间和18，需要：at_most、值和7)。
+各项如下：
+  - ppkz：权重：3，值：5，时间：2
+  - rvpz：权重：2，值：6，时间：8
+  - vlgs：权重：9，值：2，时间：6
+  - rtzt：权重：7，值：6，时间：4
+  - mgzr：权重：9，值：8，时间：8
+观察到的结果如下：
+  - (ppkz，rvpz，vlgs)的结果是unacceptable
+  - (ppkz，rtzt，vlgs)的结果是unacceptable
+  - (mgzr，rvpz)的结果是unacceptable
+  - (vlgs)的结果是unacceptable
+  - (mgzr，ppkz，rtzt，rvpz)的结果是acceptable
+  - (mgzr，ppkz，rvpz，vlgs)的结果是acceptable
+哪一种形式化是合适的？
+
+请从以下选项中选出恰好一个作答：选项C | 选项D | 选项A | 选项B
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The candidates are:
+  - option_b formalization (time must be at_most 18, value must be at_least 7)
+  - option_a formalization (weight must be at_least 18, value must be at_least 7)
+  - option_c formalization (time must be at_least 18, value must be at_least 7)
+  - option_d formalization (time must be at_least 18, value must be at_most 7)
+The items:
+  - ppkz: weight 3, value 5, time 2
+  - rvpz: weight 2, value 6, time 8
+  - vlgs: weight 9, value 2, time 6
+  - rtzt: weight 7, value 6, time 4
+  - mgzr: weight 9, value 8, time 8
+The observed outcomes:
+  - (ppkz, rvpz, vlgs) outcome unacceptable
+  - (ppkz, rtzt, vlgs) outcome unacceptable
+  - (mgzr, rvpz) outcome unacceptable
+  - (vlgs) outcome unacceptable
+  - (mgzr, ppkz, rtzt, rvpz) outcome acceptable
+  - (mgzr, ppkz, rvpz, vlgs) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_d | option_a | option_b
+Reply with the answer only.</pre><h3>symbols</h3><pre>{candidates: [(formalization option_b [(require at_most time 18) (require at_least value 7)]) (formalization option_a [(require at_least weight 18) (require at_least value 7)]) (formalization option_c [(require at_least time 18) (require at_least value 7)]) (formalization option_d [(require at_least time 18) (require at_most value 7)])], items: [(item ppkz (weight 3) (value 5) (time 2)) (item rvpz (weight 2) (value 6) (time 8)) (item vlgs (weight 9) (value 2) (time 6)) (item rtzt (weight 7) (value 6) (time 4)) (item mgzr (weight 9) (value 8) (time 8))], observed_outcomes: [(outcome [ppkz rvpz vlgs] unacceptable) (outcome [ppkz rtzt vlgs] unacceptable) (outcome [mgzr rvpz] unacceptable) (outcome [vlgs] unacceptable) (outcome [mgzr ppkz rtzt rvpz] acceptable) (outcome [mgzr ppkz rvpz vlgs] acceptable)], query: which_formalization_fits}
+
+Answer with exactly one of: option_c | option_d | option_a | option_b
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/problem_formulation.jsonl</code> &middot; <code>data/samples/spanish/problem_formulation.jsonl</code> &middot; <code>data/samples/chinese/problem_formulation.jsonl</code> &middot; <code>data/samples/english_synonym/problem_formulation.jsonl</code> &middot; <code>data/samples/symbols/problem_formulation.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (time must be at_most 18, value must be at_least 7)
+  - option_a formalization (weight must be at_least 18, value must be at_least 7)
+  - option_c formalization (time must be at_least 18, value must be at_least 7)
+  - option_d formalization (time must be at_least 18, value must be at_most 7)
+The items:
+  - ppkz: weight 3, value 5, time 2
+  - rvpz: weight 2, value 6, time 8
+  - vlgs: weight 9, value 2, time 6
+  - rtzt: weight 7, value 6, time 4
+  - mgzr: weight 9, value 8, time 8
+The observed outcomes:
+  - (ppkz, rvpz, vlgs) outcome unacceptable
+  - (ppkz, rtzt, vlgs) outcome unacceptable
+  - (mgzr, rvpz) outcome unacceptable
+  - (vlgs) outcome unacceptable
+  - (mgzr, ppkz, rtzt, rvpz) outcome acceptable
+  - (mgzr, ppkz, rvpz, vlgs) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_d | option_a | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   18
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (time must be at_least 14, weight must be at_most 15)
+  - option_a formalization (time must be at_most 17, weight must be at_most 15)
+  - option_c formalization (time must be at_most 14, weight must be at_least 15)
+  - option_d formalization (time must be at_most 14, weight must be at_most 15)
+The items:
+  - vsdp: weight 7, value 6, time 8
+  - pntl: weight 1, value 8, time 1
+  - rdnd: weight 5, value 7, time 3
+  - lmvn: weight 3, value 9, time 4
+  - rmtr: weight 1, value 4, time 9
+The observed outcomes:
+  - (rmtr) outcome acceptable
+  - (pntl, rmtr) outcome acceptable
+  - (lmvn, pntl, rmtr, vsdp) outcome unacceptable
+  - (lmvn) outcome acceptable
+  - (lmvn, pntl, rdnd, rmtr) outcome unacceptable
+  - (lmvn, rdnd, rmtr) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_d | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   14
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   15
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (value must be at_least 13, weight must be at_least 14)
+  - option_a formalization (value must be at_least 13, weight must be at_most 14)
+  - option_d formalization (value must be at_least 13, weight must be at_most 11)
+  - option_b formalization (time must be at_least 13, weight must be at_most 14)
+The items:
+  - pdvt: weight 8, value 1, time 8
+  - lpmz: weight 5, value 6, time 8
+  - mmmg: weight 3, value 6, time 5
+  - lnps: weight 8, value 9, time 8
+  - dmkg: weight 7, value 8, time 5
+The observed outcomes:
+  - (dmkg, lnps, mmmg, pdvt) outcome unacceptable
+  - (dmkg, lnps, lpmz, pdvt) outcome unacceptable
+  - (lpmz) outcome unacceptable
+  - (lnps, mmmg) outcome acceptable
+  - (dmkg, lpmz) outcome acceptable
+  - (dmkg, mmmg) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_a | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   13
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   14
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (weight must be at_most 10, time must be at_most 8)
+  - option_d formalization (weight must be at_most 10, value must be at_most 8)
+  - option_b formalization (weight must be at_least 10, time must be at_most 8)
+  - option_a formalization (weight must be at_most 10, time must be at_least 8)
+The items:
+  - nsng: weight 2, value 1, time 1
+  - zzmm: weight 7, value 6, time 9
+  - vnvm: weight 5, value 9, time 4
+  - lmpt: weight 1, value 5, time 1
+  - kzpp: weight 2, value 2, time 9
+The observed outcomes:
+  - (kzpp, lmpt, zzmm) outcome unacceptable
+  - (lmpt, vnvm, zzmm) outcome unacceptable
+  - (kzpp, lmpt, vnvm, zzmm) outcome unacceptable
+  - (vnvm) outcome acceptable
+  - (lmpt) outcome acceptable
+  - (kzpp, lmpt, nsng, vnvm) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_b | option_a | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   10
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   8
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (weight must be at_least 17, value must be at_least 6)
+  - option_b formalization (time must be at_least 13, value must be at_least 6)
+  - option_c formalization (weight must be at_most 13, value must be at_least 6)
+  - option_a formalization (weight must be at_least 13, value must be at_least 6)
+The items:
+  - spsm: weight 2, value 9, time 5
+  - kkkd: weight 7, value 4, time 8
+  - tgnt: weight 4, value 4, time 8
+  - gkrv: weight 7, value 8, time 1
+  - gslk: weight 4, value 7, time 8
+The observed outcomes:
+  - (gkrv, gslk, kkkd, spsm) outcome acceptable
+  - (gkrv, kkkd, spsm, tgnt) outcome acceptable
+  - (gkrv, gslk, kkkd, tgnt) outcome acceptable
+  - (tgnt) outcome unacceptable
+  - (gslk, kkkd, spsm) outcome acceptable
+  - (gslk, spsm, tgnt) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_c | option_b | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   13
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (value must be at_least 7, weight must be at_most 14)
+  - option_b formalization (value must be at_most 7, time must be at_most 14)
+  - option_d formalization (value must be at_least 7, time must be at_most 17)
+  - option_a formalization (value must be at_least 7, time must be at_most 14)
+The items:
+  - zvnp: weight 6, value 3, time 1
+  - tknk: weight 7, value 5, time 3
+  - vlst: weight 8, value 3, time 9
+  - dgtn: weight 8, value 8, time 6
+  - pmtp: weight 8, value 5, time 5
+The observed outcomes:
+  - (pmtp, tknk, zvnp) outcome acceptable
+  - (dgtn, vlst) outcome unacceptable
+  - (pmtp, vlst, zvnp) outcome unacceptable
+  - (dgtn, pmtp, vlst) outcome unacceptable
+  - (dgtn, zvnp) outcome acceptable
+  - (pmtp, tknk, vlst) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_c | option_a | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   7
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   14
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (time must be at_most 11, value must be at_least 9)
+  - option_b formalization (time must be at_most 11, weight must be at_least 13)
+  - option_a formalization (value must be at_most 11, weight must be at_least 9)
+  - option_c formalization (time must be at_most 11, weight must be at_least 9)
+The items:
+  - gdzm: weight 7, value 5, time 5
+  - vmdg: weight 8, value 4, time 4
+  - ktnv: weight 9, value 4, time 5
+  - mmdt: weight 1, value 5, time 9
+  - knkn: weight 6, value 9, time 2
+The observed outcomes:
+  - (gdzm, knkn, ktnv, vmdg) outcome unacceptable
+  - (gdzm, knkn) outcome acceptable
+  - (gdzm, knkn, mmdt) outcome unacceptable
+  - (knkn, vmdg) outcome acceptable
+  - (gdzm, mmdt, vmdg) outcome unacceptable
+  - (ktnv) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_d | option_b | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   11
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   9
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (time must be at_most 14, weight must be at_least 10)
+  - option_b formalization (value must be at_most 14, weight must be at_least 7)
+  - option_c formalization (time must be at_most 14, weight must be at_most 7)
+  - option_a formalization (time must be at_most 14, weight must be at_least 7)
+The items:
+  - ltpn: weight 9, value 7, time 1
+  - kmrm: weight 2, value 4, time 1
+  - lgkr: weight 7, value 1, time 4
+  - skmp: weight 1, value 9, time 3
+  - pmsm: weight 5, value 7, time 3
+The observed outcomes:
+  - (kmrm, pmsm, skmp) outcome acceptable
+  - (kmrm, lgkr, pmsm) outcome acceptable
+  - (pmsm) outcome unacceptable
+  - (pmsm, skmp) outcome unacceptable
+  - (kmrm, lgkr, ltpn, skmp) outcome acceptable
+  - (lgkr, ltpn) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_c | option_b | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   14
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (value must be at_least 7, time must be at_least 15)
+  - option_b formalization (value must be at_most 7, time must be at_least 15)
+  - option_a formalization (value must be at_least 7, time must be at_least 18)
+  - option_c formalization (value must be at_least 7, time must be at_least 19)
+The items:
+  - zdmk: weight 6, value 7, time 2
+  - mnmr: weight 5, value 6, time 6
+  - rltr: weight 6, value 1, time 8
+  - vdtg: weight 4, value 1, time 1
+  - mskt: weight 3, value 3, time 6
+The observed outcomes:
+  - (mnmr, zdmk) outcome unacceptable
+  - (mnmr, mskt, rltr, vdtg) outcome acceptable
+  - (mskt, vdtg) outcome unacceptable
+  - (mskt) outcome unacceptable
+  - (vdtg, zdmk) outcome unacceptable
+  - (mnmr, rltr, vdtg, zdmk) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_b | option_a | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   7
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   15
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (time must be at_most 3, weight must be at_most 9)
+  - option_a formalization (value must be at_most 7, weight must be at_most 9)
+  - option_d formalization (time must be at_least 7, weight must be at_most 9)
+  - option_c formalization (time must be at_most 7, weight must be at_most 9)
+The items:
+  - vglz: weight 3, value 8, time 7
+  - ttnk: weight 3, value 3, time 4
+  - lrvg: weight 1, value 2, time 3
+  - mlrg: weight 9, value 2, time 7
+  - dkdp: weight 2, value 5, time 4
+The observed outcomes:
+  - (dkdp) outcome acceptable
+  - (dkdp, mlrg, ttnk, vglz) outcome unacceptable
+  - (vglz) outcome acceptable
+  - (mlrg) outcome acceptable
+  - (dkdp, lrvg, mlrg, vglz) outcome unacceptable
+  - (lrvg, ttnk) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_c | option_a | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   7
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   9
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (weight must be at_least 15, time must be at_least 9)
+  - option_d formalization (value must be at_most 15, time must be at_least 9)
+  - option_b formalization (value must be at_least 15, time must be at_least 9)
+  - option_a formalization (value must be at_least 15, time must be at_least 6)
+The items:
+  - gkpv: weight 1, value 7, time 3
+  - gksv: weight 6, value 7, time 7
+  - vznt: weight 5, value 5, time 8
+  - krvl: weight 3, value 5, time 6
+  - msdl: weight 3, value 8, time 4
+The observed outcomes:
+  - (gkpv, krvl, msdl, vznt) outcome acceptable
+  - (gksv, vznt) outcome unacceptable
+  - (gksv, krvl, vznt) outcome acceptable
+  - (gkpv, msdl) outcome unacceptable
+  - (gksv, krvl) outcome unacceptable
+  - (gkpv, gksv, krvl, msdl) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_a | option_c | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   15
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   9
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (value must be at_least 16, weight must be at_most 13)
+  - option_b formalization (time must be at_least 16, weight must be at_least 13)
+  - option_a formalization (time must be at_least 16, weight must be at_most 13)
+  - option_c formalization (time must be at_most 16, weight must be at_most 13)
+The items:
+  - vrvv: weight 1, value 7, time 8
+  - rgst: weight 3, value 1, time 9
+  - rvng: weight 2, value 1, time 1
+  - tmvz: weight 4, value 4, time 1
+  - tmrd: weight 8, value 6, time 8
+The observed outcomes:
+  - (tmvz) outcome unacceptable
+  - (rvng) outcome unacceptable
+  - (rgst, rvng, tmrd) outcome acceptable
+  - (rvng, tmrd, tmvz, vrvv) outcome unacceptable
+  - (vrvv) outcome unacceptable
+  - (rvng, tmrd, vrvv) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_b | option_a | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   16
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   13
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (weight must be at_most 13, value must be at_most 15)
+  - option_c formalization (weight must be at_most 13, time must be at_most 15)
+  - option_d formalization (time must be at_most 13, value must be at_most 15)
+  - option_b formalization (weight must be at_least 13, value must be at_most 15)
+The items:
+  - nzll: weight 7, value 1, time 9
+  - dpnz: weight 1, value 4, time 7
+  - mzsl: weight 1, value 7, time 4
+  - llrg: weight 2, value 9, time 4
+  - rtkp: weight 3, value 2, time 5
+The observed outcomes:
+  - (llrg, mzsl, nzll, rtkp) outcome unacceptable
+  - (rtkp) outcome acceptable
+  - (dpnz, mzsl, nzll) outcome acceptable
+  - (nzll, rtkp) outcome acceptable
+  - (dpnz, llrg, mzsl, rtkp) outcome unacceptable
+  - (dpnz) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_c | option_b | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   13
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   15
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (time must be at_least 10, value must be at_least 8)
+  - option_c formalization (weight must be at_least 10, value must be at_least 8)
+  - option_b formalization (time must be at_least 10, value must be at_least 12)
+  - option_a formalization (time must be at_least 10, value must be at_most 8)
+The items:
+  - sdlt: weight 5, value 3, time 7
+  - mpnn: weight 5, value 6, time 4
+  - vpkd: weight 6, value 9, time 3
+  - pkst: weight 4, value 8, time 4
+  - vdvn: weight 1, value 1, time 6
+The observed outcomes:
+  - (pkst, sdlt) outcome acceptable
+  - (mpnn, pkst, sdlt) outcome acceptable
+  - (mpnn, sdlt, vdvn) outcome acceptable
+  - (pkst, sdlt, vdvn) outcome acceptable
+  - (mpnn) outcome unacceptable
+  - (pkst) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_c | option_b | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   10
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   8
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (weight must be at_least 10, time must be at_least 12)
+  - option_d formalization (weight must be at_least 10, value must be at_least 9)
+  - option_c formalization (weight must be at_least 10, time must be at_least 9)
+  - option_b formalization (weight must be at_least 10, time must be at_most 9)
+The items:
+  - ppvz: weight 2, value 8, time 6
+  - ldlk: weight 7, value 7, time 5
+  - ztzg: weight 7, value 4, time 1
+  - dzsr: weight 7, value 8, time 4
+  - gvkn: weight 7, value 9, time 2
+The observed outcomes:
+  - (ldlk) outcome unacceptable
+  - (dzsr) outcome unacceptable
+  - (dzsr, gvkn, ldlk) outcome acceptable
+  - (dzsr, ldlk, ppvz, ztzg) outcome acceptable
+  - (gvkn, ztzg) outcome unacceptable
+  - (ppvz) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_a | option_b | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   10
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   9
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (weight must be at_least 13, value must be at_most 17)
+  - option_b formalization (weight must be at_most 13, value must be at_most 17)
+  - option_d formalization (time must be at_most 13, value must be at_most 17)
+  - option_a formalization (weight must be at_most 16, value must be at_most 17)
+The items:
+  - skrd: weight 7, value 5, time 6
+  - ktsk: weight 4, value 4, time 6
+  - kntd: weight 6, value 4, time 5
+  - lsml: weight 9, value 7, time 4
+  - vdlz: weight 8, value 7, time 8
+The observed outcomes:
+  - (kntd) outcome acceptable
+  - (ktsk, lsml, skrd, vdlz) outcome unacceptable
+  - (ktsk, vdlz) outcome acceptable
+  - (kntd, ktsk, skrd, vdlz) outcome unacceptable
+  - (skrd) outcome acceptable
+  - (kntd, vdlz) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_d | option_b | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   13
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   17
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (value must be at_most 13, weight must be at_least 14)
+  - option_b formalization (value must be at_most 13, weight must be at_most 14)
+  - option_a formalization (time must be at_most 13, weight must be at_most 14)
+  - option_d formalization (value must be at_most 13, weight must be at_most 10)
+The items:
+  - lvvz: weight 3, value 5, time 1
+  - psvk: weight 4, value 5, time 1
+  - pndz: weight 3, value 1, time 8
+  - snsk: weight 8, value 5, time 4
+  - zzln: weight 5, value 6, time 5
+The observed outcomes:
+  - (lvvz, pndz, psvk, snsk) outcome unacceptable
+  - (pndz, psvk, zzln) outcome acceptable
+  - (lvvz) outcome acceptable
+  - (pndz) outcome acceptable
+  - (pndz, zzln) outcome acceptable
+  - (lvvz, psvk, snsk) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_a | option_c | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   13
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   14
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (weight must be at_most 13, time must be at_most 5)
+  - option_d formalization (weight must be at_most 13, time must be at_least 8)
+  - option_b formalization (weight must be at_least 13, time must be at_most 8)
+  - option_a formalization (weight must be at_most 13, time must be at_most 8)
+The items:
+  - kzmz: weight 5, value 6, time 1
+  - sdgr: weight 1, value 6, time 1
+  - rrtz: weight 8, value 5, time 8
+  - nzll: weight 1, value 4, time 5
+  - tlmg: weight 5, value 2, time 8
+The observed outcomes:
+  - (rrtz, sdgr) outcome unacceptable
+  - (kzmz, nzll) outcome acceptable
+  - (tlmg) outcome acceptable
+  - (nzll, rrtz, sdgr) outcome unacceptable
+  - (sdgr) outcome acceptable
+  - (kzmz, rrtz, tlmg) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_c | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   13
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   8
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (value must be at_most 14, time must be at_most 15)
+  - option_b formalization (value must be at_most 14, weight must be at_least 15)
+  - option_c formalization (value must be at_most 14, weight must be at_most 15)
+  - option_a formalization (value must be at_most 14, weight must be at_most 11)
+The items:
+  - tmnv: weight 9, value 3, time 4
+  - lssv: weight 3, value 4, time 4
+  - nvtv: weight 6, value 9, time 4
+  - zvzs: weight 8, value 4, time 5
+  - zdml: weight 5, value 1, time 6
+The observed outcomes:
+  - (nvtv, zdml, zvzs) outcome unacceptable
+  - (zdml, zvzs) outcome acceptable
+  - (lssv) outcome acceptable
+  - (lssv, tmnv, zdml, zvzs) outcome unacceptable
+  - (nvtv) outcome acceptable
+  - (lssv, zvzs) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_b | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   14
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   15
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (value must be at_least 7, time must be at_least 12)
+  - option_d formalization (weight must be at_least 7, time must be at_least 8)
+  - option_a formalization (value must be at_least 7, time must be at_least 8)
+  - option_c formalization (value must be at_least 7, time must be at_least 11)
+The items:
+  - mkvp: weight 5, value 5, time 1
+  - vmnd: weight 2, value 4, time 5
+  - nztv: weight 7, value 2, time 8
+  - zvpz: weight 2, value 8, time 9
+  - dtvv: weight 8, value 1, time 3
+The observed outcomes:
+  - (mkvp, vmnd, zvpz) outcome acceptable
+  - (mkvp, nztv, vmnd) outcome acceptable
+  - (mkvp) outcome unacceptable
+  - (zvpz) outcome acceptable
+  - (dtvv, mkvp, nztv, zvpz) outcome acceptable
+  - (dtvv, nztv) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_b | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   7
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   8
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (time must be at_most 17, weight must be at_least 10)
+  - option_a formalization (time must be at_most 17, value must be at_least 10)
+  - option_b formalization (time must be at_most 17, weight must be at_least 6)
+  - option_c formalization (time must be at_most 17, weight must be at_most 10)
+The items:
+  - rmdm: weight 4, value 9, time 4
+  - szgv: weight 4, value 4, time 5
+  - vvkk: weight 1, value 3, time 6
+  - nvmt: weight 8, value 6, time 8
+  - tgrg: weight 8, value 1, time 5
+The observed outcomes:
+  - (szgv, tgrg) outcome acceptable
+  - (szgv) outcome unacceptable
+  - (rmdm, szgv, vvkk) outcome unacceptable
+  - (nvmt, rmdm) outcome acceptable
+  - (rmdm) outcome unacceptable
+  - (nvmt, rmdm, tgrg, vvkk) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_a | option_b | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   17
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   10
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (value must be at_least 20, weight must be at_least 12)
+  - option_d formalization (value must be at_most 16, weight must be at_least 12)
+  - option_c formalization (value must be at_least 16, weight must be at_least 12)
+  - option_b formalization (value must be at_least 16, weight must be at_most 12)
+The items:
+  - plvp: weight 6, value 9, time 2
+  - zkmt: weight 3, value 3, time 6
+  - ddvk: weight 6, value 6, time 5
+  - vmrg: weight 4, value 2, time 3
+  - drsg: weight 2, value 3, time 7
+The observed outcomes:
+  - (ddvk, drsg, vmrg) outcome unacceptable
+  - (drsg, zkmt) outcome unacceptable
+  - (drsg, plvp) outcome unacceptable
+  - (vmrg) outcome unacceptable
+  - (drsg, plvp, vmrg, zkmt) outcome acceptable
+  - (ddvk, plvp, zkmt) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_b | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   16
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   12
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (value must be at_least 10, time must be at_least 16)
+  - option_d formalization (value must be at_least 10, time must be at_most 16)
+  - option_b formalization (weight must be at_least 10, time must be at_most 16)
+  - option_a formalization (value must be at_least 7, time must be at_most 16)
+The items:
+  - tskg: weight 7, value 1, time 1
+  - vtdm: weight 5, value 5, time 7
+  - dnlm: weight 4, value 3, time 2
+  - szkl: weight 9, value 1, time 6
+  - gtrn: weight 6, value 5, time 3
+The observed outcomes:
+  - (szkl) outcome unacceptable
+  - (gtrn, tskg, vtdm) outcome acceptable
+  - (szkl, tskg) outcome unacceptable
+  - (dnlm, gtrn, szkl) outcome unacceptable
+  - (dnlm, gtrn, szkl, vtdm) outcome unacceptable
+  - (dnlm, gtrn, tskg, vtdm) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_a | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   10
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   16
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (weight must be at_most 18, time must be at_most 13)
+  - option_a formalization (value must be at_most 18, time must be at_most 17)
+  - option_b formalization (weight must be at_most 22, time must be at_most 17)
+  - option_c formalization (weight must be at_most 18, time must be at_most 17)
+The items:
+  - kvln: weight 9, value 1, time 5
+  - ptgd: weight 2, value 1, time 3
+  - pmdn: weight 6, value 9, time 7
+  - dsrz: weight 4, value 3, time 2
+  - ppzr: weight 6, value 9, time 9
+The observed outcomes:
+  - (dsrz, kvln, pmdn, ptgd) outcome unacceptable
+  - (kvln, ppzr, ptgd) outcome acceptable
+  - (kvln, pmdn, ptgd) outcome acceptable
+  - (dsrz, kvln, ppzr, ptgd) outcome unacceptable
+  - (dsrz, pmdn, ppzr, ptgd) outcome unacceptable
+  - (ptgd) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_b | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   18
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   17
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (time must be at_least 9, value must be at_most 11)
+  - option_b formalization (weight must be at_least 9, value must be at_most 11)
+  - option_d formalization (time must be at_least 9, weight must be at_most 11)
+  - option_c formalization (time must be at_least 6, value must be at_most 11)
+The items:
+  - dpgt: weight 2, value 1, time 9
+  - stst: weight 3, value 8, time 8
+  - nnmd: weight 5, value 8, time 2
+  - tdzd: weight 5, value 3, time 6
+  - kvvd: weight 5, value 2, time 9
+The observed outcomes:
+  - (kvvd, nnmd, stst, tdzd) outcome unacceptable
+  - (kvvd) outcome acceptable
+  - (stst) outcome unacceptable
+  - (nnmd, tdzd) outcome unacceptable
+  - (dpgt, kvvd, nnmd) outcome acceptable
+  - (nnmd) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_c | option_a | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   9
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   11
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (weight must be at_most 15, time must be at_least 14)
+  - option_b formalization (value must be at_most 15, time must be at_least 14)
+  - option_d formalization (weight must be at_least 15, time must be at_least 14)
+  - option_c formalization (weight must be at_most 15, value must be at_least 14)
+The items:
+  - pksz: weight 6, value 3, time 9
+  - nvkz: weight 6, value 9, time 8
+  - kzgp: weight 9, value 2, time 2
+  - mgmg: weight 6, value 7, time 6
+  - ndsr: weight 4, value 3, time 8
+The observed outcomes:
+  - (nvkz, pksz) outcome acceptable
+  - (ndsr) outcome unacceptable
+  - (mgmg, ndsr) outcome acceptable
+  - (kzgp, mgmg, nvkz, pksz) outcome unacceptable
+  - (kzgp, mgmg, ndsr, pksz) outcome unacceptable
+  - (mgmg, ndsr, nvkz, pksz) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_b | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   15
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   14
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (weight must be at_least 9, time must be at_least 12)
+  - option_d formalization (value must be at_least 9, time must be at_least 8)
+  - option_b formalization (weight must be at_least 9, time must be at_least 8)
+  - option_c formalization (weight must be at_least 13, time must be at_least 8)
+The items:
+  - zstg: weight 7, value 4, time 6
+  - rppg: weight 2, value 4, time 5
+  - ldmr: weight 6, value 7, time 8
+  - nmdt: weight 4, value 8, time 4
+  - dkkt: weight 1, value 9, time 2
+The observed outcomes:
+  - (rppg, zstg) outcome acceptable
+  - (dkkt, nmdt, rppg, zstg) outcome acceptable
+  - (ldmr) outcome unacceptable
+  - (dkkt, zstg) outcome unacceptable
+  - (nmdt) outcome unacceptable
+  - (dkkt, rppg, zstg) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_b | option_a | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   9
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   8
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (value must be at_least 18, weight must be at_least 8)
+  - option_b formalization (value must be at_least 18, time must be at_least 8)
+  - option_a formalization (value must be at_most 18, time must be at_least 8)
+  - option_c formalization (weight must be at_least 18, time must be at_least 8)
+The items:
+  - nvdz: weight 2, value 7, time 7
+  - zsmm: weight 1, value 8, time 6
+  - zrlz: weight 1, value 8, time 5
+  - lpts: weight 3, value 6, time 4
+  - svmd: weight 9, value 3, time 2
+The observed outcomes:
+  - (zrlz) outcome unacceptable
+  - (zrlz, zsmm) outcome unacceptable
+  - (lpts, nvdz) outcome unacceptable
+  - (lpts, nvdz, zrlz, zsmm) outcome acceptable
+  - (lpts, nvdz, svmd, zrlz) outcome acceptable
+  - (lpts, zrlz) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_c | option_a | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   18
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   8
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (weight must be at_most 16, value must be at_least 13)
+  - option_c formalization (weight must be at_most 16, value must be at_most 9)
+  - option_a formalization (weight must be at_most 16, value must be at_most 13)
+  - option_b formalization (weight must be at_least 16, value must be at_most 13)
+The items:
+  - zgsd: weight 8, value 9, time 4
+  - drpk: weight 9, value 8, time 7
+  - sskl: weight 3, value 7, time 4
+  - lndp: weight 8, value 5, time 8
+  - mvtd: weight 4, value 4, time 1
+The observed outcomes:
+  - (drpk, mvtd, sskl, zgsd) outcome unacceptable
+  - (sskl) outcome acceptable
+  - (drpk, lndp, sskl, zgsd) outcome unacceptable
+  - (mvtd, zgsd) outcome acceptable
+  - (lndp, mvtd, sskl, zgsd) outcome unacceptable
+  - (lndp) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_d | option_b | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   16
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   13
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (value must be at_most 18, weight must be at_most 14)
+  - option_a formalization (time must be at_most 18, weight must be at_most 11)
+  - option_c formalization (time must be at_most 18, weight must be at_least 14)
+  - option_b formalization (time must be at_most 18, weight must be at_most 14)
+The items:
+  - rmlg: weight 6, value 9, time 7
+  - gzmr: weight 4, value 8, time 3
+  - lppk: weight 4, value 7, time 7
+  - kmvn: weight 9, value 4, time 9
+  - slmv: weight 7, value 5, time 5
+The observed outcomes:
+  - (gzmr, kmvn, lppk, rmlg) outcome unacceptable
+  - (kmvn, rmlg, slmv) outcome unacceptable
+  - (gzmr, kmvn, rmlg, slmv) outcome unacceptable
+  - (gzmr, lppk) outcome acceptable
+  - (lppk, slmv) outcome acceptable
+  - (gzmr, lppk, rmlg) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_c | option_b | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   18
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   14
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (value must be at_most 17, time must be at_least 7)
+  - option_c formalization (weight must be at_most 17, value must be at_least 7)
+  - option_b formalization (weight must be at_least 17, time must be at_least 7)
+  - option_d formalization (weight must be at_most 17, time must be at_least 7)
+The items:
+  - rmdl: weight 6, value 1, time 8
+  - kspg: weight 8, value 2, time 6
+  - vktp: weight 8, value 8, time 3
+  - mpsz: weight 2, value 4, time 6
+  - zgkl: weight 8, value 7, time 2
+The observed outcomes:
+  - (kspg, zgkl) outcome acceptable
+  - (mpsz, rmdl) outcome acceptable
+  - (zgkl) outcome unacceptable
+  - (kspg, mpsz, rmdl, zgkl) outcome unacceptable
+  - (vktp, zgkl) outcome unacceptable
+  - (kspg, vktp) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_c | option_b | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   17
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (time must be at_least 17, weight must be at_least 12)
+  - option_d formalization (value must be at_least 17, weight must be at_least 12)
+  - option_c formalization (time must be at_least 17, weight must be at_most 12)
+  - option_a formalization (time must be at_least 20, weight must be at_least 12)
+The items:
+  - kvmp: weight 9, value 8, time 9
+  - tnkt: weight 7, value 4, time 2
+  - mrsd: weight 2, value 1, time 7
+  - ttdk: weight 6, value 4, time 4
+  - nkts: weight 6, value 7, time 6
+The observed outcomes:
+  - (mrsd, tnkt) outcome unacceptable
+  - (nkts, tnkt, ttdk) outcome unacceptable
+  - (mrsd, nkts, tnkt, ttdk) outcome acceptable
+  - (tnkt, ttdk) outcome unacceptable
+  - (kvmp, mrsd, tnkt, ttdk) outcome acceptable
+  - (kvmp) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_a | option_b | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   17
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   12
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (time must be at_least 9, weight must be at_most 15)
+  - option_c formalization (time must be at_least 12, weight must be at_least 15)
+  - option_a formalization (time must be at_least 12, weight must be at_most 15)
+  - option_d formalization (value must be at_least 12, weight must be at_most 15)
+The items:
+  - npzp: weight 3, value 7, time 1
+  - dmvk: weight 4, value 1, time 8
+  - tvtd: weight 1, value 9, time 9
+  - mktn: weight 6, value 6, time 8
+  - zkrz: weight 8, value 4, time 6
+The observed outcomes:
+  - (mktn, npzp) outcome unacceptable
+  - (mktn, tvtd) outcome acceptable
+  - (dmvk, tvtd, zkrz) outcome acceptable
+  - (mktn, zkrz) outcome acceptable
+  - (npzp) outcome unacceptable
+  - (zkrz) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_b | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   12
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   15
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (value must be at_least 7, weight must be at_least 20)
+  - option_a formalization (value must be at_least 7, weight must be at_least 14)
+  - option_b formalization (value must be at_most 7, weight must be at_least 17)
+  - option_d formalization (value must be at_least 7, weight must be at_least 17)
+The items:
+  - tgmp: weight 7, value 9, time 4
+  - rdgl: weight 8, value 2, time 1
+  - ttvn: weight 4, value 3, time 6
+  - tpst: weight 9, value 5, time 6
+  - nzgt: weight 8, value 6, time 3
+The observed outcomes:
+  - (tgmp, tpst) outcome unacceptable
+  - (rdgl, tpst) outcome acceptable
+  - (rdgl) outcome unacceptable
+  - (nzgt, tpst) outcome acceptable
+  - (nzgt, rdgl, tgmp, ttvn) outcome acceptable
+  - (tpst) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_a | option_c | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   7
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   17
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (weight must be at_most 14, time must be at_least 15)
+  - option_a formalization (weight must be at_least 14, time must be at_least 15)
+  - option_b formalization (weight must be at_most 14, value must be at_least 15)
+  - option_c formalization (value must be at_most 14, time must be at_least 15)
+The items:
+  - rlgk: weight 1, value 3, time 9
+  - skpl: weight 2, value 1, time 6
+  - mpzl: weight 5, value 9, time 1
+  - mgrt: weight 7, value 3, time 5
+  - mzlg: weight 5, value 7, time 6
+The observed outcomes:
+  - (mgrt, mpzl, rlgk) outcome acceptable
+  - (mgrt, mzlg, rlgk, skpl) outcome unacceptable
+  - (mpzl, mzlg, rlgk, skpl) outcome acceptable
+  - (mgrt) outcome unacceptable
+  - (mgrt, mzlg) outcome unacceptable
+  - (mgrt, mzlg, skpl) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_a | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   14
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   15
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (time must be at_most 15, weight must be at_most 10)
+  - option_a formalization (time must be at_least 15, weight must be at_most 10)
+  - option_b formalization (time must be at_most 15, weight must be at_least 10)
+  - option_d formalization (time must be at_most 15, weight must be at_most 6)
+The items:
+  - svpn: weight 3, value 8, time 1
+  - kzgd: weight 8, value 9, time 3
+  - ssgt: weight 9, value 5, time 9
+  - knmm: weight 8, value 7, time 1
+  - mdtk: weight 7, value 9, time 5
+The observed outcomes:
+  - (knmm) outcome acceptable
+  - (knmm, mdtk, ssgt, svpn) outcome unacceptable
+  - (knmm, kzgd, mdtk) outcome unacceptable
+  - (knmm, mdtk, svpn) outcome unacceptable
+  - (knmm, kzgd, svpn) outcome unacceptable
+  - (kzgd) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_b | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   15
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   10
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (value must be at_least 6, time must be at_least 13)
+  - option_a formalization (value must be at_least 6, weight must be at_most 13)
+  - option_b formalization (value must be at_least 6, time must be at_most 13)
+  - option_d formalization (value must be at_least 6, time must be at_most 9)
+The items:
+  - lkkz: weight 7, value 8, time 7
+  - mkrn: weight 6, value 7, time 4
+  - tszd: weight 7, value 3, time 2
+  - nplr: weight 9, value 8, time 4
+  - zrmg: weight 9, value 5, time 3
+The observed outcomes:
+  - (lkkz, nplr, zrmg) outcome unacceptable
+  - (mkrn, tszd) outcome acceptable
+  - (mkrn, nplr) outcome acceptable
+  - (mkrn, nplr, tszd) outcome acceptable
+  - (lkkz, mkrn, tszd, zrmg) outcome unacceptable
+  - (lkkz, mkrn) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_a | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   6
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   13
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (time must be at_least 6, weight must be at_least 16)
+  - option_b formalization (time must be at_least 6, value must be at_least 16)
+  - option_c formalization (time must be at_least 6, value must be at_most 16)
+  - option_d formalization (time must be at_most 6, value must be at_least 16)
+The items:
+  - ngmg: weight 7, value 8, time 3
+  - ndnr: weight 1, value 2, time 7
+  - knlv: weight 2, value 9, time 5
+  - rmnv: weight 6, value 7, time 6
+  - gzpd: weight 1, value 9, time 4
+The observed outcomes:
+  - (knlv, ndnr, rmnv) outcome acceptable
+  - (ndnr, ngmg, rmnv) outcome acceptable
+  - (ndnr) outcome unacceptable
+  - (knlv, ndnr, ngmg) outcome acceptable
+  - (knlv) outcome unacceptable
+  - (gzpd, ndnr, ngmg) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_a | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   6
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   16
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (time must be at_least 13, weight must be at_least 10)
+  - option_a formalization (time must be at_least 17, weight must be at_least 10)
+  - option_d formalization (time must be at_most 13, weight must be at_least 10)
+  - option_c formalization (value must be at_least 13, weight must be at_least 10)
+The items:
+  - nppd: weight 5, value 8, time 7
+  - mmld: weight 4, value 2, time 9
+  - vlkg: weight 8, value 3, time 7
+  - ntgl: weight 9, value 4, time 1
+  - lzdl: weight 7, value 6, time 9
+The observed outcomes:
+  - (ntgl, vlkg) outcome unacceptable
+  - (lzdl, mmld, nppd, vlkg) outcome acceptable
+  - (lzdl, mmld) outcome acceptable
+  - (mmld) outcome unacceptable
+  - (lzdl, mmld, ntgl, vlkg) outcome acceptable
+  - (nppd, vlkg) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_a | option_b | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   13
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   10
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (time must be at_most 17, value must be at_least 16)
+  - option_d formalization (time must be at_least 17, value must be at_least 16)
+  - option_c formalization (time must be at_least 14, value must be at_least 16)
+  - option_b formalization (time must be at_least 21, value must be at_least 16)
+The items:
+  - szpk: weight 6, value 1, time 2
+  - sspd: weight 7, value 6, time 7
+  - gknz: weight 2, value 7, time 9
+  - nldt: weight 5, value 5, time 2
+  - kznm: weight 8, value 7, time 5
+The observed outcomes:
+  - (gknz, kznm, nldt, sspd) outcome acceptable
+  - (kznm, nldt) outcome unacceptable
+  - (gknz, kznm, sspd) outcome acceptable
+  - (kznm, nldt, sspd, szpk) outcome unacceptable
+  - (nldt) outcome unacceptable
+  - (gknz, nldt, sspd, szpk) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_a | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   17
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   16
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (weight must be at_most 16, value must be at_least 4)
+  - option_b formalization (weight must be at_most 16, value must be at_least 8)
+  - option_c formalization (weight must be at_most 19, value must be at_least 8)
+  - option_d formalization (time must be at_most 16, value must be at_least 8)
+The items:
+  - gzms: weight 7, value 3, time 8
+  - svvm: weight 2, value 7, time 4
+  - vnlg: weight 1, value 7, time 8
+  - vzrg: weight 9, value 4, time 4
+  - smkt: weight 8, value 4, time 3
+The observed outcomes:
+  - (gzms, svvm) outcome acceptable
+  - (gzms, svvm, vnlg, vzrg) outcome unacceptable
+  - (vzrg) outcome unacceptable
+  - (svvm) outcome unacceptable
+  - (gzms, smkt, svvm) outcome unacceptable
+  - (svvm, vzrg) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_d | option_c | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   16
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   8
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (time must be at_least 13, value must be at_least 10)
+  - option_b formalization (time must be at_least 16, value must be at_most 10)
+  - option_d formalization (time must be at_most 16, value must be at_least 10)
+  - option_a formalization (time must be at_least 16, value must be at_least 10)
+The items:
+  - mvdp: weight 2, value 3, time 7
+  - prdz: weight 2, value 9, time 7
+  - rkkn: weight 2, value 4, time 4
+  - vltt: weight 7, value 6, time 8
+  - mdkd: weight 7, value 8, time 2
+The observed outcomes:
+  - (mdkd, prdz, rkkn, vltt) outcome acceptable
+  - (mvdp, prdz) outcome unacceptable
+  - (rkkn, vltt) outcome unacceptable
+  - (mdkd, mvdp, rkkn, vltt) outcome acceptable
+  - (prdz, vltt) outcome unacceptable
+  - (prdz) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_b | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   16
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   10
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (value must be at_most 9, time must be at_most 12)
+  - option_d formalization (weight must be at_most 9, time must be at_least 12)
+  - option_c formalization (weight must be at_most 9, time must be at_most 12)
+  - option_b formalization (weight must be at_most 5, time must be at_most 12)
+The items:
+  - smpz: weight 9, value 4, time 3
+  - vnlt: weight 8, value 7, time 5
+  - llsn: weight 9, value 4, time 6
+  - zdnn: weight 1, value 4, time 1
+  - mgnt: weight 6, value 7, time 5
+The observed outcomes:
+  - (vnlt) outcome acceptable
+  - (llsn, mgnt, vnlt, zdnn) outcome unacceptable
+  - (smpz) outcome acceptable
+  - (llsn, smpz, vnlt, zdnn) outcome unacceptable
+  - (llsn, mgnt, zdnn) outcome unacceptable
+  - (smpz, zdnn) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_c | option_a | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   9
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   12
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (time must be at_least 8, weight must be at_most 13)
+  - option_a formalization (time must be at_most 8, weight must be at_least 13)
+  - option_b formalization (time must be at_most 4, weight must be at_most 13)
+  - option_d formalization (time must be at_most 8, weight must be at_most 13)
+The items:
+  - dltl: weight 9, value 8, time 9
+  - skds: weight 7, value 7, time 9
+  - vntz: weight 2, value 4, time 3
+  - gnvz: weight 1, value 2, time 2
+  - dvvz: weight 4, value 4, time 4
+The observed outcomes:
+  - (dvvz, skds, vntz) outcome unacceptable
+  - (gnvz) outcome acceptable
+  - (dltl, dvvz, skds, vntz) outcome unacceptable
+  - (dvvz, vntz) outcome acceptable
+  - (dltl, dvvz, gnvz, vntz) outcome unacceptable
+  - (dvvz, gnvz, skds, vntz) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_b | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   8
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   13
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (time must be at_least 9, weight must be at_least 7)
+  - option_b formalization (time must be at_least 6, weight must be at_least 7)
+  - option_d formalization (time must be at_most 9, weight must be at_least 7)
+  - option_c formalization (time must be at_least 9, weight must be at_most 7)
+The items:
+  - mrzp: weight 7, value 7, time 7
+  - dtvz: weight 9, value 8, time 4
+  - tsgl: weight 4, value 3, time 3
+  - rmll: weight 1, value 6, time 5
+  - vtkm: weight 1, value 9, time 4
+The observed outcomes:
+  - (mrzp) outcome unacceptable
+  - (dtvz, mrzp, tsgl, vtkm) outcome acceptable
+  - (dtvz) outcome unacceptable
+  - (mrzp, tsgl, vtkm) outcome acceptable
+  - (dtvz, mrzp, rmll, tsgl) outcome acceptable
+  - (tsgl) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_d | option_a | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   9
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (weight must be at_most 12, time must be at_least 7)
+  - option_b formalization (weight must be at_least 12, time must be at_least 7)
+  - option_c formalization (value must be at_least 12, time must be at_least 7)
+  - option_a formalization (weight must be at_least 12, time must be at_most 7)
+The items:
+  - lztt: weight 6, value 5, time 4
+  - kgzk: weight 9, value 4, time 8
+  - pmkg: weight 1, value 3, time 1
+  - gdlg: weight 5, value 8, time 2
+  - zvvs: weight 3, value 4, time 2
+The observed outcomes:
+  - (kgzk) outcome unacceptable
+  - (kgzk, lztt) outcome acceptable
+  - (gdlg, kgzk, pmkg, zvvs) outcome acceptable
+  - (gdlg, kgzk, lztt, zvvs) outcome acceptable
+  - (gdlg, lztt) outcome unacceptable
+  - (kgzk, lztt, pmkg, zvvs) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_d | option_a | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   12
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (weight must be at_most 11, time must be at_most 11)
+  - option_d formalization (weight must be at_most 11, time must be at_least 11)
+  - option_c formalization (value must be at_most 11, time must be at_most 11)
+  - option_a formalization (weight must be at_least 11, time must be at_most 11)
+The items:
+  - rvsk: weight 9, value 5, time 7
+  - tstt: weight 6, value 6, time 2
+  - slmk: weight 6, value 6, time 2
+  - slvz: weight 4, value 7, time 3
+  - sdgp: weight 2, value 2, time 3
+The observed outcomes:
+  - (sdgp, slmk, slvz, tstt) outcome unacceptable
+  - (rvsk, sdgp, slmk) outcome unacceptable
+  - (rvsk, slmk, tstt) outcome unacceptable
+  - (sdgp, slmk) outcome acceptable
+  - (slmk, slvz) outcome acceptable
+  - (rvsk, sdgp, slmk, tstt) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_b | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   11
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   11
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (time must be at_most 11, weight must be at_most 17)
+  - option_b formalization (time must be at_least 15, weight must be at_most 17)
+  - option_a formalization (time must be at_least 11, weight must be at_most 17)
+  - option_c formalization (value must be at_least 11, weight must be at_most 17)
+The items:
+  - zgpz: weight 9, value 2, time 2
+  - drsg: weight 5, value 9, time 9
+  - mnsp: weight 8, value 7, time 6
+  - vzgr: weight 1, value 5, time 9
+  - tvkt: weight 8, value 6, time 1
+The observed outcomes:
+  - (drsg, zgpz) outcome acceptable
+  - (drsg, mnsp, tvkt, zgpz) outcome unacceptable
+  - (mnsp, tvkt) outcome unacceptable
+  - (drsg, vzgr) outcome acceptable
+  - (mnsp) outcome unacceptable
+  - (vzgr) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_b | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   11
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   17
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (weight must be at_most 12, value must be at_most 10)
+  - option_a formalization (time must be at_most 12, value must be at_least 10)
+  - option_d formalization (weight must be at_least 12, value must be at_least 10)
+  - option_b formalization (weight must be at_most 12, value must be at_least 10)
+The items:
+  - zgvp: weight 3, value 5, time 6
+  - ndrz: weight 3, value 9, time 7
+  - vmpm: weight 2, value 1, time 9
+  - zgzk: weight 1, value 2, time 6
+  - pdlp: weight 7, value 9, time 3
+The observed outcomes:
+  - (zgzk) outcome unacceptable
+  - (ndrz, pdlp, zgvp, zgzk) outcome unacceptable
+  - (pdlp, vmpm, zgvp, zgzk) outcome unacceptable
+  - (ndrz, vmpm) outcome acceptable
+  - (pdlp, vmpm) outcome acceptable
+  - (pdlp, vmpm, zgzk) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_b | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   12
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   10
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (weight must be at_least 15, value must be at_most 18)
+  - option_b formalization (weight must be at_least 15, time must be at_most 18)
+  - option_d formalization (weight must be at_least 15, time must be at_least 18)
+  - option_c formalization (value must be at_least 15, time must be at_most 18)
+The items:
+  - ddld: weight 2, value 7, time 8
+  - nkpl: weight 8, value 2, time 2
+  - mvsp: weight 4, value 4, time 7
+  - zdvt: weight 6, value 9, time 1
+  - zvlm: weight 3, value 6, time 6
+The observed outcomes:
+  - (ddld, mvsp, nkpl, zvlm) outcome unacceptable
+  - (ddld, nkpl, zdvt, zvlm) outcome acceptable
+  - (mvsp) outcome unacceptable
+  - (ddld, mvsp, zdvt, zvlm) outcome unacceptable
+  - (ddld, nkpl) outcome unacceptable
+  - (mvsp, nkpl, zvlm) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_d | option_b | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   15
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   18
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (weight must be at_most 17, value must be at_least 8)
+  - option_a formalization (weight must be at_most 17, value must be at_most 8)
+  - option_d formalization (weight must be at_most 17, value must be at_most 5)
+  - option_b formalization (weight must be at_least 17, value must be at_most 8)
+The items:
+  - vzln: weight 4, value 4, time 2
+  - sdvl: weight 6, value 7, time 2
+  - mrls: weight 2, value 6, time 7
+  - nrmt: weight 1, value 4, time 6
+  - lmll: weight 5, value 7, time 2
+The observed outcomes:
+  - (lmll, mrls, sdvl) outcome unacceptable
+  - (nrmt) outcome acceptable
+  - (lmll) outcome acceptable
+  - (mrls, vzln) outcome unacceptable
+  - (lmll, mrls, nrmt, sdvl) outcome unacceptable
+  - (mrls) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_d | option_a | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   17
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   8
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (time must be at_least 13, weight must be at_least 13)
+  - option_b formalization (time must be at_least 17, weight must be at_least 13)
+  - option_d formalization (time must be at_least 13, weight must be at_most 13)
+  - option_c formalization (time must be at_least 16, weight must be at_least 13)
+The items:
+  - srrt: weight 7, value 5, time 7
+  - ssrz: weight 1, value 2, time 1
+  - prvd: weight 9, value 5, time 1
+  - drrn: weight 8, value 3, time 6
+  - lgnl: weight 5, value 6, time 8
+The observed outcomes:
+  - (drrn, lgnl, srrt, ssrz) outcome acceptable
+  - (ssrz) outcome unacceptable
+  - (lgnl, prvd) outcome unacceptable
+  - (srrt) outcome unacceptable
+  - (drrn, prvd, srrt) outcome acceptable
+  - (lgnl) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_d | option_c | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   13
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   13
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (time must be at_most 11, value must be at_least 8)
+  - option_a formalization (time must be at_most 18, value must be at_least 8)
+  - option_d formalization (time must be at_most 14, value must be at_least 8)
+  - option_c formalization (weight must be at_most 14, value must be at_least 8)
+The items:
+  - zkdr: weight 1, value 4, time 2
+  - vlpk: weight 3, value 3, time 8
+  - ttpt: weight 4, value 5, time 8
+  - lvnk: weight 8, value 7, time 2
+  - krpv: weight 1, value 7, time 2
+The observed outcomes:
+  - (krpv, lvnk, ttpt, zkdr) outcome acceptable
+  - (vlpk, zkdr) outcome unacceptable
+  - (krpv, lvnk, vlpk, zkdr) outcome acceptable
+  - (lvnk, ttpt, vlpk) outcome unacceptable
+  - (krpv, lvnk) outcome acceptable
+  - (krpv, ttpt, vlpk, zkdr) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_b | option_a | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   14
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   8
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (weight must be at_least 10, value must be at_most 15)
+  - option_d formalization (weight must be at_most 10, time must be at_most 15)
+  - option_b formalization (time must be at_most 10, value must be at_most 15)
+  - option_a formalization (weight must be at_most 10, value must be at_most 15)
+The items:
+  - dsvp: weight 5, value 6, time 2
+  - tgsg: weight 6, value 3, time 2
+  - nvtr: weight 5, value 7, time 7
+  - mlrd: weight 2, value 2, time 1
+  - vstt: weight 2, value 9, time 6
+The observed outcomes:
+  - (mlrd) outcome acceptable
+  - (dsvp) outcome acceptable
+  - (mlrd, nvtr, vstt) outcome unacceptable
+  - (dsvp, nvtr, tgsg, vstt) outcome unacceptable
+  - (dsvp, tgsg) outcome unacceptable
+  - (dsvp, mlrd, tgsg) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_b | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   10
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   15
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (weight must be at_least 15, value must be at_most 11)
+  - option_c formalization (weight must be at_most 15, value must be at_most 11)
+  - option_d formalization (weight must be at_most 15, value must be at_most 7)
+  - option_b formalization (weight must be at_most 15, value must be at_most 8)
+The items:
+  - kndp: weight 2, value 7, time 1
+  - drrt: weight 8, value 7, time 5
+  - lvlt: weight 3, value 4, time 6
+  - gdrp: weight 9, value 7, time 1
+  - psgz: weight 7, value 5, time 6
+The observed outcomes:
+  - (lvlt, psgz) outcome acceptable
+  - (gdrp, kndp) outcome unacceptable
+  - (psgz) outcome acceptable
+  - (gdrp) outcome acceptable
+  - (drrt, gdrp, lvlt) outcome unacceptable
+  - (lvlt) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_c | option_a | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   15
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   11
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (time must be at_most 13, weight must be at_most 12)
+  - option_c formalization (time must be at_most 13, value must be at_most 9)
+  - option_b formalization (time must be at_most 13, weight must be at_least 9)
+  - option_a formalization (time must be at_most 13, weight must be at_most 9)
+The items:
+  - mrkl: weight 3, value 5, time 6
+  - dprg: weight 5, value 6, time 3
+  - skdz: weight 2, value 5, time 1
+  - zzkp: weight 2, value 8, time 9
+  - zmgd: weight 3, value 7, time 5
+The observed outcomes:
+  - (dprg) outcome acceptable
+  - (mrkl, skdz, zmgd) outcome acceptable
+  - (dprg, skdz, zmgd) outcome unacceptable
+  - (dprg, mrkl, skdz, zmgd) outcome unacceptable
+  - (dprg, zmgd, zzkp) outcome unacceptable
+  - (dprg, skdz, zmgd, zzkp) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_b | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   13
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   9
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (time must be at_least 13, value must be at_least 15)
+  - option_d formalization (time must be at_least 13, value must be at_most 12)
+  - option_b formalization (time must be at_least 13, value must be at_least 12)
+  - option_a formalization (time must be at_most 13, value must be at_least 12)
+The items:
+  - rmsp: weight 9, value 5, time 3
+  - dpdm: weight 9, value 7, time 7
+  - sszm: weight 4, value 1, time 9
+  - gnms: weight 8, value 6, time 7
+  - mknp: weight 2, value 6, time 7
+The observed outcomes:
+  - (dpdm, mknp, rmsp) outcome acceptable
+  - (gnms, rmsp, sszm) outcome acceptable
+  - (dpdm, gnms, mknp, sszm) outcome acceptable
+  - (gnms) outcome unacceptable
+  - (rmsp, sszm) outcome unacceptable
+  - (sszm) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_a | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   13
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   12
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (value must be at_most 8, time must be at_most 10)
+  - option_a formalization (weight must be at_most 8, time must be at_most 10)
+  - option_d formalization (weight must be at_most 4, time must be at_most 10)
+  - option_c formalization (weight must be at_least 8, time must be at_most 10)
+The items:
+  - zlll: weight 6, value 6, time 9
+  - dgzs: weight 7, value 5, time 3
+  - zzzv: weight 5, value 9, time 8
+  - ssnz: weight 7, value 6, time 2
+  - nkml: weight 2, value 4, time 8
+The observed outcomes:
+  - (dgzs, nkml, ssnz, zzzv) outcome unacceptable
+  - (ssnz, zlll, zzzv) outcome unacceptable
+  - (zzzv) outcome acceptable
+  - (dgzs, zlll, zzzv) outcome unacceptable
+  - (nkml) outcome acceptable
+  - (dgzs, ssnz, zlll, zzzv) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_b | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   8
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   10
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (weight must be at_least 13, time must be at_most 14)
+  - option_d formalization (weight must be at_least 13, time must be at_least 14)
+  - option_c formalization (value must be at_least 13, time must be at_most 14)
+  - option_b formalization (weight must be at_least 9, time must be at_most 14)
+The items:
+  - mtlp: weight 6, value 1, time 3
+  - pltd: weight 6, value 3, time 2
+  - nsvz: weight 6, value 9, time 3
+  - rzlm: weight 9, value 4, time 8
+  - pngd: weight 4, value 4, time 6
+The observed outcomes:
+  - (pltd, rzlm) outcome acceptable
+  - (nsvz, pltd, pngd, rzlm) outcome unacceptable
+  - (nsvz, pngd) outcome unacceptable
+  - (nsvz) outcome unacceptable
+  - (nsvz, rzlm) outcome acceptable
+  - (pltd) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_d | option_a | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   13
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   14
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (value must be at_most 7, time must be at_most 13)
+  - option_c formalization (value must be at_most 7, weight must be at_least 13)
+  - option_b formalization (value must be at_most 7, weight must be at_most 13)
+  - option_d formalization (value must be at_least 7, weight must be at_most 13)
+The items:
+  - snvs: weight 7, value 2, time 1
+  - rgps: weight 8, value 2, time 4
+  - nnrl: weight 7, value 1, time 7
+  - rklk: weight 8, value 3, time 5
+  - lnlg: weight 6, value 9, time 6
+The observed outcomes:
+  - (nnrl, rgps, snvs) outcome unacceptable
+  - (lnlg, rgps, rklk, snvs) outcome unacceptable
+  - (lnlg, nnrl, rklk, snvs) outcome unacceptable
+  - (rklk) outcome acceptable
+  - (nnrl) outcome acceptable
+  - (lnlg, rgps) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_c | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   7
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   13
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (value must be at_least 15, time must be at_least 17)
+  - option_d formalization (weight must be at_least 11, time must be at_least 17)
+  - option_c formalization (value must be at_least 11, weight must be at_least 17)
+  - option_a formalization (value must be at_least 11, time must be at_least 17)
+The items:
+  - ldlk: weight 1, value 2, time 9
+  - prnl: weight 4, value 9, time 1
+  - glzz: weight 4, value 3, time 9
+  - vldk: weight 4, value 9, time 3
+  - gnpk: weight 2, value 5, time 6
+The observed outcomes:
+  - (vldk) outcome unacceptable
+  - (glzz, gnpk, prnl, vldk) outcome acceptable
+  - (glzz, prnl, vldk) outcome unacceptable
+  - (glzz, gnpk, ldlk, prnl) outcome acceptable
+  - (ldlk, prnl, vldk) outcome unacceptable
+  - (glzz, ldlk, prnl) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_b | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   11
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   17
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (weight must be at_most 18, time must be at_most 12)
+  - option_b formalization (weight must be at_most 18, time must be at_least 12)
+  - option_a formalization (weight must be at_most 18, time must be at_most 16)
+  - option_c formalization (weight must be at_least 18, time must be at_most 12)
+The items:
+  - lglk: weight 1, value 6, time 4
+  - vzpp: weight 6, value 3, time 9
+  - stmp: weight 8, value 8, time 2
+  - vmnz: weight 2, value 4, time 3
+  - nvnp: weight 2, value 1, time 7
+The observed outcomes:
+  - (lglk, stmp, vmnz, vzpp) outcome unacceptable
+  - (lglk, nvnp, vzpp) outcome unacceptable
+  - (lglk, vzpp) outcome unacceptable
+  - (nvnp, vmnz) outcome acceptable
+  - (stmp, vzpp) outcome acceptable
+  - (lglk, vmnz, vzpp) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_b | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   18
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   12
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (weight must be at_most 15, value must be at_least 9)
+  - option_d formalization (weight must be at_least 15, value must be at_most 9)
+  - option_a formalization (weight must be at_most 15, value must be at_most 9)
+  - option_c formalization (weight must be at_most 15, value must be at_most 13)
+The items:
+  - gtms: weight 9, value 1, time 6
+  - vznl: weight 3, value 4, time 2
+  - trtt: weight 6, value 9, time 8
+  - kznt: weight 1, value 7, time 5
+  - mkvv: weight 6, value 6, time 8
+The observed outcomes:
+  - (mkvv, trtt, vznl) outcome unacceptable
+  - (kznt, trtt, vznl) outcome unacceptable
+  - (gtms, vznl) outcome acceptable
+  - (kznt, mkvv, vznl) outcome unacceptable
+  - (trtt, vznl) outcome unacceptable
+  - (mkvv) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_a | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   15
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   9
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (value must be at_least 12, weight must be at_least 10)
+  - option_c formalization (value must be at_most 12, weight must be at_least 10)
+  - option_d formalization (value must be at_least 12, weight must be at_most 10)
+  - option_a formalization (value must be at_least 12, weight must be at_least 14)
+The items:
+  - krrz: weight 6, value 4, time 3
+  - pkvl: weight 5, value 7, time 2
+  - lplv: weight 2, value 4, time 7
+  - dvpm: weight 1, value 5, time 6
+  - tvkv: weight 8, value 6, time 9
+The observed outcomes:
+  - (krrz, lplv, pkvl) outcome acceptable
+  - (krrz) outcome unacceptable
+  - (dvpm, lplv) outcome unacceptable
+  - (dvpm, lplv, pkvl, tvkv) outcome acceptable
+  - (dvpm, krrz, pkvl, tvkv) outcome acceptable
+  - (krrz, lplv) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_d | option_b | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   12
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   10
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (weight must be at_most 13, time must be at_least 8)
+  - option_d formalization (weight must be at_most 7, time must be at_least 8)
+  - option_c formalization (value must be at_most 10, time must be at_least 8)
+  - option_a formalization (weight must be at_most 10, time must be at_least 8)
+The items:
+  - ktvg: weight 1, value 8, time 4
+  - mprs: weight 6, value 4, time 8
+  - npgt: weight 8, value 7, time 7
+  - tmpv: weight 4, value 3, time 1
+  - kkrp: weight 9, value 4, time 8
+The observed outcomes:
+  - (mprs, tmpv) outcome acceptable
+  - (ktvg) outcome unacceptable
+  - (npgt) outcome unacceptable
+  - (ktvg, npgt) outcome acceptable
+  - (kkrp, mprs, npgt, tmpv) outcome unacceptable
+  - (npgt, tmpv) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_d | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   10
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   8
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (weight must be at_least 16, value must be at_least 15)
+  - option_a formalization (weight must be at_least 12, value must be at_least 18)
+  - option_c formalization (time must be at_least 12, value must be at_least 15)
+  - option_b formalization (weight must be at_least 12, value must be at_least 15)
+The items:
+  - gndr: weight 5, value 5, time 3
+  - znmg: weight 4, value 6, time 1
+  - gdrv: weight 5, value 6, time 5
+  - zsss: weight 3, value 7, time 7
+  - rgpd: weight 9, value 2, time 5
+The observed outcomes:
+  - (gdrv, gndr) outcome unacceptable
+  - (gdrv, gndr, znmg) outcome acceptable
+  - (gdrv, rgpd, znmg, zsss) outcome acceptable
+  - (gdrv, gndr, rgpd, znmg) outcome acceptable
+  - (gdrv, rgpd, zsss) outcome acceptable
+  - (gdrv, zsss) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_a | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   12
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   15
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (value must be at_most 14, weight must be at_most 12)
+  - option_d formalization (value must be at_least 14, weight must be at_most 12)
+  - option_b formalization (time must be at_least 14, weight must be at_most 12)
+  - option_a formalization (value must be at_least 18, weight must be at_most 12)
+The items:
+  - lgtm: weight 3, value 9, time 4
+  - ngpm: weight 7, value 3, time 5
+  - zrsz: weight 9, value 8, time 4
+  - nvvl: weight 2, value 8, time 3
+  - gsks: weight 1, value 1, time 6
+The observed outcomes:
+  - (gsks) outcome unacceptable
+  - (zrsz) outcome unacceptable
+  - (nvvl, zrsz) outcome acceptable
+  - (gsks, lgtm, ngpm) outcome unacceptable
+  - (lgtm, ngpm, nvvl) outcome acceptable
+  - (nvvl) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_c | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   14
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   12
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (time must be at_most 13, value must be at_most 14)
+  - option_b formalization (time must be at_most 13, value must be at_least 14)
+  - option_d formalization (time must be at_most 16, value must be at_most 14)
+  - option_a formalization (weight must be at_most 13, value must be at_most 14)
+The items:
+  - vrlt: weight 2, value 4, time 8
+  - mnln: weight 2, value 2, time 9
+  - gnmg: weight 1, value 8, time 5
+  - lgnn: weight 6, value 5, time 1
+  - klgs: weight 2, value 8, time 8
+The observed outcomes:
+  - (gnmg, vrlt) outcome acceptable
+  - (gnmg, klgs, vrlt) outcome unacceptable
+  - (klgs, vrlt) outcome unacceptable
+  - (klgs, lgnn, mnln, vrlt) outcome unacceptable
+  - (klgs) outcome acceptable
+  - (lgnn, vrlt) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_c | option_b | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   13
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   14
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (weight must be at_least 15, value must be at_least 10)
+  - option_d formalization (weight must be at_most 11, value must be at_least 10)
+  - option_a formalization (time must be at_least 11, value must be at_least 10)
+  - option_c formalization (weight must be at_least 11, value must be at_least 10)
+The items:
+  - ppts: weight 7, value 5, time 1
+  - mdld: weight 1, value 9, time 2
+  - lzgg: weight 8, value 4, time 5
+  - svpv: weight 4, value 6, time 8
+  - vrrv: weight 5, value 2, time 2
+The observed outcomes:
+  - (lzgg, mdld, ppts, vrrv) outcome acceptable
+  - (mdld, svpv, vrrv) outcome unacceptable
+  - (svpv, vrrv) outcome unacceptable
+  - (mdld, svpv) outcome unacceptable
+  - (lzgg, ppts, svpv) outcome acceptable
+  - (mdld, ppts, svpv) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_d | option_c | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   11
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   10
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (weight must be at_least 7, value must be at_most 14)
+  - option_c formalization (weight must be at_least 7, value must be at_most 11)
+  - option_d formalization (weight must be at_most 7, value must be at_most 11)
+  - option_a formalization (time must be at_least 7, value must be at_most 11)
+The items:
+  - ktdl: weight 6, value 8, time 6
+  - sllt: weight 8, value 1, time 3
+  - vvzl: weight 5, value 1, time 2
+  - tpzs: weight 2, value 4, time 3
+  - ltmn: weight 8, value 5, time 2
+The observed outcomes:
+  - (vvzl) outcome unacceptable
+  - (sllt, tpzs, vvzl) outcome acceptable
+  - (ktdl, sllt, tpzs) outcome unacceptable
+  - (tpzs) outcome unacceptable
+  - (ktdl, ltmn, tpzs, vvzl) outcome unacceptable
+  - (sllt, vvzl) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_b | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   7
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   11
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (value must be at_most 18, weight must be at_most 8)
+  - option_a formalization (value must be at_most 18, time must be at_least 8)
+  - option_d formalization (value must be at_most 18, weight must be at_least 8)
+  - option_c formalization (value must be at_most 18, weight must be at_least 5)
+The items:
+  - mzdv: weight 2, value 9, time 6
+  - vtlm: weight 5, value 7, time 8
+  - tnng: weight 2, value 2, time 1
+  - sdnp: weight 8, value 6, time 5
+  - pspn: weight 3, value 1, time 5
+The observed outcomes:
+  - (mzdv) outcome unacceptable
+  - (mzdv, pspn, tnng, vtlm) outcome unacceptable
+  - (mzdv, pspn) outcome unacceptable
+  - (mzdv, pspn, sdnp) outcome acceptable
+  - (vtlm) outcome unacceptable
+  - (pspn, tnng, vtlm) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_a | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   18
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   8
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (value must be at_least 9, weight must be at_most 10)
+  - option_b formalization (time must be at_most 9, weight must be at_most 10)
+  - option_c formalization (time must be at_least 9, value must be at_most 10)
+  - option_d formalization (time must be at_least 9, weight must be at_most 10)
+The items:
+  - lrgk: weight 3, value 6, time 3
+  - ztsz: weight 1, value 6, time 1
+  - msrk: weight 7, value 4, time 3
+  - gsrk: weight 6, value 7, time 8
+  - drlv: weight 2, value 1, time 4
+The observed outcomes:
+  - (gsrk, lrgk, ztsz) outcome acceptable
+  - (msrk) outcome unacceptable
+  - (lrgk, msrk) outcome unacceptable
+  - (lrgk) outcome unacceptable
+  - (drlv, gsrk) outcome acceptable
+  - (drlv, lrgk, msrk, ztsz) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_b | option_a | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   9
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   10
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (value must be at_least 11, time must be at_least 16)
+  - option_d formalization (value must be at_least 11, weight must be at_most 16)
+  - option_c formalization (value must be at_most 11, time must be at_most 16)
+  - option_a formalization (value must be at_least 11, time must be at_most 16)
+The items:
+  - mgdt: weight 3, value 1, time 4
+  - ldrg: weight 8, value 1, time 8
+  - lzdd: weight 2, value 5, time 2
+  - ngtd: weight 9, value 6, time 1
+  - dlsp: weight 7, value 5, time 5
+The observed outcomes:
+  - (dlsp, lzdd, mgdt, ngtd) outcome acceptable
+  - (dlsp) outcome unacceptable
+  - (mgdt) outcome unacceptable
+  - (ldrg) outcome unacceptable
+  - (lzdd, ngtd) outcome acceptable
+  - (ldrg, mgdt, ngtd) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_a | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   11
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   16
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (time must be at_most 11, weight must be at_least 9)
+  - option_b formalization (time must be at_least 11, weight must be at_most 9)
+  - option_d formalization (time must be at_least 14, weight must be at_least 9)
+  - option_a formalization (time must be at_least 11, weight must be at_least 9)
+The items:
+  - lzsk: weight 2, value 9, time 5
+  - pmpp: weight 7, value 7, time 5
+  - kndm: weight 7, value 2, time 8
+  - lptl: weight 1, value 2, time 2
+  - vmts: weight 5, value 9, time 8
+The observed outcomes:
+  - (lptl, pmpp, vmts) outcome acceptable
+  - (vmts) outcome unacceptable
+  - (pmpp, vmts) outcome acceptable
+  - (lzsk) outcome unacceptable
+  - (kndm, lptl, lzsk, pmpp) outcome acceptable
+  - (kndm, lzsk, pmpp, vmts) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_c | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   11
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   9
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (time must be at_most 16, weight must be at_least 17)
+  - option_a formalization (value must be at_most 16, weight must be at_most 17)
+  - option_d formalization (value must be at_least 16, weight must be at_least 17)
+  - option_c formalization (value must be at_most 16, weight must be at_least 17)
+The items:
+  - drzr: weight 6, value 2, time 2
+  - dzlt: weight 8, value 4, time 3
+  - lmsg: weight 5, value 5, time 9
+  - tnrl: weight 3, value 1, time 9
+  - pdsn: weight 8, value 2, time 5
+The observed outcomes:
+  - (lmsg, pdsn) outcome unacceptable
+  - (drzr, pdsn, tnrl) outcome acceptable
+  - (drzr, lmsg, pdsn) outcome acceptable
+  - (dzlt, lmsg) outcome unacceptable
+  - (dzlt, lmsg, pdsn, tnrl) outcome acceptable
+  - (dzlt, tnrl) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_b | option_a | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   16
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   17
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (weight must be at_most 15, value must be at_most 12)
+  - option_b formalization (weight must be at_most 15, value must be at_least 12)
+  - option_c formalization (weight must be at_most 15, value must be at_most 16)
+  - option_a formalization (weight must be at_most 15, time must be at_most 12)
+The items:
+  - kzlv: weight 8, value 8, time 2
+  - zkrt: weight 7, value 5, time 6
+  - rrvk: weight 9, value 9, time 8
+  - zrdl: weight 6, value 2, time 5
+  - tlzp: weight 7, value 7, time 6
+The observed outcomes:
+  - (zrdl) outcome acceptable
+  - (rrvk) outcome acceptable
+  - (kzlv, rrvk, tlzp, zrdl) outcome unacceptable
+  - (kzlv, rrvk, tlzp) outcome unacceptable
+  - (kzlv, tlzp) outcome unacceptable
+  - (kzlv, rrvk, tlzp, zkrt) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_c | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   15
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   12
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (time must be at_least 6, weight must be at_most 9)
+  - option_a formalization (time must be at_least 6, value must be at_least 9)
+  - option_c formalization (time must be at_most 6, weight must be at_least 9)
+  - option_d formalization (time must be at_least 6, weight must be at_least 9)
+The items:
+  - lvps: weight 1, value 7, time 7
+  - zkps: weight 4, value 6, time 9
+  - zzvv: weight 8, value 1, time 2
+  - smlz: weight 7, value 3, time 2
+  - slrk: weight 4, value 2, time 5
+The observed outcomes:
+  - (lvps, slrk) outcome unacceptable
+  - (lvps, slrk, zkps, zzvv) outcome acceptable
+  - (lvps, slrk, smlz, zzvv) outcome acceptable
+  - (lvps, smlz) outcome unacceptable
+  - (slrk, smlz, zkps, zzvv) outcome acceptable
+  - (slrk) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_a | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   6
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   9
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (weight must be at_least 9, time must be at_most 15)
+  - option_c formalization (weight must be at_most 9, time must be at_most 15)
+  - option_a formalization (value must be at_least 9, time must be at_most 15)
+  - option_d formalization (weight must be at_least 9, value must be at_most 15)
+The items:
+  - zlss: weight 3, value 4, time 9
+  - smzv: weight 7, value 3, time 6
+  - rgst: weight 6, value 2, time 2
+  - rnnr: weight 9, value 5, time 9
+  - kzkv: weight 8, value 4, time 4
+The observed outcomes:
+  - (rnnr) outcome acceptable
+  - (rgst) outcome unacceptable
+  - (rgst, zlss) outcome acceptable
+  - (kzkv) outcome unacceptable
+  - (zlss) outcome unacceptable
+  - (kzkv, rgst, smzv, zlss) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_c | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   9
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   15
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (value must be at_least 17, weight must be at_least 7)
+  - option_b formalization (value must be at_least 13, weight must be at_most 7)
+  - option_a formalization (value must be at_least 13, weight must be at_least 7)
+  - option_d formalization (value must be at_most 13, weight must be at_least 7)
+The items:
+  - ptkk: weight 3, value 4, time 7
+  - mvdp: weight 8, value 4, time 8
+  - tmzs: weight 2, value 2, time 4
+  - vdvr: weight 1, value 5, time 6
+  - pptm: weight 4, value 3, time 6
+The observed outcomes:
+  - (tmzs) outcome unacceptable
+  - (vdvr) outcome unacceptable
+  - (mvdp, pptm, ptkk, vdvr) outcome acceptable
+  - (pptm, tmzs) outcome unacceptable
+  - (ptkk, tmzs, vdvr) outcome unacceptable
+  - (mvdp, ptkk, tmzs, vdvr) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_a | option_b | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   13
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (value must be at_most 13, time must be at_least 9)
+  - option_b formalization (value must be at_most 13, time must be at_least 12)
+  - option_c formalization (value must be at_most 9, time must be at_least 9)
+  - option_d formalization (value must be at_least 13, time must be at_least 9)
+The items:
+  - nkkd: weight 3, value 8, time 2
+  - ddsp: weight 9, value 1, time 6
+  - nvvs: weight 9, value 3, time 8
+  - slsd: weight 2, value 3, time 8
+  - rrsd: weight 4, value 2, time 3
+The observed outcomes:
+  - (ddsp, nvvs, rrsd) outcome acceptable
+  - (nkkd, rrsd, slsd) outcome acceptable
+  - (nkkd) outcome unacceptable
+  - (ddsp, nkkd, nvvs) outcome acceptable
+  - (slsd) outcome unacceptable
+  - (nvvs, rrsd) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_c | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   13
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   9
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (time must be at_least 15, value must be at_most 10)
+  - option_b formalization (time must be at_most 15, value must be at_least 10)
+  - option_a formalization (weight must be at_least 15, value must be at_least 10)
+  - option_d formalization (time must be at_least 15, value must be at_least 10)
+The items:
+  - zlvd: weight 2, value 3, time 7
+  - krml: weight 5, value 9, time 6
+  - vtvp: weight 5, value 9, time 9
+  - ttsp: weight 8, value 4, time 3
+  - pntm: weight 9, value 6, time 7
+The observed outcomes:
+  - (pntm, ttsp, zlvd) outcome acceptable
+  - (krml, pntm) outcome unacceptable
+  - (krml, pntm, vtvp) outcome acceptable
+  - (krml, zlvd) outcome unacceptable
+  - (pntm, vtvp) outcome acceptable
+  - (vtvp, zlvd) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_c | option_b | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   15
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   10
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (time must be at_most 10, value must be at_least 17)
+  - option_b formalization (time must be at_least 10, value must be at_most 17)
+  - option_a formalization (time must be at_most 10, value must be at_most 17)
+  - option_c formalization (time must be at_most 7, value must be at_most 17)
+The items:
+  - rvlr: weight 3, value 2, time 4
+  - rpvk: weight 9, value 5, time 9
+  - ttvn: weight 3, value 6, time 3
+  - gklz: weight 7, value 4, time 8
+  - dlsz: weight 4, value 8, time 1
+The observed outcomes:
+  - (rpvk) outcome acceptable
+  - (dlsz, rpvk, rvlr, ttvn) outcome unacceptable
+  - (dlsz, ttvn) outcome acceptable
+  - (rpvk, rvlr, ttvn) outcome unacceptable
+  - (dlsz, gklz, ttvn) outcome unacceptable
+  - (gklz) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_d | option_b | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   10
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   17
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (time must be at_most 12, value must be at_most 16)
+  - option_b formalization (time must be at_most 12, value must be at_least 16)
+  - option_d formalization (time must be at_least 12, value must be at_most 16)
+  - option_c formalization (time must be at_most 8, value must be at_most 16)
+The items:
+  - tvrz: weight 2, value 6, time 6
+  - ttnz: weight 8, value 2, time 8
+  - tkpv: weight 3, value 1, time 4
+  - gmsz: weight 6, value 5, time 1
+  - rtmv: weight 9, value 6, time 9
+The observed outcomes:
+  - (rtmv, tkpv, tvrz) outcome unacceptable
+  - (gmsz, tkpv, tvrz) outcome acceptable
+  - (rtmv, tkpv, ttnz, tvrz) outcome unacceptable
+  - (gmsz) outcome acceptable
+  - (ttnz) outcome acceptable
+  - (rtmv, ttnz, tvrz) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_c | option_a | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   12
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   16
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (weight must be at_most 12, time must be at_most 12)
+  - option_c formalization (value must be at_most 15, time must be at_most 12)
+  - option_b formalization (weight must be at_most 15, time must be at_most 8)
+  - option_d formalization (weight must be at_most 15, time must be at_most 12)
+The items:
+  - kvpm: weight 4, value 9, time 3
+  - dkgr: weight 4, value 8, time 7
+  - sgpp: weight 9, value 4, time 2
+  - nmmr: weight 6, value 4, time 6
+  - zrzv: weight 8, value 8, time 6
+The observed outcomes:
+  - (dkgr, kvpm, sgpp) outcome unacceptable
+  - (dkgr, sgpp) outcome acceptable
+  - (sgpp, zrzv) outcome unacceptable
+  - (kvpm) outcome acceptable
+  - (dkgr, kvpm, nmmr, sgpp) outcome unacceptable
+  - (dkgr, nmmr, zrzv) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_b | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   15
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   12
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (value must be at_most 13, time must be at_most 9)
+  - option_d formalization (weight must be at_most 13, time must be at_most 5)
+  - option_b formalization (weight must be at_most 13, time must be at_most 9)
+  - option_c formalization (weight must be at_most 13, time must be at_least 9)
+The items:
+  - glmp: weight 9, value 4, time 3
+  - sntt: weight 3, value 2, time 1
+  - dlrr: weight 9, value 8, time 6
+  - tkng: weight 9, value 1, time 3
+  - srrt: weight 7, value 8, time 9
+The observed outcomes:
+  - (dlrr) outcome acceptable
+  - (dlrr, tkng) outcome unacceptable
+  - (glmp, srrt, tkng) outcome unacceptable
+  - (tkng) outcome acceptable
+  - (dlrr, glmp, sntt) outcome unacceptable
+  - (dlrr, glmp, srrt, tkng) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_c | option_a | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   13
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   9
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (value must be at_least 12, weight must be at_least 14)
+  - option_b formalization (value must be at_least 12, weight must be at_most 14)
+  - option_c formalization (value must be at_most 12, weight must be at_least 14)
+  - option_a formalization (value must be at_least 12, time must be at_least 14)
+The items:
+  - sdgm: weight 8, value 7, time 2
+  - lssv: weight 1, value 9, time 2
+  - lgsn: weight 7, value 8, time 8
+  - prrs: weight 8, value 4, time 4
+  - nggg: weight 3, value 7, time 2
+The observed outcomes:
+  - (lgsn, lssv, nggg, sdgm) outcome acceptable
+  - (lgsn, lssv, sdgm) outcome acceptable
+  - (prrs, sdgm) outcome unacceptable
+  - (lssv, nggg, sdgm) outcome unacceptable
+  - (lgsn, lssv) outcome unacceptable
+  - (prrs) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_d | option_a | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   12
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   14
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_d formalization (value must be at_most 18, time must be at_most 17)
+  - option_b formalization (value must be at_most 18, time must be at_most 21)
+  - option_c formalization (value must be at_most 18, time must be at_least 17)
+  - option_a formalization (value must be at_most 18, weight must be at_most 17)
+The items:
+  - krld: weight 4, value 4, time 6
+  - kmdr: weight 1, value 3, time 7
+  - dnzd: weight 5, value 2, time 8
+  - pmrm: weight 7, value 2, time 5
+  - pvkg: weight 8, value 3, time 8
+The observed outcomes:
+  - (kmdr, krld) outcome acceptable
+  - (krld, pmrm) outcome acceptable
+  - (dnzd, krld, pmrm, pvkg) outcome unacceptable
+  - (dnzd, kmdr, pmrm) outcome unacceptable
+  - (dnzd, kmdr, pmrm, pvkg) outcome unacceptable
+  - (kmdr, pmrm, pvkg) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_b | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   18
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   17
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (time must be at_least 14, value must be at_least 12)
+  - option_a formalization (weight must be at_least 14, value must be at_least 12)
+  - option_b formalization (weight must be at_least 14, value must be at_most 12)
+  - option_d formalization (weight must be at_least 14, time must be at_least 12)
+The items:
+  - nkvm: weight 2, value 1, time 5
+  - npms: weight 8, value 1, time 6
+  - zsnr: weight 7, value 8, time 2
+  - vmmk: weight 9, value 7, time 2
+  - zdzk: weight 4, value 5, time 2
+The observed outcomes:
+  - (npms, zsnr) outcome unacceptable
+  - (vmmk) outcome unacceptable
+  - (nkvm, npms, vmmk, zsnr) outcome acceptable
+  - (nkvm, vmmk, zdzk, zsnr) outcome acceptable
+  - (zsnr) outcome unacceptable
+  - (nkvm, zsnr) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_b | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   14
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   12
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (time must be at_most 15, value must be at_most 5)
+  - option_d formalization (time must be at_most 15, value must be at_least 8)
+  - option_a formalization (time must be at_least 15, value must be at_most 8)
+  - option_c formalization (time must be at_most 15, value must be at_most 8)
+The items:
+  - nggz: weight 3, value 8, time 9
+  - mdzr: weight 7, value 7, time 4
+  - gvsz: weight 1, value 5, time 6
+  - dkkl: weight 6, value 7, time 6
+  - tsdp: weight 6, value 8, time 7
+The observed outcomes:
+  - (dkkl, mdzr, nggz, tsdp) outcome unacceptable
+  - (dkkl) outcome acceptable
+  - (gvsz, mdzr, nggz) outcome unacceptable
+  - (dkkl, gvsz, mdzr, tsdp) outcome unacceptable
+  - (dkkl, gvsz, mdzr) outcome unacceptable
+  - (mdzr) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_a | option_b | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   15
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   8
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">option_b</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (weight must be at_least 12, value must be at_least 11)
+  - option_d formalization (weight must be at_least 12, value must be at_most 15)
+  - option_c formalization (weight must be at_most 12, value must be at_least 15)
+  - option_b formalization (weight must be at_least 12, value must be at_least 15)
+The items:
+  - pvvt: weight 3, value 5, time 3
+  - zpkn: weight 9, value 7, time 4
+  - lrdm: weight 1, value 7, time 5
+  - pvvr: weight 6, value 3, time 6
+  - tsrt: weight 7, value 4, time 7
+The observed outcomes:
+  - (pvvr, zpkn) outcome unacceptable
+  - (pvvr, pvvt) outcome unacceptable
+  - (lrdm, pvvt) outcome unacceptable
+  - (lrdm, pvvt, tsrt, zpkn) outcome acceptable
+  - (tsrt, zpkn) outcome unacceptable
+  - (lrdm, pvvr, pvvt, tsrt) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_a | option_c | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_b&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   12
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   15
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (value must be at_least 7, time must be at_most 7)
+  - option_c formalization (value must be at_least 7, weight must be at_most 4)
+  - option_a formalization (time must be at_least 7, weight must be at_most 7)
+  - option_d formalization (value must be at_least 7, weight must be at_most 7)
+The items:
+  - sdmv: weight 3, value 1, time 7
+  - nggz: weight 6, value 8, time 2
+  - nlvg: weight 3, value 9, time 9
+  - zzvz: weight 3, value 1, time 2
+  - lmrd: weight 1, value 2, time 9
+The observed outcomes:
+  - (sdmv, zzvz) outcome unacceptable
+  - (nggz, nlvg, zzvz) outcome unacceptable
+  - (nggz) outcome acceptable
+  - (zzvz) outcome unacceptable
+  - (lmrd, nlvg, sdmv) outcome acceptable
+  - (sdmv) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_c | option_d | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   7
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   7
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (time must be at_least 18, value must be at_most 13)
+  - option_d formalization (weight must be at_least 18, value must be at_least 13)
+  - option_a formalization (time must be at_least 18, value must be at_least 13)
+  - option_c formalization (time must be at_most 18, value must be at_least 13)
+The items:
+  - gmpk: weight 7, value 4, time 4
+  - klrt: weight 9, value 7, time 4
+  - kdgp: weight 7, value 5, time 9
+  - knrz: weight 5, value 5, time 3
+  - sllm: weight 1, value 3, time 2
+The observed outcomes:
+  - (sllm) outcome unacceptable
+  - (gmpk, klrt, knrz, sllm) outcome unacceptable
+  - (kdgp, klrt, sllm) outcome unacceptable
+  - (kdgp, knrz, sllm) outcome unacceptable
+  - (gmpk, kdgp, knrz, sllm) outcome acceptable
+  - (kdgp, klrt, knrz, sllm) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_b | option_d | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   18
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   13
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (value must be at_least 9, weight must be at_least 9)
+  - option_b formalization (value must be at_least 9, weight must be at_least 13)
+  - option_c formalization (value must be at_least 5, weight must be at_least 9)
+  - option_d formalization (value must be at_most 9, weight must be at_least 9)
+The items:
+  - prgr: weight 1, value 3, time 3
+  - rgzn: weight 3, value 7, time 8
+  - mgrv: weight 3, value 2, time 3
+  - tmgn: weight 8, value 2, time 7
+  - nlkk: weight 6, value 7, time 1
+The observed outcomes:
+  - (tmgn) outcome unacceptable
+  - (mgrv, nlkk, prgr, rgzn) outcome acceptable
+  - (mgrv, prgr) outcome unacceptable
+  - (mgrv) outcome unacceptable
+  - (prgr, rgzn, tmgn) outcome acceptable
+  - (prgr, tmgn) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_d | option_b | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   9
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   9
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (value must be at_least 7, time must be at_most 18)
+  - option_d formalization (weight must be at_least 7, time must be at_most 18)
+  - option_a formalization (weight must be at_least 7, time must be at_least 18)
+  - option_c formalization (weight must be at_most 7, time must be at_most 18)
+The items:
+  - vgdl: weight 7, value 2, time 2
+  - mmlt: weight 4, value 4, time 8
+  - tpmt: weight 3, value 5, time 5
+  - gkgr: weight 6, value 4, time 8
+  - mngl: weight 2, value 2, time 1
+The observed outcomes:
+  - (mngl, tpmt, vgdl) outcome acceptable
+  - (mmlt) outcome unacceptable
+  - (gkgr) outcome unacceptable
+  - (gkgr, tpmt) outcome acceptable
+  - (mmlt, mngl, tpmt, vgdl) outcome acceptable
+  - (gkgr, mngl) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_a | option_b | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   7
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   18
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">option_c</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (value must be at_least 18, time must be at_least 13)
+  - option_c formalization (value must be at_most 18, time must be at_least 13)
+  - option_d formalization (weight must be at_most 18, time must be at_least 13)
+  - option_b formalization (value must be at_most 18, time must be at_least 17)
+The items:
+  - dmkv: weight 8, value 5, time 7
+  - dmgv: weight 6, value 1, time 9
+  - zmzr: weight 2, value 2, time 9
+  - pnlv: weight 4, value 9, time 4
+  - ktng: weight 5, value 9, time 8
+The observed outcomes:
+  - (dmkv, ktng, pnlv) outcome unacceptable
+  - (ktng, pnlv) outcome unacceptable
+  - (dmgv, pnlv, zmzr) outcome acceptable
+  - (dmkv, ktng) outcome acceptable
+  - (zmzr) outcome unacceptable
+  - (dmgv, ktng, zmzr) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_b | option_c | option_d | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_c&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;value&quot;,
+   18
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   13
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_c formalization (weight must be at_least 16, time must be at_most 10)
+  - option_d formalization (weight must be at_most 16, time must be at_least 10)
+  - option_b formalization (weight must be at_most 16, time must be at_most 14)
+  - option_a formalization (weight must be at_most 16, time must be at_most 10)
+The items:
+  - rrdr: weight 2, value 6, time 5
+  - tvkt: weight 7, value 6, time 3
+  - kgmn: weight 3, value 3, time 7
+  - zskg: weight 6, value 3, time 7
+  - drgs: weight 5, value 9, time 3
+The observed outcomes:
+  - (kgmn, rrdr, tvkt, zskg) outcome unacceptable
+  - (drgs, kgmn, tvkt) outcome unacceptable
+  - (tvkt) outcome acceptable
+  - (kgmn, tvkt, zskg) outcome unacceptable
+  - (rrdr) outcome acceptable
+  - (drgs, kgmn, rrdr, tvkt) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_b | option_a | option_d
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   16
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   10
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_b formalization (weight must be at_least 11, value must be at_most 8)
+  - option_d formalization (weight must be at_least 11, value must be at_least 8)
+  - option_a formalization (weight must be at_most 11, value must be at_least 8)
+  - option_c formalization (weight must be at_least 8, value must be at_least 8)
+The items:
+  - llnp: weight 9, value 1, time 8
+  - smlk: weight 9, value 8, time 8
+  - dktp: weight 6, value 4, time 6
+  - nlmz: weight 9, value 9, time 6
+  - llzt: weight 1, value 3, time 1
+The observed outcomes:
+  - (dktp, nlmz) outcome acceptable
+  - (llzt, nlmz) outcome unacceptable
+  - (llzt) outcome unacceptable
+  - (llzt, nlmz, smlk) outcome acceptable
+  - (dktp, llzt, smlk) outcome acceptable
+  - (dktp) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_c | option_d | option_b | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 3,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   11
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   8
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (weight must be at_least 8, time must be at_least 6)
+  - option_c formalization (weight must be at_least 8, value must be at_least 6)
+  - option_d formalization (weight must be at_least 8, time must be at_least 10)
+  - option_b formalization (weight must be at_least 8, time must be at_most 6)
+The items:
+  - ttrz: weight 2, value 3, time 5
+  - gmkr: weight 6, value 6, time 3
+  - svnl: weight 4, value 9, time 2
+  - mkks: weight 9, value 1, time 6
+  - ktvl: weight 6, value 7, time 7
+The observed outcomes:
+  - (gmkr) outcome unacceptable
+  - (gmkr, ktvl, mkks, ttrz) outcome acceptable
+  - (gmkr, ktvl, ttrz) outcome acceptable
+  - (mkks, ttrz) outcome acceptable
+  - (mkks) outcome acceptable
+  - (svnl) outcome unacceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_a | option_c | option_b
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;weight&quot;,
+   8
+  ],
+  [
+   &quot;at_least&quot;,
+   &quot;time&quot;,
+   6
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">option_a</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (value must be at_least 9, weight must be at_most 14)
+  - option_b formalization (value must be at_least 9, time must be at_most 14)
+  - option_c formalization (value must be at_most 9, weight must be at_most 14)
+  - option_d formalization (value must be at_least 9, weight must be at_least 14)
+The items:
+  - ddvp: weight 3, value 6, time 5
+  - nkdt: weight 6, value 3, time 8
+  - lnpl: weight 2, value 7, time 5
+  - mkpd: weight 2, value 2, time 5
+  - sstv: weight 2, value 2, time 3
+The observed outcomes:
+  - (mkpd, sstv) outcome unacceptable
+  - (ddvp, lnpl, mkpd, sstv) outcome acceptable
+  - (ddvp, mkpd) outcome unacceptable
+  - (ddvp) outcome unacceptable
+  - (sstv) outcome unacceptable
+  - (lnpl, nkdt, sstv) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_a | option_d | option_b | option_c
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_a&quot;,
+ &quot;n_acceptable&quot;: 2,
+ &quot;truth&quot;: [
+  [
+   &quot;at_least&quot;,
+   &quot;value&quot;,
+   9
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   14
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">option_d</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are:
+  - option_a formalization (value must be at_most 8, time must be at_most 11)
+  - option_d formalization (weight must be at_most 8, time must be at_most 11)
+  - option_b formalization (weight must be at_most 8, time must be at_least 11)
+  - option_c formalization (weight must be at_least 8, time must be at_most 11)
+The items:
+  - vnrd: weight 6, value 1, time 7
+  - kspn: weight 1, value 5, time 3
+  - msgv: weight 3, value 1, time 5
+  - dgmt: weight 9, value 5, time 5
+  - tvlz: weight 2, value 8, time 7
+The observed outcomes:
+  - (kspn, msgv) outcome acceptable
+  - (dgmt, kspn, vnrd) outcome unacceptable
+  - (kspn) outcome acceptable
+  - (kspn, tvlz) outcome acceptable
+  - (dgmt, kspn, tvlz, vnrd) outcome unacceptable
+  - (msgv) outcome acceptable
+Which formalization fits?
+
+Answer with exactly one of: option_d | option_b | option_c | option_a
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;option_d&quot;,
+ &quot;n_acceptable&quot;: 4,
+ &quot;truth&quot;: [
+  [
+   &quot;at_most&quot;,
+   &quot;weight&quot;,
+   8
+  ],
+  [
+   &quot;at_most&quot;,
+   &quot;time&quot;,
+   11
+  ]
+ ]
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

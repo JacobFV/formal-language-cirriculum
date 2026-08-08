@@ -1,0 +1,1887 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>thematic_roles — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#ii">compositional semantics and logical language</a> &rsaquo;
+  thematic_roles</p>
+<h1>#19 <code>thematic_roles</code></h1>
+<p class="lede">agent vs patient independent of word order</p>
+<div class="tags"><span class="tag ">level 22</span><span class="tag ">section ii</span></div>
+<div class="stats">
+<div class="stat"><span class="n">2.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.5</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.19</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Who did it and who had it done to them. Half the episodes are passive, so
+    first-mentioned is the agent exactly half the time: surface position is
+    uninformative and only the voice marking decides.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>2</td></tr><tr><td>grammar_complexity</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>2</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The sentence is:
+  - Frank
+  - was
+  - chased
+  - by
+  - Dave
+What is the role for patient?
+
+Answer with exactly one of: Dave | Frank
+Reply with the answer only.</pre><h3>spanish</h3><pre>La frase es:
+  - Francisco
+  - was
+  - chased
+  - by
+  - David
+¿Cuál es el papel de patient?
+
+Responde exactamente con una de estas opciones: David | Francisco
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>句子是：
+  - 弗兰克
+  - was
+  - chased
+  - by
+  - 戴夫
+patient的角色是什么？
+
+请从以下选项中选出恰好一个作答：戴夫 | 弗兰克
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The sentence is:
+  - Frank
+  - was
+  - chased
+  - by
+  - Dave
+What is the role for patient?
+
+Answer with exactly one of: Dave | Frank
+Reply with the answer only.</pre><h3>symbols</h3><pre>{query: (role patient), sentence: [frank was chased by dave]}
+
+Answer with exactly one of: dave | frank
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/thematic_roles.jsonl</code> &middot; <code>data/samples/spanish/thematic_roles.jsonl</code> &middot; <code>data/samples/chinese/thematic_roles.jsonl</code> &middot; <code>data/samples/english_synonym/thematic_roles.jsonl</code> &middot; <code>data/samples/symbols/thematic_roles.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Frank
+  - was
+  - chased
+  - by
+  - Dave
+What is the role for patient?
+
+Answer with exactly one of: Dave | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Erin
+  - was
+  - chased
+  - by
+  - Bob
+What is the role for patient?
+
+Answer with exactly one of: Bob | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Frank
+  - was
+  - chased
+  - by
+  - Alice
+What is the role for agent?
+
+Answer with exactly one of: Alice | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Erin
+  - was
+  - greeted
+  - by
+  - Bob
+What is the role for patient?
+
+Answer with exactly one of: Erin | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Bob, chased and Carol.
+What is the role for patient?
+
+Answer with exactly one of: Carol | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Carol
+  - was
+  - followed
+  - by
+  - Erin
+What is the role for agent?
+
+Answer with exactly one of: Erin | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Erin, avoided and Alice.
+What is the role for agent?
+
+Answer with exactly one of: Alice | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Carol, avoided and Bob.
+What is the role for agent?
+
+Answer with exactly one of: Bob | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Carol
+  - was
+  - avoided
+  - by
+  - Bob
+What is the role for agent?
+
+Answer with exactly one of: Carol | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Erin
+  - was
+  - watched
+  - by
+  - Dave
+What is the role for agent?
+
+Answer with exactly one of: Erin | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Alice
+  - was
+  - avoided
+  - by
+  - Erin
+What is the role for agent?
+
+Answer with exactly one of: Alice | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Erin
+  - was
+  - avoided
+  - by
+  - Dave
+What is the role for agent?
+
+Answer with exactly one of: Erin | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Dave, followed and Carol.
+What is the role for patient?
+
+Answer with exactly one of: Carol | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Carol, followed and Frank.
+What is the role for agent?
+
+Answer with exactly one of: Frank | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Alice, followed and Erin.
+What is the role for agent?
+
+Answer with exactly one of: Alice | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Bob, greeted and Alice.
+What is the role for agent?
+
+Answer with exactly one of: Alice | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Dave
+  - was
+  - avoided
+  - by
+  - Carol
+What is the role for agent?
+
+Answer with exactly one of: Carol | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Erin, watched and Dave.
+What is the role for patient?
+
+Answer with exactly one of: Dave | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Alice
+  - was
+  - followed
+  - by
+  - Bob
+What is the role for agent?
+
+Answer with exactly one of: Alice | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Alice
+  - was
+  - greeted
+  - by
+  - Frank
+What is the role for agent?
+
+Answer with exactly one of: Frank | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Frank, watched and Bob.
+What is the role for agent?
+
+Answer with exactly one of: Frank | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Dave
+  - was
+  - followed
+  - by
+  - Bob
+What is the role for patient?
+
+Answer with exactly one of: Bob | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Bob, chased and Frank.
+What is the role for patient?
+
+Answer with exactly one of: Frank | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Carol, chased and Alice.
+What is the role for patient?
+
+Answer with exactly one of: Carol | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Dave
+  - was
+  - greeted
+  - by
+  - Frank
+What is the role for agent?
+
+Answer with exactly one of: Dave | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Dave, praised and Alice.
+What is the role for patient?
+
+Answer with exactly one of: Dave | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Bob
+  - was
+  - followed
+  - by
+  - Frank
+What is the role for agent?
+
+Answer with exactly one of: Bob | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Dave
+  - was
+  - followed
+  - by
+  - Frank
+What is the role for patient?
+
+Answer with exactly one of: Dave | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Alice, greeted and Bob.
+What is the role for agent?
+
+Answer with exactly one of: Bob | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Erin, watched and Alice.
+What is the role for patient?
+
+Answer with exactly one of: Alice | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Carol
+  - was
+  - greeted
+  - by
+  - Erin
+What is the role for agent?
+
+Answer with exactly one of: Erin | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Alice, chased and Dave.
+What is the role for agent?
+
+Answer with exactly one of: Dave | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Bob
+  - was
+  - praised
+  - by
+  - Alice
+What is the role for agent?
+
+Answer with exactly one of: Alice | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Bob
+  - was
+  - followed
+  - by
+  - Erin
+What is the role for patient?
+
+Answer with exactly one of: Erin | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Carol
+  - was
+  - greeted
+  - by
+  - Erin
+What is the role for agent?
+
+Answer with exactly one of: Carol | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Erin, praised and Carol.
+What is the role for agent?
+
+Answer with exactly one of: Erin | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Carol, chased and Alice.
+What is the role for patient?
+
+Answer with exactly one of: Alice | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Frank, chased and Erin.
+What is the role for agent?
+
+Answer with exactly one of: Frank | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Frank, avoided and Dave.
+What is the role for agent?
+
+Answer with exactly one of: Dave | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Carol
+  - was
+  - avoided
+  - by
+  - Bob
+What is the role for agent?
+
+Answer with exactly one of: Bob | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Erin
+  - was
+  - greeted
+  - by
+  - Dave
+What is the role for patient?
+
+Answer with exactly one of: Erin | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Dave, praised and Carol.
+What is the role for patient?
+
+Answer with exactly one of: Dave | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Frank, chased and Alice.
+What is the role for agent?
+
+Answer with exactly one of: Alice | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Alice, followed and Carol.
+What is the role for patient?
+
+Answer with exactly one of: Alice | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Dave, greeted and Erin.
+What is the role for agent?
+
+Answer with exactly one of: Erin | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Dave
+  - was
+  - avoided
+  - by
+  - Carol
+What is the role for patient?
+
+Answer with exactly one of: Carol | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Alice, chased and Dave.
+What is the role for agent?
+
+Answer with exactly one of: Dave | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Carol, avoided and Alice.
+What is the role for patient?
+
+Answer with exactly one of: Carol | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Erin, praised and Carol.
+What is the role for patient?
+
+Answer with exactly one of: Carol | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Alice, avoided and Carol.
+What is the role for patient?
+
+Answer with exactly one of: Carol | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Dave, watched and Carol.
+What is the role for agent?
+
+Answer with exactly one of: Dave | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Erin
+  - was
+  - greeted
+  - by
+  - Bob
+What is the role for agent?
+
+Answer with exactly one of: Bob | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Carol, followed and Alice.
+What is the role for patient?
+
+Answer with exactly one of: Carol | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Erin, avoided and Bob.
+What is the role for patient?
+
+Answer with exactly one of: Erin | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Dave
+  - was
+  - greeted
+  - by
+  - Bob
+What is the role for patient?
+
+Answer with exactly one of: Bob | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Alice, praised and Bob.
+What is the role for patient?
+
+Answer with exactly one of: Bob | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Erin, avoided and Alice.
+What is the role for patient?
+
+Answer with exactly one of: Erin | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Alice, greeted and Carol.
+What is the role for agent?
+
+Answer with exactly one of: Alice | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Erin, praised and Bob.
+What is the role for agent?
+
+Answer with exactly one of: Bob | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Bob, followed and Alice.
+What is the role for agent?
+
+Answer with exactly one of: Alice | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Frank
+  - was
+  - greeted
+  - by
+  - Carol
+What is the role for agent?
+
+Answer with exactly one of: Carol | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Bob
+  - was
+  - greeted
+  - by
+  - Dave
+What is the role for patient?
+
+Answer with exactly one of: Dave | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Erin, chased and Bob.
+What is the role for agent?
+
+Answer with exactly one of: Erin | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Dave, watched and Frank.
+What is the role for patient?
+
+Answer with exactly one of: Dave | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Dave, followed and Alice.
+What is the role for agent?
+
+Answer with exactly one of: Alice | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Dave, watched and Carol.
+What is the role for agent?
+
+Answer with exactly one of: Dave | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Alice, avoided and Carol.
+What is the role for patient?
+
+Answer with exactly one of: Alice | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Alice, avoided and Frank.
+What is the role for patient?
+
+Answer with exactly one of: Alice | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Frank, followed and Dave.
+What is the role for agent?
+
+Answer with exactly one of: Dave | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Frank, chased and Alice.
+What is the role for agent?
+
+Answer with exactly one of: Frank | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Carol
+  - was
+  - followed
+  - by
+  - Alice
+What is the role for agent?
+
+Answer with exactly one of: Alice | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Carol, greeted and Erin.
+What is the role for patient?
+
+Answer with exactly one of: Erin | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Alice, followed and Erin.
+What is the role for patient?
+
+Answer with exactly one of: Alice | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Alice
+  - was
+  - greeted
+  - by
+  - Carol
+What is the role for agent?
+
+Answer with exactly one of: Carol | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Frank
+  - was
+  - chased
+  - by
+  - Erin
+What is the role for patient?
+
+Answer with exactly one of: Frank | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Erin
+  - was
+  - avoided
+  - by
+  - Dave
+What is the role for patient?
+
+Answer with exactly one of: Dave | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Dave
+  - was
+  - avoided
+  - by
+  - Carol
+What is the role for patient?
+
+Answer with exactly one of: Dave | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Frank
+  - was
+  - praised
+  - by
+  - Carol
+What is the role for agent?
+
+Answer with exactly one of: Carol | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Bob, watched and Alice.
+What is the role for patient?
+
+Answer with exactly one of: Bob | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Bob, watched and Dave.
+What is the role for agent?
+
+Answer with exactly one of: Dave | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Carol, greeted and Dave.
+What is the role for patient?
+
+Answer with exactly one of: Carol | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Erin, watched and Dave.
+What is the role for patient?
+
+Answer with exactly one of: Erin | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Dave
+  - was
+  - greeted
+  - by
+  - Bob
+What is the role for agent?
+
+Answer with exactly one of: Dave | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Frank
+  - was
+  - chased
+  - by
+  - Dave
+What is the role for agent?
+
+Answer with exactly one of: Frank | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Carol
+  - was
+  - chased
+  - by
+  - Frank
+What is the role for patient?
+
+Answer with exactly one of: Carol | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Erin
+  - was
+  - chased
+  - by
+  - Bob
+What is the role for agent?
+
+Answer with exactly one of: Erin | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Alice, watched and Erin.
+What is the role for agent?
+
+Answer with exactly one of: Alice | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Frank
+  - was
+  - greeted
+  - by
+  - Bob
+What is the role for patient?
+
+Answer with exactly one of: Bob | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Dave, watched and Bob.
+What is the role for agent?
+
+Answer with exactly one of: Bob | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Alice, followed and Erin.
+What is the role for agent?
+
+Answer with exactly one of: Alice | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Bob, avoided and Alice.
+What is the role for patient?
+
+Answer with exactly one of: Bob | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Alice, praised and Erin.
+What is the role for agent?
+
+Answer with exactly one of: Alice | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Dave, greeted and Erin.
+What is the role for patient?
+
+Answer with exactly one of: Erin | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Erin
+  - was
+  - followed
+  - by
+  - Dave
+What is the role for agent?
+
+Answer with exactly one of: Erin | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Erin, chased and Bob.
+What is the role for patient?
+
+Answer with exactly one of: Erin | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;role&quot;: &quot;patient&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Erin, followed and Frank.
+What is the role for agent?
+
+Answer with exactly one of: Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Frank
+  - was
+  - followed
+  - by
+  - Carol
+What is the role for agent?
+
+Answer with exactly one of: Frank | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Bob, watched and Dave.
+What is the role for agent?
+
+Answer with exactly one of: Dave | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is:
+  - Erin
+  - was
+  - chased
+  - by
+  - Carol
+What is the role for agent?
+
+Answer with exactly one of: Carol | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;passive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The sentence is: Dave, praised and Frank.
+What is the role for agent?
+
+Answer with exactly one of: Frank | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;role&quot;: &quot;agent&quot;,
+ &quot;voice&quot;: &quot;active&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

@@ -1,0 +1,2792 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>conjecture_generation — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#vii">mathematics and formal reasoning</a> &rsaquo;
+  conjecture_generation</p>
+<h1>#82 <code>conjecture_generation</code></h1>
+<p class="lede">a claim both true in the structure and not already implied</p>
+<div class="tags"><span class="tag ">level 82</span><span class="tag ">section vii</span><span class="tag ">model_checking</span><span class="tag ">entailment</span><span class="tag ">informativeness</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.265</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>A good conjecture is true *and* not already known.</p><p>    A concrete structure (a full truth assignment) is generated together with a
+    premise set it satisfies. Exactly one of four candidate claims is both true
+    in the structure and *underdetermined* by the premises — the others are
+    either false in the structure or already entailed, and both conditions are
+    checked by enumerating every valuation.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The claims are: c0 claim not b implies not a, c1 claim e and not b implies d, c2 claim not e implies not b implies not c and c3 claim not c implies a.
+The premises are: c and an or e or not e, c and not c implies not b or c.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value true
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c2 | c1 | c0
+Reply with the answer only.</pre><h3>spanish</h3><pre>Las afirmaciones son: c0 la afirmación no b implica no a, c1 la afirmación e y no b implica d, c2 la afirmación no e implica no b implica no c y c3 la afirmación no c implica a.
+Las premisas son: c y a o e o no e, c y no c implica no b o c.
+La estructura es:
+  - a tiene el valor falso
+  - b tiene el valor falso
+  - c tiene el valor verdadero
+  - d tiene el valor verdadero
+  - e tiene el valor falso
+¿Cuál es la conjetura para true_in_structure_and_not_implied?
+
+Responde exactamente con una de estas opciones: c3 | c2 | c1 | c0
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>主张如下：c0主张并非b蕴涵并非a；c1主张e并且并非b蕴涵d；c2主张并非e蕴涵并非b蕴涵并非c；c3主张并非c蕴涵a。
+前提如下：c并且a或者e或者并非e；c；并非c蕴涵并非b或者c。
+结构如下：
+  - a的值是错
+  - b的值是错
+  - c的值是对
+  - d的值是对
+  - e的值是错
+true_in_structure_and_not_implied的猜想是什么？
+
+请从以下选项中选出恰好一个作答：c3 | c2 | c1 | c0
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The claims are: c0 claim not b implies not a, c1 claim e and not b implies d, c2 claim not e implies not b implies not c and c3 claim not c implies a.
+The premises are: c and an or e or not e, c and not c implies not b or c.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value true
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c2 | c1 | c0
+Reply with the answer only.</pre><h3>symbols</h3><pre>{claims: [(claim c0 (imp (not b) (not a))) (claim c1 (and e (imp (not b) d))) (claim c2 (imp (not e) (imp (not b) (not c)))) (claim c3 (imp (not c) a))], premises: [(or (and c a) (or e (not e))) c (imp (not c) (or (not b) c))], query: (conjecture true_in_structure_and_not_implied), structure: [(value a false) (value b false) (value c true) (value d true) (value e false)]}
+
+Answer with exactly one of: c3 | c2 | c1 | c0
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/conjecture_generation.jsonl</code> &middot; <code>data/samples/spanish/conjecture_generation.jsonl</code> &middot; <code>data/samples/chinese/conjecture_generation.jsonl</code> &middot; <code>data/samples/english_synonym/conjecture_generation.jsonl</code> &middot; <code>data/samples/symbols/conjecture_generation.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not b implies not a, c1 claim e and not b implies d, c2 claim not e implies not b implies not c and c3 claim not c implies a.
+The premises are: c and an or e or not e, c and not c implies not b or c.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value true
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c2 | c1 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (not b) (not a))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not not e implies d, c1 claim not e or c and d and a, c2 claim not an implies e implies not b and c3 claim e implies d implies e implies not e.
+The premises are: not not d and d, b implies an and an and d.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value false
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c2 | c3 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (imp (not a) e) (not b))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not d implies not an or d, c1 claim not c implies a, c2 claim e or b and e and c3 claim not not e and an or d.
+The premises are: not e or b implies e implies not e, e implies b or not e and not not c.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value true
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c0 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (not d) (or (not a) d))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not c, c1 claim c implies d and b, c2 claim not d and not d and an and c3 claim an implies not an or d or a.
+The premises are: a, b implies not c and not not e implies c and b.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value true
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c0 | c1 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(and (and (not d) (not d)) a)&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not b or e and not c, c1 claim c or an and not b, c2 claim not not c and c3 claim not c implies an implies c or not c.
+The premises are: b and not c implies not a, not c implies not c and an implies c and not c or an implies e.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value true
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c0 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (not c))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim d implies not b or not c, c1 claim not not a, c2 claim an and c3 claim not not an or not b.
+The premises are: not d, b or b or an implies b and e and not c implies d implies b.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value false
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c2 | c3 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (not (not a)) (not b))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim b, c1 claim not not an or c or not c, c2 claim an and c3 claim e.
+The premises are: d, b and not c implies b and e and not e implies c implies d.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value true
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c3 | c0 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;e&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim d implies c or not an or not b, c1 claim not not e implies d implies not b, c2 claim d and not e or b or an and c3 claim e and not b or c.
+The premises are: a, e or not e and b and not not c implies an or e.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c3 | c0 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (not (not e)) (imp d (not b)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim c or c and b, c1 claim not not an implies d, c2 claim not d implies e implies not b and c3 claim not e or e.
+The premises are: not b, not not an and a.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value true
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c3 | c2 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or c (and c b))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not an and d, c1 claim not not d, c2 claim not e and c3 claim e and not e or not e implies b.
+The premises are: d or an and b, an and e and e implies a.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value true
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c2 | c0 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (and a d))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not not an implies b, c1 claim not c, c2 claim not e or not e and c3 claim not b implies d or c.
+The premises are: not d or not c, c implies c implies b and not e.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c2 | c3 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not c)&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not a, c1 claim b or not e or a, c2 claim not e and not c implies an and c3 claim d or b and d and not d.
+The premises are: not e or not c, not e or c implies not c and not b and an and not not d.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c1 | c0 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(and (not e) (imp (not c) a))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not e or not b implies b, c1 claim not e or not c, c2 claim an or an and c3 claim not b.
+The premises are: an or not b or d implies not a, not d and not e and c implies d and not b.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value false
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c3 | c2 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or a a)&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not e or not e, c1 claim e, c2 claim an and not e or not b and c3 claim not not b.
+The premises are: e or not d and e, d or d implies e or c and not d.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value false
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c2 | c0 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (and a (not e)) (not b))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not c, c1 claim not e, c2 claim an implies not d or not d implies not e and c3 claim e implies c and not a.
+The premises are: d implies d and b implies c, not c or not e and not an and an and not an implies b.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value false
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c1 | c3 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not c)&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim d implies d or not d, c1 claim not b and b and c and b, c2 claim not c or not e and not e and c3 claim not an and not not e.
+The premises are: b, d or not c implies b and not b or not a.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c0 | c3 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (not c) (and (not e) (not e)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not an implies c, c1 claim not not a, c2 claim not e or b and c3 claim e implies e or an and e.
+The premises are: not b implies b implies not e, b implies d and c and c and e implies not e implies a.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value true
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c2 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (not a))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim c or d and not d, c1 claim e implies not d, c2 claim not an or not an and c3 claim not d implies not c.
+The premises are: not an implies not c, e or c or not an and d.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c1 | c0 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp e (not d))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim d implies an or an and a, c1 claim not d implies e, c2 claim b implies c implies c and b and c3 claim not c implies not not c.
+The premises are: not not b implies not a, not b or c or not d and not b and e implies c.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value true
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c1 | c3 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (not c) (not (not c)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim b, c1 claim not an or c or a, c2 claim an and c3 claim not not c implies not e.
+The premises are: not an implies c implies not c implies not e, not b and not b or b and not b.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value false
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c1 | c2 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (imp (not c) (not e)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not an and b, c1 claim c, c2 claim d and an or not b and c3 claim e or an implies c or e.
+The premises are: e and d implies not b, not b and e implies not b or b and e.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value false
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c3 | c1 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (or e a) (or c e))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not not c, c1 claim d implies c or not e, c2 claim d and c3 claim c and b or e or not d.
+The premises are: not an or e or b, not not e and not c.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value false
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c1 | c2 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;d&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not d implies not e, c1 claim not b or not b, c2 claim not an and not d or d and c3 claim e or c and e and c.
+The premises are: c, not an or not c and not c implies not d and c or b.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value true
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c1 | c0 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(and (or e c) (and e c))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim an or not d or b, c1 claim not not a, c2 claim not not d or not c and not b and c3 claim e and not e implies not an or b.
+The premises are: e implies c or not e implies not d, an and not e or an implies c and not not b implies a.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c2 | c3 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (not (not d)) (and (not c) (not b)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim an and an and b or not a, c1 claim b and d or e or e, c2 claim not b implies b and c3 claim c or e or d or c.
+The premises are: c and b implies e and a, not d implies c or e or c and not c implies an or c and a.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value true
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c0 | c3 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (and b d) (or e e))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not e and not an implies an or d, c1 claim not a, c2 claim e or e and b and c3 claim d or not c implies not b.
+The premises are: not an implies not d and e or not e, an and c implies b and d.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c0 | c1 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (or d (not c)) (not b))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not d or an or b implies d, c1 claim an and not not e, c2 claim an and not e or not c or an and c3 claim d implies e or c and d.
+The premises are: not an and c, not d or not an and not not c and b.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value true
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c0 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (imp d e) (and c d))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim d and not not a, c1 claim a, c2 claim not not e and c3 claim d or not d and d.
+The premises are: not not b implies a, d and d implies not an or an or not c.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value false
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c1 | c2 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (not e))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim d implies not an or c, c1 claim an or c implies d implies not d, c2 claim not an or not an or not c implies an and c3 claim c or b implies d and a.
+The premises are: an or not an or not b implies e, not not b implies not c implies e and not not b or not e.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value false
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c3 | c0 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (or c b) (and d a))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not d or an and d, c1 claim e or not c implies not e and not c, c2 claim not d and e and c3 claim not d or not c or not not d.
+The premises are: not d and e or d or b, not d implies c and not c and d or d and c or b.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c0 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (or e (not c)) (and (not e) (not c)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not b implies not b and e, c1 claim an implies not d or an and d, c2 claim not b and c3 claim not e or not b.
+The premises are: c and an implies c or c, e implies c or an and not c or e implies not d.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value true
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c0 | c1 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (not b) (and (not b) e))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not b and b and not a, c1 claim not d implies not not b, c2 claim d or not e and b and c3 claim not not c and a.
+The premises are: b, an and e.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value true
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c1 | c0 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (and (not c) a))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not c, c1 claim not an implies b or not an and a, c2 claim c or d and not not d and c3 claim e and not c implies not c.
+The premises are: not d or not an or not d or a, c or e implies an and b and c or not d.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value true
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c0 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (imp (not a) b) (and (not a) a))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not c implies not e implies a, c1 claim not d or not d and b, c2 claim not b and not c implies c implies c and c3 claim not not not c.
+The premises are: e implies c or not d implies d, not an and not an or not d implies e.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c3 | c0 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (not (not c)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim c or d implies e, c1 claim an implies an or e, c2 claim e implies e implies not d implies an and c3 claim d or an or a.
+The premises are: c implies an and c implies not b, not e or an and not not e and b.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value false
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c2 | c0 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or c (imp d e))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not not d or e, c1 claim not e implies d or a, c2 claim not an implies e implies c and c3 claim not d and a.
+The premises are: not d, not c and not an or not an or d.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value false
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c1 | c2 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (not e) (or d a))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim e, c1 claim not e and c implies d, c2 claim d and not d or not b and c3 claim c and not b and not b or not d.
+The premises are: not not not b, not d or c and d and c or e implies not a.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value false
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c0 | c2 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(and (not e) (imp c d))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim e or not b implies not e, c1 claim b implies a, c2 claim b implies not c or b or not c and c3 claim e implies not c implies d.
+The premises are: d and c implies not not d, e or not an and an implies not b and c or an or not a.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value false
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c1 | c0 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (or e (not b)) (not e))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not d, c1 claim not e or not b, c2 claim not d or c or an implies d and c3 claim e.
+The premises are: c implies e or not b, d implies not d implies not c and not c.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c0 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (not e) (not b))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim e and not not a, c1 claim d and an implies c or not b, c2 claim not not d and c3 claim an and e.
+The premises are: not an or an implies c, not not b and c.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value true
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c0 | c2 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (not d))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not c implies a, c1 claim not d, c2 claim an implies d or b and c3 claim not d or not b and c or e.
+The premises are: not e and b implies e, an and d.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value true
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c0 | c3 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(and (or (not d) (not b)) (or c e))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim e and d or d and a, c1 claim c implies not b and c or not d, c2 claim an and c3 claim not c implies an or e.
+The premises are: b and an implies b, an and an implies an or not d and an and b or e and e.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value true
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c2 | c3 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;a&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim d, c1 claim not e implies not e and a, c2 claim c and an or b and c3 claim not b.
+The premises are: not an and b and b, not c implies not c or c implies an and an and c implies not d and not c.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value true
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c3 | c1 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;d&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not e implies e and c, c1 claim not d and b, c2 claim an implies d or not not e and c3 claim d and an implies not c.
+The premises are: not e and c, not an and not d and not not an implies a.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value true
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c0 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (and d b))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim e implies b implies d, c1 claim not d or d and an or a, c2 claim not an and not e and not e and b and c3 claim not c implies not d.
+The premises are: a, e and not not c implies c.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value false
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c1 | c2 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp e (imp b d))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim b and not e and not an and a, c1 claim e or e and not b, c2 claim e implies b or not e and c3 claim not e or b or e.
+The premises are: c, an and not an implies not e.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value true
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c3 | c1 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (imp e b) (not e))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not not c implies c or not a, c1 claim b implies not c and not b and a, c2 claim d or c implies an and c3 claim c or not not a.
+The premises are: d and d implies d and e, e or not c or c and c and an or not c or b.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value false
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c2 | c3 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (or d c) a)&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not e and e, c1 claim not not an implies d, c2 claim not d or b and c3 claim not an implies d or a.
+The premises are: c or e implies not b, an and an implies b and d and c or c implies a.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value true
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c0 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (and e e))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not e, c1 claim an and b or an or not d, c2 claim not d and c3 claim b implies c or not c.
+The premises are: not b or not e or an implies not c, b or not e implies not e implies d and c or not a.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c0 | c3 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not e)&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim b and not d or not d, c1 claim not c implies not b implies not d, c2 claim d and c3 claim not d implies d.
+The premises are: a, d implies e implies an or e and not c implies e.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value true
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c3 | c0 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (and b (not d)) (not d))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not e or d, c1 claim e, c2 claim d and not e and e and c3 claim not not c and b.
+The premises are: not e and not d, not b and c and e or d or e and e.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value false
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c2 | c3 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;e&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not e implies not b or not b, c1 claim d and c or e, c2 claim not b and c3 claim d implies an and not e and e.
+The premises are: not not e, d or d or e and not e implies an and d.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value true
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c1 | c0 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not b)&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not not c, c1 claim not e and c, c2 claim not an and c3 claim d and not b.
+The premises are: d or not not a, not an and not e implies d and b implies d or not not e.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c0 | c3 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (and e c))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not c or not c or not an implies c, c1 claim not e and not b and not an or e, c2 claim not not an and d and c3 claim not c or d.
+The premises are: not b and c, not not an implies e and an or not d or not b or a.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value true
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c3 | c2 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(and (and (not e) (not b)) (or (not a) e))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim e or not e and e, c1 claim an and not c or not e implies b, c2 claim not d and c3 claim e implies an or not c and c.
+The premises are: not not b, c and d implies an and not a.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c1 | c0 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (imp e a) (and (not c) c))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim b implies e and not b, c1 claim e, c2 claim b and not b or an or not e and c3 claim d and d or not e and not c.
+The premises are: d implies not c, not not b or not d and c and not e.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value true
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c1 | c3 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(and (imp b e) (not b))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim b and b implies a, c1 claim an implies e or not c, c2 claim an and c3 claim not not c implies c.
+The premises are: not e or d or b, not b and not d.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value true
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c1 | c2 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (imp a e) (not c))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim e implies not d and b implies c, c1 claim d, c2 claim not d or an and c implies c and c3 claim not a.
+The premises are: not not a, e implies not b or d implies d and a.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value true
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c0 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(and (imp e (not d)) (imp b c))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim c and d implies e and e, c1 claim not not e implies b, c2 claim not not an implies c and c3 claim not d or b implies d and d.
+The premises are: not b implies not c, not b and not b or not an or c and e.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value false
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c1 | c0 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (imp (not a) c))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not e or not b and e, c1 claim not b and an and e and not a, c2 claim e or not an implies d implies d and c3 claim not an or not not d.
+The premises are: a, not d or an and c or d and e implies an or c.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c3 | c2 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (not a) (not (not d)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not c and c implies not c implies not e, c1 claim not b implies not d and e, c2 claim not not not c and c3 claim not e and not c or not a.
+The premises are: e and not c or c or not e, b implies b or d implies an and d implies e or not d and not e.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value true
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c2 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (not b) (and (not d) e))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not d, c1 claim c and not e implies d, c2 claim not an or not e implies not d and c3 claim not not an or not d implies e.
+The premises are: e, not b implies c implies c and d implies not b or not a.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value false
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c2 | c3 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (or (not a) (not e)) (not d))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim a, c1 claim not c and c, c2 claim not an implies not an implies b and c3 claim c or c implies not e.
+The premises are: not b implies not an or d, b or c implies not c and not e or not a.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value false
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c1 | c3 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (not a) (imp (not a) b))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim c, c1 claim not not d implies not not e, c2 claim not d and d or not c and c3 claim d and an and b.
+The premises are: a, e or d implies an and b and not not d.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value false
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c1 | c2 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (not (not d)) (not (not e)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim e implies d and not a, c1 claim e implies d implies d, c2 claim not not not c and c3 claim e or not d.
+The premises are: an or not d or d, not not e implies not d and a.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value true
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c2 | c0 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or e (not d))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not c or not d or not e, c1 claim not b, c2 claim not e implies b and c3 claim not not e or e implies not e.
+The premises are: not an or c or b or not d, an and not an implies not d implies b and b.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c1 | c0 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (not c) (or (not d) (not e)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not d implies e, c1 claim not not d implies a, c2 claim not not c or an and c3 claim not b implies not an or not e and c.
+The premises are: d, not not e and not not c and c.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value true
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c3 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (imp (not b) (not a)) (and (not e) c))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not not d, c1 claim not an implies d or e or b, c2 claim an implies b and c3 claim not not not a.
+The premises are: b or not e and d or not c, not not an and not b.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c3 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (not d))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not e or b or not b, c1 claim b and b and d or d, c2 claim not not c and not an and c3 claim not not not d.
+The premises are: e implies not e implies not e, e and d implies e implies b and an and e implies not an implies e.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value false
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c3 | c0 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (not (not d)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim b and d implies d, c1 claim not an or not b, c2 claim not not d or not c and c3 claim d.
+The premises are: not not e, not c or not an or e and not an and not b implies b.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value true
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c1 | c2 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (or a (not b)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim b implies b or not a, c1 claim b, c2 claim not not not d and c3 claim not d and c.
+The premises are: not e, not an and not not not a.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value true
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c2 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;b&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim e and not c and an implies not d, c1 claim not a, c2 claim not not e and d and c3 claim not not c implies c or not a.
+The premises are: not e implies a, d implies an or not e or b and e implies an and b.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value true
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c2 | c3 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (and (not e) d))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim an or d implies not b, c1 claim not not e, c2 claim not e implies e and c3 claim not b or not an or a.
+The premises are: b implies an or a, d and not c and d and c or not c or d.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c1 | c3 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (or a d) (not b))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim b, c1 claim not c, c2 claim c and not an implies not e implies c and c3 claim e.
+The premises are: c and an or not e, an and not not an or b or d.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c3 | c0 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not c)&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim b or d or b implies not d, c1 claim not an or d implies a, c2 claim not not an or e implies an and c3 claim e implies an implies not b.
+The premises are: not d or e or not a, an implies d and d and not d implies an and b or d.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value true
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c1 | c0 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (imp e a) (not b))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim b implies not b and an or c, c1 claim not c and c or not e and not e, c2 claim an and c and c3 claim c or e implies an implies e.
+The premises are: e implies c implies not not b, not d and not not c and d or a.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value true
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c1 | c0 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (and (not c) c) (and (not e) (not e)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not c and not e and b, c1 claim not e implies b or d, c2 claim not d and e and c3 claim not b.
+The premises are: c, not c or an and e and an or not e and not a.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value true
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c3 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not b)&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not d and not b or d or c, c1 claim not c implies d implies not an and not e, c2 claim not b and c3 claim an or not d implies not a.
+The premises are: not d, not not b and not a.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value true
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c0 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (and (not d) (not b)) (or d c))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not not an or b, c1 claim c implies not d or e or not d, c2 claim not an or an implies b and not e and c3 claim d implies not an implies b.
+The premises are: not a, an implies e implies not d or not an and b.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value false
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c0 | c2 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (imp c (not d)) (or e (not d)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not b or not c or c implies c, c1 claim c, c2 claim not not d implies not an and c3 claim e or d implies d and not d.
+The premises are: d, c implies an and not c or not c implies e and b.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value true
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c0 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;c&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim an implies not d and d, c1 claim not c, c2 claim b and e and not not b and c3 claim not d.
+The premises are: d implies not d and e, not b and an implies not c.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value false
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c2 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not c)&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not b implies b, c1 claim not b and not b, c2 claim e implies c and c implies not b and c3 claim not not d.
+The premises are: d, b implies b or not an and b.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c0 | c2 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(and (imp e c) (imp c (not b)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not an implies not b, c1 claim c or b implies not an or a, c2 claim not c and c or c and c3 claim not an or c.
+The premises are: not an or not c and not d, not c implies not c or an and an and not c or not not e.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value false
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c0 | c2 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (not a) (not b))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim d or not d, c1 claim not c or b implies d and not d, c2 claim an implies c implies not c and c3 claim b implies b and not d.
+The premises are: an or b, d or an or not d and d implies e or d or not e.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value true
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c0 | c2 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (or (not c) b) (and d (not d)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not not e or c, c1 claim an implies b or not d, c2 claim not c and b and c3 claim d.
+The premises are: not e implies c or not e implies not d, an implies b and not d and not b or c or d or e.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value true
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c2 | c0 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;d&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not b or not c implies not e, c1 claim not e implies d, c2 claim b and c and c3 claim not not an and not not b.
+The premises are: not e implies not e, not b and d or not an or not d.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value true
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c1 | c0 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (not e) d)&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not an and a, c1 claim not not not d, c2 claim not not d implies d and c3 claim not b or an implies e.
+The premises are: e, not not e and not not b.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value false
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c2 | c3 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (and a a))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not not e, c1 claim not d implies c, c2 claim d and not c implies not b and not b and c3 claim not not b implies not a.
+The premises are: not c and d implies not b and b, c implies not c and not c.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value false
+  - d has value false
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c0 | c3 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (not e))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not d implies c implies e, c1 claim e or d implies not e implies a, c2 claim not an or d and c3 claim not not c or b and e.
+The premises are: d implies b or not b, not not e or not e and not not a.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value false
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c1 | c0 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (not d) (imp c e))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not not an and not c, c1 claim e, c2 claim not d implies not an implies e and c and c3 claim e implies e.
+The premises are: not c, e implies c or not not d and not e.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c1 | c3 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (and (not a) (not c)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim an and not d or not a, c1 claim e or b or not e or not c, c2 claim not not an and not an and c3 claim not c and not e implies c.
+The premises are: not d or b, not b implies e or not e and not e or b or c implies not c.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value false
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c0 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (and a (not d)) (not a))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim d and c and e or c, c1 claim not not c or not a, c2 claim e or b implies an and c3 claim not e and an or not a.
+The premises are: b, an and d implies e implies not c.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value false
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c3 | c1 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(and (not e) (or a (not a)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not e implies b or c, c1 claim d, c2 claim an and not e implies an and an and c3 claim d implies not e or not d and not c.
+The premises are: not b and not an implies a, e or d or an or b and not e or b or a.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value false
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c3 | c0 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(or (imp d (not e)) (and (not d) (not c)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not not d implies not b, c1 claim not e implies e, c2 claim not an implies b and c3 claim not an and b implies an and b.
+The premises are: not e or e or d implies a, not b or b implies d and b.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value false
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c1 | c3 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (not e) e)&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: false,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim b or not e and not b, c1 claim e, c2 claim not e implies not e and c3 claim not e or e and d implies not d.
+The premises are: b and not e or not an implies e, b or b or c implies b and d implies d or not c implies a.
+The structure:
+  - a has value false
+  - b has value true
+  - c has value true
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c2 | c0 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;e&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not c implies not e, c1 claim not c implies not b, c2 claim not c and c and c3 claim not c and not c and e and a.
+The premises are: not d, not an or c and not an or not e or d or a.
+The structure:
+  - a has value false
+  - b has value false
+  - c has value false
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c1 | c0 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (not c) (not b))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: false,
+  &quot;b&quot;: false,
+  &quot;c&quot;: false,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">c0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not not not b, c1 claim not not e or c, c2 claim not an implies c or not b and c3 claim not not e and a.
+The premises are: a, b implies e and d or not e implies e implies not d.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value true
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c3 | c1 | c2 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(not (not (not b)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim not not c implies not e or a, c1 claim not b implies not c, c2 claim d and not c implies b and d and c3 claim not not e.
+The premises are: b or b implies not b, not e and an or a.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value true
+  - d has value false
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c1 | c3 | c2 | c0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp (and d (not c)) (and b d))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: false,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim e implies b or c, c1 claim not e or d, c2 claim c or b and not an implies not b and c3 claim d and not c.
+The premises are: not not e, e and c.
+The structure:
+  - a has value true
+  - b has value false
+  - c has value true
+  - d has value true
+  - e has value true
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c1 | c3 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(and (or c b) (imp (not a) (not b)))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: false,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: true
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The claims are: c0 claim an implies not c, c1 claim an implies not e and a, c2 claim not an and c and c3 claim c implies b or c.
+The premises are: not e and d, b and e or an and b.
+The structure:
+  - a has value true
+  - b has value true
+  - c has value true
+  - d has value true
+  - e has value false
+What is the conjecture for true_in_structure_and_not_implied?
+
+Answer with exactly one of: c0 | c1 | c3 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_claim&quot;: &quot;(imp a (and (not e) a))&quot;,
+ &quot;model&quot;: {
+  &quot;a&quot;: true,
+  &quot;b&quot;: true,
+  &quot;c&quot;: true,
+  &quot;d&quot;: true,
+  &quot;e&quot;: false
+ }
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

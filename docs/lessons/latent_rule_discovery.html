@@ -1,0 +1,2423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>latent_rule_discovery — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#vi">scientific induction and model discovery</a> &rsaquo;
+  latent_rule_discovery</p>
+<h1>#68 <code>latent_rule_discovery</code></h1>
+<p class="lede">infer a hidden law from a trajectory and run it</p>
+<div class="tags"><span class="tag ">level 68</span><span class="tag ">section vi</span><span class="tag ">scientific_induction</span><span class="tag ">program_synthesis</span><span class="tag ">abstraction</span></div>
+<div class="stats">
+<div class="stat"><span class="n">5.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.2</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.075</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>A hidden law runs a world; the trajectory is shown; predict the next state.</p><p>    Half the episodes are an elementary cellular automaton on a ring, half an
+    affine recurrence in a modular arithmetic system. In both, the episode is
+    *rejected* unless every rule consistent with the displayed trajectory agrees
+    on the next state — so the answer is entailed by what the learner sees, not
+    merely by what the generator knows. The previous state is always offered as
+    a distractor, so &quot;predict no change&quot; is available and always wrong.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>discourse_horizon</td><td class='num'>2</td></tr><tr><td>grammar_complexity</td><td class='num'>2</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The dynamics is affine_recurrence.
+The modulus is 13.
+The trajectory so far:
+  - 8
+  - 12
+  - 3
+  - 7
+  - 11
+  - 2
+What is the next state?
+
+Answer with exactly one of: 2 | 4 | 0 | 11 | 6
+Reply with the answer only.</pre><h3>spanish</h3><pre>La dinámica es: affine_recurrence.
+El módulo es 13.
+La trayectoria hasta ahora:
+  - 8
+  - 12
+  - 3
+  - 7
+  - 11
+  - 2
+¿Cuál es el estado siguiente?
+
+Responde exactamente con una de estas opciones: 2 | 4 | 0 | 11 | 6
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>动态规律如下：affine_recurrence。
+模数是13。
+轨迹如下：
+  - 8
+  - 12
+  - 3
+  - 7
+  - 11
+  - 2
+下一个状态是什么？
+
+请从以下选项中选出恰好一个作答：2 | 4 | 0 | 11 | 6
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The dynamics is affine_recurrence.
+The modulus is 13.
+The trajectory so far:
+  - 8
+  - 12
+  - 3
+  - 7
+  - 11
+  - 2
+What is the next state?
+
+Answer with exactly one of: 2 | 4 | 0 | 11 | 6
+Reply with the answer only.</pre><h3>symbols</h3><pre>{dynamics: affine_recurrence, modulus: 13, query: next_state, trajectory: [8 12 3 7 11 2]}
+
+Answer with exactly one of: 2 | 4 | 0 | 11 | 6
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/latent_rule_discovery.jsonl</code> &middot; <code>data/samples/spanish/latent_rule_discovery.jsonl</code> &middot; <code>data/samples/chinese/latent_rule_discovery.jsonl</code> &middot; <code>data/samples/english_synonym/latent_rule_discovery.jsonl</code> &middot; <code>data/samples/symbols/latent_rule_discovery.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 13.
+The trajectory so far:
+  - 8
+  - 12
+  - 3
+  - 7
+  - 11
+  - 2
+What is the next state?
+
+Answer with exactly one of: 2 | 4 | 0 | 11 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 1,
+ &quot;b&quot;: 4,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">101111</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 0, 1, 1, 1, 1)
+  - (0, 1, 1, 1, 1, 1)
+  - (1, 1, 1, 1, 1, 0)
+  - (1, 1, 1, 1, 0, 1)
+  - (1, 1, 1, 0, 1, 1)
+  - (1, 1, 0, 1, 1, 1)
+What is the next state?
+
+Answer with exactly one of: 101111 | 010100 | 000100 | 101011 | 110111
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 16,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 170
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 9.
+The trajectory so far:
+  - 3
+  - 1
+  - 0
+  - 4
+  - 6
+  - 7
+What is the next state?
+
+Answer with exactly one of: 3 | 7 | 2 | 6 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 5,
+ &quot;b&quot;: 4,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">001000</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 1, 0, 0, 1, 1)
+  - (0, 1, 0, 1, 0, 0)
+  - (1, 0, 0, 0, 0, 0)
+  - (0, 0, 0, 0, 0, 1)
+  - (0, 0, 0, 0, 1, 0)
+  - (0, 0, 0, 1, 0, 0)
+What is the next state?
+
+Answer with exactly one of: 000100 | 001000 | 000010 | 000000 | 111001
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 66
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">110000</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 1, 0, 0, 0, 0)
+  - (0, 0, 1, 0, 0, 0)
+  - (0, 0, 1, 1, 0, 0)
+  - (0, 0, 0, 0, 1, 0)
+  - (0, 0, 0, 0, 1, 1)
+  - (1, 0, 0, 0, 0, 0)
+What is the next state?
+
+Answer with exactly one of: 100000 | 010001 | 110000 | 111110 | 010000
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 4,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 52
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 11.
+The trajectory so far:
+  - 7
+  - 8
+  - 6
+  - 10
+  - 2
+  - 7
+What is the next state?
+
+Answer with exactly one of: 7 | 6 | 4 | 8 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 9,
+ &quot;b&quot;: 0,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 11
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 7.
+The trajectory so far:
+  - 2
+  - 0
+  - 6
+  - 2
+  - 0
+  - 6
+What is the next state?
+
+Answer with exactly one of: 1 | 6 | 2 | 4 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 4,
+ &quot;b&quot;: 6,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">100001</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 0, 0, 0, 0, 1)
+  - (0, 0, 0, 0, 1, 1)
+  - (0, 0, 0, 1, 1, 0)
+  - (0, 0, 1, 1, 0, 0)
+  - (0, 1, 1, 0, 0, 0)
+  - (1, 1, 0, 0, 0, 0)
+What is the next state?
+
+Answer with exactly one of: 100001 | 110000 | 101000 | 000001 | 101110
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 8,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 46
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">111100</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 1, 1, 1, 0, 1)
+  - (0, 0, 0, 1, 0, 0)
+  - (1, 1, 0, 0, 1, 1)
+  - (0, 1, 1, 0, 0, 0)
+  - (0, 0, 1, 1, 1, 1)
+  - (1, 0, 0, 0, 0, 1)
+What is the next state?
+
+Answer with exactly one of: 100010 | 111100 | 110000 | 010000 | 100001
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 81
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">101111</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 0, 0, 0, 1, 1)
+  - (0, 1, 1, 1, 1, 1)
+  - (1, 1, 1, 1, 1, 0)
+  - (1, 1, 1, 1, 0, 1)
+  - (1, 1, 1, 0, 1, 1)
+  - (1, 1, 0, 1, 1, 1)
+What is the next state?
+
+Answer with exactly one of: 101011 | 011100 | 001000 | 101111 | 110111
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 2,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 191
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 13.
+The trajectory so far:
+  - 0
+  - 9
+  - 3
+  - 7
+  - 0
+  - 9
+What is the next state?
+
+Answer with exactly one of: 10 | 7 | 3 | 2 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 8,
+ &quot;b&quot;: 9,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">111001</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 1, 1, 0, 0, 1)
+  - (0, 0, 0, 0, 1, 1)
+  - (0, 1, 1, 1, 1, 0)
+  - (1, 1, 0, 0, 0, 0)
+  - (1, 0, 0, 1, 1, 1)
+  - (0, 0, 1, 1, 0, 0)
+What is the next state?
+
+Answer with exactly one of: 111001 | 001100 | 110001 | 101101 | 010110
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 4,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 15
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">000011</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 1, 1, 0, 1)
+  - (1, 0, 0, 1, 1, 1)
+  - (1, 1, 0, 0, 0, 0)
+  - (0, 1, 1, 0, 0, 0)
+  - (0, 0, 1, 1, 0, 0)
+  - (0, 0, 0, 1, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 111000 | 110110 | 000110 | 000011 | 000001
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 116
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">011111</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 1, 1, 1, 0, 1)
+  - (0, 1, 0, 1, 0, 0)
+  - (1, 0, 0, 0, 0, 1)
+  - (1, 0, 1, 1, 1, 1)
+  - (1, 0, 1, 0, 0, 0)
+  - (0, 0, 0, 0, 1, 1)
+What is the next state?
+
+Answer with exactly one of: 011111 | 000011 | 000010 | 000000 | 111101
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 75
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">011110</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 0, 1, 0, 0)
+  - (1, 1, 1, 1, 0, 1)
+  - (1, 1, 1, 0, 0, 1)
+  - (1, 1, 0, 0, 1, 1)
+  - (1, 0, 0, 1, 1, 1)
+  - (0, 0, 1, 1, 1, 1)
+What is the next state?
+
+Answer with exactly one of: 000000 | 110110 | 001111 | 011110 | 011001
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 143
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 7.
+The trajectory so far:
+  - 0
+  - 5
+  - 2
+  - 1
+  - 3
+  - 6
+What is the next state?
+
+Answer with exactly one of: 1 | 3 | 0 | 4 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 5,
+ &quot;b&quot;: 5,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">111101</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 1, 0, 1, 0, 1)
+  - (1, 1, 1, 1, 1, 0)
+  - (0, 1, 1, 1, 1, 1)
+  - (1, 0, 1, 1, 1, 1)
+  - (1, 1, 0, 1, 1, 1)
+  - (1, 1, 1, 0, 1, 1)
+What is the next state?
+
+Answer with exactly one of: 111001 | 110001 | 001110 | 111011 | 111101
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 8,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 246
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 11.
+The trajectory so far:
+  - 2
+  - 5
+  - 1
+  - 10
+  - 9
+  - 3
+What is the next state?
+
+Answer with exactly one of: 0 | 3 | 9 | 4 | 7
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 6,
+ &quot;b&quot;: 4,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 11
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">100110</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 0, 0, 1, 1, 0)
+  - (1, 0, 0, 0, 1, 1)
+  - (1, 0, 1, 0, 0, 1)
+  - (1, 1, 1, 0, 0, 0)
+  - (0, 1, 1, 0, 1, 0)
+  - (0, 0, 1, 1, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 100110 | 101111 | 110100 | 100101 | 001110
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 229
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 7.
+The trajectory so far:
+  - 3
+  - 2
+  - 4
+  - 0
+  - 1
+  - 6
+What is the next state?
+
+Answer with exactly one of: 0 | 6 | 3 | 1 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 5,
+ &quot;b&quot;: 1,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 9.
+The trajectory so far:
+  - 6
+  - 3
+  - 0
+  - 6
+  - 3
+  - 0
+What is the next state?
+
+Answer with exactly one of: 7 | 5 | 6 | 0 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 1,
+ &quot;b&quot;: 6,
+ &quot;consistent_rules&quot;: 3,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">110100</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 1, 0, 1, 0, 0)
+  - (0, 1, 0, 1, 1, 1)
+  - (0, 1, 0, 0, 1, 1)
+  - (0, 1, 1, 1, 0, 1)
+  - (0, 0, 1, 1, 0, 1)
+  - (1, 1, 0, 1, 0, 1)
+What is the next state?
+
+Answer with exactly one of: 110100 | 000101 | 110101 | 011010 | 010001
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 2,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 214
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 9.
+The trajectory so far:
+  - 7
+  - 1
+  - 4
+  - 7
+  - 1
+  - 4
+What is the next state?
+
+Answer with exactly one of: 5 | 3 | 4 | 7 | 8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 4,
+ &quot;b&quot;: 0,
+ &quot;consistent_rules&quot;: 3,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 11.
+The trajectory so far:
+  - 9
+  - 7
+  - 3
+  - 6
+  - 1
+  - 2
+What is the next state?
+
+Answer with exactly one of: 2 | 7 | 4 | 0 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 2,
+ &quot;b&quot;: 0,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 11
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 9.
+The trajectory so far:
+  - 3
+  - 5
+  - 4
+  - 0
+  - 2
+  - 1
+What is the next state?
+
+Answer with exactly one of: 5 | 3 | 1 | 4 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 4,
+ &quot;b&quot;: 2,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">111000</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 0, 0, 1, 1)
+  - (0, 1, 1, 0, 0, 1)
+  - (0, 0, 1, 0, 0, 0)
+  - (1, 0, 0, 0, 1, 1)
+  - (1, 0, 1, 0, 0, 0)
+  - (0, 0, 0, 0, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 000110 | 000010 | 111000 | 111111 | 111110
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 65
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 9.
+The trajectory so far:
+  - 8
+  - 2
+  - 5
+  - 8
+  - 2
+  - 5
+What is the next state?
+
+Answer with exactly one of: 8 | 2 | 6 | 5 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 4,
+ &quot;b&quot;: 6,
+ &quot;consistent_rules&quot;: 3,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 11.
+The trajectory so far:
+  - 1
+  - 8
+  - 10
+  - 9
+  - 4
+  - 1
+What is the next state?
+
+Answer with exactly one of: 0 | 4 | 8 | 10 | 1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 5,
+ &quot;b&quot;: 3,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 11
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">000100</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 0, 1, 1, 0)
+  - (0, 0, 1, 0, 1, 0)
+  - (0, 1, 0, 0, 0, 0)
+  - (1, 0, 0, 0, 0, 0)
+  - (0, 0, 0, 0, 0, 1)
+  - (0, 0, 0, 0, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 111110 | 000110 | 000100 | 000010 | 111101
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 2,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 66
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 13.
+The trajectory so far:
+  - 12
+  - 5
+  - 6
+  - 4
+  - 8
+  - 0
+What is the next state?
+
+Answer with exactly one of: 4 | 3 | 10 | 1 | 0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 11,
+ &quot;b&quot;: 3,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">9</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 13.
+The trajectory so far:
+  - 1
+  - 0
+  - 2
+  - 11
+  - 6
+  - 3
+What is the next state?
+
+Answer with exactly one of: 6 | 5 | 3 | 9 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 11,
+ &quot;b&quot;: 2,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">001100</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 0, 0, 1, 1)
+  - (0, 1, 1, 1, 1, 1)
+  - (0, 1, 0, 0, 0, 1)
+  - (0, 0, 0, 1, 1, 0)
+  - (1, 1, 1, 1, 1, 0)
+  - (1, 0, 0, 0, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 111110 | 100010 | 000101 | 001100 | 100110
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 75
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">100100</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 0, 0, 1, 0, 0)
+  - (0, 0, 1, 0, 0, 1)
+  - (0, 1, 0, 0, 1, 0)
+  - (1, 0, 0, 1, 0, 0)
+  - (0, 0, 1, 0, 0, 1)
+  - (0, 1, 0, 0, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 011011 | 010010 | 110110 | 100100 | 000000
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 32,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 10
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">11</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 13.
+The trajectory so far:
+  - 10
+  - 8
+  - 11
+  - 0
+  - 10
+  - 8
+What is the next state?
+
+Answer with exactly one of: 2 | 9 | 11 | 8 | 12
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 5,
+ &quot;b&quot;: 10,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 7.
+The trajectory so far:
+  - 3
+  - 6
+  - 5
+  - 3
+  - 6
+  - 5
+What is the next state?
+
+Answer with exactly one of: 5 | 6 | 1 | 3 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 2,
+ &quot;b&quot;: 0,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 13.
+The trajectory so far:
+  - 0
+  - 9
+  - 2
+  - 6
+  - 0
+  - 9
+What is the next state?
+
+Answer with exactly one of: 8 | 4 | 9 | 2 | 7
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 5,
+ &quot;b&quot;: 9,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">100001</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 0, 0, 0, 0, 1)
+  - (0, 0, 0, 0, 1, 1)
+  - (0, 0, 0, 1, 1, 0)
+  - (0, 0, 1, 1, 0, 0)
+  - (0, 1, 1, 0, 0, 0)
+  - (1, 1, 0, 0, 0, 0)
+What is the next state?
+
+Answer with exactly one of: 101111 | 100110 | 110000 | 000000 | 100001
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 8,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 10
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 7.
+The trajectory so far:
+  - 6
+  - 0
+  - 5
+  - 2
+  - 1
+  - 3
+What is the next state?
+
+Answer with exactly one of: 2 | 3 | 4 | 6 | 1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 5,
+ &quot;b&quot;: 5,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 11.
+The trajectory so far:
+  - 0
+  - 5
+  - 1
+  - 2
+  - 10
+  - 8
+What is the next state?
+
+Answer with exactly one of: 4 | 1 | 0 | 3 | 8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 8,
+ &quot;b&quot;: 5,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 11
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">101110</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 1, 0, 1, 0)
+  - (0, 1, 1, 1, 1, 1)
+  - (1, 0, 1, 1, 1, 0)
+  - (1, 1, 0, 1, 0, 1)
+  - (1, 0, 1, 1, 1, 0)
+  - (1, 1, 0, 1, 0, 1)
+What is the next state?
+
+Answer with exactly one of: 000100 | 110101 | 101110 | 001011 | 111110
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 182
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">010000</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 1, 0, 0, 1, 1)
+  - (0, 0, 1, 0, 0, 0)
+  - (0, 0, 0, 1, 0, 0)
+  - (0, 0, 0, 0, 1, 0)
+  - (0, 0, 0, 0, 0, 1)
+  - (1, 0, 0, 0, 0, 0)
+What is the next state?
+
+Answer with exactly one of: 001110 | 101111 | 100000 | 011111 | 010000
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 2,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 16
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">011111</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 1, 1, 1, 1, 0)
+  - (1, 0, 0, 0, 1, 1)
+  - (1, 1, 0, 1, 0, 0)
+  - (0, 1, 1, 1, 1, 1)
+  - (1, 0, 0, 0, 0, 1)
+  - (1, 1, 0, 0, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 011111 | 110010 | 101010 | 110110 | 111010
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 118
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 7.
+The trajectory so far:
+  - 0
+  - 3
+  - 4
+  - 2
+  - 6
+  - 5
+What is the next state?
+
+Answer with exactly one of: 5 | 3 | 2 | 0 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 5,
+ &quot;b&quot;: 3,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">110011</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 1, 1, 1, 1, 0)
+  - (1, 1, 0, 0, 0, 1)
+  - (0, 0, 1, 1, 1, 1)
+  - (1, 1, 1, 0, 0, 0)
+  - (1, 0, 0, 1, 1, 1)
+  - (0, 1, 1, 1, 0, 0)
+What is the next state?
+
+Answer with exactly one of: 110011 | 101000 | 011100 | 101111 | 001011
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 4,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 31
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">101101</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 1, 0, 1, 0, 0)
+  - (1, 0, 1, 0, 1, 1)
+  - (0, 1, 0, 1, 1, 0)
+  - (1, 0, 1, 1, 0, 1)
+  - (0, 1, 1, 0, 1, 1)
+  - (1, 1, 0, 1, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 101101 | 110110 | 001001 | 100100 | 010010
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 59
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">010010</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 1, 0, 0, 1, 0)
+  - (1, 0, 0, 1, 0, 0)
+  - (0, 0, 1, 0, 0, 1)
+  - (0, 1, 0, 0, 1, 0)
+  - (1, 0, 0, 1, 0, 0)
+  - (0, 0, 1, 0, 0, 1)
+What is the next state?
+
+Answer with exactly one of: 100100 | 111111 | 000000 | 001001 | 010010
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 32,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 34
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">11</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 13.
+The trajectory so far:
+  - 9
+  - 5
+  - 1
+  - 10
+  - 6
+  - 2
+What is the next state?
+
+Answer with exactly one of: 11 | 2 | 5 | 1 | 12
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 1,
+ &quot;b&quot;: 9,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">100111</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 0, 1, 1, 0)
+  - (0, 0, 1, 0, 1, 1)
+  - (1, 1, 1, 0, 0, 1)
+  - (1, 1, 1, 1, 1, 0)
+  - (0, 1, 1, 1, 1, 0)
+  - (1, 0, 1, 1, 1, 1)
+What is the next state?
+
+Answer with exactly one of: 101111 | 100111 | 111000 | 100000 | 010111
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 214
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 9.
+The trajectory so far:
+  - 3
+  - 5
+  - 6
+  - 2
+  - 0
+  - 8
+What is the next state?
+
+Answer with exactly one of: 2 | 7 | 3 | 8 | 0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 5,
+ &quot;b&quot;: 8,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">010010</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 1, 0, 0, 1, 0)
+  - (1, 0, 1, 1, 0, 1)
+  - (1, 0, 0, 1, 0, 0)
+  - (0, 1, 1, 0, 1, 1)
+  - (0, 0, 1, 0, 0, 1)
+  - (1, 1, 0, 1, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 111111 | 010010 | 110110 | 011011 | 001001
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 4,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 211
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">101101</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 1, 0, 1, 1)
+  - (1, 1, 0, 1, 0, 1)
+  - (0, 1, 1, 0, 1, 0)
+  - (1, 0, 1, 1, 0, 1)
+  - (1, 1, 0, 1, 1, 0)
+  - (0, 1, 1, 0, 1, 1)
+What is the next state?
+
+Answer with exactly one of: 100100 | 011011 | 110110 | 001001 | 101101
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 2,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 114
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">101001</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 1, 1, 1, 1)
+  - (1, 1, 0, 0, 0, 1)
+  - (0, 1, 1, 0, 1, 0)
+  - (1, 0, 1, 0, 0, 1)
+  - (1, 0, 0, 1, 1, 0)
+  - (0, 1, 1, 0, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 011010 | 101001 | 001111 | 011100 | 101110
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 82
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 11.
+The trajectory so far:
+  - 2
+  - 3
+  - 10
+  - 4
+  - 6
+  - 9
+What is the next state?
+
+Answer with exactly one of: 5 | 4 | 9 | 0 | 8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 7,
+ &quot;b&quot;: 0,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 11
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 7.
+The trajectory so far:
+  - 2
+  - 4
+  - 1
+  - 2
+  - 4
+  - 1
+What is the next state?
+
+Answer with exactly one of: 2 | 6 | 4 | 0 | 1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 2,
+ &quot;b&quot;: 0,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">12</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 13.
+The trajectory so far:
+  - 3
+  - 4
+  - 12
+  - 11
+  - 3
+  - 4
+What is the next state?
+
+Answer with exactly one of: 9 | 4 | 5 | 12 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 8,
+ &quot;b&quot;: 6,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">100010</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 0, 0, 0, 1, 0)
+  - (1, 1, 0, 0, 1, 0)
+  - (0, 0, 1, 0, 1, 0)
+  - (0, 0, 1, 0, 1, 1)
+  - (1, 0, 1, 0, 0, 0)
+  - (1, 0, 1, 1, 0, 0)
+What is the next state?
+
+Answer with exactly one of: 111110 | 001101 | 101100 | 101001 | 100010
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 2,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 20
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 7.
+The trajectory so far:
+  - 4
+  - 0
+  - 5
+  - 4
+  - 0
+  - 5
+What is the next state?
+
+Answer with exactly one of: 5 | 6 | 0 | 1 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 4,
+ &quot;b&quot;: 5,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">010001</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 1, 1, 1, 1, 1)
+  - (0, 1, 0, 0, 0, 0)
+  - (0, 0, 0, 1, 1, 1)
+  - (0, 1, 0, 1, 0, 0)
+  - (0, 0, 0, 0, 0, 1)
+  - (0, 1, 1, 1, 0, 0)
+What is the next state?
+
+Answer with exactly one of: 100001 | 011100 | 010001 | 000100 | 111111
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 13.
+The trajectory so far:
+  - 4
+  - 7
+  - 2
+  - 6
+  - 8
+  - 9
+What is the next state?
+
+Answer with exactly one of: 1 | 2 | 9 | 3 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 7,
+ &quot;b&quot;: 5,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">001001</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 1, 0, 0, 1)
+  - (0, 1, 0, 0, 1, 0)
+  - (1, 0, 0, 1, 0, 0)
+  - (0, 0, 1, 0, 0, 1)
+  - (0, 1, 0, 0, 1, 0)
+  - (1, 0, 0, 1, 0, 0)
+What is the next state?
+
+Answer with exactly one of: 110110 | 000000 | 101101 | 001001 | 100100
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 32,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 235
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">011000</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 1, 0, 0, 0)
+  - (1, 1, 1, 0, 1, 1)
+  - (0, 0, 0, 1, 1, 0)
+  - (1, 1, 1, 1, 0, 0)
+  - (1, 0, 0, 0, 0, 1)
+  - (0, 0, 1, 1, 1, 1)
+What is the next state?
+
+Answer with exactly one of: 110001 | 001111 | 000001 | 011000 | 111000
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 47
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">101111</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 1, 1, 0, 1, 1)
+  - (0, 0, 1, 1, 1, 0)
+  - (0, 1, 1, 0, 1, 0)
+  - (1, 1, 1, 1, 1, 0)
+  - (1, 0, 0, 0, 1, 1)
+  - (1, 0, 0, 1, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 100011 | 110101 | 001110 | 101111 | 100110
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 110
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 9.
+The trajectory so far:
+  - 7
+  - 8
+  - 1
+  - 5
+  - 4
+  - 2
+What is the next state?
+
+Answer with exactly one of: 4 | 0 | 5 | 7 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 2,
+ &quot;b&quot;: 3,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">101111</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 0, 1, 0, 0, 0)
+  - (1, 1, 1, 0, 1, 1)
+  - (0, 0, 1, 1, 0, 0)
+  - (1, 1, 0, 1, 0, 1)
+  - (0, 1, 1, 1, 1, 0)
+  - (1, 0, 0, 0, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 111010 | 100010 | 101111 | 000100 | 101010
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 103
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">100110</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 0, 0, 0, 1, 0)
+  - (1, 1, 1, 0, 1, 0)
+  - (0, 1, 1, 0, 1, 0)
+  - (0, 0, 1, 0, 1, 1)
+  - (1, 0, 1, 0, 0, 1)
+  - (1, 0, 1, 1, 0, 0)
+What is the next state?
+
+Answer with exactly one of: 101011 | 101101 | 100110 | 010101 | 101100
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 213
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">110101</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 1, 1, 1, 1, 1)
+  - (0, 0, 1, 1, 1, 0)
+  - (1, 1, 0, 1, 0, 1)
+  - (1, 0, 0, 0, 0, 0)
+  - (0, 1, 1, 1, 1, 1)
+  - (0, 0, 1, 1, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 111001 | 001110 | 110101 | 101100 | 100110
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 147
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">001010</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 1, 0, 1, 0)
+  - (0, 1, 0, 1, 0, 0)
+  - (1, 0, 1, 0, 0, 0)
+  - (0, 1, 0, 0, 0, 1)
+  - (1, 0, 0, 0, 1, 0)
+  - (0, 0, 0, 1, 0, 1)
+What is the next state?
+
+Answer with exactly one of: 001010 | 000101 | 000111 | 010101 | 100000
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 8,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 234
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">000100</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 0, 0, 1, 0, 1)
+  - (0, 0, 1, 1, 0, 0)
+  - (0, 1, 0, 0, 0, 0)
+  - (1, 1, 0, 0, 0, 0)
+  - (0, 0, 0, 0, 0, 1)
+  - (0, 0, 0, 0, 1, 1)
+What is the next state?
+
+Answer with exactly one of: 000011 | 100111 | 000100 | 011010 | 111000
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 2,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 7.
+The trajectory so far:
+  - 1
+  - 2
+  - 0
+  - 4
+  - 3
+  - 5
+What is the next state?
+
+Answer with exactly one of: 5 | 2 | 1 | 0 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 5,
+ &quot;b&quot;: 4,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 7.
+The trajectory so far:
+  - 4
+  - 1
+  - 2
+  - 4
+  - 1
+  - 2
+What is the next state?
+
+Answer with exactly one of: 4 | 2 | 0 | 5 | 1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 2,
+ &quot;b&quot;: 0,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 11.
+The trajectory so far:
+  - 2
+  - 1
+  - 4
+  - 6
+  - 0
+  - 7
+What is the next state?
+
+Answer with exactly one of: 0 | 8 | 2 | 7 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 8,
+ &quot;b&quot;: 7,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 11
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">010100</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 1, 0, 1, 0, 0)
+  - (0, 1, 0, 1, 1, 1)
+  - (0, 1, 0, 0, 0, 1)
+  - (0, 1, 1, 1, 0, 1)
+  - (0, 0, 0, 1, 0, 1)
+  - (1, 1, 0, 1, 0, 1)
+What is the next state?
+
+Answer with exactly one of: 010100 | 000001 | 110101 | 100000 | 111110
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 85
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">000100</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 0, 1, 0, 1)
+  - (0, 0, 1, 0, 0, 0)
+  - (0, 1, 0, 0, 0, 0)
+  - (1, 0, 0, 0, 0, 0)
+  - (0, 0, 0, 0, 0, 1)
+  - (0, 0, 0, 0, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 111101 | 000100 | 000011 | 111001 | 000010
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 8,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 194
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">011011</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 1, 1, 0, 1, 1)
+  - (1, 0, 1, 1, 0, 1)
+  - (1, 1, 0, 1, 1, 0)
+  - (0, 1, 1, 0, 1, 1)
+  - (1, 0, 1, 1, 0, 1)
+  - (1, 1, 0, 1, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 000000 | 101101 | 110110 | 001001 | 011011
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 32,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 245
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 7.
+The trajectory so far:
+  - 6
+  - 4
+  - 5
+  - 1
+  - 3
+  - 2
+What is the next state?
+
+Answer with exactly one of: 0 | 5 | 2 | 4 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 3,
+ &quot;b&quot;: 0,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">011110</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 1, 1, 0, 0, 0)
+  - (0, 0, 1, 1, 1, 1)
+  - (1, 0, 0, 1, 1, 1)
+  - (1, 1, 0, 0, 1, 1)
+  - (1, 1, 1, 0, 0, 1)
+  - (1, 1, 1, 1, 0, 0)
+What is the next state?
+
+Answer with exactly one of: 100101 | 011110 | 100011 | 000111 | 111100
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 4,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 209
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">110011</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 1, 0, 0, 1, 1)
+  - (1, 0, 1, 1, 1, 1)
+  - (0, 0, 1, 1, 1, 1)
+  - (1, 1, 1, 1, 1, 0)
+  - (1, 1, 1, 1, 0, 0)
+  - (1, 1, 1, 0, 1, 1)
+What is the next state?
+
+Answer with exactly one of: 110101 | 001110 | 110011 | 111011 | 001000
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 4,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 154
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 11.
+The trajectory so far:
+  - 3
+  - 4
+  - 8
+  - 2
+  - 0
+  - 3
+What is the next state?
+
+Answer with exactly one of: 0 | 2 | 3 | 4 | 8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 4,
+ &quot;b&quot;: 3,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 11
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 7.
+The trajectory so far:
+  - 5
+  - 6
+  - 2
+  - 4
+  - 3
+  - 0
+What is the next state?
+
+Answer with exactly one of: 5 | 1 | 2 | 0 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 3,
+ &quot;b&quot;: 5,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">001101</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 1, 1, 0, 1)
+  - (0, 1, 1, 0, 0, 1)
+  - (0, 1, 0, 0, 1, 1)
+  - (0, 1, 0, 1, 1, 0)
+  - (1, 1, 0, 1, 0, 0)
+  - (1, 0, 0, 1, 0, 1)
+What is the next state?
+
+Answer with exactly one of: 100101 | 111001 | 101001 | 111110 | 001101
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 4,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 15
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">111101</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 1, 1, 1, 0, 1)
+  - (1, 1, 1, 1, 0, 0)
+  - (0, 1, 1, 1, 1, 1)
+  - (0, 0, 1, 1, 1, 1)
+  - (1, 1, 0, 1, 1, 1)
+  - (1, 1, 0, 0, 1, 1)
+What is the next state?
+
+Answer with exactly one of: 111101 | 110101 | 011100 | 110111 | 110011
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 4,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 215
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 13.
+The trajectory so far:
+  - 8
+  - 4
+  - 6
+  - 5
+  - 12
+  - 2
+What is the next state?
+
+Answer with exactly one of: 12 | 7 | 11 | 2 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 6,
+ &quot;b&quot;: 8,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">011111</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 1, 1, 1, 0, 1)
+  - (1, 0, 1, 1, 1, 1)
+  - (1, 1, 0, 1, 1, 1)
+  - (1, 1, 1, 0, 1, 1)
+  - (1, 1, 1, 1, 0, 1)
+  - (1, 1, 1, 1, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 100000 | 111110 | 011111 | 011100 | 111111
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 8,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 246
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">101000</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 1, 1, 1, 0, 0)
+  - (0, 1, 1, 0, 0, 1)
+  - (1, 0, 0, 0, 1, 0)
+  - (0, 0, 0, 1, 0, 1)
+  - (0, 0, 1, 0, 1, 0)
+  - (0, 1, 0, 1, 0, 0)
+What is the next state?
+
+Answer with exactly one of: 100001 | 011111 | 011110 | 010100 | 101000
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 162
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 7.
+The trajectory so far:
+  - 4
+  - 2
+  - 1
+  - 4
+  - 2
+  - 1
+What is the next state?
+
+Answer with exactly one of: 1 | 4 | 6 | 0 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 4,
+ &quot;b&quot;: 0,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">010010</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 1, 0, 0, 1, 0)
+  - (0, 1, 1, 0, 1, 1)
+  - (0, 0, 1, 0, 0, 1)
+  - (1, 0, 1, 1, 0, 1)
+  - (1, 0, 0, 1, 0, 0)
+  - (1, 1, 0, 1, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 000000 | 101101 | 010010 | 110110 | 001001
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 4,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 213
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 7.
+The trajectory so far:
+  - 4
+  - 2
+  - 0
+  - 5
+  - 3
+  - 1
+What is the next state?
+
+Answer with exactly one of: 1 | 2 | 6 | 0 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 1,
+ &quot;b&quot;: 5,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">100001</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 0, 0, 0, 0, 1)
+  - (0, 0, 0, 0, 1, 0)
+  - (0, 0, 0, 1, 1, 0)
+  - (0, 0, 1, 0, 0, 0)
+  - (0, 1, 1, 0, 0, 0)
+  - (1, 0, 0, 0, 0, 0)
+What is the next state?
+
+Answer with exactly one of: 010001 | 100001 | 011111 | 111111 | 100000
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 4,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 134
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">000011</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 0, 1, 0, 0, 1)
+  - (0, 1, 1, 0, 0, 0)
+  - (0, 0, 0, 0, 1, 1)
+  - (0, 1, 1, 0, 0, 0)
+  - (0, 0, 0, 0, 1, 1)
+  - (0, 1, 1, 0, 0, 0)
+What is the next state?
+
+Answer with exactly one of: 011000 | 000011 | 101111 | 111000 | 100011
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 2,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 165
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">011111</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 1, 1, 1, 0, 0)
+  - (1, 0, 1, 1, 1, 1)
+  - (1, 1, 0, 1, 1, 1)
+  - (1, 1, 1, 0, 1, 1)
+  - (1, 1, 1, 1, 0, 1)
+  - (1, 1, 1, 1, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 011111 | 011101 | 000011 | 111110 | 000010
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 2,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 243
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">111011</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (1, 0, 0, 0, 0, 0)
+  - (1, 1, 0, 0, 0, 1)
+  - (1, 0, 1, 0, 1, 1)
+  - (0, 1, 1, 1, 1, 1)
+  - (1, 1, 1, 1, 1, 0)
+  - (1, 1, 1, 1, 0, 1)
+What is the next state?
+
+Answer with exactly one of: 000111 | 000010 | 111011 | 000110 | 111101
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 190
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">100000</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 1, 1, 1, 1, 1)
+  - (0, 1, 0, 0, 0, 1)
+  - (0, 0, 1, 0, 0, 0)
+  - (0, 0, 0, 1, 0, 0)
+  - (0, 0, 0, 0, 1, 0)
+  - (0, 0, 0, 0, 0, 1)
+What is the next state?
+
+Answer with exactly one of: 100000 | 100010 | 000001 | 000010 | 100011
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 88
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">001011</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 1, 0, 1, 1)
+  - (1, 0, 1, 0, 0, 1)
+  - (1, 0, 1, 1, 0, 0)
+  - (1, 0, 0, 1, 1, 0)
+  - (1, 1, 0, 0, 1, 0)
+  - (0, 1, 1, 0, 1, 0)
+What is the next state?
+
+Answer with exactly one of: 011010 | 110110 | 010101 | 001011 | 000100
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 4,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 84
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 13.
+The trajectory so far:
+  - 5
+  - 9
+  - 10
+  - 7
+  - 3
+  - 2
+What is the next state?
+
+Answer with exactly one of: 6 | 2 | 10 | 5 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 10,
+ &quot;b&quot;: 11,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 7.
+The trajectory so far:
+  - 3
+  - 4
+  - 0
+  - 2
+  - 1
+  - 5
+What is the next state?
+
+Answer with exactly one of: 5 | 3 | 1 | 6 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 3,
+ &quot;b&quot;: 2,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is affine_recurrence.
+The modulus is 7.
+The trajectory so far:
+  - 5
+  - 4
+  - 6
+  - 2
+  - 3
+  - 1
+What is the next state?
+
+Answer with exactly one of: 0 | 6 | 1 | 4 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;a&quot;: 5,
+ &quot;b&quot;: 0,
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;arithmetic_system&quot;,
+ &quot;modulus&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">001000</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 1, 0, 0, 0)
+  - (0, 1, 0, 0, 0, 0)
+  - (1, 0, 0, 0, 0, 0)
+  - (0, 0, 0, 0, 0, 1)
+  - (0, 0, 0, 0, 1, 0)
+  - (0, 0, 0, 1, 0, 0)
+What is the next state?
+
+Answer with exactly one of: 001000 | 110101 | 000100 | 110011 | 111111
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 16,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 202
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">011111</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 0, 0, 1, 1)
+  - (1, 0, 0, 1, 1, 0)
+  - (1, 1, 1, 1, 0, 1)
+  - (1, 1, 1, 0, 1, 1)
+  - (1, 1, 0, 1, 1, 1)
+  - (1, 0, 1, 1, 1, 1)
+What is the next state?
+
+Answer with exactly one of: 100000 | 011000 | 111111 | 011111 | 101111
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 190
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">101011</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 1, 0, 1, 1)
+  - (1, 1, 0, 0, 0, 1)
+  - (1, 1, 1, 0, 1, 0)
+  - (0, 1, 1, 0, 0, 0)
+  - (1, 0, 1, 1, 0, 0)
+  - (0, 0, 0, 1, 1, 1)
+What is the next state?
+
+Answer with exactly one of: 000011 | 101011 | 001110 | 010011 | 000111
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 210
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">010100</span></summary>
+<div class="body">
+<p>prompt</p><pre>The dynamics is synchronous_ring_update.
+The trajectory so far:
+  - (0, 0, 0, 0, 0, 1)
+  - (0, 0, 0, 0, 1, 1)
+  - (0, 0, 0, 1, 0, 1)
+  - (0, 0, 1, 1, 1, 1)
+  - (0, 1, 0, 0, 0, 1)
+  - (1, 1, 0, 0, 1, 1)
+What is the next state?
+
+Answer with exactly one of: 110011 | 011110 | 010010 | 110101 | 010100
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;consistent_rules&quot;: 1,
+ &quot;mode&quot;: &quot;cellular_automaton&quot;,
+ &quot;rule&quot;: 102
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

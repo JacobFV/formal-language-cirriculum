@@ -1,0 +1,3606 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>algorithm_analysis — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#ix">problem formulation and hierarchical agency</a> &rsaquo;
+  algorithm_analysis</p>
+<h1>#114 <code>algorithm_analysis</code></h1>
+<p class="lede">comparing algorithms by exact executed cost</p>
+<div class="tags"><span class="tag ">level 114</span><span class="tag ">section ix</span><span class="tag ">algorithms</span><span class="tag ">computational_cost</span><span class="tag ">simulation</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.335</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Compare candidate algorithms by executing them and counting.</p><p>    Four search procedures run on the same sorted array and target; the cost is
+    the number of comparisons each actually performs, obtained by simulation
+    rather than by asymptotic reasoning — which is the point, since on arrays
+    this size the linear scans routinely beat the logarithmic one and the
+    ranking depends entirely on where the target sits.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>computational_budget</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The algorithms: binary_search algorithm halve_the_interval, jump_search_4 algorithm blocks of 4, forward_scan algorithm scan_from_start and backward_scan algorithm scan_from_end.
+The array:
+  - 3
+  - 14
+  - 17
+  - 20
+  - 23
+  - 25
+  - 26
+  - 27
+  - 31
+  - 32
+  - 33
+  - 38
+  - 49
+  - 57
+Costs: count_element_comparisons.
+The target is 49.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | backward_scan | jump_search_4 | binary_search
+Reply with the answer only.</pre><h3>spanish</h3><pre>Los algoritmos son: binary_search el algoritmo halve_the_interval; jump_search_4 el algoritmo los bloques: 4; forward_scan el algoritmo scan_from_start; backward_scan el algoritmo scan_from_end.
+El arreglo es:
+  - 3
+  - 14
+  - 17
+  - 20
+  - 23
+  - 25
+  - 26
+  - 27
+  - 31
+  - 32
+  - 33
+  - 38
+  - 49
+  - 57
+Costes: count_element_comparisons.
+El objetivo es 49.
+¿Cuál hace menos comparaciones?
+
+Responde exactamente con una de estas opciones: forward_scan | backward_scan | jump_search_4 | binary_search
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>算法如下：binary_search的算法是halve_the_interval；jump_search_4的算法是方块：4；forward_scan的算法是scan_from_start；backward_scan的算法是scan_from_end。
+数组是：
+  - 3
+  - 14
+  - 17
+  - 20
+  - 23
+  - 25
+  - 26
+  - 27
+  - 31
+  - 32
+  - 33
+  - 38
+  - 49
+  - 57
+代价模型如下：count_element_comparisons。
+目标值是49。
+比较次数最少的是哪一个？
+
+请从以下选项中选出恰好一个作答：forward_scan | backward_scan | jump_search_4 | binary_search
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The algorithms: binary_search algorithm halve_the_interval, jump_search_4 algorithm blocks of 4, forward_scan algorithm scan_from_start and backward_scan algorithm scan_from_end.
+The array:
+  - 3
+  - 14
+  - 17
+  - 20
+  - 23
+  - 25
+  - 26
+  - 27
+  - 31
+  - 32
+  - 33
+  - 38
+  - 49
+  - 57
+Costs: count_element_comparisons.
+The target is 49.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | backward_scan | jump_search_4 | binary_search
+Reply with the answer only.</pre><h3>symbols</h3><pre>{algorithms: [(algorithm binary_search halve_the_interval) (algorithm jump_search_4 (blocks_of 4)) (algorithm forward_scan scan_from_start) (algorithm backward_scan scan_from_end)], array: [3 14 17 20 23 25 26 27 31 32 33 38 49 57], cost_model: count_element_comparisons, query: fewest_comparisons, target: 49}
+
+Answer with exactly one of: forward_scan | backward_scan | jump_search_4 | binary_search
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/algorithm_analysis.jsonl</code> &middot; <code>data/samples/spanish/algorithm_analysis.jsonl</code> &middot; <code>data/samples/chinese/algorithm_analysis.jsonl</code> &middot; <code>data/samples/english_synonym/algorithm_analysis.jsonl</code> &middot; <code>data/samples/symbols/algorithm_analysis.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, jump_search_4 algorithm blocks of 4, forward_scan algorithm scan_from_start and backward_scan algorithm scan_from_end.
+The array:
+  - 3
+  - 14
+  - 17
+  - 20
+  - 23
+  - 25
+  - 26
+  - 27
+  - 31
+  - 32
+  - 33
+  - 38
+  - 49
+  - 57
+Costs: count_element_comparisons.
+The target is 49.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | backward_scan | jump_search_4 | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 2,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 13,
+  &quot;jump_search_4&quot;: 5
+ },
+ &quot;target_index&quot;: 12
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">jump_search_3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, jump_search_3 algorithm blocks of 3, forward_scan algorithm scan_from_start and backward_scan algorithm scan_from_end.
+The array:
+  - 5
+  - 8
+  - 17
+  - 32
+  - 37
+  - 49
+  - 52
+  - 55
+  - 56
+Costs: count_element_comparisons.
+The target is 32.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_3 | forward_scan | binary_search | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;jump_search_3&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 6,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 4,
+  &quot;jump_search_3&quot;: 3
+ },
+ &quot;target_index&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, backward_scan algorithm scan_from_end, binary_search algorithm halve_the_interval and jump_search_2 algorithm blocks of 2.
+The array:
+  - 4
+  - 6
+  - 11
+  - 14
+  - 17
+  - 20
+  - 24
+  - 39
+  - 43
+  - 48
+  - 52
+  - 54
+  - 55
+  - 57
+Costs: count_element_comparisons.
+The target is 4.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | binary_search | jump_search_2 | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 14,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_2&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start, jump_search_4 algorithm blocks of 4 and binary_search algorithm halve_the_interval.
+The array:
+  - 5
+  - 9
+  - 24
+  - 31
+  - 35
+  - 38
+  - 39
+  - 41
+  - 59
+Costs: count_element_comparisons.
+The target is 59.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | jump_search_4 | forward_scan | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 1,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 9,
+  &quot;jump_search_4&quot;: 4
+ },
+ &quot;target_index&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, jump_search_3 algorithm blocks of 3, binary_search algorithm halve_the_interval and backward_scan algorithm scan_from_end.
+The array:
+  - 2
+  - 5
+  - 6
+  - 7
+  - 10
+  - 20
+  - 26
+  - 31
+  - 47
+Costs: count_element_comparisons.
+The target is 2.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | jump_search_3 | backward_scan | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 9,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_3&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_4 algorithm blocks of 4, binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end and forward_scan algorithm scan_from_start.
+The array:
+  - 2
+  - 16
+  - 17
+  - 23
+  - 30
+  - 34
+  - 42
+  - 45
+  - 48
+  - 51
+  - 54
+  - 58
+Costs: count_element_comparisons.
+The target is 51.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | backward_scan | jump_search_4 | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 10,
+  &quot;jump_search_4&quot;: 5
+ },
+ &quot;target_index&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, jump_search_2 algorithm blocks of 2, binary_search algorithm halve_the_interval and backward_scan algorithm scan_from_end.
+The array:
+  - 1
+  - 3
+  - 6
+  - 10
+  - 17
+  - 21
+  - 24
+  - 31
+  - 32
+  - 37
+  - 38
+  - 43
+  - 49
+  - 53
+Costs: count_element_comparisons.
+The target is 38.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | binary_search | jump_search_2 | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 4,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 11,
+  &quot;jump_search_2&quot;: 7
+ },
+ &quot;target_index&quot;: 10
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end, jump_search_2 algorithm blocks of 2 and forward_scan algorithm scan_from_start.
+The array:
+  - 4
+  - 5
+  - 7
+  - 10
+  - 24
+  - 26
+  - 35
+  - 38
+  - 42
+  - 53
+Costs: count_element_comparisons.
+The target is 4.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | forward_scan | backward_scan | jump_search_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 10,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_2&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_4 algorithm blocks of 4, binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end and forward_scan algorithm scan_from_start.
+The array:
+  - 3
+  - 6
+  - 9
+  - 13
+  - 16
+  - 24
+  - 25
+  - 46
+  - 57
+Costs: count_element_comparisons.
+The target is 57.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | forward_scan | binary_search | jump_search_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 1,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 9,
+  &quot;jump_search_4&quot;: 4
+ },
+ &quot;target_index&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_2 algorithm blocks of 2, backward_scan algorithm scan_from_end, binary_search algorithm halve_the_interval and forward_scan algorithm scan_from_start.
+The array:
+  - 1
+  - 9
+  - 12
+  - 18
+  - 22
+  - 24
+  - 30
+  - 33
+  - 39
+  - 40
+  - 44
+Costs: count_element_comparisons.
+The target is 39.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | jump_search_2 | forward_scan | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 9,
+  &quot;jump_search_2&quot;: 6
+ },
+ &quot;target_index&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">jump_search_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end, jump_search_4 algorithm blocks of 4 and forward_scan algorithm scan_from_start.
+The array:
+  - 1
+  - 3
+  - 11
+  - 14
+  - 18
+  - 28
+  - 30
+  - 31
+  - 32
+  - 37
+  - 42
+  - 59
+Costs: count_element_comparisons.
+The target is 18.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | jump_search_4 | binary_search | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;jump_search_4&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 8,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 5,
+  &quot;jump_search_4&quot;: 3
+ },
+ &quot;target_index&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_3 algorithm blocks of 3, binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end and forward_scan algorithm scan_from_start.
+The array:
+  - 12
+  - 13
+  - 29
+  - 30
+  - 33
+  - 36
+  - 38
+  - 50
+  - 53
+  - 55
+  - 56
+Costs: count_element_comparisons.
+The target is 12.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_3 | forward_scan | backward_scan | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 11,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_3&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">jump_search_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, jump_search_4 algorithm blocks of 4, binary_search algorithm halve_the_interval and forward_scan algorithm scan_from_start.
+The array:
+  - 1
+  - 10
+  - 18
+  - 23
+  - 24
+  - 25
+  - 31
+  - 34
+  - 43
+  - 58
+  - 59
+Costs: count_element_comparisons.
+The target is 24.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | backward_scan | binary_search | jump_search_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;jump_search_4&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 7,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 5,
+  &quot;jump_search_4&quot;: 3
+ },
+ &quot;target_index&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_2 algorithm blocks of 2, binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start and backward_scan algorithm scan_from_end.
+The array:
+  - 10
+  - 12
+  - 15
+  - 19
+  - 42
+  - 43
+  - 44
+  - 52
+  - 55
+  - 58
+Costs: count_element_comparisons.
+The target is 10.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_2 | binary_search | backward_scan | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 10,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_2&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_3 algorithm blocks of 3, backward_scan algorithm scan_from_end, binary_search algorithm halve_the_interval and forward_scan algorithm scan_from_start.
+The array:
+  - 16
+  - 18
+  - 34
+  - 40
+  - 42
+  - 45
+  - 48
+  - 49
+Costs: count_element_comparisons.
+The target is 45.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | jump_search_3 | binary_search | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 6,
+  &quot;jump_search_3&quot;: 5
+ },
+ &quot;target_index&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, jump_search_2 algorithm blocks of 2, forward_scan algorithm scan_from_start and backward_scan algorithm scan_from_end.
+The array:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 11
+  - 16
+  - 34
+  - 44
+  - 48
+Costs: count_element_comparisons.
+The target is 1.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | binary_search | forward_scan | jump_search_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 9,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_2&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, jump_search_3 algorithm blocks of 3, forward_scan algorithm scan_from_start and backward_scan algorithm scan_from_end.
+The array:
+  - 1
+  - 15
+  - 19
+  - 27
+  - 29
+  - 31
+  - 43
+  - 46
+  - 56
+  - 59
+Costs: count_element_comparisons.
+The target is 46.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_3 | backward_scan | binary_search | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 8,
+  &quot;jump_search_3&quot;: 5
+ },
+ &quot;target_index&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, backward_scan algorithm scan_from_end, binary_search algorithm halve_the_interval and jump_search_2 algorithm blocks of 2.
+The array:
+  - 12
+  - 18
+  - 19
+  - 20
+  - 24
+  - 27
+  - 35
+  - 43
+  - 46
+  - 50
+  - 52
+  - 58
+Costs: count_element_comparisons.
+The target is 50.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | binary_search | jump_search_2 | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 10,
+  &quot;jump_search_2&quot;: 7
+ },
+ &quot;target_index&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start, backward_scan algorithm scan_from_end and jump_search_2 algorithm blocks of 2.
+The array:
+  - 8
+  - 13
+  - 16
+  - 22
+  - 29
+  - 32
+  - 41
+  - 43
+  - 53
+Costs: count_element_comparisons.
+The target is 32.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | backward_scan | jump_search_2 | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 4,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 6,
+  &quot;jump_search_2&quot;: 5
+ },
+ &quot;target_index&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end and jump_search_3 algorithm blocks of 3.
+The array:
+  - 3
+  - 8
+  - 10
+  - 13
+  - 19
+  - 23
+  - 26
+  - 33
+  - 34
+  - 38
+  - 39
+  - 51
+  - 57
+Costs: count_element_comparisons.
+The target is 51.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_3 | forward_scan | binary_search | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 2,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 12,
+  &quot;jump_search_3&quot;: 7
+ },
+ &quot;target_index&quot;: 11
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, binary_search algorithm halve_the_interval, jump_search_3 algorithm blocks of 3 and backward_scan algorithm scan_from_end.
+The array:
+  - 2
+  - 7
+  - 10
+  - 11
+  - 17
+  - 21
+  - 27
+  - 37
+  - 41
+  - 44
+  - 50
+  - 51
+  - 59
+Costs: count_element_comparisons.
+The target is 50.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | backward_scan | binary_search | jump_search_3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 11,
+  &quot;jump_search_3&quot;: 6
+ },
+ &quot;target_index&quot;: 10
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end, jump_search_4 algorithm blocks of 4 and forward_scan algorithm scan_from_start.
+The array:
+  - 14
+  - 19
+  - 27
+  - 31
+  - 41
+  - 45
+  - 51
+  - 54
+  - 59
+Costs: count_element_comparisons.
+The target is 54.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | forward_scan | backward_scan | jump_search_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 2,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 8,
+  &quot;jump_search_4&quot;: 6
+ },
+ &quot;target_index&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_3 algorithm blocks of 3, backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start and binary_search algorithm halve_the_interval.
+The array:
+  - 2
+  - 8
+  - 12
+  - 16
+  - 29
+  - 40
+  - 42
+  - 45
+  - 48
+Costs: count_element_comparisons.
+The target is 45.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | jump_search_3 | forward_scan | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 2,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 8,
+  &quot;jump_search_3&quot;: 5
+ },
+ &quot;target_index&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">jump_search_3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, jump_search_3 algorithm blocks of 3, binary_search algorithm halve_the_interval and backward_scan algorithm scan_from_end.
+The array:
+  - 2
+  - 6
+  - 9
+  - 13
+  - 19
+  - 20
+  - 23
+  - 25
+  - 28
+  - 34
+  - 38
+  - 47
+  - 54
+  - 58
+Costs: count_element_comparisons.
+The target is 13.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | forward_scan | jump_search_3 | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;jump_search_3&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 11,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 4,
+  &quot;jump_search_3&quot;: 3
+ },
+ &quot;target_index&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start, backward_scan algorithm scan_from_end and jump_search_4 algorithm blocks of 4.
+The array:
+  - 6
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 25
+  - 38
+  - 43
+  - 44
+  - 46
+  - 54
+  - 58
+Costs: count_element_comparisons.
+The target is 11.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | jump_search_4 | forward_scan | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 11,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 3,
+  &quot;jump_search_4&quot;: 4
+ },
+ &quot;target_index&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start and jump_search_2 algorithm blocks of 2.
+The array:
+  - 1
+  - 3
+  - 14
+  - 17
+  - 20
+  - 31
+  - 41
+  - 49
+  - 50
+  - 54
+  - 58
+Costs: count_element_comparisons.
+The target is 50.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | jump_search_2 | forward_scan | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 9,
+  &quot;jump_search_2&quot;: 6
+ },
+ &quot;target_index&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start and jump_search_4 algorithm blocks of 4.
+The array:
+  - 3
+  - 4
+  - 9
+  - 13
+  - 14
+  - 28
+  - 31
+  - 35
+  - 39
+  - 43
+  - 49
+  - 50
+  - 59
+Costs: count_element_comparisons.
+The target is 3.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_4 | backward_scan | forward_scan | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 13,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_4&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start and jump_search_2 algorithm blocks of 2.
+The array:
+  - 5
+  - 13
+  - 17
+  - 18
+  - 19
+  - 22
+  - 24
+  - 26
+  - 31
+  - 35
+  - 45
+  - 52
+  - 54
+Costs: count_element_comparisons.
+The target is 45.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | backward_scan | binary_search | jump_search_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 11,
+  &quot;jump_search_2&quot;: 7
+ },
+ &quot;target_index&quot;: 10
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_4 algorithm blocks of 4, binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start and backward_scan algorithm scan_from_end.
+The array:
+  - 9
+  - 12
+  - 15
+  - 35
+  - 39
+  - 46
+  - 48
+  - 58
+Costs: count_element_comparisons.
+The target is 46.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | forward_scan | backward_scan | jump_search_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 6,
+  &quot;jump_search_4&quot;: 4
+ },
+ &quot;target_index&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start, jump_search_2 algorithm blocks of 2 and backward_scan algorithm scan_from_end.
+The array:
+  - 2
+  - 5
+  - 6
+  - 19
+  - 23
+  - 26
+  - 27
+  - 33
+  - 39
+  - 55
+  - 57
+  - 58
+Costs: count_element_comparisons.
+The target is 57.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | forward_scan | binary_search | jump_search_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 2,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 11,
+  &quot;jump_search_2&quot;: 7
+ },
+ &quot;target_index&quot;: 10
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start and jump_search_4 algorithm blocks of 4.
+The array:
+  - 2
+  - 4
+  - 14
+  - 17
+  - 19
+  - 25
+  - 26
+  - 40
+  - 42
+  - 52
+  - 53
+  - 57
+Costs: count_element_comparisons.
+The target is 14.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | forward_scan | jump_search_4 | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 10,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 3,
+  &quot;jump_search_4&quot;: 4
+ },
+ &quot;target_index&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_2 algorithm blocks of 2, binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start and backward_scan algorithm scan_from_end.
+The array:
+  - 3
+  - 8
+  - 9
+  - 10
+  - 26
+  - 31
+  - 44
+  - 49
+Costs: count_element_comparisons.
+The target is 3.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | forward_scan | jump_search_2 | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 8,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_2&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_2 algorithm blocks of 2, backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start and binary_search algorithm halve_the_interval.
+The array:
+  - 2
+  - 10
+  - 14
+  - 16
+  - 20
+  - 32
+  - 45
+  - 47
+Costs: count_element_comparisons.
+The target is 47.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | backward_scan | jump_search_2 | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 1,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 8,
+  &quot;jump_search_2&quot;: 6
+ },
+ &quot;target_index&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start, backward_scan algorithm scan_from_end and jump_search_4 algorithm blocks of 4.
+The array:
+  - 11
+  - 12
+  - 15
+  - 18
+  - 31
+  - 34
+  - 35
+  - 41
+  - 42
+  - 52
+  - 53
+  - 54
+Costs: count_element_comparisons.
+The target is 12.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | jump_search_4 | binary_search | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 11,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 2,
+  &quot;jump_search_4&quot;: 3
+ },
+ &quot;target_index&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_2 algorithm blocks of 2, binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end and forward_scan algorithm scan_from_start.
+The array:
+  - 2
+  - 5
+  - 15
+  - 20
+  - 22
+  - 23
+  - 24
+  - 25
+  - 28
+  - 38
+  - 54
+  - 57
+Costs: count_element_comparisons.
+The target is 2.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | forward_scan | jump_search_2 | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 12,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_2&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, jump_search_4 algorithm blocks of 4, backward_scan algorithm scan_from_end and forward_scan algorithm scan_from_start.
+The array:
+  - 4
+  - 9
+  - 10
+  - 17
+  - 19
+  - 22
+  - 28
+  - 37
+  - 48
+  - 49
+  - 56
+  - 59
+Costs: count_element_comparisons.
+The target is 9.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | binary_search | jump_search_4 | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 11,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 2,
+  &quot;jump_search_4&quot;: 3
+ },
+ &quot;target_index&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end and jump_search_2 algorithm blocks of 2.
+The array:
+  - 1
+  - 2
+  - 4
+  - 6
+  - 12
+  - 19
+  - 33
+  - 41
+  - 51
+  - 52
+Costs: count_element_comparisons.
+The target is 41.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_2 | binary_search | forward_scan | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 8,
+  &quot;jump_search_2&quot;: 6
+ },
+ &quot;target_index&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, jump_search_2 algorithm blocks of 2, backward_scan algorithm scan_from_end and binary_search algorithm halve_the_interval.
+The array:
+  - 3
+  - 6
+  - 24
+  - 29
+  - 33
+  - 34
+  - 39
+  - 40
+  - 41
+  - 43
+  - 48
+  - 53
+  - 54
+Costs: count_element_comparisons.
+The target is 6.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | forward_scan | backward_scan | jump_search_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 12,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 2,
+  &quot;jump_search_2&quot;: 3
+ },
+ &quot;target_index&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, jump_search_2 algorithm blocks of 2, backward_scan algorithm scan_from_end and binary_search algorithm halve_the_interval.
+The array:
+  - 3
+  - 5
+  - 7
+  - 24
+  - 27
+  - 28
+  - 30
+  - 39
+  - 43
+  - 45
+  - 47
+  - 49
+  - 53
+Costs: count_element_comparisons.
+The target is 5.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | jump_search_2 | binary_search | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 12,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 2,
+  &quot;jump_search_2&quot;: 3
+ },
+ &quot;target_index&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start, jump_search_4 algorithm blocks of 4 and binary_search algorithm halve_the_interval.
+The array:
+  - 1
+  - 2
+  - 13
+  - 15
+  - 17
+  - 25
+  - 26
+  - 37
+  - 47
+Costs: count_element_comparisons.
+The target is 26.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | jump_search_4 | binary_search | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 7,
+  &quot;jump_search_4&quot;: 5
+ },
+ &quot;target_index&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, jump_search_3 algorithm blocks of 3, binary_search algorithm halve_the_interval and forward_scan algorithm scan_from_start.
+The array:
+  - 3
+  - 9
+  - 14
+  - 16
+  - 19
+  - 34
+  - 38
+  - 41
+  - 43
+  - 53
+  - 57
+Costs: count_element_comparisons.
+The target is 43.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | jump_search_3 | forward_scan | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 9,
+  &quot;jump_search_3&quot;: 6
+ },
+ &quot;target_index&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, jump_search_4 algorithm blocks of 4, backward_scan algorithm scan_from_end and forward_scan algorithm scan_from_start.
+The array:
+  - 11
+  - 15
+  - 18
+  - 19
+  - 22
+  - 25
+  - 36
+  - 37
+  - 45
+  - 47
+  - 56
+Costs: count_element_comparisons.
+The target is 47.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | jump_search_4 | forward_scan | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 2,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 10,
+  &quot;jump_search_4&quot;: 5
+ },
+ &quot;target_index&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, binary_search algorithm halve_the_interval, jump_search_4 algorithm blocks of 4 and forward_scan algorithm scan_from_start.
+The array:
+  - 2
+  - 6
+  - 7
+  - 8
+  - 9
+  - 15
+  - 16
+  - 18
+  - 35
+  - 44
+  - 48
+  - 52
+  - 57
+Costs: count_element_comparisons.
+The target is 7.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_4 | backward_scan | forward_scan | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 11,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 3,
+  &quot;jump_search_4&quot;: 4
+ },
+ &quot;target_index&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start, binary_search algorithm halve_the_interval and jump_search_2 algorithm blocks of 2.
+The array:
+  - 10
+  - 19
+  - 24
+  - 30
+  - 43
+  - 45
+  - 49
+  - 58
+Costs: count_element_comparisons.
+The target is 45.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | binary_search | forward_scan | jump_search_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 6,
+  &quot;jump_search_2&quot;: 5
+ },
+ &quot;target_index&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end, jump_search_2 algorithm blocks of 2 and forward_scan algorithm scan_from_start.
+The array:
+  - 2
+  - 8
+  - 12
+  - 15
+  - 19
+  - 25
+  - 34
+  - 35
+  - 45
+  - 52
+  - 56
+Costs: count_element_comparisons.
+The target is 2.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | binary_search | forward_scan | jump_search_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 11,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_2&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start, jump_search_2 algorithm blocks of 2 and binary_search algorithm halve_the_interval.
+The array:
+  - 1
+  - 2
+  - 5
+  - 6
+  - 17
+  - 20
+  - 22
+  - 27
+  - 31
+  - 32
+Costs: count_element_comparisons.
+The target is 17.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | binary_search | jump_search_2 | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 6,
+  &quot;binary_search&quot;: 1,
+  &quot;forward_scan&quot;: 5,
+  &quot;jump_search_2&quot;: 4
+ },
+ &quot;target_index&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end, jump_search_4 algorithm blocks of 4 and forward_scan algorithm scan_from_start.
+The array:
+  - 3
+  - 10
+  - 15
+  - 26
+  - 34
+  - 38
+  - 41
+  - 57
+Costs: count_element_comparisons.
+The target is 3.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | forward_scan | jump_search_4 | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 8,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_4&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, binary_search algorithm halve_the_interval, jump_search_4 algorithm blocks of 4 and forward_scan algorithm scan_from_start.
+The array:
+  - 5
+  - 17
+  - 22
+  - 25
+  - 26
+  - 28
+  - 30
+  - 33
+  - 36
+  - 37
+Costs: count_element_comparisons.
+The target is 37.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_4 | backward_scan | binary_search | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 1,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 10,
+  &quot;jump_search_4&quot;: 5
+ },
+ &quot;target_index&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, jump_search_2 algorithm blocks of 2, backward_scan algorithm scan_from_end and forward_scan algorithm scan_from_start.
+The array:
+  - 9
+  - 13
+  - 20
+  - 21
+  - 28
+  - 33
+  - 35
+  - 36
+  - 46
+  - 49
+  - 51
+  - 56
+Costs: count_element_comparisons.
+The target is 56.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_2 | backward_scan | forward_scan | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 1,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 12,
+  &quot;jump_search_2&quot;: 8
+ },
+ &quot;target_index&quot;: 11
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_2 algorithm blocks of 2, backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start and binary_search algorithm halve_the_interval.
+The array:
+  - 8
+  - 21
+  - 23
+  - 27
+  - 33
+  - 36
+  - 49
+  - 52
+Costs: count_element_comparisons.
+The target is 8.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | jump_search_2 | forward_scan | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 8,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_2&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start, jump_search_3 algorithm blocks of 3 and backward_scan algorithm scan_from_end.
+The array:
+  - 6
+  - 16
+  - 18
+  - 22
+  - 24
+  - 31
+  - 35
+  - 41
+  - 45
+  - 50
+  - 55
+Costs: count_element_comparisons.
+The target is 50.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_3 | backward_scan | binary_search | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 2,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 10,
+  &quot;jump_search_3&quot;: 5
+ },
+ &quot;target_index&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">jump_search_3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, jump_search_3 algorithm blocks of 3, backward_scan algorithm scan_from_end and binary_search algorithm halve_the_interval.
+The array:
+  - 11
+  - 15
+  - 16
+  - 17
+  - 33
+  - 36
+  - 53
+  - 54
+  - 57
+Costs: count_element_comparisons.
+The target is 17.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | backward_scan | forward_scan | jump_search_3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;jump_search_3&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 6,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 4,
+  &quot;jump_search_3&quot;: 3
+ },
+ &quot;target_index&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start, binary_search algorithm halve_the_interval and jump_search_3 algorithm blocks of 3.
+The array:
+  - 3
+  - 4
+  - 9
+  - 11
+  - 24
+  - 27
+  - 31
+  - 33
+  - 47
+  - 57
+Costs: count_element_comparisons.
+The target is 27.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_3 | binary_search | forward_scan | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 5,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 6,
+  &quot;jump_search_3&quot;: 5
+ },
+ &quot;target_index&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start, jump_search_4 algorithm blocks of 4 and backward_scan algorithm scan_from_end.
+The array:
+  - 14
+  - 24
+  - 30
+  - 31
+  - 33
+  - 34
+  - 46
+  - 47
+  - 54
+  - 55
+  - 56
+  - 57
+Costs: count_element_comparisons.
+The target is 55.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | backward_scan | jump_search_4 | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 10,
+  &quot;jump_search_4&quot;: 5
+ },
+ &quot;target_index&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_4 algorithm blocks of 4, forward_scan algorithm scan_from_start, binary_search algorithm halve_the_interval and backward_scan algorithm scan_from_end.
+The array:
+  - 15
+  - 20
+  - 22
+  - 25
+  - 29
+  - 31
+  - 32
+  - 36
+  - 59
+Costs: count_element_comparisons.
+The target is 15.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_4 | forward_scan | binary_search | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 9,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_4&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, backward_scan algorithm scan_from_end, binary_search algorithm halve_the_interval and jump_search_3 algorithm blocks of 3.
+The array:
+  - 6
+  - 10
+  - 12
+  - 13
+  - 20
+  - 48
+  - 54
+  - 57
+Costs: count_element_comparisons.
+The target is 57.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | binary_search | forward_scan | jump_search_3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 1,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 8,
+  &quot;jump_search_3&quot;: 5
+ },
+ &quot;target_index&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_2 algorithm blocks of 2, binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start and backward_scan algorithm scan_from_end.
+The array:
+  - 1
+  - 7
+  - 15
+  - 20
+  - 24
+  - 27
+  - 31
+  - 34
+  - 35
+  - 36
+  - 40
+  - 42
+  - 46
+  - 50
+Costs: count_element_comparisons.
+The target is 34.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | jump_search_2 | forward_scan | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 7,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 8,
+  &quot;jump_search_2&quot;: 6
+ },
+ &quot;target_index&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start and jump_search_3 algorithm blocks of 3.
+The array:
+  - 2
+  - 15
+  - 21
+  - 24
+  - 31
+  - 33
+  - 38
+  - 39
+Costs: count_element_comparisons.
+The target is 33.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | jump_search_3 | binary_search | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 6,
+  &quot;jump_search_3&quot;: 5
+ },
+ &quot;target_index&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start, jump_search_3 algorithm blocks of 3 and binary_search algorithm halve_the_interval.
+The array:
+  - 3
+  - 13
+  - 14
+  - 17
+  - 19
+  - 23
+  - 26
+  - 29
+  - 42
+  - 48
+  - 55
+  - 59
+Costs: count_element_comparisons.
+The target is 13.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | jump_search_3 | binary_search | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 11,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 2,
+  &quot;jump_search_3&quot;: 3
+ },
+ &quot;target_index&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end and jump_search_4 algorithm blocks of 4.
+The array:
+  - 2
+  - 6
+  - 9
+  - 20
+  - 30
+  - 42
+  - 44
+  - 46
+  - 56
+Costs: count_element_comparisons.
+The target is 56.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | jump_search_4 | forward_scan | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 1,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 9,
+  &quot;jump_search_4&quot;: 4
+ },
+ &quot;target_index&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start, jump_search_2 algorithm blocks of 2 and backward_scan algorithm scan_from_end.
+The array:
+  - 3
+  - 10
+  - 15
+  - 17
+  - 19
+  - 22
+  - 30
+  - 31
+  - 37
+  - 52
+Costs: count_element_comparisons.
+The target is 3.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_2 | backward_scan | forward_scan | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 10,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_2&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end and jump_search_3 algorithm blocks of 3.
+The array:
+  - 2
+  - 12
+  - 14
+  - 19
+  - 21
+  - 32
+  - 36
+  - 45
+  - 52
+  - 55
+  - 56
+Costs: count_element_comparisons.
+The target is 14.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | backward_scan | jump_search_3 | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 9,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 3,
+  &quot;jump_search_3&quot;: 4
+ },
+ &quot;target_index&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_2 algorithm blocks of 2, binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start and backward_scan algorithm scan_from_end.
+The array:
+  - 5
+  - 11
+  - 12
+  - 16
+  - 20
+  - 23
+  - 30
+  - 33
+  - 43
+  - 51
+  - 53
+  - 59
+Costs: count_element_comparisons.
+The target is 43.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | backward_scan | binary_search | jump_search_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 4,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 9,
+  &quot;jump_search_2&quot;: 6
+ },
+ &quot;target_index&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start, jump_search_2 algorithm blocks of 2 and binary_search algorithm halve_the_interval.
+The array:
+  - 5
+  - 6
+  - 17
+  - 19
+  - 25
+  - 29
+  - 31
+  - 43
+  - 48
+  - 54
+  - 55
+Costs: count_element_comparisons.
+The target is 17.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_2 | backward_scan | forward_scan | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 9,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 3,
+  &quot;jump_search_2&quot;: 3
+ },
+ &quot;target_index&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_2 algorithm blocks of 2, binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end and forward_scan algorithm scan_from_start.
+The array:
+  - 2
+  - 8
+  - 14
+  - 18
+  - 26
+  - 35
+  - 40
+  - 41
+  - 44
+  - 46
+  - 58
+Costs: count_element_comparisons.
+The target is 2.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_2 | backward_scan | forward_scan | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 11,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_2&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">jump_search_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_4 algorithm blocks of 4, backward_scan algorithm scan_from_end, binary_search algorithm halve_the_interval and forward_scan algorithm scan_from_start.
+The array:
+  - 15
+  - 19
+  - 22
+  - 29
+  - 30
+  - 33
+  - 34
+  - 36
+  - 54
+  - 55
+  - 59
+Costs: count_element_comparisons.
+The target is 30.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_4 | binary_search | backward_scan | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;jump_search_4&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 7,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 5,
+  &quot;jump_search_4&quot;: 3
+ },
+ &quot;target_index&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start, jump_search_4 algorithm blocks of 4 and backward_scan algorithm scan_from_end.
+The array:
+  - 16
+  - 17
+  - 19
+  - 20
+  - 28
+  - 29
+  - 51
+  - 56
+Costs: count_element_comparisons.
+The target is 56.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_4 | binary_search | forward_scan | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 1,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 8,
+  &quot;jump_search_4&quot;: 6
+ },
+ &quot;target_index&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_3 algorithm blocks of 3, forward_scan algorithm scan_from_start, binary_search algorithm halve_the_interval and backward_scan algorithm scan_from_end.
+The array:
+  - 8
+  - 18
+  - 27
+  - 28
+  - 30
+  - 39
+  - 50
+  - 57
+Costs: count_element_comparisons.
+The target is 8.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | backward_scan | jump_search_3 | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 8,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_3&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, jump_search_4 algorithm blocks of 4, forward_scan algorithm scan_from_start and binary_search algorithm halve_the_interval.
+The array:
+  - 8
+  - 16
+  - 17
+  - 28
+  - 30
+  - 31
+  - 33
+  - 38
+  - 39
+  - 45
+  - 47
+  - 48
+  - 53
+Costs: count_element_comparisons.
+The target is 45.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_4 | binary_search | forward_scan | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 4,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 10,
+  &quot;jump_search_4&quot;: 5
+ },
+ &quot;target_index&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start and jump_search_4 algorithm blocks of 4.
+The array:
+  - 3
+  - 5
+  - 7
+  - 11
+  - 21
+  - 23
+  - 27
+  - 28
+  - 30
+  - 36
+  - 39
+  - 51
+  - 52
+Costs: count_element_comparisons.
+The target is 28.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | binary_search | backward_scan | jump_search_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 6,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 8,
+  &quot;jump_search_4&quot;: 6
+ },
+ &quot;target_index&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start, backward_scan algorithm scan_from_end and jump_search_4 algorithm blocks of 4.
+The array:
+  - 7
+  - 9
+  - 10
+  - 19
+  - 21
+  - 29
+  - 30
+  - 45
+Costs: count_element_comparisons.
+The target is 7.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | backward_scan | forward_scan | jump_search_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 8,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_4&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_2 algorithm blocks of 2, forward_scan algorithm scan_from_start, binary_search algorithm halve_the_interval and backward_scan algorithm scan_from_end.
+The array:
+  - 1
+  - 10
+  - 13
+  - 17
+  - 33
+  - 40
+  - 49
+  - 52
+  - 53
+  - 55
+Costs: count_element_comparisons.
+The target is 53.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_2 | backward_scan | binary_search | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 2,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 9,
+  &quot;jump_search_2&quot;: 6
+ },
+ &quot;target_index&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, jump_search_3 algorithm blocks of 3, binary_search algorithm halve_the_interval and backward_scan algorithm scan_from_end.
+The array:
+  - 12
+  - 23
+  - 35
+  - 39
+  - 40
+  - 45
+  - 48
+  - 51
+Costs: count_element_comparisons.
+The target is 45.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | backward_scan | jump_search_3 | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 6,
+  &quot;jump_search_3&quot;: 5
+ },
+ &quot;target_index&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end, jump_search_3 algorithm blocks of 3 and forward_scan algorithm scan_from_start.
+The array:
+  - 5
+  - 8
+  - 12
+  - 20
+  - 30
+  - 31
+  - 32
+  - 33
+  - 37
+  - 38
+Costs: count_element_comparisons.
+The target is 31.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | binary_search | backward_scan | jump_search_3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 5,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 6,
+  &quot;jump_search_3&quot;: 5
+ },
+ &quot;target_index&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, binary_search algorithm halve_the_interval, jump_search_4 algorithm blocks of 4 and backward_scan algorithm scan_from_end.
+The array:
+  - 8
+  - 12
+  - 14
+  - 20
+  - 21
+  - 23
+  - 29
+  - 30
+  - 33
+  - 40
+  - 52
+  - 54
+  - 56
+  - 57
+Costs: count_element_comparisons.
+The target is 33.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | jump_search_4 | forward_scan | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 6,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 9,
+  &quot;jump_search_4&quot;: 4
+ },
+ &quot;target_index&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_4 algorithm blocks of 4, backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start and binary_search algorithm halve_the_interval.
+The array:
+  - 3
+  - 28
+  - 30
+  - 31
+  - 33
+  - 38
+  - 43
+  - 44
+  - 47
+  - 50
+  - 52
+Costs: count_element_comparisons.
+The target is 3.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | jump_search_4 | binary_search | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 11,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_4&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">jump_search_3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_3 algorithm blocks of 3, binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end and forward_scan algorithm scan_from_start.
+The array:
+  - 4
+  - 13
+  - 16
+  - 19
+  - 20
+  - 25
+  - 27
+  - 30
+  - 49
+  - 56
+Costs: count_element_comparisons.
+The target is 19.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | backward_scan | jump_search_3 | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;jump_search_3&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 7,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 4,
+  &quot;jump_search_3&quot;: 3
+ },
+ &quot;target_index&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_4 algorithm blocks of 4, backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start and binary_search algorithm halve_the_interval.
+The array:
+  - 8
+  - 10
+  - 13
+  - 16
+  - 17
+  - 19
+  - 21
+  - 31
+  - 36
+  - 40
+  - 50
+  - 53
+  - 56
+  - 57
+Costs: count_element_comparisons.
+The target is 8.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | jump_search_4 | backward_scan | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 14,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_4&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start, binary_search algorithm halve_the_interval and jump_search_2 algorithm blocks of 2.
+The array:
+  - 3
+  - 7
+  - 10
+  - 13
+  - 17
+  - 20
+  - 26
+  - 28
+  - 42
+  - 43
+  - 47
+  - 48
+  - 50
+  - 56
+Costs: count_element_comparisons.
+The target is 7.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_2 | backward_scan | forward_scan | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 13,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 2,
+  &quot;jump_search_2&quot;: 3
+ },
+ &quot;target_index&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, binary_search algorithm halve_the_interval, jump_search_2 algorithm blocks of 2 and forward_scan algorithm scan_from_start.
+The array:
+  - 11
+  - 16
+  - 23
+  - 29
+  - 32
+  - 39
+  - 45
+  - 47
+  - 55
+Costs: count_element_comparisons.
+The target is 55.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | binary_search | forward_scan | jump_search_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 1,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 9,
+  &quot;jump_search_2&quot;: 6
+ },
+ &quot;target_index&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_2 algorithm blocks of 2, forward_scan algorithm scan_from_start, binary_search algorithm halve_the_interval and backward_scan algorithm scan_from_end.
+The array:
+  - 24
+  - 26
+  - 27
+  - 35
+  - 46
+  - 53
+  - 54
+  - 56
+  - 58
+  - 59
+Costs: count_element_comparisons.
+The target is 24.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | forward_scan | backward_scan | jump_search_2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 10,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_2&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, backward_scan algorithm scan_from_end, jump_search_4 algorithm blocks of 4 and binary_search algorithm halve_the_interval.
+The array:
+  - 2
+  - 10
+  - 11
+  - 22
+  - 25
+  - 29
+  - 30
+  - 31
+  - 35
+  - 36
+  - 44
+  - 54
+Costs: count_element_comparisons.
+The target is 44.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | backward_scan | jump_search_4 | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 2,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 11,
+  &quot;jump_search_4&quot;: 6
+ },
+ &quot;target_index&quot;: 10
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_4 algorithm blocks of 4, binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end and forward_scan algorithm scan_from_start.
+The array:
+  - 11
+  - 12
+  - 19
+  - 32
+  - 33
+  - 50
+  - 51
+  - 52
+  - 53
+Costs: count_element_comparisons.
+The target is 33.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | binary_search | jump_search_4 | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 5,
+  &quot;binary_search&quot;: 1,
+  &quot;forward_scan&quot;: 5,
+  &quot;jump_search_4&quot;: 3
+ },
+ &quot;target_index&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, jump_search_2 algorithm blocks of 2, backward_scan algorithm scan_from_end and forward_scan algorithm scan_from_start.
+The array:
+  - 3
+  - 4
+  - 6
+  - 9
+  - 13
+  - 14
+  - 25
+  - 30
+  - 42
+  - 55
+  - 59
+Costs: count_element_comparisons.
+The target is 6.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_2 | backward_scan | binary_search | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 9,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 3,
+  &quot;jump_search_2&quot;: 3
+ },
+ &quot;target_index&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, backward_scan algorithm scan_from_end, jump_search_4 algorithm blocks of 4 and binary_search algorithm halve_the_interval.
+The array:
+  - 1
+  - 3
+  - 13
+  - 19
+  - 21
+  - 24
+  - 30
+  - 32
+  - 34
+  - 36
+  - 43
+  - 50
+  - 56
+Costs: count_element_comparisons.
+The target is 56.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | binary_search | forward_scan | jump_search_4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 1,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 13,
+  &quot;jump_search_4&quot;: 5
+ },
+ &quot;target_index&quot;: 12
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start, binary_search algorithm halve_the_interval and jump_search_3 algorithm blocks of 3.
+The array:
+  - 7
+  - 13
+  - 15
+  - 21
+  - 30
+  - 40
+  - 45
+  - 50
+  - 53
+Costs: count_element_comparisons.
+The target is 45.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | binary_search | forward_scan | jump_search_3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 7,
+  &quot;jump_search_3&quot;: 4
+ },
+ &quot;target_index&quot;: 6
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_4 algorithm blocks of 4, binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end and forward_scan algorithm scan_from_start.
+The array:
+  - 1
+  - 2
+  - 5
+  - 20
+  - 21
+  - 33
+  - 36
+  - 41
+  - 46
+  - 48
+  - 50
+  - 54
+  - 56
+  - 59
+Costs: count_element_comparisons.
+The target is 5.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | jump_search_4 | forward_scan | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 12,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 3,
+  &quot;jump_search_4&quot;: 4
+ },
+ &quot;target_index&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_3 algorithm blocks of 3, backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start and binary_search algorithm halve_the_interval.
+The array:
+  - 7
+  - 13
+  - 18
+  - 35
+  - 48
+  - 49
+  - 53
+  - 54
+  - 57
+Costs: count_element_comparisons.
+The target is 7.
+What is the fewest comparisons?
+
+Answer with exactly one of: forward_scan | binary_search | backward_scan | jump_search_3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 9,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_3&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: backward_scan algorithm scan_from_end, jump_search_3 algorithm blocks of 3, binary_search algorithm halve_the_interval and forward_scan algorithm scan_from_start.
+The array:
+  - 1
+  - 12
+  - 13
+  - 22
+  - 34
+  - 41
+  - 44
+  - 45
+  - 50
+  - 55
+  - 58
+Costs: count_element_comparisons.
+The target is 55.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | forward_scan | jump_search_3 | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 2,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 10,
+  &quot;jump_search_3&quot;: 5
+ },
+ &quot;target_index&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, backward_scan algorithm scan_from_end, jump_search_3 algorithm blocks of 3 and binary_search algorithm halve_the_interval.
+The array:
+  - 5
+  - 9
+  - 10
+  - 17
+  - 23
+  - 39
+  - 46
+  - 50
+Costs: count_element_comparisons.
+The target is 17.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | jump_search_3 | forward_scan | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 5,
+  &quot;binary_search&quot;: 1,
+  &quot;forward_scan&quot;: 4,
+  &quot;jump_search_3&quot;: 3
+ },
+ &quot;target_index&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: forward_scan algorithm scan_from_start, binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end and jump_search_3 algorithm blocks of 3.
+The array:
+  - 6
+  - 20
+  - 23
+  - 31
+  - 37
+  - 38
+  - 41
+  - 43
+  - 46
+Costs: count_element_comparisons.
+The target is 6.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | jump_search_3 | forward_scan | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 9,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_3&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">binary_search</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start, backward_scan algorithm scan_from_end and jump_search_4 algorithm blocks of 4.
+The array:
+  - 11
+  - 12
+  - 26
+  - 30
+  - 38
+  - 44
+  - 51
+  - 57
+Costs: count_element_comparisons.
+The target is 44.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | jump_search_4 | forward_scan | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;binary_search&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 3,
+  &quot;binary_search&quot;: 2,
+  &quot;forward_scan&quot;: 6,
+  &quot;jump_search_4&quot;: 4
+ },
+ &quot;target_index&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">jump_search_4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_4 algorithm blocks of 4, backward_scan algorithm scan_from_end, binary_search algorithm halve_the_interval and forward_scan algorithm scan_from_start.
+The array:
+  - 7
+  - 18
+  - 34
+  - 36
+  - 37
+  - 38
+  - 44
+  - 49
+  - 51
+  - 52
+  - 57
+Costs: count_element_comparisons.
+The target is 37.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | forward_scan | jump_search_4 | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;jump_search_4&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 7,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 5,
+  &quot;jump_search_4&quot;: 3
+ },
+ &quot;target_index&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_4 algorithm blocks of 4, forward_scan algorithm scan_from_start, backward_scan algorithm scan_from_end and binary_search algorithm halve_the_interval.
+The array:
+  - 3
+  - 6
+  - 8
+  - 10
+  - 11
+  - 12
+  - 23
+  - 26
+  - 32
+  - 37
+  - 38
+  - 47
+  - 55
+  - 56
+Costs: count_element_comparisons.
+The target is 3.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | jump_search_4 | forward_scan | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 14,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_4&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start and jump_search_4 algorithm blocks of 4.
+The array:
+  - 2
+  - 8
+  - 12
+  - 18
+  - 20
+  - 24
+  - 28
+  - 32
+  - 44
+  - 53
+  - 54
+  - 55
+Costs: count_element_comparisons.
+The target is 2.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | jump_search_4 | binary_search | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 12,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_4&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_2 algorithm blocks of 2, forward_scan algorithm scan_from_start, binary_search algorithm halve_the_interval and backward_scan algorithm scan_from_end.
+The array:
+  - 1
+  - 2
+  - 6
+  - 9
+  - 18
+  - 32
+  - 33
+  - 35
+  - 39
+  - 41
+  - 48
+  - 51
+  - 54
+  - 59
+Costs: count_element_comparisons.
+The target is 59.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | jump_search_2 | binary_search | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 1,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 14,
+  &quot;jump_search_2&quot;: 9
+ },
+ &quot;target_index&quot;: 13
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_2 algorithm blocks of 2, backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start and binary_search algorithm halve_the_interval.
+The array:
+  - 3
+  - 7
+  - 14
+  - 21
+  - 22
+  - 26
+  - 44
+  - 45
+  - 49
+  - 53
+Costs: count_element_comparisons.
+The target is 53.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | jump_search_2 | binary_search | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 2,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 1,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 10,
+  &quot;jump_search_2&quot;: 7
+ },
+ &quot;target_index&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: jump_search_4 algorithm blocks of 4, forward_scan algorithm scan_from_start, backward_scan algorithm scan_from_end and binary_search algorithm halve_the_interval.
+The array:
+  - 2
+  - 4
+  - 24
+  - 28
+  - 37
+  - 51
+  - 52
+  - 53
+  - 54
+Costs: count_element_comparisons.
+The target is 53.
+What is the fewest comparisons?
+
+Answer with exactly one of: jump_search_4 | binary_search | forward_scan | backward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 2,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 8,
+  &quot;jump_search_4&quot;: 6
+ },
+ &quot;target_index&quot;: 7
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">backward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, forward_scan algorithm scan_from_start, jump_search_4 algorithm blocks of 4 and backward_scan algorithm scan_from_end.
+The array:
+  - 3
+  - 4
+  - 19
+  - 23
+  - 27
+  - 31
+  - 37
+  - 44
+  - 47
+  - 54
+Costs: count_element_comparisons.
+The target is 54.
+What is the fewest comparisons?
+
+Answer with exactly one of: binary_search | jump_search_4 | backward_scan | forward_scan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;backward_scan&quot;,
+ &quot;block&quot;: 4,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 1,
+  &quot;binary_search&quot;: 4,
+  &quot;forward_scan&quot;: 10,
+  &quot;jump_search_4&quot;: 5
+ },
+ &quot;target_index&quot;: 9
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">forward_scan</span></summary>
+<div class="body">
+<p>prompt</p><pre>The algorithms: binary_search algorithm halve_the_interval, backward_scan algorithm scan_from_end, forward_scan algorithm scan_from_start and jump_search_3 algorithm blocks of 3.
+The array:
+  - 6
+  - 9
+  - 12
+  - 13
+  - 15
+  - 16
+  - 17
+  - 25
+  - 39
+  - 47
+  - 49
+Costs: count_element_comparisons.
+The target is 6.
+What is the fewest comparisons?
+
+Answer with exactly one of: backward_scan | forward_scan | jump_search_3 | binary_search
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;forward_scan&quot;,
+ &quot;block&quot;: 3,
+ &quot;costs&quot;: {
+  &quot;backward_scan&quot;: 11,
+  &quot;binary_search&quot;: 3,
+  &quot;forward_scan&quot;: 1,
+  &quot;jump_search_3&quot;: 2
+ },
+ &quot;target_index&quot;: 0
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

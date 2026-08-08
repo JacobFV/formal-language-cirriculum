@@ -1,0 +1,2170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>predicate_logic — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#ii">compositional semantics and logical language</a> &rsaquo;
+  predicate_logic</p>
+<h1>#12 <code>predicate_logic</code></h1>
+<p class="lede">facts + rules -&gt; derived bindings</p>
+<div class="tags"><span class="tag ">level 12</span><span class="tag ">section ii</span><span class="tag ">proof_search</span><span class="tag ">variable_binding</span><span class="tag ">abstraction</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.215</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Facts + universal rules; answer the *binding* that satisfies the goal.</p><p>    A two-step chain ``p(X) -&gt; m(X)``, ``m(X) -&gt; g(X)`` is asserted for exactly
+    one entity, and decoy rules fire for the others, so neither &quot;the entity with
+    a fact&quot; nor &quot;the entity named in a rule&quot; is the answer.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>3</td></tr><tr><td>world_complexity</td><td class='num'>2</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The entities are: Dave, Frank, Alice and Bob.
+You know these facts: Bob is an insect, Dave is an insect, Alice is a fungus and Frank is a mammal.
+The rules are: swims implies glows, mammal implies swims and insect implies floats.
+Who glows?
+
+Answer with exactly one of: Frank | Bob | Dave | Alice
+Reply with the answer only.</pre><h3>spanish</h3><pre>Las entidades son: David, Francisco, Alicia y Roberto.
+Se conocen estos hechos: Roberto es un insecto, David es un insecto, Alicia es un hongo y Francisco es un mamífero.
+Las reglas son: nadar implica brillar, mamífero implica nadar e insecto implica flotar.
+¿Quién brilla?
+
+Responde exactamente con una de estas opciones: Francisco | Roberto | David | Alicia
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>实体如下：戴夫、弗兰克、爱丽丝和鲍勃。
+事实如下：鲍勃是一只昆虫；戴夫是一只昆虫；爱丽丝是一种真菌；弗兰克是一只哺乳动物。
+规则如下：游泳蕴含发光；哺乳动物蕴含游泳；昆虫蕴含漂浮。
+谁发光？
+
+请从以下选项中选出恰好一个作答：弗兰克 | 鲍勃 | 戴夫 | 爱丽丝
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The entities are: Dave, Frank, Alice and Bob.
+You know these facts: Bob is an insect, Dave is an insect, Alice is a fungus and Frank is a mammal.
+The rules are: swims implies glows, mammal implies swims and insect implies floats.
+Who glows?
+
+Answer with exactly one of: Frank | Bob | Dave | Alice
+Reply with the answer only.</pre><h3>symbols</h3><pre>{entities: [dave frank alice bob], facts: [(fact insect bob) (fact insect dave) (fact fungus alice) (fact mammal frank)], query: (who glows), rules: [(rule swims glows) (rule mammal swims) (rule insect floats)]}
+
+Answer with exactly one of: frank | bob | dave | alice
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/predicate_logic.jsonl</code> &middot; <code>data/samples/spanish/predicate_logic.jsonl</code> &middot; <code>data/samples/chinese/predicate_logic.jsonl</code> &middot; <code>data/samples/english_synonym/predicate_logic.jsonl</code> &middot; <code>data/samples/symbols/predicate_logic.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Frank, Alice and Bob.
+You know these facts: Bob is an insect, Dave is an insect, Alice is a fungus and Frank is a mammal.
+The rules are: swims implies glows, mammal implies swims and insect implies floats.
+Who glows?
+
+Answer with exactly one of: Frank | Bob | Dave | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;mammal&quot;,
+  &quot;swims&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Erin, Alice and Frank.
+You know these facts: Erin is a mammal, Bob is a bird, Alice is an insect and Frank is a mammal.
+The rules are: bird implies glows, glows implies floats and insect implies flies.
+Who floats?
+
+Answer with exactly one of: Erin | Bob | Frank | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;bird&quot;,
+  &quot;glows&quot;,
+  &quot;floats&quot;
+ ],
+ &quot;goal&quot;: &quot;floats&quot;,
+ &quot;target&quot;: &quot;bob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Alice, Frank, Erin and Bob.
+You know these facts: Frank is a fish, Alice is a mammal, Erin is a mammal and Bob is a mammal.
+The rules are: hums implies flies, robot implies warm and fish implies hums.
+Who flies?
+
+Answer with exactly one of: Alice | Bob | Frank | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;hums&quot;,
+  &quot;flies&quot;
+ ],
+ &quot;goal&quot;: &quot;flies&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Erin, Frank and Dave.
+You know these facts: Erin is an insect, Frank is a mammal, Bob is an insect and Dave is a bird.
+The rules are: hums implies warm, insect implies glows and mammal implies hums.
+Who warm?
+
+Answer with exactly one of: Erin | Bob | Frank | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;mammal&quot;,
+  &quot;hums&quot;,
+  &quot;warm&quot;
+ ],
+ &quot;goal&quot;: &quot;warm&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Carol, Alice and Erin.
+You know these facts: Alice is a fungus, Erin is an insect, Bob is a fish and Carol is a fungus.
+The rules are: fungus implies hums, warm implies floats and insect implies warm.
+Who floats?
+
+Answer with exactly one of: Alice | Erin | Bob | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;insect&quot;,
+  &quot;warm&quot;,
+  &quot;floats&quot;
+ ],
+ &quot;goal&quot;: &quot;floats&quot;,
+ &quot;target&quot;: &quot;erin&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Carol, Frank and Dave.
+You know these facts: Frank is a bird, Carol is a fungus, Dave is a bird and Erin is a mammal.
+The rules are: glows implies flies, fungus implies glows and mammal implies warm.
+Who flies?
+
+Answer with exactly one of: Carol | Dave | Frank | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fungus&quot;,
+  &quot;glows&quot;,
+  &quot;flies&quot;
+ ],
+ &quot;goal&quot;: &quot;flies&quot;,
+ &quot;target&quot;: &quot;carol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Alice, Dave and Bob.
+You know these facts: Alice is a fungus, Erin is a fish, Dave is a bird and Bob is a fish.
+The rules are: floats implies hums, bird implies floats and fungus implies glows.
+Who hums?
+
+Answer with exactly one of: Erin | Bob | Dave | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;bird&quot;,
+  &quot;floats&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Carol, Bob, Dave and Frank.
+You know these facts: Carol is a fungus, Dave is a fungus, Bob is a bird and Frank is a mammal.
+The rules are: fungus implies warm, swims implies hums and bird implies swims.
+Who hums?
+
+Answer with exactly one of: Bob | Frank | Dave | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;bird&quot;,
+  &quot;swims&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;bob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Carol, Dave and Alice.
+You know these facts: Alice is a fish, Carol is a mammal, Bob is a bird and Dave is a mammal.
+The rules are: flies implies floats, fish implies flies and bird implies hums.
+Who floats?
+
+Answer with exactly one of: Dave | Carol | Bob | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;flies&quot;,
+  &quot;floats&quot;
+ ],
+ &quot;goal&quot;: &quot;floats&quot;,
+ &quot;target&quot;: &quot;alice&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Erin, Carol and Bob.
+You know these facts: Dave is a fish, Bob is a bird, Carol is a fungus and Erin is a bird.
+The rules are: fish implies swims, swims implies hums and fungus implies glows.
+Who hums?
+
+Answer with exactly one of: Bob | Carol | Dave | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;swims&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Alice, Dave and Bob.
+You know these facts: Dave is a fish, Erin is a bird, Bob is a fish and Alice is a mammal.
+The rules are: bird implies swims, glows implies floats and mammal implies glows.
+Who floats?
+
+Answer with exactly one of: Erin | Bob | Dave | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;mammal&quot;,
+  &quot;glows&quot;,
+  &quot;floats&quot;
+ ],
+ &quot;goal&quot;: &quot;floats&quot;,
+ &quot;target&quot;: &quot;alice&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Erin, Frank and Bob.
+You know these facts: Bob is a fish, Frank is a fish, Erin is a mammal and Dave is a fungus.
+The rules are: mammal implies flies, flies implies hums and fungus implies glows.
+Who hums?
+
+Answer with exactly one of: Erin | Dave | Frank | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;mammal&quot;,
+  &quot;flies&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;erin&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Carol, Erin and Alice.
+You know these facts: Alice is a robot, Dave is a bird, Carol is an insect and Erin is a bird.
+The rules are: glows implies swims, bird implies floats and insect implies glows.
+Who swims?
+
+Answer with exactly one of: Erin | Alice | Dave | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;insect&quot;,
+  &quot;glows&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;carol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Carol, Frank, Bob and Erin.
+You know these facts: Frank is a fungus, Bob is a mammal, Carol is a fish and Erin is a fungus.
+The rules are: fungus implies hums, fish implies floats and floats implies flies.
+Who flies?
+
+Answer with exactly one of: Erin | Bob | Frank | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;floats&quot;,
+  &quot;flies&quot;
+ ],
+ &quot;goal&quot;: &quot;flies&quot;,
+ &quot;target&quot;: &quot;carol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Alice, Erin, Bob and Dave.
+You know these facts: Erin is a mammal, Dave is a mammal, Alice is a mammal and Bob is a fungus.
+The rules are: fungus implies floats, robot implies glows and floats implies warm.
+Who warm?
+
+Answer with exactly one of: Dave | Alice | Erin | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fungus&quot;,
+  &quot;floats&quot;,
+  &quot;warm&quot;
+ ],
+ &quot;goal&quot;: &quot;warm&quot;,
+ &quot;target&quot;: &quot;bob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Alice, Erin and Dave.
+You know these facts: Alice is a fish, Dave is a mammal, Bob is a bird and Erin is a mammal.
+The rules are: fish implies floats, bird implies swims and floats implies flies.
+Who flies?
+
+Answer with exactly one of: Erin | Dave | Bob | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;floats&quot;,
+  &quot;flies&quot;
+ ],
+ &quot;goal&quot;: &quot;flies&quot;,
+ &quot;target&quot;: &quot;alice&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Carol, Dave, Erin and Bob.
+You know these facts: Bob is a fungus, Dave is an insect, Carol is a fish and Erin is a fish.
+The rules are: insect implies warm, warm implies glows and fish implies swims.
+Who glows?
+
+Answer with exactly one of: Erin | Dave | Bob | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;insect&quot;,
+  &quot;warm&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Dave, Carol and Bob.
+You know these facts: Erin is a fungus, Dave is a fungus, Bob is a robot and Carol is a fungus.
+The rules are: warm implies floats, fish implies flies and robot implies warm.
+Who floats?
+
+Answer with exactly one of: Bob | Erin | Carol | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;robot&quot;,
+  &quot;warm&quot;,
+  &quot;floats&quot;
+ ],
+ &quot;goal&quot;: &quot;floats&quot;,
+ &quot;target&quot;: &quot;bob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Alice, Dave and Frank.
+You know these facts: Alice is an insect, Frank is a fish, Dave is an insect and Bob is an insect.
+The rules are: fungus implies flies, fish implies floats and floats implies glows.
+Who glows?
+
+Answer with exactly one of: Frank | Dave | Bob | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;floats&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Frank, Alice, Erin and Carol.
+You know these facts: Carol is a robot, Erin is a fish, Frank is an insect and Alice is a robot.
+The rules are: fish implies hums, insect implies flies and hums implies swims.
+Who swims?
+
+Answer with exactly one of: Alice | Carol | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;hums&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;erin&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Frank, Bob, Carol and Dave.
+You know these facts: Dave is a fungus, Bob is a bird, Carol is a bird and Frank is a robot.
+The rules are: fungus implies hums, hums implies flies and bird implies warm.
+Who flies?
+
+Answer with exactly one of: Bob | Carol | Frank | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fungus&quot;,
+  &quot;hums&quot;,
+  &quot;flies&quot;
+ ],
+ &quot;goal&quot;: &quot;flies&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Dave, Erin and Carol.
+You know these facts: Bob is an insect, Erin is an insect, Dave is a robot and Carol is a fish.
+The rules are: glows implies hums, insect implies flies and robot implies glows.
+Who hums?
+
+Answer with exactly one of: Carol | Erin | Dave | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;robot&quot;,
+  &quot;glows&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Frank, Alice and Carol.
+You know these facts: Frank is an insect, Carol is a bird, Alice is a fish and Bob is a bird.
+The rules are: floats implies swims, insect implies floats and fish implies warm.
+Who swims?
+
+Answer with exactly one of: Carol | Frank | Alice | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;insect&quot;,
+  &quot;floats&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Carol, Alice, Erin and Frank.
+You know these facts: Alice is a robot, Frank is an insect, Erin is a mammal and Carol is a mammal.
+The rules are: hums implies swims, insect implies flies and robot implies hums.
+Who swims?
+
+Answer with exactly one of: Frank | Alice | Erin | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;robot&quot;,
+  &quot;hums&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;alice&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Frank, Dave, Bob and Alice.
+You know these facts: Frank is a fungus, Dave is a mammal, Alice is a mammal and Bob is a fish.
+The rules are: fish implies floats, fungus implies flies and floats implies warm.
+Who warm?
+
+Answer with exactly one of: Alice | Frank | Dave | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;floats&quot;,
+  &quot;warm&quot;
+ ],
+ &quot;goal&quot;: &quot;warm&quot;,
+ &quot;target&quot;: &quot;bob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Alice, Bob and Frank.
+You know these facts: Bob is an insect, Dave is an insect, Frank is a fungus and Alice is an insect.
+The rules are: fungus implies swims, swims implies warm and insect implies floats.
+Who warm?
+
+Answer with exactly one of: Alice | Frank | Bob | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fungus&quot;,
+  &quot;swims&quot;,
+  &quot;warm&quot;
+ ],
+ &quot;goal&quot;: &quot;warm&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Frank, Bob, Erin and Dave.
+You know these facts: Dave is a bird, Bob is a mammal, Erin is a fungus and Frank is a bird.
+The rules are: flies implies glows, mammal implies flies and fungus implies warm.
+Who glows?
+
+Answer with exactly one of: Dave | Erin | Frank | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;mammal&quot;,
+  &quot;flies&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;bob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Frank, Dave, Carol and Bob.
+You know these facts: Dave is a mammal, Bob is a bird, Carol is a fish and Frank is a mammal.
+The rules are: swims implies hums, bird implies floats and fish implies swims.
+Who hums?
+
+Answer with exactly one of: Carol | Frank | Dave | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;swims&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;carol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Alice, Bob, Erin and Frank.
+You know these facts: Bob is an insect, Erin is an insect, Frank is a fish and Alice is an insect.
+The rules are: flies implies floats, insect implies hums and fish implies flies.
+Who floats?
+
+Answer with exactly one of: Frank | Erin | Bob | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;flies&quot;,
+  &quot;floats&quot;
+ ],
+ &quot;goal&quot;: &quot;floats&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Alice, Carol and Dave.
+You know these facts: Erin is a robot, Dave is a mammal, Alice is a robot and Carol is a robot.
+The rules are: robot implies glows, mammal implies hums and hums implies swims.
+Who swims?
+
+Answer with exactly one of: Erin | Carol | Alice | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;mammal&quot;,
+  &quot;hums&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Carol, Alice and Frank.
+You know these facts: Frank is a fish, Alice is a robot, Carol is a fungus and Erin is a fish.
+The rules are: fish implies hums, warm implies glows and fungus implies warm.
+Who glows?
+
+Answer with exactly one of: Carol | Erin | Frank | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fungus&quot;,
+  &quot;warm&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;carol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Alice, Dave, Frank and Bob.
+You know these facts: Frank is a bird, Bob is a bird, Dave is a fish and Alice is a bird.
+The rules are: fish implies warm, warm implies hums and bird implies flies.
+Who hums?
+
+Answer with exactly one of: Bob | Alice | Frank | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;warm&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Alice, Bob, Erin and Dave.
+You know these facts: Alice is an insect, Erin is a fungus, Dave is an insect and Bob is a fish.
+The rules are: warm implies floats, fungus implies warm and fish implies hums.
+Who floats?
+
+Answer with exactly one of: Erin | Dave | Bob | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fungus&quot;,
+  &quot;warm&quot;,
+  &quot;floats&quot;
+ ],
+ &quot;goal&quot;: &quot;floats&quot;,
+ &quot;target&quot;: &quot;erin&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Bob, Frank and Dave.
+You know these facts: Dave is an insect, Frank is a mammal, Erin is a fish and Bob is a fish.
+The rules are: insect implies floats, floats implies hums and mammal implies swims.
+Who hums?
+
+Answer with exactly one of: Dave | Bob | Frank | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;insect&quot;,
+  &quot;floats&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Carol, Alice and Dave.
+You know these facts: Dave is an insect, Alice is a bird, Erin is an insect and Carol is an insect.
+The rules are: warm implies glows, insect implies swims and bird implies warm.
+Who glows?
+
+Answer with exactly one of: Dave | Alice | Carol | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;bird&quot;,
+  &quot;warm&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;alice&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Carol, Bob and Frank.
+You know these facts: Erin is a fungus, Frank is a fungus, Carol is a fish and Bob is a robot.
+The rules are: fish implies warm, glows implies swims and robot implies glows.
+Who swims?
+
+Answer with exactly one of: Carol | Erin | Frank | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;robot&quot;,
+  &quot;glows&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;bob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Carol, Alice, Erin and Bob.
+You know these facts: Erin is a bird, Alice is a fungus, Carol is a fish and Bob is a fish.
+The rules are: fungus implies glows, bird implies flies and flies implies swims.
+Who swims?
+
+Answer with exactly one of: Alice | Erin | Carol | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;bird&quot;,
+  &quot;flies&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;erin&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Frank, Erin, Alice and Carol.
+You know these facts: Alice is a bird, Frank is a fungus, Erin is a bird and Carol is a bird.
+The rules are: floats implies swims, mammal implies glows and fungus implies floats.
+Who swims?
+
+Answer with exactly one of: Alice | Erin | Frank | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fungus&quot;,
+  &quot;floats&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Frank, Dave, Erin and Carol.
+You know these facts: Frank is a bird, Dave is a fungus, Carol is a robot and Erin is a robot.
+The rules are: bird implies floats, floats implies glows and fungus implies swims.
+Who glows?
+
+Answer with exactly one of: Frank | Dave | Erin | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;bird&quot;,
+  &quot;floats&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Carol, Dave and Alice.
+You know these facts: Bob is an insect, Dave is a fish, Alice is a fungus and Carol is a fungus.
+The rules are: fungus implies warm, fish implies floats and floats implies hums.
+Who hums?
+
+Answer with exactly one of: Alice | Dave | Carol | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;floats&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Erin, Alice and Frank.
+You know these facts: Erin is a fish, Alice is a fish, Dave is a robot and Frank is a fish.
+The rules are: robot implies swims, swims implies floats and fish implies glows.
+Who floats?
+
+Answer with exactly one of: Frank | Alice | Erin | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;robot&quot;,
+  &quot;swims&quot;,
+  &quot;floats&quot;
+ ],
+ &quot;goal&quot;: &quot;floats&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Carol, Bob and Alice.
+You know these facts: Bob is a mammal, Alice is a robot, Dave is an insect and Carol is a mammal.
+The rules are: mammal implies glows, hums implies swims and insect implies hums.
+Who swims?
+
+Answer with exactly one of: Carol | Bob | Alice | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;insect&quot;,
+  &quot;hums&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Frank, Alice, Erin and Carol.
+You know these facts: Erin is a fish, Alice is a fish, Carol is a robot and Frank is a fish.
+The rules are: flies implies warm, robot implies flies and fish implies hums.
+Who warm?
+
+Answer with exactly one of: Erin | Alice | Frank | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;robot&quot;,
+  &quot;flies&quot;,
+  &quot;warm&quot;
+ ],
+ &quot;goal&quot;: &quot;warm&quot;,
+ &quot;target&quot;: &quot;carol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Alice, Carol, Bob and Dave.
+You know these facts: Bob is an insect, Carol is an insect, Dave is a robot and Alice is an insect.
+The rules are: bird implies warm, hums implies glows and robot implies hums.
+Who glows?
+
+Answer with exactly one of: Dave | Bob | Alice | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;robot&quot;,
+  &quot;hums&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Erin, Alice and Frank.
+You know these facts: Dave is an insect, Erin is a fish, Alice is a fish and Frank is a robot.
+The rules are: insect implies warm, warm implies flies and fish implies floats.
+Who flies?
+
+Answer with exactly one of: Frank | Erin | Dave | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;insect&quot;,
+  &quot;warm&quot;,
+  &quot;flies&quot;
+ ],
+ &quot;goal&quot;: &quot;flies&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Carol, Dave, Erin and Bob.
+You know these facts: Dave is a robot, Carol is a bird, Bob is a robot and Erin is a mammal.
+The rules are: warm implies floats, bird implies warm and robot implies glows.
+Who floats?
+
+Answer with exactly one of: Erin | Carol | Bob | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;bird&quot;,
+  &quot;warm&quot;,
+  &quot;floats&quot;
+ ],
+ &quot;goal&quot;: &quot;floats&quot;,
+ &quot;target&quot;: &quot;carol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Alice, Dave, Frank and Carol.
+You know these facts: Frank is a fungus, Dave is a fish, Carol is a fish and Alice is a mammal.
+The rules are: mammal implies hums, hums implies floats and fish implies warm.
+Who floats?
+
+Answer with exactly one of: Carol | Frank | Dave | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;mammal&quot;,
+  &quot;hums&quot;,
+  &quot;floats&quot;
+ ],
+ &quot;goal&quot;: &quot;floats&quot;,
+ &quot;target&quot;: &quot;alice&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Carol, Alice, Dave and Frank.
+You know these facts: Alice is a robot, Carol is a mammal, Dave is a mammal and Frank is an insect.
+The rules are: mammal implies glows, insect implies swims and swims implies hums.
+Who hums?
+
+Answer with exactly one of: Carol | Alice | Frank | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;insect&quot;,
+  &quot;swims&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Carol, Bob and Frank.
+You know these facts: Frank is a robot, Bob is a mammal, Carol is a fungus and Erin is a mammal.
+The rules are: mammal implies glows, fungus implies hums and hums implies flies.
+Who flies?
+
+Answer with exactly one of: Bob | Carol | Frank | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fungus&quot;,
+  &quot;hums&quot;,
+  &quot;flies&quot;
+ ],
+ &quot;goal&quot;: &quot;flies&quot;,
+ &quot;target&quot;: &quot;carol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Alice, Carol, Dave and Frank.
+You know these facts: Carol is a robot, Alice is a bird, Frank is a mammal and Dave is a mammal.
+The rules are: mammal implies swims, robot implies floats and floats implies warm.
+Who warm?
+
+Answer with exactly one of: Frank | Alice | Dave | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;robot&quot;,
+  &quot;floats&quot;,
+  &quot;warm&quot;
+ ],
+ &quot;goal&quot;: &quot;warm&quot;,
+ &quot;target&quot;: &quot;carol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Carol, Erin and Frank.
+You know these facts: Frank is a robot, Erin is an insect, Dave is an insect and Carol is a fish.
+The rules are: warm implies hums, insect implies swims and fish implies warm.
+Who hums?
+
+Answer with exactly one of: Frank | Erin | Carol | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;warm&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;carol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Erin, Frank and Alice.
+You know these facts: Bob is a robot, Frank is a fish, Erin is a robot and Alice is a robot.
+The rules are: glows implies hums, mammal implies floats and fish implies glows.
+Who hums?
+
+Answer with exactly one of: Alice | Erin | Bob | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;glows&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Carol, Alice, Dave and Bob.
+You know these facts: Alice is a bird, Dave is an insect, Carol is a fish and Bob is a bird.
+The rules are: flies implies glows, bird implies floats and insect implies flies.
+Who glows?
+
+Answer with exactly one of: Dave | Bob | Carol | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;insect&quot;,
+  &quot;flies&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Bob, Dave and Carol.
+You know these facts: Bob is an insect, Erin is a fungus, Carol is an insect and Dave is a robot.
+The rules are: floats implies glows, insect implies warm and fungus implies floats.
+Who glows?
+
+Answer with exactly one of: Carol | Bob | Erin | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fungus&quot;,
+  &quot;floats&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;erin&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Dave, Carol and Frank.
+You know these facts: Bob is a fungus, Dave is an insect, Carol is a fungus and Frank is a fish.
+The rules are: insect implies glows, glows implies swims and fungus implies floats.
+Who swims?
+
+Answer with exactly one of: Bob | Frank | Dave | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;insect&quot;,
+  &quot;glows&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Alice, Bob, Erin and Carol.
+You know these facts: Carol is a robot, Alice is a fish, Erin is a fish and Bob is a fish.
+The rules are: swims implies warm, robot implies swims and bird implies floats.
+Who warm?
+
+Answer with exactly one of: Bob | Carol | Alice | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;robot&quot;,
+  &quot;swims&quot;,
+  &quot;warm&quot;
+ ],
+ &quot;goal&quot;: &quot;warm&quot;,
+ &quot;target&quot;: &quot;carol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Alice, Dave and Carol.
+You know these facts: Carol is an insect, Alice is an insect, Dave is a mammal and Erin is a robot.
+The rules are: floats implies flies, robot implies warm and mammal implies floats.
+Who flies?
+
+Answer with exactly one of: Alice | Erin | Dave | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;mammal&quot;,
+  &quot;floats&quot;,
+  &quot;flies&quot;
+ ],
+ &quot;goal&quot;: &quot;flies&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Alice, Carol, Frank and Dave.
+You know these facts: Frank is an insect, Carol is a robot, Alice is a mammal and Dave is an insect.
+The rules are: mammal implies swims, swims implies glows and robot implies hums.
+Who glows?
+
+Answer with exactly one of: Dave | Alice | Frank | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;mammal&quot;,
+  &quot;swims&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;alice&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Bob, Frank and Carol.
+You know these facts: Bob is a bird, Frank is a fungus, Erin is a bird and Carol is a bird.
+The rules are: fish implies hums, flies implies glows and fungus implies flies.
+Who glows?
+
+Answer with exactly one of: Frank | Erin | Carol | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fungus&quot;,
+  &quot;flies&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Alice, Dave and Erin.
+You know these facts: Erin is a fish, Dave is a bird, Alice is a bird and Bob is a bird.
+The rules are: floats implies hums, fish implies floats and robot implies warm.
+Who hums?
+
+Answer with exactly one of: Dave | Alice | Erin | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;floats&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;erin&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Carol, Frank, Bob and Dave.
+You know these facts: Dave is an insect, Frank is a fish, Bob is a mammal and Carol is an insect.
+The rules are: insect implies hums, fish implies swims and swims implies warm.
+Who warm?
+
+Answer with exactly one of: Bob | Carol | Dave | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;swims&quot;,
+  &quot;warm&quot;
+ ],
+ &quot;goal&quot;: &quot;warm&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Bob, Erin and Frank.
+You know these facts: Erin is a bird, Dave is a robot, Frank is a bird and Bob is a bird.
+The rules are: glows implies swims, robot implies glows and fungus implies hums.
+Who swims?
+
+Answer with exactly one of: Erin | Dave | Frank | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;robot&quot;,
+  &quot;glows&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Bob, Alice and Dave.
+You know these facts: Alice is a mammal, Erin is a robot, Dave is a robot and Bob is an insect.
+The rules are: robot implies floats, insect implies flies and flies implies hums.
+Who hums?
+
+Answer with exactly one of: Bob | Erin | Dave | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;insect&quot;,
+  &quot;flies&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;bob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Frank, Carol and Bob.
+You know these facts: Dave is a fungus, Carol is a bird, Bob is a fungus and Frank is an insect.
+The rules are: bird implies hums, insect implies floats and floats implies warm.
+Who warm?
+
+Answer with exactly one of: Frank | Dave | Bob | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;insect&quot;,
+  &quot;floats&quot;,
+  &quot;warm&quot;
+ ],
+ &quot;goal&quot;: &quot;warm&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Alice, Frank and Carol.
+You know these facts: Frank is a fish, Alice is a fish, Carol is a bird and Dave is a fungus.
+The rules are: swims implies flies, fungus implies swims and bird implies hums.
+Who flies?
+
+Answer with exactly one of: Alice | Frank | Carol | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fungus&quot;,
+  &quot;swims&quot;,
+  &quot;flies&quot;
+ ],
+ &quot;goal&quot;: &quot;flies&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Carol, Erin and Frank.
+You know these facts: Erin is a mammal, Dave is an insect, Frank is a fish and Carol is an insect.
+The rules are: hums implies glows, fish implies hums and insect implies swims.
+Who glows?
+
+Answer with exactly one of: Carol | Frank | Dave | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;hums&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Alice, Carol, Dave and Frank.
+You know these facts: Alice is a mammal, Carol is an insect, Frank is a robot and Dave is a robot.
+The rules are: insect implies hums, robot implies glows and hums implies warm.
+Who warm?
+
+Answer with exactly one of: Carol | Frank | Dave | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;insect&quot;,
+  &quot;hums&quot;,
+  &quot;warm&quot;
+ ],
+ &quot;goal&quot;: &quot;warm&quot;,
+ &quot;target&quot;: &quot;carol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Alice, Frank, Dave and Bob.
+You know these facts: Dave is a robot, Alice is a robot, Bob is a fungus and Frank is an insect.
+The rules are: glows implies hums, robot implies swims and insect implies glows.
+Who hums?
+
+Answer with exactly one of: Bob | Dave | Frank | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;insect&quot;,
+  &quot;glows&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Frank, Dave, Alice and Carol.
+You know these facts: Alice is a fish, Frank is an insect, Dave is a fish and Carol is a mammal.
+The rules are: fish implies hums, glows implies swims and mammal implies glows.
+Who swims?
+
+Answer with exactly one of: Dave | Alice | Carol | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;mammal&quot;,
+  &quot;glows&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;carol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Frank, Alice, Erin and Dave.
+You know these facts: Alice is a robot, Frank is a robot, Dave is a bird and Erin is a robot.
+The rules are: mammal implies glows, bird implies swims and swims implies hums.
+Who hums?
+
+Answer with exactly one of: Erin | Frank | Alice | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;bird&quot;,
+  &quot;swims&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Alice, Carol, Dave and Bob.
+You know these facts: Dave is a bird, Alice is a bird, Carol is a robot and Bob is a fish.
+The rules are: fish implies flies, robot implies floats and flies implies hums.
+Who hums?
+
+Answer with exactly one of: Carol | Dave | Alice | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;flies&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;bob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Carol, Erin, Alice and Bob.
+You know these facts: Alice is a robot, Erin is a fish, Bob is a robot and Carol is a fungus.
+The rules are: fungus implies floats, warm implies flies and fish implies warm.
+Who flies?
+
+Answer with exactly one of: Alice | Bob | Erin | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;warm&quot;,
+  &quot;flies&quot;
+ ],
+ &quot;goal&quot;: &quot;flies&quot;,
+ &quot;target&quot;: &quot;erin&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Alice, Erin, Bob and Dave.
+You know these facts: Alice is a mammal, Dave is a mammal, Erin is a robot and Bob is a fungus.
+The rules are: mammal implies flies, fungus implies swims and swims implies hums.
+Who hums?
+
+Answer with exactly one of: Bob | Erin | Alice | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fungus&quot;,
+  &quot;swims&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;bob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Carol, Alice, Dave and Frank.
+You know these facts: Dave is an insect, Alice is a robot, Carol is an insect and Frank is a fish.
+The rules are: insect implies glows, hums implies warm and fish implies hums.
+Who warm?
+
+Answer with exactly one of: Carol | Alice | Frank | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;hums&quot;,
+  &quot;warm&quot;
+ ],
+ &quot;goal&quot;: &quot;warm&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Frank, Alice and Bob.
+You know these facts: Bob is a bird, Frank is a fish, Alice is a fish and Erin is a fish.
+The rules are: flies implies swims, bird implies flies and robot implies warm.
+Who swims?
+
+Answer with exactly one of: Frank | Alice | Bob | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;bird&quot;,
+  &quot;flies&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;bob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Erin, Frank and Bob.
+You know these facts: Frank is a bird, Dave is a mammal, Erin is an insect and Bob is an insect.
+The rules are: bird implies floats, floats implies swims and mammal implies warm.
+Who swims?
+
+Answer with exactly one of: Bob | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;bird&quot;,
+  &quot;floats&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Carol, Dave, Erin and Alice.
+You know these facts: Erin is a bird, Alice is a robot, Carol is an insect and Dave is a bird.
+The rules are: bird implies hums, robot implies flies and flies implies swims.
+Who swims?
+
+Answer with exactly one of: Alice | Dave | Erin | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;robot&quot;,
+  &quot;flies&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;alice&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Carol, Frank, Bob and Alice.
+You know these facts: Carol is a bird, Bob is a robot, Frank is a fish and Alice is a bird.
+The rules are: fish implies glows, glows implies hums and bird implies flies.
+Who hums?
+
+Answer with exactly one of: Carol | Bob | Alice | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;glows&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Alice, Carol and Dave.
+You know these facts: Dave is a robot, Alice is a fungus, Carol is an insect and Bob is an insect.
+The rules are: fungus implies warm, robot implies glows and warm implies flies.
+Who flies?
+
+Answer with exactly one of: Bob | Alice | Dave | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fungus&quot;,
+  &quot;warm&quot;,
+  &quot;flies&quot;
+ ],
+ &quot;goal&quot;: &quot;flies&quot;,
+ &quot;target&quot;: &quot;alice&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Dave, Carol and Erin.
+You know these facts: Erin is a fungus, Dave is a mammal, Carol is a fungus and Bob is a fish.
+The rules are: fish implies floats, floats implies glows and fungus implies flies.
+Who glows?
+
+Answer with exactly one of: Bob | Carol | Erin | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;floats&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;bob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Carol, Dave, Erin and Bob.
+You know these facts: Bob is a mammal, Dave is a robot, Erin is an insect and Carol is a mammal.
+The rules are: mammal implies glows, swims implies warm and robot implies swims.
+Who warm?
+
+Answer with exactly one of: Bob | Erin | Carol | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;robot&quot;,
+  &quot;swims&quot;,
+  &quot;warm&quot;
+ ],
+ &quot;goal&quot;: &quot;warm&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Dave, Carol and Frank.
+You know these facts: Carol is a fungus, Erin is an insect, Frank is a mammal and Dave is a fungus.
+The rules are: warm implies flies, mammal implies warm and insect implies hums.
+Who flies?
+
+Answer with exactly one of: Carol | Dave | Frank | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;mammal&quot;,
+  &quot;warm&quot;,
+  &quot;flies&quot;
+ ],
+ &quot;goal&quot;: &quot;flies&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Dave, Carol and Alice.
+You know these facts: Carol is a fungus, Alice is a robot, Dave is a robot and Bob is a fish.
+The rules are: fish implies warm, warm implies glows and robot implies hums.
+Who glows?
+
+Answer with exactly one of: Alice | Bob | Dave | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;warm&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;bob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Frank, Alice and Erin.
+You know these facts: Alice is a bird, Dave is a mammal, Frank is an insect and Erin is a bird.
+The rules are: bird implies hums, insect implies floats and floats implies flies.
+Who flies?
+
+Answer with exactly one of: Frank | Dave | Alice | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;insect&quot;,
+  &quot;floats&quot;,
+  &quot;flies&quot;
+ ],
+ &quot;goal&quot;: &quot;flies&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Frank, Carol, Alice and Bob.
+You know these facts: Alice is a bird, Frank is a mammal, Carol is a robot and Bob is a robot.
+The rules are: flies implies glows, bird implies flies and mammal implies hums.
+Who glows?
+
+Answer with exactly one of: Frank | Bob | Alice | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;bird&quot;,
+  &quot;flies&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;alice&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Erin, Alice and Frank.
+You know these facts: Bob is a fungus, Erin is an insect, Alice is an insect and Frank is a fish.
+The rules are: fish implies swims, fungus implies flies and swims implies hums.
+Who hums?
+
+Answer with exactly one of: Alice | Bob | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;swims&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Alice, Erin, Carol and Dave.
+You know these facts: Carol is a robot, Dave is a fungus, Alice is a bird and Erin is a robot.
+The rules are: floats implies glows, fungus implies warm and bird implies floats.
+Who glows?
+
+Answer with exactly one of: Carol | Alice | Erin | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;bird&quot;,
+  &quot;floats&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;alice&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Frank, Alice and Erin.
+You know these facts: Frank is a fungus, Bob is a robot, Alice is a fungus and Erin is a mammal.
+The rules are: floats implies warm, robot implies floats and mammal implies swims.
+Who warm?
+
+Answer with exactly one of: Frank | Erin | Bob | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;robot&quot;,
+  &quot;floats&quot;,
+  &quot;warm&quot;
+ ],
+ &quot;goal&quot;: &quot;warm&quot;,
+ &quot;target&quot;: &quot;bob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Bob, Carol and Alice.
+You know these facts: Bob is a fungus, Carol is a bird, Dave is a bird and Alice is a bird.
+The rules are: fungus implies swims, swims implies glows and bird implies flies.
+Who glows?
+
+Answer with exactly one of: Carol | Dave | Alice | Bob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fungus&quot;,
+  &quot;swims&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;bob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Alice, Erin, Carol and Frank.
+You know these facts: Alice is a fish, Carol is a robot, Erin is a bird and Frank is a bird.
+The rules are: glows implies swims, bird implies flies and robot implies glows.
+Who swims?
+
+Answer with exactly one of: Carol | Erin | Alice | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;robot&quot;,
+  &quot;glows&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;carol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Alice, Dave and Carol.
+You know these facts: Bob is a robot, Carol is a robot, Dave is a mammal and Alice is a robot.
+The rules are: fungus implies glows, floats implies swims and mammal implies floats.
+Who swims?
+
+Answer with exactly one of: Carol | Bob | Alice | Dave
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;mammal&quot;,
+  &quot;floats&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Alice, Erin, Bob and Carol.
+You know these facts: Bob is a fish, Carol is a fungus, Alice is an insect and Erin is a fish.
+The rules are: fish implies hums, glows implies floats and fungus implies glows.
+Who floats?
+
+Answer with exactly one of: Bob | Erin | Carol | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fungus&quot;,
+  &quot;glows&quot;,
+  &quot;floats&quot;
+ ],
+ &quot;goal&quot;: &quot;floats&quot;,
+ &quot;target&quot;: &quot;carol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Erin, Carol and Frank.
+You know these facts: Frank is a mammal, Dave is a bird, Carol is a mammal and Erin is a mammal.
+The rules are: bird implies flies, flies implies warm and mammal implies swims.
+Who warm?
+
+Answer with exactly one of: Erin | Dave | Carol | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;bird&quot;,
+  &quot;flies&quot;,
+  &quot;warm&quot;
+ ],
+ &quot;goal&quot;: &quot;warm&quot;,
+ &quot;target&quot;: &quot;dave&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Erin, Carol and Alice.
+You know these facts: Dave is a robot, Carol is a robot, Erin is a bird and Alice is a fish.
+The rules are: flies implies glows, bird implies flies and robot implies warm.
+Who glows?
+
+Answer with exactly one of: Dave | Alice | Carol | Erin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;bird&quot;,
+  &quot;flies&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;erin&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Bob, Alice and Frank.
+You know these facts: Bob is a bird, Erin is a bird, Alice is a robot and Frank is an insect.
+The rules are: robot implies floats, insect implies swims and floats implies glows.
+Who glows?
+
+Answer with exactly one of: Bob | Frank | Erin | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;robot&quot;,
+  &quot;floats&quot;,
+  &quot;glows&quot;
+ ],
+ &quot;goal&quot;: &quot;glows&quot;,
+ &quot;target&quot;: &quot;alice&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Erin, Frank, Bob and Dave.
+You know these facts: Frank is a bird, Dave is a fish, Erin is a fish and Bob is a fish.
+The rules are: fish implies swims, bird implies hums and hums implies warm.
+Who warm?
+
+Answer with exactly one of: Bob | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;bird&quot;,
+  &quot;hums&quot;,
+  &quot;warm&quot;
+ ],
+ &quot;goal&quot;: &quot;warm&quot;,
+ &quot;target&quot;: &quot;frank&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Carol, Frank, Dave and Alice.
+You know these facts: Alice is a bird, Dave is a fungus, Carol is a fungus and Frank is a robot.
+The rules are: floats implies warm, robot implies flies and bird implies floats.
+Who warm?
+
+Answer with exactly one of: Carol | Frank | Dave | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;bird&quot;,
+  &quot;floats&quot;,
+  &quot;warm&quot;
+ ],
+ &quot;goal&quot;: &quot;warm&quot;,
+ &quot;target&quot;: &quot;alice&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Bob, Dave, Carol and Alice.
+You know these facts: Carol is a fungus, Alice is a fungus, Dave is a bird and Bob is a mammal.
+The rules are: bird implies hums, mammal implies warm and warm implies swims.
+Who swims?
+
+Answer with exactly one of: Alice | Bob | Dave | Carol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;mammal&quot;,
+  &quot;warm&quot;,
+  &quot;swims&quot;
+ ],
+ &quot;goal&quot;: &quot;swims&quot;,
+ &quot;target&quot;: &quot;bob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Carol, Erin, Alice and Bob.
+You know these facts: Carol is a bird, Alice is a bird, Bob is an insect and Erin is a fungus.
+The rules are: insect implies swims, bird implies warm and swims implies hums.
+Who hums?
+
+Answer with exactly one of: Bob | Erin | Carol | Alice
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;insect&quot;,
+  &quot;swims&quot;,
+  &quot;hums&quot;
+ ],
+ &quot;goal&quot;: &quot;hums&quot;,
+ &quot;target&quot;: &quot;bob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The entities are: Dave, Frank, Bob and Carol.
+You know these facts: Dave is a fungus, Carol is a fish, Frank is a mammal and Bob is a fungus.
+The rules are: fish implies flies, fungus implies swims and flies implies warm.
+Who warm?
+
+Answer with exactly one of: Bob | Carol | Dave | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;fish&quot;,
+  &quot;flies&quot;,
+  &quot;warm&quot;
+ ],
+ &quot;goal&quot;: &quot;warm&quot;,
+ &quot;target&quot;: &quot;carol&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

@@ -1,0 +1,2013 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>default_reasoning — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#vii">mathematics and formal reasoning</a> &rsaquo;
+  default_reasoning</p>
+<h1>#91 <code>default_reasoning</code></h1>
+<p class="lede">defeasible rules, exceptions, and silence</p>
+<div class="tags"><span class="tag ">level 91</span><span class="tag ">section vii</span><span class="tag ">nonmonotonic</span><span class="tag ">specificity</span><span class="tag ">taxonomy</span></div>
+<div class="stats">
+<div class="stat"><span class="n">3.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.333</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.36</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Birds fly, penguins do not, and nobody said anything about rocks.</p><p>    A nonce taxonomy carries defeasible rules at several levels; the conclusion
+    is fixed by the *most specific* rule above the individual, and by nothing at
+    all when no rule applies — so the three answers (yes / no / unknown) each
+    require reading a different part of the hierarchy. The target answer is
+    drawn uniformly and the taxonomy is then built to realize it, with an
+    opposite-polarity rule placed higher up whenever specificity is what decides
+    the case.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>ambiguity</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The defaults: pobi usually not dumu, seme usually zugi and sopi usually not zugi.
+You know these facts: davi member seme.
+The options are: yes, no and unknown.
+The taxonomy says: sopi subclass pobi, seme subclass rite and rite subclass sopi.
+Does dumu hold of davi?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre><h3>spanish</h3><pre>Los valores por defecto son: pobi normalmente no dumu, seme normalmente zugi y sopi normalmente no zugi.
+Se conocen estos hechos: davi es miembro de seme.
+Las opciones son: sí, no y desconocido.
+La taxonomía dice: sopi es subclase de pobi, seme es subclase de rite y rite es subclase de sopi.
+¿Se cumple dumu de davi?
+
+Responde exactamente con una de estas opciones: no | desconocido | sí
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>默认规则如下：pobi通常不是dumu；seme通常是zugi；sopi通常不是zugi。
+事实如下：davi的成员是seme。
+选项如下：是、否和未知。
+分类体系如下：sopi隶属于pobi；seme隶属于rite；rite隶属于sopi。
+dumu对davi成立吗？
+
+请从以下选项中选出恰好一个作答：否 | 未知 | 是
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The defaults: pobi usually not dumu, seme usually zugi and sopi usually not zugi.
+You know these facts: davi member seme.
+The options are: yes, no and unknown.
+The taxonomy says: sopi subclass pobi, seme subclass rite and rite subclass sopi.
+Does dumu hold of davi?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre><h3>symbols</h3><pre>{defaults: [(usually_not pobi dumu) (usually seme zugi) (usually_not sopi zugi)], facts: [(member davi seme)], options: [yes no unknown], query: (holds dumu davi), taxonomy: [(subclass sopi pobi) (subclass seme rite) (subclass rite sopi)]}
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/default_reasoning.jsonl</code> &middot; <code>data/samples/spanish/default_reasoning.jsonl</code> &middot; <code>data/samples/chinese/default_reasoning.jsonl</code> &middot; <code>data/samples/english_synonym/default_reasoning.jsonl</code> &middot; <code>data/samples/symbols/default_reasoning.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: pobi usually not dumu, seme usually zugi and sopi usually not zugi.
+You know these facts: davi member seme.
+The options are: yes, no and unknown.
+The taxonomy says: sopi subclass pobi, seme subclass rite and rite subclass sopi.
+Does dumu hold of davi?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;dumu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: voka usually not tazo, rapo usually not meta and rapo usually tazo.
+You know these facts: naba member doro.
+The options are: yes, no and unknown.
+The taxonomy says: voka subclass doro, doro subclass gudi and rapo subclass voka.
+Does tazo hold of naba?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;tazo&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults:
+  - kubu usually not zunu
+  - badi usually zunu
+  - vepo usually zunu
+  - kubu usually not ruma
+  - gimu usually ruma
+You know these facts: biri member kubu.
+The options are: yes, no and unknown.
+The taxonomy says: kubu subclass gimu, gimu subclass badi and vepo subclass kubu.
+Does zunu hold of biri?
+
+Answer with exactly one of: yes | no | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 5,
+ &quot;property&quot;: &quot;zunu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: dubo usually not zosu, muke usually zosu and dubo usually not rove.
+You know these facts: keso member nuru.
+The options are: yes, no and unknown.
+The taxonomy says: nuru subclass kuse, muke subclass dubo and dubo subclass nuru.
+Does zosu hold of keso?
+
+Answer with exactly one of: yes | no | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;zosu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: besu usually mebi, reda usually mebi, reda usually niga and bosi usually not niga.
+You know these facts: megi member besu.
+The options are: yes, no and unknown.
+The taxonomy says: reda subclass kido, bosi subclass reda and besu subclass bosi.
+Does niga hold of megi?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;niga&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: noko usually sate, zubo usually not bepi and tizi usually not sate.
+You know these facts: goga member noko.
+The options are: yes, no and unknown.
+The taxonomy says: kaga subclass zubo, noko subclass kaga and zubo subclass tizi.
+Does sate hold of goga?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;sate&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: moko usually suva, bagu usually not kusi, moko usually not kusi and tari usually not suva.
+You know these facts: vuva member rina.
+The options are: yes, no and unknown.
+The taxonomy says: moko subclass rina, bagu subclass tari and rina subclass bagu.
+Does suva hold of vuva?
+
+Answer with exactly one of: yes | no | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;suva&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: bapo usually dedu and nepa usually not pata.
+You know these facts: kubu member tase.
+The options are: yes, no and unknown.
+The taxonomy says: bapo subclass tase, tase subclass dudi and dudi subclass nepa.
+Does dedu hold of kubu?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 2,
+ &quot;property&quot;: &quot;dedu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: varo usually roru, kipe usually not kodo and kipe usually not kodo.
+You know these facts: kazi member kuko.
+The options are: yes, no and unknown.
+The taxonomy says: varo subclass kuko, kuko subclass kade and kade subclass kipe.
+Does roru hold of kazi?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;roru&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: nuru usually gozo, disu usually not zazo and runi usually zazo.
+You know these facts: geka member geva.
+The options are: yes, no and unknown.
+The taxonomy says: disu subclass nuru, nuru subclass geva and geva subclass runi.
+Does zazo hold of geka?
+
+Answer with exactly one of: unknown | no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;zazo&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: rive usually bogu, tako usually not bogu and buri usually dezi.
+You know these facts: nopi member rive.
+The options are: yes, no and unknown.
+The taxonomy says: tako subclass tapo, rive subclass tako and buri subclass rive.
+Does dezi hold of nopi?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;dezi&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: gari usually gasa, sovu usually gasa and ruro usually not toru.
+You know these facts: veta member suke.
+The options are: yes, no and unknown.
+The taxonomy says: suke subclass ruro, gari subclass sovu and sovu subclass suke.
+Does gasa hold of veta?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;gasa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: rivu usually not gone, rivu usually not kubu, biri usually kubu and vigo usually kubu.
+You know these facts: nebu member vigo.
+The options are: yes, no and unknown.
+The taxonomy says: vigo subclass rivu, vozu subclass biri and biri subclass vigo.
+Does kubu hold of nebu?
+
+Answer with exactly one of: unknown | no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;kubu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: sezi usually not bogu, veve usually bogu, kega usually not biga and kega usually not biga.
+You know these facts: mozo member kega.
+The options are: yes, no and unknown.
+The taxonomy says: veve subclass mive, sezi subclass kega and kega subclass veve.
+Does bogu hold of mozo?
+
+Answer with exactly one of: yes | unknown | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;bogu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: movo usually pame and duzu usually not nimi.
+You know these facts: vuge member mavo.
+The options are: yes, no and unknown.
+The taxonomy says: mavo subclass kizi, movo subclass mavo and kizi subclass duzu.
+Does pame hold of vuge?
+
+Answer with exactly one of: unknown | no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 2,
+ &quot;property&quot;: &quot;pame&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: kano usually zimo, kano usually mike and kano usually not mike.
+You know these facts: niki member vezi.
+The options are: yes, no and unknown.
+The taxonomy says: geba subclass kasa, kano subclass vezi and vezi subclass geba.
+Does zimo hold of niki?
+
+Answer with exactly one of: yes | no | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;zimo&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: pera usually not maku, pike usually vezu, bimi usually not vezu and pike usually maku.
+You know these facts: magu member pera.
+The options are: yes, no and unknown.
+The taxonomy says: bimi subclass pike, pike subclass pera and pera subclass nori.
+Does vezu hold of magu?
+
+Answer with exactly one of: yes | no | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;vezu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: kozo usually muno, vida usually muno and vida usually gube.
+You know these facts: kezu member mezu.
+The options are: yes, no and unknown.
+The taxonomy says: mezu subclass somi, vida subclass mezu and kozo subclass vida.
+Does muno hold of kezu?
+
+Answer with exactly one of: yes | no | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;muno&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: vogo usually not manu, mome usually not manu, neko usually not veke and vogo usually veke.
+You know these facts: kezi member neko.
+The options are: yes, no and unknown.
+The taxonomy says: mome subclass vogo, neko subclass gavo and vogo subclass neko.
+Does manu hold of kezi?
+
+Answer with exactly one of: yes | no | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;manu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: tidi usually pima, vasa usually nibu and site usually not pima.
+You know these facts: tede member tidi.
+The options are: yes, no and unknown.
+The taxonomy says: tidi subclass site, site subclass sepi and sepi subclass vasa.
+Does pima hold of tede?
+
+Answer with exactly one of: yes | no | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;pima&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults:
+  - poda usually not nino
+  - zema usually roke
+  - giru usually not roke
+  - nuga usually not nino
+  - poda usually roke
+You know these facts: duro member nuga.
+The options are: yes, no and unknown.
+The taxonomy says: giru subclass poda, poda subclass nuga and nuga subclass zema.
+Does roke hold of duro?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 5,
+ &quot;property&quot;: &quot;roke&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: rugu usually nupa, gozo usually geka, gozo usually geka and gozo usually not nupa.
+You know these facts: poto member rugu.
+The options are: yes, no and unknown.
+The taxonomy says: seba subclass rugu, rugu subclass vire and vire subclass gozo.
+Does nupa hold of poto?
+
+Answer with exactly one of: yes | unknown | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;nupa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: gebu usually guvo and zide usually not zata.
+You know these facts: timo member reza.
+The options are: yes, no and unknown.
+The taxonomy says: manu subclass zide, reza subclass gebu and zide subclass reza.
+Does guvo hold of timo?
+
+Answer with exactly one of: unknown | yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 2,
+ &quot;property&quot;: &quot;guvo&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults:
+  - mabu usually not toba
+  - mopu usually toba
+  - mobe usually not toba
+  - neze usually not dopa
+  - neze usually not dopa
+You know these facts: sona member mopu.
+The options are: yes, no and unknown.
+The taxonomy says: mobe subclass neze, mopu subclass mabu and neze subclass mopu.
+Does toba hold of sona?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 5,
+ &quot;property&quot;: &quot;toba&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults:
+  - vaze usually roza
+  - vaze usually bugo
+  - zote usually not bugo
+  - keke usually not roza
+  - ziza usually not roza
+You know these facts: zovi member keke.
+The options are: yes, no and unknown.
+The taxonomy says: vaze subclass keke, keke subclass zote and ziza subclass vaze.
+Does roza hold of zovi?
+
+Answer with exactly one of: yes | unknown | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 5,
+ &quot;property&quot;: &quot;roza&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: dudu usually nesi, bito usually not vesu, vobi usually not nesi and dudu usually vesu.
+You know these facts: sosa member vobi.
+The options are: yes, no and unknown.
+The taxonomy says: dudu subclass bito, vobi subclass paki and bito subclass vobi.
+Does vesu hold of sosa?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;vesu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: pusa usually not koze, zeve usually koze, zeve usually not zave and sevo usually not koze.
+You know these facts: geku member gobu.
+The options are: yes, no and unknown.
+The taxonomy says: pusa subclass zeve, sevo subclass gobu and gobu subclass pusa.
+Does koze hold of geku?
+
+Answer with exactly one of: unknown | yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;koze&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: noge usually not kodu, vozi usually kodu, vozi usually not vato and meda usually not kodu.
+You know these facts: pavo member meda.
+The options are: yes, no and unknown.
+The taxonomy says: noge subclass muni, meda subclass vozi and muni subclass meda.
+Does kodu hold of pavo?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;kodu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: zeke usually boka, zeke usually not guke and vope usually guke.
+You know these facts: done member kepe.
+The options are: yes, no and unknown.
+The taxonomy says: zeke subclass desu, kepe subclass vope and vope subclass zeke.
+Does guke hold of done?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;guke&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: tidu usually not nari, tidu usually not tupe, sanu usually nari and nopa usually not tupe.
+You know these facts: reko member bare.
+The options are: yes, no and unknown.
+The taxonomy says: bare subclass nopa, tidu subclass sanu and nopa subclass tidu.
+Does nari hold of reko?
+
+Answer with exactly one of: unknown | yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;nari&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: sita usually not kade, pove usually kade, pove usually tupi and sita usually not tupi.
+You know these facts: sapa member dobu.
+The options are: yes, no and unknown.
+The taxonomy says: tema subclass sita, dobu subclass pove and pove subclass tema.
+Does kade hold of sapa?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;kade&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: seze usually geso, gaga usually soku and bodo usually not geso.
+You know these facts: dabo member gaga.
+The options are: yes, no and unknown.
+The taxonomy says: seze subclass gaga, gaga subclass bodo and gava subclass seze.
+Does geso hold of dabo?
+
+Answer with exactly one of: unknown | yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;geso&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults:
+  - zera usually not zonu
+  - degi usually zonu
+  - degi usually not bugu
+  - zadi usually not zonu
+  - degi usually bugu
+You know these facts: boze member zera.
+The options are: yes, no and unknown.
+The taxonomy says: zadi subclass zera, sibu subclass zadi and zera subclass degi.
+Does zonu hold of boze?
+
+Answer with exactly one of: unknown | no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 5,
+ &quot;property&quot;: &quot;zonu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: movu usually momu, sivu usually not roma and sevu usually not momu.
+You know these facts: razu member sevu.
+The options are: yes, no and unknown.
+The taxonomy says: sivu subclass sevu, sevu subclass movu and movu subclass teve.
+Does roma hold of razu?
+
+Answer with exactly one of: unknown | no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;roma&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: domi usually not dinu, kapi usually besa, domi usually besa and duse usually not dinu.
+You know these facts: bimu member kapi.
+The options are: yes, no and unknown.
+The taxonomy says: domi subclass kapi, kapi subclass sita and duse subclass domi.
+Does dinu hold of bimu?
+
+Answer with exactly one of: yes | no | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;dinu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: mizu usually dibu, mizu usually not bazo and sigi usually dibu.
+You know these facts: nano member gipi.
+The options are: yes, no and unknown.
+The taxonomy says: mizu subclass tazu, tazu subclass gipi and gipi subclass sigi.
+Does dibu hold of nano?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;dibu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: kizo usually not pipe, dase usually pipe, dase usually not dupo and nabi usually dupo.
+You know these facts: pedu member numu.
+The options are: yes, no and unknown.
+The taxonomy says: dase subclass nabi, numu subclass kizo and kizo subclass dase.
+Does dupo hold of pedu?
+
+Answer with exactly one of: unknown | yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;dupo&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: tipo usually pasi and vudu usually not reba.
+You know these facts: notu member tipo.
+The options are: yes, no and unknown.
+The taxonomy says: tipo subclass rudo, rudo subclass vubi and vubi subclass vudu.
+Does reba hold of notu?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 2,
+ &quot;property&quot;: &quot;reba&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: tini usually not ziti, nate usually ziti, dizo usually rupe and dizo usually not ziti.
+You know these facts: taso member nate.
+The options are: yes, no and unknown.
+The taxonomy says: tini subclass nate, dizo subclass vopa and nate subclass dizo.
+Does ziti hold of taso?
+
+Answer with exactly one of: unknown | no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;ziti&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: bivi usually not vana, zebi usually vana, kepu usually vana and kipa usually not dono.
+You know these facts: dosu member bivi.
+The options are: yes, no and unknown.
+The taxonomy says: kepu subclass kipa, bivi subclass kepu and zebi subclass bivi.
+Does vana hold of dosu?
+
+Answer with exactly one of: yes | unknown | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;vana&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: kive usually beti, gimo usually beto, buze usually beto and gimo usually beti.
+You know these facts: dine member kive.
+The options are: yes, no and unknown.
+The taxonomy says: kive subclass rusa, gimo subclass kive and buze subclass gimo.
+Does beto hold of dine?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;beto&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: pike usually givu, puzi usually not givu, beva usually not regi and puzi usually regi.
+You know these facts: tadu member sipu.
+The options are: yes, no and unknown.
+The taxonomy says: sipu subclass puzi, beva subclass sipu and puzi subclass pike.
+Does regi hold of tadu?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;regi&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: vabi usually buku, paba usually kesu, vabi usually buku and vabi usually not kesu.
+You know these facts: peru member kega.
+The options are: yes, no and unknown.
+The taxonomy says: kega subclass vabi, paba subclass vudu and vudu subclass kega.
+Does kesu hold of peru?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;kesu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: bupu usually nuso, riva usually peba, bize usually not peba and riva usually not nuso.
+You know these facts: doga member bupu.
+The options are: yes, no and unknown.
+The taxonomy says: ruru subclass riva, bupu subclass ruru and riva subclass bize.
+Does nuso hold of doga?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;nuso&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: bedu usually not tozi, bagu usually zizo and bedu usually zizo.
+You know these facts: nani member goki.
+The options are: yes, no and unknown.
+The taxonomy says: bagu subclass bedu, bedu subclass goki and goki subclass pusa.
+Does zizo hold of nani?
+
+Answer with exactly one of: unknown | yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;zizo&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: doba usually not tagi, doba usually zeko, mama usually tagi and doba usually not zeko.
+You know these facts: dupe member dina.
+The options are: yes, no and unknown.
+The taxonomy says: doba subclass dina, mama subclass doba and dina subclass mori.
+Does tagi hold of dupe?
+
+Answer with exactly one of: yes | no | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;tagi&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: dobu usually not besi, bana usually not besi and bana usually siza.
+You know these facts: pone member gusa.
+The options are: yes, no and unknown.
+The taxonomy says: tevu subclass dobu, gusa subclass tevu and bana subclass gusa.
+Does besi hold of pone?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;besi&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: bova usually damo and napu usually not zubi.
+You know these facts: toke member sopu.
+The options are: yes, no and unknown.
+The taxonomy says: runi subclass napu, sopu subclass runi and bova subclass sopu.
+Does damo hold of toke?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 2,
+ &quot;property&quot;: &quot;damo&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: koge usually not goka and zumu usually not kusu.
+You know these facts: dode member vare.
+The options are: yes, no and unknown.
+The taxonomy says: zumu subclass sigu, koge subclass zumu and vare subclass koge.
+Does kusu hold of dode?
+
+Answer with exactly one of: unknown | no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 2,
+ &quot;property&quot;: &quot;kusu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: goza usually not titi, nusa usually not vuse, goza usually vuse and vazi usually vuse.
+You know these facts: pake member vazi.
+The options are: yes, no and unknown.
+The taxonomy says: vazi subclass nusa, nusa subclass dipa and goza subclass vazi.
+Does vuse hold of pake?
+
+Answer with exactly one of: yes | no | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;vuse&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: dena usually not ditu, zona usually nike, dena usually not nike and rine usually ditu.
+You know these facts: padu member dena.
+The options are: yes, no and unknown.
+The taxonomy says: zona subclass rine, dena subclass siku and siku subclass zona.
+Does nike hold of padu?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;nike&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: kuse usually pipa, siti usually not dasi and puru usually not pipa.
+You know these facts: bove member siti.
+The options are: yes, no and unknown.
+The taxonomy says: siti subclass puru, puru subclass kesi and kesi subclass kuse.
+Does pipa hold of bove?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;pipa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: mazu usually not bede, ripa usually not bupo, gepe usually not bede and mazu usually bupo.
+You know these facts: goki member gepe.
+The options are: yes, no and unknown.
+The taxonomy says: nova subclass gepe, gepe subclass ripa and ripa subclass mazu.
+Does bupo hold of goki?
+
+Answer with exactly one of: unknown | yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;bupo&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: bene usually not maga, zozu usually nere and teru usually nere.
+You know these facts: kegi member noza.
+The options are: yes, no and unknown.
+The taxonomy says: zozu subclass teru, noza subclass zozu and bene subclass noza.
+Does maga hold of kegi?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;maga&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: gosi usually sisi, rito usually sota and gosi usually sisi.
+You know these facts: pise member kebo.
+The options are: yes, no and unknown.
+The taxonomy says: rito subclass rope, kebo subclass rito and rope subclass gosi.
+Does sota hold of pise?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;sota&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults:
+  - degi usually not zosa
+  - dema usually zosa
+  - pupi usually zosa
+  - degi usually not vibe
+  - noso usually not zosa
+You know these facts: sato member dema.
+The options are: yes, no and unknown.
+The taxonomy says: dema subclass degi, pupi subclass noso and noso subclass dema.
+Does zosa hold of sato?
+
+Answer with exactly one of: unknown | no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 5,
+ &quot;property&quot;: &quot;zosa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: mupe usually not tugo, saru usually buka and mupe usually not tugo.
+You know these facts: vago member mupe.
+The options are: yes, no and unknown.
+The taxonomy says: dita subclass mupe, nite subclass dita and mupe subclass saru.
+Does buka hold of vago?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;buka&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: besi usually nopa, besi usually not vuvo, ripo usually not vuvo and bitu usually not nopa.
+You know these facts: sivu member besu.
+The options are: yes, no and unknown.
+The taxonomy says: ripo subclass besi, besi subclass bitu and besu subclass ripo.
+Does nopa hold of sivu?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;nopa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: teke usually raru, tomu usually dare, teke usually dare and nimo usually dare.
+You know these facts: vovi member bero.
+The options are: yes, no and unknown.
+The taxonomy says: tomu subclass nimo, bero subclass teke and nimo subclass bero.
+Does dare hold of vovi?
+
+Answer with exactly one of: unknown | no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;dare&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: kavo usually gune and vubo usually sadi.
+You know these facts: vani member bema.
+The options are: yes, no and unknown.
+The taxonomy says: vubo subclass bema, bema subclass kavo and posi subclass vubo.
+Does gune hold of vani?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 2,
+ &quot;property&quot;: &quot;gune&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: mero usually gite, mero usually gite and mite usually vape.
+You know these facts: susu member gobe.
+The options are: yes, no and unknown.
+The taxonomy says: gobe subclass nade, nade subclass mero and mero subclass mite.
+Does vape hold of susu?
+
+Answer with exactly one of: unknown | no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;vape&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: nina usually not vena, rina usually vena, rina usually not nasa and pone usually not nasa.
+You know these facts: pego member rina.
+The options are: yes, no and unknown.
+The taxonomy says: rina subclass nina, pone subclass rina and nina subclass rese.
+Does nasa hold of pego?
+
+Answer with exactly one of: unknown | yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;nasa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: guge usually daro, bive usually not sanu and bive usually daro.
+You know these facts: veze member rivi.
+The options are: yes, no and unknown.
+The taxonomy says: rivi subclass tede, bive subclass guge and guge subclass rivi.
+Does daro hold of veze?
+
+Answer with exactly one of: unknown | no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;daro&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: vizu usually not nemu, vizu usually not nemu, vizu usually not beve and dema usually beve.
+You know these facts: vabu member rapa.
+The options are: yes, no and unknown.
+The taxonomy says: dema subclass rapa, vizu subclass dema and rapa subclass romi.
+Does beve hold of vabu?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;beve&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: ravu usually not dova, kize usually reza and ravu usually not reza.
+You know these facts: dedu member zedo.
+The options are: yes, no and unknown.
+The taxonomy says: zedo subclass kize, puva subclass ravu and kize subclass puva.
+Does reza hold of dedu?
+
+Answer with exactly one of: yes | no | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;reza&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: koru usually not tama, koru usually tama, runo usually mevo and kaso usually mevo.
+You know these facts: guze member koru.
+The options are: yes, no and unknown.
+The taxonomy says: kaso subclass runo, koru subclass pimu and runo subclass koru.
+Does mevo hold of guze?
+
+Answer with exactly one of: yes | unknown | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;mevo&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: dipe usually zize and seza usually not povu.
+You know these facts: budo member dogo.
+The options are: yes, no and unknown.
+The taxonomy says: seza subclass dogo, dogo subclass rimu and rimu subclass dipe.
+Does zize hold of budo?
+
+Answer with exactly one of: unknown | yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 2,
+ &quot;property&quot;: &quot;zize&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: rume usually mago, vave usually not mago and pito usually not gava.
+You know these facts: riko member pito.
+The options are: yes, no and unknown.
+The taxonomy says: rume subclass pito, pito subclass dapo and vave subclass rume.
+Does mago hold of riko?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;mago&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: zozu usually sabu, rune usually not sabu and zozu usually not zodi.
+You know these facts: bate member dute.
+The options are: yes, no and unknown.
+The taxonomy says: pomi subclass dute, dute subclass zozu and rune subclass pomi.
+Does sabu hold of bate?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;sabu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: soro usually sure, soro usually not podo and vade usually not sure.
+You know these facts: meke member duni.
+The options are: yes, no and unknown.
+The taxonomy says: duni subclass vade, soro subclass duni and tosi subclass soro.
+Does sure hold of meke?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;sure&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: pepa usually not simo, dizo usually not simo, rena usually rada and rena usually simo.
+You know these facts: rime member guko.
+The options are: yes, no and unknown.
+The taxonomy says: guko subclass rena, rena subclass dizo and pepa subclass guko.
+Does simo hold of rime?
+
+Answer with exactly one of: unknown | no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;simo&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: tesa usually give, nuta usually not give and meki usually not zuno.
+You know these facts: bita member tesa.
+The options are: yes, no and unknown.
+The taxonomy says: desa subclass meki, meki subclass nuta and tesa subclass desa.
+Does zuno hold of bita?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;zuno&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: nuti usually not zera, mugi usually not rama, duze usually zera and koga usually zera.
+You know these facts: siza member mugi.
+The options are: yes, no and unknown.
+The taxonomy says: mugi subclass nuti, nuti subclass duze and koga subclass mugi.
+Does zera hold of siza?
+
+Answer with exactly one of: unknown | no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;zera&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: maso usually not damo, suko usually not bonu and teri usually damo.
+You know these facts: poso member teri.
+The options are: yes, no and unknown.
+The taxonomy says: teri subclass maso, suko subclass taro and taro subclass teri.
+Does damo hold of poso?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;damo&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: tudi usually nisu, naro usually not nisu, tudi usually not bube and dige usually not nisu.
+You know these facts: kogu member dige.
+The options are: yes, no and unknown.
+The taxonomy says: dige subclass tudi, naro subclass dige and sire subclass naro.
+Does nisu hold of kogu?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;nisu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: dimo usually not zito, dimo usually not mobo, buvo usually not mobo and vidi usually zito.
+You know these facts: suvo member buvo.
+The options are: yes, no and unknown.
+The taxonomy says: dimo subclass vidi, vidi subclass buvo and buvo subclass rupo.
+Does zito hold of suvo?
+
+Answer with exactly one of: yes | unknown | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;zito&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: nope usually not kisa and nope usually botu.
+You know these facts: penu member mape.
+The options are: yes, no and unknown.
+The taxonomy says: miro subclass mape, mape subclass nope and kani subclass miro.
+Does kisa hold of penu?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 2,
+ &quot;property&quot;: &quot;kisa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: mike usually boge, subi usually not boge and mike usually not sogi.
+You know these facts: nadu member subi.
+The options are: yes, no and unknown.
+The taxonomy says: kamo subclass mike, suke subclass kamo and subi subclass suke.
+Does boge hold of nadu?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;boge&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: zopu usually beze, kami usually not beze and vove usually not nono.
+You know these facts: zegi member zobe.
+The options are: yes, no and unknown.
+The taxonomy says: zopu subclass vove, vove subclass zobe and zobe subclass kami.
+Does beze hold of zegi?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;beze&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: geko usually not zigo, gonu usually rita and gana usually zigo.
+You know these facts: pamo member kazo.
+The options are: yes, no and unknown.
+The taxonomy says: gana subclass geko, geko subclass gonu and kazo subclass gana.
+Does zigo hold of pamo?
+
+Answer with exactly one of: yes | unknown | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;zigo&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: niso usually not kesu, naso usually beru, naso usually not beru and moso usually kesu.
+You know these facts: geki member kubo.
+The options are: yes, no and unknown.
+The taxonomy says: naso subclass niso, kubo subclass naso and niso subclass moso.
+Does kesu hold of geki?
+
+Answer with exactly one of: yes | unknown | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;kesu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: bimi usually kive and bimi usually taku.
+You know these facts: muse member geru.
+The options are: yes, no and unknown.
+The taxonomy says: bimi subclass geru, sora subclass sonu and geru subclass sora.
+Does kive hold of muse?
+
+Answer with exactly one of: yes | unknown | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 2,
+ &quot;property&quot;: &quot;kive&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: taki usually not dino, taki usually dino, gevi usually not sedo and gapo usually sedo.
+You know these facts: doga member gapo.
+The options are: yes, no and unknown.
+The taxonomy says: gevi subclass gosi, gapo subclass gevi and taki subclass gapo.
+Does sedo hold of doga?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;sedo&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults:
+  - bogi usually not muko
+  - bogi usually vere
+  - kema usually not muko
+  - pabe usually muko
+  - bogi usually not vere
+You know these facts: babo member kema.
+The options are: yes, no and unknown.
+The taxonomy says: kema subclass pabe, pabe subclass rode and bogi subclass kema.
+Does muko hold of babo?
+
+Answer with exactly one of: unknown | yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 5,
+ &quot;property&quot;: &quot;muko&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: buvi usually pite, zibo usually siso and koru usually not siso.
+You know these facts: gobu member buvi.
+The options are: yes, no and unknown.
+The taxonomy says: zite subclass koru, buvi subclass zibo and koru subclass buvi.
+Does siso hold of gobu?
+
+Answer with exactly one of: unknown | yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;siso&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: keri usually pabu, suku usually not turu and keri usually not pabu.
+You know these facts: doru member tevo.
+The options are: yes, no and unknown.
+The taxonomy says: tevo subclass keri, keri subclass kudi and suku subclass tevo.
+Does turu hold of doru?
+
+Answer with exactly one of: unknown | no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;turu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: buna usually not teki, dora usually not bepi and zodu usually bepi.
+You know these facts: dopa member zodu.
+The options are: yes, no and unknown.
+The taxonomy says: zodu subclass duzi, dora subclass zodu and duzi subclass buna.
+Does teki hold of dopa?
+
+Answer with exactly one of: yes | unknown | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;teki&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: gesa usually dosu, namo usually zave and namo usually zave.
+You know these facts: mezu member ziza.
+The options are: yes, no and unknown.
+The taxonomy says: namo subclass ziza, mivu subclass gesa and ziza subclass mivu.
+Does dosu hold of mezu?
+
+Answer with exactly one of: yes | no | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;dosu&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: pene usually rono, dete usually not rono and dete usually not giga.
+You know these facts: ribe member noge.
+The options are: yes, no and unknown.
+The taxonomy says: dete subclass noge, noge subclass vasa and vasa subclass pene.
+Does rono hold of ribe?
+
+Answer with exactly one of: yes | no | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;rono&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: duzi usually not gota, gide usually gota and duzi usually keto.
+You know these facts: buna member piki.
+The options are: yes, no and unknown.
+The taxonomy says: piki subclass gide, zidu subclass piki and gide subclass duzi.
+Does gota hold of buna?
+
+Answer with exactly one of: unknown | no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;gota&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: rina usually not sebo, karu usually node and rumi usually sebo.
+You know these facts: suga member tivi.
+The options are: yes, no and unknown.
+The taxonomy says: rina subclass rumi, tivi subclass karu and rumi subclass tivi.
+Does sebo hold of suga?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;sebo&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: kuno usually not dozu, rome usually not kepa and pozo usually dozu.
+You know these facts: vipu member rome.
+The options are: yes, no and unknown.
+The taxonomy says: rome subclass pozo, pozo subclass duge and kuno subclass rome.
+Does kepa hold of vipu?
+
+Answer with exactly one of: no | yes | unknown
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;kepa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: duvi usually tetu, ture usually not babe, putu usually tetu and duvi usually not babe.
+You know these facts: gore member suma.
+The options are: yes, no and unknown.
+The taxonomy says: ture subclass suma, duvi subclass ture and suma subclass putu.
+Does babe hold of gore?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;babe&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: dane usually duno, ruzi usually Dave and gode usually not duno.
+You know these facts: kogu member tatu.
+The options are: yes, no and unknown.
+The taxonomy says: gode subclass dane, dane subclass ruzi and tatu subclass gode.
+Does duno hold of kogu?
+
+Answer with exactly one of: unknown | yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;duno&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: sedi usually not neva, mubo usually not neva, mubo usually not bono and sedi usually not bono.
+You know these facts: pove member mobo.
+The options are: yes, no and unknown.
+The taxonomy says: mubo subclass nipu, mobo subclass sedi and nipu subclass mobo.
+Does bono hold of pove?
+
+Answer with exactly one of: unknown | no | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 4,
+ &quot;property&quot;: &quot;bono&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">no</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: budi usually not teva, gobe usually teva and suzu usually not nizo.
+You know these facts: nege member budi.
+The options are: yes, no and unknown.
+The taxonomy says: gobe subclass suzu, budi subclass gobe and katu subclass budi.
+Does teva hold of nege?
+
+Answer with exactly one of: unknown | yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;no&quot;,
+ &quot;level&quot;: 2,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;teva&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: kana usually sato, zago usually nime and kana usually not nime.
+You know these facts: sori member vidi.
+The options are: yes, no and unknown.
+The taxonomy says: vidi subclass zago, kana subclass nivo and zago subclass kana.
+Does nime hold of sori?
+
+Answer with exactly one of: no | unknown | yes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;nime&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: dora usually not neme, bina usually neme and kona usually not mose.
+You know these facts: gaku member tasa.
+The options are: yes, no and unknown.
+The taxonomy says: dora subclass bina, tasa subclass kona and bina subclass tasa.
+Does neme hold of gaku?
+
+Answer with exactly one of: unknown | yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;neme&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">yes</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: nubi usually not bapi, pari usually bapi and pari usually not navo.
+You know these facts: kugo member kobi.
+The options are: yes, no and unknown.
+The taxonomy says: kobi subclass zudo, pari subclass nubi and zudo subclass pari.
+Does bapi hold of kugo?
+
+Answer with exactly one of: unknown | yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;yes&quot;,
+ &quot;level&quot;: 3,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;bapi&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">unknown</span></summary>
+<div class="body">
+<p>prompt</p><pre>The defaults: sudu usually repu, dizo usually not repu and sudu usually teno.
+You know these facts: vego member geke.
+The options are: yes, no and unknown.
+The taxonomy says: sudu subclass dizo, dizo subclass geke and geke subclass poku.
+Does repu hold of vego?
+
+Answer with exactly one of: unknown | yes | no
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;unknown&quot;,
+ &quot;level&quot;: 1,
+ &quot;n_defaults&quot;: 3,
+ &quot;property&quot;: &quot;repu&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

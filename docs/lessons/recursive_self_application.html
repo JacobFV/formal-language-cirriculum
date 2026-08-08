@@ -1,0 +1,5217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>recursive_self_application — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#x">reflective computation and language design</a> &rsaquo;
+  recursive_self_application</p>
+<h1>#115 <code>recursive_self_application</code></h1>
+<p class="lede">a program that transforms programs, applied to itself</p>
+<div class="tags"><span class="tag ">level 115</span><span class="tag ">section x</span><span class="tag ">program_synthesis</span><span class="tag ">metareasoning</span><span class="tag ">abstraction</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.05</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>A program that transforms programs, applied to itself.</p><p>    ``R`` is a token rewriter; it is *also* a token sequence (its rules, flat),
+    so ``R(R)`` is well defined and yields a different rewriter ``R&#x27;``. The
+    question asks for the value of ``R&#x27;(P)`` run on an input — three steps of
+    reflection, each of which is executed rather than described. The wrong
+    answers are exactly the values produced by stopping early: ``R(P)``, ``P``
+    itself, and ``R(R(P))``.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>5</td></tr><tr><td>lexical_novelty</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>5</td></tr><tr><td>recursion_depth</td><td class='num'>5</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The encoding:
+  - mmp
+  - pgv
+  - pgv
+  - zld
+  - trd
+  - mmp
+The program is: mmp, trd and zld.
+The semantics are: op(mmp, sub, 6); op(pgv, sub, 2); op(trd, sub, 4); op(zld, mul, 3).
+The transformer: mmp implies pgv, pgv implies zld and trd implies mmp.
+What does apply(apply(R, R), P) evaluate to after 4 steps?
+
+Answer with exactly one of: -12 | 30 | -18 | -6
+Reply with the answer only.</pre><h3>spanish</h3><pre>La codificación es:
+  - mmp
+  - pgv
+  - pgv
+  - zld
+  - trd
+  - mmp
+El programa es: mmp, trd y zld.
+La semántica es: op(mmp, restar, 6); op(pgv, restar, 2); op(trd, restar, 4); op(zld, multiplicar, 3).
+El transformador es: mmp implica pgv, pgv implica zld y trd implica mmp.
+¿A qué se evalúa apply(apply(R, R), P) tras 4 pasos?
+
+Responde exactamente con una de estas opciones: -12 | 30 | -18 | -6
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>编码是：
+  - mmp
+  - pgv
+  - pgv
+  - zld
+  - trd
+  - mmp
+程序如下：mmp、trd和zld。
+语义如下：op(mmp, 减, 6)；op(pgv, 减, 2)；op(trd, 减, 4)；op(zld, 乘, 3)。
+变换器是：mmp蕴含pgv；pgv蕴含zld；trd蕴含mmp。
+apply(apply(R, R), P)4的运行是什么？
+
+请从以下选项中选出恰好一个作答：-12 | 30 | -18 | -6
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The encoding:
+  - mmp
+  - pgv
+  - pgv
+  - zld
+  - trd
+  - mmp
+The program is: mmp, trd and zld.
+The semantics are: op(mmp, sub, 6); op(pgv, sub, 2); op(trd, sub, 4); op(zld, mul, 3).
+The transformer: mmp implies pgv, pgv implies zld and trd implies mmp.
+What does apply(apply(R, R), P) evaluate to after 4 steps?
+
+Answer with exactly one of: -12 | 30 | -18 | -6
+Reply with the answer only.</pre><h3>symbols</h3><pre>{encoding: [mmp pgv pgv zld trd mmp], program: [mmp trd zld], query: (run (apply (apply R R) P) 4), semantics: [(op mmp sub 6) (op pgv sub 2) (op trd sub 4) (op zld mul 3)], transformer: [(rule mmp pgv) (rule pgv zld) (rule trd mmp)]}
+
+Answer with exactly one of: -12 | 30 | -18 | -6
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/recursive_self_application.jsonl</code> &middot; <code>data/samples/spanish/recursive_self_application.jsonl</code> &middot; <code>data/samples/chinese/recursive_self_application.jsonl</code> &middot; <code>data/samples/english_synonym/recursive_self_application.jsonl</code> &middot; <code>data/samples/symbols/recursive_self_application.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">-6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - mmp
+  - pgv
+  - pgv
+  - zld
+  - trd
+  - mmp
+The program is: mmp, trd and zld.
+The semantics are: op(mmp, sub, 6); op(pgv, sub, 2); op(trd, sub, 4); op(zld, mul, 3).
+The transformer: mmp implies pgv, pgv implies zld and trd implies mmp.
+What does apply(apply(R, R), P) evaluate to after 4 steps?
+
+Answer with exactly one of: -12 | 30 | -18 | -6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -6,
+ &quot;input&quot;: 4,
+ &quot;program&quot;: [
+  &quot;mmp&quot;,
+  &quot;trd&quot;,
+  &quot;zld&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;mmp&quot;,
+   &quot;pgv&quot;
+  ],
+  [
+   &quot;pgv&quot;,
+   &quot;zld&quot;
+  ],
+  [
+   &quot;trd&quot;,
+   &quot;mmp&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;pgv&quot;,
+   &quot;zld&quot;
+  ],
+  [
+   &quot;zld&quot;,
+   &quot;zld&quot;
+  ],
+  [
+   &quot;mmp&quot;,
+   &quot;pgv&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">27</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - kdr
+  - kpd
+  - kpd
+  - spk
+  - rsv
+  - kdr
+The program is: rsv, kpd, spk and spk.
+The semantics are: op(kdr, sub, 5); op(kpd, add, 3); op(spk, add, 6); op(rsv, add, 4).
+The transformer: kdr implies kpd, kpd implies spk and rsv implies kdr.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: 27 | 18 | 24 | 26
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 27,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;rsv&quot;,
+  &quot;kpd&quot;,
+  &quot;spk&quot;,
+  &quot;spk&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;kdr&quot;,
+   &quot;kpd&quot;
+  ],
+  [
+   &quot;kpd&quot;,
+   &quot;spk&quot;
+  ],
+  [
+   &quot;rsv&quot;,
+   &quot;kdr&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;kpd&quot;,
+   &quot;spk&quot;
+  ],
+  [
+   &quot;spk&quot;,
+   &quot;spk&quot;
+  ],
+  [
+   &quot;kdr&quot;,
+   &quot;kpd&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - sdd
+  - sdd
+  - tzp
+  - rzm
+  - rzm
+  - lvt
+The program is: rzm, rzm and tzp.
+The semantics are: op(tzp, add, 5); op(sdd, sub, 1); op(lvt, sub, 5); op(rzm, add, 6).
+The transformer: sdd implies sdd, tzp implies rzm and rzm implies lvt.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: 1 | 0 | 22 | -10
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;rzm&quot;,
+  &quot;rzm&quot;,
+  &quot;tzp&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;sdd&quot;,
+   &quot;sdd&quot;
+  ],
+  [
+   &quot;tzp&quot;,
+   &quot;rzm&quot;
+  ],
+  [
+   &quot;rzm&quot;,
+   &quot;lvt&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;sdd&quot;,
+   &quot;sdd&quot;
+  ],
+  [
+   &quot;rzm&quot;,
+   &quot;lvt&quot;
+  ],
+  [
+   &quot;lvt&quot;,
+   &quot;lvt&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">-4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - tll
+  - pmk
+  - gdt
+  - gzz
+  - gzz
+  - gdt
+The program is: tll, pmk and gzz.
+The semantics are: op(tll, sub, 5); op(gzz, add, 6); op(pmk, sub, 2); op(gdt, sub, 2).
+The transformer: tll implies pmk, gdt implies gzz and gzz implies gdt.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: 4 | -4 | -1 | 7
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -4,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;tll&quot;,
+  &quot;pmk&quot;,
+  &quot;gzz&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;tll&quot;,
+   &quot;pmk&quot;
+  ],
+  [
+   &quot;gdt&quot;,
+   &quot;gzz&quot;
+  ],
+  [
+   &quot;gzz&quot;,
+   &quot;gdt&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;pmk&quot;,
+   &quot;pmk&quot;
+  ],
+  [
+   &quot;gzz&quot;,
+   &quot;gdt&quot;
+  ],
+  [
+   &quot;gdt&quot;,
+   &quot;gzz&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">-3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: tpg, szl, szl and zpt.
+The program is: szl, szl, tpg and rvk.
+The semantics are: op(szl, sub, 3); op(rvk, sub, 1); op(zpt, sub, 6); op(tpg, add, 4).
+The transformer: tpg implies szl and szl implies zpt.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: -10 | 3 | -13 | -3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -3,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;szl&quot;,
+  &quot;szl&quot;,
+  &quot;tpg&quot;,
+  &quot;rvk&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;tpg&quot;,
+   &quot;szl&quot;
+  ],
+  [
+   &quot;szl&quot;,
+   &quot;zpt&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;szl&quot;,
+   &quot;zpt&quot;
+  ],
+  [
+   &quot;zpt&quot;,
+   &quot;zpt&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">-7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - kpz
+  - kpz
+  - plt
+  - trv
+  - trv
+  - tvg
+The program is: plt, trv and tvg.
+The semantics are: op(plt, sub, 6); op(kpz, mul, 3); op(tvg, sub, 3); op(trv, sub, 4).
+The transformer: kpz implies kpz, plt implies trv and trv implies tvg.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: -4 | -5 | -7 | -8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -7,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;plt&quot;,
+  &quot;trv&quot;,
+  &quot;tvg&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;kpz&quot;,
+   &quot;kpz&quot;
+  ],
+  [
+   &quot;plt&quot;,
+   &quot;trv&quot;
+  ],
+  [
+   &quot;trv&quot;,
+   &quot;tvg&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;kpz&quot;,
+   &quot;kpz&quot;
+  ],
+  [
+   &quot;trv&quot;,
+   &quot;tvg&quot;
+  ],
+  [
+   &quot;tvg&quot;,
+   &quot;tvg&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: pss, trg, ktr and pss.
+The program is: ktr, pss, ttz and ttz.
+The semantics are: op(ktr, mul, 2); op(ttz, sub, 6); op(trg, add, 3); op(pss, add, 5).
+The transformer: pss implies trg and ktr implies pss.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 0 | 3 | 2 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;ktr&quot;,
+  &quot;pss&quot;,
+  &quot;ttz&quot;,
+  &quot;ttz&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;pss&quot;,
+   &quot;trg&quot;
+  ],
+  [
+   &quot;ktr&quot;,
+   &quot;pss&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;trg&quot;,
+   &quot;trg&quot;
+  ],
+  [
+   &quot;pss&quot;,
+   &quot;trg&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - vrr
+  - vrr
+  - svt
+  - vrs
+  - vrs
+  - rzr
+The program is: rzr, vrs and svt.
+The semantics are: op(vrr, sub, 1); op(vrs, sub, 4); op(rzr, sub, 1); op(svt, mul, 2).
+The transformer: vrr implies vrr, svt implies vrs and vrs implies rzr.
+What does apply(apply(R, R), P) evaluate to after 2 steps?
+
+Answer with exactly one of: -1 | -6 | -4 | 0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;input&quot;: 2,
+ &quot;program&quot;: [
+  &quot;rzr&quot;,
+  &quot;vrs&quot;,
+  &quot;svt&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;vrr&quot;,
+   &quot;vrr&quot;
+  ],
+  [
+   &quot;svt&quot;,
+   &quot;vrs&quot;
+  ],
+  [
+   &quot;vrs&quot;,
+   &quot;rzr&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;vrr&quot;,
+   &quot;vrr&quot;
+  ],
+  [
+   &quot;vrs&quot;,
+   &quot;rzr&quot;
+  ],
+  [
+   &quot;rzr&quot;,
+   &quot;rzr&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - tvv
+  - ggt
+  - ggt
+  - tvv
+  - dmk
+  - rzz
+The program is: ggt, ggt, rzz and dmk.
+The semantics are: op(ggt, add, 5); op(tvv, sub, 1); op(dmk, sub, 3); op(rzz, mul, 3).
+The transformer: tvv implies ggt, ggt implies tvv and dmk implies rzz.
+What does apply(apply(R, R), P) evaluate to after 4 steps?
+
+Answer with exactly one of: 39 | 18 | 126 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;input&quot;: 4,
+ &quot;program&quot;: [
+  &quot;ggt&quot;,
+  &quot;ggt&quot;,
+  &quot;rzz&quot;,
+  &quot;dmk&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;tvv&quot;,
+   &quot;ggt&quot;
+  ],
+  [
+   &quot;ggt&quot;,
+   &quot;tvv&quot;
+  ],
+  [
+   &quot;dmk&quot;,
+   &quot;rzz&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;ggt&quot;,
+   &quot;tvv&quot;
+  ],
+  [
+   &quot;tvv&quot;,
+   &quot;ggt&quot;
+  ],
+  [
+   &quot;rzz&quot;,
+   &quot;rzz&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">11</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: svs, lgg, vsk and svs.
+The program is: svs, vsk and ggm.
+The semantics are: op(svs, mul, 2); op(lgg, mul, 3); op(vsk, sub, 5); op(ggm, add, 1).
+The transformer: svs implies lgg and vsk implies svs.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: 31 | 6 | 11 | 46
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 11,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;svs&quot;,
+  &quot;vsk&quot;,
+  &quot;ggm&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;svs&quot;,
+   &quot;lgg&quot;
+  ],
+  [
+   &quot;vsk&quot;,
+   &quot;svs&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;lgg&quot;,
+   &quot;lgg&quot;
+  ],
+  [
+   &quot;svs&quot;,
+   &quot;lgg&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">16</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: pdv, mtz, vld and pdv.
+The program is: ztm, vld, pdv and pdv.
+The semantics are: op(pdv, sub, 1); op(vld, add, 3); op(mtz, add, 5); op(ztm, sub, 2).
+The transformer: pdv implies mtz and vld implies pdv.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: 12 | 18 | 4 | 16
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 16,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;ztm&quot;,
+  &quot;vld&quot;,
+  &quot;pdv&quot;,
+  &quot;pdv&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;pdv&quot;,
+   &quot;mtz&quot;
+  ],
+  [
+   &quot;vld&quot;,
+   &quot;pdv&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;mtz&quot;,
+   &quot;mtz&quot;
+  ],
+  [
+   &quot;pdv&quot;,
+   &quot;mtz&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: dlk, rdk, pmv and dlk.
+The program is: dlk, rdk, rdk and pmv.
+The semantics are: op(gkp, mul, 3); op(dlk, mul, 2); op(pmv, add, 4); op(rdk, sub, 2).
+The transformer: dlk implies rdk and pmv implies dlk.
+What does apply(apply(R, R), P) evaluate to after 3 steps?
+
+Answer with exactly one of: -5 | 6 | -6 | 1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;input&quot;: 3,
+ &quot;program&quot;: [
+  &quot;dlk&quot;,
+  &quot;rdk&quot;,
+  &quot;rdk&quot;,
+  &quot;pmv&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;dlk&quot;,
+   &quot;rdk&quot;
+  ],
+  [
+   &quot;pmv&quot;,
+   &quot;dlk&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;rdk&quot;,
+   &quot;rdk&quot;
+  ],
+  [
+   &quot;dlk&quot;,
+   &quot;rdk&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - dvs
+  - dvs
+  - zrz
+  - ktr
+  - kdk
+  - zrz
+The program is: kdk, ktr, zrz and dvs.
+The semantics are: op(dvs, sub, 4); op(zrz, add, 2); op(kdk, add, 4); op(ktr, sub, 1).
+The transformer: dvs implies dvs, zrz implies ktr and kdk implies zrz.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: -1 | 7 | 4 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 4,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;kdk&quot;,
+  &quot;ktr&quot;,
+  &quot;zrz&quot;,
+  &quot;dvs&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;dvs&quot;,
+   &quot;dvs&quot;
+  ],
+  [
+   &quot;zrz&quot;,
+   &quot;ktr&quot;
+  ],
+  [
+   &quot;kdk&quot;,
+   &quot;zrz&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;dvs&quot;,
+   &quot;dvs&quot;
+  ],
+  [
+   &quot;ktr&quot;,
+   &quot;ktr&quot;
+  ],
+  [
+   &quot;zrz&quot;,
+   &quot;ktr&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">-20</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: pzp, rtm, rtm and zsz.
+The program is: pzp, zsz and rtm.
+The semantics are: op(rtm, sub, 3); op(pzp, sub, 6); op(zsz, mul, 2); op(zgr, add, 6).
+The transformer: pzp implies rtm and rtm implies zsz.
+What does apply(apply(R, R), P) evaluate to after 1 steps?
+
+Answer with exactly one of: -13 | -20 | -8 | 8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -20,
+ &quot;input&quot;: 1,
+ &quot;program&quot;: [
+  &quot;pzp&quot;,
+  &quot;zsz&quot;,
+  &quot;rtm&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;pzp&quot;,
+   &quot;rtm&quot;
+  ],
+  [
+   &quot;rtm&quot;,
+   &quot;zsz&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;rtm&quot;,
+   &quot;zsz&quot;
+  ],
+  [
+   &quot;zsz&quot;,
+   &quot;zsz&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">36</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - tvz
+  - vmg
+  - svg
+  - svg
+  - vmg
+  - zvp
+The program is: vmg, zvp, tvz and zvp.
+The semantics are: op(zvp, mul, 3); op(svg, add, 6); op(vmg, sub, 4); op(tvz, add, 3).
+The transformer: tvz implies vmg, svg implies svg and vmg implies zvp.
+What does apply(apply(R, R), P) evaluate to after 1 steps?
+
+Answer with exactly one of: -18 | 36 | 81 | 15
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 36,
+ &quot;input&quot;: 1,
+ &quot;program&quot;: [
+  &quot;vmg&quot;,
+  &quot;zvp&quot;,
+  &quot;tvz&quot;,
+  &quot;zvp&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;tvz&quot;,
+   &quot;vmg&quot;
+  ],
+  [
+   &quot;svg&quot;,
+   &quot;svg&quot;
+  ],
+  [
+   &quot;vmg&quot;,
+   &quot;zvp&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;vmg&quot;,
+   &quot;zvp&quot;
+  ],
+  [
+   &quot;svg&quot;,
+   &quot;svg&quot;
+  ],
+  [
+   &quot;zvp&quot;,
+   &quot;zvp&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">16</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - gdm
+  - zss
+  - zss
+  - gdm
+  - vzv
+  - trz
+The program is: zss, vzv and zss.
+The semantics are: op(gdm, add, 2); op(trz, sub, 3); op(zss, add, 5); op(vzv, mul, 2).
+The transformer: gdm implies zss, zss implies gdm and vzv implies trz.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: 16 | 6 | 12 | 25
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 16,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;zss&quot;,
+  &quot;vzv&quot;,
+  &quot;zss&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;gdm&quot;,
+   &quot;zss&quot;
+  ],
+  [
+   &quot;zss&quot;,
+   &quot;gdm&quot;
+  ],
+  [
+   &quot;vzv&quot;,
+   &quot;trz&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;zss&quot;,
+   &quot;gdm&quot;
+  ],
+  [
+   &quot;gdm&quot;,
+   &quot;zss&quot;
+  ],
+  [
+   &quot;trz&quot;,
+   &quot;trz&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">22</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: gms, mgt, ggd and gms.
+The program is: gms, mgt and ggd.
+The semantics are: op(rzs, sub, 5); op(gms, add, 6); op(ggd, mul, 2); op(mgt, add, 5).
+The transformer: gms implies mgt and ggd implies gms.
+What does apply(apply(R, R), P) evaluate to after 1 steps?
+
+Answer with exactly one of: 24 | 17 | 16 | 22
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 22,
+ &quot;input&quot;: 1,
+ &quot;program&quot;: [
+  &quot;gms&quot;,
+  &quot;mgt&quot;,
+  &quot;ggd&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;gms&quot;,
+   &quot;mgt&quot;
+  ],
+  [
+   &quot;ggd&quot;,
+   &quot;gms&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;mgt&quot;,
+   &quot;mgt&quot;
+  ],
+  [
+   &quot;gms&quot;,
+   &quot;mgt&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - llm
+  - ltr
+  - ltr
+  - llm
+  - rlm
+  - kdz
+The program is: kdz, llm and rlm.
+The semantics are: op(rlm, add, 4); op(kdz, sub, 4); op(llm, add, 3); op(ltr, add, 1).
+The transformer: llm implies ltr, ltr implies llm and rlm implies kdz.
+What does apply(apply(R, R), P) evaluate to after 4 steps?
+
+Answer with exactly one of: 5 | -3 | 7 | -1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 5,
+ &quot;input&quot;: 4,
+ &quot;program&quot;: [
+  &quot;kdz&quot;,
+  &quot;llm&quot;,
+  &quot;rlm&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;llm&quot;,
+   &quot;ltr&quot;
+  ],
+  [
+   &quot;ltr&quot;,
+   &quot;llm&quot;
+  ],
+  [
+   &quot;rlm&quot;,
+   &quot;kdz&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;ltr&quot;,
+   &quot;llm&quot;
+  ],
+  [
+   &quot;llm&quot;,
+   &quot;ltr&quot;
+  ],
+  [
+   &quot;kdz&quot;,
+   &quot;kdz&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">36</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: kvr, mrt, ssp and kvr.
+The program is: ssp, ssp, kvr and mrt.
+The semantics are: op(ktz, mul, 2); op(ssp, sub, 1); op(mrt, mul, 3); op(kvr, sub, 2).
+The transformer: kvr implies mrt and ssp implies kvr.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 486 | 36 | 18 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 36,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;ssp&quot;,
+  &quot;ssp&quot;,
+  &quot;kvr&quot;,
+  &quot;mrt&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;kvr&quot;,
+   &quot;mrt&quot;
+  ],
+  [
+   &quot;ssp&quot;,
+   &quot;kvr&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;mrt&quot;,
+   &quot;mrt&quot;
+  ],
+  [
+   &quot;kvr&quot;,
+   &quot;mrt&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: tmd, mpp, mpp and kld.
+The program is: tmd, mpp, mpp and tmd.
+The semantics are: op(mpp, add, 5); op(pkl, sub, 4); op(tmd, sub, 5); op(kld, add, 3).
+The transformer: tmd implies mpp and mpp implies kld.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 22 | 18 | 2 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;tmd&quot;,
+  &quot;mpp&quot;,
+  &quot;mpp&quot;,
+  &quot;tmd&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;tmd&quot;,
+   &quot;mpp&quot;
+  ],
+  [
+   &quot;mpp&quot;,
+   &quot;kld&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;mpp&quot;,
+   &quot;kld&quot;
+  ],
+  [
+   &quot;kld&quot;,
+   &quot;kld&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">32</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - kvm
+  - vdd
+  - vdd
+  - zpp
+  - zpp
+  - dpm
+The program is: zpp, kvm, vdd and kvm.
+The semantics are: op(vdd, add, 5); op(zpp, mul, 2); op(kvm, mul, 2); op(dpm, add, 2).
+The transformer: kvm implies vdd, vdd implies zpp and zpp implies dpm.
+What does apply(apply(R, R), P) evaluate to after 2 steps?
+
+Answer with exactly one of: 26 | 32 | 20 | 23
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 32,
+ &quot;input&quot;: 2,
+ &quot;program&quot;: [
+  &quot;zpp&quot;,
+  &quot;kvm&quot;,
+  &quot;vdd&quot;,
+  &quot;kvm&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;kvm&quot;,
+   &quot;vdd&quot;
+  ],
+  [
+   &quot;vdd&quot;,
+   &quot;zpp&quot;
+  ],
+  [
+   &quot;zpp&quot;,
+   &quot;dpm&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;vdd&quot;,
+   &quot;zpp&quot;
+  ],
+  [
+   &quot;zpp&quot;,
+   &quot;dpm&quot;
+  ],
+  [
+   &quot;dpm&quot;,
+   &quot;dpm&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">10</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - tdr
+  - ltl
+  - vks
+  - tdr
+  - vkz
+  - vkz
+The program is: vks, tdr, ltl and vks.
+The semantics are: op(vkz, mul, 3); op(tdr, sub, 5); op(vks, sub, 3); op(ltl, add, 5).
+The transformer: tdr implies ltl, vks implies tdr and vkz implies vkz.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 6 | 0 | 10 | 26
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 10,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;vks&quot;,
+  &quot;tdr&quot;,
+  &quot;ltl&quot;,
+  &quot;vks&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;tdr&quot;,
+   &quot;ltl&quot;
+  ],
+  [
+   &quot;vks&quot;,
+   &quot;tdr&quot;
+  ],
+  [
+   &quot;vkz&quot;,
+   &quot;vkz&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;ltl&quot;,
+   &quot;ltl&quot;
+  ],
+  [
+   &quot;tdr&quot;,
+   &quot;ltl&quot;
+  ],
+  [
+   &quot;vkz&quot;,
+   &quot;vkz&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">-3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - gml
+  - vlv
+  - mvz
+  - kdl
+  - vlv
+  - mvz
+The program is: gml, mvz and vlv.
+The semantics are: op(vlv, mul, 2); op(mvz, sub, 6); op(gml, sub, 4); op(kdl, add, 2).
+The transformer: gml implies vlv, mvz implies kdl and vlv implies mvz.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: 3 | 6 | -3 | -10
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -3,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;gml&quot;,
+  &quot;mvz&quot;,
+  &quot;vlv&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;gml&quot;,
+   &quot;vlv&quot;
+  ],
+  [
+   &quot;mvz&quot;,
+   &quot;kdl&quot;
+  ],
+  [
+   &quot;vlv&quot;,
+   &quot;mvz&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;vlv&quot;,
+   &quot;mvz&quot;
+  ],
+  [
+   &quot;kdl&quot;,
+   &quot;kdl&quot;
+  ],
+  [
+   &quot;mvz&quot;,
+   &quot;kdl&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - zdl
+  - plz
+  - plz
+  - vgp
+  - pkd
+  - zdl
+The program is: zdl, pkd and plz.
+The semantics are: op(pkd, sub, 3); op(vgp, add, 4); op(zdl, add, 4); op(plz, mul, 3).
+The transformer: zdl implies plz, plz implies vgp and pkd implies zdl.
+What does apply(apply(R, R), P) evaluate to after 1 steps?
+
+Answer with exactly one of: 4 | 11 | 19 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 4,
+ &quot;input&quot;: 1,
+ &quot;program&quot;: [
+  &quot;zdl&quot;,
+  &quot;pkd&quot;,
+  &quot;plz&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;zdl&quot;,
+   &quot;plz&quot;
+  ],
+  [
+   &quot;plz&quot;,
+   &quot;vgp&quot;
+  ],
+  [
+   &quot;pkd&quot;,
+   &quot;zdl&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;plz&quot;,
+   &quot;vgp&quot;
+  ],
+  [
+   &quot;vgp&quot;,
+   &quot;vgp&quot;
+  ],
+  [
+   &quot;zdl&quot;,
+   &quot;plz&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">-8</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - vmk
+  - vlv
+  - vlv
+  - vmk
+  - mlp
+  - lkk
+The program is: vmk, lkk and mlp.
+The semantics are: op(lkk, sub, 5); op(vlv, sub, 5); op(vmk, mul, 3); op(mlp, sub, 2).
+The transformer: vmk implies vlv, vlv implies vmk and mlp implies lkk.
+What does apply(apply(R, R), P) evaluate to after 4 steps?
+
+Answer with exactly one of: -8 | 5 | -11 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -8,
+ &quot;input&quot;: 4,
+ &quot;program&quot;: [
+  &quot;vmk&quot;,
+  &quot;lkk&quot;,
+  &quot;mlp&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;vmk&quot;,
+   &quot;vlv&quot;
+  ],
+  [
+   &quot;vlv&quot;,
+   &quot;vmk&quot;
+  ],
+  [
+   &quot;mlp&quot;,
+   &quot;lkk&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;vlv&quot;,
+   &quot;vmk&quot;
+  ],
+  [
+   &quot;vmk&quot;,
+   &quot;vlv&quot;
+  ],
+  [
+   &quot;lkk&quot;,
+   &quot;lkk&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">18</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: kzk, zgp, zgp and pks.
+The program is: kzk, zgp and kzk.
+The semantics are: op(pks, add, 5); op(zdv, add, 5); op(kzk, mul, 2); op(zgp, mul, 3).
+The transformer: kzk implies zgp and zgp implies pks.
+What does apply(apply(R, R), P) evaluate to after 2 steps?
+
+Answer with exactly one of: 18 | 17 | 24 | 33
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 18,
+ &quot;input&quot;: 2,
+ &quot;program&quot;: [
+  &quot;kzk&quot;,
+  &quot;zgp&quot;,
+  &quot;kzk&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;kzk&quot;,
+   &quot;zgp&quot;
+  ],
+  [
+   &quot;zgp&quot;,
+   &quot;pks&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;zgp&quot;,
+   &quot;pks&quot;
+  ],
+  [
+   &quot;pks&quot;,
+   &quot;pks&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - kdp
+  - vld
+  - mgk
+  - rkz
+  - vld
+  - mgk
+The program is: kdp, mgk and mgk.
+The semantics are: op(mgk, mul, 3); op(kdp, add, 1); op(rkz, add, 2); op(vld, sub, 2).
+The transformer: kdp implies vld, mgk implies rkz and vld implies mgk.
+What does apply(apply(R, R), P) evaluate to after 2 steps?
+
+Answer with exactly one of: 27 | 4 | 7 | 10
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 7,
+ &quot;input&quot;: 2,
+ &quot;program&quot;: [
+  &quot;kdp&quot;,
+  &quot;mgk&quot;,
+  &quot;mgk&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;kdp&quot;,
+   &quot;vld&quot;
+  ],
+  [
+   &quot;mgk&quot;,
+   &quot;rkz&quot;
+  ],
+  [
+   &quot;vld&quot;,
+   &quot;mgk&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;vld&quot;,
+   &quot;mgk&quot;
+  ],
+  [
+   &quot;rkz&quot;,
+   &quot;rkz&quot;
+  ],
+  [
+   &quot;mgk&quot;,
+   &quot;rkz&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">20</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - grp
+  - gds
+  - gds
+  - zsl
+  - zsl
+  - ssl
+The program is: zsl, zsl, grp and grp.
+The semantics are: op(grp, sub, 2); op(gds, add, 3); op(ssl, mul, 2); op(zsl, mul, 3).
+The transformer: grp implies gds, gds implies zsl and zsl implies ssl.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 216 | 20 | 30 | 50
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 20,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;zsl&quot;,
+  &quot;zsl&quot;,
+  &quot;grp&quot;,
+  &quot;grp&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;grp&quot;,
+   &quot;gds&quot;
+  ],
+  [
+   &quot;gds&quot;,
+   &quot;zsl&quot;
+  ],
+  [
+   &quot;zsl&quot;,
+   &quot;ssl&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;gds&quot;,
+   &quot;zsl&quot;
+  ],
+  [
+   &quot;zsl&quot;,
+   &quot;ssl&quot;
+  ],
+  [
+   &quot;ssl&quot;,
+   &quot;ssl&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">-15</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: tdr, skk, skk and ppd.
+The program is: rzv, tdr and skk.
+The semantics are: op(skk, mul, 2); op(ppd, mul, 3); op(rzv, sub, 6); op(tdr, sub, 1).
+The transformer: tdr implies skk and skk implies ppd.
+What does apply(apply(R, R), P) evaluate to after 2 steps?
+
+Answer with exactly one of: -36 | -10 | -15 | -24
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -15,
+ &quot;input&quot;: 2,
+ &quot;program&quot;: [
+  &quot;rzv&quot;,
+  &quot;tdr&quot;,
+  &quot;skk&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;tdr&quot;,
+   &quot;skk&quot;
+  ],
+  [
+   &quot;skk&quot;,
+   &quot;ppd&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;skk&quot;,
+   &quot;ppd&quot;
+  ],
+  [
+   &quot;ppd&quot;,
+   &quot;ppd&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">10</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - dll
+  - rtk
+  - gzz
+  - mld
+  - mld
+  - gzz
+The program is: dll, dll and gzz.
+The semantics are: op(gzz, mul, 2); op(dll, mul, 2); op(mld, sub, 6); op(rtk, add, 2).
+The transformer: dll implies rtk, gzz implies mld and mld implies gzz.
+What does apply(apply(R, R), P) evaluate to after 4 steps?
+
+Answer with exactly one of: 10 | 16 | 2 | 32
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 10,
+ &quot;input&quot;: 4,
+ &quot;program&quot;: [
+  &quot;dll&quot;,
+  &quot;dll&quot;,
+  &quot;gzz&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;dll&quot;,
+   &quot;rtk&quot;
+  ],
+  [
+   &quot;gzz&quot;,
+   &quot;mld&quot;
+  ],
+  [
+   &quot;mld&quot;,
+   &quot;gzz&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;rtk&quot;,
+   &quot;rtk&quot;
+  ],
+  [
+   &quot;mld&quot;,
+   &quot;gzz&quot;
+  ],
+  [
+   &quot;gzz&quot;,
+   &quot;mld&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: tzz, gvz, gvz and drm.
+The program is: tzz, gvz and tzz.
+The semantics are: op(mdz, sub, 5); op(drm, add, 2); op(gvz, add, 6); op(tzz, sub, 1).
+The transformer: tzz implies gvz and gvz implies drm.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 6 | 20 | 12 | 10
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 6,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;tzz&quot;,
+  &quot;gvz&quot;,
+  &quot;tzz&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;tzz&quot;,
+   &quot;gvz&quot;
+  ],
+  [
+   &quot;gvz&quot;,
+   &quot;drm&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;gvz&quot;,
+   &quot;drm&quot;
+  ],
+  [
+   &quot;drm&quot;,
+   &quot;drm&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">-20</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: vvz, psr, vrt and vvz.
+The program is: vvz, vrt, vvz and vrt.
+The semantics are: op(psr, sub, 4); op(vrt, mul, 2); op(mkv, mul, 3); op(vvz, add, 2).
+The transformer: vvz implies psr and vrt implies vvz.
+What does apply(apply(R, R), P) evaluate to after 1 steps?
+
+Answer with exactly one of: 16 | -3 | -20 | -15
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -20,
+ &quot;input&quot;: 1,
+ &quot;program&quot;: [
+  &quot;vvz&quot;,
+  &quot;vrt&quot;,
+  &quot;vvz&quot;,
+  &quot;vrt&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;vvz&quot;,
+   &quot;psr&quot;
+  ],
+  [
+   &quot;vrt&quot;,
+   &quot;vvz&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;psr&quot;,
+   &quot;psr&quot;
+  ],
+  [
+   &quot;vvz&quot;,
+   &quot;psr&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">-15</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: krm, pkk, pkk and tvk.
+The program is: pkk, krm, tvk and rls.
+The semantics are: op(krm, add, 4); op(tvk, sub, 6); op(pkk, sub, 2); op(rls, mul, 3).
+The transformer: krm implies pkk and pkk implies tvk.
+What does apply(apply(R, R), P) evaluate to after 3 steps?
+
+Answer with exactly one of: -33 | -15 | -3 | -45
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -15,
+ &quot;input&quot;: 3,
+ &quot;program&quot;: [
+  &quot;pkk&quot;,
+  &quot;krm&quot;,
+  &quot;tvk&quot;,
+  &quot;rls&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;krm&quot;,
+   &quot;pkk&quot;
+  ],
+  [
+   &quot;pkk&quot;,
+   &quot;tvk&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;pkk&quot;,
+   &quot;tvk&quot;
+  ],
+  [
+   &quot;tvk&quot;,
+   &quot;tvk&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">11</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - ppg
+  - vzl
+  - mzt
+  - mdl
+  - mdl
+  - ppg
+The program is: mdl, ppg, vzl and mzt.
+The semantics are: op(mdl, add, 1); op(mzt, sub, 1); op(ppg, sub, 1); op(vzl, add, 6).
+The transformer: ppg implies vzl, mzt implies mdl and mdl implies ppg.
+What does apply(apply(R, R), P) evaluate to after 1 steps?
+
+Answer with exactly one of: 13 | 11 | 18 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 11,
+ &quot;input&quot;: 1,
+ &quot;program&quot;: [
+  &quot;mdl&quot;,
+  &quot;ppg&quot;,
+  &quot;vzl&quot;,
+  &quot;mzt&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;ppg&quot;,
+   &quot;vzl&quot;
+  ],
+  [
+   &quot;mzt&quot;,
+   &quot;mdl&quot;
+  ],
+  [
+   &quot;mdl&quot;,
+   &quot;ppg&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;vzl&quot;,
+   &quot;vzl&quot;
+  ],
+  [
+   &quot;mdl&quot;,
+   &quot;ppg&quot;
+  ],
+  [
+   &quot;ppg&quot;,
+   &quot;vzl&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">-1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - ggg
+  - kmm
+  - ztp
+  - rvk
+  - rvk
+  - ztp
+The program is: ggg, kmm and rvk.
+The semantics are: op(ztp, sub, 1); op(rvk, mul, 3); op(kmm, sub, 5); op(ggg, add, 2).
+The transformer: ggg implies kmm, ztp implies rvk and rvk implies ztp.
+What does apply(apply(R, R), P) evaluate to after 3 steps?
+
+Answer with exactly one of: -21 | 0 | -8 | -1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -1,
+ &quot;input&quot;: 3,
+ &quot;program&quot;: [
+  &quot;ggg&quot;,
+  &quot;kmm&quot;,
+  &quot;rvk&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;ggg&quot;,
+   &quot;kmm&quot;
+  ],
+  [
+   &quot;ztp&quot;,
+   &quot;rvk&quot;
+  ],
+  [
+   &quot;rvk&quot;,
+   &quot;ztp&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;kmm&quot;,
+   &quot;kmm&quot;
+  ],
+  [
+   &quot;rvk&quot;,
+   &quot;ztp&quot;
+  ],
+  [
+   &quot;ztp&quot;,
+   &quot;rvk&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">24</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: rmt, rzk, rzk and vrv.
+The program is: rmt, rzk, rmt and rmt.
+The semantics are: op(rmt, mul, 2); op(zpv, add, 2); op(vrv, add, 2); op(rzk, mul, 3).
+The transformer: rmt implies rzk and rzk implies vrv.
+What does apply(apply(R, R), P) evaluate to after 2 steps?
+
+Answer with exactly one of: 10 | 48 | 72 | 24
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 24,
+ &quot;input&quot;: 2,
+ &quot;program&quot;: [
+  &quot;rmt&quot;,
+  &quot;rzk&quot;,
+  &quot;rmt&quot;,
+  &quot;rmt&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;rmt&quot;,
+   &quot;rzk&quot;
+  ],
+  [
+   &quot;rzk&quot;,
+   &quot;vrv&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;rzk&quot;,
+   &quot;vrv&quot;
+  ],
+  [
+   &quot;vrv&quot;,
+   &quot;vrv&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: lrt, tvg, tvg and mrv.
+The program is: lrt, tvg and lrt.
+The semantics are: op(mrv, add, 5); op(srz, sub, 4); op(tvg, add, 2); op(lrt, sub, 3).
+The transformer: lrt implies tvg and tvg implies mrv.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 2 | 15 | 21 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 5,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;lrt&quot;,
+  &quot;tvg&quot;,
+  &quot;lrt&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;lrt&quot;,
+   &quot;tvg&quot;
+  ],
+  [
+   &quot;tvg&quot;,
+   &quot;mrv&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;tvg&quot;,
+   &quot;mrv&quot;
+  ],
+  [
+   &quot;mrv&quot;,
+   &quot;mrv&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">16</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - vlm
+  - kss
+  - smz
+  - vgv
+  - vgv
+  - smz
+The program is: kss, smz, kss and vlm.
+The semantics are: op(vlm, sub, 5); op(smz, sub, 5); op(kss, add, 5); op(vgv, mul, 2).
+The transformer: vlm implies kss, smz implies vgv and vgv implies smz.
+What does apply(apply(R, R), P) evaluate to after 3 steps?
+
+Answer with exactly one of: 3 | 26 | 16 | 13
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 16,
+ &quot;input&quot;: 3,
+ &quot;program&quot;: [
+  &quot;kss&quot;,
+  &quot;smz&quot;,
+  &quot;kss&quot;,
+  &quot;vlm&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;vlm&quot;,
+   &quot;kss&quot;
+  ],
+  [
+   &quot;smz&quot;,
+   &quot;vgv&quot;
+  ],
+  [
+   &quot;vgv&quot;,
+   &quot;smz&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;kss&quot;,
+   &quot;kss&quot;
+  ],
+  [
+   &quot;vgv&quot;,
+   &quot;smz&quot;
+  ],
+  [
+   &quot;smz&quot;,
+   &quot;vgv&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">45</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - trm
+  - ggd
+  - ggd
+  - kvk
+  - kvk
+  - tsl
+The program is: trm, ggd and tsl.
+The semantics are: op(trm, mul, 3); op(kvk, add, 3); op(tsl, mul, 3); op(ggd, sub, 3).
+The transformer: trm implies ggd, ggd implies kvk and kvk implies tsl.
+What does apply(apply(R, R), P) evaluate to after 4 steps?
+
+Answer with exactly one of: 27 | 63 | 12 | 45
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 45,
+ &quot;input&quot;: 4,
+ &quot;program&quot;: [
+  &quot;trm&quot;,
+  &quot;ggd&quot;,
+  &quot;tsl&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;trm&quot;,
+   &quot;ggd&quot;
+  ],
+  [
+   &quot;ggd&quot;,
+   &quot;kvk&quot;
+  ],
+  [
+   &quot;kvk&quot;,
+   &quot;tsl&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;ggd&quot;,
+   &quot;kvk&quot;
+  ],
+  [
+   &quot;kvk&quot;,
+   &quot;tsl&quot;
+  ],
+  [
+   &quot;tsl&quot;,
+   &quot;tsl&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">-6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - dsg
+  - mvp
+  - mvp
+  - zgl
+  - zgl
+  - gkk
+The program is: zgl, mvp, dsg and dsg.
+The semantics are: op(mvp, mul, 3); op(zgl, mul, 3); op(gkk, sub, 3); op(dsg, sub, 6).
+The transformer: dsg implies mvp, mvp implies zgl and zgl implies gkk.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: 33 | -9 | 54 | -6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -6,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;zgl&quot;,
+  &quot;mvp&quot;,
+  &quot;dsg&quot;,
+  &quot;dsg&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;dsg&quot;,
+   &quot;mvp&quot;
+  ],
+  [
+   &quot;mvp&quot;,
+   &quot;zgl&quot;
+  ],
+  [
+   &quot;zgl&quot;,
+   &quot;gkk&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;mvp&quot;,
+   &quot;zgl&quot;
+  ],
+  [
+   &quot;zgl&quot;,
+   &quot;gkk&quot;
+  ],
+  [
+   &quot;gkk&quot;,
+   &quot;gkk&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: gmt, tgp, gmm and gmt.
+The program is: gmt, lks, gmm and gmt.
+The semantics are: op(lks, add, 4); op(gmt, sub, 1); op(tgp, add, 1); op(gmm, sub, 3).
+The transformer: gmt implies tgp and gmm implies gmt.
+What does apply(apply(R, R), P) evaluate to after 1 steps?
+
+Answer with exactly one of: 8 | 6 | 0 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 4,
+ &quot;input&quot;: 1,
+ &quot;program&quot;: [
+  &quot;gmt&quot;,
+  &quot;lks&quot;,
+  &quot;gmm&quot;,
+  &quot;gmt&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;gmt&quot;,
+   &quot;tgp&quot;
+  ],
+  [
+   &quot;gmm&quot;,
+   &quot;gmt&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;tgp&quot;,
+   &quot;tgp&quot;
+  ],
+  [
+   &quot;gmt&quot;,
+   &quot;tgp&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">26</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: plp, kss, mrp and plp.
+The program is: mrp, svs, svs and plp.
+The semantics are: op(kss, mul, 2); op(plp, sub, 4); op(mrp, mul, 3); op(svs, add, 2).
+The transformer: plp implies kss and mrp implies plp.
+What does apply(apply(R, R), P) evaluate to after 3 steps?
+
+Answer with exactly one of: 20 | 26 | 9 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 26,
+ &quot;input&quot;: 3,
+ &quot;program&quot;: [
+  &quot;mrp&quot;,
+  &quot;svs&quot;,
+  &quot;svs&quot;,
+  &quot;plp&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;plp&quot;,
+   &quot;kss&quot;
+  ],
+  [
+   &quot;mrp&quot;,
+   &quot;plp&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;kss&quot;,
+   &quot;kss&quot;
+  ],
+  [
+   &quot;plp&quot;,
+   &quot;kss&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">-16</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: mgk, smg, dsm and mgk.
+The program is: mgk, dsm, mgk and dsm.
+The semantics are: op(smg, sub, 5); op(dsm, sub, 6); op(zdg, sub, 1); op(mgk, mul, 3).
+The transformer: mgk implies smg and dsm implies mgk.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: -16 | -6 | -14 | 30
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -16,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;mgk&quot;,
+  &quot;dsm&quot;,
+  &quot;mgk&quot;,
+  &quot;dsm&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;mgk&quot;,
+   &quot;smg&quot;
+  ],
+  [
+   &quot;dsm&quot;,
+   &quot;mgk&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;smg&quot;,
+   &quot;smg&quot;
+  ],
+  [
+   &quot;mgk&quot;,
+   &quot;smg&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: gtr, lgv, lgv and dlm.
+The program is: dlm, pzr, lgv and gtr.
+The semantics are: op(pzr, mul, 3); op(gtr, add, 6); op(dlm, sub, 5); op(lgv, add, 1).
+The transformer: gtr implies lgv and lgv implies dlm.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 4 | -1 | 10 | -7
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 4,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;dlm&quot;,
+  &quot;pzr&quot;,
+  &quot;lgv&quot;,
+  &quot;gtr&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;gtr&quot;,
+   &quot;lgv&quot;
+  ],
+  [
+   &quot;lgv&quot;,
+   &quot;dlm&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;lgv&quot;,
+   &quot;dlm&quot;
+  ],
+  [
+   &quot;dlm&quot;,
+   &quot;dlm&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: dms, grp, gtk and dms.
+The program is: tlk, gtk and dms.
+The semantics are: op(dms, add, 4); op(tlk, add, 1); op(grp, mul, 3); op(gtk, sub, 6).
+The transformer: dms implies grp and gtk implies dms.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 63 | 5 | 3 | 33
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;tlk&quot;,
+  &quot;gtk&quot;,
+  &quot;dms&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;dms&quot;,
+   &quot;grp&quot;
+  ],
+  [
+   &quot;gtk&quot;,
+   &quot;dms&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;grp&quot;,
+   &quot;grp&quot;
+  ],
+  [
+   &quot;dms&quot;,
+   &quot;grp&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">81</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - klk
+  - zgd
+  - msg
+  - klk
+  - spt
+  - spt
+The program is: msg, zgd, klk and klk.
+The semantics are: op(spt, mul, 3); op(zgd, mul, 3); op(klk, sub, 2); op(msg, sub, 1).
+The transformer: klk implies zgd, msg implies klk and spt implies spt.
+What does apply(apply(R, R), P) evaluate to after 4 steps?
+
+Answer with exactly one of: 54 | 5 | 324 | 81
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 81,
+ &quot;input&quot;: 4,
+ &quot;program&quot;: [
+  &quot;msg&quot;,
+  &quot;zgd&quot;,
+  &quot;klk&quot;,
+  &quot;klk&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;klk&quot;,
+   &quot;zgd&quot;
+  ],
+  [
+   &quot;msg&quot;,
+   &quot;klk&quot;
+  ],
+  [
+   &quot;spt&quot;,
+   &quot;spt&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;zgd&quot;,
+   &quot;zgd&quot;
+  ],
+  [
+   &quot;klk&quot;,
+   &quot;zgd&quot;
+  ],
+  [
+   &quot;spt&quot;,
+   &quot;spt&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">17</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - dkg
+  - rvp
+  - rvp
+  - vdp
+  - vdp
+  - ssm
+The program is: vdp, dkg, dkg and ssm.
+The semantics are: op(rvp, add, 5); op(dkg, mul, 2); op(vdp, sub, 6); op(ssm, add, 1).
+The transformer: dkg implies rvp, rvp implies vdp and vdp implies ssm.
+What does apply(apply(R, R), P) evaluate to after 3 steps?
+
+Answer with exactly one of: 15 | -7 | -11 | 17
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 17,
+ &quot;input&quot;: 3,
+ &quot;program&quot;: [
+  &quot;vdp&quot;,
+  &quot;dkg&quot;,
+  &quot;dkg&quot;,
+  &quot;ssm&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;dkg&quot;,
+   &quot;rvp&quot;
+  ],
+  [
+   &quot;rvp&quot;,
+   &quot;vdp&quot;
+  ],
+  [
+   &quot;vdp&quot;,
+   &quot;ssm&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;rvp&quot;,
+   &quot;vdp&quot;
+  ],
+  [
+   &quot;vdp&quot;,
+   &quot;ssm&quot;
+  ],
+  [
+   &quot;ssm&quot;,
+   &quot;ssm&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">31</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - zkm
+  - zrs
+  - rlv
+  - zkm
+  - zrs
+  - ggk
+The program is: zkm, zkm and rlv.
+The semantics are: op(zkm, add, 3); op(ggk, sub, 1); op(zrs, mul, 3); op(rlv, sub, 5).
+The transformer: zkm implies zrs, rlv implies zkm and zrs implies ggk.
+What does apply(apply(R, R), P) evaluate to after 4 steps?
+
+Answer with exactly one of: 5 | 6 | 31 | 39
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 31,
+ &quot;input&quot;: 4,
+ &quot;program&quot;: [
+  &quot;zkm&quot;,
+  &quot;zkm&quot;,
+  &quot;rlv&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;zkm&quot;,
+   &quot;zrs&quot;
+  ],
+  [
+   &quot;rlv&quot;,
+   &quot;zkm&quot;
+  ],
+  [
+   &quot;zrs&quot;,
+   &quot;ggk&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;zrs&quot;,
+   &quot;ggk&quot;
+  ],
+  [
+   &quot;zkm&quot;,
+   &quot;zrs&quot;
+  ],
+  [
+   &quot;ggk&quot;,
+   &quot;ggk&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">15</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - rrv
+  - gdl
+  - zzv
+  - zzv
+  - vpd
+  - rrv
+The program is: zzv, rrv, vpd and gdl.
+The semantics are: op(rrv, add, 2); op(gdl, add, 6); op(vpd, sub, 4); op(zzv, add, 5).
+The transformer: rrv implies gdl, zzv implies zzv and vpd implies rrv.
+What does apply(apply(R, R), P) evaluate to after 2 steps?
+
+Answer with exactly one of: 21 | 15 | 25 | 11
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 15,
+ &quot;input&quot;: 2,
+ &quot;program&quot;: [
+  &quot;zzv&quot;,
+  &quot;rrv&quot;,
+  &quot;vpd&quot;,
+  &quot;gdl&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;rrv&quot;,
+   &quot;gdl&quot;
+  ],
+  [
+   &quot;zzv&quot;,
+   &quot;zzv&quot;
+  ],
+  [
+   &quot;vpd&quot;,
+   &quot;rrv&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;gdl&quot;,
+   &quot;gdl&quot;
+  ],
+  [
+   &quot;zzv&quot;,
+   &quot;zzv&quot;
+  ],
+  [
+   &quot;rrv&quot;,
+   &quot;gdl&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">46</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - kzt
+  - mlr
+  - mlp
+  - mlp
+  - rkd
+  - kzt
+The program is: rkd, rkd, rkd and kzt.
+The semantics are: op(mlp, sub, 6); op(mlr, add, 6); op(rkd, mul, 2); op(kzt, mul, 3).
+The transformer: kzt implies mlr, mlp implies mlp and rkd implies kzt.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: 29 | 141 | 120 | 46
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 46,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;rkd&quot;,
+  &quot;rkd&quot;,
+  &quot;rkd&quot;,
+  &quot;kzt&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;kzt&quot;,
+   &quot;mlr&quot;
+  ],
+  [
+   &quot;mlp&quot;,
+   &quot;mlp&quot;
+  ],
+  [
+   &quot;rkd&quot;,
+   &quot;kzt&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;mlr&quot;,
+   &quot;mlr&quot;
+  ],
+  [
+   &quot;mlp&quot;,
+   &quot;mlp&quot;
+  ],
+  [
+   &quot;kzt&quot;,
+   &quot;mlr&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">-6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - ldl
+  - tgt
+  - krs
+  - ldl
+  - ppz
+  - krs
+The program is: ppz, ldl and ppz.
+The semantics are: op(tgt, sub, 3); op(krs, sub, 3); op(ppz, sub, 2); op(ldl, add, 1).
+The transformer: ldl implies tgt, krs implies ldl and ppz implies krs.
+What does apply(apply(R, R), P) evaluate to after 1 steps?
+
+Answer with exactly one of: -8 | 0 | -6 | -2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -6,
+ &quot;input&quot;: 1,
+ &quot;program&quot;: [
+  &quot;ppz&quot;,
+  &quot;ldl&quot;,
+  &quot;ppz&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;ldl&quot;,
+   &quot;tgt&quot;
+  ],
+  [
+   &quot;krs&quot;,
+   &quot;ldl&quot;
+  ],
+  [
+   &quot;ppz&quot;,
+   &quot;krs&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;tgt&quot;,
+   &quot;tgt&quot;
+  ],
+  [
+   &quot;ldl&quot;,
+   &quot;tgt&quot;
+  ],
+  [
+   &quot;krs&quot;,
+   &quot;ldl&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">48</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - rdr
+  - rvd
+  - mrz
+  - rdr
+  - rvd
+  - rkv
+The program is: rvd, mrz, rvd and rdr.
+The semantics are: op(rkv, add, 3); op(rdr, sub, 5); op(mrz, add, 5); op(rvd, mul, 3).
+The transformer: rdr implies rvd, mrz implies rdr and rvd implies rkv.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: 48 | 18 | 30 | 55
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 48,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;rvd&quot;,
+  &quot;mrz&quot;,
+  &quot;rvd&quot;,
+  &quot;rdr&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;rdr&quot;,
+   &quot;rvd&quot;
+  ],
+  [
+   &quot;mrz&quot;,
+   &quot;rdr&quot;
+  ],
+  [
+   &quot;rvd&quot;,
+   &quot;rkv&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;rvd&quot;,
+   &quot;rkv&quot;
+  ],
+  [
+   &quot;rdr&quot;,
+   &quot;rvd&quot;
+  ],
+  [
+   &quot;rkv&quot;,
+   &quot;rkv&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - sld
+  - stm
+  - zkm
+  - sld
+  - slz
+  - zkm
+The program is: sld, stm and slz.
+The semantics are: op(sld, mul, 2); op(slz, add, 5); op(stm, sub, 3); op(zkm, sub, 3).
+The transformer: sld implies stm, zkm implies sld and slz implies zkm.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 5 | 0 | -3 | 14
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 5,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;sld&quot;,
+  &quot;stm&quot;,
+  &quot;slz&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;sld&quot;,
+   &quot;stm&quot;
+  ],
+  [
+   &quot;zkm&quot;,
+   &quot;sld&quot;
+  ],
+  [
+   &quot;slz&quot;,
+   &quot;zkm&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;stm&quot;,
+   &quot;stm&quot;
+  ],
+  [
+   &quot;sld&quot;,
+   &quot;stm&quot;
+  ],
+  [
+   &quot;zkm&quot;,
+   &quot;sld&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">12</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: psv, ztd, ppm and psv.
+The program is: psv, gsz, ppm and ppm.
+The semantics are: op(ppm, add, 2); op(ztd, mul, 3); op(psv, sub, 4); op(gsz, add, 2).
+The transformer: psv implies ztd and ppm implies psv.
+What does apply(apply(R, R), P) evaluate to after 2 steps?
+
+Answer with exactly one of: 72 | 0 | 4 | 12
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 12,
+ &quot;input&quot;: 2,
+ &quot;program&quot;: [
+  &quot;psv&quot;,
+  &quot;gsz&quot;,
+  &quot;ppm&quot;,
+  &quot;ppm&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;psv&quot;,
+   &quot;ztd&quot;
+  ],
+  [
+   &quot;ppm&quot;,
+   &quot;psv&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;ztd&quot;,
+   &quot;ztd&quot;
+  ],
+  [
+   &quot;psv&quot;,
+   &quot;ztd&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">16</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - gst
+  - kds
+  - rdg
+  - rdg
+  - kds
+  - tsl
+The program is: rdg, kds and gst.
+The semantics are: op(gst, mul, 2); op(rdg, add, 5); op(tsl, sub, 3); op(kds, mul, 3).
+The transformer: gst implies kds, rdg implies rdg and kds implies tsl.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 24 | 5 | 66 | 16
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 16,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;rdg&quot;,
+  &quot;kds&quot;,
+  &quot;gst&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;gst&quot;,
+   &quot;kds&quot;
+  ],
+  [
+   &quot;rdg&quot;,
+   &quot;rdg&quot;
+  ],
+  [
+   &quot;kds&quot;,
+   &quot;tsl&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;kds&quot;,
+   &quot;tsl&quot;
+  ],
+  [
+   &quot;rdg&quot;,
+   &quot;rdg&quot;
+  ],
+  [
+   &quot;tsl&quot;,
+   &quot;tsl&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">-2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - zkz
+  - ggm
+  - zlz
+  - zkz
+  - pdm
+  - pdm
+The program is: zlz, zlz, pdm and zkz.
+The semantics are: op(ggm, add, 1); op(pdm, mul, 3); op(zkz, sub, 4); op(zlz, sub, 1).
+The transformer: zkz implies ggm, zlz implies zkz and pdm implies pdm.
+What does apply(apply(R, R), P) evaluate to after 1 steps?
+
+Answer with exactly one of: -2 | 10 | -7 | -20
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -2,
+ &quot;input&quot;: 1,
+ &quot;program&quot;: [
+  &quot;zlz&quot;,
+  &quot;zlz&quot;,
+  &quot;pdm&quot;,
+  &quot;zkz&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;zkz&quot;,
+   &quot;ggm&quot;
+  ],
+  [
+   &quot;zlz&quot;,
+   &quot;zkz&quot;
+  ],
+  [
+   &quot;pdm&quot;,
+   &quot;pdm&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;ggm&quot;,
+   &quot;ggm&quot;
+  ],
+  [
+   &quot;zkz&quot;,
+   &quot;ggm&quot;
+  ],
+  [
+   &quot;pdm&quot;,
+   &quot;pdm&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">-1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - mzk
+  - rls
+  - rls
+  - gmk
+  - gmk
+  - dtm
+The program is: rls, dtm, mzk and gmk.
+The semantics are: op(mzk, add, 3); op(gmk, sub, 2); op(rls, mul, 2); op(dtm, sub, 4).
+The transformer: mzk implies rls, rls implies gmk and gmk implies dtm.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 9 | -1 | -4 | -8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -1,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;rls&quot;,
+  &quot;dtm&quot;,
+  &quot;mzk&quot;,
+  &quot;gmk&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;mzk&quot;,
+   &quot;rls&quot;
+  ],
+  [
+   &quot;rls&quot;,
+   &quot;gmk&quot;
+  ],
+  [
+   &quot;gmk&quot;,
+   &quot;dtm&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;rls&quot;,
+   &quot;gmk&quot;
+  ],
+  [
+   &quot;gmk&quot;,
+   &quot;dtm&quot;
+  ],
+  [
+   &quot;dtm&quot;,
+   &quot;dtm&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">-4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - kdr
+  - mrd
+  - rmt
+  - ttt
+  - mrd
+  - rmt
+The program is: mrd, kdr, mrd and rmt.
+The semantics are: op(rmt, sub, 5); op(kdr, add, 2); op(mrd, add, 1); op(ttt, mul, 2).
+The transformer: kdr implies mrd, rmt implies ttt and mrd implies rmt.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 28 | -4 | -6 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -4,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;mrd&quot;,
+  &quot;kdr&quot;,
+  &quot;mrd&quot;,
+  &quot;rmt&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;kdr&quot;,
+   &quot;mrd&quot;
+  ],
+  [
+   &quot;rmt&quot;,
+   &quot;ttt&quot;
+  ],
+  [
+   &quot;mrd&quot;,
+   &quot;rmt&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;mrd&quot;,
+   &quot;rmt&quot;
+  ],
+  [
+   &quot;ttt&quot;,
+   &quot;ttt&quot;
+  ],
+  [
+   &quot;rmt&quot;,
+   &quot;ttt&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">21</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - gds
+  - ptg
+  - ptg
+  - mtd
+  - pmk
+  - gds
+The program is: gds, pmk, gds and pmk.
+The semantics are: op(gds, mul, 2); op(ptg, add, 5); op(mtd, sub, 6); op(pmk, add, 3).
+The transformer: gds implies ptg, ptg implies mtd and pmk implies gds.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: 50 | 3 | 29 | 21
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 21,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;gds&quot;,
+  &quot;pmk&quot;,
+  &quot;gds&quot;,
+  &quot;pmk&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;gds&quot;,
+   &quot;ptg&quot;
+  ],
+  [
+   &quot;ptg&quot;,
+   &quot;mtd&quot;
+  ],
+  [
+   &quot;pmk&quot;,
+   &quot;gds&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;ptg&quot;,
+   &quot;mtd&quot;
+  ],
+  [
+   &quot;mtd&quot;,
+   &quot;mtd&quot;
+  ],
+  [
+   &quot;gds&quot;,
+   &quot;ptg&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">-9</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - mzz
+  - mdg
+  - dgm
+  - mzz
+  - mdg
+  - mgg
+The program is: dgm, mdg, mdg and mdg.
+The semantics are: op(mgg, sub, 5); op(mzz, add, 6); op(mdg, sub, 1); op(dgm, add, 4).
+The transformer: mzz implies mdg, dgm implies mzz and mdg implies mgg.
+What does apply(apply(R, R), P) evaluate to after 2 steps?
+
+Answer with exactly one of: 3 | -9 | -14 | -7
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -9,
+ &quot;input&quot;: 2,
+ &quot;program&quot;: [
+  &quot;dgm&quot;,
+  &quot;mdg&quot;,
+  &quot;mdg&quot;,
+  &quot;mdg&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;mzz&quot;,
+   &quot;mdg&quot;
+  ],
+  [
+   &quot;dgm&quot;,
+   &quot;mzz&quot;
+  ],
+  [
+   &quot;mdg&quot;,
+   &quot;mgg&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;mdg&quot;,
+   &quot;mgg&quot;
+  ],
+  [
+   &quot;mzz&quot;,
+   &quot;mdg&quot;
+  ],
+  [
+   &quot;mgg&quot;,
+   &quot;mgg&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">-14</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - spt
+  - spt
+  - tvm
+  - ktv
+  - ltg
+  - tvm
+The program is: tvm, ltg, tvm and ltg.
+The semantics are: op(spt, add, 1); op(ltg, mul, 2); op(ktv, sub, 5); op(tvm, add, 3).
+The transformer: spt implies spt, tvm implies ktv and ltg implies tvm.
+What does apply(apply(R, R), P) evaluate to after 4 steps?
+
+Answer with exactly one of: -14 | 0 | 34 | -16
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -14,
+ &quot;input&quot;: 4,
+ &quot;program&quot;: [
+  &quot;tvm&quot;,
+  &quot;ltg&quot;,
+  &quot;tvm&quot;,
+  &quot;ltg&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;spt&quot;,
+   &quot;spt&quot;
+  ],
+  [
+   &quot;tvm&quot;,
+   &quot;ktv&quot;
+  ],
+  [
+   &quot;ltg&quot;,
+   &quot;tvm&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;spt&quot;,
+   &quot;spt&quot;
+  ],
+  [
+   &quot;ktv&quot;,
+   &quot;ktv&quot;
+  ],
+  [
+   &quot;tvm&quot;,
+   &quot;ktv&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">-5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: dsg, rmr, rmr and mks.
+The program is: rmr, dsg, dsg and pkg.
+The semantics are: op(dsg, sub, 6); op(mks, add, 3); op(rmr, add, 6); op(pkg, add, 2).
+The transformer: dsg implies rmr and rmr implies mks.
+What does apply(apply(R, R), P) evaluate to after 2 steps?
+
+Answer with exactly one of: 13 | 19 | -5 | -2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -5,
+ &quot;input&quot;: 2,
+ &quot;program&quot;: [
+  &quot;rmr&quot;,
+  &quot;dsg&quot;,
+  &quot;dsg&quot;,
+  &quot;pkg&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;dsg&quot;,
+   &quot;rmr&quot;
+  ],
+  [
+   &quot;rmr&quot;,
+   &quot;mks&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;rmr&quot;,
+   &quot;mks&quot;
+  ],
+  [
+   &quot;mks&quot;,
+   &quot;mks&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">-10</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: skp, llk, llk and trl.
+The program is: skp, lpk, llk and skp.
+The semantics are: op(skp, sub, 6); op(lpk, mul, 2); op(llk, add, 6); op(trl, mul, 2).
+The transformer: skp implies llk and llk implies trl.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: -10 | 50 | 80 | -2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -10,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;skp&quot;,
+  &quot;lpk&quot;,
+  &quot;llk&quot;,
+  &quot;skp&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;skp&quot;,
+   &quot;llk&quot;
+  ],
+  [
+   &quot;llk&quot;,
+   &quot;trl&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;llk&quot;,
+   &quot;trl&quot;
+  ],
+  [
+   &quot;trl&quot;,
+   &quot;trl&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">15</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: mpk, dpm, dpm and pmv.
+The program is: zkt, dpm, zkt and mpk.
+The semantics are: op(dpm, sub, 6); op(pmv, mul, 3); op(mpk, sub, 2); op(zkt, add, 2).
+The transformer: mpk implies dpm and dpm implies pmv.
+What does apply(apply(R, R), P) evaluate to after 3 steps?
+
+Answer with exactly one of: 11 | -1 | 15 | 51
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 15,
+ &quot;input&quot;: 3,
+ &quot;program&quot;: [
+  &quot;zkt&quot;,
+  &quot;dpm&quot;,
+  &quot;zkt&quot;,
+  &quot;mpk&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;mpk&quot;,
+   &quot;dpm&quot;
+  ],
+  [
+   &quot;dpm&quot;,
+   &quot;pmv&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;dpm&quot;,
+   &quot;pmv&quot;
+  ],
+  [
+   &quot;pmv&quot;,
+   &quot;pmv&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">20</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: ssk, dzs, dzs and dsk.
+The program is: dzs, dzs, ssk and dzs.
+The semantics are: op(svt, mul, 3); op(ssk, add, 2); op(dzs, sub, 2); op(dsk, mul, 2).
+The transformer: ssk implies dzs and dzs implies dsk.
+What does apply(apply(R, R), P) evaluate to after 2 steps?
+
+Answer with exactly one of: -2 | 20 | 32 | 12
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 20,
+ &quot;input&quot;: 2,
+ &quot;program&quot;: [
+  &quot;dzs&quot;,
+  &quot;dzs&quot;,
+  &quot;ssk&quot;,
+  &quot;dzs&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;ssk&quot;,
+   &quot;dzs&quot;
+  ],
+  [
+   &quot;dzs&quot;,
+   &quot;dsk&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;dzs&quot;,
+   &quot;dsk&quot;
+  ],
+  [
+   &quot;dsk&quot;,
+   &quot;dsk&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - dlr
+  - pgp
+  - mdg
+  - mdg
+  - pgp
+  - tmz
+The program is: pgp, dlr and tmz.
+The semantics are: op(tmz, mul, 3); op(pgp, add, 2); op(dlr, sub, 4); op(mdg, mul, 3).
+The transformer: dlr implies pgp, mdg implies mdg and pgp implies tmz.
+What does apply(apply(R, R), P) evaluate to after 2 steps?
+
+Answer with exactly one of: 24 | 6 | 54 | 0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 6,
+ &quot;input&quot;: 2,
+ &quot;program&quot;: [
+  &quot;pgp&quot;,
+  &quot;dlr&quot;,
+  &quot;tmz&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;dlr&quot;,
+   &quot;pgp&quot;
+  ],
+  [
+   &quot;mdg&quot;,
+   &quot;mdg&quot;
+  ],
+  [
+   &quot;pgp&quot;,
+   &quot;tmz&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;pgp&quot;,
+   &quot;tmz&quot;
+  ],
+  [
+   &quot;mdg&quot;,
+   &quot;mdg&quot;
+  ],
+  [
+   &quot;tmz&quot;,
+   &quot;tmz&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">-7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: plz, pmm, pmm and dsd.
+The program is: plz, pmm and dsd.
+The semantics are: op(plz, mul, 3); op(dsd, sub, 5); op(mdm, sub, 4); op(pmm, mul, 2).
+The transformer: plz implies pmm and pmm implies dsd.
+What does apply(apply(R, R), P) evaluate to after 1 steps?
+
+Answer with exactly one of: -14 | -7 | 1 | -8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -7,
+ &quot;input&quot;: 1,
+ &quot;program&quot;: [
+  &quot;plz&quot;,
+  &quot;pmm&quot;,
+  &quot;dsd&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;plz&quot;,
+   &quot;pmm&quot;
+  ],
+  [
+   &quot;pmm&quot;,
+   &quot;dsd&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;pmm&quot;,
+   &quot;dsd&quot;
+  ],
+  [
+   &quot;dsd&quot;,
+   &quot;dsd&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">10</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - mzt
+  - mzt
+  - rkp
+  - pvz
+  - kld
+  - rkp
+The program is: mzt, kld, rkp and rkp.
+The semantics are: op(kld, add, 2); op(rkp, mul, 3); op(pvz, add, 1); op(mzt, add, 4).
+The transformer: mzt implies mzt, rkp implies pvz and kld implies rkp.
+What does apply(apply(R, R), P) evaluate to after 2 steps?
+
+Answer with exactly one of: 72 | 20 | 10 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 10,
+ &quot;input&quot;: 2,
+ &quot;program&quot;: [
+  &quot;mzt&quot;,
+  &quot;kld&quot;,
+  &quot;rkp&quot;,
+  &quot;rkp&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;mzt&quot;,
+   &quot;mzt&quot;
+  ],
+  [
+   &quot;rkp&quot;,
+   &quot;pvz&quot;
+  ],
+  [
+   &quot;kld&quot;,
+   &quot;rkp&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;mzt&quot;,
+   &quot;mzt&quot;
+  ],
+  [
+   &quot;pvz&quot;,
+   &quot;pvz&quot;
+  ],
+  [
+   &quot;rkp&quot;,
+   &quot;pvz&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - zsr
+  - sdk
+  - sgk
+  - stk
+  - stk
+  - sgk
+The program is: zsr, stk, sgk and sdk.
+The semantics are: op(zsr, mul, 2); op(sgk, mul, 2); op(sdk, sub, 6); op(stk, sub, 1).
+The transformer: zsr implies sdk, sgk implies stk and stk implies sgk.
+What does apply(apply(R, R), P) evaluate to after 3 steps?
+
+Answer with exactly one of: 4 | -13 | -14 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 5,
+ &quot;input&quot;: 3,
+ &quot;program&quot;: [
+  &quot;zsr&quot;,
+  &quot;stk&quot;,
+  &quot;sgk&quot;,
+  &quot;sdk&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;zsr&quot;,
+   &quot;sdk&quot;
+  ],
+  [
+   &quot;sgk&quot;,
+   &quot;stk&quot;
+  ],
+  [
+   &quot;stk&quot;,
+   &quot;sgk&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;sdk&quot;,
+   &quot;sdk&quot;
+  ],
+  [
+   &quot;stk&quot;,
+   &quot;sgk&quot;
+  ],
+  [
+   &quot;sgk&quot;,
+   &quot;stk&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">-24</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - vgs
+  - mmp
+  - grl
+  - trm
+  - mmp
+  - grl
+The program is: grl, vgs and mmp.
+The semantics are: op(vgs, mul, 2); op(grl, mul, 3); op(mmp, add, 5); op(trm, sub, 5).
+The transformer: vgs implies mmp, grl implies trm and mmp implies grl.
+What does apply(apply(R, R), P) evaluate to after 1 steps?
+
+Answer with exactly one of: 3 | -17 | 11 | -24
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -24,
+ &quot;input&quot;: 1,
+ &quot;program&quot;: [
+  &quot;grl&quot;,
+  &quot;vgs&quot;,
+  &quot;mmp&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;vgs&quot;,
+   &quot;mmp&quot;
+  ],
+  [
+   &quot;grl&quot;,
+   &quot;trm&quot;
+  ],
+  [
+   &quot;mmp&quot;,
+   &quot;grl&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;mmp&quot;,
+   &quot;grl&quot;
+  ],
+  [
+   &quot;trm&quot;,
+   &quot;trm&quot;
+  ],
+  [
+   &quot;grl&quot;,
+   &quot;trm&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">13</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - mtv
+  - tpm
+  - lvz
+  - mtv
+  - vpk
+  - lvz
+The program is: lvz, mtv, vpk and vpk.
+The semantics are: op(vpk, add, 6); op(mtv, mul, 3); op(tpm, sub, 2); op(lvz, sub, 5).
+The transformer: mtv implies tpm, lvz implies mtv and vpk implies lvz.
+What does apply(apply(R, R), P) evaluate to after 1 steps?
+
+Answer with exactly one of: -27 | -9 | 13 | 0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 13,
+ &quot;input&quot;: 1,
+ &quot;program&quot;: [
+  &quot;lvz&quot;,
+  &quot;mtv&quot;,
+  &quot;vpk&quot;,
+  &quot;vpk&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;mtv&quot;,
+   &quot;tpm&quot;
+  ],
+  [
+   &quot;lvz&quot;,
+   &quot;mtv&quot;
+  ],
+  [
+   &quot;vpk&quot;,
+   &quot;lvz&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;tpm&quot;,
+   &quot;tpm&quot;
+  ],
+  [
+   &quot;mtv&quot;,
+   &quot;tpm&quot;
+  ],
+  [
+   &quot;lvz&quot;,
+   &quot;mtv&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">31</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - gtp
+  - mrm
+  - tsz
+  - sks
+  - sks
+  - gtp
+The program is: sks, gtp, sks and tsz.
+The semantics are: op(mrm, add, 1); op(sks, add, 6); op(tsz, add, 1); op(gtp, mul, 3).
+The transformer: gtp implies mrm, tsz implies sks and sks implies gtp.
+What does apply(apply(R, R), P) evaluate to after 3 steps?
+
+Answer with exactly one of: 31 | 18 | 34 | 36
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 31,
+ &quot;input&quot;: 3,
+ &quot;program&quot;: [
+  &quot;sks&quot;,
+  &quot;gtp&quot;,
+  &quot;sks&quot;,
+  &quot;tsz&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;gtp&quot;,
+   &quot;mrm&quot;
+  ],
+  [
+   &quot;tsz&quot;,
+   &quot;sks&quot;
+  ],
+  [
+   &quot;sks&quot;,
+   &quot;gtp&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;mrm&quot;,
+   &quot;mrm&quot;
+  ],
+  [
+   &quot;sks&quot;,
+   &quot;gtp&quot;
+  ],
+  [
+   &quot;gtp&quot;,
+   &quot;mrm&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">26</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - vgm
+  - rrd
+  - rrd
+  - sls
+  - sls
+  - trv
+The program is: rrd, vgm, sls and trv.
+The semantics are: op(sls, add, 6); op(trv, add, 1); op(rrd, add, 3); op(vgm, mul, 3).
+The transformer: vgm implies rrd, rrd implies sls and sls implies trv.
+What does apply(apply(R, R), P) evaluate to after 2 steps?
+
+Answer with exactly one of: 26 | 22 | 13 | 11
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 26,
+ &quot;input&quot;: 2,
+ &quot;program&quot;: [
+  &quot;rrd&quot;,
+  &quot;vgm&quot;,
+  &quot;sls&quot;,
+  &quot;trv&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;vgm&quot;,
+   &quot;rrd&quot;
+  ],
+  [
+   &quot;rrd&quot;,
+   &quot;sls&quot;
+  ],
+  [
+   &quot;sls&quot;,
+   &quot;trv&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;rrd&quot;,
+   &quot;sls&quot;
+  ],
+  [
+   &quot;sls&quot;,
+   &quot;trv&quot;
+  ],
+  [
+   &quot;trv&quot;,
+   &quot;trv&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - vlr
+  - rzd
+  - spv
+  - gpd
+  - rzd
+  - spv
+The program is: vlr, vlr and spv.
+The semantics are: op(rzd, add, 5); op(gpd, sub, 1); op(vlr, add, 1); op(spv, mul, 3).
+The transformer: vlr implies rzd, spv implies gpd and rzd implies spv.
+What does apply(apply(R, R), P) evaluate to after 2 steps?
+
+Answer with exactly one of: 12 | 3 | 11 | 17
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;input&quot;: 2,
+ &quot;program&quot;: [
+  &quot;vlr&quot;,
+  &quot;vlr&quot;,
+  &quot;spv&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;vlr&quot;,
+   &quot;rzd&quot;
+  ],
+  [
+   &quot;spv&quot;,
+   &quot;gpd&quot;
+  ],
+  [
+   &quot;rzd&quot;,
+   &quot;spv&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;rzd&quot;,
+   &quot;spv&quot;
+  ],
+  [
+   &quot;gpd&quot;,
+   &quot;gpd&quot;
+  ],
+  [
+   &quot;spv&quot;,
+   &quot;gpd&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">33</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - klp
+  - pps
+  - tld
+  - klp
+  - krr
+  - tld
+The program is: krr, tld, klp and klp.
+The semantics are: op(krr, mul, 3); op(pps, sub, 6); op(klp, mul, 3); op(tld, mul, 2).
+The transformer: klp implies pps, tld implies klp and krr implies tld.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: 270 | 33 | -3 | 18
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 33,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;krr&quot;,
+  &quot;tld&quot;,
+  &quot;klp&quot;,
+  &quot;klp&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;klp&quot;,
+   &quot;pps&quot;
+  ],
+  [
+   &quot;tld&quot;,
+   &quot;klp&quot;
+  ],
+  [
+   &quot;krr&quot;,
+   &quot;tld&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;pps&quot;,
+   &quot;pps&quot;
+  ],
+  [
+   &quot;klp&quot;,
+   &quot;pps&quot;
+  ],
+  [
+   &quot;tld&quot;,
+   &quot;klp&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: rrv, mzk, mzk and smr.
+The program is: rrv, mzk and rrv.
+The semantics are: op(rrv, sub, 2); op(smr, add, 6); op(mzk, add, 5); op(drs, mul, 2).
+The transformer: rrv implies mzk and mzk implies smr.
+What does apply(apply(R, R), P) evaluate to after 2 steps?
+
+Answer with exactly one of: 3 | 18 | 20 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 4,
+ &quot;input&quot;: 2,
+ &quot;program&quot;: [
+  &quot;rrv&quot;,
+  &quot;mzk&quot;,
+  &quot;rrv&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;rrv&quot;,
+   &quot;mzk&quot;
+  ],
+  [
+   &quot;mzk&quot;,
+   &quot;smr&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;mzk&quot;,
+   &quot;smr&quot;
+  ],
+  [
+   &quot;smr&quot;,
+   &quot;smr&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">15</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - gmm
+  - vss
+  - ttr
+  - gmm
+  - vss
+  - pdk
+The program is: gmm, ttr, vss and vss.
+The semantics are: op(vss, add, 4); op(ttr, sub, 3); op(pdk, add, 5); op(gmm, sub, 6).
+The transformer: gmm implies vss, ttr implies gmm and vss implies pdk.
+What does apply(apply(R, R), P) evaluate to after 4 steps?
+
+Answer with exactly one of: 15 | 12 | 23 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 15,
+ &quot;input&quot;: 4,
+ &quot;program&quot;: [
+  &quot;gmm&quot;,
+  &quot;ttr&quot;,
+  &quot;vss&quot;,
+  &quot;vss&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;gmm&quot;,
+   &quot;vss&quot;
+  ],
+  [
+   &quot;ttr&quot;,
+   &quot;gmm&quot;
+  ],
+  [
+   &quot;vss&quot;,
+   &quot;pdk&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;vss&quot;,
+   &quot;pdk&quot;
+  ],
+  [
+   &quot;gmm&quot;,
+   &quot;vss&quot;
+  ],
+  [
+   &quot;pdk&quot;,
+   &quot;pdk&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">-10</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: mll, ttk, ttk and dzg.
+The program is: dzg, ttk, mll and mll.
+The semantics are: op(dzg, sub, 5); op(mll, sub, 3); op(tmv, sub, 1); op(ttk, mul, 3).
+The transformer: mll implies ttk and ttk implies dzg.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: -3 | -14 | -36 | -10
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -10,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;dzg&quot;,
+  &quot;ttk&quot;,
+  &quot;mll&quot;,
+  &quot;mll&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;mll&quot;,
+   &quot;ttk&quot;
+  ],
+  [
+   &quot;ttk&quot;,
+   &quot;dzg&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;ttk&quot;,
+   &quot;dzg&quot;
+  ],
+  [
+   &quot;dzg&quot;,
+   &quot;dzg&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">18</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: lzz, gtp, gtp and vpr.
+The program is: gtp, gtp, vpr and lzz.
+The semantics are: op(rpd, sub, 5); op(lzz, mul, 3); op(gtp, mul, 2); op(vpr, add, 1).
+The transformer: lzz implies gtp and gtp implies vpr.
+What does apply(apply(R, R), P) evaluate to after 3 steps?
+
+Answer with exactly one of: 12 | 7 | 39 | 18
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 18,
+ &quot;input&quot;: 3,
+ &quot;program&quot;: [
+  &quot;gtp&quot;,
+  &quot;gtp&quot;,
+  &quot;vpr&quot;,
+  &quot;lzz&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;lzz&quot;,
+   &quot;gtp&quot;
+  ],
+  [
+   &quot;gtp&quot;,
+   &quot;vpr&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;gtp&quot;,
+   &quot;vpr&quot;
+  ],
+  [
+   &quot;vpr&quot;,
+   &quot;vpr&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">-1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - mst
+  - pzl
+  - pzl
+  - vmd
+  - slv
+  - mst
+The program is: pzl, vmd and slv.
+The semantics are: op(vmd, sub, 2); op(mst, add, 1); op(pzl, mul, 3); op(slv, add, 2).
+The transformer: mst implies pzl, pzl implies vmd and slv implies mst.
+What does apply(apply(R, R), P) evaluate to after 1 steps?
+
+Answer with exactly one of: -2 | 3 | -9 | -1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -1,
+ &quot;input&quot;: 1,
+ &quot;program&quot;: [
+  &quot;pzl&quot;,
+  &quot;vmd&quot;,
+  &quot;slv&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;mst&quot;,
+   &quot;pzl&quot;
+  ],
+  [
+   &quot;pzl&quot;,
+   &quot;vmd&quot;
+  ],
+  [
+   &quot;slv&quot;,
+   &quot;mst&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;pzl&quot;,
+   &quot;vmd&quot;
+  ],
+  [
+   &quot;vmd&quot;,
+   &quot;vmd&quot;
+  ],
+  [
+   &quot;mst&quot;,
+   &quot;pzl&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">19</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: pks, rzz, mls and pks.
+The program is: mls, pks, pks and mls.
+The semantics are: op(pks, sub, 5); op(mls, add, 1); op(rzz, add, 6); op(lgz, add, 2).
+The transformer: pks implies rzz and mls implies pks.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: -3 | 7 | 29 | 19
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 19,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;mls&quot;,
+  &quot;pks&quot;,
+  &quot;pks&quot;,
+  &quot;mls&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;pks&quot;,
+   &quot;rzz&quot;
+  ],
+  [
+   &quot;mls&quot;,
+   &quot;pks&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;rzz&quot;,
+   &quot;rzz&quot;
+  ],
+  [
+   &quot;pks&quot;,
+   &quot;rzz&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">-7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: ttm, ksl, ksl and pps.
+The program is: kgl, ttm, ksl and ksl.
+The semantics are: op(ttm, sub, 4); op(pps, sub, 1); op(kgl, sub, 6); op(ksl, add, 4).
+The transformer: ttm implies ksl and ksl implies pps.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: -4 | 1 | -7 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -7,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;kgl&quot;,
+  &quot;ttm&quot;,
+  &quot;ksl&quot;,
+  &quot;ksl&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;ttm&quot;,
+   &quot;ksl&quot;
+  ],
+  [
+   &quot;ksl&quot;,
+   &quot;pps&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;ksl&quot;,
+   &quot;pps&quot;
+  ],
+  [
+   &quot;pps&quot;,
+   &quot;pps&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">-2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - pkv
+  - gmm
+  - msd
+  - pvp
+  - gmm
+  - pkv
+The program is: pvp, pkv, msd and pkv.
+The semantics are: op(pkv, add, 3); op(msd, add, 4); op(pvp, mul, 2); op(gmm, sub, 6).
+The transformer: pkv implies gmm, msd implies pvp and gmm implies pkv.
+What does apply(apply(R, R), P) evaluate to after 3 steps?
+
+Answer with exactly one of: 16 | -2 | -6 | 21
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -2,
+ &quot;input&quot;: 3,
+ &quot;program&quot;: [
+  &quot;pvp&quot;,
+  &quot;pkv&quot;,
+  &quot;msd&quot;,
+  &quot;pkv&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;pkv&quot;,
+   &quot;gmm&quot;
+  ],
+  [
+   &quot;msd&quot;,
+   &quot;pvp&quot;
+  ],
+  [
+   &quot;gmm&quot;,
+   &quot;pkv&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;gmm&quot;,
+   &quot;pkv&quot;
+  ],
+  [
+   &quot;pvp&quot;,
+   &quot;pvp&quot;
+  ],
+  [
+   &quot;pkv&quot;,
+   &quot;gmm&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">72</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - rlv
+  - prv
+  - vtk
+  - gtr
+  - gtr
+  - vtk
+The program is: rlv, gtr, rlv and prv.
+The semantics are: op(rlv, add, 6); op(gtr, mul, 3); op(vtk, add, 6); op(prv, mul, 3).
+The transformer: rlv implies prv, vtk implies gtr and gtr implies vtk.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 126 | 216 | 72 | 486
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 72,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;rlv&quot;,
+  &quot;gtr&quot;,
+  &quot;rlv&quot;,
+  &quot;prv&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;rlv&quot;,
+   &quot;prv&quot;
+  ],
+  [
+   &quot;vtk&quot;,
+   &quot;gtr&quot;
+  ],
+  [
+   &quot;gtr&quot;,
+   &quot;vtk&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;prv&quot;,
+   &quot;prv&quot;
+  ],
+  [
+   &quot;gtr&quot;,
+   &quot;vtk&quot;
+  ],
+  [
+   &quot;vtk&quot;,
+   &quot;gtr&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">45</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - ttm
+  - srr
+  - trs
+  - trs
+  - kdg
+  - ttm
+The program is: srr, trs, ttm and kdg.
+The semantics are: op(kdg, add, 6); op(srr, mul, 3); op(trs, sub, 5); op(ttm, add, 2).
+The transformer: ttm implies srr, trs implies trs and kdg implies ttm.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 117 | 41 | 21 | 45
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 45,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;srr&quot;,
+  &quot;trs&quot;,
+  &quot;ttm&quot;,
+  &quot;kdg&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;ttm&quot;,
+   &quot;srr&quot;
+  ],
+  [
+   &quot;trs&quot;,
+   &quot;trs&quot;
+  ],
+  [
+   &quot;kdg&quot;,
+   &quot;ttm&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;srr&quot;,
+   &quot;srr&quot;
+  ],
+  [
+   &quot;trs&quot;,
+   &quot;trs&quot;
+  ],
+  [
+   &quot;ttm&quot;,
+   &quot;srr&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">324</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: rzz, kkz, kkz and ddk.
+The program is: ddk, rzz, ddk and kkz.
+The semantics are: op(zds, sub, 1); op(kkz, sub, 6); op(rzz, mul, 2); op(ddk, mul, 3).
+The transformer: rzz implies kkz and kkz implies ddk.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 102 | 108 | 486 | 324
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 324,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;ddk&quot;,
+  &quot;rzz&quot;,
+  &quot;ddk&quot;,
+  &quot;kkz&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;rzz&quot;,
+   &quot;kkz&quot;
+  ],
+  [
+   &quot;kkz&quot;,
+   &quot;ddk&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;kkz&quot;,
+   &quot;ddk&quot;
+  ],
+  [
+   &quot;ddk&quot;,
+   &quot;ddk&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: mrm, krl, kmr and mrm.
+The program is: krl, dzp, mrm and kmr.
+The semantics are: op(krl, sub, 4); op(kmr, add, 5); op(dzp, add, 2); op(mrm, sub, 1).
+The transformer: mrm implies krl and kmr implies mrm.
+What does apply(apply(R, R), P) evaluate to after 4 steps?
+
+Answer with exactly one of: 3 | -6 | -3 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;input&quot;: 4,
+ &quot;program&quot;: [
+  &quot;krl&quot;,
+  &quot;dzp&quot;,
+  &quot;mrm&quot;,
+  &quot;kmr&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;mrm&quot;,
+   &quot;krl&quot;
+  ],
+  [
+   &quot;kmr&quot;,
+   &quot;mrm&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;krl&quot;,
+   &quot;krl&quot;
+  ],
+  [
+   &quot;mrm&quot;,
+   &quot;krl&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">42</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - dpk
+  - stl
+  - kpr
+  - dpk
+  - stl
+  - tzm
+The program is: kpr, kpr, tzm and dpk.
+The semantics are: op(dpk, mul, 2); op(stl, mul, 3); op(tzm, mul, 2); op(kpr, add, 1).
+The transformer: dpk implies stl, kpr implies dpk and stl implies tzm.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: 28 | 180 | 120 | 42
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 42,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;kpr&quot;,
+  &quot;kpr&quot;,
+  &quot;tzm&quot;,
+  &quot;dpk&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;dpk&quot;,
+   &quot;stl&quot;
+  ],
+  [
+   &quot;kpr&quot;,
+   &quot;dpk&quot;
+  ],
+  [
+   &quot;stl&quot;,
+   &quot;tzm&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;stl&quot;,
+   &quot;tzm&quot;
+  ],
+  [
+   &quot;dpk&quot;,
+   &quot;stl&quot;
+  ],
+  [
+   &quot;tzm&quot;,
+   &quot;tzm&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - kmv
+  - krm
+  - krm
+  - rvd
+  - vdr
+  - vdr
+The program is: rvd, krm and kmv.
+The semantics are: op(rvd, sub, 2); op(kmv, add, 3); op(vdr, sub, 6); op(krm, mul, 2).
+The transformer: kmv implies krm, krm implies rvd and vdr implies vdr.
+What does apply(apply(R, R), P) evaluate to after 3 steps?
+
+Answer with exactly one of: 5 | -2 | -3 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;input&quot;: 3,
+ &quot;program&quot;: [
+  &quot;rvd&quot;,
+  &quot;krm&quot;,
+  &quot;kmv&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;kmv&quot;,
+   &quot;krm&quot;
+  ],
+  [
+   &quot;krm&quot;,
+   &quot;rvd&quot;
+  ],
+  [
+   &quot;vdr&quot;,
+   &quot;vdr&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;krm&quot;,
+   &quot;rvd&quot;
+  ],
+  [
+   &quot;rvd&quot;,
+   &quot;rvd&quot;
+  ],
+  [
+   &quot;vdr&quot;,
+   &quot;vdr&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - vsl
+  - vsl
+  - tsk
+  - zvk
+  - zvk
+  - tlp
+The program is: tlp, tsk and zvk.
+The semantics are: op(vsl, mul, 2); op(tlp, mul, 3); op(tsk, sub, 3); op(zvk, sub, 6).
+The transformer: vsl implies vsl, tsk implies zvk and zvk implies tlp.
+What does apply(apply(R, R), P) evaluate to after 1 steps?
+
+Answer with exactly one of: -9 | 0 | 27 | -6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;input&quot;: 1,
+ &quot;program&quot;: [
+  &quot;tlp&quot;,
+  &quot;tsk&quot;,
+  &quot;zvk&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;vsl&quot;,
+   &quot;vsl&quot;
+  ],
+  [
+   &quot;tsk&quot;,
+   &quot;zvk&quot;
+  ],
+  [
+   &quot;zvk&quot;,
+   &quot;tlp&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;vsl&quot;,
+   &quot;vsl&quot;
+  ],
+  [
+   &quot;zvk&quot;,
+   &quot;tlp&quot;
+  ],
+  [
+   &quot;tlp&quot;,
+   &quot;tlp&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">66</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - tvv
+  - tpp
+  - tpp
+  - skp
+  - lvd
+  - tvv
+The program is: skp, tpp, lvd and tvv.
+The semantics are: op(lvd, add, 4); op(tpp, mul, 3); op(skp, add, 6); op(tvv, mul, 2).
+The transformer: tvv implies tpp, tpp implies skp and lvd implies tvv.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 60 | 66 | 108 | 80
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 66,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;skp&quot;,
+  &quot;tpp&quot;,
+  &quot;lvd&quot;,
+  &quot;tvv&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;tvv&quot;,
+   &quot;tpp&quot;
+  ],
+  [
+   &quot;tpp&quot;,
+   &quot;skp&quot;
+  ],
+  [
+   &quot;lvd&quot;,
+   &quot;tvv&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;tpp&quot;,
+   &quot;skp&quot;
+  ],
+  [
+   &quot;skp&quot;,
+   &quot;skp&quot;
+  ],
+  [
+   &quot;tvv&quot;,
+   &quot;tpp&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">-27</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - ggp
+  - tmg
+  - zrz
+  - ztk
+  - tmg
+  - zrz
+The program is: zrz, ztk, ztk and ggp.
+The semantics are: op(zrz, add, 1); op(ztk, sub, 4); op(tmg, sub, 4); op(ggp, mul, 3).
+The transformer: ggp implies tmg, zrz implies ztk and tmg implies zrz.
+What does apply(apply(R, R), P) evaluate to after 3 steps?
+
+Answer with exactly one of: -8 | -27 | -13 | -12
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -27,
+ &quot;input&quot;: 3,
+ &quot;program&quot;: [
+  &quot;zrz&quot;,
+  &quot;ztk&quot;,
+  &quot;ztk&quot;,
+  &quot;ggp&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;ggp&quot;,
+   &quot;tmg&quot;
+  ],
+  [
+   &quot;zrz&quot;,
+   &quot;ztk&quot;
+  ],
+  [
+   &quot;tmg&quot;,
+   &quot;zrz&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;tmg&quot;,
+   &quot;zrz&quot;
+  ],
+  [
+   &quot;ztk&quot;,
+   &quot;ztk&quot;
+  ],
+  [
+   &quot;zrz&quot;,
+   &quot;ztk&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: zlt, rvs, tlk and zlt.
+The program is: zlt, tlk and tlk.
+The semantics are: op(zlt, add, 1); op(lsr, add, 6); op(rvs, mul, 3); op(tlk, sub, 6).
+The transformer: zlt implies rvs and tlk implies zlt.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: 135 | 3 | -6 | 17
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;zlt&quot;,
+  &quot;tlk&quot;,
+  &quot;tlk&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;zlt&quot;,
+   &quot;rvs&quot;
+  ],
+  [
+   &quot;tlk&quot;,
+   &quot;zlt&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;rvs&quot;,
+   &quot;rvs&quot;
+  ],
+  [
+   &quot;zlt&quot;,
+   &quot;rvs&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: prz, gpd, tvz and prz.
+The program is: prz, tvz and prz.
+The semantics are: op(gpd, sub, 2); op(tvz, add, 3); op(zgl, add, 5); op(prz, sub, 3).
+The transformer: prz implies gpd and tvz implies prz.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: 2 | 4 | -2 | -1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 4,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;prz&quot;,
+  &quot;tvz&quot;,
+  &quot;prz&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;prz&quot;,
+   &quot;gpd&quot;
+  ],
+  [
+   &quot;tvz&quot;,
+   &quot;prz&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;gpd&quot;,
+   &quot;gpd&quot;
+  ],
+  [
+   &quot;prz&quot;,
+   &quot;gpd&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">36</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: mlp, tmd, tmd and zvz.
+The program is: dtz, tmd and mlp.
+The semantics are: op(dtz, mul, 3); op(tmd, add, 5); op(zvz, add, 3); op(mlp, mul, 2).
+The transformer: mlp implies tmd and tmd implies zvz.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: 40 | 36 | 21 | 23
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 36,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;dtz&quot;,
+  &quot;tmd&quot;,
+  &quot;mlp&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;mlp&quot;,
+   &quot;tmd&quot;
+  ],
+  [
+   &quot;tmd&quot;,
+   &quot;zvz&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;tmd&quot;,
+   &quot;zvz&quot;
+  ],
+  [
+   &quot;zvz&quot;,
+   &quot;zvz&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">-3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - ksk
+  - ksk
+  - tlz
+  - mpl
+  - lrz
+  - tlz
+The program is: lrz, lrz and tlz.
+The semantics are: op(ksk, add, 5); op(mpl, add, 3); op(lrz, sub, 6); op(tlz, add, 6).
+The transformer: ksk implies ksk, tlz implies mpl and lrz implies tlz.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: 0 | 15 | -3 | 21
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -3,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;lrz&quot;,
+  &quot;lrz&quot;,
+  &quot;tlz&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;ksk&quot;,
+   &quot;ksk&quot;
+  ],
+  [
+   &quot;tlz&quot;,
+   &quot;mpl&quot;
+  ],
+  [
+   &quot;lrz&quot;,
+   &quot;tlz&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;ksk&quot;,
+   &quot;ksk&quot;
+  ],
+  [
+   &quot;mpl&quot;,
+   &quot;mpl&quot;
+  ],
+  [
+   &quot;tlz&quot;,
+   &quot;mpl&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">-8</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: szp, zdt, zdt and rzm.
+The program is: zdt, rzm, zdt and szp.
+The semantics are: op(szp, sub, 2); op(zdt, add, 4); op(dpv, add, 2); op(rzm, sub, 4).
+The transformer: szp implies zdt and zdt implies rzm.
+What does apply(apply(R, R), P) evaluate to after 6 steps?
+
+Answer with exactly one of: -2 | -10 | -8 | 8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -8,
+ &quot;input&quot;: 6,
+ &quot;program&quot;: [
+  &quot;zdt&quot;,
+  &quot;rzm&quot;,
+  &quot;zdt&quot;,
+  &quot;szp&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;szp&quot;,
+   &quot;zdt&quot;
+  ],
+  [
+   &quot;zdt&quot;,
+   &quot;rzm&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;zdt&quot;,
+   &quot;rzm&quot;
+  ],
+  [
+   &quot;rzm&quot;,
+   &quot;rzm&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - zks
+  - tzs
+  - tzs
+  - szs
+  - szs
+  - mdv
+The program is: mdv, zks, szs and zks.
+The semantics are: op(mdv, add, 5); op(tzs, sub, 3); op(zks, sub, 6); op(szs, sub, 5).
+The transformer: zks implies tzs, tzs implies szs and szs implies mdv.
+What does apply(apply(R, R), P) evaluate to after 4 steps?
+
+Answer with exactly one of: 4 | 8 | 2 | -8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;input&quot;: 4,
+ &quot;program&quot;: [
+  &quot;mdv&quot;,
+  &quot;zks&quot;,
+  &quot;szs&quot;,
+  &quot;zks&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;zks&quot;,
+   &quot;tzs&quot;
+  ],
+  [
+   &quot;tzs&quot;,
+   &quot;szs&quot;
+  ],
+  [
+   &quot;szs&quot;,
+   &quot;mdv&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;tzs&quot;,
+   &quot;szs&quot;
+  ],
+  [
+   &quot;szs&quot;,
+   &quot;mdv&quot;
+  ],
+  [
+   &quot;mdv&quot;,
+   &quot;mdv&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">38</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding: lsp, rrl, rrl and lgm.
+The program is: rrl, lsp, tdz and lsp.
+The semantics are: op(rrl, mul, 3); op(lsp, add, 2); op(tdz, mul, 3); op(lgm, mul, 2).
+The transformer: lsp implies rrl and rrl implies lgm.
+What does apply(apply(R, R), P) evaluate to after 5 steps?
+
+Answer with exactly one of: 53 | 270 | 38 | 120
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 38,
+ &quot;input&quot;: 5,
+ &quot;program&quot;: [
+  &quot;rrl&quot;,
+  &quot;lsp&quot;,
+  &quot;tdz&quot;,
+  &quot;lsp&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;lsp&quot;,
+   &quot;rrl&quot;
+  ],
+  [
+   &quot;rrl&quot;,
+   &quot;lgm&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;rrl&quot;,
+   &quot;lgm&quot;
+  ],
+  [
+   &quot;lgm&quot;,
+   &quot;lgm&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">14</span></summary>
+<div class="body">
+<p>prompt</p><pre>The encoding:
+  - szs
+  - dds
+  - mtz
+  - ztr
+  - ztr
+  - mtz
+The program is: mtz, szs, ztr and mtz.
+The semantics are: op(szs, add, 5); op(mtz, add, 3); op(ztr, add, 2); op(dds, sub, 4).
+The transformer: szs implies dds, mtz implies ztr and ztr implies mtz.
+What does apply(apply(R, R), P) evaluate to after 2 steps?
+
+Answer with exactly one of: 14 | 5 | 15 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 14,
+ &quot;input&quot;: 2,
+ &quot;program&quot;: [
+  &quot;mtz&quot;,
+  &quot;szs&quot;,
+  &quot;ztr&quot;,
+  &quot;mtz&quot;
+ ],
+ &quot;rules&quot;: [
+  [
+   &quot;szs&quot;,
+   &quot;dds&quot;
+  ],
+  [
+   &quot;mtz&quot;,
+   &quot;ztr&quot;
+  ],
+  [
+   &quot;ztr&quot;,
+   &quot;mtz&quot;
+  ]
+ ],
+ &quot;self_applied&quot;: [
+  [
+   &quot;dds&quot;,
+   &quot;dds&quot;
+  ],
+  [
+   &quot;ztr&quot;,
+   &quot;mtz&quot;
+  ],
+  [
+   &quot;mtz&quot;,
+   &quot;ztr&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

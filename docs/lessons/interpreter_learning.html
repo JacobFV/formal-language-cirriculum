@@ -1,0 +1,3522 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>interpreter_learning — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#x">reflective computation and language design</a> &rsaquo;
+  interpreter_learning</p>
+<h1>#120 <code>interpreter_learning</code></h1>
+<p class="lede">infer a new language&#x27;s semantics from demonstrations, then run a held-out program</p>
+<div class="tags"><span class="tag ">level 120</span><span class="tag ">section x</span><span class="tag ">program_synthesis</span><span class="tag ">scientific_induction</span><span class="tag ">metareasoning</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.105</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Infer the semantics of a brand-new language from program/output pairs,
+    then run a held-out program.</p><p>    Three opcodes are invented per episode and each is given one of six possible
+    meanings. The demonstrations are *checked for identifiability*: of the 120
+    injective meaning assignments, exactly one reproduces every demonstrated
+    output, so the episode has a single interpreter and the held-out program has
+    a single value. The distractors are the outputs the ruled-out interpreters
+    would have produced, so guessing the wrong semantics is punished exactly.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>5</td></tr><tr><td>grammar_complexity</td><td class='num'>4</td></tr><tr><td>lexical_novelty</td><td class='num'>5</td></tr><tr><td>reasoning_depth</td><td class='num'>5</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>You are shown these demonstrations:
+  - demo: (ppk step 3, ppk step 1, pzv step 3), 9 and 24
+  - demo: (pzv step 2, zrv step 1, pzv step 1), 6 and 0
+  - demo: (pzv step 1, zrv step 4), 6 and 4
+  - demo: (pzv step 2, pzv step 4, zrv step 5), 5 and -1
+  - demo: (pzv step 1), 2 and 1
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: pzv step 1, pzv step 4 and zrv step 2.
+What does the program output for 6?
+
+Answer with exactly one of: 12 | -1 | 1 | 2
+Reply with the answer only.</pre><h3>spanish</h3><pre>Se muestran estas demostraciones:
+  - la demostración: (ppk el paso 3, ppk el paso 1, pzv el paso 3), 9 y 24
+  - la demostración: (pzv el paso 2, zrv el paso 1, pzv el paso 1), 6 y 0
+  - la demostración: (pzv el paso 1, zrv el paso 4), 6 y 4
+  - la demostración: (pzv el paso 2, pzv el paso 4, zrv el paso 5), 5 y -1
+  - la demostración: (pzv el paso 1), 2 y 1
+El espacio de operadores es:
+  - sumar
+  - restar
+  - multiplicar
+  - máximo
+  - mínimo
+  - conjunto
+El uso de los operadores es: cada instrucción tiene: one_distinct_meaning.
+El programa es: pzv el paso 1, pzv el paso 4 y zrv el paso 2.
+¿Qué produce el programa para 6?
+
+Responde exactamente con una de estas opciones: 12 | -1 | 1 | 2
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>演示如下：
+  - 演示：(ppk的步骤是3，ppk的步骤是1，pzv的步骤是3)、9和24
+  - 演示：(pzv的步骤是2，zrv的步骤是1，pzv的步骤是1)、6和0
+  - 演示：(pzv的步骤是1，zrv的步骤是4)、6和4
+  - 演示：(pzv的步骤是2，pzv的步骤是4，zrv的步骤是5)、5和-1
+  - 演示：(pzv的步骤是1)、2和1
+算子空间如下：
+  - 加上
+  - 减
+  - 乘
+  - 最大值
+  - 最小值
+  - 集合
+算子的使用情况如下：每个操作码具有：one_distinct_meaning。
+程序如下：pzv的步骤是1；pzv的步骤是4；zrv的步骤是2。
+输入6时的输出是什么？
+
+请从以下选项中选出恰好一个作答：12 | -1 | 1 | 2
+只回答答案本身。</pre><h3>english_synonym</h3><pre>You are shown these demonstrations:
+  - demo: (ppk step 3, ppk step 1, pzv step 3), 9 and 24
+  - demo: (pzv step 2, zrv step 1, pzv step 1), 6 and 0
+  - demo: (pzv step 1, zrv step 4), 6 and 4
+  - demo: (pzv step 2, pzv step 4, zrv step 5), 5 and -1
+  - demo: (pzv step 1), 2 and 1
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: pzv step 1, pzv step 4 and zrv step 2.
+What does the program output for 6?
+
+Answer with exactly one of: 12 | -1 | 1 | 2
+Reply with the answer only.</pre><h3>symbols</h3><pre>{demonstrations: [(demo [(step ppk 3) (step ppk 1) (step pzv 3)] 9 24) (demo [(step pzv 2) (step zrv 1) (step pzv 1)] 6 0) (demo [(step pzv 1) (step zrv 4)] 6 4) (demo [(step pzv 2) (step pzv 4) (step zrv 5)] 5 -1) (demo [(step pzv 1)] 2 1)], operator_space: [add sub mul max min set], operator_use: (each_opcode_has one_distinct_meaning), program: [(step pzv 1) (step pzv 4) (step zrv 2)], query: (output_for_input 6)}
+
+Answer with exactly one of: 12 | -1 | 1 | 2
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/interpreter_learning.jsonl</code> &middot; <code>data/samples/spanish/interpreter_learning.jsonl</code> &middot; <code>data/samples/chinese/interpreter_learning.jsonl</code> &middot; <code>data/samples/english_synonym/interpreter_learning.jsonl</code> &middot; <code>data/samples/symbols/interpreter_learning.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (ppk step 3, ppk step 1, pzv step 3), 9 and 24
+  - demo: (pzv step 2, zrv step 1, pzv step 1), 6 and 0
+  - demo: (pzv step 1, zrv step 4), 6 and 4
+  - demo: (pzv step 2, pzv step 4, zrv step 5), 5 and -1
+  - demo: (pzv step 1), 2 and 1
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: pzv step 1, pzv step 4 and zrv step 2.
+What does the program output for 6?
+
+Answer with exactly one of: 12 | -1 | 1 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;input&quot;: 6,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;ppk&quot;: &quot;mul&quot;,
+  &quot;pzv&quot;: &quot;sub&quot;,
+  &quot;zrv&quot;: &quot;min&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">-2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (zkd step 3, mmk step 1, zkd step 2), 5 and 0
+  - demo: (zkd step 3, vkz step 3, mmk step 3), 8 and 24
+  - demo: (zkd step 1, mmk step 4), 6 and 20
+  - demo: (zkd step 3, zkd step 3), 9 and 3
+  - demo: (vkz step 4), 1 and 5
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: zkd step 4 and zkd step 1.
+What does the program output for 3?
+
+Answer with exactly one of: -2 | 4 | 12 | 8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -2,
+ &quot;input&quot;: 3,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;mmk&quot;: &quot;mul&quot;,
+  &quot;vkz&quot;: &quot;add&quot;,
+  &quot;zkd&quot;: &quot;sub&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">17</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (vdr step 5, vtp step 4), 8 and 40
+  - demo: (vdr step 5, vdr step 4), 8 and 160
+  - demo: (gll step 3, vdr step 2, vdr step 3), 8 and 30
+  - demo: (vtp step 5, vdr step 5), 9 and 45
+  - demo: (vdr step 5, vtp step 3, vdr step 2), 8 and 80
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: vdr step 5, gll step 3 and vdr step 1.
+What does the program output for 4?
+
+Answer with exactly one of: 8 | 17 | 1 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 17,
+ &quot;input&quot;: 4,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;gll&quot;: &quot;sub&quot;,
+  &quot;vdr&quot;: &quot;mul&quot;,
+  &quot;vtp&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (kzs step 1), 2 and 2
+  - demo: (kzs step 4), 1 and 4
+  - demo: (kzs step 5, rpk step 4, zgr step 2), 6 and 20
+  - demo: (zgr step 4), 7 and 28
+  - demo: (zgr step 3, zgr step 2, zgr step 4), 2 and 48
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: rpk step 1 and rpk step 4.
+What does the program output for 2?
+
+Answer with exactly one of: 7 | 1 | -3 | 8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 7,
+ &quot;input&quot;: 2,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;kzs&quot;: &quot;max&quot;,
+  &quot;rpk&quot;: &quot;add&quot;,
+  &quot;zgr&quot;: &quot;mul&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (zgz step 2, rzk step 3), 5 and 3
+  - demo: (rzk step 1), 8 and 8
+  - demo: (zgz step 5, rsp step 4, rsp step 3), 3 and 36
+  - demo: (rzk step 1, zgz step 2, rsp step 4), 5 and 8
+  - demo: (zgz step 4), 6 and 4
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: zgz step 1 and rzk step 2.
+What does the program output for 5?
+
+Answer with exactly one of: 2 | 4 | 6 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;input&quot;: 5,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;rsp&quot;: &quot;mul&quot;,
+  &quot;rzk&quot;: &quot;max&quot;,
+  &quot;zgz&quot;: &quot;min&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">9</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (zkp step 3, rzv step 3, mgl step 5), 2 and 4
+  - demo: (zkp step 3, mgl step 2), 2 and 4
+  - demo: (rzv step 3, mgl step 2, zkp step 1), 2 and 3
+  - demo: (zkp step 4, rzv step 2, zkp step 5), 6 and 130
+  - demo: (mgl step 4, rzv step 1), 1 and -2
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: mgl step 2, rzv step 5 and rzv step 4.
+What does the program output for 2?
+
+Answer with exactly one of: 80 | 9 | 0 | 13
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 9,
+ &quot;input&quot;: 2,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;mgl&quot;: &quot;sub&quot;,
+  &quot;rzv&quot;: &quot;add&quot;,
+  &quot;zkp&quot;: &quot;mul&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">9</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (lgm step 3), 5 and 2
+  - demo: (dls step 4, gpz step 2, dls step 5), 4 and 7
+  - demo: (lgm step 1, dls step 2, dls step 3), 9 and 13
+  - demo: (lgm step 5, gpz step 3, gpz step 5), 7 and 2
+  - demo: (dls step 4, dls step 2), 7 and 13
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: dls step 4, dls step 1 and lgm step 4.
+What does the program output for 8?
+
+Answer with exactly one of: 3 | 4 | 9 | 13
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 9,
+ &quot;input&quot;: 8,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dls&quot;: &quot;add&quot;,
+  &quot;gpz&quot;: &quot;min&quot;,
+  &quot;lgm&quot;: &quot;sub&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (ltp step 4), 7 and 4
+  - demo: (ltp step 1), 9 and 1
+  - demo: (ltp step 5, ltp step 2), 1 and 1
+  - demo: (rml step 4, ltp step 2, ltp step 5), 3 and -1
+  - demo: (dkm step 2, rml step 1), 5 and 6
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: ltp step 5 and rml step 2.
+What does the program output for 6?
+
+Answer with exactly one of: 3 | 9 | 2 | 11
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;input&quot;: 6,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dkm&quot;: &quot;add&quot;,
+  &quot;ltp&quot;: &quot;min&quot;,
+  &quot;rml&quot;: &quot;sub&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (kdv step 1, kdv step 5), 4 and -2
+  - demo: (skg step 2, skg step 1), 2 and 4
+  - demo: (kgt step 4, kgt step 2, kgt step 4), 9 and 9
+  - demo: (kdv step 4, kgt step 4, skg step 4), 4 and 16
+  - demo: (kdv step 1), 8 and 7
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: kdv step 2 and kgt step 1.
+What does the program output for 1?
+
+Answer with exactly one of: 2 | 1 | 3 | 0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;input&quot;: 1,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;kdv&quot;: &quot;sub&quot;,
+  &quot;kgt&quot;: &quot;max&quot;,
+  &quot;skg&quot;: &quot;mul&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (dkl step 5, dkl step 1), 7 and 13
+  - demo: (dkl step 4), 7 and 11
+  - demo: (vgl step 2), 1 and 1
+  - demo: (vgl step 5), 2 and 2
+  - demo: (ztt step 1, ztt step 2, dkl step 2), 7 and 9
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: ztt step 2 and ztt step 3.
+What does the program output for 6?
+
+Answer with exactly one of: 11 | 3 | 6 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 6,
+ &quot;input&quot;: 6,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dkl&quot;: &quot;add&quot;,
+  &quot;vgl&quot;: &quot;min&quot;,
+  &quot;ztt&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">15</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (vgk step 3, gkp step 2, svv step 3), 1 and -1
+  - demo: (gkp step 5, vgk step 4), 7 and 31
+  - demo: (svv step 3, vgk step 2), 5 and 6
+  - demo: (vgk step 2, vgk step 2, vgk step 5), 7 and -2
+  - demo: (svv step 1), 4 and 5
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: gkp step 3 and svv step 3.
+What does the program output for 4?
+
+Answer with exactly one of: 7 | 21 | 9 | 15
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 15,
+ &quot;input&quot;: 4,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;gkp&quot;: &quot;mul&quot;,
+  &quot;svv&quot;: &quot;add&quot;,
+  &quot;vgk&quot;: &quot;sub&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">-2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (smk step 4, tdr step 4, smk step 4), 7 and 0
+  - demo: (smk step 3), 5 and 2
+  - demo: (smk step 2), 7 and 5
+  - demo: (tdr step 5, smk step 1, smk step 2), 8 and 2
+  - demo: (smk step 5, kvv step 3), 7 and 3
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: smk step 1 and smk step 5.
+What does the program output for 4?
+
+Answer with exactly one of: -2 | 1 | 5 | 20
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -2,
+ &quot;input&quot;: 4,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;kvv&quot;: &quot;max&quot;,
+  &quot;smk&quot;: &quot;sub&quot;,
+  &quot;tdr&quot;: &quot;set&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (vls step 2), 1 and -1
+  - demo: (lzv step 2, vls step 1), 9 and 8
+  - demo: (vls step 5), 2 and -3
+  - demo: (vvs step 5, vls step 1), 6 and 29
+  - demo: (lzv step 1, vls step 5, vvs step 4), 8 and 12
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: lzv step 4, vvs step 2 and lzv step 3.
+What does the program output for 1?
+
+Answer with exactly one of: 8 | -1 | 12 | -9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 8,
+ &quot;input&quot;: 1,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;lzv&quot;: &quot;max&quot;,
+  &quot;vls&quot;: &quot;sub&quot;,
+  &quot;vvs&quot;: &quot;mul&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (vdv step 4, vdv step 5), 5 and 5
+  - demo: (rgt step 5, vdv step 5), 4 and 5
+  - demo: (rgt step 2, rtz step 3, rgt step 1), 7 and 14
+  - demo: (rtz step 4, vdv step 1, rtz step 4), 1 and 4
+  - demo: (rgt step 4), 8 and 4
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: rgt step 4, rtz step 3 and vdv step 2.
+What does the program output for 6?
+
+Answer with exactly one of: 1 | 2 | 14 | 28
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;input&quot;: 6,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;rgt&quot;: &quot;sub&quot;,
+  &quot;rtz&quot;: &quot;mul&quot;,
+  &quot;vdv&quot;: &quot;set&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">30</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (zzm step 4, rsz step 1), 5 and 20
+  - demo: (rsz step 3), 5 and 5
+  - demo: (zzm step 5, mgd step 2), 9 and 2
+  - demo: (zzm step 3, mgd step 1, zzm step 1), 2 and 1
+  - demo: (rsz step 1, mgd step 3, mgd step 4), 7 and 4
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: zzm step 1, zzm step 1 and zzm step 5.
+What does the program output for 6?
+
+Answer with exactly one of: 30 | 13 | 5 | -1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 30,
+ &quot;input&quot;: 6,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;mgd&quot;: &quot;set&quot;,
+  &quot;rsz&quot;: &quot;max&quot;,
+  &quot;zzm&quot;: &quot;mul&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (gtp step 2, gtp step 1), 8 and 16
+  - demo: (vvv step 2, rtv step 5), 1 and 7
+  - demo: (gtp step 4, vvv step 1, vvv step 4), 8 and 32
+  - demo: (vvv step 4, vvv step 4, vvv step 5), 2 and 5
+  - demo: (gtp step 3), 8 and 24
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: vvv step 5, vvv step 5 and rtv step 2.
+What does the program output for 4?
+
+Answer with exactly one of: 7 | 3 | -4 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 7,
+ &quot;input&quot;: 4,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;gtp&quot;: &quot;mul&quot;,
+  &quot;rtv&quot;: &quot;add&quot;,
+  &quot;vvv&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (lvv step 1, zps step 3, zps step 2), 5 and 6
+  - demo: (lvv step 5), 5 and 5
+  - demo: (lvv step 5), 1 and 5
+  - demo: (zps step 5, vkp step 3), 4 and 17
+  - demo: (zps step 3, zps step 1), 6 and 18
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: zps step 5, vkp step 2 and vkp step 3.
+What does the program output for 1?
+
+Answer with exactly one of: 3 | 0 | 30 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;input&quot;: 1,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;lvv&quot;: &quot;set&quot;,
+  &quot;vkp&quot;: &quot;sub&quot;,
+  &quot;zps&quot;: &quot;mul&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (rdz step 4, lzt step 5), 6 and 5
+  - demo: (rdz step 4, rpz step 5, rpz step 2), 4 and 7
+  - demo: (rdz step 5), 9 and 4
+  - demo: (rpz step 3, rdz step 1, rdz step 1), 5 and 6
+  - demo: (rpz step 5, lzt step 5), 3 and 5
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: rdz step 3, rpz step 4 and lzt step 5.
+What does the program output for 1?
+
+Answer with exactly one of: 25 | 0 | 35 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 5,
+ &quot;input&quot;: 1,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;lzt&quot;: &quot;set&quot;,
+  &quot;rdz&quot;: &quot;sub&quot;,
+  &quot;rpz&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (tvd step 4), 3 and 3
+  - demo: (tvd step 4, tvd step 1), 4 and 1
+  - demo: (vgr step 5, vgr step 5, vgr step 1), 8 and -3
+  - demo: (vgr step 2), 8 and 6
+  - demo: (rmz step 1), 9 and 1
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: rmz step 4, tvd step 5 and tvd step 5.
+What does the program output for 1?
+
+Answer with exactly one of: 4 | -5 | 7 | -3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 4,
+ &quot;input&quot;: 1,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;rmz&quot;: &quot;set&quot;,
+  &quot;tvd&quot;: &quot;min&quot;,
+  &quot;vgr&quot;: &quot;sub&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (vmv step 1, dpm step 2, dpm step 4), 5 and 10
+  - demo: (dpm step 2, rvd step 4), 2 and 4
+  - demo: (rvd step 2, dpm step 4), 5 and 9
+  - demo: (dpm step 5, rvd step 5, vmv step 3), 4 and 6
+  - demo: (rvd step 3, dpm step 1), 5 and 6
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: dpm step 2 and vmv step 5.
+What does the program output for 8?
+
+Answer with exactly one of: 5 | 50 | 30 | 21
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 5,
+ &quot;input&quot;: 8,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dpm&quot;: &quot;add&quot;,
+  &quot;rvd&quot;: &quot;max&quot;,
+  &quot;vmv&quot;: &quot;sub&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (dzp step 4, mzs step 3), 7 and 6
+  - demo: (dzp step 1, lgz step 4), 4 and 3
+  - demo: (lgz step 5), 2 and 2
+  - demo: (lgz step 3, lgz step 1, dzp step 3), 5 and -2
+  - demo: (dzp step 1, dzp step 2, lgz step 2), 7 and 2
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: lgz step 3 and mzs step 4.
+What does the program output for 1?
+
+Answer with exactly one of: 4 | 5 | -1 | -8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 5,
+ &quot;input&quot;: 1,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dzp&quot;: &quot;sub&quot;,
+  &quot;lgz&quot;: &quot;min&quot;,
+  &quot;mzs&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (mld step 3), 3 and 3
+  - demo: (kzt step 4, ttv step 5), 8 and 5
+  - demo: (mld step 5, kzt step 3), 3 and 5
+  - demo: (mld step 4, kzt step 2, kzt step 1), 5 and 4
+  - demo: (ttv step 2, kzt step 4, ttv step 4), 3 and 4
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: mld step 1 and ttv step 1.
+What does the program output for 3?
+
+Answer with exactly one of: 2 | 4 | 1 | 0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;input&quot;: 3,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;kzt&quot;: &quot;max&quot;,
+  &quot;mld&quot;: &quot;set&quot;,
+  &quot;ttv&quot;: &quot;min&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (gvt step 5), 3 and -2
+  - demo: (mdl step 4, mdl step 1, mdl step 1), 5 and 20
+  - demo: (gvt step 2, tsk step 1), 9 and 8
+  - demo: (mdl step 1, mdl step 3, mdl step 3), 5 and 45
+  - demo: (gvt step 3), 9 and 6
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: gvt step 3 and mdl step 2.
+What does the program output for 7?
+
+Answer with exactly one of: 8 | 21 | 2 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 8,
+ &quot;input&quot;: 7,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;gvt&quot;: &quot;sub&quot;,
+  &quot;mdl&quot;: &quot;mul&quot;,
+  &quot;tsk&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (ddt step 4), 1 and -3
+  - demo: (ttr step 5, ttr step 5, ttr step 1), 6 and 1
+  - demo: (ldr step 3, ttr step 5), 4 and 5
+  - demo: (ddt step 1, ldr step 1), 8 and 8
+  - demo: (ttr step 5), 3 and 3
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: ttr step 2 and ttr step 1.
+What does the program output for 1?
+
+Answer with exactly one of: -2 | 2 | 1 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;input&quot;: 1,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;ddt&quot;: &quot;sub&quot;,
+  &quot;ldr&quot;: &quot;add&quot;,
+  &quot;ttr&quot;: &quot;min&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">39</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (pgt step 4, sts step 1, pgt step 5), 3 and 11
+  - demo: (tdd step 4, tdd step 3), 8 and 96
+  - demo: (tdd step 3), 3 and 9
+  - demo: (sts step 3, pgt step 5, tdd step 3), 1 and 9
+  - demo: (sts step 3), 2 and -1
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: pgt step 2, tdd step 5 and pgt step 4.
+What does the program output for 5?
+
+Answer with exactly one of: 9 | 1 | 39 | 11
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 39,
+ &quot;input&quot;: 5,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;pgt&quot;: &quot;add&quot;,
+  &quot;sts&quot;: &quot;sub&quot;,
+  &quot;tdd&quot;: &quot;mul&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">-1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (dpv step 2, mzp step 5, plr step 5), 2 and 4
+  - demo: (plr step 5, dpv step 1, mzp step 2), 1 and 4
+  - demo: (dpv step 5, plr step 1), 2 and 11
+  - demo: (mzp step 5, mzp step 2), 9 and 2
+  - demo: (dpv step 3, dpv step 5), 2 and 30
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: mzp step 2 and dpv step 1.
+What does the program output for 1?
+
+Answer with exactly one of: 3 | -1 | 1 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -1,
+ &quot;input&quot;: 1,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dpv&quot;: &quot;mul&quot;,
+  &quot;mzp&quot;: &quot;sub&quot;,
+  &quot;plr&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">15</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (pgr step 2, ktv step 4, ktv step 2), 1 and -5
+  - demo: (sds step 2, sds step 2, ktv step 4), 7 and 7
+  - demo: (sds step 5, sds step 1), 5 and 11
+  - demo: (ktv step 1, ktv step 1, ktv step 1), 8 and 5
+  - demo: (ktv step 5, pgr step 3, ktv step 4), 7 and -2
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: sds step 3 and sds step 5.
+What does the program output for 7?
+
+Answer with exactly one of: 5 | 7 | -1 | 15
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 15,
+ &quot;input&quot;: 7,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;ktv&quot;: &quot;sub&quot;,
+  &quot;pgr&quot;: &quot;min&quot;,
+  &quot;sds&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (dvz step 2, dvz step 4), 2 and 16
+  - demo: (mzr step 5, mzr step 1, mzr step 4), 7 and 1
+  - demo: (dvz step 4, zsm step 1, mzr step 4), 5 and 1
+  - demo: (mzr step 3), 4 and 3
+  - demo: (mzr step 2, dvz step 4, zsm step 1), 9 and 1
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: dvz step 4 and mzr step 2.
+What does the program output for 5?
+
+Answer with exactly one of: 20 | 1 | 2 | 7
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;input&quot;: 5,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dvz&quot;: &quot;mul&quot;,
+  &quot;mzr&quot;: &quot;min&quot;,
+  &quot;zsm&quot;: &quot;set&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (gts step 2), 3 and 1
+  - demo: (mtr step 2, mtr step 4, mtr step 1), 2 and 4
+  - demo: (gts step 2, mtr step 5), 9 and 7
+  - demo: (tdv step 3, tdv step 2, tdv step 4), 3 and 2
+  - demo: (mtr step 3), 5 and 5
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: tdv step 5 and gts step 1.
+What does the program output for 7?
+
+Answer with exactly one of: 4 | 7 | 5 | 34
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 4,
+ &quot;input&quot;: 7,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;gts&quot;: &quot;sub&quot;,
+  &quot;mtr&quot;: &quot;max&quot;,
+  &quot;tdv&quot;: &quot;min&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (rml step 4), 4 and 4
+  - demo: (rml step 4, ggz step 5), 9 and 5
+  - demo: (mrl step 2, ggz step 2), 4 and 2
+  - demo: (ggz step 5, mrl step 2), 9 and 7
+  - demo: (ggz step 3, ggz step 5, rml step 4), 8 and 5
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: ggz step 3 and mrl step 4.
+What does the program output for 7?
+
+Answer with exactly one of: 7 | 28 | 4 | 21
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 7,
+ &quot;input&quot;: 7,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;ggz&quot;: &quot;set&quot;,
+  &quot;mrl&quot;: &quot;add&quot;,
+  &quot;rml&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (lmk step 2), 8 and 16
+  - demo: (mts step 5, mts step 3, lmk step 3), 2 and 6
+  - demo: (lmk step 1), 8 and 8
+  - demo: (mts step 4, mts step 5), 5 and 4
+  - demo: (lmk step 2, lmk step 2, zzr step 5), 5 and 20
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: lmk step 2, zzr step 4 and mts step 4.
+What does the program output for 5?
+
+Answer with exactly one of: 5 | 4 | 10 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 4,
+ &quot;input&quot;: 5,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;lmk&quot;: &quot;mul&quot;,
+  &quot;mts&quot;: &quot;min&quot;,
+  &quot;zzr&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">12</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (dss step 2, mrv step 1), 5 and 3
+  - demo: (mrv step 3, dss step 4), 8 and 20
+  - demo: (dss step 3, tpk step 1, mrv step 2), 9 and 12
+  - demo: (dss step 3, tpk step 2, tpk step 1), 6 and 3
+  - demo: (tpk step 4, mrv step 3, dss step 2), 2 and 10
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: tpk step 3, mrv step 4 and tpk step 5.
+What does the program output for 2?
+
+Answer with exactly one of: 25 | 9 | 12 | -9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 12,
+ &quot;input&quot;: 2,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dss&quot;: &quot;sub&quot;,
+  &quot;mrv&quot;: &quot;mul&quot;,
+  &quot;tpk&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (pmk step 1, gtk step 3), 4 and 1
+  - demo: (pmk step 2, kgs step 4, pmk step 4), 1 and 4
+  - demo: (gtk step 3), 1 and 1
+  - demo: (pmk step 2, gtk step 1, kgs step 1), 9 and 1
+  - demo: (kgs step 3), 2 and 6
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: kgs step 2, pmk step 5 and pmk step 1.
+What does the program output for 3?
+
+Answer with exactly one of: 0 | 7 | 1 | 8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;input&quot;: 3,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;gtk&quot;: &quot;min&quot;,
+  &quot;kgs&quot;: &quot;mul&quot;,
+  &quot;pmk&quot;: &quot;set&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (gvk step 3, gvk step 5, gvk step 4), 1 and 60
+  - demo: (gvk step 3, ltv step 1), 3 and 9
+  - demo: (gvk step 5, gvk step 5, ltv step 3), 7 and 175
+  - demo: (gvk step 3, mgz step 5), 1 and 5
+  - demo: (mgz step 1, ltv step 4, ltv step 3), 2 and 4
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: ltv step 2 and ltv step 5.
+What does the program output for 2?
+
+Answer with exactly one of: 5 | -5 | 2 | 20
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 5,
+ &quot;input&quot;: 2,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;gvk&quot;: &quot;mul&quot;,
+  &quot;ltv&quot;: &quot;max&quot;,
+  &quot;mgz&quot;: &quot;set&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (pzr step 3, zps step 2), 7 and 5
+  - demo: (pzr step 3, lgv step 3), 1 and 3
+  - demo: (lgv step 3, lgv step 5, zps step 2), 5 and 5
+  - demo: (lgv step 3), 2 and 2
+  - demo: (lgv step 4, zps step 3, lgv step 2), 8 and 2
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: lgv step 3 and lgv step 4.
+What does the program output for 3?
+
+Answer with exactly one of: -4 | 4 | 3 | 10
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;input&quot;: 3,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;lgv&quot;: &quot;min&quot;,
+  &quot;pzr&quot;: &quot;set&quot;,
+  &quot;zps&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (ltz step 5, rlt step 3, rlt step 5), 1 and 9
+  - demo: (pzg step 4), 6 and 24
+  - demo: (rlt step 3, pzg step 4, rlt step 1), 4 and 29
+  - demo: (rlt step 2, ltz step 2), 2 and 2
+  - demo: (ltz step 1, ltz step 2), 2 and 1
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: pzg step 4 and ltz step 3.
+What does the program output for 7?
+
+Answer with exactly one of: 1 | 12 | 4 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;input&quot;: 7,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;ltz&quot;: &quot;min&quot;,
+  &quot;pzg&quot;: &quot;mul&quot;,
+  &quot;rlt&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">11</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (rdt step 3, rdt step 1), 7 and 7
+  - demo: (zmk step 3, zmk step 2), 7 and 42
+  - demo: (lkk step 5), 8 and 3
+  - demo: (lkk step 5, zmk step 2, zmk step 5), 6 and 10
+  - demo: (rdt step 2, lkk step 5, zmk step 4), 3 and -8
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: zmk step 3 and lkk step 4.
+What does the program output for 5?
+
+Answer with exactly one of: 9 | 11 | 1 | 7
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 11,
+ &quot;input&quot;: 5,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;lkk&quot;: &quot;sub&quot;,
+  &quot;rdt&quot;: &quot;max&quot;,
+  &quot;zmk&quot;: &quot;mul&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">45</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (gdd step 5, gdd step 4, rkd step 4), 8 and 12
+  - demo: (dgm step 1), 7 and 7
+  - demo: (rkd step 3), 6 and 9
+  - demo: (rkd step 4, rkd step 5, gdd step 5), 1 and 10
+  - demo: (rkd step 2, rkd step 4, dgm step 1), 1 and 7
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: dgm step 5, dgm step 1 and gdd step 3.
+What does the program output for 9?
+
+Answer with exactly one of: 45 | 6 | 48 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 45,
+ &quot;input&quot;: 9,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dgm&quot;: &quot;mul&quot;,
+  &quot;gdd&quot;: &quot;max&quot;,
+  &quot;rkd&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">-2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (lms step 1, dzt step 4), 4 and 3
+  - demo: (dzt step 1, lms step 5), 6 and -4
+  - demo: (dzt step 2, pzt step 2, lms step 4), 2 and -2
+  - demo: (lms step 5), 1 and -4
+  - demo: (pzt step 1, dzt step 4, dzt step 5), 5 and 1
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: dzt step 3 and lms step 3.
+What does the program output for 1?
+
+Answer with exactly one of: 3 | -2 | -6 | 0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -2,
+ &quot;input&quot;: 1,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dzt&quot;: &quot;min&quot;,
+  &quot;lms&quot;: &quot;sub&quot;,
+  &quot;pzt&quot;: &quot;set&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (szp step 1, kss step 1, kss step 1), 2 and 1
+  - demo: (kss step 4, szp step 4), 9 and 4
+  - demo: (kss step 3, pgk step 1, kss step 4), 5 and 4
+  - demo: (kss step 5, szp step 1, pgk step 2), 8 and 1
+  - demo: (pgk step 4, kss step 3, kss step 3), 8 and 36
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: pgk step 4 and szp step 2.
+What does the program output for 5?
+
+Answer with exactly one of: 2 | 3 | 22 | 18
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;input&quot;: 5,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;kss&quot;: &quot;mul&quot;,
+  &quot;pgk&quot;: &quot;min&quot;,
+  &quot;szp&quot;: &quot;set&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">21</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (vpr step 1, zzv step 4, vpr step 3), 2 and 3
+  - demo: (zzv step 4), 8 and 12
+  - demo: (tgs step 3), 8 and 5
+  - demo: (vpr step 5, zzv step 1), 1 and 2
+  - demo: (vpr step 4), 3 and 3
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: zzv step 4, zzv step 5 and zzv step 4.
+What does the program output for 8?
+
+Answer with exactly one of: -5 | 4 | 21 | 8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 21,
+ &quot;input&quot;: 8,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;tgs&quot;: &quot;sub&quot;,
+  &quot;vpr&quot;: &quot;min&quot;,
+  &quot;zzv&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (sgk step 4, sgk step 4, ggt step 2), 1 and 2
+  - demo: (sgk step 1), 8 and 8
+  - demo: (ggt step 4, pkz step 3, pkz step 1), 1 and 1
+  - demo: (ggt step 3, sgk step 2, sgk step 1), 2 and 2
+  - demo: (pkz step 2, ggt step 1, pkz step 5), 7 and 13
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: sgk step 2 and ggt step 3.
+What does the program output for 8?
+
+Answer with exactly one of: 7 | 5 | 30 | 10
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 5,
+ &quot;input&quot;: 8,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;ggt&quot;: &quot;sub&quot;,
+  &quot;pkz&quot;: &quot;add&quot;,
+  &quot;sgk&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (pdv step 5), 9 and 5
+  - demo: (pdv step 5, sdv step 5), 7 and 25
+  - demo: (sgl step 2, pdv step 4), 2 and 4
+  - demo: (sgl step 2), 3 and 1
+  - demo: (sdv step 5, sgl step 4, sdv step 5), 8 and 180
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: pdv step 1, pdv step 1 and pdv step 5.
+What does the program output for 5?
+
+Answer with exactly one of: 1 | 12 | 5 | 25
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 5,
+ &quot;input&quot;: 5,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;pdv&quot;: &quot;set&quot;,
+  &quot;sdv&quot;: &quot;mul&quot;,
+  &quot;sgl&quot;: &quot;sub&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (ddk step 3, mgd step 5, ddk step 4), 3 and 4
+  - demo: (mrg step 3), 1 and 4
+  - demo: (mgd step 3, ddk step 2, ddk step 5), 2 and 5
+  - demo: (ddk step 1, mgd step 4, ddk step 3), 7 and 4
+  - demo: (mgd step 4), 2 and 2
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: mrg step 1, ddk step 2 and ddk step 3.
+What does the program output for 2?
+
+Answer with exactly one of: 2 | 18 | 3 | -2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;input&quot;: 2,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;ddk&quot;: &quot;max&quot;,
+  &quot;mgd&quot;: &quot;min&quot;,
+  &quot;mrg&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (prr step 5), 5 and 0
+  - demo: (szk step 4, szk step 4, szk step 3), 6 and 3
+  - demo: (mtp step 3), 3 and 6
+  - demo: (szk step 1), 2 and 1
+  - demo: (mtp step 1, szk step 3), 1 and 2
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: mtp step 1, mtp step 4 and prr step 2.
+What does the program output for 3?
+
+Answer with exactly one of: 10 | -1 | 2 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 6,
+ &quot;input&quot;: 3,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;mtp&quot;: &quot;add&quot;,
+  &quot;prr&quot;: &quot;sub&quot;,
+  &quot;szk&quot;: &quot;min&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (zpv step 3, lkm step 1), 2 and 1
+  - demo: (zmz step 2), 4 and 6
+  - demo: (zmz step 1, lkm step 4, zpv step 1), 1 and 2
+  - demo: (zmz step 3), 6 and 9
+  - demo: (zmz step 1, zmz step 1, zpv step 3), 6 and 8
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: lkm step 5, lkm step 5 and lkm step 5.
+What does the program output for 5?
+
+Answer with exactly one of: 625 | 5 | -10 | 20
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 5,
+ &quot;input&quot;: 5,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;lkm&quot;: &quot;min&quot;,
+  &quot;zmz&quot;: &quot;add&quot;,
+  &quot;zpv&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (mpk step 3), 1 and 1
+  - demo: (mpk step 5), 5 and 5
+  - demo: (ggs step 1, ggs step 4, ggs step 2), 8 and 2
+  - demo: (mpk step 4, drt step 5), 2 and 7
+  - demo: (mpk step 3, drt step 4), 5 and 7
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: mpk step 5 and ggs step 1.
+What does the program output for 6?
+
+Answer with exactly one of: 10 | 29 | 1 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;input&quot;: 6,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;drt&quot;: &quot;add&quot;,
+  &quot;ggs&quot;: &quot;set&quot;,
+  &quot;mpk&quot;: &quot;min&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (svr step 5, svr step 1, vgg step 1), 1 and -5
+  - demo: (vgg step 1), 9 and 1
+  - demo: (svr step 5, kmt step 5), 3 and -10
+  - demo: (kmt step 3, kmt step 5, svr step 5), 8 and 115
+  - demo: (kmt step 1, svr step 4), 7 and 3
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: vgg step 5, vgg step 5 and svr step 1.
+What does the program output for 9?
+
+Answer with exactly one of: 224 | 226 | 10 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 4,
+ &quot;input&quot;: 9,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;kmt&quot;: &quot;mul&quot;,
+  &quot;svr&quot;: &quot;sub&quot;,
+  &quot;vgg&quot;: &quot;min&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">25</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (szz step 5, szz step 5), 1 and 25
+  - demo: (ptz step 5, dtl step 5), 5 and 10
+  - demo: (ptz step 3, ptz step 2, dtl step 1), 8 and 9
+  - demo: (dtl step 2, ptz step 1), 1 and 3
+  - demo: (szz step 3, szz step 2), 1 and 6
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: ptz step 4, szz step 4 and dtl step 1.
+What does the program output for 6?
+
+Answer with exactly one of: 10 | 28 | 27 | 25
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 25,
+ &quot;input&quot;: 6,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dtl&quot;: &quot;add&quot;,
+  &quot;ptz&quot;: &quot;max&quot;,
+  &quot;szz&quot;: &quot;mul&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (rkd step 1, rkd step 5), 9 and 3
+  - demo: (rkd step 3), 6 and 3
+  - demo: (mlp step 2, rkd step 2), 2 and 2
+  - demo: (rkd step 4, mlr step 3), 5 and 3
+  - demo: (mlr step 5, rkd step 1, rkd step 4), 9 and 40
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: rkd step 1 and rkd step 3.
+What does the program output for 9?
+
+Answer with exactly one of: 5 | 9 | 27 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 5,
+ &quot;input&quot;: 9,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;mlp&quot;: &quot;add&quot;,
+  &quot;mlr&quot;: &quot;mul&quot;,
+  &quot;rkd&quot;: &quot;sub&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">-15</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (dsv step 1), 6 and 5
+  - demo: (vzl step 2, vzl step 3), 7 and 42
+  - demo: (vzl step 1, lmr step 5, dsv step 4), 1 and 2
+  - demo: (dsv step 3), 7 and 4
+  - demo: (vzl step 2, dsv step 3, lmr step 5), 8 and 18
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: dsv step 5 and vzl step 5.
+What does the program output for 2?
+
+Answer with exactly one of: 0 | -15 | 15 | 10
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -15,
+ &quot;input&quot;: 2,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dsv&quot;: &quot;sub&quot;,
+  &quot;lmr&quot;: &quot;add&quot;,
+  &quot;vzl&quot;: &quot;mul&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (rzp step 3, tss step 3, tss step 1), 2 and 6
+  - demo: (rzp step 3), 1 and 3
+  - demo: (rzp step 2, tss step 5), 5 and 10
+  - demo: (tss step 2, srr step 4), 3 and 3
+  - demo: (srr step 1, srr step 5), 2 and 1
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: rzp step 4 and srr step 4.
+What does the program output for 7?
+
+Answer with exactly one of: 4 | 3 | 24 | 7
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 4,
+ &quot;input&quot;: 7,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;rzp&quot;: &quot;mul&quot;,
+  &quot;srr&quot;: &quot;min&quot;,
+  &quot;tss&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">20</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (ktt step 1, zkr step 5), 7 and 7
+  - demo: (zkr step 2, zkr step 2), 3 and 3
+  - demo: (zkr step 3, vlp step 4), 7 and 3
+  - demo: (zkr step 5), 7 and 7
+  - demo: (ktt step 4), 6 and 24
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: zkr step 4 and ktt step 5.
+What does the program output for 3?
+
+Answer with exactly one of: 2 | 20 | 7 | -5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 20,
+ &quot;input&quot;: 3,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;ktt&quot;: &quot;mul&quot;,
+  &quot;vlp&quot;: &quot;sub&quot;,
+  &quot;zkr&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">16</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (gsv step 3, lvk step 1, gsv step 1), 6 and 10
+  - demo: (rvr step 2), 4 and 2
+  - demo: (gsv step 3), 9 and 12
+  - demo: (rvr step 5, lvk step 4, gsv step 3), 5 and 3
+  - demo: (gsv step 5), 7 and 12
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: rvr step 2, lvk step 2 and gsv step 4.
+What does the program output for 8?
+
+Answer with exactly one of: 20 | 10 | 4 | 16
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 16,
+ &quot;input&quot;: 8,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;gsv&quot;: &quot;add&quot;,
+  &quot;lvk&quot;: &quot;mul&quot;,
+  &quot;rvr&quot;: &quot;sub&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (vpg step 5, sks step 3, vpg step 4), 7 and 2
+  - demo: (vpg step 5, sks step 4), 8 and 1
+  - demo: (sks step 3, vpg step 3), 2 and -1
+  - demo: (tvs step 5), 8 and 13
+  - demo: (tvs step 4), 3 and 7
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: tvs step 3, tvs step 3 and vpg step 3.
+What does the program output for 1?
+
+Answer with exactly one of: -15 | 3 | -5 | 0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;input&quot;: 1,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;sks&quot;: &quot;sub&quot;,
+  &quot;tvs&quot;: &quot;add&quot;,
+  &quot;vpg&quot;: &quot;min&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (szr step 2, szr step 4), 8 and 4
+  - demo: (szr step 1, vtt step 1, vtt step 1), 5 and 1
+  - demo: (vtt step 3, gss step 1), 7 and 6
+  - demo: (vtt step 4, gss step 4), 5 and 1
+  - demo: (vtt step 1, vtt step 2, vtt step 5), 7 and 7
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: szr step 2, szr step 3 and gss step 2.
+What does the program output for 6?
+
+Answer with exactly one of: 38 | 34 | 8 | 1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;input&quot;: 6,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;gss&quot;: &quot;sub&quot;,
+  &quot;szr&quot;: &quot;set&quot;,
+  &quot;vtt&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (rps step 3, rps step 2), 1 and 2
+  - demo: (rkv step 1, rps step 5, rkv step 4), 1 and 9
+  - demo: (drz step 2), 3 and 6
+  - demo: (rps step 2), 9 and 2
+  - demo: (drz step 2), 7 and 14
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: rps step 1 and rkv step 5.
+What does the program output for 3?
+
+Answer with exactly one of: 8 | -2 | 6 | -4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 6,
+ &quot;input&quot;: 3,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;drz&quot;: &quot;mul&quot;,
+  &quot;rkv&quot;: &quot;add&quot;,
+  &quot;rps&quot;: &quot;set&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (pmd step 4, zrk step 2, pmd step 2), 1 and 4
+  - demo: (pmd step 2, pkm step 1), 1 and 1
+  - demo: (pmd step 4, zrk step 2, pkm step 3), 9 and 3
+  - demo: (pmd step 3, pmd step 4), 4 and 11
+  - demo: (zrk step 1), 3 and 1
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: zrk step 2, zrk step 1 and pkm step 5.
+What does the program output for 9?
+
+Answer with exactly one of: 13 | 45 | 5 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 5,
+ &quot;input&quot;: 9,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;pkm&quot;: &quot;set&quot;,
+  &quot;pmd&quot;: &quot;add&quot;,
+  &quot;zrk&quot;: &quot;min&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (mgd step 1, pml step 2, pml step 5), 7 and 2
+  - demo: (pml step 3, spt step 4, pml step 4), 9 and -1
+  - demo: (pml step 3), 2 and 2
+  - demo: (mgd step 1, mgd step 1, mgd step 5), 1 and 8
+  - demo: (spt step 2, mgd step 3, pml step 3), 6 and 3
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: pml step 1 and pml step 2.
+What does the program output for 6?
+
+Answer with exactly one of: 1 | 9 | 3 | 12
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;input&quot;: 6,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;mgd&quot;: &quot;add&quot;,
+  &quot;pml&quot;: &quot;min&quot;,
+  &quot;spt&quot;: &quot;sub&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (mdt step 2), 3 and 6
+  - demo: (stm step 1, mdt step 2, stm step 4), 1 and 4
+  - demo: (stm step 2, zgt step 1), 4 and 1
+  - demo: (stm step 2, mdt step 2, stm step 4), 9 and 4
+  - demo: (stm step 3, zgt step 2, mdt step 5), 9 and 10
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: zgt step 3 and zgt step 4.
+What does the program output for 5?
+
+Answer with exactly one of: 12 | 3 | 5 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;input&quot;: 5,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;mdt&quot;: &quot;mul&quot;,
+  &quot;stm&quot;: &quot;set&quot;,
+  &quot;zgt&quot;: &quot;min&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">18</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (kpm step 2, dsm step 1), 8 and 6
+  - demo: (dsm step 2, kpm step 3), 5 and 2
+  - demo: (kgd step 1, kpm step 3), 6 and 3
+  - demo: (dsm step 5), 9 and 9
+  - demo: (dsm step 2, dsm step 3, kgd step 1), 3 and 3
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: kgd step 2, dsm step 3 and dsm step 2.
+What does the program output for 9?
+
+Answer with exactly one of: 4 | 13 | 2 | 18
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 18,
+ &quot;input&quot;: 9,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dsm&quot;: &quot;max&quot;,
+  &quot;kgd&quot;: &quot;mul&quot;,
+  &quot;kpm&quot;: &quot;sub&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (vkr step 4, vkr step 1, kpt step 3), 6 and 33
+  - demo: (pmz step 3), 7 and 7
+  - demo: (vkr step 2, vkr step 4), 8 and 14
+  - demo: (kpt step 3), 8 and 24
+  - demo: (pmz step 1, pmz step 2, kpt step 3), 3 and 9
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: pmz step 1, vkr step 2 and vkr step 1.
+What does the program output for 1?
+
+Answer with exactly one of: 4 | 2 | -2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 4,
+ &quot;input&quot;: 1,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;kpt&quot;: &quot;mul&quot;,
+  &quot;pmz&quot;: &quot;max&quot;,
+  &quot;vkr&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">24</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (ggs step 3, gkg step 3), 3 and 3
+  - demo: (gkg step 4, kts step 4), 6 and 8
+  - demo: (ggs step 1, ggs step 5), 9 and 15
+  - demo: (gkg step 1), 8 and 7
+  - demo: (kts step 2), 9 and 18
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: ggs step 2, ggs step 1 and kts step 3.
+What does the program output for 5?
+
+Answer with exactly one of: 10 | 3 | 15 | 24
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 24,
+ &quot;input&quot;: 5,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;ggs&quot;: &quot;add&quot;,
+  &quot;gkg&quot;: &quot;sub&quot;,
+  &quot;kts&quot;: &quot;mul&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (zpk step 4), 1 and 4
+  - demo: (plv step 3, zpk step 2), 5 and 2
+  - demo: (plv step 1, plv step 1), 4 and 1
+  - demo: (zpk step 3, vll step 4), 6 and 4
+  - demo: (vll step 5, plv step 1, plv step 5), 2 and 1
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: plv step 2, vll step 3 and vll step 2.
+What does the program output for 4?
+
+Answer with exactly one of: 8 | 3 | 12 | 24
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;input&quot;: 4,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;plv&quot;: &quot;min&quot;,
+  &quot;vll&quot;: &quot;max&quot;,
+  &quot;zpk&quot;: &quot;set&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">-1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (dtm step 3, krl step 3), 7 and 3
+  - demo: (rlz step 1), 5 and 4
+  - demo: (rlz step 5, krl step 4, krl step 5), 4 and -1
+  - demo: (dtm step 5, dtm step 1), 6 and 1
+  - demo: (dtm step 1, dtm step 3), 2 and 3
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: dtm step 3 and rlz step 4.
+What does the program output for 2?
+
+Answer with exactly one of: 2 | -1 | 4 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -1,
+ &quot;input&quot;: 2,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dtm&quot;: &quot;set&quot;,
+  &quot;krl&quot;: &quot;min&quot;,
+  &quot;rlz&quot;: &quot;sub&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">9</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (pzz step 5), 8 and 5
+  - demo: (pzz step 4, vrv step 1), 5 and 4
+  - demo: (pzz step 5), 3 and 3
+  - demo: (pzz step 2, vrv step 3, rsv step 5), 6 and 15
+  - demo: (pzz step 2, rsv step 4, rsv step 1), 3 and 8
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: rsv step 3 and rsv step 3.
+What does the program output for 1?
+
+Answer with exactly one of: 7 | 1 | -5 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 9,
+ &quot;input&quot;: 1,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;pzz&quot;: &quot;min&quot;,
+  &quot;rsv&quot;: &quot;mul&quot;,
+  &quot;vrv&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (mll step 5, zzz step 3, zzz step 1), 4 and 5
+  - demo: (pps step 4), 9 and 13
+  - demo: (mll step 5, pps step 5), 7 and 10
+  - demo: (zzz step 1), 7 and 7
+  - demo: (mll step 3), 4 and 3
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: zzz step 2 and zzz step 3.
+What does the program output for 3?
+
+Answer with exactly one of: 18 | 8 | 3 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;input&quot;: 3,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;mll&quot;: &quot;set&quot;,
+  &quot;pps&quot;: &quot;add&quot;,
+  &quot;zzz&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">20</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (lsk step 3, tgs step 4), 3 and 7
+  - demo: (lsk step 5, tgs step 1, tgs step 4), 5 and 10
+  - demo: (lsk step 4, lsk step 3, tgk step 4), 4 and 4
+  - demo: (lsk step 5), 8 and 5
+  - demo: (lsk step 3, lsk step 4), 5 and 4
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: tgs step 5, tgs step 4 and tgs step 5.
+What does the program output for 6?
+
+Answer with exactly one of: 5 | 20 | 6 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 20,
+ &quot;input&quot;: 6,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;lsk&quot;: &quot;set&quot;,
+  &quot;tgk&quot;: &quot;max&quot;,
+  &quot;tgs&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">11</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (dkk step 3, ppt step 5, zpt step 4), 7 and 46
+  - demo: (dkk step 5, ppt step 4), 7 and 48
+  - demo: (dkk step 1, zpt step 5, zpt step 4), 4 and -4
+  - demo: (dkk step 5, zpt step 3, dkk step 3), 2 and 7
+  - demo: (zpt step 5), 5 and 0
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: dkk step 1 and dkk step 2.
+What does the program output for 8?
+
+Answer with exactly one of: 11 | 2 | 16 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 11,
+ &quot;input&quot;: 8,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dkk&quot;: &quot;add&quot;,
+  &quot;ppt&quot;: &quot;mul&quot;,
+  &quot;zpt&quot;: &quot;sub&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (tmg step 5, tmg step 5, llr step 4), 3 and 4
+  - demo: (tmg step 1, tmg step 3), 3 and 3
+  - demo: (dkm step 3), 4 and 4
+  - demo: (llr step 5, dkm step 1, dkm step 4), 2 and 4
+  - demo: (llr step 5, tmg step 1), 2 and 1
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: dkm step 1 and dkm step 2.
+What does the program output for 4?
+
+Answer with exactly one of: 7 | 2 | 1 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 4,
+ &quot;input&quot;: 4,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dkm&quot;: &quot;max&quot;,
+  &quot;llr&quot;: &quot;min&quot;,
+  &quot;tmg&quot;: &quot;set&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (krl step 4, krl step 1), 7 and 7
+  - demo: (gkm step 5, krl step 5), 9 and 5
+  - demo: (rkk step 2), 3 and 6
+  - demo: (gkm step 5), 8 and 3
+  - demo: (rkk step 2), 7 and 14
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: rkk step 4, gkm step 2 and gkm step 3.
+What does the program output for 3?
+
+Answer with exactly one of: -1 | 7 | 24 | -2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 7,
+ &quot;input&quot;: 3,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;gkm&quot;: &quot;sub&quot;,
+  &quot;krl&quot;: &quot;max&quot;,
+  &quot;rkk&quot;: &quot;mul&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (lrg step 5, lrg step 5, kzt step 4), 3 and -7
+  - demo: (szm step 2, lrg step 3), 1 and 0
+  - demo: (szm step 5, lrg step 2), 6 and 9
+  - demo: (kzt step 1, szm step 1), 4 and 2
+  - demo: (lrg step 2, lrg step 5, kzt step 3), 1 and -6
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: kzt step 2, kzt step 1 and lrg step 1.
+What does the program output for 4?
+
+Answer with exactly one of: 0 | 3 | 7 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;input&quot;: 4,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;kzt&quot;: &quot;min&quot;,
+  &quot;lrg&quot;: &quot;sub&quot;,
+  &quot;szm&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (lrg step 2), 1 and -1
+  - demo: (mgt step 4, mgt step 4, mgt step 3), 2 and 2
+  - demo: (lrg step 1, lrg step 3, lrg step 3), 6 and -1
+  - demo: (lrg step 4), 4 and 0
+  - demo: (lzd step 4, lzd step 2), 5 and 40
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: lzd step 3, mgt step 4 and mgt step 1.
+What does the program output for 1?
+
+Answer with exactly one of: -4 | 1 | 6 | -1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;input&quot;: 1,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;lrg&quot;: &quot;sub&quot;,
+  &quot;lzd&quot;: &quot;mul&quot;,
+  &quot;mgt&quot;: &quot;min&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (trt step 2, mds step 3, mmd step 1), 7 and 3
+  - demo: (mds step 4), 1 and 4
+  - demo: (trt step 1, mds step 4, mmd step 3), 8 and 4
+  - demo: (mmd step 2), 2 and 2
+  - demo: (mds step 4, mds step 3, trt step 4), 2 and 3
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: mmd step 1, mmd step 3 and trt step 4.
+What does the program output for 9?
+
+Answer with exactly one of: 20 | 5 | 23 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 4,
+ &quot;input&quot;: 9,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;mds&quot;: &quot;set&quot;,
+  &quot;mmd&quot;: &quot;max&quot;,
+  &quot;trt&quot;: &quot;min&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (tkr step 2, tkr step 4, gvd step 5), 3 and 9
+  - demo: (gvd step 2, dmz step 3, dmz step 5), 5 and 5
+  - demo: (dmz step 4, tkr step 5), 3 and 5
+  - demo: (gvd step 2), 4 and 6
+  - demo: (gvd step 5, gvd step 1, gvd step 2), 7 and 15
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: gvd step 1 and dmz step 2.
+What does the program output for 1?
+
+Answer with exactly one of: 3 | 0 | 2 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;input&quot;: 1,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dmz&quot;: &quot;set&quot;,
+  &quot;gvd&quot;: &quot;add&quot;,
+  &quot;tkr&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (vkr step 1, vkr step 3, vkr step 3), 8 and 72
+  - demo: (vkr step 1, vkr step 5), 8 and 40
+  - demo: (vgp step 2, vgp step 2, vkr step 4), 3 and 8
+  - demo: (vgp step 3, ddv step 1), 2 and 4
+  - demo: (vkr step 3), 4 and 12
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: vgp step 4 and vgp step 3.
+What does the program output for 6?
+
+Answer with exactly one of: 72 | 3 | 6 | -1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;input&quot;: 6,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;ddv&quot;: &quot;add&quot;,
+  &quot;vgp&quot;: &quot;set&quot;,
+  &quot;vkr&quot;: &quot;mul&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (pvr step 4, tgg step 2, tgg step 5), 6 and 3
+  - demo: (svv step 5, pvr step 2), 1 and 7
+  - demo: (pvr step 1), 1 and 2
+  - demo: (svv step 1, pvr step 5, tgg step 4), 7 and 8
+  - demo: (svv step 2, svv step 5, svv step 4), 2 and 5
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: svv step 5 and tgg step 4.
+What does the program output for 2?
+
+Answer with exactly one of: 7 | 4 | 28 | 1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;input&quot;: 2,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;pvr&quot;: &quot;add&quot;,
+  &quot;svv&quot;: &quot;max&quot;,
+  &quot;tgg&quot;: &quot;sub&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (mkk step 4), 5 and 1
+  - demo: (tkm step 5, dmr step 4), 4 and 9
+  - demo: (tkm step 3, tkm step 1, dmr step 3), 6 and 10
+  - demo: (tkm step 3), 8 and 11
+  - demo: (dmr step 5, tkm step 5, dmr step 4), 5 and 10
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: dmr step 5, dmr step 3 and mkk step 3.
+What does the program output for 2?
+
+Answer with exactly one of: 6 | 2 | 33 | -3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;input&quot;: 2,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dmr&quot;: &quot;max&quot;,
+  &quot;mkk&quot;: &quot;sub&quot;,
+  &quot;tkm&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (pmp step 3, psd step 5, pmp step 1), 9 and 10
+  - demo: (psd step 1, dls step 4, dls step 1), 1 and 1
+  - demo: (pmp step 4), 3 and -1
+  - demo: (pmp step 2), 8 and 6
+  - demo: (pmp step 5, pmp step 4, dls step 1), 3 and 1
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: pmp step 4 and dls step 4.
+What does the program output for 2?
+
+Answer with exactly one of: 8 | 0 | 4 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 4,
+ &quot;input&quot;: 2,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dls&quot;: &quot;set&quot;,
+  &quot;pmp&quot;: &quot;sub&quot;,
+  &quot;psd&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (ptm step 3, lsd step 1, ptm step 3), 8 and -2
+  - demo: (lsd step 2, lsp step 4, lsp step 2), 6 and 8
+  - demo: (lsp step 3), 7 and 10
+  - demo: (lsp step 5, lsd step 4, lsd step 3), 5 and 3
+  - demo: (ptm step 1, lsd step 2, lsp step 3), 1 and 3
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: ptm step 2, lsp step 2 and lsd step 1.
+What does the program output for 4?
+
+Answer with exactly one of: 11 | 1 | 4 | 5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;input&quot;: 4,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;lsd&quot;: &quot;min&quot;,
+  &quot;lsp&quot;: &quot;add&quot;,
+  &quot;ptm&quot;: &quot;sub&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (vms step 1, gkl step 2, gkl step 3), 8 and 8
+  - demo: (gkl step 1, vms step 1, gkl step 2), 2 and 2
+  - demo: (zlg step 1, zlg step 1, vms step 3), 6 and 3
+  - demo: (vms step 1, vms step 1), 6 and 6
+  - demo: (zlg step 4, gkl step 2), 3 and 4
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: gkl step 4 and vms step 2.
+What does the program output for 2?
+
+Answer with exactly one of: 8 | 4 | 0 | -2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 8,
+ &quot;input&quot;: 2,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;gkl&quot;: &quot;max&quot;,
+  &quot;vms&quot;: &quot;mul&quot;,
+  &quot;zlg&quot;: &quot;set&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">-2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (rrp step 3, rvl step 3), 3 and 0
+  - demo: (rvl step 2, vkt step 3, vkt step 5), 3 and 9
+  - demo: (rrp step 2, rrp step 2, vkt step 4), 4 and 8
+  - demo: (rrp step 1, vkt step 4, rrp step 3), 6 and 10
+  - demo: (rrp step 5, rrp step 1, rvl step 1), 7 and 6
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: rrp step 2, rvl step 4 and rvl step 2.
+What does the program output for 4?
+
+Answer with exactly one of: -4 | 2 | 0 | -2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -2,
+ &quot;input&quot;: 4,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;rrp&quot;: &quot;max&quot;,
+  &quot;rvl&quot;: &quot;sub&quot;,
+  &quot;vkt&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (vls step 2, tpd step 4, prt step 2), 7 and 2
+  - demo: (vls step 2), 2 and 2
+  - demo: (prt step 3, prt step 4, tpd step 2), 9 and 6
+  - demo: (vls step 4, tpd step 5), 8 and 20
+  - demo: (vls step 1, prt step 1), 4 and 1
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: tpd step 5, prt step 1 and prt step 2.
+What does the program output for 3?
+
+Answer with exactly one of: 1 | 2 | 15 | 12
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;input&quot;: 3,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;prt&quot;: &quot;min&quot;,
+  &quot;tpd&quot;: &quot;mul&quot;,
+  &quot;vls&quot;: &quot;set&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">25</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (vvm step 4), 3 and -1
+  - demo: (tpk step 5, vvm step 4), 4 and 1
+  - demo: (vvm step 1, vvm step 1), 8 and 6
+  - demo: (tpk step 5, kds step 2), 9 and 10
+  - demo: (tpk step 4, kds step 3), 8 and 12
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: vvm step 4 and kds step 5.
+What does the program output for 9?
+
+Answer with exactly one of: 8 | 5 | 25 | 65
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 25,
+ &quot;input&quot;: 9,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;kds&quot;: &quot;mul&quot;,
+  &quot;tpk&quot;: &quot;set&quot;,
+  &quot;vvm&quot;: &quot;sub&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">-4</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (dkg step 1, dkg step 5), 1 and -5
+  - demo: (vmp step 1, dkg step 1), 1 and 0
+  - demo: (vmp step 3, vmp step 5, dkg step 5), 2 and -3
+  - demo: (vmp step 5, lgk step 4, dkg step 4), 5 and 16
+  - demo: (dkg step 1, dkg step 3, lgk step 3), 5 and 3
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: dkg step 2 and dkg step 4.
+What does the program output for 2?
+
+Answer with exactly one of: -4 | 16 | 2 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -4,
+ &quot;input&quot;: 2,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;dkg&quot;: &quot;sub&quot;,
+  &quot;lgk&quot;: &quot;mul&quot;,
+  &quot;vmp&quot;: &quot;min&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (zsg step 2, trr step 4), 8 and 4
+  - demo: (trr step 3, rrg step 3), 9 and 3
+  - demo: (trr step 4, zsg step 3), 8 and 3
+  - demo: (trr step 2), 8 and 2
+  - demo: (trr step 3, trr step 2), 4 and 2
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: trr step 1, zsg step 1 and zsg step 2.
+What does the program output for 7?
+
+Answer with exactly one of: 1 | 2 | 5 | 8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;input&quot;: 7,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;rrg&quot;: &quot;max&quot;,
+  &quot;trr&quot;: &quot;set&quot;,
+  &quot;zsg&quot;: &quot;min&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (pgz step 2, pgz step 4, tgv step 2), 9 and 11
+  - demo: (drv step 1, drv step 1, pgz step 3), 8 and 3
+  - demo: (tgv step 1), 9 and 10
+  - demo: (pgz step 3, drv step 4), 8 and 4
+  - demo: (drv step 2, drv step 5, drv step 4), 9 and 2
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: tgv step 1 and drv step 3.
+What does the program output for 2?
+
+Answer with exactly one of: -1 | 6 | 3 | -2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;input&quot;: 2,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;drv&quot;: &quot;min&quot;,
+  &quot;pgz&quot;: &quot;max&quot;,
+  &quot;tgv&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (mzl step 4), 2 and 6
+  - demo: (drl step 5, drl step 1), 4 and 20
+  - demo: (tsr step 5, tsr step 3), 1 and 3
+  - demo: (mzl step 4, drl step 4, mzl step 4), 4 and 36
+  - demo: (mzl step 2, drl step 4, drl step 5), 5 and 140
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: mzl step 1 and mzl step 3.
+What does the program output for 1?
+
+Answer with exactly one of: -3 | 5 | 3 | 1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 5,
+ &quot;input&quot;: 1,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;drl&quot;: &quot;mul&quot;,
+  &quot;mzl&quot;: &quot;add&quot;,
+  &quot;tsr&quot;: &quot;set&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">9</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (ttp step 5), 2 and -3
+  - demo: (tpk step 3, ttp step 2), 7 and 8
+  - demo: (ttp step 1, tpk step 3), 6 and 8
+  - demo: (ttp step 5, tpk step 2, tpk step 3), 7 and 7
+  - demo: (ttp step 3, tpk step 4, rmv step 3), 7 and 24
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: tpk step 3 and rmv step 1.
+What does the program output for 6?
+
+Answer with exactly one of: 4 | 7 | 5 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 9,
+ &quot;input&quot;: 6,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;rmv&quot;: &quot;mul&quot;,
+  &quot;tpk&quot;: &quot;add&quot;,
+  &quot;ttp&quot;: &quot;sub&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">192</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (vsz step 3, vsz step 1, krk step 1), 2 and 6
+  - demo: (vsz step 5, krk step 1, szv step 2), 3 and 8
+  - demo: (vsz step 1, vsz step 4), 5 and 10
+  - demo: (szv step 2), 1 and 2
+  - demo: (vsz step 1), 5 and 6
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: krk step 4, krk step 4 and krk step 4.
+What does the program output for 3?
+
+Answer with exactly one of: 15 | 192 | 4 | -9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 192,
+ &quot;input&quot;: 3,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;krk&quot;: &quot;mul&quot;,
+  &quot;szv&quot;: &quot;max&quot;,
+  &quot;vsz&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (vkv step 1), 5 and 5
+  - demo: (ptv step 1, psk step 3), 8 and 1
+  - demo: (ptv step 5, vkv step 2), 2 and 5
+  - demo: (vkv step 3, ptv step 2), 9 and 2
+  - demo: (psk step 3, ptv step 3), 3 and 3
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: vkv step 5, psk step 2 and psk step 1.
+What does the program output for 9?
+
+Answer with exactly one of: 6 | 42 | 1 | 7
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;input&quot;: 9,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;psk&quot;: &quot;min&quot;,
+  &quot;ptv&quot;: &quot;set&quot;,
+  &quot;vkv&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (ppd step 5), 8 and 5
+  - demo: (smr step 4, ppd step 2, ppd step 3), 8 and 2
+  - demo: (ptr step 5, smr step 2), 9 and 10
+  - demo: (ptr step 5, ppd step 5), 3 and 5
+  - demo: (ptr step 4, ptr step 1, smr step 5), 3 and 5
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: ppd step 5 and smr step 1.
+What does the program output for 9?
+
+Answer with exactly one of: 9 | 5 | 44 | 45
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 5,
+ &quot;input&quot;: 9,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;ppd&quot;: &quot;min&quot;,
+  &quot;ptr&quot;: &quot;set&quot;,
+  &quot;smr&quot;: &quot;mul&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">160</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (ldv step 3, srt step 1), 9 and 27
+  - demo: (ldv step 4, gms step 5), 9 and 31
+  - demo: (gms step 3), 9 and 6
+  - demo: (srt step 3, ldv step 3, ldv step 5), 4 and 60
+  - demo: (srt step 3, srt step 2), 7 and 7
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: ldv step 4, ldv step 2 and ldv step 4.
+What does the program output for 5?
+
+Answer with exactly one of: 4 | 5 | 2 | 160
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 160,
+ &quot;input&quot;: 5,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;gms&quot;: &quot;sub&quot;,
+  &quot;ldv&quot;: &quot;mul&quot;,
+  &quot;srt&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (ttp step 1, ttp step 5, mml step 4), 2 and 1
+  - demo: (vgl step 2, vgl step 4, vgl step 5), 5 and 16
+  - demo: (mml step 3, vgl step 4, vgl step 1), 1 and 3
+  - demo: (ttp step 1), 2 and 1
+  - demo: (mml step 1), 4 and 3
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: ttp step 4 and vgl step 3.
+What does the program output for 8?
+
+Answer with exactly one of: 11 | 7 | 1 | 29
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 7,
+ &quot;input&quot;: 8,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;mml&quot;: &quot;sub&quot;,
+  &quot;ttp&quot;: &quot;set&quot;,
+  &quot;vgl&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (zzp step 5, rtm step 4, rtm step 4), 6 and 80
+  - demo: (zzp step 2, kdv step 1), 7 and 2
+  - demo: (kdv step 2, zzp step 2), 2 and 2
+  - demo: (zzp step 4, kdv step 3, rtm step 3), 7 and 12
+  - demo: (zzp step 1, kdv step 1, zzp step 2), 1 and 2
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: zzp step 2, zzp step 2 and rtm step 2.
+What does the program output for 8?
+
+Answer with exactly one of: 6 | 24 | 10 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 4,
+ &quot;input&quot;: 8,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;kdv&quot;: &quot;max&quot;,
+  &quot;rtm&quot;: &quot;mul&quot;,
+  &quot;zzp&quot;: &quot;set&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">30</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (tkg step 5), 4 and -1
+  - demo: (tkg step 1, tvk step 3, tkg step 4), 6 and 11
+  - demo: (rrr step 2), 7 and 9
+  - demo: (tkg step 2, tkg step 4), 5 and -1
+  - demo: (tkg step 2, rrr step 1, tkg step 3), 8 and 4
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: rrr step 1, tvk step 5 and tkg step 5.
+What does the program output for 6?
+
+Answer with exactly one of: 10 | 0 | 35 | 30
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 30,
+ &quot;input&quot;: 6,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;rrr&quot;: &quot;add&quot;,
+  &quot;tkg&quot;: &quot;sub&quot;,
+  &quot;tvk&quot;: &quot;mul&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">45</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (psm step 3), 6 and 6
+  - demo: (lld step 5, lld step 5), 8 and -2
+  - demo: (psm step 4, psm step 2, lkk step 3), 9 and 27
+  - demo: (psm step 1, lld step 1, lld step 4), 9 and 4
+  - demo: (psm step 1), 3 and 3
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: lkk step 3 and lkk step 3.
+What does the program output for 5?
+
+Answer with exactly one of: 11 | -1 | 5 | 45
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 45,
+ &quot;input&quot;: 5,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;lkk&quot;: &quot;mul&quot;,
+  &quot;lld&quot;: &quot;sub&quot;,
+  &quot;psm&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (tkg step 2, trs step 1, lmg step 5), 8 and 5
+  - demo: (lmg step 1), 9 and 1
+  - demo: (lmg step 4, tkg step 1), 9 and 3
+  - demo: (tkg step 5), 9 and 4
+  - demo: (lmg step 2, lmg step 4, trs step 3), 3 and 7
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: tkg step 5, lmg step 3 and lmg step 3.
+What does the program output for 6?
+
+Answer with exactly one of: 5 | 7 | 3 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;input&quot;: 6,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;lmg&quot;: &quot;set&quot;,
+  &quot;tkg&quot;: &quot;sub&quot;,
+  &quot;trs&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (lpk step 1), 6 and 7
+  - demo: (lgk step 4), 5 and 4
+  - demo: (lgk step 4, lgk step 5), 3 and 3
+  - demo: (lgk step 5, vzd step 2), 5 and 5
+  - demo: (vzd step 2, lgk step 5, lgk step 4), 9 and 4
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: vzd step 2 and lpk step 2.
+What does the program output for 6?
+
+Answer with exactly one of: 10 | 14 | 8 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 8,
+ &quot;input&quot;: 6,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;lgk&quot;: &quot;min&quot;,
+  &quot;lpk&quot;: &quot;add&quot;,
+  &quot;vzd&quot;: &quot;max&quot;
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">21</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - demo: (gts step 2, gts step 5, stm step 2), 6 and 8
+  - demo: (stm step 2, pps step 4), 3 and 20
+  - demo: (gts step 1, stm step 5, stm step 1), 8 and 14
+  - demo: (gts step 1, gts step 5), 1 and 5
+  - demo: (pps step 3, stm step 1), 8 and 25
+The operator space:
+  - add
+  - sub
+  - mul
+  - max
+  - min
+  - set
+The operator use is each opcode has one_distinct_meaning.
+The program is: stm step 4 and pps step 3.
+What does the program output for 3?
+
+Answer with exactly one of: 6 | 15 | 21 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 21,
+ &quot;input&quot;: 3,
+ &quot;n_demos&quot;: 5,
+ &quot;semantics&quot;: {
+  &quot;gts&quot;: &quot;max&quot;,
+  &quot;pps&quot;: &quot;mul&quot;,
+  &quot;stm&quot;: &quot;add&quot;
+ }
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

@@ -1,0 +1,3851 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>argumentation — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#viii">epistemics, argument, and teaching</a> &rsaquo;
+  argumentation</p>
+<h1>#96 <code>argumentation</code></h1>
+<p class="lede">grounded status of a claim in an attack graph</p>
+<div class="tags"><span class="tag ">level 96</span><span class="tag ">section viii</span><span class="tag ">argumentation</span><span class="tag ">defeasible_reasoning</span><span class="tag ">graph_reasoning</span></div>
+<div class="stats">
+<div class="stat"><span class="n">3.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.333</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.37</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Claims and attacks form a graph; status is the grounded extension.</p><p>    Attack edges are sampled with cycles allowed, so all three statuses actually
+    occur, and the target status is drawn first and the graph resampled until it
+    realizes it — a claim is not accepted because it is attacked least, but
+    because its attackers are themselves defeated.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>recursion_depth</td><td class='num'>3</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The attacks:
+  - gsrt attacks tzmd
+  - pzvl attacks ztmg
+  - tzmd attacks ztmg
+  - kzrv attacks pzvl
+  - gsrt attacks pzvl
+  - zrdg attacks tzmd
+The claims are:
+  - zrdg
+  - pzvl
+  - tzmd
+  - ztmg
+  - gsrt
+  - kzrv
+What is the status of pzvl?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre><h3>spanish</h3><pre>Los ataques son:
+  - gsrt ataca tzmd
+  - pzvl ataca ztmg
+  - tzmd ataca ztmg
+  - kzrv ataca pzvl
+  - gsrt ataca pzvl
+  - zrdg ataca tzmd
+Las afirmaciones son:
+  - zrdg
+  - pzvl
+  - tzmd
+  - ztmg
+  - gsrt
+  - kzrv
+¿Cuál es el estado de pzvl?
+
+Responde exactamente con una de estas opciones: rechazado | aceptado | sin decidir
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>攻击关系如下：
+  - gsrt攻击tzmd
+  - pzvl攻击ztmg
+  - tzmd攻击ztmg
+  - kzrv攻击pzvl
+  - gsrt攻击pzvl
+  - zrdg攻击tzmd
+主张如下：
+  - zrdg
+  - pzvl
+  - tzmd
+  - ztmg
+  - gsrt
+  - kzrv
+pzvl的状态是什么？
+
+请从以下选项中选出恰好一个作答：已拒绝 | 已接受 | 未定
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The attacks:
+  - gsrt attacks tzmd
+  - pzvl attacks ztmg
+  - tzmd attacks ztmg
+  - kzrv attacks pzvl
+  - gsrt attacks pzvl
+  - zrdg attacks tzmd
+The claims are:
+  - zrdg
+  - pzvl
+  - tzmd
+  - ztmg
+  - gsrt
+  - kzrv
+What is the status of pzvl?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre><h3>symbols</h3><pre>{attacks: [(attacks gsrt tzmd) (attacks pzvl ztmg) (attacks tzmd ztmg) (attacks kzrv pzvl) (attacks gsrt pzvl) (attacks zrdg tzmd)], claims: [(claim zrdg) (claim pzvl) (claim tzmd) (claim ztmg) (claim gsrt) (claim kzrv)], query: (status_of pzvl)}
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/argumentation.jsonl</code> &middot; <code>data/samples/spanish/argumentation.jsonl</code> &middot; <code>data/samples/chinese/argumentation.jsonl</code> &middot; <code>data/samples/english_synonym/argumentation.jsonl</code> &middot; <code>data/samples/symbols/argumentation.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - gsrt attacks tzmd
+  - pzvl attacks ztmg
+  - tzmd attacks ztmg
+  - kzrv attacks pzvl
+  - gsrt attacks pzvl
+  - zrdg attacks tzmd
+The claims are:
+  - zrdg
+  - pzvl
+  - tzmd
+  - ztmg
+  - gsrt
+  - kzrv
+What is the status of pzvl?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;gsrt&quot;,
+  &quot;kzrv&quot;,
+  &quot;zrdg&quot;,
+  &quot;ztmg&quot;
+ ],
+ &quot;claim&quot;: &quot;pzvl&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 6,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - vvnp attacks kkkn
+  - mzmv attacks kkkn
+  - ppgk attacks mzmv
+  - sgml attacks kkkn
+  - mzmv attacks dvzd
+  - kkkn attacks ppgk
+  - smvk attacks ppgk
+  - ppgk attacks dvzd
+The claims are:
+  - smvk
+  - vvnp
+  - sgml
+  - kkkn
+  - dvzd
+  - ppgk
+  - mzmv
+What is the status of smvk?
+
+Answer with exactly one of: accepted | rejected | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;mzmv&quot;,
+  &quot;sgml&quot;,
+  &quot;smvk&quot;,
+  &quot;vvnp&quot;
+ ],
+ &quot;claim&quot;: &quot;smvk&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 8,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - pdrl attacks sgkg
+  - nzzg attacks mltd
+  - mltd attacks pdrl
+  - ntpn attacks sgkg
+  - ntpn attacks mltd
+The claims are:
+  - mltd
+  - nzzg
+  - ntpn
+  - sgkg
+  - pdrl
+What is the status of nzzg?
+
+Answer with exactly one of: accepted | rejected | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;ntpn&quot;,
+  &quot;nzzg&quot;,
+  &quot;pdrl&quot;
+ ],
+ &quot;claim&quot;: &quot;nzzg&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 5,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - rssd attacks rtlg
+  - rssd attacks gkvz
+  - vngm attacks rtlg
+  - rtlg attacks rssd
+  - ntrp attacks rtlg
+  - rssd attacks vngm
+The claims are:
+  - vngm
+  - rssd
+  - rtlg
+  - ntrp
+  - gkvz
+  - vrrv
+  - pnts
+What is the status of pnts?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;ntrp&quot;,
+  &quot;pnts&quot;,
+  &quot;rssd&quot;,
+  &quot;vrrv&quot;
+ ],
+ &quot;claim&quot;: &quot;pnts&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 6,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - przk attacks tmmk
+  - przk attacks ztmz
+  - sknz attacks tmmk
+  - mdpv attacks przk
+  - sknz attacks ztmz
+  - tmmk attacks srrl
+The claims are:
+  - mdpv
+  - tmmk
+  - ztmz
+  - sknz
+  - przk
+  - srrl
+What is the status of mdpv?
+
+Answer with exactly one of: accepted | rejected | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;mdpv&quot;,
+  &quot;sknz&quot;,
+  &quot;srrl&quot;
+ ],
+ &quot;claim&quot;: &quot;mdpv&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 6,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - mlvs attacks nrkv
+  - dldd attacks snkt
+  - prmg attacks nrkv
+  - snkt attacks dldd
+  - nrkv attacks dldd
+  - nrkv attacks prmg
+  - prmg attacks skds
+  - mlvs attacks skds
+  - snkt attacks prmg
+  - snkt attacks skds
+The claims are:
+  - mlvs
+  - nrkv
+  - skds
+  - snkt
+  - prmg
+  - dldd
+What is the status of snkt?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;mlvs&quot;
+ ],
+ &quot;claim&quot;: &quot;snkt&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 10,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: [
+  &quot;dldd&quot;,
+  &quot;prmg&quot;,
+  &quot;snkt&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - tvdv attacks dsdp
+  - dsdp attacks nmtm
+  - dsdp attacks dkdt
+  - tvdv attacks nmtm
+  - dkdt attacks lmtd
+  - nmtm attacks llkk
+  - nmpr attacks lmtd
+  - nmtm attacks lmtd
+  - tvdv attacks lmtd
+  - dkdt attacks tvdv
+  - lmtd attacks nmtm
+  - nmtm attacks dkdt
+The claims are:
+  - dsdp
+  - nmtm
+  - lmtd
+  - llkk
+  - tvdv
+  - dkdt
+  - nmpr
+What is the status of llkk?
+
+Answer with exactly one of: rejected | undecided | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;nmpr&quot;
+ ],
+ &quot;claim&quot;: &quot;llkk&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 12,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: [
+  &quot;dkdt&quot;,
+  &quot;dsdp&quot;,
+  &quot;llkk&quot;,
+  &quot;nmtm&quot;,
+  &quot;tvdv&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - gzrv attacks vlzs
+  - svnr attacks vlzs
+  - mgkg attacks plvg
+  - plvg attacks ldvz
+  - mgkg attacks tdsm
+  - plvg attacks gzrv
+  - ldvz attacks vlzs
+  - vlzs attacks plvg
+The claims are:
+  - mgkg
+  - svnr
+  - gzrv
+  - plvg
+  - tdsm
+  - vlzs
+  - ldvz
+What is the status of plvg?
+
+Answer with exactly one of: rejected | undecided | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;gzrv&quot;,
+  &quot;ldvz&quot;,
+  &quot;mgkg&quot;,
+  &quot;svnr&quot;
+ ],
+ &quot;claim&quot;: &quot;plvg&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 8,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - pvgs attacks kvvv
+  - kmts attacks kvvv
+  - kvvv attacks rspn
+  - rspn attacks kmts
+  - rspn attacks pmvs
+  - rspn attacks kvvv
+  - pvgs attacks kmts
+The claims are:
+  - kvvv
+  - pvgs
+  - rspn
+  - ptsd
+  - pmvs
+  - kmts
+What is the status of pvgs?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;ptsd&quot;,
+  &quot;pvgs&quot;,
+  &quot;rspn&quot;
+ ],
+ &quot;claim&quot;: &quot;pvgs&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 7,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - vrzt attacks kkkv
+  - spzg attacks vrzt
+  - tmgt attacks spzg
+  - spzg attacks klzt
+  - vrzt attacks tmgt
+  - klzt attacks tmgt
+  - klzt attacks spzg
+  - kkkv attacks klzt
+  - mdrz attacks tmgt
+The claims are:
+  - tmgt
+  - kkkv
+  - spzg
+  - klzt
+  - mdrz
+  - vrzt
+What is the status of tmgt?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;mdrz&quot;
+ ],
+ &quot;claim&quot;: &quot;tmgt&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 9,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: [
+  &quot;kkkv&quot;,
+  &quot;klzt&quot;,
+  &quot;spzg&quot;,
+  &quot;vrzt&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - zrvg attacks nsdr
+  - zrvg attacks gtpv
+  - prgl attacks gtpv
+  - gtpv attacks vmtv
+  - nsdr attacks vmtv
+  - nsdr attacks zrvg
+  - nsdr attacks prgl
+The claims are:
+  - zrvg
+  - nsdr
+  - prgl
+  - gtpv
+  - vmtv
+  - nvpt
+What is the status of zrvg?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;nvpt&quot;
+ ],
+ &quot;claim&quot;: &quot;zrvg&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 7,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: [
+  &quot;gtpv&quot;,
+  &quot;nsdr&quot;,
+  &quot;prgl&quot;,
+  &quot;vmtv&quot;,
+  &quot;zrvg&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - dgnt attacks strv
+  - vztm attacks gpvn
+  - rdnk attacks gpvn
+  - rdnk attacks vztm
+  - vztm attacks vvrg
+  - vvrg attacks rdnk
+  - ngtm attacks strv
+  - gpvn attacks vvrg
+  - ngtm attacks vvrg
+  - rdnk attacks strv
+  - strv attacks rdnk
+  - gpvn attacks ngtm
+  - rdnk attacks vvrg
+  - dgnt attacks gpvn
+  - vvrg attacks vztm
+The claims are:
+  - vztm
+  - gpvn
+  - ngtm
+  - rdnk
+  - strv
+  - vvrg
+  - dgnt
+What is the status of vztm?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;dgnt&quot;,
+  &quot;ngtm&quot;,
+  &quot;rdnk&quot;
+ ],
+ &quot;claim&quot;: &quot;vztm&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 15,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - tpkl attacks vltl
+  - nrnl attacks kngt
+  - vznv attacks dgsr
+  - kngt attacks nrnl
+  - nrnl attacks vznv
+  - tpkl attacks kngt
+  - kngt attacks vznv
+  - dgsr attacks vznv
+  - kngt attacks dgsr
+  - dgsr attacks nrnl
+The claims are:
+  - kngt
+  - dgsr
+  - vznv
+  - tpkl
+  - nrnl
+  - vltl
+What is the status of kngt?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;tpkl&quot;
+ ],
+ &quot;claim&quot;: &quot;kngt&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 10,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: [
+  &quot;dgsr&quot;,
+  &quot;nrnl&quot;,
+  &quot;vznv&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks: ngkz attacks zkpt, nntn attacks ndtt and snts attacks mrsd.
+The claims are:
+  - nntn
+  - zkpt
+  - snts
+  - mrsd
+  - ngkz
+  - ndtt
+What is the status of ndtt?
+
+Answer with exactly one of: accepted | rejected | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;ngkz&quot;,
+  &quot;nntn&quot;,
+  &quot;snts&quot;
+ ],
+ &quot;claim&quot;: &quot;ndtt&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 3,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - llzl attacks zdzz
+  - pmzs attacks llzl
+  - dnrs attacks llzl
+  - zdzz attacks dnrs
+  - dnrs attacks pmzs
+  - dmnv attacks zdzz
+  - dnrs attacks zdzz
+  - nnrt attacks dmnv
+  - llzl attacks dmnv
+The claims are:
+  - nnrt
+  - llzl
+  - zdzz
+  - zvnp
+  - dmnv
+  - dnrs
+  - pmzs
+What is the status of zvnp?
+
+Answer with exactly one of: accepted | rejected | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;nnrt&quot;,
+  &quot;zvnp&quot;
+ ],
+ &quot;claim&quot;: &quot;zvnp&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 9,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: [
+  &quot;dnrs&quot;,
+  &quot;llzl&quot;,
+  &quot;pmzs&quot;,
+  &quot;zdzz&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks: lzpz attacks mlvd and rdkt attacks mlvd.
+The claims are:
+  - mlvd
+  - rdkt
+  - tdls
+  - lzpz
+  - skkn
+What is the status of lzpz?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;lzpz&quot;,
+  &quot;rdkt&quot;,
+  &quot;skkn&quot;,
+  &quot;tdls&quot;
+ ],
+ &quot;claim&quot;: &quot;lzpz&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 2,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks: skzz attacks lntd, vkpn attacks vzps, lntd attacks gzks and gzks attacks dzsn.
+The claims are:
+  - dzsn
+  - lntd
+  - vkpn
+  - vzps
+  - gzks
+  - skzz
+What is the status of dzsn?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;gzks&quot;,
+  &quot;skzz&quot;,
+  &quot;vkpn&quot;
+ ],
+ &quot;claim&quot;: &quot;dzsn&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 4,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - rlnn attacks zmks
+  - rlnn attacks zlzt
+  - zmks attacks pdpz
+  - pdpz attacks ddrn
+  - zlzt attacks rlnn
+  - ddrn attacks pdpz
+  - zlzt attacks ddrn
+The claims are:
+  - pdpz
+  - rlnn
+  - zlzt
+  - zmks
+  - dptr
+  - ddrn
+What is the status of zmks?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;dptr&quot;
+ ],
+ &quot;claim&quot;: &quot;zmks&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 7,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: [
+  &quot;ddrn&quot;,
+  &quot;pdpz&quot;,
+  &quot;rlnn&quot;,
+  &quot;zlzt&quot;,
+  &quot;zmks&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks: nvls attacks tvzv, svnv attacks tvzv and svnv attacks nvls.
+The claims are:
+  - svnv
+  - nvls
+  - zszd
+  - mlrn
+  - tvzv
+What is the status of svnv?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;mlrn&quot;,
+  &quot;svnv&quot;,
+  &quot;zszd&quot;
+ ],
+ &quot;claim&quot;: &quot;svnv&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 3,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - gdms attacks nvmr
+  - dvkv attacks gdms
+  - nvmr attacks prtk
+  - vgmr attacks gdms
+  - dvkv attacks vgmr
+  - vrvl attacks nvmr
+  - pstt attacks gdms
+  - vgmr attacks pstt
+  - gdms attacks vgmr
+  - nvmr attacks pstt
+  - vgmr attacks vrvl
+  - nvmr attacks dvkv
+  - vrvl attacks prtk
+The claims are:
+  - prtk
+  - dvkv
+  - gdms
+  - vrvl
+  - vgmr
+  - nvmr
+  - pstt
+What is the status of nvmr?
+
+Answer with exactly one of: accepted | rejected | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [],
+ &quot;claim&quot;: &quot;nvmr&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 13,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: [
+  &quot;dvkv&quot;,
+  &quot;gdms&quot;,
+  &quot;nvmr&quot;,
+  &quot;prtk&quot;,
+  &quot;pstt&quot;,
+  &quot;vgmr&quot;,
+  &quot;vrvl&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - gvps attacks llpm
+  - mlgt attacks kppm
+  - kppm attacks tznn
+  - kppm attacks mlgt
+  - gvps attacks mlgt
+  - mtlv attacks gvps
+  - mlgt attacks llpm
+  - llpm attacks tznn
+  - tznn attacks llpm
+  - mlgt attacks tznn
+  - tznn attacks gvps
+  - mtlv attacks tznn
+  - kppm attacks slnn
+The claims are:
+  - gvps
+  - mlgt
+  - mtlv
+  - slnn
+  - tznn
+  - kppm
+  - llpm
+What is the status of kppm?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;mtlv&quot;
+ ],
+ &quot;claim&quot;: &quot;kppm&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 13,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: [
+  &quot;kppm&quot;,
+  &quot;llpm&quot;,
+  &quot;mlgt&quot;,
+  &quot;slnn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - dpnz attacks sdkp
+  - kklg attacks sdkp
+  - pmts attacks kklg
+  - trrs attacks dpnz
+  - trrs attacks kklg
+  - kklg attacks pmts
+  - vsvr attacks kklg
+The claims are:
+  - trrs
+  - vsvr
+  - dpnz
+  - sdkp
+  - kklg
+  - pmts
+What is the status of pmts?
+
+Answer with exactly one of: accepted | rejected | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;pmts&quot;,
+  &quot;sdkp&quot;,
+  &quot;trrs&quot;,
+  &quot;vsvr&quot;
+ ],
+ &quot;claim&quot;: &quot;pmts&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 7,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks: kgvt attacks lmsz and dmdn attacks lmsz.
+The claims are:
+  - dmdn
+  - kgvt
+  - klgt
+  - rndp
+  - lmsz
+What is the status of kgvt?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;dmdn&quot;,
+  &quot;kgvt&quot;,
+  &quot;klgt&quot;,
+  &quot;rndp&quot;
+ ],
+ &quot;claim&quot;: &quot;kgvt&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 2,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - dszv attacks kgzp
+  - kgzp attacks dszv
+  - prlt attacks ksgv
+  - prlt attacks dszv
+  - dszv attacks prlt
+  - kmmd attacks dszv
+The claims are:
+  - dszv
+  - ksgv
+  - kgzp
+  - kmmd
+  - prlt
+What is the status of ksgv?
+
+Answer with exactly one of: rejected | undecided | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;kgzp&quot;,
+  &quot;kmmd&quot;,
+  &quot;prlt&quot;
+ ],
+ &quot;claim&quot;: &quot;ksgv&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 6,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - zdkv attacks mdtd
+  - zdkv attacks stnn
+  - gtst attacks krtv
+  - krtv attacks zdkv
+  - krtv attacks vdnm
+  - stnn attacks zdkv
+  - krtv attacks stnn
+The claims are:
+  - gtst
+  - mdtd
+  - zdkv
+  - krtv
+  - vdnm
+  - stnn
+What is the status of stnn?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;gtst&quot;,
+  &quot;vdnm&quot;
+ ],
+ &quot;claim&quot;: &quot;stnn&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 7,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: [
+  &quot;mdtd&quot;,
+  &quot;stnn&quot;,
+  &quot;zdkv&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - knmt attacks ttnm
+  - ttnm attacks dnlz
+  - dnlz attacks ttnm
+  - lpms attacks dnlz
+  - gprk attacks knmt
+  - dnlz attacks lpms
+  - ttnm attacks knmt
+The claims are:
+  - knmt
+  - lpms
+  - ttnm
+  - gprk
+  - dnlz
+What is the status of knmt?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;gprk&quot;
+ ],
+ &quot;claim&quot;: &quot;knmt&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 7,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: [
+  &quot;dnlz&quot;,
+  &quot;lpms&quot;,
+  &quot;ttnm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - rtnp attacks nspg
+  - sdpd attacks kdng
+  - sdpd attacks rktv
+  - nspg attacks sdpd
+  - rktv attacks rtnp
+  - sdpd attacks nspg
+The claims are:
+  - nspg
+  - rktv
+  - rtnp
+  - sdpd
+  - kdng
+What is the status of sdpd?
+
+Answer with exactly one of: accepted | rejected | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [],
+ &quot;claim&quot;: &quot;sdpd&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 6,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: [
+  &quot;kdng&quot;,
+  &quot;nspg&quot;,
+  &quot;rktv&quot;,
+  &quot;rtnp&quot;,
+  &quot;sdpd&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - dktv attacks kggr
+  - lzkt attacks dktv
+  - mpml attacks vgks
+  - kggr attacks dktv
+  - strd attacks dktv
+  - vgks attacks mpml
+  - strd attacks lzkt
+  - vgks attacks strd
+The claims are:
+  - kggr
+  - lzkt
+  - mpml
+  - vgks
+  - strd
+  - dktv
+What is the status of strd?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [],
+ &quot;claim&quot;: &quot;strd&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 8,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: [
+  &quot;dktv&quot;,
+  &quot;kggr&quot;,
+  &quot;lzkt&quot;,
+  &quot;mpml&quot;,
+  &quot;strd&quot;,
+  &quot;vgks&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - trgd attacks tstn
+  - vpss attacks trgd
+  - tptt attacks tstn
+  - pldt attacks psmm
+  - tptt attacks trgd
+  - tptt attacks pldt
+  - tstn attacks tptt
+  - pldt attacks trgd
+The claims are:
+  - trgd
+  - pldt
+  - vpss
+  - tstn
+  - gssk
+  - tptt
+  - psmm
+What is the status of gssk?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;gssk&quot;,
+  &quot;vpss&quot;
+ ],
+ &quot;claim&quot;: &quot;gssk&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 8,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: [
+  &quot;pldt&quot;,
+  &quot;psmm&quot;,
+  &quot;tptt&quot;,
+  &quot;tstn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - smsd attacks tknv
+  - smsd attacks knrd
+  - knrd attacks smsd
+  - mzsl attacks smsd
+  - knrd attacks mzsl
+  - tknv attacks vdzk
+  - tknv attacks mzsl
+The claims are:
+  - knrd
+  - vdzk
+  - mzsl
+  - smsd
+  - tknv
+What is the status of smsd?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [],
+ &quot;claim&quot;: &quot;smsd&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 7,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: [
+  &quot;knrd&quot;,
+  &quot;mzsl&quot;,
+  &quot;smsd&quot;,
+  &quot;tknv&quot;,
+  &quot;vdzk&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - gkgn attacks pntm
+  - gkgn attacks vkrs
+  - kmtg attacks rpnl
+  - pntm attacks gkgn
+  - vkrs attacks szkp
+The claims are:
+  - kmtg
+  - pntm
+  - szkp
+  - vkrs
+  - rpnl
+  - gkgn
+What is the status of gkgn?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;kmtg&quot;
+ ],
+ &quot;claim&quot;: &quot;gkgn&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 5,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: [
+  &quot;gkgn&quot;,
+  &quot;pntm&quot;,
+  &quot;szkp&quot;,
+  &quot;vkrs&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - trgr attacks zlgp
+  - skgl attacks sdmz
+  - sdmz attacks trgr
+  - sdmz attacks nzmt
+  - skgl attacks nzmt
+  - zlgp attacks sdmz
+  - vnnl attacks sdmz
+  - trgr attacks vnnl
+  - skgl attacks trgr
+The claims are:
+  - skgl
+  - sdmz
+  - vnnl
+  - zlgp
+  - trgr
+  - nzmt
+What is the status of zlgp?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;skgl&quot;,
+  &quot;vnnl&quot;,
+  &quot;zlgp&quot;
+ ],
+ &quot;claim&quot;: &quot;zlgp&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 9,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - rlvt attacks zzzd
+  - vttk attacks spsm
+  - spsm attacks rlvt
+  - zrmk attacks zzzd
+  - vttk attacks zzzd
+  - dskd attacks zzzd
+The claims are:
+  - vttk
+  - dskd
+  - spsm
+  - rlvt
+  - zrmk
+  - zzzd
+What is the status of vttk?
+
+Answer with exactly one of: accepted | rejected | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;dskd&quot;,
+  &quot;rlvt&quot;,
+  &quot;vttk&quot;,
+  &quot;zrmk&quot;
+ ],
+ &quot;claim&quot;: &quot;vttk&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 6,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - zprp attacks tvdg
+  - gdzv attacks vkdm
+  - skrn attacks zprp
+  - vkdm attacks tvdg
+  - vkdm attacks zvgv
+  - zprp attacks gdzv
+  - zprp attacks skrn
+  - zvgv attacks zprp
+  - zvgv attacks vkdm
+  - gdzv attacks zprp
+  - vdld attacks zprp
+  - zvgv attacks gdzv
+The claims are:
+  - zvgv
+  - gdzv
+  - tvdg
+  - vdld
+  - zprp
+  - skrn
+  - vkdm
+What is the status of tvdg?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;skrn&quot;,
+  &quot;vdld&quot;
+ ],
+ &quot;claim&quot;: &quot;tvdg&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 12,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: [
+  &quot;gdzv&quot;,
+  &quot;tvdg&quot;,
+  &quot;vkdm&quot;,
+  &quot;zvgv&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks: plmp attacks rmkl, rmkl attacks lgkt and lgkt attacks plmp.
+The claims are:
+  - zlmg
+  - gksk
+  - plmp
+  - lgkt
+  - rmkl
+  - rtmz
+What is the status of rmkl?
+
+Answer with exactly one of: rejected | undecided | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;gksk&quot;,
+  &quot;rtmz&quot;,
+  &quot;zlmg&quot;
+ ],
+ &quot;claim&quot;: &quot;rmkl&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 3,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: [
+  &quot;lgkt&quot;,
+  &quot;plmp&quot;,
+  &quot;rmkl&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - kdrz attacks tdlt
+  - kdrz attacks nldg
+  - zpzg attacks kdrz
+  - tdlt attacks kdrz
+  - kdrz attacks zpzg
+  - kmdv attacks mlkr
+  - tdlt attacks mlkr
+  - zpzg attacks nldg
+  - zpzg attacks mlkr
+The claims are:
+  - kdrz
+  - tdlt
+  - mlkr
+  - kmdv
+  - zpzg
+  - nldg
+What is the status of zpzg?
+
+Answer with exactly one of: rejected | undecided | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;kmdv&quot;
+ ],
+ &quot;claim&quot;: &quot;zpzg&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 9,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: [
+  &quot;kdrz&quot;,
+  &quot;nldg&quot;,
+  &quot;tdlt&quot;,
+  &quot;zpzg&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks: lrzr attacks rnts, zdnp attacks rnts, mgpv attacks rnts and rnts attacks zdnp.
+The claims are:
+  - kzmk
+  - mgpv
+  - zdnp
+  - lrzr
+  - rnts
+What is the status of rnts?
+
+Answer with exactly one of: accepted | rejected | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;kzmk&quot;,
+  &quot;lrzr&quot;,
+  &quot;mgpv&quot;,
+  &quot;zdnp&quot;
+ ],
+ &quot;claim&quot;: &quot;rnts&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 4,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - mrzl attacks lvrm
+  - mrzl attacks tkmp
+  - nvgz attacks nrkn
+  - pdpv attacks tkmp
+  - mrzl attacks pdpv
+  - pdpv attacks mrzl
+  - nrkn attacks tkmp
+  - pdpv attacks lvrm
+  - nvgz attacks mgnd
+  - nrkn attacks pdpv
+  - tkmp attacks nvgz
+The claims are:
+  - mgnd
+  - nvgz
+  - lvrm
+  - mrzl
+  - pdpv
+  - tkmp
+  - nrkn
+What is the status of nvgz?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [],
+ &quot;claim&quot;: &quot;nvgz&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 11,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: [
+  &quot;lvrm&quot;,
+  &quot;mgnd&quot;,
+  &quot;mrzl&quot;,
+  &quot;nrkn&quot;,
+  &quot;nvgz&quot;,
+  &quot;pdpv&quot;,
+  &quot;tkmp&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - sptn attacks pslm
+  - sptn attacks zdkt
+  - glgk attacks pslm
+  - pslm attacks sptn
+  - zdkt attacks glgk
+  - pslm attacks glgk
+The claims are:
+  - glgk
+  - pslm
+  - zdkt
+  - sptn
+  - kdrd
+What is the status of pslm?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;kdrd&quot;
+ ],
+ &quot;claim&quot;: &quot;pslm&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 6,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: [
+  &quot;glgk&quot;,
+  &quot;pslm&quot;,
+  &quot;sptn&quot;,
+  &quot;zdkt&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks: nmlk attacks dtkz, pdgk attacks pkss and pkss attacks nznl.
+The claims are:
+  - nznl
+  - nmlk
+  - pdgk
+  - pkss
+  - dtkz
+  - mplp
+What is the status of pdgk?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;mplp&quot;,
+  &quot;nmlk&quot;,
+  &quot;nznl&quot;,
+  &quot;pdgk&quot;
+ ],
+ &quot;claim&quot;: &quot;pdgk&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 3,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - vkrd attacks gdvk
+  - vkrd attacks tkns
+  - tkns attacks vkrd
+  - nnns attacks tlzd
+  - tkns attacks rksz
+  - tlzd attacks tglm
+The claims are:
+  - tkns
+  - nnns
+  - tlzd
+  - rksz
+  - vkrd
+  - gdvk
+  - tglm
+What is the status of tlzd?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;nnns&quot;,
+  &quot;tglm&quot;
+ ],
+ &quot;claim&quot;: &quot;tlzd&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 6,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: [
+  &quot;gdvk&quot;,
+  &quot;rksz&quot;,
+  &quot;tkns&quot;,
+  &quot;vkrd&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks: mvdp attacks mdkd and prdz attacks rkkn.
+The claims are:
+  - vltt
+  - mvdp
+  - rkkn
+  - prdz
+  - mdkd
+What is the status of rkkn?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;mvdp&quot;,
+  &quot;prdz&quot;,
+  &quot;vltt&quot;
+ ],
+ &quot;claim&quot;: &quot;rkkn&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 2,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - sgmm attacks lzsk
+  - lvkm attacks znrg
+  - lvkm attacks lzsk
+  - lvkm attacks sgmm
+  - rrkg attacks lvkm
+  - lvkm attacks rrkg
+  - rrkg attacks lzsk
+  - trmn attacks lzsk
+  - znrg attacks stlt
+The claims are:
+  - znrg
+  - trmn
+  - sgmm
+  - lvkm
+  - lzsk
+  - rrkg
+  - stlt
+What is the status of stlt?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;trmn&quot;
+ ],
+ &quot;claim&quot;: &quot;stlt&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 9,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: [
+  &quot;lvkm&quot;,
+  &quot;rrkg&quot;,
+  &quot;sgmm&quot;,
+  &quot;stlt&quot;,
+  &quot;znrg&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - ndmv attacks tkmm
+  - rpgl attacks ndmv
+  - gvgk attacks dtvl
+  - dtvl attacks gvgk
+  - grpp attacks ndmv
+  - tkmm attacks rpgl
+The claims are:
+  - rpgl
+  - tkmm
+  - ndmv
+  - gvgk
+  - grpp
+  - dtvl
+What is the status of tkmm?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;grpp&quot;,
+  &quot;tkmm&quot;
+ ],
+ &quot;claim&quot;: &quot;tkmm&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 6,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: [
+  &quot;dtvl&quot;,
+  &quot;gvgk&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - llml attacks pszk
+  - rdmt attacks gpdn
+  - llml attacks mtrd
+  - smgk attacks gpdn
+  - pszk attacks zdnp
+  - mtrd attacks smgk
+  - llml attacks rdmt
+  - rdmt attacks mtrd
+  - pszk attacks rdmt
+  - rdmt attacks zdnp
+  - smgk attacks pszk
+The claims are:
+  - llml
+  - gpdn
+  - rdmt
+  - mtrd
+  - pszk
+  - zdnp
+  - smgk
+What is the status of pszk?
+
+Answer with exactly one of: rejected | undecided | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;llml&quot;,
+  &quot;smgk&quot;,
+  &quot;zdnp&quot;
+ ],
+ &quot;claim&quot;: &quot;pszk&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 11,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - vzmz attacks gmtz
+  - vzmz attacks dtsd
+  - dtsd attacks vzmz
+  - kmzm attacks vzmz
+  - vzmz attacks zdnk
+  - gmtz attacks dtsd
+The claims are:
+  - kmzm
+  - lkmv
+  - vzmz
+  - gmtz
+  - dtsd
+  - zdnk
+What is the status of dtsd?
+
+Answer with exactly one of: accepted | rejected | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;gmtz&quot;,
+  &quot;kmzm&quot;,
+  &quot;lkmv&quot;,
+  &quot;zdnk&quot;
+ ],
+ &quot;claim&quot;: &quot;dtsd&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 6,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - rkkm attacks ldmp
+  - rkkm attacks lnkk
+  - ldmp attacks nrtg
+  - kggs attacks lnkk
+  - trzr attacks nrtg
+  - nrtg attacks lnkk
+  - lnkk attacks rkkm
+  - ldmp attacks lnkk
+  - trzr attacks kggs
+  - kggs attacks ldmp
+The claims are:
+  - lnkk
+  - kggs
+  - rkkm
+  - nrtg
+  - ldmp
+  - trzr
+What is the status of trzr?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;trzr&quot;
+ ],
+ &quot;claim&quot;: &quot;trzr&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 10,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: [
+  &quot;ldmp&quot;,
+  &quot;lnkk&quot;,
+  &quot;rkkm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks: zvdr attacks lzrp, prvg attacks lzrp, zvdr attacks pgkp and nkmk attacks lzrp.
+The claims are:
+  - zvdr
+  - nkmk
+  - pgkp
+  - lzrp
+  - prvg
+What is the status of pgkp?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;nkmk&quot;,
+  &quot;prvg&quot;,
+  &quot;zvdr&quot;
+ ],
+ &quot;claim&quot;: &quot;pgkp&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 4,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - mvns attacks trdr
+  - tvsk attacks mvns
+  - trdr attacks pttn
+  - tvsk attacks pttn
+  - trdr attacks zrsd
+  - trdr attacks srrr
+  - trdr attacks tvsk
+  - tvsk attacks zrsd
+  - mvns attacks pttn
+The claims are:
+  - zrsd
+  - srrr
+  - trdr
+  - mvns
+  - pttn
+  - tvsk
+What is the status of tvsk?
+
+Answer with exactly one of: accepted | rejected | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [],
+ &quot;claim&quot;: &quot;tvsk&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 9,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: [
+  &quot;mvns&quot;,
+  &quot;pttn&quot;,
+  &quot;srrr&quot;,
+  &quot;trdr&quot;,
+  &quot;tvsk&quot;,
+  &quot;zrsd&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks: dztv attacks glpk, dztv attacks dknr and pmlr attacks dztv.
+The claims are:
+  - dztv
+  - dknr
+  - rsgz
+  - glpk
+  - rknk
+  - pmlr
+What is the status of glpk?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;dknr&quot;,
+  &quot;glpk&quot;,
+  &quot;pmlr&quot;,
+  &quot;rknk&quot;,
+  &quot;rsgz&quot;
+ ],
+ &quot;claim&quot;: &quot;glpk&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 3,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - vlmr attacks llss
+  - lsnr attacks llss
+  - llss attacks lnsd
+  - lnsd attacks lsnr
+  - lnsd attacks llss
+  - mtlm attacks lsnr
+  - llss attacks mlgg
+The claims are:
+  - mlgg
+  - vlmr
+  - lnsd
+  - lsnr
+  - llss
+  - mtlm
+What is the status of llss?
+
+Answer with exactly one of: accepted | rejected | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;lnsd&quot;,
+  &quot;mlgg&quot;,
+  &quot;mtlm&quot;,
+  &quot;vlmr&quot;
+ ],
+ &quot;claim&quot;: &quot;llss&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 7,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - pdkm attacks rnlg
+  - rzpr attacks rnlg
+  - rnlg attacks rzpr
+  - pdkm attacks rtss
+  - rtss attacks rnlg
+  - nlpz attacks rzpr
+  - rnlg attacks pdkm
+  - nlpz attacks rnlg
+The claims are:
+  - rzpr
+  - rtss
+  - pdkm
+  - rnlg
+  - krzk
+  - vddr
+  - nlpz
+What is the status of krzk?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;krzk&quot;,
+  &quot;nlpz&quot;,
+  &quot;pdkm&quot;,
+  &quot;vddr&quot;
+ ],
+ &quot;claim&quot;: &quot;krzk&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 8,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - pvks attacks ptlv
+  - pvks attacks pktt
+  - nkkr attacks ptlv
+  - pvks attacks nkkr
+  - drvl attacks pktt
+  - drvl attacks ptlv
+The claims are:
+  - pktt
+  - drvl
+  - ptlv
+  - pvks
+  - nkkr
+What is the status of ptlv?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;drvl&quot;,
+  &quot;pvks&quot;
+ ],
+ &quot;claim&quot;: &quot;ptlv&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 6,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - tgdl attacks zvkr
+  - tgdl attacks grnt
+  - zrtk attacks grnt
+  - zrtk attacks tgdl
+  - grnt attacks zrtk
+The claims are:
+  - zvkr
+  - tmnt
+  - grnt
+  - tgdl
+  - zrtk
+What is the status of tgdl?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;tmnt&quot;
+ ],
+ &quot;claim&quot;: &quot;tgdl&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 5,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: [
+  &quot;grnt&quot;,
+  &quot;tgdl&quot;,
+  &quot;zrtk&quot;,
+  &quot;zvkr&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - rzvv attacks dskv
+  - dskv attacks rzvv
+  - rvgm attacks rlrz
+  - gdps attacks dskv
+  - psvl attacks rlrz
+The claims are:
+  - rlrz
+  - gdps
+  - psvl
+  - dskv
+  - rzvv
+  - rvgm
+What is the status of rvgm?
+
+Answer with exactly one of: rejected | undecided | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;gdps&quot;,
+  &quot;psvl&quot;,
+  &quot;rvgm&quot;,
+  &quot;rzvv&quot;
+ ],
+ &quot;claim&quot;: &quot;rvgm&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 5,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - ldnv attacks rppr
+  - tdzm attacks rppr
+  - rppr attacks ldnv
+  - rppr attacks pldp
+  - pldp attacks dtzm
+  - dtzm attacks rppr
+The claims are:
+  - pldp
+  - rppr
+  - tdzm
+  - dtzm
+  - ldnv
+What is the status of pldp?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;ldnv&quot;,
+  &quot;pldp&quot;,
+  &quot;tdzm&quot;
+ ],
+ &quot;claim&quot;: &quot;pldp&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 6,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - dvlt attacks rgvg
+  - dsgm attacks kvtp
+  - dsgm attacks dvlt
+  - kvtp attacks dsgm
+  - dvlt attacks zkvg
+  - zkvg attacks tlpt
+  - zkvg attacks slkn
+  - dvlt attacks kvtp
+  - slkn attacks dsgm
+  - dsgm attacks tlpt
+The claims are:
+  - kvtp
+  - dsgm
+  - dvlt
+  - slkn
+  - zkvg
+  - rgvg
+  - tlpt
+What is the status of kvtp?
+
+Answer with exactly one of: rejected | undecided | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [],
+ &quot;claim&quot;: &quot;kvtp&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 10,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: [
+  &quot;dsgm&quot;,
+  &quot;dvlt&quot;,
+  &quot;kvtp&quot;,
+  &quot;rgvg&quot;,
+  &quot;slkn&quot;,
+  &quot;tlpt&quot;,
+  &quot;zkvg&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - pnpk attacks ggks
+  - ndgn attacks dtrg
+  - ndgn attacks lppm
+  - lppm attacks rlvz
+  - ggks attacks ndgn
+  - dtrg attacks ndgn
+  - ggks attacks lppm
+The claims are:
+  - ggks
+  - rlvz
+  - dtrg
+  - lppm
+  - ndgn
+  - pnpk
+What is the status of pnpk?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;pnpk&quot;
+ ],
+ &quot;claim&quot;: &quot;pnpk&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 7,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: [
+  &quot;dtrg&quot;,
+  &quot;lppm&quot;,
+  &quot;ndgn&quot;,
+  &quot;rlvz&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks: dgsk attacks nlpm, ktgk attacks dvts, dgsk attacks dvts and nlpm attacks dgsk.
+The claims are:
+  - ktgk
+  - tsns
+  - dvts
+  - dgsk
+  - nlpm
+What is the status of dgsk?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;ktgk&quot;,
+  &quot;tsns&quot;
+ ],
+ &quot;claim&quot;: &quot;dgsk&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 4,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: [
+  &quot;dgsk&quot;,
+  &quot;nlpm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - nvkt attacks dgln
+  - nvkt attacks zdkn
+  - gkvp attacks zdkn
+  - gkvp attacks dgln
+  - zdkn attacks dgln
+  - gkvp attacks nvkt
+  - zdkn attacks gkvp
+The claims are:
+  - gkvp
+  - dgln
+  - zdkn
+  - vrzt
+  - nvkt
+What is the status of vrzt?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;vrzt&quot;
+ ],
+ &quot;claim&quot;: &quot;vrzt&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 7,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: [
+  &quot;dgln&quot;,
+  &quot;gkvp&quot;,
+  &quot;nvkt&quot;,
+  &quot;zdkn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - mntt attacks pksn
+  - gtzs attacks tzgn
+  - gtzs attacks mntt
+  - vvlk attacks tzgn
+  - tzgn attacks vvlk
+  - kpdt attacks tzgn
+  - tzgn attacks mntt
+  - vvlk attacks pksn
+  - tzgn attacks kpdt
+The claims are:
+  - gtzs
+  - vvlk
+  - kpdt
+  - pksn
+  - mntt
+  - tzgn
+What is the status of pksn?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;gtzs&quot;,
+  &quot;kpdt&quot;,
+  &quot;vvlk&quot;
+ ],
+ &quot;claim&quot;: &quot;pksn&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 9,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - rslz attacks llmp
+  - rslz attacks vltl
+  - nkrd attacks llmp
+  - ldkv attacks rslz
+  - rslz attacks ldkv
+The claims are:
+  - llmp
+  - ldkv
+  - nkrd
+  - vltl
+  - rslz
+What is the status of llmp?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;nkrd&quot;
+ ],
+ &quot;claim&quot;: &quot;llmp&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 5,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: [
+  &quot;ldkv&quot;,
+  &quot;rslz&quot;,
+  &quot;vltl&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - kggg attacks skts
+  - kggg attacks lgtl
+  - plpv attacks tmnl
+  - plpv attacks vvzs
+  - tmnl attacks vvzs
+  - tmnl attacks tprd
+  - tprd attacks skts
+  - vvzs attacks plpv
+The claims are:
+  - vvzs
+  - lgtl
+  - tprd
+  - plpv
+  - skts
+  - kggg
+  - tmnl
+What is the status of tmnl?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;kggg&quot;
+ ],
+ &quot;claim&quot;: &quot;tmnl&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 8,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: [
+  &quot;plpv&quot;,
+  &quot;tmnl&quot;,
+  &quot;tprd&quot;,
+  &quot;vvzs&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - mnzd attacks mnsz
+  - gksn attacks tlsz
+  - mnsz attacks mnzd
+  - mnsz attacks mpdm
+  - zzvn attacks mnzd
+  - gksn attacks mnzd
+  - mnzd attacks tlsz
+  - zzvn attacks mnsz
+  - mpdm attacks zzvn
+  - gksn attacks zzvn
+  - tlsz attacks zzvn
+The claims are:
+  - zzvn
+  - mnzd
+  - mnsz
+  - tlsz
+  - gksn
+  - mpdm
+What is the status of mnzd?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;gksn&quot;,
+  &quot;mnsz&quot;
+ ],
+ &quot;claim&quot;: &quot;mnzd&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 11,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - zgrt attacks rlnt
+  - kkdd attacks vknv
+  - zgrt attacks vknv
+  - dmrl attacks ldrd
+  - ldrd attacks vknv
+  - dmrl attacks vknv
+  - vknv attacks zgrt
+The claims are:
+  - rlnt
+  - kkdd
+  - ldrd
+  - vknv
+  - dmrl
+  - zgrt
+What is the status of vknv?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;dmrl&quot;,
+  &quot;kkdd&quot;,
+  &quot;zgrt&quot;
+ ],
+ &quot;claim&quot;: &quot;vknv&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 7,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - sszr attacks znmz
+  - zvtt attacks tmzd
+  - gdnk attacks tmzd
+  - tmzd attacks pddl
+  - zvtt attacks pddl
+  - znmz attacks gdnk
+  - gdnk attacks pddl
+  - znmz attacks lslg
+The claims are:
+  - lslg
+  - pddl
+  - sszr
+  - gdnk
+  - tmzd
+  - zvtt
+  - znmz
+What is the status of znmz?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;gdnk&quot;,
+  &quot;lslg&quot;,
+  &quot;sszr&quot;,
+  &quot;zvtt&quot;
+ ],
+ &quot;claim&quot;: &quot;znmz&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 8,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - ldtp attacks tdmd
+  - ldtp attacks vtvr
+  - ddvn attacks tdmd
+  - zrmd attacks ddvn
+  - vtvr attacks ddvn
+The claims are:
+  - ldtp
+  - psvz
+  - zrmd
+  - ddvn
+  - tdmd
+  - vtvr
+What is the status of psvz?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;ldtp&quot;,
+  &quot;psvz&quot;,
+  &quot;zrmd&quot;
+ ],
+ &quot;claim&quot;: &quot;psvz&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 5,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks is empty.
+The claims are:
+  - tvtm
+  - gpvg
+  - zsnk
+  - pvpz
+  - ntzk
+What is the status of ntzk?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;gpvg&quot;,
+  &quot;ntzk&quot;,
+  &quot;pvpz&quot;,
+  &quot;tvtm&quot;,
+  &quot;zsnk&quot;
+ ],
+ &quot;claim&quot;: &quot;ntzk&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 0,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - ggsp attacks ddrm
+  - krdv attacks ggsp
+  - ddrm attacks lvrl
+  - lvrl attacks trnm
+  - ddrm attacks krdv
+  - trnm attacks lvrl
+  - ddrm attacks ggsp
+The claims are:
+  - ggsp
+  - vzdn
+  - krdv
+  - trnm
+  - lvrl
+  - ddrm
+What is the status of ddrm?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;vzdn&quot;
+ ],
+ &quot;claim&quot;: &quot;ddrm&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 7,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: [
+  &quot;ddrm&quot;,
+  &quot;ggsp&quot;,
+  &quot;krdv&quot;,
+  &quot;lvrl&quot;,
+  &quot;trnm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - tkzm attacks kppd
+  - dlvs attacks kppd
+  - rrkv attacks tkzm
+  - kppd attacks dlvs
+  - dptm attacks sgzv
+The claims are:
+  - kppd
+  - tkzm
+  - sgzv
+  - dlvs
+  - rrkv
+  - dptm
+What is the status of kppd?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;dptm&quot;,
+  &quot;rrkv&quot;
+ ],
+ &quot;claim&quot;: &quot;kppd&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 5,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: [
+  &quot;dlvs&quot;,
+  &quot;kppd&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - dvvt attacks lzpv
+  - npps attacks dvvt
+  - pnmr attacks lmtn
+  - lzpv attacks pnmr
+  - lzpv attacks dvvt
+  - dvvt attacks ngsd
+  - npps attacks pnmr
+  - ngsd attacks lmtn
+  - lzpv attacks lmtn
+  - npps attacks lmtn
+The claims are:
+  - pnmr
+  - ngsd
+  - lzpv
+  - lmtn
+  - dvvt
+  - npps
+What is the status of ngsd?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;lzpv&quot;,
+  &quot;ngsd&quot;,
+  &quot;npps&quot;
+ ],
+ &quot;claim&quot;: &quot;ngsd&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 10,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks: pzzp attacks tgms, tgms attacks sztk and tgms attacks nvzv.
+The claims are:
+  - sztk
+  - pzzp
+  - vrvs
+  - rdlg
+  - nvzv
+  - tgms
+What is the status of tgms?
+
+Answer with exactly one of: accepted | rejected | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;nvzv&quot;,
+  &quot;pzzp&quot;,
+  &quot;rdlg&quot;,
+  &quot;sztk&quot;,
+  &quot;vrvs&quot;
+ ],
+ &quot;claim&quot;: &quot;tgms&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 3,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - tddl attacks kdsv
+  - ddng attacks sptn
+  - tddl attacks dtld
+  - rglz attacks kvmz
+  - sptn attacks rglz
+  - ddng attacks kvmz
+  - dtld attacks tddl
+  - tddl attacks kvmz
+  - kdsv attacks sptn
+  - dtld attacks rglz
+  - kvmz attacks rglz
+The claims are:
+  - kdsv
+  - tddl
+  - dtld
+  - rglz
+  - ddng
+  - sptn
+  - kvmz
+What is the status of ddng?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;ddng&quot;
+ ],
+ &quot;claim&quot;: &quot;ddng&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 11,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: [
+  &quot;dtld&quot;,
+  &quot;kdsv&quot;,
+  &quot;rglz&quot;,
+  &quot;tddl&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks: svmk attacks zpkp, zpkp attacks svmk and vzgm attacks zpkp.
+The claims are:
+  - rvgt
+  - svmk
+  - vprr
+  - vzgm
+  - zpkp
+What is the status of zpkp?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;rvgt&quot;,
+  &quot;svmk&quot;,
+  &quot;vprr&quot;,
+  &quot;vzgm&quot;
+ ],
+ &quot;claim&quot;: &quot;zpkp&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 3,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - tslm attacks vvrz
+  - vtlz attacks mlmz
+  - vtgp attacks tslm
+  - rkts attacks vvrz
+  - vtlz attacks vvrz
+  - vvrz attacks mlmz
+  - mlmz attacks vtgp
+  - rkts attacks mlmz
+  - rgkd attacks tslm
+  - tslm attacks vtgp
+  - vtgp attacks vtlz
+  - tslm attacks vtlz
+  - tslm attacks rgkd
+  - vtlz attacks tslm
+  - rgkd attacks mlmz
+The claims are:
+  - rgkd
+  - vtgp
+  - mlmz
+  - vvrz
+  - tslm
+  - rkts
+  - vtlz
+What is the status of vtgp?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;rkts&quot;
+ ],
+ &quot;claim&quot;: &quot;vtgp&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 15,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: [
+  &quot;rgkd&quot;,
+  &quot;tslm&quot;,
+  &quot;vtgp&quot;,
+  &quot;vtlz&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - nndl attacks rnnv
+  - rnnv attacks nlgn
+  - pvkd attacks vzpk
+  - zzvd attacks vzpk
+  - pvkd attacks nlgn
+  - rnnv attacks pvkd
+  - nndl attacks nlgn
+  - zzvd attacks nlgn
+  - nndl attacks zzvd
+The claims are:
+  - zzvd
+  - nndl
+  - rnnv
+  - pvkd
+  - vzpk
+  - nlgn
+  - mdlm
+What is the status of zzvd?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;mdlm&quot;,
+  &quot;nndl&quot;,
+  &quot;pvkd&quot;
+ ],
+ &quot;claim&quot;: &quot;zzvd&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 9,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - lzsl attacks pszk
+  - vvsm attacks lzsl
+  - pszz attacks pggp
+  - pszk attacks rkkn
+  - vvsm attacks pggp
+  - pszz attacks vvsm
+The claims are:
+  - pggp
+  - pszk
+  - vvsm
+  - rkkn
+  - pszz
+  - lzsl
+What is the status of pszk?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;lzsl&quot;,
+  &quot;pszz&quot;,
+  &quot;rkkn&quot;
+ ],
+ &quot;claim&quot;: &quot;pszk&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 6,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - zvrg attacks nrkz
+  - sssm attacks rptl
+  - rptl attacks zvrg
+  - strn attacks zvrg
+  - zvrg attacks strn
+  - kvts attacks strn
+  - nrkz attacks rptl
+  - sssm attacks strn
+  - rptl attacks nrkz
+  - zvrg attacks sssm
+  - nrkz attacks strn
+The claims are:
+  - strn
+  - nrkz
+  - sssm
+  - zvrg
+  - rptl
+  - kvts
+What is the status of strn?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;kvts&quot;
+ ],
+ &quot;claim&quot;: &quot;strn&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 11,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: [
+  &quot;nrkz&quot;,
+  &quot;rptl&quot;,
+  &quot;sssm&quot;,
+  &quot;zvrg&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - tnpn attacks rksd
+  - zndz attacks dpkn
+  - tnpn attacks sdvp
+  - dpkn attacks tnpn
+  - tnpn attacks dpkn
+  - rksd attacks dpkn
+The claims are:
+  - tnpn
+  - dpkn
+  - sdvp
+  - rksd
+  - zndz
+What is the status of zndz?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;tnpn&quot;,
+  &quot;zndz&quot;
+ ],
+ &quot;claim&quot;: &quot;zndz&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 6,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - dztp attacks smdv
+  - tmlk attacks smdv
+  - tmlk attacks lgts
+  - tmlk attacks sddv
+  - smdv attacks vdlg
+  - tmlk attacks dztp
+  - smdv attacks dztp
+  - dztp attacks vdlg
+  - sddv attacks vdlg
+  - smdv attacks lgts
+  - lgts attacks vdlg
+The claims are:
+  - smdv
+  - sddv
+  - tmlk
+  - lgts
+  - vdlg
+  - dztp
+What is the status of tmlk?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;tmlk&quot;,
+  &quot;vdlg&quot;
+ ],
+ &quot;claim&quot;: &quot;tmlk&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 11,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - tvgt attacks gkps
+  - lrpl attacks gkps
+  - lrpl attacks rdpl
+  - lrpl attacks tvgt
+  - rdpl attacks trgk
+  - tvgt attacks trgk
+  - lrpl attacks trgk
+  - krps attacks rdpl
+The claims are:
+  - gkps
+  - trgk
+  - krps
+  - tvgt
+  - lrpl
+  - rdpl
+What is the status of gkps?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;krps&quot;,
+  &quot;lrpl&quot;
+ ],
+ &quot;claim&quot;: &quot;gkps&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 8,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - szkn attacks ktdm
+  - gdkr attacks zrst
+  - zrst attacks szkn
+  - szkn attacks zrst
+  - szkn attacks nrgt
+  - prls attacks nrgt
+  - prls attacks gdkr
+  - zpzp attacks nrgt
+  - nrgt attacks zrst
+  - gdkr attacks prls
+  - nrgt attacks prls
+The claims are:
+  - prls
+  - szkn
+  - zpzp
+  - ktdm
+  - nrgt
+  - gdkr
+  - zrst
+What is the status of szkn?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;zpzp&quot;
+ ],
+ &quot;claim&quot;: &quot;szkn&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 11,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: [
+  &quot;gdkr&quot;,
+  &quot;ktdm&quot;,
+  &quot;prls&quot;,
+  &quot;szkn&quot;,
+  &quot;zrst&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - vppl attacks snnm
+  - dvpk attacks lmnp
+  - dvpk attacks snnm
+  - gkdn attacks mrpd
+  - mrpd attacks vppl
+  - gkdn attacks lrvm
+  - mrpd attacks snnm
+  - lmnp attacks vppl
+  - lrvm attacks dvpk
+  - lrvm attacks vppl
+The claims are:
+  - mrpd
+  - gkdn
+  - lrvm
+  - vppl
+  - dvpk
+  - lmnp
+  - snnm
+What is the status of vppl?
+
+Answer with exactly one of: rejected | undecided | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;dvpk&quot;,
+  &quot;gkdn&quot;,
+  &quot;vppl&quot;
+ ],
+ &quot;claim&quot;: &quot;vppl&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 10,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - mtpk attacks knss
+  - dsvt attacks tzmk
+  - rsvn attacks knss
+  - ptlz attacks dsvt
+  - rsvn attacks ptlz
+  - ptlz attacks tzmk
+  - rsvn attacks dsvt
+  - tzmk attacks rsvn
+  - mtpk attacks tzmk
+  - dsvt attacks ptlz
+The claims are:
+  - dsvt
+  - ptlz
+  - rsvn
+  - knss
+  - mtpk
+  - tzmk
+What is the status of dsvt?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;mtpk&quot;,
+  &quot;rsvn&quot;
+ ],
+ &quot;claim&quot;: &quot;dsvt&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 10,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks: vgzm attacks mmrt and mmrt attacks vgzm.
+The claims are:
+  - vgzm
+  - nkgv
+  - mmrt
+  - tslp
+  - tlgk
+What is the status of mmrt?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;nkgv&quot;,
+  &quot;tlgk&quot;,
+  &quot;tslp&quot;
+ ],
+ &quot;claim&quot;: &quot;mmrt&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 2,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: [
+  &quot;mmrt&quot;,
+  &quot;vgzm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - ggvg attacks svlg
+  - pmkn attacks rsng
+  - svlg attacks ggvg
+  - rsng attacks svlg
+  - pmkn attacks svlg
+  - svlg attacks rmpv
+The claims are:
+  - gmls
+  - rsng
+  - ggvg
+  - snpr
+  - pmkn
+  - rmpv
+  - svlg
+What is the status of gmls?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;ggvg&quot;,
+  &quot;gmls&quot;,
+  &quot;pmkn&quot;,
+  &quot;rmpv&quot;,
+  &quot;snpr&quot;
+ ],
+ &quot;claim&quot;: &quot;gmls&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 6,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - kgss attacks zmvp
+  - ldkm attacks drdn
+  - drdn attacks zdpm
+  - zmvp attacks rmpv
+  - ldkm attacks rmpv
+  - zmvp attacks ldkm
+  - drdn attacks kgss
+The claims are:
+  - ldkm
+  - zmvp
+  - rmpv
+  - lktp
+  - drdn
+  - zdpm
+  - kgss
+What is the status of lktp?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;lktp&quot;
+ ],
+ &quot;claim&quot;: &quot;lktp&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 7,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: [
+  &quot;drdn&quot;,
+  &quot;kgss&quot;,
+  &quot;ldkm&quot;,
+  &quot;rmpv&quot;,
+  &quot;zdpm&quot;,
+  &quot;zmvp&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks: vrgd attacks ldml, kzpm attacks vrgd and ldml attacks mnsz.
+The claims are:
+  - vrgd
+  - kzpm
+  - srmz
+  - mnsz
+  - tdrm
+  - ldml
+  - lnrd
+What is the status of tdrm?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;kzpm&quot;,
+  &quot;ldml&quot;,
+  &quot;lnrd&quot;,
+  &quot;srmz&quot;,
+  &quot;tdrm&quot;
+ ],
+ &quot;claim&quot;: &quot;tdrm&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 3,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - ltnk attacks nvts
+  - rdkl attacks nvts
+  - nvts attacks rdkl
+  - tvpl attacks ltnk
+  - ltnk attacks mdtg
+The claims are:
+  - nvts
+  - ltnk
+  - tvpl
+  - rdkl
+  - mdtg
+What is the status of ltnk?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;mdtg&quot;,
+  &quot;tvpl&quot;
+ ],
+ &quot;claim&quot;: &quot;ltnk&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 5,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: [
+  &quot;nvts&quot;,
+  &quot;rdkl&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - dztl attacks rldm
+  - vgks attacks mtpl
+  - mtpl attacks dztl
+  - dztl attacks mtpl
+  - rldm attacks dztl
+  - szdn attacks lmgt
+  - mtpl attacks rldm
+  - szdn attacks rldm
+  - mtpl attacks tgvk
+The claims are:
+  - lmgt
+  - mtpl
+  - dztl
+  - rldm
+  - tgvk
+  - vgks
+  - szdn
+What is the status of tgvk?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;dztl&quot;,
+  &quot;szdn&quot;,
+  &quot;tgvk&quot;,
+  &quot;vgks&quot;
+ ],
+ &quot;claim&quot;: &quot;tgvk&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 9,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - mvng attacks vgzz
+  - vmtr attacks nnpl
+  - gznl attacks mvng
+  - nnpl attacks vgzz
+  - mvng attacks rdtk
+  - vzlm attacks vmtr
+  - gznl attacks nnpl
+  - gznl attacks rdtk
+  - vmtr attacks rdtk
+  - gznl attacks vgzz
+The claims are:
+  - vmtr
+  - rdtk
+  - vgzz
+  - nnpl
+  - mvng
+  - gznl
+  - vzlm
+What is the status of vzlm?
+
+Answer with exactly one of: accepted | undecided | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;gznl&quot;,
+  &quot;vzlm&quot;
+ ],
+ &quot;claim&quot;: &quot;vzlm&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 10,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - vvzs attacks rnzp
+  - rnzp attacks sspm
+  - vvzs attacks sspm
+  - sglv attacks vvzs
+  - vvzs attacks pvdv
+  - sglv attacks pvdv
+The claims are:
+  - sglv
+  - tnnt
+  - vvzs
+  - rnzp
+  - mnvd
+  - sspm
+  - pvdv
+What is the status of sglv?
+
+Answer with exactly one of: undecided | rejected | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;mnvd&quot;,
+  &quot;rnzp&quot;,
+  &quot;sglv&quot;,
+  &quot;tnnt&quot;
+ ],
+ &quot;claim&quot;: &quot;sglv&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 6,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - rvtm attacks znmg
+  - znmg attacks rvtm
+  - ntgt attacks znmg
+  - rvtm attacks grrg
+  - rvtm attacks ggtd
+  - kkkn attacks rvtm
+  - ggtd attacks rvtm
+  - znmg attacks kkkn
+The claims are:
+  - kkkn
+  - gnnl
+  - grrg
+  - rvtm
+  - ntgt
+  - znmg
+  - ggtd
+What is the status of znmg?
+
+Answer with exactly one of: rejected | undecided | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;ggtd&quot;,
+  &quot;gnnl&quot;,
+  &quot;grrg&quot;,
+  &quot;kkkn&quot;,
+  &quot;ntgt&quot;
+ ],
+ &quot;claim&quot;: &quot;znmg&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 8,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - lsvk attacks klkt
+  - tzns attacks lsvk
+  - dnmn attacks lsvk
+  - rzdr attacks lsvk
+  - dnmn attacks rzdr
+The claims are:
+  - tzns
+  - dnmn
+  - lsvk
+  - rzdr
+  - klkt
+What is the status of lsvk?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;dnmn&quot;,
+  &quot;klkt&quot;,
+  &quot;tzns&quot;
+ ],
+ &quot;claim&quot;: &quot;lsvk&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 5,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - rknl attacks krst
+  - krst attacks rknl
+  - rllz attacks rknl
+  - krst attacks lsgn
+  - krst attacks rllz
+  - sndg attacks krst
+  - krst attacks sndg
+  - sndg attacks rknl
+  - rknl attacks sndg
+The claims are:
+  - sndg
+  - rllz
+  - rknl
+  - lsgn
+  - krst
+What is the status of sndg?
+
+Answer with exactly one of: rejected | accepted | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [],
+ &quot;claim&quot;: &quot;sndg&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 9,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: [
+  &quot;krst&quot;,
+  &quot;lsgn&quot;,
+  &quot;rknl&quot;,
+  &quot;rllz&quot;,
+  &quot;sndg&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">undecided</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - mtrg attacks smks
+  - mtrg attacks kgld
+  - vndk attacks szts
+  - kgld attacks smks
+  - smks attacks mtrg
+  - pssr attacks mtrg
+  - szts attacks smks
+  - pssr attacks lztd
+  - vndk attacks pssr
+The claims are:
+  - mtrg
+  - szts
+  - vndk
+  - pssr
+  - kgld
+  - lztd
+  - smks
+What is the status of smks?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;lztd&quot;,
+  &quot;vndk&quot;
+ ],
+ &quot;claim&quot;: &quot;smks&quot;,
+ &quot;label&quot;: &quot;undecided&quot;,
+ &quot;n_attacks&quot;: 9,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: [
+  &quot;kgld&quot;,
+  &quot;mtrg&quot;,
+  &quot;smks&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - tpnl attacks ztrk
+  - tpnl attacks mzll
+  - lkdk attacks ztrk
+  - lkdk attacks gvrv
+  - tpnl attacks lkdk
+The claims are:
+  - ztrk
+  - gvrv
+  - tpnl
+  - lkdk
+  - npsm
+  - mzll
+What is the status of mzll?
+
+Answer with exactly one of: rejected | undecided | accepted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;gvrv&quot;,
+  &quot;npsm&quot;,
+  &quot;tpnl&quot;
+ ],
+ &quot;claim&quot;: &quot;mzll&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 5,
+ &quot;n_claims&quot;: 6,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">accepted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - grrg attacks srpp
+  - rvdp attacks grrg
+  - kkrn attacks rvdp
+  - rvdp attacks kkrn
+  - srpp attacks kkrn
+  - srpp attacks grrg
+  - kkrn attacks srpp
+  - mkdr attacks srpp
+The claims are:
+  - kkrn
+  - srpp
+  - mkdr
+  - grrg
+  - rvdp
+What is the status of mkdr?
+
+Answer with exactly one of: undecided | accepted | rejected
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;mkdr&quot;
+ ],
+ &quot;claim&quot;: &quot;mkdr&quot;,
+ &quot;label&quot;: &quot;accepted&quot;,
+ &quot;n_attacks&quot;: 8,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: [
+  &quot;grrg&quot;,
+  &quot;kkrn&quot;,
+  &quot;rvdp&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - vzdn attacks ddvs
+  - pknd attacks rmvs
+  - lkkp attacks ddvs
+  - pknd attacks klpk
+  - zlkn attacks lkkp
+  - ddvs attacks klpk
+  - rmvs attacks lkkp
+  - ddvs attacks zlkn
+  - lkkp attacks zlkn
+  - vzdn attacks rmvs
+The claims are:
+  - pknd
+  - klpk
+  - vzdn
+  - lkkp
+  - rmvs
+  - ddvs
+  - zlkn
+What is the status of rmvs?
+
+Answer with exactly one of: accepted | rejected | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;pknd&quot;,
+  &quot;vzdn&quot;
+ ],
+ &quot;claim&quot;: &quot;rmvs&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 10,
+ &quot;n_claims&quot;: 7,
+ &quot;undecided&quot;: [
+  &quot;lkkp&quot;,
+  &quot;zlkn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">rejected</span></summary>
+<div class="body">
+<p>prompt</p><pre>The attacks:
+  - kplt attacks pmpn
+  - pmpn attacks ktvn
+  - kplt attacks mtzg
+  - pmpn attacks rpsk
+  - mtzg attacks rpsk
+The claims are:
+  - mtzg
+  - ktvn
+  - rpsk
+  - pmpn
+  - kplt
+What is the status of pmpn?
+
+Answer with exactly one of: accepted | rejected | undecided
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;accepted&quot;: [
+  &quot;kplt&quot;,
+  &quot;ktvn&quot;,
+  &quot;rpsk&quot;
+ ],
+ &quot;claim&quot;: &quot;pmpn&quot;,
+ &quot;label&quot;: &quot;rejected&quot;,
+ &quot;n_attacks&quot;: 5,
+ &quot;n_claims&quot;: 5,
+ &quot;undecided&quot;: []
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

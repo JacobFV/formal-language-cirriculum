@@ -1,0 +1,3831 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>external_memory_design — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#xiii">self-modeling and architecture adaptation</a> &rsaquo;
+  external_memory_design</p>
+<h1>#142 <code>external_memory_design</code></h1>
+<p class="lede">index a symbolic store for its retrieval workload</p>
+<div class="tags"><span class="tag ">level 142</span><span class="tag ">section xiii</span><span class="tag ">architecture_adaptation</span><span class="tag ">abstraction</span><span class="tag ">metareasoning</span></div>
+<div class="stats">
+<div class="stat"><span class="n">5.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.2</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Which index to build over a symbolic store, given the retrieval workload.</p><p>    An unindexed lookup scans; an index makes its own fields cheap and everything
+    else unchanged; a composite index costs more to build but covers two fields.
+    Exactly one design minimizes the total, and it is not always the one with the
+    smallest build cost or the widest coverage.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The designs:
+  - design: design4, 38 and 3
+  - design: design3, 23 and 1
+  - design0 indexes field3
+  - design0 indexes field0
+  - design2 indexes field2
+  - design: design2, 47 and 2
+  - design1 indexes field3
+  - design: design0, 12 and 1
+  - design3 indexes field0
+  - design4 indexes field1
+  - design: design1, 39 and 1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 10.
+The workload: field2 lookups 5, field1 lookups 8, field0 lookups 9 and field3 lookups 7.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design3 | design2 | design1 | design4
+Reply with the answer only.</pre><h3>spanish</h3><pre>Los diseños son:
+  - el diseño: design4, 38 y 3
+  - el diseño: design3, 23 y 1
+  - design0 indexa field3
+  - design0 indexa field0
+  - design2 indexa field2
+  - el diseño: design2, 47 y 2
+  - design1 indexa field3
+  - el diseño: design0, 12 y 1
+  - design3 indexa field0
+  - design4 indexa field1
+  - el diseño: design1, 39 y 1
+Las reglas son:
+  - la regla: design_lists_build_cost_and_cost_per_indexed_lookup
+  - la regla: a_lookup_on_an_unindexed_field_costs_scan_cost
+  - la regla: total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+El almacén contiene: el coste de escaneo: 10.
+La carga de trabajo es: field2 las consultas 5, field1 las consultas 8, field0 las consultas 9 y field3 las consultas 7.
+¿Cuál es el diseño de memoria más barato?
+
+Responde exactamente con una de estas opciones: design0 | design3 | design2 | design1 | design4
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>设计方案如下：
+  - 设计：design4、38和3
+  - 设计：design3、23和1
+  - design0索引field3
+  - design0索引field0
+  - design2索引field2
+  - 设计：design2、47和2
+  - design1索引field3
+  - 设计：design0、12和1
+  - design3索引field0
+  - design4索引field1
+  - 设计：design1、39和1
+规则如下：
+  - 规则：design_lists_build_cost_and_cost_per_indexed_lookup
+  - 规则：a_lookup_on_an_unindexed_field_costs_scan_cost
+  - 规则：total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+存储内容如下：扫描成本：10。
+工作负载如下：field2的查找次数是5；field1的查找次数是8；field0的查找次数是9；field3的查找次数是7。
+最省的记忆设计是哪一个？
+
+请从以下选项中选出恰好一个作答：design0 | design3 | design2 | design1 | design4
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The designs:
+  - design: design4, 38 and 3
+  - design: design3, 23 and 1
+  - design0 indexes field3
+  - design0 indexes field0
+  - design2 indexes field2
+  - design: design2, 47 and 2
+  - design1 indexes field3
+  - design: design0, 12 and 1
+  - design3 indexes field0
+  - design4 indexes field1
+  - design: design1, 39 and 1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 10.
+The workload: field2 lookups 5, field1 lookups 8, field0 lookups 9 and field3 lookups 7.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design3 | design2 | design1 | design4
+Reply with the answer only.</pre><h3>symbols</h3><pre>{designs: [(design design4 38 3) (design design3 23 1) (indexes design0 field3) (indexes design0 field0) (indexes design2 field2) (design design2 47 2) (indexes design1 field3) (design design0 12 1) (indexes design3 field0) (indexes design4 field1) (design design1 39 1)], query: cheapest_memory_design, rules: [(rule design_lists_build_cost_and_cost_per_indexed_lookup) (rule a_lookup_on_an_unindexed_field_costs_scan_cost) (rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost)], store: [(scan_cost 10)], workload: [(lookups field2 5) (lookups field1 8) (lookups field0 9) (lookups field3 7)]}
+
+Answer with exactly one of: design0 | design3 | design2 | design1 | design4
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/external_memory_design.jsonl</code> &middot; <code>data/samples/spanish/external_memory_design.jsonl</code> &middot; <code>data/samples/chinese/external_memory_design.jsonl</code> &middot; <code>data/samples/english_synonym/external_memory_design.jsonl</code> &middot; <code>data/samples/symbols/external_memory_design.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design4, 38 and 3
+  - design: design3, 23 and 1
+  - design0 indexes field3
+  - design0 indexes field0
+  - design2 indexes field2
+  - design: design2, 47 and 2
+  - design1 indexes field3
+  - design: design0, 12 and 1
+  - design3 indexes field0
+  - design4 indexes field1
+  - design: design1, 39 and 1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 10.
+The workload: field2 lookups 5, field1 lookups 8, field0 lookups 9 and field3 lookups 7.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design3 | design2 | design1 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 10,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 158,
+  &quot;design1&quot;: 266,
+  &quot;design2&quot;: 297,
+  &quot;design3&quot;: 232,
+  &quot;design4&quot;: 272
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design1 indexes field0
+  - design: design2, 50 and 1
+  - design4 indexes field3
+  - design2 indexes field2
+  - design: design0, 48 and 2
+  - design: design4, 24 and 1
+  - design: design3, 5 and 3
+  - design3 indexes field3
+  - design0 indexes field3
+  - design: design1, 31 and 3
+  - design1 indexes field3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 13.
+The workload: field0 lookups 2, field3 lookups 5, field2 lookups 8 and field1 lookups 8.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design4 | design2 | design0 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 13,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 292,
+  &quot;design1&quot;: 260,
+  &quot;design2&quot;: 253,
+  &quot;design3&quot;: 254,
+  &quot;design4&quot;: 263
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design3, 33 and 2
+  - design1 indexes field0
+  - design: design1, 31 and 3
+  - design: design0, 6 and 1
+  - design0 indexes field3
+  - design4 indexes field2
+  - design: design2, 38 and 2
+  - design3 indexes field3
+  - design4 indexes field0
+  - design2 indexes field3
+  - design: design4, 44 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 10.
+The workload: field3 lookups 12, field2 lookups 3, field0 lookups 11 and field1 lookups 6.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design0 | design1 | design4 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 10,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 218,
+  &quot;design1&quot;: 274,
+  &quot;design2&quot;: 262,
+  &quot;design3&quot;: 257,
+  &quot;design4&quot;: 252
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design4 indexes field0
+  - design: design0, 29 and 3
+  - design: design4, 49 and 2
+  - design: design2, 37 and 2
+  - design3 indexes field0
+  - design: design3, 18 and 3
+  - design4 indexes field3
+  - design: design1, 46 and 1
+  - design1 indexes field3
+  - design0 indexes field1
+  - design2 indexes field0
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 15.
+The workload: field3 lookups 6, field1 lookups 11, field0 lookups 10 and field2 lookups 8.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design2 | design0 | design4 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 15,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 422,
+  &quot;design1&quot;: 487,
+  &quot;design2&quot;: 432,
+  &quot;design3&quot;: 423,
+  &quot;design4&quot;: 366
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design0, 20 and 1
+  - design3 indexes field2
+  - design: design3, 37 and 3
+  - design: design1, 45 and 2
+  - design2 indexes field3
+  - design4 indexes field3
+  - design: design2, 21 and 1
+  - design: design4, 16 and 1
+  - design1 indexes field2
+  - design3 indexes field1
+  - design0 indexes field2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 7.
+The workload: field1 lookups 3, field0 lookups 7, field3 lookups 8 and field2 lookups 12.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design2 | design4 | design1 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 7,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 158,
+  &quot;design1&quot;: 195,
+  &quot;design2&quot;: 183,
+  &quot;design3&quot;: 187,
+  &quot;design4&quot;: 178
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design4 indexes field2
+  - design2 indexes field0
+  - design1 indexes field1
+  - design: design3, 50 and 1
+  - design: design2, 27 and 2
+  - design0 indexes field0
+  - design: design0, 40 and 1
+  - design2 indexes field1
+  - design: design1, 28 and 3
+  - design3 indexes field0
+  - design: design4, 21 and 1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 6.
+The workload: field1 lookups 12, field3 lookups 11, field0 lookups 12 and field2 lookups 9.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design2 | design1 | design3 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 6,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 244,
+  &quot;design1&quot;: 256,
+  &quot;design2&quot;: 195,
+  &quot;design3&quot;: 254,
+  &quot;design4&quot;: 240
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design4 indexes field3
+  - design0 indexes field1
+  - design1 indexes field0
+  - design3 indexes field1
+  - design: design1, 38 and 3
+  - design2 indexes field3
+  - design3 indexes field2
+  - design: design4, 31 and 2
+  - design: design0, 46 and 3
+  - design: design3, 16 and 3
+  - design: design2, 16 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 15.
+The workload: field2 lookups 1, field3 lookups 1, field1 lookups 3 and field0 lookups 11.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design2 | design3 | design0 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 15,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 250,
+  &quot;design1&quot;: 146,
+  &quot;design2&quot;: 244,
+  &quot;design3&quot;: 208,
+  &quot;design4&quot;: 258
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design3 indexes field2
+  - design: design0, 31 and 2
+  - design2 indexes field3
+  - design: design1, 19 and 1
+  - design0 indexes field2
+  - design1 indexes field3
+  - design4 indexes field3
+  - design: design2, 18 and 3
+  - design: design3, 7 and 3
+  - design0 indexes field3
+  - design: design4, 40 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 7.
+The workload: field3 lookups 11, field0 lookups 2, field2 lookups 9 and field1 lookups 1.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design0 | design2 | design1 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 7,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 92,
+  &quot;design1&quot;: 114,
+  &quot;design2&quot;: 135,
+  &quot;design3&quot;: 132,
+  &quot;design4&quot;: 157
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">design3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design4 indexes field1
+  - design: design4, 9 and 2
+  - design: design1, 40 and 1
+  - design: design2, 33 and 2
+  - design0 indexes field2
+  - design3 indexes field3
+  - design: design3, 5 and 2
+  - design2 indexes field1
+  - design3 indexes field1
+  - design1 indexes field1
+  - design: design0, 5 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 7.
+The workload: field1 lookups 1, field2 lookups 4, field3 lookups 12 and field0 lookups 3.
+What is the cheapest memory design?
+
+Answer with exactly one of: design1 | design3 | design2 | design0 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 7,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 129,
+  &quot;design1&quot;: 174,
+  &quot;design2&quot;: 168,
+  &quot;design3&quot;: 80,
+  &quot;design4&quot;: 144
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design1, 14 and 1
+  - design1 indexes field3
+  - design: design2, 50 and 2
+  - design3 indexes field3
+  - design4 indexes field1
+  - design: design4, 49 and 2
+  - design3 indexes field2
+  - design: design0, 7 and 1
+  - design0 indexes field1
+  - design: design3, 43 and 3
+  - design2 indexes field0
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 6.
+The workload: field2 lookups 3, field3 lookups 11, field1 lookups 3 and field0 lookups 5.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design2 | design4 | design0 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 6,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 124,
+  &quot;design1&quot;: 91,
+  &quot;design2&quot;: 162,
+  &quot;design3&quot;: 133,
+  &quot;design4&quot;: 169
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design0 indexes field3
+  - design4 indexes field0
+  - design0 indexes field1
+  - design: design2, 42 and 2
+  - design: design0, 19 and 3
+  - design3 indexes field1
+  - design: design3, 6 and 2
+  - design: design1, 33 and 1
+  - design2 indexes field2
+  - design1 indexes field1
+  - design: design4, 30 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 13.
+The workload: field3 lookups 10, field1 lookups 4, field0 lookups 8 and field2 lookups 1.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design0 | design3 | design1 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 13,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 178,
+  &quot;design1&quot;: 284,
+  &quot;design2&quot;: 330,
+  &quot;design3&quot;: 261,
+  &quot;design4&quot;: 241
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">design3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design3 indexes field1
+  - design0 indexes field0
+  - design: design1, 38 and 3
+  - design3 indexes field0
+  - design: design2, 45 and 3
+  - design: design0, 42 and 2
+  - design: design4, 43 and 1
+  - design: design3, 23 and 1
+  - design4 indexes field1
+  - design1 indexes field0
+  - design2 indexes field3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 8.
+The workload: field3 lookups 4, field2 lookups 10, field0 lookups 8 and field1 lookups 9.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design1 | design0 | design2 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 8,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 242,
+  &quot;design1&quot;: 246,
+  &quot;design2&quot;: 273,
+  &quot;design3&quot;: 152,
+  &quot;design4&quot;: 228
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design4 indexes field2
+  - design: design3, 47 and 2
+  - design3 indexes field1
+  - design: design1, 27 and 1
+  - design2 indexes field1
+  - design2 indexes field0
+  - design: design2, 43 and 1
+  - design1 indexes field3
+  - design: design4, 8 and 3
+  - design0 indexes field1
+  - design: design0, 17 and 1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 13.
+The workload: field3 lookups 6, field1 lookups 1, field2 lookups 7 and field0 lookups 3.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design4 | design0 | design1 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 13,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 226,
+  &quot;design1&quot;: 176,
+  &quot;design2&quot;: 216,
+  &quot;design3&quot;: 257,
+  &quot;design4&quot;: 159
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">design3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design3, 31 and 1
+  - design: design0, 20 and 2
+  - design3 indexes field1
+  - design4 indexes field2
+  - design2 indexes field3
+  - design: design4, 12 and 2
+  - design0 indexes field3
+  - design: design1, 18 and 2
+  - design3 indexes field3
+  - design: design2, 21 and 1
+  - design1 indexes field1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 9.
+The workload: field3 lookups 11, field0 lookups 4, field1 lookups 11 and field2 lookups 3.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design3 | design4 | design2 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 9,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 204,
+  &quot;design1&quot;: 202,
+  &quot;design2&quot;: 194,
+  &quot;design3&quot;: 116,
+  &quot;design4&quot;: 252
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">design3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design4, 26 and 2
+  - design3 indexes field0
+  - design2 indexes field2
+  - design: design1, 44 and 3
+  - design0 indexes field3
+  - design: design0, 14 and 3
+  - design: design3, 20 and 1
+  - design1 indexes field2
+  - design3 indexes field1
+  - design4 indexes field2
+  - design: design2, 14 and 1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 7.
+The workload: field2 lookups 5, field3 lookups 12, field0 lookups 5 and field1 lookups 5.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design1 | design3 | design4 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 7,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 155,
+  &quot;design1&quot;: 213,
+  &quot;design2&quot;: 173,
+  &quot;design3&quot;: 149,
+  &quot;design4&quot;: 190
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design0 indexes field0
+  - design: design3, 50 and 3
+  - design: design4, 49 and 2
+  - design4 indexes field0
+  - design: design2, 29 and 2
+  - design: design0, 18 and 1
+  - design: design1, 24 and 1
+  - design1 indexes field0
+  - design4 indexes field2
+  - design2 indexes field0
+  - design3 indexes field0
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 16.
+The workload: field0 lookups 1, field3 lookups 3, field2 lookups 4 and field1 lookups 1.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design0 | design1 | design3 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 16,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 147,
+  &quot;design1&quot;: 153,
+  &quot;design2&quot;: 159,
+  &quot;design3&quot;: 181,
+  &quot;design4&quot;: 123
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design0 indexes field3
+  - design: design1, 5 and 1
+  - design: design2, 18 and 3
+  - design: design0, 23 and 2
+  - design3 indexes field0
+  - design2 indexes field0
+  - design: design3, 33 and 2
+  - design4 indexes field3
+  - design0 indexes field0
+  - design1 indexes field1
+  - design: design4, 42 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 6.
+The workload: field0 lookups 5, field2 lookups 8, field3 lookups 7 and field1 lookups 4.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design4 | design2 | design1 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 6,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 119,
+  &quot;design1&quot;: 129,
+  &quot;design2&quot;: 147,
+  &quot;design3&quot;: 157,
+  &quot;design4&quot;: 158
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design4 indexes field1
+  - design2 indexes field2
+  - design: design1, 12 and 3
+  - design0 indexes field1
+  - design: design2, 49 and 3
+  - design: design0, 44 and 3
+  - design1 indexes field3
+  - design: design3, 12 and 1
+  - design4 indexes field3
+  - design3 indexes field0
+  - design: design4, 30 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 14.
+The workload: field3 lookups 12, field1 lookups 12, field2 lookups 3 and field0 lookups 5.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design4 | design2 | design1 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 14,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 360,
+  &quot;design1&quot;: 328,
+  &quot;design2&quot;: 464,
+  &quot;design3&quot;: 395,
+  &quot;design4&quot;: 190
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design0, 19 and 1
+  - design1 indexes field3
+  - design: design2, 40 and 3
+  - design: design4, 16 and 2
+  - design4 indexes field3
+  - design4 indexes field1
+  - design: design3, 24 and 3
+  - design0 indexes field3
+  - design3 indexes field2
+  - design: design1, 16 and 3
+  - design2 indexes field0
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 16.
+The workload: field1 lookups 8, field3 lookups 4, field2 lookups 6 and field0 lookups 4.
+What is the cheapest memory design?
+
+Answer with exactly one of: design1 | design4 | design2 | design0 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 16,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 311,
+  &quot;design1&quot;: 316,
+  &quot;design2&quot;: 340,
+  &quot;design3&quot;: 298,
+  &quot;design4&quot;: 200
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design1 indexes field1
+  - design: design0, 5 and 3
+  - design1 indexes field3
+  - design: design3, 10 and 2
+  - design: design1, 30 and 2
+  - design0 indexes field2
+  - design2 indexes field3
+  - design: design4, 38 and 2
+  - design: design2, 8 and 1
+  - design4 indexes field1
+  - design3 indexes field2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 14.
+The workload: field2 lookups 7, field3 lookups 4, field0 lookups 6 and field1 lookups 9.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design4 | design0 | design1 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 14,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 292,
+  &quot;design1&quot;: 238,
+  &quot;design2&quot;: 320,
+  &quot;design3&quot;: 290,
+  &quot;design4&quot;: 294
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design0 indexes field2
+  - design4 indexes field3
+  - design: design1, 17 and 1
+  - design4 indexes field0
+  - design2 indexes field3
+  - design: design4, 41 and 2
+  - design1 indexes field1
+  - design: design3, 25 and 2
+  - design: design0, 44 and 3
+  - design3 indexes field3
+  - design: design2, 44 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 12.
+The workload: field1 lookups 1, field3 lookups 3, field2 lookups 6 and field0 lookups 10.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design3 | design0 | design4 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 12,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 230,
+  &quot;design1&quot;: 246,
+  &quot;design2&quot;: 257,
+  &quot;design3&quot;: 235,
+  &quot;design4&quot;: 151
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design3 indexes field1
+  - design: design4, 27 and 3
+  - design4 indexes field0
+  - design2 indexes field0
+  - design: design1, 18 and 3
+  - design4 indexes field1
+  - design0 indexes field1
+  - design1 indexes field2
+  - design: design0, 8 and 1
+  - design: design2, 31 and 3
+  - design: design3, 43 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 13.
+The workload: field1 lookups 4, field2 lookups 5, field3 lookups 8 and field0 lookups 11.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design2 | design3 | design4 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 13,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 324,
+  &quot;design1&quot;: 332,
+  &quot;design2&quot;: 285,
+  &quot;design3&quot;: 363,
+  &quot;design4&quot;: 241
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design4 indexes field0
+  - design0 indexes field2
+  - design: design4, 30 and 1
+  - design: design0, 42 and 1
+  - design: design1, 49 and 1
+  - design2 indexes field2
+  - design3 indexes field3
+  - design: design3, 41 and 2
+  - design0 indexes field3
+  - design: design2, 11 and 3
+  - design1 indexes field1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 7.
+The workload: field1 lookups 12, field3 lookups 10, field2 lookups 8 and field0 lookups 3.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design3 | design1 | design4 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 7,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 165,
+  &quot;design1&quot;: 208,
+  &quot;design2&quot;: 210,
+  &quot;design3&quot;: 222,
+  &quot;design4&quot;: 243
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design0 indexes field2
+  - design: design1, 4 and 1
+  - design: design0, 26 and 1
+  - design: design3, 5 and 3
+  - design4 indexes field1
+  - design: design4, 49 and 2
+  - design1 indexes field3
+  - design: design2, 5 and 1
+  - design2 indexes field2
+  - design1 indexes field0
+  - design3 indexes field2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 14.
+The workload: field2 lookups 7, field1 lookups 10, field0 lookups 7 and field3 lookups 5.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design3 | design4 | design2 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 14,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 341,
+  &quot;design1&quot;: 254,
+  &quot;design2&quot;: 320,
+  &quot;design3&quot;: 334,
+  &quot;design4&quot;: 335
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design3, 47 and 2
+  - design2 indexes field3
+  - design: design0, 35 and 3
+  - design4 indexes field0
+  - design1 indexes field1
+  - design3 indexes field3
+  - design: design2, 9 and 3
+  - design4 indexes field1
+  - design: design1, 5 and 3
+  - design: design4, 33 and 3
+  - design0 indexes field0
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 16.
+The workload: field3 lookups 3, field0 lookups 3, field1 lookups 4 and field2 lookups 4.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design2 | design1 | design3 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 16,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 220,
+  &quot;design1&quot;: 177,
+  &quot;design2&quot;: 194,
+  &quot;design3&quot;: 229,
+  &quot;design4&quot;: 166
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design1 indexes field0
+  - design4 indexes field1
+  - design: design3, 36 and 3
+  - design0 indexes field0
+  - design: design4, 44 and 3
+  - design: design0, 11 and 3
+  - design: design2, 15 and 3
+  - design2 indexes field0
+  - design: design1, 36 and 2
+  - design3 indexes field2
+  - design0 indexes field1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 10.
+The workload: field3 lookups 1, field1 lookups 5, field0 lookups 8 and field2 lookups 11.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design3 | design4 | design1 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 10,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 170,
+  &quot;design1&quot;: 222,
+  &quot;design2&quot;: 209,
+  &quot;design3&quot;: 209,
+  &quot;design4&quot;: 259
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design4, 48 and 1
+  - design0 indexes field1
+  - design0 indexes field3
+  - design: design3, 27 and 1
+  - design: design0, 30 and 3
+  - design: design2, 42 and 2
+  - design4 indexes field0
+  - design1 indexes field0
+  - design2 indexes field0
+  - design: design1, 13 and 1
+  - design3 indexes field1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 8.
+The workload: field0 lookups 10, field1 lookups 1, field2 lookups 9 and field3 lookups 7.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design4 | design3 | design2 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 8,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 206,
+  &quot;design1&quot;: 159,
+  &quot;design2&quot;: 198,
+  &quot;design3&quot;: 236,
+  &quot;design4&quot;: 194
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design1, 19 and 1
+  - design4 indexes field3
+  - design: design2, 43 and 2
+  - design1 indexes field0
+  - design1 indexes field3
+  - design0 indexes field3
+  - design2 indexes field0
+  - design: design0, 26 and 1
+  - design: design4, 7 and 3
+  - design3 indexes field3
+  - design: design3, 8 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 10.
+The workload: field3 lookups 2, field0 lookups 5, field2 lookups 2 and field1 lookups 4.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design0 | design2 | design1 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 10,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 138,
+  &quot;design1&quot;: 86,
+  &quot;design2&quot;: 133,
+  &quot;design3&quot;: 124,
+  &quot;design4&quot;: 123
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design3 indexes field0
+  - design: design0, 8 and 1
+  - design0 indexes field3
+  - design4 indexes field3
+  - design1 indexes field3
+  - design2 indexes field3
+  - design2 indexes field1
+  - design: design1, 42 and 1
+  - design: design2, 29 and 1
+  - design: design3, 24 and 3
+  - design: design4, 5 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 9.
+The workload: field1 lookups 9, field0 lookups 3, field2 lookups 12 and field3 lookups 10.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design4 | design1 | design3 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 9,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 234,
+  &quot;design1&quot;: 268,
+  &quot;design2&quot;: 183,
+  &quot;design3&quot;: 312,
+  &quot;design4&quot;: 241
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design0, 30 and 3
+  - design: design2, 9 and 2
+  - design: design1, 14 and 1
+  - design: design4, 42 and 3
+  - design2 indexes field2
+  - design4 indexes field1
+  - design0 indexes field0
+  - design: design3, 50 and 1
+  - design3 indexes field0
+  - design1 indexes field0
+  - design2 indexes field0
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 12.
+The workload: field0 lookups 7, field3 lookups 2, field2 lookups 9 and field1 lookups 6.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design2 | design4 | design1 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 12,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 255,
+  &quot;design1&quot;: 225,
+  &quot;design2&quot;: 137,
+  &quot;design3&quot;: 261,
+  &quot;design4&quot;: 276
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design0, 4 and 3
+  - design: design1, 45 and 2
+  - design: design4, 42 and 3
+  - design2 indexes field1
+  - design1 indexes field2
+  - design3 indexes field0
+  - design0 indexes field1
+  - design: design2, 29 and 1
+  - design: design3, 5 and 1
+  - design0 indexes field0
+  - design4 indexes field0
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 6.
+The workload: field0 lookups 11, field1 lookups 10, field2 lookups 5 and field3 lookups 4.
+What is the cheapest memory design?
+
+Answer with exactly one of: design1 | design4 | design2 | design3 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 6,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 121,
+  &quot;design1&quot;: 205,
+  &quot;design2&quot;: 159,
+  &quot;design3&quot;: 130,
+  &quot;design4&quot;: 189
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design1 indexes field2
+  - design: design0, 37 and 2
+  - design2 indexes field1
+  - design3 indexes field2
+  - design: design2, 6 and 3
+  - design: design4, 41 and 1
+  - design2 indexes field3
+  - design: design3, 5 and 2
+  - design4 indexes field3
+  - design0 indexes field0
+  - design: design1, 12 and 1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 8.
+The workload: field1 lookups 11, field2 lookups 7, field3 lookups 3 and field0 lookups 1.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design4 | design0 | design3 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 8,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 207,
+  &quot;design1&quot;: 139,
+  &quot;design2&quot;: 112,
+  &quot;design3&quot;: 139,
+  &quot;design4&quot;: 196
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design3 indexes field3
+  - design: design4, 37 and 1
+  - design4 indexes field2
+  - design: design2, 50 and 1
+  - design: design1, 16 and 2
+  - design: design0, 48 and 2
+  - design0 indexes field3
+  - design0 indexes field1
+  - design2 indexes field0
+  - design: design3, 42 and 1
+  - design1 indexes field3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 6.
+The workload: field2 lookups 12, field0 lookups 8, field3 lookups 4 and field1 lookups 5.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design2 | design3 | design4 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 6,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 186,
+  &quot;design1&quot;: 174,
+  &quot;design2&quot;: 184,
+  &quot;design3&quot;: 196,
+  &quot;design4&quot;: 151
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">design3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design2, 23 and 2
+  - design: design0, 42 and 3
+  - design3 indexes field0
+  - design: design3, 47 and 3
+  - design: design1, 21 and 2
+  - design3 indexes field1
+  - design4 indexes field2
+  - design2 indexes field3
+  - design1 indexes field1
+  - design0 indexes field3
+  - design: design4, 37 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 14.
+The workload: field1 lookups 9, field3 lookups 5, field0 lookups 8 and field2 lookups 11.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design4 | design2 | design1 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 14,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 449,
+  &quot;design1&quot;: 375,
+  &quot;design2&quot;: 425,
+  &quot;design3&quot;: 322,
+  &quot;design4&quot;: 367
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design0, 39 and 3
+  - design3 indexes field1
+  - design: design4, 21 and 2
+  - design4 indexes field0
+  - design: design2, 7 and 2
+  - design4 indexes field1
+  - design: design3, 28 and 1
+  - design2 indexes field1
+  - design: design1, 13 and 3
+  - design1 indexes field1
+  - design0 indexes field3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 7.
+The workload: field0 lookups 1, field2 lookups 6, field1 lookups 4 and field3 lookups 7.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design1 | design0 | design3 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 7,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 137,
+  &quot;design1&quot;: 123,
+  &quot;design2&quot;: 113,
+  &quot;design3&quot;: 130,
+  &quot;design4&quot;: 122
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">design3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design2 indexes field2
+  - design: design2, 27 and 3
+  - design: design3, 4 and 3
+  - design1 indexes field3
+  - design: design4, 7 and 1
+  - design0 indexes field3
+  - design3 indexes field1
+  - design: design0, 10 and 3
+  - design: design1, 25 and 3
+  - design4 indexes field2
+  - design3 indexes field3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 15.
+The workload: field1 lookups 5, field2 lookups 5, field3 lookups 3 and field0 lookups 7.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design0 | design1 | design3 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 15,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 274,
+  &quot;design1&quot;: 289,
+  &quot;design2&quot;: 267,
+  &quot;design3&quot;: 208,
+  &quot;design4&quot;: 237
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design4 indexes field1
+  - design1 indexes field2
+  - design: design1, 19 and 2
+  - design2 indexes field3
+  - design0 indexes field0
+  - design: design2, 11 and 3
+  - design: design4, 40 and 2
+  - design0 indexes field2
+  - design: design0, 21 and 3
+  - design: design3, 28 and 2
+  - design3 indexes field2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 16.
+The workload: field1 lookups 5, field0 lookups 1, field2 lookups 9 and field3 lookups 2.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design0 | design1 | design3 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 16,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 163,
+  &quot;design1&quot;: 165,
+  &quot;design2&quot;: 257,
+  &quot;design3&quot;: 174,
+  &quot;design4&quot;: 242
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design2, 7 and 1
+  - design: design1, 27 and 3
+  - design4 indexes field0
+  - design3 indexes field2
+  - design1 indexes field2
+  - design: design3, 44 and 3
+  - design2 indexes field0
+  - design: design4, 41 and 3
+  - design0 indexes field0
+  - design2 indexes field1
+  - design: design0, 8 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 7.
+The workload: field3 lookups 6, field2 lookups 8, field1 lookups 11 and field0 lookups 9.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design1 | design0 | design4 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 7,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 210,
+  &quot;design1&quot;: 233,
+  &quot;design2&quot;: 125,
+  &quot;design3&quot;: 250,
+  &quot;design4&quot;: 243
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design2 indexes field0
+  - design1 indexes field1
+  - design1 indexes field0
+  - design3 indexes field3
+  - design4 indexes field2
+  - design: design4, 37 and 2
+  - design: design1, 49 and 2
+  - design: design2, 31 and 3
+  - design0 indexes field1
+  - design: design0, 34 and 3
+  - design: design3, 18 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 11.
+The workload: field1 lookups 12, field0 lookups 6, field3 lookups 8 and field2 lookups 2.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design0 | design3 | design1 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 11,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 246,
+  &quot;design1&quot;: 195,
+  &quot;design2&quot;: 291,
+  &quot;design3&quot;: 262,
+  &quot;design4&quot;: 327
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design0 indexes field2
+  - design: design1, 31 and 2
+  - design: design0, 22 and 3
+  - design0 indexes field0
+  - design4 indexes field3
+  - design: design3, 27 and 1
+  - design2 indexes field1
+  - design1 indexes field0
+  - design3 indexes field0
+  - design: design2, 10 and 2
+  - design: design4, 21 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 15.
+The workload: field2 lookups 4, field0 lookups 1, field1 lookups 7 and field3 lookups 4.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design0 | design3 | design1 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 15,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 202,
+  &quot;design1&quot;: 258,
+  &quot;design2&quot;: 159,
+  &quot;design3&quot;: 253,
+  &quot;design4&quot;: 213
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design2 indexes field3
+  - design0 indexes field0
+  - design2 indexes field1
+  - design3 indexes field3
+  - design: design3, 14 and 3
+  - design: design1, 18 and 3
+  - design: design4, 48 and 2
+  - design: design2, 24 and 3
+  - design: design0, 23 and 1
+  - design1 indexes field2
+  - design4 indexes field2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 16.
+The workload: field3 lookups 11, field1 lookups 4, field2 lookups 11 and field0 lookups 5.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design2 | design0 | design1 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 16,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 444,
+  &quot;design1&quot;: 371,
+  &quot;design2&quot;: 325,
+  &quot;design3&quot;: 367,
+  &quot;design4&quot;: 390
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design2, 5 and 2
+  - design0 indexes field2
+  - design: design4, 13 and 3
+  - design2 indexes field1
+  - design3 indexes field2
+  - design1 indexes field1
+  - design: design3, 11 and 3
+  - design2 indexes field0
+  - design: design1, 14 and 2
+  - design4 indexes field0
+  - design: design0, 31 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 10.
+The workload: field0 lookups 7, field1 lookups 10, field2 lookups 3 and field3 lookups 12.
+What is the cheapest memory design?
+
+Answer with exactly one of: design1 | design3 | design2 | design0 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 10,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 327,
+  &quot;design1&quot;: 254,
+  &quot;design2&quot;: 189,
+  &quot;design3&quot;: 310,
+  &quot;design4&quot;: 284
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design0, 39 and 1
+  - design2 indexes field1
+  - design: design3, 4 and 1
+  - design1 indexes field0
+  - design: design4, 18 and 2
+  - design: design2, 36 and 3
+  - design0 indexes field2
+  - design3 indexes field3
+  - design4 indexes field0
+  - design1 indexes field2
+  - design: design1, 9 and 1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 7.
+The workload: field3 lookups 3, field2 lookups 4, field0 lookups 12 and field1 lookups 4.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design0 | design1 | design3 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 7,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 176,
+  &quot;design1&quot;: 74,
+  &quot;design2&quot;: 181,
+  &quot;design3&quot;: 147,
+  &quot;design4&quot;: 119
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design1 indexes field1
+  - design: design4, 13 and 1
+  - design1 indexes field0
+  - design: design3, 29 and 1
+  - design0 indexes field3
+  - design: design0, 36 and 2
+  - design2 indexes field2
+  - design: design2, 10 and 1
+  - design3 indexes field0
+  - design4 indexes field0
+  - design: design1, 27 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 7.
+The workload: field1 lookups 11, field2 lookups 8, field0 lookups 12 and field3 lookups 6.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design0 | design4 | design1 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 7,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 265,
+  &quot;design1&quot;: 194,
+  &quot;design2&quot;: 221,
+  &quot;design3&quot;: 216,
+  &quot;design4&quot;: 200
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">design3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design1 indexes field2
+  - design: design2, 41 and 2
+  - design2 indexes field3
+  - design0 indexes field3
+  - design3 indexes field2
+  - design0 indexes field1
+  - design: design0, 36 and 3
+  - design4 indexes field2
+  - design: design4, 22 and 3
+  - design: design1, 48 and 3
+  - design: design3, 26 and 1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 6.
+The workload: field3 lookups 5, field2 lookups 4, field0 lookups 7 and field1 lookups 3.
+What is the cheapest memory design?
+
+Answer with exactly one of: design1 | design4 | design0 | design2 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 6,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 126,
+  &quot;design1&quot;: 150,
+  &quot;design2&quot;: 135,
+  &quot;design3&quot;: 120,
+  &quot;design4&quot;: 124
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design0 indexes field3
+  - design2 indexes field0
+  - design2 indexes field1
+  - design: design4, 21 and 3
+  - design4 indexes field3
+  - design: design1, 8 and 3
+  - design: design3, 43 and 1
+  - design: design2, 23 and 3
+  - design3 indexes field0
+  - design1 indexes field2
+  - design: design0, 17 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 6.
+The workload: field1 lookups 5, field3 lookups 2, field2 lookups 6 and field0 lookups 5.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design1 | design3 | design4 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 6,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 119,
+  &quot;design1&quot;: 98,
+  &quot;design2&quot;: 101,
+  &quot;design3&quot;: 126,
+  &quot;design4&quot;: 123
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design0, 7 and 1
+  - design: design2, 13 and 2
+  - design4 indexes field1
+  - design2 indexes field1
+  - design0 indexes field0
+  - design1 indexes field0
+  - design: design4, 49 and 1
+  - design: design3, 39 and 2
+  - design: design1, 49 and 2
+  - design3 indexes field3
+  - design0 indexes field1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 14.
+The workload: field1 lookups 4, field3 lookups 10, field2 lookups 10 and field0 lookups 11.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design2 | design4 | design1 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 14,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 302,
+  &quot;design1&quot;: 407,
+  &quot;design2&quot;: 455,
+  &quot;design3&quot;: 409,
+  &quot;design4&quot;: 487
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design0 indexes field3
+  - design: design0, 20 and 2
+  - design1 indexes field2
+  - design4 indexes field2
+  - design: design4, 5 and 1
+  - design3 indexes field3
+  - design4 indexes field0
+  - design2 indexes field0
+  - design: design1, 18 and 1
+  - design: design2, 32 and 1
+  - design: design3, 24 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 10.
+The workload: field1 lookups 8, field3 lookups 9, field2 lookups 6 and field0 lookups 10.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design3 | design1 | design0 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 10,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 278,
+  &quot;design1&quot;: 294,
+  &quot;design2&quot;: 272,
+  &quot;design3&quot;: 291,
+  &quot;design4&quot;: 191
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design2 indexes field0
+  - design4 indexes field1
+  - design0 indexes field3
+  - design: design3, 12 and 2
+  - design: design0, 8 and 2
+  - design2 indexes field1
+  - design3 indexes field3
+  - design: design4, 34 and 1
+  - design1 indexes field1
+  - design: design2, 39 and 3
+  - design: design1, 12 and 1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 8.
+The workload: field0 lookups 12, field1 lookups 4, field2 lookups 7 and field3 lookups 9.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design3 | design2 | design4 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 8,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 210,
+  &quot;design1&quot;: 240,
+  &quot;design2&quot;: 215,
+  &quot;design3&quot;: 214,
+  &quot;design4&quot;: 262
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design2 indexes field1
+  - design: design1, 31 and 3
+  - design1 indexes field3
+  - design: design4, 42 and 2
+  - design: design0, 50 and 1
+  - design: design3, 38 and 3
+  - design3 indexes field3
+  - design: design2, 29 and 1
+  - design4 indexes field2
+  - design3 indexes field1
+  - design0 indexes field2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 6.
+The workload: field2 lookups 6, field3 lookups 2, field1 lookups 9 and field0 lookups 9.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design0 | design3 | design2 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 6,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 176,
+  &quot;design1&quot;: 181,
+  &quot;design2&quot;: 140,
+  &quot;design3&quot;: 161,
+  &quot;design4&quot;: 174
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design4, 10 and 2
+  - design: design1, 18 and 1
+  - design3 indexes field0
+  - design0 indexes field0
+  - design2 indexes field3
+  - design4 indexes field3
+  - design1 indexes field1
+  - design: design0, 25 and 3
+  - design4 indexes field2
+  - design: design2, 44 and 1
+  - design: design3, 48 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 11.
+The workload: field0 lookups 11, field3 lookups 8, field2 lookups 4 and field1 lookups 12.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design2 | design3 | design1 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 11,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 322,
+  &quot;design1&quot;: 283,
+  &quot;design2&quot;: 349,
+  &quot;design3&quot;: 345,
+  &quot;design4&quot;: 287
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">design3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design2 indexes field2
+  - design1 indexes field0
+  - design3 indexes field0
+  - design0 indexes field2
+  - design: design0, 6 and 2
+  - design: design3, 21 and 2
+  - design: design4, 11 and 1
+  - design: design2, 27 and 2
+  - design4 indexes field3
+  - design3 indexes field2
+  - design: design1, 26 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 12.
+The workload: field0 lookups 4, field2 lookups 9, field3 lookups 4 and field1 lookups 5.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design3 | design1 | design0 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 12,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 180,
+  &quot;design1&quot;: 254,
+  &quot;design2&quot;: 201,
+  &quot;design3&quot;: 155,
+  &quot;design4&quot;: 231
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design4 indexes field0
+  - design: design0, 14 and 1
+  - design1 indexes field2
+  - design2 indexes field2
+  - design: design3, 18 and 3
+  - design: design1, 38 and 2
+  - design: design2, 4 and 1
+  - design: design4, 35 and 2
+  - design1 indexes field3
+  - design0 indexes field3
+  - design3 indexes field2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 8.
+The workload: field2 lookups 3, field1 lookups 7, field0 lookups 1 and field3 lookups 6.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design1 | design3 | design2 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 8,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 108,
+  &quot;design1&quot;: 120,
+  &quot;design2&quot;: 119,
+  &quot;design3&quot;: 139,
+  &quot;design4&quot;: 165
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design4 indexes field1
+  - design: design1, 16 and 1
+  - design2 indexes field3
+  - design: design0, 12 and 2
+  - design4 indexes field2
+  - design: design2, 36 and 3
+  - design0 indexes field2
+  - design: design3, 27 and 1
+  - design: design4, 7 and 1
+  - design3 indexes field0
+  - design1 indexes field1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 13.
+The workload: field3 lookups 6, field1 lookups 12, field0 lookups 12 and field2 lookups 9.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design3 | design2 | design1 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 13,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 420,
+  &quot;design1&quot;: 379,
+  &quot;design2&quot;: 483,
+  &quot;design3&quot;: 390,
+  &quot;design4&quot;: 262
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">design3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design2, 21 and 2
+  - design0 indexes field0
+  - design4 indexes field2
+  - design1 indexes field3
+  - design3 indexes field2
+  - design: design4, 10 and 3
+  - design2 indexes field3
+  - design3 indexes field0
+  - design: design0, 38 and 2
+  - design: design1, 30 and 2
+  - design: design3, 39 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 13.
+The workload: field1 lookups 4, field0 lookups 8, field2 lookups 8 and field3 lookups 7.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design1 | design3 | design4 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 13,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 301,
+  &quot;design1&quot;: 304,
+  &quot;design2&quot;: 295,
+  &quot;design3&quot;: 214,
+  &quot;design4&quot;: 281
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design2, 50 and 2
+  - design1 indexes field1
+  - design0 indexes field2
+  - design: design3, 44 and 2
+  - design3 indexes field1
+  - design: design1, 40 and 2
+  - design: design4, 18 and 3
+  - design4 indexes field1
+  - design0 indexes field0
+  - design2 indexes field3
+  - design: design0, 36 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 8.
+The workload: field0 lookups 12, field2 lookups 5, field3 lookups 2 and field1 lookups 12.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design3 | design4 | design2 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 8,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 182,
+  &quot;design1&quot;: 216,
+  &quot;design2&quot;: 286,
+  &quot;design3&quot;: 220,
+  &quot;design4&quot;: 206
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design3, 13 and 2
+  - design: design2, 15 and 1
+  - design4 indexes field2
+  - design1 indexes field2
+  - design3 indexes field3
+  - design4 indexes field3
+  - design0 indexes field3
+  - design2 indexes field2
+  - design: design0, 41 and 3
+  - design: design4, 40 and 1
+  - design: design1, 28 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 7.
+The workload: field1 lookups 12, field2 lookups 7, field3 lookups 9 and field0 lookups 4.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design4 | design1 | design2 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 7,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 229,
+  &quot;design1&quot;: 224,
+  &quot;design2&quot;: 197,
+  &quot;design3&quot;: 192,
+  &quot;design4&quot;: 168
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design0, 40 and 1
+  - design4 indexes field0
+  - design: design2, 28 and 3
+  - design1 indexes field3
+  - design: design1, 29 and 1
+  - design0 indexes field3
+  - design2 indexes field3
+  - design3 indexes field3
+  - design1 indexes field1
+  - design: design3, 41 and 2
+  - design: design4, 38 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 10.
+The workload: field3 lookups 9, field2 lookups 4, field0 lookups 8 and field1 lookups 6.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design2 | design0 | design1 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 10,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 229,
+  &quot;design1&quot;: 164,
+  &quot;design2&quot;: 235,
+  &quot;design3&quot;: 239,
+  &quot;design4&quot;: 244
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design2, 17 and 2
+  - design: design1, 10 and 1
+  - design: design0, 10 and 3
+  - design0 indexes field3
+  - design1 indexes field1
+  - design3 indexes field1
+  - design1 indexes field0
+  - design: design3, 46 and 2
+  - design: design4, 32 and 3
+  - design2 indexes field1
+  - design4 indexes field3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 11.
+The workload: field1 lookups 7, field3 lookups 1, field2 lookups 4 and field0 lookups 8.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design1 | design2 | design0 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 11,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 222,
+  &quot;design1&quot;: 80,
+  &quot;design2&quot;: 174,
+  &quot;design3&quot;: 203,
+  &quot;design4&quot;: 244
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design2, 10 and 2
+  - design4 indexes field1
+  - design: design4, 23 and 1
+  - design0 indexes field2
+  - design: design0, 6 and 1
+  - design1 indexes field0
+  - design: design3, 24 and 2
+  - design2 indexes field2
+  - design: design1, 46 and 1
+  - design4 indexes field0
+  - design3 indexes field2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 6.
+The workload: field3 lookups 3, field1 lookups 12, field0 lookups 5 and field2 lookups 1.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design2 | design4 | design0 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 6,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 127,
+  &quot;design1&quot;: 147,
+  &quot;design2&quot;: 132,
+  &quot;design3&quot;: 146,
+  &quot;design4&quot;: 64
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design2 indexes field3
+  - design: design1, 30 and 3
+  - design0 indexes field0
+  - design3 indexes field0
+  - design: design2, 42 and 3
+  - design1 indexes field3
+  - design0 indexes field2
+  - design: design4, 12 and 2
+  - design: design3, 36 and 3
+  - design: design0, 6 and 1
+  - design4 indexes field0
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 11.
+The workload: field1 lookups 8, field3 lookups 5, field2 lookups 8 and field0 lookups 4.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design3 | design2 | design1 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 11,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 161,
+  &quot;design1&quot;: 265,
+  &quot;design2&quot;: 277,
+  &quot;design3&quot;: 279,
+  &quot;design4&quot;: 251
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design2 indexes field1
+  - design0 indexes field2
+  - design: design4, 25 and 1
+  - design1 indexes field0
+  - design4 indexes field2
+  - design: design0, 12 and 3
+  - design: design2, 44 and 1
+  - design4 indexes field3
+  - design: design3, 5 and 2
+  - design: design1, 44 and 1
+  - design3 indexes field0
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 6.
+The workload: field1 lookups 6, field0 lookups 6, field2 lookups 5 and field3 lookups 12.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design0 | design1 | design4 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 6,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 171,
+  &quot;design1&quot;: 188,
+  &quot;design2&quot;: 188,
+  &quot;design3&quot;: 155,
+  &quot;design4&quot;: 114
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design2 indexes field3
+  - design3 indexes field3
+  - design1 indexes field1
+  - design: design0, 25 and 3
+  - design: design2, 34 and 2
+  - design: design1, 14 and 1
+  - design4 indexes field2
+  - design1 indexes field0
+  - design: design4, 48 and 1
+  - design: design3, 24 and 3
+  - design0 indexes field3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 8.
+The workload: field3 lookups 8, field1 lookups 6, field2 lookups 5 and field0 lookups 11.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design1 | design0 | design3 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 8,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 225,
+  &quot;design1&quot;: 135,
+  &quot;design2&quot;: 226,
+  &quot;design3&quot;: 224,
+  &quot;design4&quot;: 253
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design2 indexes field2
+  - design4 indexes field0
+  - design1 indexes field1
+  - design1 indexes field0
+  - design: design0, 18 and 3
+  - design: design2, 25 and 1
+  - design0 indexes field0
+  - design: design1, 44 and 2
+  - design: design3, 42 and 3
+  - design: design4, 6 and 3
+  - design3 indexes field1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 12.
+The workload: field0 lookups 5, field2 lookups 8, field1 lookups 11 and field3 lookups 2.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design1 | design2 | design3 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 12,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 285,
+  &quot;design1&quot;: 196,
+  &quot;design2&quot;: 249,
+  &quot;design3&quot;: 255,
+  &quot;design4&quot;: 273
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design3, 18 and 3
+  - design: design2, 8 and 1
+  - design4 indexes field3
+  - design: design4, 50 and 1
+  - design0 indexes field2
+  - design1 indexes field2
+  - design: design1, 29 and 3
+  - design2 indexes field2
+  - design3 indexes field0
+  - design4 indexes field2
+  - design: design0, 41 and 1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 10.
+The workload: field0 lookups 1, field1 lookups 11, field2 lookups 9 and field3 lookups 4.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design3 | design4 | design1 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 10,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 210,
+  &quot;design1&quot;: 216,
+  &quot;design2&quot;: 177,
+  &quot;design3&quot;: 261,
+  &quot;design4&quot;: 183
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design4, 20 and 1
+  - design0 indexes field3
+  - design: design3, 16 and 3
+  - design: design1, 37 and 3
+  - design: design0, 43 and 3
+  - design4 indexes field0
+  - design2 indexes field0
+  - design1 indexes field2
+  - design3 indexes field1
+  - design: design2, 39 and 2
+  - design2 indexes field2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 14.
+The workload: field0 lookups 9, field2 lookups 4, field3 lookups 8 and field1 lookups 8.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design0 | design1 | design3 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 14,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 361,
+  &quot;design1&quot;: 399,
+  &quot;design2&quot;: 289,
+  &quot;design3&quot;: 334,
+  &quot;design4&quot;: 309
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design1 indexes field2
+  - design: design2, 50 and 3
+  - design0 indexes field0
+  - design: design1, 8 and 3
+  - design: design4, 37 and 1
+  - design4 indexes field3
+  - design: design0, 44 and 3
+  - design2 indexes field0
+  - design: design3, 50 and 1
+  - design3 indexes field1
+  - design1 indexes field1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 14.
+The workload: field2 lookups 8, field0 lookups 5, field1 lookups 5 and field3 lookups 4.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design0 | design3 | design4 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 14,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 297,
+  &quot;design1&quot;: 173,
+  &quot;design2&quot;: 303,
+  &quot;design3&quot;: 293,
+  &quot;design4&quot;: 293
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design0 indexes field1
+  - design2 indexes field0
+  - design: design0, 6 and 1
+  - design0 indexes field0
+  - design: design3, 29 and 3
+  - design3 indexes field2
+  - design: design4, 29 and 3
+  - design1 indexes field2
+  - design: design1, 35 and 2
+  - design4 indexes field1
+  - design: design2, 15 and 1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 12.
+The workload: field0 lookups 10, field1 lookups 7, field3 lookups 5 and field2 lookups 8.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design3 | design1 | design4 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 12,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 179,
+  &quot;design1&quot;: 315,
+  &quot;design2&quot;: 265,
+  &quot;design3&quot;: 317,
+  &quot;design4&quot;: 326
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design2, 45 and 1
+  - design1 indexes field1
+  - design: design3, 10 and 2
+  - design: design4, 9 and 3
+  - design4 indexes field1
+  - design: design0, 16 and 1
+  - design3 indexes field3
+  - design2 indexes field2
+  - design0 indexes field0
+  - design: design1, 38 and 3
+  - design2 indexes field0
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 13.
+The workload: field3 lookups 7, field1 lookups 10, field2 lookups 4 and field0 lookups 10.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design1 | design4 | design3 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 13,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 299,
+  &quot;design1&quot;: 341,
+  &quot;design2&quot;: 280,
+  &quot;design3&quot;: 336,
+  &quot;design4&quot;: 312
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design3 indexes field3
+  - design: design1, 39 and 2
+  - design: design4, 30 and 2
+  - design1 indexes field0
+  - design: design2, 30 and 2
+  - design2 indexes field1
+  - design1 indexes field3
+  - design: design0, 16 and 1
+  - design0 indexes field2
+  - design4 indexes field2
+  - design: design3, 17 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 14.
+The workload: field2 lookups 10, field1 lookups 2, field3 lookups 6 and field0 lookups 6.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design3 | design0 | design1 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 14,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 222,
+  &quot;design1&quot;: 231,
+  &quot;design2&quot;: 342,
+  &quot;design3&quot;: 287,
+  &quot;design4&quot;: 246
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design4 indexes field3
+  - design: design3, 28 and 2
+  - design3 indexes field1
+  - design2 indexes field0
+  - design1 indexes field0
+  - design: design0, 9 and 1
+  - design: design4, 36 and 2
+  - design: design1, 29 and 3
+  - design1 indexes field3
+  - design0 indexes field3
+  - design: design2, 26 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 8.
+The workload: field1 lookups 6, field0 lookups 2, field2 lookups 3 and field3 lookups 8.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design1 | design0 | design2 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 8,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 105,
+  &quot;design1&quot;: 131,
+  &quot;design2&quot;: 166,
+  &quot;design3&quot;: 144,
+  &quot;design4&quot;: 140
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design0 indexes field0
+  - design2 indexes field1
+  - design: design3, 6 and 2
+  - design3 indexes field0
+  - design: design4, 12 and 2
+  - design: design1, 28 and 3
+  - design1 indexes field1
+  - design4 indexes field2
+  - design2 indexes field3
+  - design: design0, 13 and 2
+  - design: design2, 37 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 7.
+The workload: field2 lookups 5, field1 lookups 5, field3 lookups 4 and field0 lookups 3.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design2 | design1 | design4 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 7,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 117,
+  &quot;design1&quot;: 127,
+  &quot;design2&quot;: 111,
+  &quot;design3&quot;: 110,
+  &quot;design4&quot;: 106
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design0, 13 and 3
+  - design0 indexes field0
+  - design: design2, 22 and 1
+  - design1 indexes field0
+  - design: design4, 48 and 1
+  - design: design3, 50 and 1
+  - design4 indexes field1
+  - design2 indexes field1
+  - design0 indexes field3
+  - design: design1, 4 and 2
+  - design3 indexes field2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 11.
+The workload: field0 lookups 10, field3 lookups 12, field1 lookups 6 and field2 lookups 9.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design4 | design0 | design1 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 11,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 244,
+  &quot;design1&quot;: 321,
+  &quot;design2&quot;: 369,
+  &quot;design3&quot;: 367,
+  &quot;design4&quot;: 395
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design4 indexes field3
+  - design0 indexes field1
+  - design1 indexes field0
+  - design4 indexes field2
+  - design2 indexes field2
+  - design3 indexes field2
+  - design: design4, 5 and 2
+  - design: design2, 39 and 2
+  - design: design3, 5 and 2
+  - design: design1, 39 and 2
+  - design: design0, 7 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 15.
+The workload: field3 lookups 10, field1 lookups 3, field0 lookups 8 and field2 lookups 5.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design1 | design2 | design3 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 15,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 358,
+  &quot;design1&quot;: 325,
+  &quot;design2&quot;: 364,
+  &quot;design3&quot;: 330,
+  &quot;design4&quot;: 200
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design3, 12 and 1
+  - design: design1, 19 and 2
+  - design: design2, 24 and 2
+  - design3 indexes field2
+  - design1 indexes field0
+  - design4 indexes field0
+  - design2 indexes field2
+  - design2 indexes field0
+  - design: design0, 48 and 3
+  - design0 indexes field2
+  - design: design4, 13 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 7.
+The workload: field0 lookups 6, field2 lookups 5, field1 lookups 4 and field3 lookups 3.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design0 | design2 | design1 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 7,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 154,
+  &quot;design1&quot;: 115,
+  &quot;design2&quot;: 95,
+  &quot;design3&quot;: 108,
+  &quot;design4&quot;: 115
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">design3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design1, 28 and 3
+  - design: design2, 47 and 1
+  - design4 indexes field3
+  - design0 indexes field1
+  - design: design0, 21 and 2
+  - design1 indexes field0
+  - design3 indexes field2
+  - design2 indexes field3
+  - design: design3, 42 and 3
+  - design: design4, 21 and 2
+  - design0 indexes field0
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 16.
+The workload: field1 lookups 1, field0 lookups 8, field2 lookups 12 and field3 lookups 9.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design1 | design3 | design2 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 16,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 375,
+  &quot;design1&quot;: 404,
+  &quot;design2&quot;: 392,
+  &quot;design3&quot;: 366,
+  &quot;design4&quot;: 375
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design1 indexes field0
+  - design: design1, 25 and 2
+  - design2 indexes field2
+  - design: design0, 25 and 3
+  - design1 indexes field3
+  - design0 indexes field3
+  - design3 indexes field0
+  - design4 indexes field2
+  - design: design2, 19 and 2
+  - design: design3, 4 and 3
+  - design: design4, 41 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 9.
+The workload: field3 lookups 5, field1 lookups 1, field0 lookups 4 and field2 lookups 7.
+What is the cheapest memory design?
+
+Answer with exactly one of: design1 | design0 | design2 | design4 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 9,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 148,
+  &quot;design1&quot;: 115,
+  &quot;design2&quot;: 123,
+  &quot;design3&quot;: 133,
+  &quot;design4&quot;: 152
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design4, 36 and 2
+  - design: design1, 38 and 2
+  - design: design3, 9 and 3
+  - design: design0, 35 and 1
+  - design0 indexes field3
+  - design3 indexes field3
+  - design2 indexes field0
+  - design4 indexes field0
+  - design: design2, 25 and 2
+  - design0 indexes field1
+  - design1 indexes field1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 13.
+The workload: field1 lookups 2, field0 lookups 4, field2 lookups 5 and field3 lookups 4.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design0 | design3 | design1 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 13,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 158,
+  &quot;design1&quot;: 211,
+  &quot;design2&quot;: 176,
+  &quot;design3&quot;: 164,
+  &quot;design4&quot;: 187
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design3 indexes field3
+  - design: design4, 19 and 3
+  - design1 indexes field0
+  - design: design1, 34 and 2
+  - design2 indexes field0
+  - design: design3, 15 and 2
+  - design4 indexes field2
+  - design0 indexes field3
+  - design1 indexes field3
+  - design: design2, 44 and 2
+  - design: design0, 26 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 12.
+The workload: field0 lookups 5, field1 lookups 12, field2 lookups 11 and field3 lookups 12.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design3 | design1 | design4 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 12,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 386,
+  &quot;design1&quot;: 344,
+  &quot;design2&quot;: 474,
+  &quot;design3&quot;: 375,
+  &quot;design4&quot;: 400
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">design3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design2, 15 and 2
+  - design3 indexes field0
+  - design: design1, 48 and 2
+  - design0 indexes field0
+  - design2 indexes field3
+  - design3 indexes field2
+  - design4 indexes field3
+  - design: design4, 35 and 1
+  - design: design0, 28 and 1
+  - design: design3, 50 and 2
+  - design1 indexes field1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 13.
+The workload: field3 lookups 4, field1 lookups 4, field2 lookups 3 and field0 lookups 10.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design1 | design2 | design4 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 13,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 181,
+  &quot;design1&quot;: 277,
+  &quot;design2&quot;: 244,
+  &quot;design3&quot;: 180,
+  &quot;design4&quot;: 260
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design3, 44 and 1
+  - design1 indexes field1
+  - design: design2, 13 and 2
+  - design0 indexes field3
+  - design4 indexes field0
+  - design2 indexes field0
+  - design3 indexes field3
+  - design: design0, 14 and 1
+  - design4 indexes field2
+  - design: design4, 14 and 3
+  - design: design1, 26 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 11.
+The workload: field3 lookups 6, field2 lookups 7, field1 lookups 9 and field0 lookups 6.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design3 | design4 | design2 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 11,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 262,
+  &quot;design1&quot;: 262,
+  &quot;design2&quot;: 267,
+  &quot;design3&quot;: 292,
+  &quot;design4&quot;: 218
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">design3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design1 indexes field2
+  - design: design0, 42 and 1
+  - design3 indexes field1
+  - design: design2, 28 and 1
+  - design: design3, 23 and 3
+  - design: design1, 36 and 2
+  - design2 indexes field2
+  - design0 indexes field2
+  - design4 indexes field2
+  - design: design4, 49 and 2
+  - design3 indexes field0
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 13.
+The workload: field3 lookups 3, field2 lookups 1, field1 lookups 3 and field0 lookups 8.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design0 | design3 | design4 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 13,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 225,
+  &quot;design1&quot;: 220,
+  &quot;design2&quot;: 211,
+  &quot;design3&quot;: 108,
+  &quot;design4&quot;: 233
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design2 indexes field0
+  - design3 indexes field2
+  - design: design3, 39 and 1
+  - design: design4, 34 and 1
+  - design1 indexes field0
+  - design3 indexes field1
+  - design: design1, 19 and 2
+  - design: design2, 35 and 1
+  - design0 indexes field3
+  - design4 indexes field0
+  - design: design0, 26 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 8.
+The workload: field0 lookups 3, field3 lookups 11, field2 lookups 3 and field1 lookups 5.
+What is the cheapest memory design?
+
+Answer with exactly one of: design1 | design3 | design0 | design2 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 8,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 136,
+  &quot;design1&quot;: 177,
+  &quot;design2&quot;: 190,
+  &quot;design3&quot;: 159,
+  &quot;design4&quot;: 189
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design1, 32 and 1
+  - design: design2, 5 and 1
+  - design: design0, 23 and 3
+  - design3 indexes field2
+  - design0 indexes field1
+  - design1 indexes field0
+  - design: design3, 30 and 1
+  - design: design4, 34 and 3
+  - design3 indexes field3
+  - design2 indexes field2
+  - design4 indexes field0
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 16.
+The workload: field2 lookups 3, field3 lookups 1, field0 lookups 7 and field1 lookups 1.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design1 | design3 | design0 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 16,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 202,
+  &quot;design1&quot;: 119,
+  &quot;design2&quot;: 152,
+  &quot;design3&quot;: 162,
+  &quot;design4&quot;: 135
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design1, 42 and 1
+  - design3 indexes field2
+  - design2 indexes field3
+  - design4 indexes field0
+  - design4 indexes field1
+  - design: design0, 46 and 2
+  - design0 indexes field1
+  - design: design3, 29 and 3
+  - design: design2, 36 and 1
+  - design1 indexes field0
+  - design: design4, 49 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 9.
+The workload: field1 lookups 9, field0 lookups 11, field2 lookups 6 and field3 lookups 1.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design4 | design1 | design0 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 9,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 226,
+  &quot;design1&quot;: 197,
+  &quot;design2&quot;: 271,
+  &quot;design3&quot;: 236,
+  &quot;design4&quot;: 152
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design4, 42 and 2
+  - design0 indexes field3
+  - design1 indexes field1
+  - design: design3, 31 and 2
+  - design2 indexes field2
+  - design2 indexes field0
+  - design4 indexes field1
+  - design: design1, 34 and 3
+  - design: design2, 41 and 3
+  - design3 indexes field3
+  - design: design0, 4 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 11.
+The workload: field2 lookups 4, field1 lookups 8, field0 lookups 4 and field3 lookups 6.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design2 | design4 | design1 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 11,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 198,
+  &quot;design1&quot;: 212,
+  &quot;design2&quot;: 219,
+  &quot;design3&quot;: 219,
+  &quot;design4&quot;: 212
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design0 indexes field0
+  - design3 indexes field1
+  - design: design4, 15 and 2
+  - design1 indexes field1
+  - design: design2, 9 and 2
+  - design4 indexes field3
+  - design: design0, 9 and 2
+  - design1 indexes field0
+  - design: design1, 4 and 3
+  - design2 indexes field2
+  - design: design3, 17 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 14.
+The workload: field3 lookups 12, field2 lookups 2, field1 lookups 1 and field0 lookups 12.
+What is the cheapest memory design?
+
+Answer with exactly one of: design1 | design0 | design4 | design3 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 14,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 243,
+  &quot;design1&quot;: 239,
+  &quot;design2&quot;: 363,
+  &quot;design3&quot;: 383,
+  &quot;design4&quot;: 249
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design3 indexes field3
+  - design: design0, 35 and 3
+  - design: design1, 21 and 2
+  - design: design3, 23 and 1
+  - design2 indexes field2
+  - design: design4, 47 and 1
+  - design1 indexes field2
+  - design0 indexes field3
+  - design4 indexes field3
+  - design1 indexes field3
+  - design: design2, 15 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 16.
+The workload: field3 lookups 9, field0 lookups 2, field1 lookups 6 and field2 lookups 5.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design4 | design0 | design3 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 16,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 270,
+  &quot;design1&quot;: 177,
+  &quot;design2&quot;: 302,
+  &quot;design3&quot;: 240,
+  &quot;design4&quot;: 264
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design1 indexes field0
+  - design: design4, 23 and 1
+  - design: design0, 33 and 2
+  - design2 indexes field2
+  - design2 indexes field0
+  - design: design2, 12 and 3
+  - design4 indexes field1
+  - design0 indexes field2
+  - design3 indexes field1
+  - design: design3, 32 and 2
+  - design: design1, 46 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 6.
+The workload: field3 lookups 9, field0 lookups 1, field2 lookups 3 and field1 lookups 11.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design1 | design4 | design3 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 6,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 165,
+  &quot;design1&quot;: 186,
+  &quot;design2&quot;: 144,
+  &quot;design3&quot;: 132,
+  &quot;design4&quot;: 112
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design4 indexes field0
+  - design: design2, 14 and 2
+  - design2 indexes field3
+  - design0 indexes field3
+  - design: design0, 30 and 2
+  - design2 indexes field2
+  - design3 indexes field3
+  - design: design4, 7 and 3
+  - design: design1, 50 and 1
+  - design1 indexes field2
+  - design: design3, 18 and 1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 12.
+The workload: field0 lookups 3, field2 lookups 2, field3 lookups 3 and field1 lookups 6.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design1 | design2 | design4 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 12,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 168,
+  &quot;design1&quot;: 196,
+  &quot;design2&quot;: 132,
+  &quot;design3&quot;: 153,
+  &quot;design4&quot;: 148
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">design4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design4 indexes field2
+  - design: design4, 21 and 2
+  - design2 indexes field3
+  - design: design2, 12 and 3
+  - design0 indexes field1
+  - design4 indexes field0
+  - design: design0, 27 and 2
+  - design1 indexes field0
+  - design3 indexes field3
+  - design: design1, 6 and 3
+  - design: design3, 38 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 10.
+The workload: field2 lookups 10, field0 lookups 11, field1 lookups 10 and field3 lookups 8.
+What is the cheapest memory design?
+
+Answer with exactly one of: design1 | design2 | design4 | design3 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 10,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 337,
+  &quot;design1&quot;: 319,
+  &quot;design2&quot;: 346,
+  &quot;design3&quot;: 372,
+  &quot;design4&quot;: 243
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design2 indexes field0
+  - design3 indexes field0
+  - design: design2, 17 and 1
+  - design4 indexes field0
+  - design: design3, 9 and 1
+  - design: design0, 42 and 2
+  - design: design1, 28 and 3
+  - design: design4, 48 and 3
+  - design1 indexes field2
+  - design0 indexes field1
+  - design0 indexes field3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 13.
+The workload: field2 lookups 3, field1 lookups 11, field0 lookups 7 and field3 lookups 11.
+What is the cheapest memory design?
+
+Answer with exactly one of: design1 | design4 | design0 | design3 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 13,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 216,
+  &quot;design1&quot;: 414,
+  &quot;design2&quot;: 349,
+  &quot;design3&quot;: 341,
+  &quot;design4&quot;: 394
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design2 indexes field1
+  - design3 indexes field0
+  - design: design3, 47 and 1
+  - design0 indexes field0
+  - design4 indexes field1
+  - design: design1, 47 and 1
+  - design: design4, 50 and 2
+  - design0 indexes field3
+  - design: design0, 5 and 3
+  - design1 indexes field3
+  - design: design2, 41 and 1
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 13.
+The workload: field2 lookups 10, field1 lookups 2, field0 lookups 11 and field3 lookups 9.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design3 | design4 | design1 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 13,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 221,
+  &quot;design1&quot;: 355,
+  &quot;design2&quot;: 433,
+  &quot;design3&quot;: 331,
+  &quot;design4&quot;: 444
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design0, 45 and 1
+  - design: design3, 41 and 2
+  - design1 indexes field1
+  - design2 indexes field2
+  - design2 indexes field0
+  - design0 indexes field0
+  - design3 indexes field1
+  - design4 indexes field3
+  - design: design2, 43 and 2
+  - design: design4, 11 and 3
+  - design: design1, 45 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 8.
+The workload: field1 lookups 2, field2 lookups 6, field0 lookups 2 and field3 lookups 3.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design2 | design1 | design0 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 8,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 135,
+  &quot;design1&quot;: 137,
+  &quot;design2&quot;: 99,
+  &quot;design3&quot;: 133,
+  &quot;design4&quot;: 100
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">design2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design4, 17 and 3
+  - design3 indexes field2
+  - design: design2, 4 and 3
+  - design1 indexes field1
+  - design: design3, 30 and 2
+  - design2 indexes field2
+  - design: design1, 26 and 2
+  - design4 indexes field0
+  - design: design0, 20 and 1
+  - design0 indexes field3
+  - design2 indexes field3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 13.
+The workload: field1 lookups 11, field0 lookups 1, field3 lookups 7 and field2 lookups 5.
+What is the cheapest memory design?
+
+Answer with exactly one of: design2 | design4 | design0 | design1 | design3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 13,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 248,
+  &quot;design1&quot;: 217,
+  &quot;design2&quot;: 196,
+  &quot;design3&quot;: 287,
+  &quot;design4&quot;: 319
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">design3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design0 indexes field0
+  - design: design1, 27 and 1
+  - design: design4, 15 and 2
+  - design: design0, 21 and 3
+  - design4 indexes field0
+  - design2 indexes field1
+  - design0 indexes field2
+  - design3 indexes field3
+  - design1 indexes field1
+  - design: design3, 43 and 1
+  - design: design2, 42 and 2
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 16.
+The workload: field2 lookups 3, field0 lookups 1, field1 lookups 2 and field3 lookups 10.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design2 | design0 | design1 | design4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 16,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 225,
+  &quot;design1&quot;: 253,
+  &quot;design2&quot;: 270,
+  &quot;design3&quot;: 149,
+  &quot;design4&quot;: 257
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design1 indexes field3
+  - design4 indexes field2
+  - design3 indexes field0
+  - design: design2, 25 and 2
+  - design: design0, 12 and 3
+  - design: design1, 48 and 2
+  - design2 indexes field0
+  - design: design4, 32 and 2
+  - design0 indexes field1
+  - design: design3, 40 and 2
+  - design2 indexes field3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 6.
+The workload: field1 lookups 6, field3 lookups 2, field2 lookups 1 and field0 lookups 4.
+What is the cheapest memory design?
+
+Answer with exactly one of: design0 | design1 | design3 | design4 | design2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 6,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 72,
+  &quot;design1&quot;: 118,
+  &quot;design2&quot;: 79,
+  &quot;design3&quot;: 102,
+  &quot;design4&quot;: 106
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design0, 10 and 1
+  - design: design2, 24 and 1
+  - design: design1, 32 and 2
+  - design4 indexes field3
+  - design3 indexes field1
+  - design0 indexes field2
+  - design1 indexes field3
+  - design1 indexes field0
+  - design: design3, 38 and 1
+  - design: design4, 15 and 2
+  - design2 indexes field0
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 6.
+The workload: field3 lookups 1, field2 lookups 10, field1 lookups 9 and field0 lookups 1.
+What is the cheapest memory design?
+
+Answer with exactly one of: design1 | design3 | design2 | design4 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 6,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 86,
+  &quot;design1&quot;: 150,
+  &quot;design2&quot;: 145,
+  &quot;design3&quot;: 119,
+  &quot;design4&quot;: 137
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">design1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design1, 45 and 3
+  - design2 indexes field2
+  - design0 indexes field1
+  - design: design3, 23 and 2
+  - design1 indexes field1
+  - design: design2, 16 and 3
+  - design: design4, 4 and 1
+  - design3 indexes field2
+  - design4 indexes field3
+  - design1 indexes field2
+  - design: design0, 45 and 3
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 10.
+The workload: field0 lookups 7, field1 lookups 6, field2 lookups 8 and field3 lookups 1.
+What is the cheapest memory design?
+
+Answer with exactly one of: design4 | design3 | design2 | design0 | design1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 10,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 223,
+  &quot;design1&quot;: 167,
+  &quot;design2&quot;: 180,
+  &quot;design3&quot;: 179,
+  &quot;design4&quot;: 215
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">design0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The designs:
+  - design: design1, 27 and 2
+  - design4 indexes field0
+  - design0 indexes field1
+  - design3 indexes field3
+  - design0 indexes field2
+  - design: design0, 35 and 1
+  - design: design3, 50 and 3
+  - design: design2, 40 and 2
+  - design1 indexes field0
+  - design: design4, 13 and 2
+  - design2 indexes field0
+The rules are:
+  - rule design_lists_build_cost_and_cost_per_indexed_lookup
+  - rule a_lookup_on_an_unindexed_field_costs_scan_cost
+  - rule total_cost_is_build_cost_plus_sum_over_fields_of_lookups_times_per_lookup_cost
+The store: scan cost 8.
+The workload: field1 lookups 4, field0 lookups 3, field2 lookups 10 and field3 lookups 4.
+What is the cheapest memory design?
+
+Answer with exactly one of: design3 | design1 | design4 | design2 | design0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;scan_cost&quot;: 8,
+ &quot;totals&quot;: {
+  &quot;design0&quot;: 105,
+  &quot;design1&quot;: 177,
+  &quot;design2&quot;: 190,
+  &quot;design3&quot;: 198,
+  &quot;design4&quot;: 163
+ }
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

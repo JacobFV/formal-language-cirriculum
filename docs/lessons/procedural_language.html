@@ -1,0 +1,2474 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>procedural_language — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iv">analogy, causality, planning, and programs</a> &rsaquo;
+  procedural_language</p>
+<h1>#45 <code>procedural_language</code></h1>
+<p class="lede">loops, branches and state: executing a described procedure</p>
+<div class="tags"><span class="tag ">level 45</span><span class="tag ">section iv</span><span class="tag ">program_synthesis</span><span class="tag ">variable_binding</span><span class="tag ">recursive_syntax</span></div>
+<div class="stats">
+<div class="stat"><span class="n">10.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.1</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.135</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>A tiny imperative program with a bounded loop and a branch. All
+    arithmetic is mod 10 and stated in the observation; the answer is what the
+    interpreter leaves in the queried variable.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>grammar_complexity</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>recursion_depth</td><td class='num'>2</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The init: pok init 6 and zuv init 4.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: pok times 7; zuv plus 7; if greater: zuv, 1, (pok plus 5) and (pok plus 8); 4 repeat (pok plus 3).
+What is the final value for zuv?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre><h3>spanish</h3><pre>El estado inicial es: pok el estado inicial 6 y zuv el estado inicial 4.
+El módulo es 10.
+Nota: every assignment is taken mod m.
+El programa es: pok por 7; zuv más 7; si es mayor: zuv, 1, (pok más 5) y (pok más 8); 4 repite (pok más 3).
+¿Cuál es el valor final para zuv?
+
+Responde exactamente con una de estas opciones: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>初始状态是：pok的初始值是6；zuv的初始值是4。
+模数是10。
+备注是every assignment is taken mod m。
+程序如下：pok乘以7；zuv加上7；较大时执行：zuv、1、(pok加上5)和(pok加上8)；4重复(pok加上3)。
+zuv的最终值是什么？
+
+请从以下选项中选出恰好一个作答：0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The init: pok init 6 and zuv init 4.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: pok times 7; zuv plus 7; if greater: zuv, 1, (pok plus 5) and (pok plus 8); 4 repeat (pok plus 3).
+What is the final value for zuv?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre><h3>symbols</h3><pre>{init: [(init pok 6) (init zuv 4)], modulus: 10, note: &quot;every assignment is taken mod m&quot;, program: [(mul pok 7) (add zuv 7) (if_greater zuv 1 [(add pok 5)] [(add pok 8)]) (repeat 4 [(add pok 3)])], query: (final_value zuv)}
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/procedural_language.jsonl</code> &middot; <code>data/samples/spanish/procedural_language.jsonl</code> &middot; <code>data/samples/chinese/procedural_language.jsonl</code> &middot; <code>data/samples/english_synonym/procedural_language.jsonl</code> &middot; <code>data/samples/symbols/procedural_language.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: pok init 6 and zuv init 4.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: pok times 7; zuv plus 7; if greater: zuv, 1, (pok plus 5) and (pok plus 8); 4 repeat (pok plus 3).
+What is the final value for zuv?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;pok&quot;: 2,
+  &quot;zuv&quot;: 1
+ },
+ &quot;init&quot;: {
+  &quot;pok&quot;: 6,
+  &quot;zuv&quot;: 4
+ },
+ &quot;target&quot;: &quot;zuv&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: tun init 1 and naz init 7.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 2 repeat (naz times 3); naz times 7; if greater: tun, 9, (tun times 7) and (tun is set to 5); tun is set to 0.
+What is the final value for naz?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;naz&quot;: 1,
+  &quot;tun&quot;: 0
+ },
+ &quot;init&quot;: {
+  &quot;naz&quot;: 7,
+  &quot;tun&quot;: 1
+ },
+ &quot;target&quot;: &quot;naz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: kam init 4 and leg init 4.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: if greater: leg, 8, (kam times 7) and (kam plus 4); leg is set to 2; kam plus 1; 3 repeat (leg plus 9, kam plus 1).
+What is the final value for kam?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;kam&quot;: 2,
+  &quot;leg&quot;: 9
+ },
+ &quot;init&quot;: {
+  &quot;kam&quot;: 4,
+  &quot;leg&quot;: 4
+ },
+ &quot;target&quot;: &quot;kam&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: sur init 7 and tib init 9.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: sur is set to 9; 3 repeat (tib plus 4, sur times 7); if greater: sur, 1, (sur times 9) and (tib plus 1); tib is set to 4.
+What is the final value for tib?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;sur&quot;: 3,
+  &quot;tib&quot;: 4
+ },
+ &quot;init&quot;: {
+  &quot;sur&quot;: 7,
+  &quot;tib&quot;: 9
+ },
+ &quot;target&quot;: &quot;tib&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">9</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: sim init 2 and gov init 1.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 4 repeat (gov is set to 3, sim plus 3); gov is set to 0; if greater: sim, 2, (sim plus 5) and (gov plus 5); gov is set to 9.
+What is the final value for sim?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;gov&quot;: 9,
+  &quot;sim&quot;: 9
+ },
+ &quot;init&quot;: {
+  &quot;gov&quot;: 1,
+  &quot;sim&quot;: 2
+ },
+ &quot;target&quot;: &quot;sim&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: big init 7 and luk init 3.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: big is set to 0; if greater: big, 2, (big times 3) and (big times 3); big is set to 2; 3 repeat (big plus 7, big plus 1).
+What is the final value for luk?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;big&quot;: 6,
+  &quot;luk&quot;: 3
+ },
+ &quot;init&quot;: {
+  &quot;big&quot;: 7,
+  &quot;luk&quot;: 3
+ },
+ &quot;target&quot;: &quot;luk&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: num init 0 and vik init 2.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: vik is set to 5; vik times 9; 3 repeat (num plus 8); if greater: vik, 9, (vik is set to 3) and (vik is set to 6).
+What is the final value for num?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;num&quot;: 4,
+  &quot;vik&quot;: 6
+ },
+ &quot;init&quot;: {
+  &quot;num&quot;: 0,
+  &quot;vik&quot;: 2
+ },
+ &quot;target&quot;: &quot;num&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: lep init 8 and dam init 1.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: lep plus 1; if greater: dam, 3, (lep is set to 9) and (dam is set to 9); lep is set to 3; 2 repeat (lep times 7).
+What is the final value for lep?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;dam&quot;: 9,
+  &quot;lep&quot;: 7
+ },
+ &quot;init&quot;: {
+  &quot;dam&quot;: 1,
+  &quot;lep&quot;: 8
+ },
+ &quot;target&quot;: &quot;lep&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">9</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: sip init 0 and teg init 1.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 3 repeat (teg times 7); sip times 7; sip plus 4; if greater: sip, 3, (teg times 3) and (teg is set to 4).
+What is the final value for teg?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;sip&quot;: 4,
+  &quot;teg&quot;: 9
+ },
+ &quot;init&quot;: {
+  &quot;sip&quot;: 0,
+  &quot;teg&quot;: 1
+ },
+ &quot;target&quot;: &quot;teg&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: vul init 0 and zet init 5.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 3 repeat (zet times 3), vul times 3 and vul times 9.
+What is the final value for vul?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;vul&quot;: 0,
+  &quot;zet&quot;: 5
+ },
+ &quot;init&quot;: {
+  &quot;vul&quot;: 0,
+  &quot;zet&quot;: 5
+ },
+ &quot;target&quot;: &quot;vul&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: bap init 3 and vuk init 7.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: bap times 7; vuk plus 7; 2 repeat (bap plus 2, vuk plus 1).
+What is the final value for vuk?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;bap&quot;: 5,
+  &quot;vuk&quot;: 6
+ },
+ &quot;init&quot;: {
+  &quot;bap&quot;: 3,
+  &quot;vuk&quot;: 7
+ },
+ &quot;target&quot;: &quot;vuk&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: vun init 9 and vor init 3.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: vun is set to 0; vor plus 9; if greater: vun, 9, (vun times 7) and (vun is set to 8); 4 repeat (vor is set to 7).
+What is the final value for vor?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;vor&quot;: 7,
+  &quot;vun&quot;: 8
+ },
+ &quot;init&quot;: {
+  &quot;vor&quot;: 3,
+  &quot;vun&quot;: 9
+ },
+ &quot;target&quot;: &quot;vor&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: vid init 6 and rit init 0.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: vid is set to 0; if greater: vid, 1, (vid is set to 9) and (vid plus 7); 4 repeat (vid plus 9, rit plus 8); rit plus 8.
+What is the final value for vid?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;rit&quot;: 0,
+  &quot;vid&quot;: 3
+ },
+ &quot;init&quot;: {
+  &quot;rit&quot;: 0,
+  &quot;vid&quot;: 6
+ },
+ &quot;target&quot;: &quot;vid&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">9</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: zid init 3 and ded init 2.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: zid plus 3; if greater: zid, 4, (zid plus 3) and (ded times 9); ded plus 5; 2 repeat (ded plus 1).
+What is the final value for ded?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;ded&quot;: 9,
+  &quot;zid&quot;: 9
+ },
+ &quot;init&quot;: {
+  &quot;ded&quot;: 2,
+  &quot;zid&quot;: 3
+ },
+ &quot;target&quot;: &quot;ded&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">9</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: mug init 4 and nus init 4.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: if greater: nus, 2, (mug plus 9) and (mug plus 3); 3 repeat (mug times 7, nus plus 4); nus is set to 1; nus plus 2.
+What is the final value for mug?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;mug&quot;: 9,
+  &quot;nus&quot;: 3
+ },
+ &quot;init&quot;: {
+  &quot;mug&quot;: 4,
+  &quot;nus&quot;: 4
+ },
+ &quot;target&quot;: &quot;mug&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: sar init 3 and gat init 0.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: if greater: gat, 5, (sar plus 4) and (gat plus 4); gat is set to 2; 2 repeat (gat plus 8); gat times 3.
+What is the final value for gat?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;gat&quot;: 4,
+  &quot;sar&quot;: 3
+ },
+ &quot;init&quot;: {
+  &quot;gat&quot;: 0,
+  &quot;sar&quot;: 3
+ },
+ &quot;target&quot;: &quot;gat&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: lov init 7 and zos init 0.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: lov plus 5, 2 repeat (zos is set to 4) and zos times 9.
+What is the final value for lov?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;lov&quot;: 2,
+  &quot;zos&quot;: 6
+ },
+ &quot;init&quot;: {
+  &quot;lov&quot;: 7,
+  &quot;zos&quot;: 0
+ },
+ &quot;target&quot;: &quot;lov&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">9</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: ron init 2 and ziz init 8.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: ron plus 2; ziz times 3; if greater: ron, 5, (ron plus 9) and (ziz is set to 1); 2 repeat (ziz times 7, ron times 3).
+What is the final value for ziz?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;ron&quot;: 6,
+  &quot;ziz&quot;: 9
+ },
+ &quot;init&quot;: {
+  &quot;ron&quot;: 2,
+  &quot;ziz&quot;: 8
+ },
+ &quot;target&quot;: &quot;ziz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: tad init 3 and vis init 7.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: tad plus 3; 3 repeat (vis plus 4, tad is set to 5); vis times 3.
+What is the final value for tad?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;tad&quot;: 5,
+  &quot;vis&quot;: 7
+ },
+ &quot;init&quot;: {
+  &quot;tad&quot;: 3,
+  &quot;vis&quot;: 7
+ },
+ &quot;target&quot;: &quot;tad&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: dan init 3 and rar init 6.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 4 repeat (rar plus 2); rar plus 9; if greater: rar, 0, (rar is set to 5) and (dan plus 2); rar is set to 8.
+What is the final value for dan?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;dan&quot;: 3,
+  &quot;rar&quot;: 8
+ },
+ &quot;init&quot;: {
+  &quot;dan&quot;: 3,
+  &quot;rar&quot;: 6
+ },
+ &quot;target&quot;: &quot;dan&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: gez init 9 and dal init 2.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: gez times 7, 2 repeat (dal plus 6) and dal is set to 6.
+What is the final value for dal?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;dal&quot;: 6,
+  &quot;gez&quot;: 3
+ },
+ &quot;init&quot;: {
+  &quot;dal&quot;: 2,
+  &quot;gez&quot;: 9
+ },
+ &quot;target&quot;: &quot;dal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: tog init 3 and piv init 7.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 2 repeat (tog plus 7); tog times 9; tog plus 9; if greater: tog, 6, (piv plus 1) and (piv times 3).
+What is the final value for tog?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;piv&quot;: 1,
+  &quot;tog&quot;: 2
+ },
+ &quot;init&quot;: {
+  &quot;piv&quot;: 7,
+  &quot;tog&quot;: 3
+ },
+ &quot;target&quot;: &quot;tog&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: tek init 1 and bot init 5.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 2 repeat (bot plus 9, tek is set to 9); bot is set to 3; bot plus 3; if greater: bot, 1, (tek times 3) and (bot is set to 5).
+What is the final value for bot?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;bot&quot;: 6,
+  &quot;tek&quot;: 7
+ },
+ &quot;init&quot;: {
+  &quot;bot&quot;: 5,
+  &quot;tek&quot;: 1
+ },
+ &quot;target&quot;: &quot;bot&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: nim init 6 and kuz init 6.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: nim plus 3; 3 repeat (kuz is set to 3, nim is set to 1); nim times 7.
+What is the final value for kuz?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;kuz&quot;: 3,
+  &quot;nim&quot;: 7
+ },
+ &quot;init&quot;: {
+  &quot;kuz&quot;: 6,
+  &quot;nim&quot;: 6
+ },
+ &quot;target&quot;: &quot;kuz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: gob init 3 and tet init 2.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: tet plus 6; 4 repeat (gob times 7); if greater: gob, 4, (tet times 9) and (tet times 3); tet is set to 2.
+What is the final value for gob?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;gob&quot;: 3,
+  &quot;tet&quot;: 2
+ },
+ &quot;init&quot;: {
+  &quot;gob&quot;: 3,
+  &quot;tet&quot;: 2
+ },
+ &quot;target&quot;: &quot;gob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: pas init 4 and zok init 0.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: pas plus 7, 4 repeat (zok plus 9) and zok plus 9.
+What is the final value for pas?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;pas&quot;: 1,
+  &quot;zok&quot;: 5
+ },
+ &quot;init&quot;: {
+  &quot;pas&quot;: 4,
+  &quot;zok&quot;: 0
+ },
+ &quot;target&quot;: &quot;pas&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: ged init 8 and sob init 0.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: ged plus 4; 4 repeat (sob times 3); if greater: ged, 2, (ged is set to 3) and (sob plus 8); ged plus 8.
+What is the final value for ged?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;ged&quot;: 0,
+  &quot;sob&quot;: 8
+ },
+ &quot;init&quot;: {
+  &quot;ged&quot;: 8,
+  &quot;sob&quot;: 0
+ },
+ &quot;target&quot;: &quot;ged&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: dog init 1 and zis init 1.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: zis plus 3; zis plus 9; if greater: dog, 7, (dog times 7) and (zis plus 1); 3 repeat (dog times 3, dog plus 8).
+What is the final value for dog?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;dog&quot;: 1,
+  &quot;zis&quot;: 4
+ },
+ &quot;init&quot;: {
+  &quot;dog&quot;: 1,
+  &quot;zis&quot;: 1
+ },
+ &quot;target&quot;: &quot;dog&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: mer init 2 and bes init 7.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: mer times 3; 2 repeat (mer plus 3, bes plus 1); mer plus 4; if greater: mer, 2, (mer times 7) and (bes plus 4).
+What is the final value for mer?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;bes&quot;: 9,
+  &quot;mer&quot;: 2
+ },
+ &quot;init&quot;: {
+  &quot;bes&quot;: 7,
+  &quot;mer&quot;: 2
+ },
+ &quot;target&quot;: &quot;mer&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: ral init 1 and buz init 8.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: buz plus 7, 2 repeat (ral is set to 7) and buz is set to 7.
+What is the final value for ral?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;buz&quot;: 7,
+  &quot;ral&quot;: 7
+ },
+ &quot;init&quot;: {
+  &quot;buz&quot;: 8,
+  &quot;ral&quot;: 1
+ },
+ &quot;target&quot;: &quot;ral&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: rib init 3 and kud init 4.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: rib plus 1, 4 repeat (rib is set to 7) and kud is set to 6.
+What is the final value for kud?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;kud&quot;: 6,
+  &quot;rib&quot;: 7
+ },
+ &quot;init&quot;: {
+  &quot;kud&quot;: 4,
+  &quot;rib&quot;: 3
+ },
+ &quot;target&quot;: &quot;kud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: kom init 0 and not init 2.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: if greater: not, 1, (kom times 3) and (not is set to 6); kom is set to 8; 4 repeat (kom plus 1); not plus 4.
+What is the final value for kom?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;kom&quot;: 2,
+  &quot;not&quot;: 6
+ },
+ &quot;init&quot;: {
+  &quot;kom&quot;: 0,
+  &quot;not&quot;: 2
+ },
+ &quot;target&quot;: &quot;kom&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: met init 0 and zev init 0.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: met plus 8; zev is set to 5; 2 repeat (met plus 1, met is set to 7).
+What is the final value for met?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;met&quot;: 7,
+  &quot;zev&quot;: 5
+ },
+ &quot;init&quot;: {
+  &quot;met&quot;: 0,
+  &quot;zev&quot;: 0
+ },
+ &quot;target&quot;: &quot;met&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: bed init 8 and siv init 8.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: bed plus 5; 4 repeat (bed times 7, siv plus 7); if greater: bed, 8, (siv times 7) and (bed plus 2); siv plus 9.
+What is the final value for bed?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;bed&quot;: 5,
+  &quot;siv&quot;: 5
+ },
+ &quot;init&quot;: {
+  &quot;bed&quot;: 8,
+  &quot;siv&quot;: 8
+ },
+ &quot;target&quot;: &quot;bed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: rib init 6 and kek init 5.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: kek is set to 6; kek times 3; 3 repeat (kek plus 2); if greater: rib, 0, (rib plus 9) and (rib plus 5).
+What is the final value for rib?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;kek&quot;: 4,
+  &quot;rib&quot;: 5
+ },
+ &quot;init&quot;: {
+  &quot;kek&quot;: 5,
+  &quot;rib&quot;: 6
+ },
+ &quot;target&quot;: &quot;rib&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: rin init 4 and tit init 6.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: rin plus 6; if greater: rin, 0, (rin plus 8) and (rin plus 6); 4 repeat (rin is set to 5, tit is set to 1); tit plus 1.
+What is the final value for rin?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;rin&quot;: 5,
+  &quot;tit&quot;: 2
+ },
+ &quot;init&quot;: {
+  &quot;rin&quot;: 4,
+  &quot;tit&quot;: 6
+ },
+ &quot;target&quot;: &quot;rin&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: lak init 0 and nim init 8.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: nim times 7; 4 repeat (nim plus 9, nim is set to 9); nim plus 4.
+What is the final value for lak?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;lak&quot;: 0,
+  &quot;nim&quot;: 3
+ },
+ &quot;init&quot;: {
+  &quot;lak&quot;: 0,
+  &quot;nim&quot;: 8
+ },
+ &quot;target&quot;: &quot;lak&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: dum init 5 and buk init 7.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: dum times 3; 3 repeat (dum times 3, dum is set to 6); if greater: buk, 9, (buk times 9) and (dum is set to 8); buk is set to 7.
+What is the final value for dum?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;buk&quot;: 7,
+  &quot;dum&quot;: 8
+ },
+ &quot;init&quot;: {
+  &quot;buk&quot;: 7,
+  &quot;dum&quot;: 5
+ },
+ &quot;target&quot;: &quot;dum&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: dop init 5 and nam init 7.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: if greater: dop, 8, (nam times 3) and (nam plus 1); dop plus 1; dop plus 9; 4 repeat (nam plus 5, nam plus 8).
+What is the final value for nam?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;dop&quot;: 5,
+  &quot;nam&quot;: 0
+ },
+ &quot;init&quot;: {
+  &quot;dop&quot;: 5,
+  &quot;nam&quot;: 7
+ },
+ &quot;target&quot;: &quot;nam&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: sip init 6 and kes init 9.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: kes is set to 4; if greater: sip, 1, (kes times 7) and (kes times 9); 4 repeat (sip is set to 4); kes plus 2.
+What is the final value for sip?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;kes&quot;: 0,
+  &quot;sip&quot;: 4
+ },
+ &quot;init&quot;: {
+  &quot;kes&quot;: 9,
+  &quot;sip&quot;: 6
+ },
+ &quot;target&quot;: &quot;sip&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: vur init 3 and kez init 2.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: kez is set to 2, 2 repeat (kez is set to 3) and kez plus 5.
+What is the final value for kez?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;kez&quot;: 8,
+  &quot;vur&quot;: 3
+ },
+ &quot;init&quot;: {
+  &quot;kez&quot;: 2,
+  &quot;vur&quot;: 3
+ },
+ &quot;target&quot;: &quot;kez&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: pis init 4 and tob init 8.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 2 repeat (pis times 3), pis plus 7 and tob plus 3.
+What is the final value for pis?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;pis&quot;: 3,
+  &quot;tob&quot;: 1
+ },
+ &quot;init&quot;: {
+  &quot;pis&quot;: 4,
+  &quot;tob&quot;: 8
+ },
+ &quot;target&quot;: &quot;pis&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: dak init 3 and gis init 2.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 4 repeat (dak is set to 0, dak plus 4); dak plus 3; dak is set to 8; if greater: gis, 0, (gis plus 8) and (gis plus 7).
+What is the final value for gis?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;dak&quot;: 8,
+  &quot;gis&quot;: 0
+ },
+ &quot;init&quot;: {
+  &quot;dak&quot;: 3,
+  &quot;gis&quot;: 2
+ },
+ &quot;target&quot;: &quot;gis&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: kig init 5 and nev init 1.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: nev times 9; if greater: nev, 1, (kig times 3) and (kig is set to 6); nev is set to 2; 4 repeat (nev times 9).
+What is the final value for kig?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;kig&quot;: 5,
+  &quot;nev&quot;: 2
+ },
+ &quot;init&quot;: {
+  &quot;kig&quot;: 5,
+  &quot;nev&quot;: 1
+ },
+ &quot;target&quot;: &quot;kig&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">9</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: pur init 6 and gat init 3.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: pur plus 2; if greater: gat, 5, (gat times 9) and (gat is set to 5); 2 repeat (gat is set to 2); pur plus 1.
+What is the final value for pur?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;gat&quot;: 2,
+  &quot;pur&quot;: 9
+ },
+ &quot;init&quot;: {
+  &quot;gat&quot;: 3,
+  &quot;pur&quot;: 6
+ },
+ &quot;target&quot;: &quot;pur&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: zov init 5 and zaz init 0.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: zaz plus 4; 2 repeat (zov is set to 4, zaz is set to 2); zov is set to 7.
+What is the final value for zov?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;zaz&quot;: 2,
+  &quot;zov&quot;: 7
+ },
+ &quot;init&quot;: {
+  &quot;zaz&quot;: 0,
+  &quot;zov&quot;: 5
+ },
+ &quot;target&quot;: &quot;zov&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: mok init 8 and bus init 2.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: if greater: mok, 5, (bus times 9) and (bus plus 8); 3 repeat (bus is set to 2); mok is set to 0; mok is set to 7.
+What is the final value for bus?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;bus&quot;: 2,
+  &quot;mok&quot;: 7
+ },
+ &quot;init&quot;: {
+  &quot;bus&quot;: 2,
+  &quot;mok&quot;: 8
+ },
+ &quot;target&quot;: &quot;bus&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: lap init 5 and rob init 4.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: lap times 7, lap times 9 and 3 repeat (rob is set to 0).
+What is the final value for lap?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;lap&quot;: 5,
+  &quot;rob&quot;: 0
+ },
+ &quot;init&quot;: {
+  &quot;lap&quot;: 5,
+  &quot;rob&quot;: 4
+ },
+ &quot;target&quot;: &quot;lap&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: rit init 8 and ruz init 3.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: if greater: rit, 1, (rit times 3) and (rit times 3); rit times 9; rit times 3; 4 repeat (rit times 9).
+What is the final value for ruz?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;rit&quot;: 8,
+  &quot;ruz&quot;: 3
+ },
+ &quot;init&quot;: {
+  &quot;rit&quot;: 8,
+  &quot;ruz&quot;: 3
+ },
+ &quot;target&quot;: &quot;ruz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: mip init 8 and min init 8.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: mip is set to 6; 2 repeat (mip is set to 8, min plus 6); if greater: mip, 5, (min is set to 6) and (min plus 5); min is set to 0.
+What is the final value for min?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;min&quot;: 0,
+  &quot;mip&quot;: 8
+ },
+ &quot;init&quot;: {
+  &quot;min&quot;: 8,
+  &quot;mip&quot;: 8
+ },
+ &quot;target&quot;: &quot;min&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: vil init 7 and deg init 5.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: vil plus 4, 2 repeat (vil plus 6) and deg is set to 8.
+What is the final value for deg?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;deg&quot;: 8,
+  &quot;vil&quot;: 3
+ },
+ &quot;init&quot;: {
+  &quot;deg&quot;: 5,
+  &quot;vil&quot;: 7
+ },
+ &quot;target&quot;: &quot;deg&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: sur init 8 and tes init 4.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: tes is set to 8; 4 repeat (tes plus 7, sur times 9); tes times 9.
+What is the final value for sur?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;sur&quot;: 8,
+  &quot;tes&quot;: 4
+ },
+ &quot;init&quot;: {
+  &quot;sur&quot;: 8,
+  &quot;tes&quot;: 4
+ },
+ &quot;target&quot;: &quot;sur&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: zag init 6 and rol init 0.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: zag times 7; 2 repeat (zag times 9, rol is set to 8); if greater: zag, 7, (zag is set to 2) and (rol plus 5); rol plus 3.
+What is the final value for zag?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;rol&quot;: 6,
+  &quot;zag&quot;: 2
+ },
+ &quot;init&quot;: {
+  &quot;rol&quot;: 0,
+  &quot;zag&quot;: 6
+ },
+ &quot;target&quot;: &quot;zag&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: bev init 8 and rog init 5.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: bev is set to 2, bev times 9 and 2 repeat (rog plus 3).
+What is the final value for rog?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;bev&quot;: 8,
+  &quot;rog&quot;: 1
+ },
+ &quot;init&quot;: {
+  &quot;bev&quot;: 8,
+  &quot;rog&quot;: 5
+ },
+ &quot;target&quot;: &quot;rog&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: tor init 6 and zov init 3.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 2 repeat (zov is set to 7); zov times 7; if greater: zov, 8, (zov plus 7) and (zov plus 2); tor plus 8.
+What is the final value for zov?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;tor&quot;: 4,
+  &quot;zov&quot;: 6
+ },
+ &quot;init&quot;: {
+  &quot;tor&quot;: 6,
+  &quot;zov&quot;: 3
+ },
+ &quot;target&quot;: &quot;zov&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: met init 2 and gim init 4.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 4 repeat (gim times 9, met plus 7); if greater: met, 9, (met plus 9) and (met times 3); gim is set to 5; met times 3.
+What is the final value for met?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;gim&quot;: 5,
+  &quot;met&quot;: 0
+ },
+ &quot;init&quot;: {
+  &quot;gim&quot;: 4,
+  &quot;met&quot;: 2
+ },
+ &quot;target&quot;: &quot;met&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: rav init 8 and duz init 6.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: rav plus 3; duz plus 2; if greater: rav, 6, (rav is set to 9) and (duz is set to 2); 4 repeat (rav plus 5).
+What is the final value for duz?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;duz&quot;: 2,
+  &quot;rav&quot;: 1
+ },
+ &quot;init&quot;: {
+  &quot;duz&quot;: 6,
+  &quot;rav&quot;: 8
+ },
+ &quot;target&quot;: &quot;duz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">9</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: kib init 8 and bas init 5.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: if greater: bas, 2, (kib plus 3) and (kib times 9); bas times 7; 4 repeat (bas is set to 2, kib times 7); kib times 9.
+What is the final value for kib?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;bas&quot;: 2,
+  &quot;kib&quot;: 9
+ },
+ &quot;init&quot;: {
+  &quot;bas&quot;: 5,
+  &quot;kib&quot;: 8
+ },
+ &quot;target&quot;: &quot;kib&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: bes init 3 and gek init 7.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: bes plus 1; gek times 7; 3 repeat (bes times 7, bes is set to 7); if greater: bes, 5, (gek times 9) and (bes is set to 1).
+What is the final value for bes?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;bes&quot;: 7,
+  &quot;gek&quot;: 1
+ },
+ &quot;init&quot;: {
+  &quot;bes&quot;: 3,
+  &quot;gek&quot;: 7
+ },
+ &quot;target&quot;: &quot;bes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: sad init 4 and vat init 0.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: if greater: vat, 3, (sad plus 2) and (sad is set to 9); sad plus 5; 3 repeat (sad plus 6, vat is set to 1); vat is set to 7.
+What is the final value for vat?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;sad&quot;: 2,
+  &quot;vat&quot;: 7
+ },
+ &quot;init&quot;: {
+  &quot;sad&quot;: 4,
+  &quot;vat&quot;: 0
+ },
+ &quot;target&quot;: &quot;vat&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: zib init 7 and tis init 7.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 4 repeat (zib plus 7); zib is set to 4; if greater: zib, 2, (zib times 9) and (zib plus 3); zib plus 1.
+What is the final value for tis?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;tis&quot;: 7,
+  &quot;zib&quot;: 7
+ },
+ &quot;init&quot;: {
+  &quot;tis&quot;: 7,
+  &quot;zib&quot;: 7
+ },
+ &quot;target&quot;: &quot;tis&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: ver init 5 and siz init 0.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 2 repeat (ver times 7, ver plus 1); siz times 7; siz plus 8; if greater: siz, 2, (ver is set to 6) and (siz times 7).
+What is the final value for siz?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;siz&quot;: 8,
+  &quot;ver&quot;: 6
+ },
+ &quot;init&quot;: {
+  &quot;siz&quot;: 0,
+  &quot;ver&quot;: 5
+ },
+ &quot;target&quot;: &quot;siz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: bem init 5 and soz init 2.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: bem plus 3; soz is set to 9; 3 repeat (soz is set to 0); if greater: bem, 1, (bem plus 3) and (soz plus 9).
+What is the final value for soz?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;bem&quot;: 1,
+  &quot;soz&quot;: 0
+ },
+ &quot;init&quot;: {
+  &quot;bem&quot;: 5,
+  &quot;soz&quot;: 2
+ },
+ &quot;target&quot;: &quot;soz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: voz init 1 and zod init 6.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: voz is set to 1; 3 repeat (voz plus 1); if greater: voz, 9, (zod plus 4) and (voz is set to 0); zod plus 9.
+What is the final value for zod?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;voz&quot;: 0,
+  &quot;zod&quot;: 5
+ },
+ &quot;init&quot;: {
+  &quot;voz&quot;: 1,
+  &quot;zod&quot;: 6
+ },
+ &quot;target&quot;: &quot;zod&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: vad init 0 and bor init 3.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: vad plus 4; 2 repeat (vad times 3, vad is set to 6); vad plus 2.
+What is the final value for vad?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;bor&quot;: 3,
+  &quot;vad&quot;: 8
+ },
+ &quot;init&quot;: {
+  &quot;bor&quot;: 3,
+  &quot;vad&quot;: 0
+ },
+ &quot;target&quot;: &quot;vad&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: piz init 7 and rev init 8.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: rev plus 6; rev times 9; if greater: piz, 8, (piz plus 2) and (piz plus 2); 4 repeat (rev plus 2, rev plus 4).
+What is the final value for rev?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;piz&quot;: 9,
+  &quot;rev&quot;: 0
+ },
+ &quot;init&quot;: {
+  &quot;piz&quot;: 7,
+  &quot;rev&quot;: 8
+ },
+ &quot;target&quot;: &quot;rev&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: mip init 4 and soz init 8.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: mip is set to 7; soz is set to 3; if greater: soz, 6, (mip is set to 8) and (mip plus 6); 3 repeat (mip is set to 5).
+What is the final value for soz?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;mip&quot;: 5,
+  &quot;soz&quot;: 3
+ },
+ &quot;init&quot;: {
+  &quot;mip&quot;: 4,
+  &quot;soz&quot;: 8
+ },
+ &quot;target&quot;: &quot;soz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: man init 4 and pop init 9.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: if greater: man, 4, (pop is set to 1) and (man plus 7); pop times 7; man times 9; 2 repeat (man plus 5).
+What is the final value for pop?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;man&quot;: 9,
+  &quot;pop&quot;: 3
+ },
+ &quot;init&quot;: {
+  &quot;man&quot;: 4,
+  &quot;pop&quot;: 9
+ },
+ &quot;target&quot;: &quot;pop&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: gog init 9 and gum init 9.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: gum plus 7; 3 repeat (gum times 9, gog plus 9); if greater: gum, 1, (gog is set to 5) and (gog plus 4); gum is set to 8.
+What is the final value for gog?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;gog&quot;: 5,
+  &quot;gum&quot;: 8
+ },
+ &quot;init&quot;: {
+  &quot;gog&quot;: 9,
+  &quot;gum&quot;: 9
+ },
+ &quot;target&quot;: &quot;gog&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">9</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: dam init 9 and nem init 5.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 3 repeat (nem times 9, nem times 3); nem is set to 6; nem plus 9.
+What is the final value for dam?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;dam&quot;: 9,
+  &quot;nem&quot;: 5
+ },
+ &quot;init&quot;: {
+  &quot;dam&quot;: 9,
+  &quot;nem&quot;: 5
+ },
+ &quot;target&quot;: &quot;dam&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: mig init 5 and vot init 1.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: mig plus 3; vot plus 4; 3 repeat (mig times 9); if greater: vot, 1, (mig times 7) and (vot is set to 7).
+What is the final value for vot?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;mig&quot;: 4,
+  &quot;vot&quot;: 5
+ },
+ &quot;init&quot;: {
+  &quot;mig&quot;: 5,
+  &quot;vot&quot;: 1
+ },
+ &quot;target&quot;: &quot;vot&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: lub init 2 and naz init 3.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: lub plus 8, lub plus 2 and 4 repeat (lub plus 9).
+What is the final value for lub?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;lub&quot;: 8,
+  &quot;naz&quot;: 3
+ },
+ &quot;init&quot;: {
+  &quot;lub&quot;: 2,
+  &quot;naz&quot;: 3
+ },
+ &quot;target&quot;: &quot;lub&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: mug init 8 and tig init 9.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: tig times 3; 4 repeat (mug plus 7, tig is set to 3); mug plus 5.
+What is the final value for mug?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;mug&quot;: 1,
+  &quot;tig&quot;: 3
+ },
+ &quot;init&quot;: {
+  &quot;mug&quot;: 8,
+  &quot;tig&quot;: 9
+ },
+ &quot;target&quot;: &quot;mug&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: zar init 7 and vut init 4.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: vut is set to 7; 4 repeat (zar times 3); if greater: zar, 7, (vut times 7) and (zar times 3); zar plus 4.
+What is the final value for vut?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;vut&quot;: 7,
+  &quot;zar&quot;: 5
+ },
+ &quot;init&quot;: {
+  &quot;vut&quot;: 4,
+  &quot;zar&quot;: 7
+ },
+ &quot;target&quot;: &quot;vut&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: bum init 4 and lan init 2.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: bum plus 7; bum plus 6; if greater: bum, 2, (lan plus 4) and (lan times 3); 3 repeat (bum plus 8, bum plus 5).
+What is the final value for bum?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;bum&quot;: 6,
+  &quot;lan&quot;: 6
+ },
+ &quot;init&quot;: {
+  &quot;bum&quot;: 4,
+  &quot;lan&quot;: 2
+ },
+ &quot;target&quot;: &quot;bum&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: vup init 8 and vag init 7.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 2 repeat (vag plus 8, vag times 7); if greater: vag, 2, (vup plus 3) and (vup plus 8); vag times 3; vag plus 2.
+What is the final value for vag?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;vag&quot;: 5,
+  &quot;vup&quot;: 6
+ },
+ &quot;init&quot;: {
+  &quot;vag&quot;: 7,
+  &quot;vup&quot;: 8
+ },
+ &quot;target&quot;: &quot;vag&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: lop init 6 and sik init 3.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: sik is set to 1; if greater: lop, 3, (sik is set to 6) and (sik plus 9); sik plus 5; 3 repeat (sik is set to 5).
+What is the final value for lop?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;lop&quot;: 6,
+  &quot;sik&quot;: 5
+ },
+ &quot;init&quot;: {
+  &quot;lop&quot;: 6,
+  &quot;sik&quot;: 3
+ },
+ &quot;target&quot;: &quot;lop&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: nil init 1 and ses init 4.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: nil times 3; if greater: nil, 5, (ses times 3) and (ses is set to 1); nil times 9; 2 repeat (ses plus 1).
+What is the final value for nil?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;nil&quot;: 7,
+  &quot;ses&quot;: 3
+ },
+ &quot;init&quot;: {
+  &quot;nil&quot;: 1,
+  &quot;ses&quot;: 4
+ },
+ &quot;target&quot;: &quot;nil&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: saz init 6 and dig init 0.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: dig plus 3; 4 repeat (saz times 9, dig plus 3); saz plus 7; if greater: dig, 5, (dig plus 3) and (saz is set to 3).
+What is the final value for saz?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;dig&quot;: 5,
+  &quot;saz&quot;: 3
+ },
+ &quot;init&quot;: {
+  &quot;dig&quot;: 0,
+  &quot;saz&quot;: 6
+ },
+ &quot;target&quot;: &quot;saz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: tol init 3 and bes init 7.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: if greater: bes, 1, (bes plus 2) and (tol plus 8); tol plus 8; 2 repeat (bes is set to 7); bes plus 2.
+What is the final value for tol?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;bes&quot;: 9,
+  &quot;tol&quot;: 1
+ },
+ &quot;init&quot;: {
+  &quot;bes&quot;: 7,
+  &quot;tol&quot;: 3
+ },
+ &quot;target&quot;: &quot;tol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">9</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: zor init 5 and gol init 8.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 4 repeat (gol plus 1, zor plus 3); gol plus 2; if greater: zor, 5, (gol plus 4) and (gol plus 4); zor times 7.
+What is the final value for zor?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;gol&quot;: 8,
+  &quot;zor&quot;: 9
+ },
+ &quot;init&quot;: {
+  &quot;gol&quot;: 8,
+  &quot;zor&quot;: 5
+ },
+ &quot;target&quot;: &quot;zor&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: rol init 7 and rup init 0.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: rup plus 3; rup times 3; if greater: rol, 9, (rup is set to 3) and (rol plus 6); 4 repeat (rup plus 5).
+What is the final value for rol?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;rol&quot;: 3,
+  &quot;rup&quot;: 9
+ },
+ &quot;init&quot;: {
+  &quot;rol&quot;: 7,
+  &quot;rup&quot;: 0
+ },
+ &quot;target&quot;: &quot;rol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: tor init 2 and zen init 4.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: zen plus 6; 3 repeat (tor plus 5); if greater: tor, 1, (zen plus 6) and (tor times 3); zen plus 1.
+What is the final value for zen?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;tor&quot;: 7,
+  &quot;zen&quot;: 7
+ },
+ &quot;init&quot;: {
+  &quot;tor&quot;: 2,
+  &quot;zen&quot;: 4
+ },
+ &quot;target&quot;: &quot;zen&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: vom init 0 and tok init 3.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 2 repeat (tok times 3); tok plus 3; if greater: vom, 7, (vom times 9) and (vom plus 1); tok is set to 7.
+What is the final value for tok?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;tok&quot;: 7,
+  &quot;vom&quot;: 1
+ },
+ &quot;init&quot;: {
+  &quot;tok&quot;: 3,
+  &quot;vom&quot;: 0
+ },
+ &quot;target&quot;: &quot;tok&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: gin init 8 and kok init 5.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: if greater: gin, 2, (gin times 3) and (kok is set to 7); kok plus 8; gin is set to 0; 4 repeat (kok plus 9, kok times 7).
+What is the final value for kok?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;gin&quot;: 0,
+  &quot;kok&quot;: 3
+ },
+ &quot;init&quot;: {
+  &quot;gin&quot;: 8,
+  &quot;kok&quot;: 5
+ },
+ &quot;target&quot;: &quot;kok&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">9</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: sum init 7 and les init 5.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 4 repeat (sum times 3, les is set to 6); sum plus 7; if greater: les, 3, (sum times 9) and (sum plus 7); sum plus 3.
+What is the final value for sum?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;les&quot;: 6,
+  &quot;sum&quot;: 9
+ },
+ &quot;init&quot;: {
+  &quot;les&quot;: 5,
+  &quot;sum&quot;: 7
+ },
+ &quot;target&quot;: &quot;sum&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: nar init 1 and lan init 8.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: nar times 7; nar plus 7; 4 repeat (nar times 7); if greater: nar, 2, (nar plus 6) and (nar times 7).
+What is the final value for lan?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;lan&quot;: 8,
+  &quot;nar&quot;: 0
+ },
+ &quot;init&quot;: {
+  &quot;lan&quot;: 8,
+  &quot;nar&quot;: 1
+ },
+ &quot;target&quot;: &quot;lan&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: ter init 5 and min init 8.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: min plus 2; 2 repeat (min times 3, min is set to 3); ter is set to 4.
+What is the final value for min?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;min&quot;: 3,
+  &quot;ter&quot;: 4
+ },
+ &quot;init&quot;: {
+  &quot;min&quot;: 8,
+  &quot;ter&quot;: 5
+ },
+ &quot;target&quot;: &quot;min&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: pel init 0 and tar init 5.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: tar plus 4; if greater: tar, 1, (pel plus 5) and (pel times 7); pel times 3; 2 repeat (tar plus 8).
+What is the final value for pel?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;pel&quot;: 5,
+  &quot;tar&quot;: 5
+ },
+ &quot;init&quot;: {
+  &quot;pel&quot;: 0,
+  &quot;tar&quot;: 5
+ },
+ &quot;target&quot;: &quot;pel&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: mug init 1 and zel init 2.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 3 repeat (mug is set to 9, mug times 9); zel is set to 6; mug times 7; if greater: zel, 1, (zel is set to 8) and (zel is set to 6).
+What is the final value for mug?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;mug&quot;: 7,
+  &quot;zel&quot;: 8
+ },
+ &quot;init&quot;: {
+  &quot;mug&quot;: 1,
+  &quot;zel&quot;: 2
+ },
+ &quot;target&quot;: &quot;mug&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">5</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: sav init 4 and dub init 5.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: sav plus 4; 3 repeat (sav plus 6, dub plus 1); if greater: sav, 0, (sav plus 9) and (sav is set to 0); dub times 9.
+What is the final value for sav?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;dub&quot;: 2,
+  &quot;sav&quot;: 5
+ },
+ &quot;init&quot;: {
+  &quot;dub&quot;: 5,
+  &quot;sav&quot;: 4
+ },
+ &quot;target&quot;: &quot;sav&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">9</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: mut init 7 and dep init 7.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: mut plus 7, 2 repeat (mut plus 8) and dep times 7.
+What is the final value for dep?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;dep&quot;: 9,
+  &quot;mut&quot;: 0
+ },
+ &quot;init&quot;: {
+  &quot;dep&quot;: 7,
+  &quot;mut&quot;: 7
+ },
+ &quot;target&quot;: &quot;dep&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">9</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: pub init 9 and run init 4.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: run is set to 9, 2 repeat (pub plus 1) and pub plus 3.
+What is the final value for run?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;pub&quot;: 4,
+  &quot;run&quot;: 9
+ },
+ &quot;init&quot;: {
+  &quot;pub&quot;: 9,
+  &quot;run&quot;: 4
+ },
+ &quot;target&quot;: &quot;run&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: vug init 5 and lam init 2.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: 2 repeat (lam is set to 9); if greater: vug, 7, (vug is set to 3) and (lam plus 5); lam plus 4; vug plus 7.
+What is the final value for vug?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;lam&quot;: 8,
+  &quot;vug&quot;: 2
+ },
+ &quot;init&quot;: {
+  &quot;lam&quot;: 2,
+  &quot;vug&quot;: 5
+ },
+ &quot;target&quot;: &quot;vug&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: rem init 0 and zip init 7.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: zip plus 8; if greater: rem, 2, (zip is set to 6) and (rem plus 3); 4 repeat (rem is set to 6, zip times 7); zip plus 5.
+What is the final value for zip?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;rem&quot;: 6,
+  &quot;zip&quot;: 0
+ },
+ &quot;init&quot;: {
+  &quot;rem&quot;: 0,
+  &quot;zip&quot;: 7
+ },
+ &quot;target&quot;: &quot;zip&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: nur init 2 and gun init 7.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: nur is set to 2; gun plus 7; if greater: nur, 6, (gun is set to 5) and (nur plus 3); 4 repeat (nur plus 4).
+What is the final value for gun?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;gun&quot;: 4,
+  &quot;nur&quot;: 1
+ },
+ &quot;init&quot;: {
+  &quot;gun&quot;: 7,
+  &quot;nur&quot;: 2
+ },
+ &quot;target&quot;: &quot;gun&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: lid init 5 and pem init 0.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: if greater: lid, 7, (pem times 9) and (pem plus 4); 4 repeat (pem is set to 4, lid plus 5); lid plus 1; pem is set to 2.
+What is the final value for lid?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;lid&quot;: 6,
+  &quot;pem&quot;: 2
+ },
+ &quot;init&quot;: {
+  &quot;lid&quot;: 5,
+  &quot;pem&quot;: 0
+ },
+ &quot;target&quot;: &quot;lid&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">7</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: son init 0 and lab init 8.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: son plus 2; if greater: lab, 4, (son plus 5) and (son times 9); lab is set to 0; 3 repeat (lab is set to 7).
+What is the final value for son?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;lab&quot;: 7,
+  &quot;son&quot;: 7
+ },
+ &quot;init&quot;: {
+  &quot;lab&quot;: 8,
+  &quot;son&quot;: 0
+ },
+ &quot;target&quot;: &quot;son&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: luk init 7 and lok init 4.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: luk is set to 7, 3 repeat (luk plus 1) and luk plus 6.
+What is the final value for luk?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;lok&quot;: 4,
+  &quot;luk&quot;: 6
+ },
+ &quot;init&quot;: {
+  &quot;lok&quot;: 4,
+  &quot;luk&quot;: 7
+ },
+ &quot;target&quot;: &quot;luk&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The init: pos init 3 and bes init 2.
+The modulus is 10.
+The note is every assignment is taken mod m.
+The program is: bes is set to 4; if greater: pos, 2, (pos plus 7) and (pos times 9); 4 repeat (bes times 3); pos plus 2.
+What is the final value for pos?
+
+Answer with exactly one of: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;final&quot;: {
+  &quot;bes&quot;: 4,
+  &quot;pos&quot;: 2
+ },
+ &quot;init&quot;: {
+  &quot;bes&quot;: 2,
+  &quot;pos&quot;: 3
+ },
+ &quot;target&quot;: &quot;pos&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

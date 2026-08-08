@@ -1,0 +1,1871 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>paraphrase — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iii">language as action</a> &rsaquo;
+  paraphrase</p>
+<h1>#32 <code>paraphrase</code></h1>
+<p class="lede">semantic equivalence under voice and synonymy</p>
+<div class="tags"><span class="tag ">level 32</span><span class="tag ">section iii</span><span class="tag ">abstraction</span><span class="tag ">proof_search</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.275</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Same logical form, different surface: voice alternation plus a synonym.</p><p>    Each candidate is given as ``(form, w1, w2, w3)`` where ``form`` says how to
+    read the argument positions, so recovering the logical form is a symbolic
+    operation rather than string matching; the distractors keep the words and
+    change the roles, the verb, or the patient.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>ambiguity</td><td class='num'>2</td></tr><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>grammar_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The candidates are: candidate: c4, active, Dave, carries and Frank; candidate: c1, passive, Alice, sells and Dave; candidate: c3, active, Frank, carries and Dave; candidate: c2, active, Dave, paints and Frank.
+The sentence is sentence: passive, Frank, sells and Dave.
+The synonyms: sells synonym carries.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c2 | c4 | c3
+Reply with the answer only.</pre><h3>spanish</h3><pre>Los candidatos son: el candidato: c4, activo, David, llevar y Francisco; el candidato: c1, passive, Alicia, vender y David; el candidato: c3, activo, Francisco, llevar y David; el candidato: c2, activo, David, pintar y Francisco.
+La frase es la frase: passive, Francisco, vender y David.
+Los sinónimos son: vender es sinónimo de llevar.
+¿Cuál es una paráfrasis?
+
+Responde exactamente con una de estas opciones: c1 | c2 | c4 | c3
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>候选项如下：候选：c4、活跃、戴夫、携带和弗兰克；候选：c1、passive、爱丽丝、出售和戴夫；候选：c3、活跃、弗兰克、携带和戴夫；候选：c2、活跃、戴夫、粉刷和弗兰克。
+句子是句子：passive、弗兰克、出售和戴夫。
+同义词如下：出售的同义词是携带。
+哪一个是同义改写？
+
+请从以下选项中选出恰好一个作答：c1 | c2 | c4 | c3
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The candidates are: candidate: c4, active, Dave, carries and Frank; candidate: c1, passive, Alice, sells and Dave; candidate: c3, active, Frank, carries and Dave; candidate: c2, active, Dave, paints and Frank.
+The sentence is sentence: passive, Frank, sells and Dave.
+The synonyms: sells synonym carries.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c2 | c4 | c3
+Reply with the answer only.</pre><h3>symbols</h3><pre>{candidates: [(candidate c4 active dave carries frank) (candidate c1 passive alice sells dave) (candidate c3 active frank carries dave) (candidate c2 active dave paints frank)], query: which_is_a_paraphrase, sentence: (sentence passive frank sells dave), synonyms: [(synonym sells carries)]}
+
+Answer with exactly one of: c1 | c2 | c4 | c3
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/paraphrase.jsonl</code> &middot; <code>data/samples/spanish/paraphrase.jsonl</code> &middot; <code>data/samples/chinese/paraphrase.jsonl</code> &middot; <code>data/samples/english_synonym/paraphrase.jsonl</code> &middot; <code>data/samples/symbols/paraphrase.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">c4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, active, Dave, carries and Frank; candidate: c1, passive, Alice, sells and Dave; candidate: c3, active, Frank, carries and Dave; candidate: c2, active, Dave, paints and Frank.
+The sentence is sentence: passive, Frank, sells and Dave.
+The synonyms: sells synonym carries.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c2 | c4 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;synonym&quot;: &quot;carries&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, active, Bob, likes and Erin; candidate: c4, active, Erin, likes and Bob; candidate: c1, active, Bob, paints and Erin; candidate: c2, passive, Alice, sells and Bob.
+The sentence is sentence: passive, Erin, sells and Bob.
+The synonyms: sells synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c1 | c4 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, passive, Erin, sells and Alice; candidate: c3, active, Alice, reads and Frank; candidate: c4, active, Alice, builds and Frank; candidate: c2, active, Frank, reads and Alice.
+The sentence is sentence: passive, Frank, sells and Alice.
+The synonyms: sells synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c3 | c2 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, active, Bob, sells and Frank; candidate: c4, passive, Erin, paints and Bob; candidate: c1, passive, Bob, carries and Erin; candidate: c2, passive, Erin, carries and Bob.
+The sentence is sentence: active, Bob, sells and Erin.
+The synonyms: sells synonym carries.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c3 | c4 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;carries&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">c4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, passive, Bob, paints and Carol; candidate: c2, passive, Carol, carries and Bob; candidate: c3, active, Bob, builds and Alice; candidate: c4, passive, Carol, paints and Bob.
+The sentence is sentence: active, Bob, builds and Carol.
+The synonyms: builds synonym paints.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c2 | c4 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;paints&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">c4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, passive, Frank, builds and Erin; candidate: c4, active, Erin, carries and Carol; candidate: c1, active, Erin, likes and Carol; candidate: c2, active, Carol, carries and Erin.
+The sentence is sentence: passive, Carol, builds and Erin.
+The synonyms: builds synonym carries.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c4 | c3 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;carries&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">c4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, passive, Alice, likes and Erin; candidate: c2, passive, Erin, likes and Alice; candidate: c1, passive, Alice, carries and Erin; candidate: c3, active, Erin, sells and Dave.
+The sentence is sentence: active, Erin, sells and Alice.
+The synonyms: sells synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c2 | c4 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, passive, Carol, likes and Bob; candidate: c3, passive, Bob, likes and Carol; candidate: c1, active, Carol, builds and Dave; candidate: c2, passive, Bob, carries and Carol.
+The sentence is sentence: active, Carol, builds and Bob.
+The synonyms: builds synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c4 | c3 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, active, Bob, reads and Dave; candidate: c1, passive, Carol, likes and Bob; candidate: c3, passive, Carol, builds and Bob; candidate: c4, passive, Bob, builds and Carol.
+The sentence is sentence: active, Bob, reads and Carol.
+The synonyms: reads synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c3 | c1 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, passive, Erin, reads and Dave; candidate: c4, passive, Dave, reads and Erin; candidate: c2, active, Dave, sells and Carol; candidate: c1, passive, Erin, carries and Dave.
+The sentence is sentence: active, Dave, sells and Erin.
+The synonyms: sells synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c4 | c3 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, passive, Alice, carries and Erin; candidate: c4, passive, Alice, likes and Erin; candidate: c1, passive, Erin, carries and Alice; candidate: c2, active, Erin, paints and Dave.
+The sentence is sentence: active, Erin, paints and Alice.
+The synonyms: paints synonym carries.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c2 | c3 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;carries&quot;,
+ &quot;verb&quot;: &quot;paints&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, passive, Dave, carries and Erin; candidate: c3, passive, Erin, carries and Dave; candidate: c2, passive, Erin, reads and Dave; candidate: c1, active, Dave, paints and Frank.
+The sentence is sentence: active, Dave, paints and Erin.
+The synonyms: paints synonym carries.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c2 | c4 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;carries&quot;,
+ &quot;verb&quot;: &quot;paints&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">c4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, active, Dave, paints and Carol; candidate: c1, active, Dave, likes and Carol; candidate: c3, active, Carol, paints and Dave; candidate: c2, passive, Erin, reads and Dave.
+The sentence is sentence: passive, Carol, reads and Dave.
+The synonyms: reads synonym paints.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c3 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;paints&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, active, Carol, builds and Bob; candidate: c4, passive, Frank, carries and Carol; candidate: c3, passive, Frank, reads and Carol; candidate: c2, passive, Carol, reads and Frank.
+The sentence is sentence: active, Carol, builds and Frank.
+The synonyms: builds synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c2 | c4 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, passive, Erin, builds and Alice; candidate: c1, passive, Erin, carries and Alice; candidate: c2, passive, Alice, builds and Erin; candidate: c4, active, Alice, sells and Bob.
+The sentence is sentence: active, Alice, sells and Erin.
+The synonyms: sells synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c1 | c3 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, passive, Alice, builds and Bob; candidate: c4, active, Bob, reads and Erin; candidate: c1, passive, Alice, likes and Bob; candidate: c2, passive, Bob, builds and Alice.
+The sentence is sentence: active, Bob, reads and Alice.
+The synonyms: reads synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c4 | c1 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, passive, Erin, sells and Carol; candidate: c1, active, Carol, reads and Dave; candidate: c3, active, Dave, paints and Carol; candidate: c2, active, Carol, paints and Dave.
+The sentence is sentence: passive, Dave, sells and Carol.
+The synonyms: sells synonym paints.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c3 | c1 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;synonym&quot;: &quot;paints&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">c4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, active, Dave, builds and Erin; candidate: c2, active, Erin, reads and Dave; candidate: c3, passive, Carol, sells and Erin; candidate: c4, active, Erin, builds and Dave.
+The sentence is sentence: passive, Dave, sells and Erin.
+The synonyms: sells synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c2 | c4 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, active, Bob, carries and Alice; candidate: c4, active, Alice, reads and Bob; candidate: c2, active, Bob, reads and Alice; candidate: c3, passive, Dave, sells and Bob.
+The sentence is sentence: passive, Alice, sells and Bob.
+The synonyms: sells synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c1 | c3 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, active, Alice, reads and Frank; candidate: c2, active, Frank, reads and Alice; candidate: c1, passive, Erin, carries and Frank; candidate: c3, active, Frank, paints and Alice.
+The sentence is sentence: passive, Alice, carries and Frank.
+The synonyms: carries synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c1 | c2 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;carries&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, active, Frank, builds and Carol; candidate: c3, passive, Bob, sells and Frank; candidate: c4, passive, Frank, likes and Bob; candidate: c1, passive, Bob, likes and Frank.
+The sentence is sentence: active, Frank, builds and Bob.
+The synonyms: builds synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c1 | c3 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, passive, Bob, sells and Dave; candidate: c3, passive, Dave, sells and Bob; candidate: c1, passive, Dave, paints and Bob; candidate: c2, active, Bob, builds and Erin.
+The sentence is sentence: active, Bob, builds and Dave.
+The synonyms: builds synonym sells.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c3 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;synonym&quot;: &quot;sells&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, passive, Bob, paints and Frank; candidate: c2, active, Bob, carries and Alice; candidate: c1, passive, Frank, paints and Bob; candidate: c3, passive, Frank, reads and Bob.
+The sentence is sentence: active, Bob, carries and Frank.
+The synonyms: carries synonym paints.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c3 | c1 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;synonym&quot;: &quot;paints&quot;,
+ &quot;verb&quot;: &quot;carries&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, active, Alice, sells and Carol; candidate: c1, passive, Erin, carries and Carol; candidate: c2, active, Carol, sells and Alice; candidate: c3, active, Carol, paints and Alice.
+The sentence is sentence: passive, Alice, carries and Carol.
+The synonyms: carries synonym sells.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c3 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;sells&quot;,
+ &quot;verb&quot;: &quot;carries&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, passive, Frank, builds and Dave; candidate: c1, active, Frank, reads and Bob; candidate: c4, passive, Dave, carries and Frank; candidate: c3, passive, Dave, builds and Frank.
+The sentence is sentence: active, Frank, reads and Dave.
+The synonyms: reads synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c2 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, passive, Bob, sells and Dave; candidate: c4, active, Dave, likes and Alice; candidate: c3, active, Alice, paints and Dave; candidate: c1, active, Dave, paints and Alice.
+The sentence is sentence: passive, Alice, sells and Dave.
+The synonyms: sells synonym paints.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c1 | c3 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;paints&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, passive, Frank, carries and Bob; candidate: c2, passive, Bob, likes and Frank; candidate: c1, passive, Bob, carries and Frank; candidate: c4, active, Frank, paints and Erin.
+The sentence is sentence: active, Frank, paints and Bob.
+The synonyms: paints synonym carries.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c3 | c1 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;synonym&quot;: &quot;carries&quot;,
+ &quot;verb&quot;: &quot;paints&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, passive, Dave, reads and Frank; candidate: c4, passive, Frank, reads and Dave; candidate: c2, active, Frank, sells and Carol; candidate: c3, passive, Dave, likes and Frank.
+The sentence is sentence: active, Frank, sells and Dave.
+The synonyms: sells synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c2 | c1 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, passive, Erin, reads and Alice; candidate: c3, active, Alice, paints and Bob; candidate: c1, active, Alice, builds and Bob; candidate: c4, active, Bob, builds and Alice.
+The sentence is sentence: passive, Bob, reads and Alice.
+The synonyms: reads synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c1 | c2 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, passive, Alice, builds and Erin; candidate: c3, active, Erin, carries and Carol; candidate: c4, passive, Erin, builds and Alice; candidate: c1, passive, Alice, sells and Erin.
+The sentence is sentence: active, Erin, carries and Alice.
+The synonyms: carries synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c2 | c4 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;carries&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">c4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, passive, Carol, sells and Erin; candidate: c4, passive, Carol, reads and Erin; candidate: c2, passive, Erin, reads and Carol; candidate: c1, active, Erin, carries and Alice.
+The sentence is sentence: active, Erin, carries and Carol.
+The synonyms: carries synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c2 | c3 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;carries&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, passive, Alice, reads and Dave; candidate: c3, active, Alice, paints and Frank; candidate: c1, passive, Dave, likes and Alice; candidate: c2, passive, Dave, reads and Alice.
+The sentence is sentence: active, Alice, paints and Dave.
+The synonyms: paints synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c1 | c2 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;paints&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, passive, Bob, paints and Alice; candidate: c2, passive, Alice, reads and Bob; candidate: c1, active, Alice, sells and Erin; candidate: c3, passive, Bob, reads and Alice.
+The sentence is sentence: active, Alice, sells and Bob.
+The synonyms: sells synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c4 | c3 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">c4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, active, Erin, paints and Bob; candidate: c3, active, Erin, reads and Bob; candidate: c2, active, Bob, paints and Erin; candidate: c1, passive, Frank, sells and Erin.
+The sentence is sentence: passive, Bob, sells and Erin.
+The synonyms: sells synonym paints.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c3 | c1 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;synonym&quot;: &quot;paints&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, passive, Alice, reads and Erin; candidate: c4, active, Erin, paints and Carol; candidate: c1, active, Carol, likes and Erin; candidate: c3, active, Erin, likes and Carol.
+The sentence is sentence: passive, Carol, reads and Erin.
+The synonyms: reads synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c1 | c4 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, active, Erin, reads and Carol; candidate: c2, active, Erin, sells and Carol; candidate: c4, active, Carol, sells and Erin; candidate: c3, passive, Bob, builds and Erin.
+The sentence is sentence: passive, Carol, builds and Erin.
+The synonyms: builds synonym sells.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c3 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;sells&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, passive, Alice, likes and Carol; candidate: c2, passive, Alice, carries and Carol; candidate: c4, active, Carol, sells and Erin; candidate: c3, passive, Carol, likes and Alice.
+The sentence is sentence: active, Carol, sells and Alice.
+The synonyms: sells synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c2 | c4 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, active, Erin, builds and Frank; candidate: c2, active, Frank, builds and Erin; candidate: c3, active, Frank, likes and Erin; candidate: c4, passive, Alice, carries and Frank.
+The sentence is sentence: passive, Erin, carries and Frank.
+The synonyms: carries synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c2 | c3 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;carries&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">c4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, active, Frank, carries and Dave; candidate: c4, active, Frank, likes and Dave; candidate: c3, active, Dave, likes and Frank; candidate: c2, passive, Erin, builds and Frank.
+The sentence is sentence: passive, Dave, builds and Frank.
+The synonyms: builds synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c2 | c4 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, passive, Dave, likes and Bob; candidate: c1, active, Carol, reads and Bob; candidate: c4, active, Bob, carries and Carol; candidate: c3, active, Bob, reads and Carol.
+The sentence is sentence: passive, Carol, likes and Bob.
+The synonyms: likes synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c3 | c1 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;likes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, passive, Erin, sells and Dave; candidate: c4, active, Dave, reads and Alice; candidate: c3, passive, Dave, sells and Erin; candidate: c1, passive, Erin, builds and Dave.
+The sentence is sentence: active, Dave, reads and Erin.
+The synonyms: reads synonym sells.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c1 | c3 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;sells&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, active, Carol, paints and Dave; candidate: c1, active, Dave, paints and Carol; candidate: c3, active, Dave, sells and Carol; candidate: c2, passive, Bob, reads and Dave.
+The sentence is sentence: passive, Carol, reads and Dave.
+The synonyms: reads synonym paints.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c3 | c4 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;paints&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, active, Frank, builds and Erin; candidate: c2, passive, Alice, sells and Frank; candidate: c3, passive, Alice, reads and Frank; candidate: c1, passive, Frank, sells and Alice.
+The sentence is sentence: active, Frank, builds and Alice.
+The synonyms: builds synonym sells.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c3 | c1 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;sells&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, active, Carol, sells and Alice; candidate: c2, active, Alice, sells and Carol; candidate: c3, active, Alice, likes and Carol; candidate: c4, passive, Bob, paints and Alice.
+The sentence is sentence: passive, Carol, paints and Alice.
+The synonyms: paints synonym sells.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c1 | c2 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;sells&quot;,
+ &quot;verb&quot;: &quot;paints&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, active, Erin, paints and Dave; candidate: c3, active, Dave, builds and Erin; candidate: c4, passive, Alice, reads and Dave; candidate: c1, active, Dave, paints and Erin.
+The sentence is sentence: passive, Erin, reads and Dave.
+The synonyms: reads synonym paints.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c3 | c1 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;paints&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, active, Carol, builds and Dave; candidate: c2, active, Dave, likes and Carol; candidate: c4, passive, Erin, sells and Carol; candidate: c1, active, Carol, likes and Dave.
+The sentence is sentence: passive, Dave, sells and Carol.
+The synonyms: sells synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c1 | c2 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, passive, Alice, builds and Dave; candidate: c1, passive, Dave, reads and Alice; candidate: c4, active, Alice, carries and Frank; candidate: c3, passive, Dave, builds and Alice.
+The sentence is sentence: active, Alice, carries and Dave.
+The synonyms: carries synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c1 | c3 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;carries&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, active, Carol, sells and Alice; candidate: c1, active, Carol, paints and Alice; candidate: c3, active, Alice, paints and Carol; candidate: c4, passive, Dave, carries and Carol.
+The sentence is sentence: passive, Alice, carries and Carol.
+The synonyms: carries synonym paints.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c1 | c4 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;paints&quot;,
+ &quot;verb&quot;: &quot;carries&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, passive, Erin, builds and Carol; candidate: c4, passive, Carol, sells and Erin; candidate: c2, passive, Carol, builds and Erin; candidate: c1, active, Erin, carries and Bob.
+The sentence is sentence: active, Erin, carries and Carol.
+The synonyms: carries synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c3 | c2 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;carries&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, active, Alice, likes and Dave; candidate: c4, passive, Alice, sells and Carol; candidate: c3, passive, Carol, sells and Alice; candidate: c1, passive, Carol, builds and Alice.
+The sentence is sentence: active, Alice, likes and Carol.
+The synonyms: likes synonym sells.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c4 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;sells&quot;,
+ &quot;verb&quot;: &quot;likes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, passive, Erin, builds and Dave; candidate: c1, active, Carol, reads and Dave; candidate: c3, active, Dave, paints and Carol; candidate: c2, active, Dave, reads and Carol.
+The sentence is sentence: passive, Carol, builds and Dave.
+The synonyms: builds synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c4 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, active, Bob, builds and Erin; candidate: c4, active, Erin, builds and Bob; candidate: c2, active, Bob, sells and Erin; candidate: c3, passive, Frank, reads and Bob.
+The sentence is sentence: passive, Erin, reads and Bob.
+The synonyms: reads synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c1 | c2 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, passive, Alice, likes and Carol; candidate: c1, passive, Alice, paints and Carol; candidate: c2, active, Carol, sells and Dave; candidate: c3, passive, Carol, paints and Alice.
+The sentence is sentence: active, Carol, sells and Alice.
+The synonyms: sells synonym paints.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c1 | c2 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;paints&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, active, Bob, paints and Erin; candidate: c1, active, Erin, sells and Bob; candidate: c4, passive, Dave, carries and Erin; candidate: c3, active, Erin, paints and Bob.
+The sentence is sentence: passive, Bob, carries and Erin.
+The synonyms: carries synonym paints.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c2 | c3 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;synonym&quot;: &quot;paints&quot;,
+ &quot;verb&quot;: &quot;carries&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">c4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, passive, Dave, builds and Bob; candidate: c1, passive, Dave, carries and Bob; candidate: c3, passive, Bob, builds and Dave; candidate: c2, active, Bob, paints and Carol.
+The sentence is sentence: active, Bob, paints and Dave.
+The synonyms: paints synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c3 | c1 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;paints&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, active, Alice, builds and Erin; candidate: c2, passive, Alice, sells and Bob; candidate: c3, passive, Bob, sells and Alice; candidate: c4, passive, Bob, likes and Alice.
+The sentence is sentence: active, Alice, builds and Bob.
+The synonyms: builds synonym sells.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c2 | c3 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;synonym&quot;: &quot;sells&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, active, Erin, sells and Alice; candidate: c3, passive, Dave, builds and Erin; candidate: c2, active, Erin, carries and Alice; candidate: c1, active, Alice, carries and Erin.
+The sentence is sentence: passive, Alice, builds and Erin.
+The synonyms: builds synonym carries.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c2 | c4 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;carries&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, active, Alice, carries and Carol; candidate: c4, passive, Frank, reads and Alice; candidate: c3, active, Carol, carries and Alice; candidate: c1, active, Alice, sells and Carol.
+The sentence is sentence: passive, Carol, reads and Alice.
+The synonyms: reads synonym carries.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c1 | c4 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;carries&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, passive, Bob, reads and Erin; candidate: c4, passive, Bob, likes and Erin; candidate: c2, passive, Erin, reads and Bob; candidate: c3, active, Erin, builds and Frank.
+The sentence is sentence: active, Erin, builds and Bob.
+The synonyms: builds synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c1 | c4 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">c4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, active, Bob, likes and Dave; candidate: c2, passive, Alice, sells and Bob; candidate: c3, passive, Bob, reads and Alice; candidate: c4, passive, Alice, reads and Bob.
+The sentence is sentence: active, Bob, likes and Alice.
+The synonyms: likes synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c4 | c3 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;likes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, active, Frank, reads and Carol; candidate: c4, passive, Bob, sells and Carol; candidate: c1, active, Carol, reads and Frank; candidate: c2, active, Carol, paints and Frank.
+The sentence is sentence: passive, Frank, sells and Carol.
+The synonyms: sells synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c1 | c2 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">c4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, passive, Bob, builds and Dave; candidate: c3, passive, Bob, carries and Dave; candidate: c2, passive, Dave, builds and Bob; candidate: c1, active, Dave, sells and Erin.
+The sentence is sentence: active, Dave, sells and Bob.
+The synonyms: sells synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c3 | c4 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">c4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, passive, Alice, reads and Erin; candidate: c4, active, Erin, paints and Bob; candidate: c1, active, Erin, sells and Bob; candidate: c2, active, Bob, paints and Erin.
+The sentence is sentence: passive, Bob, reads and Erin.
+The synonyms: reads synonym paints.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c1 | c3 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;synonym&quot;: &quot;paints&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, active, Frank, paints and Dave; candidate: c2, active, Dave, likes and Frank; candidate: c1, passive, Carol, sells and Dave; candidate: c3, active, Dave, paints and Frank.
+The sentence is sentence: passive, Frank, sells and Dave.
+The synonyms: sells synonym paints.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c1 | c3 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;synonym&quot;: &quot;paints&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, passive, Frank, carries and Dave; candidate: c3, active, Dave, likes and Alice; candidate: c2, active, Dave, reads and Alice; candidate: c1, active, Alice, likes and Dave.
+The sentence is sentence: passive, Alice, carries and Dave.
+The synonyms: carries synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c4 | c2 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;carries&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, active, Dave, reads and Carol; candidate: c3, active, Carol, reads and Dave; candidate: c1, active, Dave, paints and Carol; candidate: c4, passive, Erin, carries and Dave.
+The sentence is sentence: passive, Carol, carries and Dave.
+The synonyms: carries synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c2 | c3 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;carries&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, passive, Dave, reads and Alice; candidate: c1, active, Carol, paints and Alice; candidate: c4, active, Alice, sells and Carol; candidate: c2, active, Alice, paints and Carol.
+The sentence is sentence: passive, Carol, reads and Alice.
+The synonyms: reads synonym paints.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c1 | c4 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;paints&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">c4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, active, Alice, builds and Frank; candidate: c1, active, Frank, builds and Alice; candidate: c3, active, Alice, sells and Frank; candidate: c2, passive, Dave, paints and Alice.
+The sentence is sentence: passive, Frank, paints and Alice.
+The synonyms: paints synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c4 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;paints&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, active, Frank, builds and Dave; candidate: c2, active, Frank, reads and Dave; candidate: c3, active, Dave, builds and Frank; candidate: c4, passive, Alice, carries and Frank.
+The sentence is sentence: passive, Dave, carries and Frank.
+The synonyms: carries synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c1 | c3 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;carries&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, active, Frank, likes and Alice; candidate: c2, active, Frank, sells and Alice; candidate: c3, active, Alice, likes and Frank; candidate: c4, passive, Erin, reads and Frank.
+The sentence is sentence: passive, Alice, reads and Frank.
+The synonyms: reads synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c2 | c1 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, active, Alice, paints and Dave; candidate: c1, passive, Carol, reads and Alice; candidate: c2, passive, Carol, sells and Alice; candidate: c4, passive, Alice, reads and Carol.
+The sentence is sentence: active, Alice, paints and Carol.
+The synonyms: paints synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c3 | c2 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;paints&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, active, Erin, reads and Carol; candidate: c1, active, Carol, carries and Erin; candidate: c3, passive, Alice, sells and Carol; candidate: c2, active, Carol, reads and Erin.
+The sentence is sentence: passive, Erin, sells and Carol.
+The synonyms: sells synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c4 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, active, Alice, carries and Erin; candidate: c1, passive, Bob, sells and Alice; candidate: c4, active, Alice, builds and Erin; candidate: c2, active, Erin, carries and Alice.
+The sentence is sentence: passive, Erin, sells and Alice.
+The synonyms: sells synonym carries.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c2 | c4 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;carries&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, passive, Dave, carries and Carol; candidate: c1, active, Carol, paints and Alice; candidate: c4, active, Alice, reads and Carol; candidate: c2, active, Carol, reads and Alice.
+The sentence is sentence: passive, Alice, carries and Carol.
+The synonyms: carries synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c4 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;carries&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, passive, Frank, builds and Erin; candidate: c3, passive, Frank, likes and Erin; candidate: c2, active, Erin, sells and Alice; candidate: c4, passive, Erin, likes and Frank.
+The sentence is sentence: active, Erin, sells and Frank.
+The synonyms: sells synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c3 | c1 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, passive, Frank, paints and Dave; candidate: c3, active, Erin, likes and Dave; candidate: c2, active, Dave, builds and Erin; candidate: c1, active, Dave, likes and Erin.
+The sentence is sentence: passive, Erin, paints and Dave.
+The synonyms: paints synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c3 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;paints&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, active, Carol, sells and Dave; candidate: c1, active, Carol, likes and Dave; candidate: c2, passive, Erin, reads and Carol; candidate: c4, active, Dave, sells and Carol.
+The sentence is sentence: passive, Dave, reads and Carol.
+The synonyms: reads synonym sells.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c2 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;synonym&quot;: &quot;sells&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, active, Frank, builds and Carol; candidate: c1, active, Carol, builds and Frank; candidate: c3, active, Carol, likes and Frank; candidate: c2, passive, Bob, reads and Carol.
+The sentence is sentence: passive, Frank, reads and Carol.
+The synonyms: reads synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c1 | c4 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, passive, Alice, sells and Bob; candidate: c4, active, Bob, builds and Carol; candidate: c3, passive, Alice, paints and Bob; candidate: c2, passive, Bob, sells and Alice.
+The sentence is sentence: active, Bob, builds and Alice.
+The synonyms: builds synonym sells.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c1 | c3 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;sells&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, passive, Bob, reads and Dave; candidate: c4, passive, Dave, builds and Bob; candidate: c1, passive, Dave, reads and Bob; candidate: c3, active, Bob, carries and Carol.
+The sentence is sentence: active, Bob, carries and Dave.
+The synonyms: carries synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c4 | c1 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;carries&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, passive, Erin, sells and Carol; candidate: c1, active, Dave, builds and Carol; candidate: c3, active, Carol, paints and Dave; candidate: c2, active, Carol, builds and Dave.
+The sentence is sentence: passive, Dave, sells and Carol.
+The synonyms: sells synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c3 | c4 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">c4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, active, Dave, builds and Erin; candidate: c1, active, Erin, paints and Dave; candidate: c3, passive, Carol, carries and Erin; candidate: c4, active, Erin, builds and Dave.
+The sentence is sentence: passive, Dave, carries and Erin.
+The synonyms: carries synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c4 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;carries&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, active, Bob, reads and Carol; candidate: c2, passive, Dave, sells and Bob; candidate: c4, passive, Bob, builds and Dave; candidate: c1, passive, Dave, builds and Bob.
+The sentence is sentence: active, Bob, reads and Dave.
+The synonyms: reads synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c1 | c3 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, active, Dave, reads and Alice; candidate: c4, passive, Frank, likes and Dave; candidate: c1, passive, Frank, paints and Dave; candidate: c3, passive, Dave, paints and Frank.
+The sentence is sentence: active, Dave, reads and Frank.
+The synonyms: reads synonym paints.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c4 | c2 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;synonym&quot;: &quot;paints&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, passive, Carol, likes and Frank; candidate: c4, passive, Carol, sells and Frank; candidate: c3, passive, Frank, likes and Carol; candidate: c2, active, Frank, paints and Alice.
+The sentence is sentence: active, Frank, paints and Carol.
+The synonyms: paints synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c3 | c4 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;frank&quot;,
+ &quot;patient&quot;: &quot;carol&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;paints&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, active, Erin, reads and Bob; candidate: c1, active, Bob, reads and Erin; candidate: c3, passive, Alice, sells and Bob; candidate: c4, active, Bob, carries and Erin.
+The sentence is sentence: passive, Erin, sells and Bob.
+The synonyms: sells synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c1 | c3 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, active, Erin, likes and Alice; candidate: c1, active, Alice, carries and Erin; candidate: c2, active, Alice, likes and Erin; candidate: c4, passive, Carol, builds and Alice.
+The sentence is sentence: passive, Erin, builds and Alice.
+The synonyms: builds synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c4 | c3 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, active, Bob, sells and Alice; candidate: c2, passive, Bob, builds and Frank; candidate: c1, passive, Frank, builds and Bob; candidate: c4, passive, Frank, carries and Bob.
+The sentence is sentence: active, Bob, sells and Frank.
+The synonyms: sells synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c4 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, active, Bob, likes and Dave; candidate: c4, active, Dave, carries and Bob; candidate: c3, active, Dave, likes and Bob; candidate: c1, passive, Carol, reads and Dave.
+The sentence is sentence: passive, Bob, reads and Dave.
+The synonyms: reads synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c3 | c1 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, passive, Erin, likes and Alice; candidate: c2, passive, Erin, sells and Alice; candidate: c4, passive, Alice, sells and Erin; candidate: c3, active, Alice, reads and Carol.
+The sentence is sentence: active, Alice, reads and Erin.
+The synonyms: reads synonym sells.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c3 | c4 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;sells&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, active, Bob, carries and Alice; candidate: c4, active, Alice, carries and Bob; candidate: c2, active, Bob, sells and Alice; candidate: c3, passive, Dave, builds and Bob.
+The sentence is sentence: passive, Alice, builds and Bob.
+The synonyms: builds synonym carries.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c3 | c1 | c2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;alice&quot;,
+ &quot;synonym&quot;: &quot;carries&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, active, Alice, reads and Erin; candidate: c4, active, Alice, paints and Erin; candidate: c1, active, Erin, reads and Alice; candidate: c3, passive, Bob, builds and Alice.
+The sentence is sentence: passive, Erin, builds and Alice.
+The synonyms: builds synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c2 | c4 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;alice&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, active, Dave, builds and Carol; candidate: c3, passive, Dave, likes and Erin; candidate: c4, passive, Erin, paints and Dave; candidate: c1, passive, Erin, likes and Dave.
+The sentence is sentence: active, Dave, builds and Erin.
+The synonyms: builds synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c2 | c4 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;builds&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, passive, Erin, sells and Dave; candidate: c1, passive, Erin, builds and Dave; candidate: c3, active, Dave, likes and Carol; candidate: c2, passive, Dave, builds and Erin.
+The sentence is sentence: active, Dave, likes and Erin.
+The synonyms: likes synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c1 | c3 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;likes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">c1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c1, passive, Bob, builds and Erin; candidate: c2, passive, Bob, paints and Erin; candidate: c3, passive, Erin, builds and Bob; candidate: c4, active, Erin, sells and Alice.
+The sentence is sentence: active, Erin, sells and Bob.
+The synonyms: sells synonym builds.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c4 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;bob&quot;,
+ &quot;synonym&quot;: &quot;builds&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, active, Erin, paints and Bob; candidate: c3, passive, Erin, likes and Frank; candidate: c1, passive, Frank, reads and Erin; candidate: c2, passive, Frank, likes and Erin.
+The sentence is sentence: active, Erin, paints and Frank.
+The synonyms: paints synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c2 | c1 | c3 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;erin&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;paints&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c4, passive, Frank, sells and Carol; candidate: c2, passive, Carol, likes and Frank; candidate: c1, active, Carol, reads and Dave; candidate: c3, passive, Frank, likes and Carol.
+The sentence is sentence: active, Carol, reads and Frank.
+The synonyms: reads synonym likes.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c3 | c2 | c1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;synonym&quot;: &quot;likes&quot;,
+ &quot;verb&quot;: &quot;reads&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, active, Bob, likes and Carol; candidate: c4, passive, Bob, carries and Dave; candidate: c1, passive, Dave, builds and Bob; candidate: c3, passive, Dave, carries and Bob.
+The sentence is sentence: active, Bob, likes and Dave.
+The synonyms: likes synonym carries.
+Which is a paraphrase?
+
+Answer with exactly one of: c1 | c2 | c4 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;bob&quot;,
+ &quot;patient&quot;: &quot;dave&quot;,
+ &quot;synonym&quot;: &quot;carries&quot;,
+ &quot;verb&quot;: &quot;likes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">c2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c3, active, Erin, paints and Carol; candidate: c2, active, Carol, paints and Erin; candidate: c1, passive, Alice, sells and Carol; candidate: c4, active, Carol, likes and Erin.
+The sentence is sentence: passive, Erin, sells and Carol.
+The synonyms: sells synonym paints.
+Which is a paraphrase?
+
+Answer with exactly one of: c4 | c2 | c1 | c3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;carol&quot;,
+ &quot;patient&quot;: &quot;erin&quot;,
+ &quot;synonym&quot;: &quot;paints&quot;,
+ &quot;verb&quot;: &quot;sells&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">c3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: c2, passive, Frank, builds and Dave; candidate: c1, active, Dave, carries and Bob; candidate: c3, passive, Frank, reads and Dave; candidate: c4, passive, Dave, reads and Frank.
+The sentence is sentence: active, Dave, carries and Frank.
+The synonyms: carries synonym reads.
+Which is a paraphrase?
+
+Answer with exactly one of: c3 | c1 | c2 | c4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;agent&quot;: &quot;dave&quot;,
+ &quot;patient&quot;: &quot;frank&quot;,
+ &quot;synonym&quot;: &quot;reads&quot;,
+ &quot;verb&quot;: &quot;carries&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

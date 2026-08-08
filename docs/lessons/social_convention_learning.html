@@ -1,0 +1,3000 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>social_convention_learning — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iv">analogy, causality, planning, and programs</a> &rsaquo;
+  social_convention_learning</p>
+<h1>#51 <code>social_convention_learning</code></h1>
+<p class="lede">arbitrary conventions fixed in-episode</p>
+<div class="tags"><span class="tag ">level 51</span><span class="tag ">section iv</span><span class="tag ">multi_agent_coordination</span><span class="tag ">ontology_learning</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.205</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>An arbitrary signal→action pairing, recoverable only from the episode.</p><p>    The convention is a fresh random bijection each episode, so there is nothing
+    to memorize across episodes; and the queried signal is never demonstrated
+    successfully, so the answer is not a lookup. It follows from the convention
+    being *shared and exclusive*: three signals are pinned by successful trials,
+    the failed trials rule out more, and one action is left for the fourth signal.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>ambiguity</td><td class='num'>2</td></tr><tr><td>lexical_novelty</td><td class='num'>4</td></tr><tr><td>reasoning_depth</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>What happened before:
+  - trial 0: pzv push fail
+  - trial 1: pzv turn fail
+  - trial 2: lsr lift ok
+  - trial 3: zrv lift fail
+  - trial 4: zrv push ok
+  - trial 5: ppk turn ok
+  - trial 6: lsr close fail
+  - trial 7: ppk lift fail
+The repertoire: turn, lift, push and close.
+What should be done about pzv?
+
+Answer with exactly one of: turn | lift | close | push
+Reply with the answer only.</pre><h3>spanish</h3><pre>Lo que ocurrió antes:
+  - el ensayo: 0, pzv, empujar y fail
+  - el ensayo: 1, pzv, girar y fail
+  - el ensayo: 2, lsr, levantar y ok
+  - el ensayo: 3, zrv, levantar y fail
+  - el ensayo: 4, zrv, empujar y ok
+  - el ensayo: 5, ppk, girar y ok
+  - el ensayo: 6, lsr, cerrar y fail
+  - el ensayo: 7, ppk, levantar y fail
+El repertorio es: girar, levantar, empujar y cerrar.
+¿Qué se debe hacer con pzv?
+
+Responde exactamente con una de estas opciones: girar | levantar | cerrar | empujar
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>历史记录如下：
+  - 试验：0、pzv、推和fail
+  - 试验：1、pzv、转动和fail
+  - 试验：2、lsr、抬起和ok
+  - 试验：3、zrv、抬起和fail
+  - 试验：4、zrv、推和ok
+  - 试验：5、ppk、转动和ok
+  - 试验：6、lsr、关闭和fail
+  - 试验：7、ppk、抬起和fail
+可选动作如下：转动、抬起、推和关闭。
+应该对pzv执行什么动作？
+
+请从以下选项中选出恰好一个作答：转动 | 抬起 | 关闭 | 推
+只回答答案本身。</pre><h3>english_synonym</h3><pre>What happened before:
+  - trial 0: pzv push fail
+  - trial 1: pzv turn fail
+  - trial 2: lsr lift ok
+  - trial 3: zrv lift fail
+  - trial 4: zrv push ok
+  - trial 5: ppk turn ok
+  - trial 6: lsr close fail
+  - trial 7: ppk lift fail
+The repertoire: turn, lift, push and close.
+What should be done about pzv?
+
+Answer with exactly one of: turn | lift | close | push
+Reply with the answer only.</pre><h3>symbols</h3><pre>{history: [(trial 0 pzv push fail) (trial 1 pzv turn fail) (trial 2 lsr lift ok) (trial 3 zrv lift fail) (trial 4 zrv push ok) (trial 5 ppk turn ok) (trial 6 lsr close fail) (trial 7 ppk lift fail)], query: (act_on pzv), repertoire: [turn lift push close]}
+
+Answer with exactly one of: turn | lift | close | push
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/social_convention_learning.jsonl</code> &middot; <code>data/samples/spanish/social_convention_learning.jsonl</code> &middot; <code>data/samples/chinese/social_convention_learning.jsonl</code> &middot; <code>data/samples/english_synonym/social_convention_learning.jsonl</code> &middot; <code>data/samples/symbols/social_convention_learning.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">close</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: pzv push fail
+  - trial 1: pzv turn fail
+  - trial 2: lsr lift ok
+  - trial 3: zrv lift fail
+  - trial 4: zrv push ok
+  - trial 5: ppk turn ok
+  - trial 6: lsr close fail
+  - trial 7: ppk lift fail
+The repertoire: turn, lift, push and close.
+What should be done about pzv?
+
+Answer with exactly one of: turn | lift | close | push
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lsr&quot;: &quot;lift&quot;,
+  &quot;ppk&quot;: &quot;turn&quot;,
+  &quot;pzv&quot;: &quot;close&quot;,
+  &quot;zrv&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;pzv&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">push</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: mvv close ok
+  - trial 1: mvv push fail
+  - trial 2: tmz lift fail
+  - trial 3: vps lift ok
+  - trial 4: mvk wait fail
+  - trial 5: mvk lift fail
+  - trial 6: tmz wait ok
+  - trial 7: vps wait fail
+The repertoire: close, wait, lift and push.
+What should be done about mvk?
+
+Answer with exactly one of: wait | lift | push | close
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mvk&quot;: &quot;push&quot;,
+  &quot;mvv&quot;: &quot;close&quot;,
+  &quot;tmz&quot;: &quot;wait&quot;,
+  &quot;vps&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;mvk&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: zsk push ok
+  - trial 1: kmm close ok
+  - trial 2: tpp close fail
+  - trial 3: kmm wait fail
+  - trial 4: zsk close fail
+  - trial 5: ltz push fail
+  - trial 6: ltz open ok
+  - trial 7: tpp open fail
+The repertoire: wait, push, close and open.
+What should be done about tpp?
+
+Answer with exactly one of: push | close | wait | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kmm&quot;: &quot;close&quot;,
+  &quot;ltz&quot;: &quot;open&quot;,
+  &quot;tpp&quot;: &quot;wait&quot;,
+  &quot;zsk&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;tpp&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: kvz open ok
+  - trial 1: kvz turn fail
+  - trial 2: rss turn ok
+  - trial 3: lvm turn fail
+  - trial 4: srt wait fail
+  - trial 5: lvm open fail
+  - trial 6: rss close fail
+  - trial 7: srt close ok
+The repertoire: close, turn, wait and open.
+What should be done about lvm?
+
+Answer with exactly one of: close | open | wait | turn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kvz&quot;: &quot;open&quot;,
+  &quot;lvm&quot;: &quot;wait&quot;,
+  &quot;rss&quot;: &quot;turn&quot;,
+  &quot;srt&quot;: &quot;close&quot;
+ },
+ &quot;query_signal&quot;: &quot;lvm&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: szm lift ok
+  - trial 1: prz lift fail
+  - trial 2: mmk turn fail
+  - trial 3: pvt open fail
+  - trial 4: szm turn fail
+  - trial 5: mmk push ok
+  - trial 6: pvt lift fail
+  - trial 7: prz open ok
+The repertoire: open, turn, lift and push.
+What should be done about pvt?
+
+Answer with exactly one of: turn | lift | push | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mmk&quot;: &quot;push&quot;,
+  &quot;prz&quot;: &quot;open&quot;,
+  &quot;pvt&quot;: &quot;turn&quot;,
+  &quot;szm&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;pvt&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: kvs lift fail
+  - trial 1: lvs push ok
+  - trial 2: lvs wait fail
+  - trial 3: zlr wait ok
+  - trial 4: zlr open fail
+  - trial 5: ktm push fail
+  - trial 6: kvs lift fail
+  - trial 7: ktm lift ok
+The repertoire: push, lift, wait and open.
+What should be done about kvs?
+
+Answer with exactly one of: open | lift | push | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;ktm&quot;: &quot;lift&quot;,
+  &quot;kvs&quot;: &quot;open&quot;,
+  &quot;lvs&quot;: &quot;push&quot;,
+  &quot;zlr&quot;: &quot;wait&quot;
+ },
+ &quot;query_signal&quot;: &quot;kvs&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: kzv open ok
+  - trial 1: vll turn fail
+  - trial 2: mvz open fail
+  - trial 3: vll wait fail
+  - trial 4: kkt open fail
+  - trial 5: kkt wait ok
+  - trial 6: mvz turn ok
+  - trial 7: kzv lift fail
+The repertoire: turn, open, lift and wait.
+What should be done about vll?
+
+Answer with exactly one of: wait | lift | open | turn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kkt&quot;: &quot;wait&quot;,
+  &quot;kzv&quot;: &quot;open&quot;,
+  &quot;mvz&quot;: &quot;turn&quot;,
+  &quot;vll&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;vll&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: mlk close fail
+  - trial 1: kmr lift fail
+  - trial 2: mlk open ok
+  - trial 3: ltp lift ok
+  - trial 4: rsk close ok
+  - trial 5: rsk wait fail
+  - trial 6: kmr close fail
+  - trial 7: ltp wait fail
+The repertoire: wait, open, close and lift.
+What should be done about kmr?
+
+Answer with exactly one of: lift | open | close | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kmr&quot;: &quot;wait&quot;,
+  &quot;ltp&quot;: &quot;lift&quot;,
+  &quot;mlk&quot;: &quot;open&quot;,
+  &quot;rsk&quot;: &quot;close&quot;
+ },
+ &quot;query_signal&quot;: &quot;kmr&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: mts wait ok
+  - trial 1: mts turn fail
+  - trial 2: rsp close fail
+  - trial 3: tsk lift ok
+  - trial 4: slp close ok
+  - trial 5: rsp lift fail
+  - trial 6: tsk wait fail
+  - trial 7: slp wait fail
+The repertoire: wait, close, lift and turn.
+What should be done about rsp?
+
+Answer with exactly one of: lift | turn | close | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mts&quot;: &quot;wait&quot;,
+  &quot;rsp&quot;: &quot;turn&quot;,
+  &quot;slp&quot;: &quot;close&quot;,
+  &quot;tsk&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;rsp&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">close</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: ttk wait fail
+  - trial 1: lrv open fail
+  - trial 2: ttk lift ok
+  - trial 3: mlr open fail
+  - trial 4: lrv wait ok
+  - trial 5: vlz close fail
+  - trial 6: mlr open fail
+  - trial 7: vlz open ok
+The repertoire: wait, close, lift and open.
+What should be done about mlr?
+
+Answer with exactly one of: open | close | wait | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lrv&quot;: &quot;wait&quot;,
+  &quot;mlr&quot;: &quot;close&quot;,
+  &quot;ttk&quot;: &quot;lift&quot;,
+  &quot;vlz&quot;: &quot;open&quot;
+ },
+ &quot;query_signal&quot;: &quot;mlr&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: krv close ok
+  - trial 1: kpv lift fail
+  - trial 2: kpv push ok
+  - trial 3: vzt lift fail
+  - trial 4: krv push fail
+  - trial 5: ksv lift ok
+  - trial 6: ksv turn fail
+  - trial 7: vzt close fail
+The repertoire: close, lift, push and turn.
+What should be done about vzt?
+
+Answer with exactly one of: push | turn | close | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kpv&quot;: &quot;push&quot;,
+  &quot;krv&quot;: &quot;close&quot;,
+  &quot;ksv&quot;: &quot;lift&quot;,
+  &quot;vzt&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;vzt&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">push</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: vrs close fail
+  - trial 1: vrv close fail
+  - trial 2: trv turn fail
+  - trial 3: tmv turn fail
+  - trial 4: vrv close fail
+  - trial 5: vrs turn ok
+  - trial 6: tmv close ok
+  - trial 7: trv lift ok
+The repertoire: close, lift, push and turn.
+What should be done about vrv?
+
+Answer with exactly one of: push | lift | turn | close
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;tmv&quot;: &quot;close&quot;,
+  &quot;trv&quot;: &quot;lift&quot;,
+  &quot;vrs&quot;: &quot;turn&quot;,
+  &quot;vrv&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;vrv&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: vzr lift fail
+  - trial 1: zvs open fail
+  - trial 2: klv open fail
+  - trial 3: klv wait fail
+  - trial 4: ltp lift ok
+  - trial 5: zvs wait ok
+  - trial 6: vzr open ok
+  - trial 7: ltp turn fail
+The repertoire: lift, wait, turn and open.
+What should be done about klv?
+
+Answer with exactly one of: wait | turn | lift | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;klv&quot;: &quot;turn&quot;,
+  &quot;ltp&quot;: &quot;lift&quot;,
+  &quot;vzr&quot;: &quot;open&quot;,
+  &quot;zvs&quot;: &quot;wait&quot;
+ },
+ &quot;query_signal&quot;: &quot;klv&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: sts wait ok
+  - trial 1: rsz push ok
+  - trial 2: ttm lift fail
+  - trial 3: zzt turn fail
+  - trial 4: rsz lift fail
+  - trial 5: ttm turn ok
+  - trial 6: sts turn fail
+  - trial 7: zzt turn fail
+The repertoire: lift, push, wait and turn.
+What should be done about zzt?
+
+Answer with exactly one of: push | turn | wait | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;rsz&quot;: &quot;push&quot;,
+  &quot;sts&quot;: &quot;wait&quot;,
+  &quot;ttm&quot;: &quot;turn&quot;,
+  &quot;zzt&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;zzt&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: zzz turn fail
+  - trial 1: vpp turn fail
+  - trial 2: mrs lift ok
+  - trial 3: mvz wait fail
+  - trial 4: mvz wait fail
+  - trial 5: vpp wait ok
+  - trial 6: mrs turn fail
+  - trial 7: zzz push ok
+The repertoire: wait, push, turn and lift.
+What should be done about mvz?
+
+Answer with exactly one of: turn | push | wait | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mrs&quot;: &quot;lift&quot;,
+  &quot;mvz&quot;: &quot;turn&quot;,
+  &quot;vpp&quot;: &quot;wait&quot;,
+  &quot;zzz&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;mvz&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: lsm wait fail
+  - trial 1: lsm push fail
+  - trial 2: skr push ok
+  - trial 3: kts close fail
+  - trial 4: kkt close ok
+  - trial 5: kts wait ok
+  - trial 6: skr close fail
+  - trial 7: kkt push fail
+The repertoire: close, push, wait and turn.
+What should be done about lsm?
+
+Answer with exactly one of: push | wait | close | turn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kkt&quot;: &quot;close&quot;,
+  &quot;kts&quot;: &quot;wait&quot;,
+  &quot;lsm&quot;: &quot;turn&quot;,
+  &quot;skr&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;lsm&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">push</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: vkp turn fail
+  - trial 1: vkp open ok
+  - trial 2: zss push fail
+  - trial 3: zps lift fail
+  - trial 4: zps lift fail
+  - trial 5: lvv turn fail
+  - trial 6: lvv lift ok
+  - trial 7: zss turn ok
+The repertoire: turn, push, lift and open.
+What should be done about zps?
+
+Answer with exactly one of: lift | turn | push | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lvv&quot;: &quot;lift&quot;,
+  &quot;vkp&quot;: &quot;open&quot;,
+  &quot;zps&quot;: &quot;push&quot;,
+  &quot;zss&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;zps&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">push</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: lzt wait ok
+  - trial 1: rzm close fail
+  - trial 2: lzt open fail
+  - trial 3: ksp open ok
+  - trial 4: ksp push fail
+  - trial 5: rzm wait fail
+  - trial 6: rpz open fail
+  - trial 7: rpz close ok
+The repertoire: open, push, wait and close.
+What should be done about rzm?
+
+Answer with exactly one of: open | wait | push | close
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;ksp&quot;: &quot;open&quot;,
+  &quot;lzt&quot;: &quot;wait&quot;,
+  &quot;rpz&quot;: &quot;close&quot;,
+  &quot;rzm&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;rzm&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">push</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: lss turn ok
+  - trial 1: vvt wait fail
+  - trial 2: vzv wait ok
+  - trial 3: vzv close fail
+  - trial 4: tmv turn fail
+  - trial 5: tmv turn fail
+  - trial 6: lss close fail
+  - trial 7: vvt close ok
+The repertoire: push, wait, close and turn.
+What should be done about tmv?
+
+Answer with exactly one of: wait | turn | push | close
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lss&quot;: &quot;turn&quot;,
+  &quot;tmv&quot;: &quot;push&quot;,
+  &quot;vvt&quot;: &quot;close&quot;,
+  &quot;vzv&quot;: &quot;wait&quot;
+ },
+ &quot;query_signal&quot;: &quot;tmv&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">push</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: lrz close ok
+  - trial 1: tzm turn ok
+  - trial 2: tzm push fail
+  - trial 3: krm turn fail
+  - trial 4: krm turn fail
+  - trial 5: rsp close fail
+  - trial 6: rsp wait ok
+  - trial 7: lrz wait fail
+The repertoire: close, turn, wait and push.
+What should be done about krm?
+
+Answer with exactly one of: turn | wait | close | push
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;krm&quot;: &quot;push&quot;,
+  &quot;lrz&quot;: &quot;close&quot;,
+  &quot;rsp&quot;: &quot;wait&quot;,
+  &quot;tzm&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;krm&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: ppm close ok
+  - trial 1: ltk close fail
+  - trial 2: tzm open fail
+  - trial 3: ltk turn fail
+  - trial 4: mtl turn ok
+  - trial 5: tzm wait ok
+  - trial 6: ppm open fail
+  - trial 7: mtl close fail
+The repertoire: turn, wait, close and open.
+What should be done about ltk?
+
+Answer with exactly one of: open | close | turn | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;ltk&quot;: &quot;open&quot;,
+  &quot;mtl&quot;: &quot;turn&quot;,
+  &quot;ppm&quot;: &quot;close&quot;,
+  &quot;tzm&quot;: &quot;wait&quot;
+ },
+ &quot;query_signal&quot;: &quot;ltk&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: zvs close ok
+  - trial 1: tpp close fail
+  - trial 2: rrs push fail
+  - trial 3: vrt push ok
+  - trial 4: rrs lift fail
+  - trial 5: vrt lift fail
+  - trial 6: zvs lift fail
+  - trial 7: tpp lift ok
+The repertoire: close, lift, push and wait.
+What should be done about rrs?
+
+Answer with exactly one of: close | wait | lift | push
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;rrs&quot;: &quot;wait&quot;,
+  &quot;tpp&quot;: &quot;lift&quot;,
+  &quot;vrt&quot;: &quot;push&quot;,
+  &quot;zvs&quot;: &quot;close&quot;
+ },
+ &quot;query_signal&quot;: &quot;rrs&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: lms open fail
+  - trial 1: zkl wait fail
+  - trial 2: lms wait ok
+  - trial 3: zkl push ok
+  - trial 4: vtm turn ok
+  - trial 5: tsk wait fail
+  - trial 6: vtm push fail
+  - trial 7: tsk wait fail
+The repertoire: push, open, turn and wait.
+What should be done about tsk?
+
+Answer with exactly one of: wait | open | turn | push
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lms&quot;: &quot;wait&quot;,
+  &quot;tsk&quot;: &quot;open&quot;,
+  &quot;vtm&quot;: &quot;turn&quot;,
+  &quot;zkl&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;tsk&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: rlt close fail
+  - trial 1: szv close ok
+  - trial 2: zmk turn fail
+  - trial 3: szv turn fail
+  - trial 4: zpp lift fail
+  - trial 5: zpp turn ok
+  - trial 6: rlt wait ok
+  - trial 7: zmk wait fail
+The repertoire: close, lift, wait and turn.
+What should be done about zmk?
+
+Answer with exactly one of: lift | turn | close | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;rlt&quot;: &quot;wait&quot;,
+  &quot;szv&quot;: &quot;close&quot;,
+  &quot;zmk&quot;: &quot;lift&quot;,
+  &quot;zpp&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;zmk&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: tst push fail
+  - trial 1: mtz push fail
+  - trial 2: kvv push ok
+  - trial 3: pts open fail
+  - trial 4: mtz open ok
+  - trial 5: kvv lift fail
+  - trial 6: pts close ok
+  - trial 7: tst open fail
+The repertoire: push, lift, close and open.
+What should be done about tst?
+
+Answer with exactly one of: open | lift | push | close
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kvv&quot;: &quot;push&quot;,
+  &quot;mtz&quot;: &quot;open&quot;,
+  &quot;pts&quot;: &quot;close&quot;,
+  &quot;tst&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;tst&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">push</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: pmm push fail
+  - trial 1: pks open ok
+  - trial 2: zkz lift fail
+  - trial 3: zvk push fail
+  - trial 4: zvk turn ok
+  - trial 5: zkz open fail
+  - trial 6: pmm lift ok
+  - trial 7: pks lift fail
+The repertoire: open, lift, push and turn.
+What should be done about zkz?
+
+Answer with exactly one of: push | turn | lift | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;pks&quot;: &quot;open&quot;,
+  &quot;pmm&quot;: &quot;lift&quot;,
+  &quot;zkz&quot;: &quot;push&quot;,
+  &quot;zvk&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;zkz&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">close</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: tps close fail
+  - trial 1: rkt wait ok
+  - trial 2: tps push ok
+  - trial 3: rkt push fail
+  - trial 4: vkr turn ok
+  - trial 5: vkr close fail
+  - trial 6: ssp wait fail
+  - trial 7: ssp wait fail
+The repertoire: push, wait, turn and close.
+What should be done about ssp?
+
+Answer with exactly one of: wait | push | turn | close
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;rkt&quot;: &quot;wait&quot;,
+  &quot;ssp&quot;: &quot;close&quot;,
+  &quot;tps&quot;: &quot;push&quot;,
+  &quot;vkr&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;ssp&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: zrl open ok
+  - trial 1: zlp wait ok
+  - trial 2: smm wait fail
+  - trial 3: zlp open fail
+  - trial 4: smm close ok
+  - trial 5: zrl wait fail
+  - trial 6: vzz close fail
+  - trial 7: vzz wait fail
+The repertoire: open, turn, close and wait.
+What should be done about vzz?
+
+Answer with exactly one of: close | turn | wait | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;smm&quot;: &quot;close&quot;,
+  &quot;vzz&quot;: &quot;turn&quot;,
+  &quot;zlp&quot;: &quot;wait&quot;,
+  &quot;zrl&quot;: &quot;open&quot;
+ },
+ &quot;query_signal&quot;: &quot;vzz&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: stp lift ok
+  - trial 1: tst close ok
+  - trial 2: vps turn fail
+  - trial 3: vps open ok
+  - trial 4: mtr close fail
+  - trial 5: tst open fail
+  - trial 6: mtr open fail
+  - trial 7: stp turn fail
+The repertoire: close, open, turn and lift.
+What should be done about mtr?
+
+Answer with exactly one of: lift | open | close | turn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mtr&quot;: &quot;turn&quot;,
+  &quot;stp&quot;: &quot;lift&quot;,
+  &quot;tst&quot;: &quot;close&quot;,
+  &quot;vps&quot;: &quot;open&quot;
+ },
+ &quot;query_signal&quot;: &quot;mtr&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: zmr turn ok
+  - trial 1: rml wait ok
+  - trial 2: lpp push ok
+  - trial 3: kkm turn fail
+  - trial 4: lpp lift fail
+  - trial 5: rml push fail
+  - trial 6: kkm push fail
+  - trial 7: zmr lift fail
+The repertoire: wait, push, turn and lift.
+What should be done about kkm?
+
+Answer with exactly one of: wait | push | lift | turn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kkm&quot;: &quot;lift&quot;,
+  &quot;lpp&quot;: &quot;push&quot;,
+  &quot;rml&quot;: &quot;wait&quot;,
+  &quot;zmr&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;kkm&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: szk wait fail
+  - trial 1: mvk turn fail
+  - trial 2: mvk wait ok
+  - trial 3: ppt lift ok
+  - trial 4: szk lift fail
+  - trial 5: rzk open ok
+  - trial 6: ppt wait fail
+  - trial 7: rzk wait fail
+The repertoire: turn, open, wait and lift.
+What should be done about szk?
+
+Answer with exactly one of: lift | open | turn | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mvk&quot;: &quot;wait&quot;,
+  &quot;ppt&quot;: &quot;lift&quot;,
+  &quot;rzk&quot;: &quot;open&quot;,
+  &quot;szk&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;szk&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: ptk open fail
+  - trial 1: tmr open ok
+  - trial 2: kvm wait fail
+  - trial 3: ptk wait fail
+  - trial 4: stt lift fail
+  - trial 5: kvm close ok
+  - trial 6: stt wait ok
+  - trial 7: tmr wait fail
+The repertoire: open, wait, close and lift.
+What should be done about ptk?
+
+Answer with exactly one of: open | close | lift | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kvm&quot;: &quot;close&quot;,
+  &quot;ptk&quot;: &quot;lift&quot;,
+  &quot;stt&quot;: &quot;wait&quot;,
+  &quot;tmr&quot;: &quot;open&quot;
+ },
+ &quot;query_signal&quot;: &quot;ptk&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: lrl wait fail
+  - trial 1: lrl turn ok
+  - trial 2: zsv open ok
+  - trial 3: mst wait fail
+  - trial 4: zsv turn fail
+  - trial 5: kkm wait ok
+  - trial 6: mst open fail
+  - trial 7: kkm lift fail
+The repertoire: open, wait, turn and lift.
+What should be done about mst?
+
+Answer with exactly one of: wait | lift | turn | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kkm&quot;: &quot;wait&quot;,
+  &quot;lrl&quot;: &quot;turn&quot;,
+  &quot;mst&quot;: &quot;lift&quot;,
+  &quot;zsv&quot;: &quot;open&quot;
+ },
+ &quot;query_signal&quot;: &quot;mst&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">close</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: vrr close fail
+  - trial 1: rvv turn ok
+  - trial 2: tsz push ok
+  - trial 3: tsz turn fail
+  - trial 4: rvv push fail
+  - trial 5: vrr lift ok
+  - trial 6: trl turn fail
+  - trial 7: trl turn fail
+The repertoire: turn, push, lift and close.
+What should be done about trl?
+
+Answer with exactly one of: turn | lift | close | push
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;rvv&quot;: &quot;turn&quot;,
+  &quot;trl&quot;: &quot;close&quot;,
+  &quot;tsz&quot;: &quot;push&quot;,
+  &quot;vrr&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;trl&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: lmp lift fail
+  - trial 1: zlm open fail
+  - trial 2: skp lift fail
+  - trial 3: zlm lift ok
+  - trial 4: skp close ok
+  - trial 5: rlk open ok
+  - trial 6: lmp open fail
+  - trial 7: rlk turn fail
+The repertoire: turn, close, open and lift.
+What should be done about lmp?
+
+Answer with exactly one of: open | lift | close | turn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lmp&quot;: &quot;turn&quot;,
+  &quot;rlk&quot;: &quot;open&quot;,
+  &quot;skp&quot;: &quot;close&quot;,
+  &quot;zlm&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;lmp&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">close</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: ltz turn fail
+  - trial 1: rzl turn ok
+  - trial 2: rlt turn fail
+  - trial 3: pzk close fail
+  - trial 4: pzk lift ok
+  - trial 5: ltz open ok
+  - trial 6: rlt lift fail
+  - trial 7: rzl close fail
+The repertoire: lift, close, turn and open.
+What should be done about rlt?
+
+Answer with exactly one of: lift | close | turn | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;ltz&quot;: &quot;open&quot;,
+  &quot;pzk&quot;: &quot;lift&quot;,
+  &quot;rlt&quot;: &quot;close&quot;,
+  &quot;rzl&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;rlt&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">close</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: zpl open fail
+  - trial 1: rts push fail
+  - trial 2: zmk push ok
+  - trial 3: zmk lift fail
+  - trial 4: rts lift ok
+  - trial 5: lkk open ok
+  - trial 6: lkk lift fail
+  - trial 7: zpl push fail
+The repertoire: close, push, open and lift.
+What should be done about zpl?
+
+Answer with exactly one of: push | open | close | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lkk&quot;: &quot;open&quot;,
+  &quot;rts&quot;: &quot;lift&quot;,
+  &quot;zmk&quot;: &quot;push&quot;,
+  &quot;zpl&quot;: &quot;close&quot;
+ },
+ &quot;query_signal&quot;: &quot;zpl&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: lvr close fail
+  - trial 1: lvr lift ok
+  - trial 2: mvz lift fail
+  - trial 3: mvz open ok
+  - trial 4: ppv lift fail
+  - trial 5: ppv close ok
+  - trial 6: mrk close fail
+  - trial 7: mrk close fail
+The repertoire: turn, close, open and lift.
+What should be done about mrk?
+
+Answer with exactly one of: lift | open | close | turn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lvr&quot;: &quot;lift&quot;,
+  &quot;mrk&quot;: &quot;turn&quot;,
+  &quot;mvz&quot;: &quot;open&quot;,
+  &quot;ppv&quot;: &quot;close&quot;
+ },
+ &quot;query_signal&quot;: &quot;mrk&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: llz open fail
+  - trial 1: llz push fail
+  - trial 2: lkt close fail
+  - trial 3: ppm close ok
+  - trial 4: ppm push fail
+  - trial 5: lkt open ok
+  - trial 6: mlv turn fail
+  - trial 7: mlv push ok
+The repertoire: open, push, turn and close.
+What should be done about llz?
+
+Answer with exactly one of: open | turn | push | close
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lkt&quot;: &quot;open&quot;,
+  &quot;llz&quot;: &quot;turn&quot;,
+  &quot;mlv&quot;: &quot;push&quot;,
+  &quot;ppm&quot;: &quot;close&quot;
+ },
+ &quot;query_signal&quot;: &quot;llz&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">push</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: szp close fail
+  - trial 1: szp lift fail
+  - trial 2: kss close fail
+  - trial 3: pkz lift fail
+  - trial 4: kss lift ok
+  - trial 5: ltk lift fail
+  - trial 6: pkz close ok
+  - trial 7: ltk open ok
+The repertoire: lift, push, open and close.
+What should be done about szp?
+
+Answer with exactly one of: lift | open | close | push
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kss&quot;: &quot;lift&quot;,
+  &quot;ltk&quot;: &quot;open&quot;,
+  &quot;pkz&quot;: &quot;close&quot;,
+  &quot;szp&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;szp&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: tlz push fail
+  - trial 1: szs close fail
+  - trial 2: vkr push ok
+  - trial 3: vrk push fail
+  - trial 4: szs close fail
+  - trial 5: tlz lift ok
+  - trial 6: vrk close ok
+  - trial 7: vkr turn fail
+The repertoire: lift, turn, close and push.
+What should be done about szs?
+
+Answer with exactly one of: turn | push | close | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;szs&quot;: &quot;turn&quot;,
+  &quot;tlz&quot;: &quot;lift&quot;,
+  &quot;vkr&quot;: &quot;push&quot;,
+  &quot;vrk&quot;: &quot;close&quot;
+ },
+ &quot;query_signal&quot;: &quot;szs&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: tpz turn ok
+  - trial 1: ksk open fail
+  - trial 2: pls turn fail
+  - trial 3: tpz open fail
+  - trial 4: rzp push fail
+  - trial 5: ksk push ok
+  - trial 6: rzp push fail
+  - trial 7: pls wait ok
+The repertoire: push, turn, open and wait.
+What should be done about rzp?
+
+Answer with exactly one of: turn | open | wait | push
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;ksk&quot;: &quot;push&quot;,
+  &quot;pls&quot;: &quot;wait&quot;,
+  &quot;rzp&quot;: &quot;open&quot;,
+  &quot;tpz&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;rzp&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: mkz push fail
+  - trial 1: pkk open fail
+  - trial 2: sst turn ok
+  - trial 3: mrm open ok
+  - trial 4: pkk push ok
+  - trial 5: mrm lift fail
+  - trial 6: sst push fail
+  - trial 7: mkz push fail
+The repertoire: lift, open, turn and push.
+What should be done about mkz?
+
+Answer with exactly one of: open | push | lift | turn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mkz&quot;: &quot;lift&quot;,
+  &quot;mrm&quot;: &quot;open&quot;,
+  &quot;pkk&quot;: &quot;push&quot;,
+  &quot;sst&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;mkz&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">close</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: kzt open ok
+  - trial 1: vvk wait ok
+  - trial 2: rpl open fail
+  - trial 3: vlm wait fail
+  - trial 4: vvk open fail
+  - trial 5: rpl turn ok
+  - trial 6: vlm open fail
+  - trial 7: kzt close fail
+The repertoire: wait, open, turn and close.
+What should be done about vlm?
+
+Answer with exactly one of: close | turn | wait | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kzt&quot;: &quot;open&quot;,
+  &quot;rpl&quot;: &quot;turn&quot;,
+  &quot;vlm&quot;: &quot;close&quot;,
+  &quot;vvk&quot;: &quot;wait&quot;
+ },
+ &quot;query_signal&quot;: &quot;vlm&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: mtp push fail
+  - trial 1: szk push ok
+  - trial 2: smk push fail
+  - trial 3: prr wait fail
+  - trial 4: smk turn fail
+  - trial 5: mtp turn ok
+  - trial 6: prr lift ok
+  - trial 7: szk wait fail
+The repertoire: wait, push, turn and lift.
+What should be done about smk?
+
+Answer with exactly one of: wait | turn | push | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mtp&quot;: &quot;turn&quot;,
+  &quot;prr&quot;: &quot;lift&quot;,
+  &quot;smk&quot;: &quot;wait&quot;,
+  &quot;szk&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;smk&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">push</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: vkm wait ok
+  - trial 1: zpv close fail
+  - trial 2: zpv wait fail
+  - trial 3: zmz lift ok
+  - trial 4: lkm push fail
+  - trial 5: vkm push fail
+  - trial 6: zmz wait fail
+  - trial 7: lkm close ok
+The repertoire: wait, push, close and lift.
+What should be done about zpv?
+
+Answer with exactly one of: close | lift | wait | push
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lkm&quot;: &quot;close&quot;,
+  &quot;vkm&quot;: &quot;wait&quot;,
+  &quot;zmz&quot;: &quot;lift&quot;,
+  &quot;zpv&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;zpv&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">push</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: srt turn ok
+  - trial 1: mlk wait ok
+  - trial 2: rkk wait fail
+  - trial 3: mpk lift ok
+  - trial 4: rkk turn fail
+  - trial 5: srt lift fail
+  - trial 6: mpk wait fail
+  - trial 7: mlk turn fail
+The repertoire: push, turn, lift and wait.
+What should be done about rkk?
+
+Answer with exactly one of: lift | turn | push | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mlk&quot;: &quot;wait&quot;,
+  &quot;mpk&quot;: &quot;lift&quot;,
+  &quot;rkk&quot;: &quot;push&quot;,
+  &quot;srt&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;rkk&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: rvl wait fail
+  - trial 1: lmp close ok
+  - trial 2: pkp open fail
+  - trial 3: rvl lift ok
+  - trial 4: pkp wait ok
+  - trial 5: zrp lift fail
+  - trial 6: lmp open fail
+  - trial 7: zrp close fail
+The repertoire: wait, lift, open and close.
+What should be done about zrp?
+
+Answer with exactly one of: close | lift | wait | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lmp&quot;: &quot;close&quot;,
+  &quot;pkp&quot;: &quot;wait&quot;,
+  &quot;rvl&quot;: &quot;lift&quot;,
+  &quot;zrp&quot;: &quot;open&quot;
+ },
+ &quot;query_signal&quot;: &quot;zrp&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: rsp open ok
+  - trial 1: ttm wait fail
+  - trial 2: rlt wait ok
+  - trial 3: ttm push ok
+  - trial 4: rrz wait fail
+  - trial 5: rsp wait fail
+  - trial 6: rrz open fail
+  - trial 7: rlt open fail
+The repertoire: wait, turn, push and open.
+What should be done about rrz?
+
+Answer with exactly one of: open | turn | push | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;rlt&quot;: &quot;wait&quot;,
+  &quot;rrz&quot;: &quot;turn&quot;,
+  &quot;rsp&quot;: &quot;open&quot;,
+  &quot;ttm&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;rrz&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: rkk close fail
+  - trial 1: ztv push ok
+  - trial 2: mlp push fail
+  - trial 3: rkk close fail
+  - trial 4: ztv lift fail
+  - trial 5: mlr turn fail
+  - trial 6: mlp close ok
+  - trial 7: mlr lift ok
+The repertoire: lift, close, turn and push.
+What should be done about rkk?
+
+Answer with exactly one of: lift | close | turn | push
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mlp&quot;: &quot;close&quot;,
+  &quot;mlr&quot;: &quot;lift&quot;,
+  &quot;rkk&quot;: &quot;turn&quot;,
+  &quot;ztv&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;rkk&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: srm close ok
+  - trial 1: vzl push fail
+  - trial 2: svl turn fail
+  - trial 3: svl push ok
+  - trial 4: mrl close fail
+  - trial 5: vzl turn ok
+  - trial 6: srm turn fail
+  - trial 7: mrl push fail
+The repertoire: lift, push, close and turn.
+What should be done about mrl?
+
+Answer with exactly one of: close | turn | push | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mrl&quot;: &quot;lift&quot;,
+  &quot;srm&quot;: &quot;close&quot;,
+  &quot;svl&quot;: &quot;push&quot;,
+  &quot;vzl&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;mrl&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">close</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: rzp open fail
+  - trial 1: rzp open fail
+  - trial 2: rvr open fail
+  - trial 3: tss push ok
+  - trial 4: srr close fail
+  - trial 5: tss turn fail
+  - trial 6: srr open ok
+  - trial 7: rvr turn ok
+The repertoire: turn, open, push and close.
+What should be done about rzp?
+
+Answer with exactly one of: close | turn | push | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;rvr&quot;: &quot;turn&quot;,
+  &quot;rzp&quot;: &quot;close&quot;,
+  &quot;srr&quot;: &quot;open&quot;,
+  &quot;tss&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;rzp&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">push</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: zkr wait ok
+  - trial 1: ktt open ok
+  - trial 2: ktt wait fail
+  - trial 3: ptl wait fail
+  - trial 4: ptl wait fail
+  - trial 5: zkr open fail
+  - trial 6: vlp wait fail
+  - trial 7: vlp lift ok
+The repertoire: open, lift, push and wait.
+What should be done about ptl?
+
+Answer with exactly one of: push | lift | open | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;ktt&quot;: &quot;open&quot;,
+  &quot;ptl&quot;: &quot;push&quot;,
+  &quot;vlp&quot;: &quot;lift&quot;,
+  &quot;zkr&quot;: &quot;wait&quot;
+ },
+ &quot;query_signal&quot;: &quot;ptl&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: tlt push fail
+  - trial 1: svr lift fail
+  - trial 2: svr push ok
+  - trial 3: vrl turn fail
+  - trial 4: vkk push fail
+  - trial 5: tlt open ok
+  - trial 6: vkk push fail
+  - trial 7: vrl lift ok
+The repertoire: lift, open, push and turn.
+What should be done about vkk?
+
+Answer with exactly one of: push | turn | lift | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;svr&quot;: &quot;push&quot;,
+  &quot;tlt&quot;: &quot;open&quot;,
+  &quot;vkk&quot;: &quot;turn&quot;,
+  &quot;vrl&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;vkk&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: psv open fail
+  - trial 1: lps turn fail
+  - trial 2: tvr close ok
+  - trial 3: tvr open fail
+  - trial 4: lps lift fail
+  - trial 5: zvv turn ok
+  - trial 6: zvv close fail
+  - trial 7: psv lift ok
+The repertoire: open, close, turn and lift.
+What should be done about lps?
+
+Answer with exactly one of: turn | close | lift | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lps&quot;: &quot;open&quot;,
+  &quot;psv&quot;: &quot;lift&quot;,
+  &quot;tvr&quot;: &quot;close&quot;,
+  &quot;zvv&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;lps&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: vrp close fail
+  - trial 1: zmt open ok
+  - trial 2: zml wait fail
+  - trial 3: zmt turn fail
+  - trial 4: vrp open fail
+  - trial 5: zml close ok
+  - trial 6: mst turn fail
+  - trial 7: mst wait ok
+The repertoire: open, close, wait and turn.
+What should be done about vrp?
+
+Answer with exactly one of: open | close | wait | turn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mst&quot;: &quot;wait&quot;,
+  &quot;vrp&quot;: &quot;turn&quot;,
+  &quot;zml&quot;: &quot;close&quot;,
+  &quot;zmt&quot;: &quot;open&quot;
+ },
+ &quot;query_signal&quot;: &quot;vrp&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">push</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: lml turn fail
+  - trial 1: psm turn ok
+  - trial 2: rzr turn fail
+  - trial 3: lml lift ok
+  - trial 4: rzr close fail
+  - trial 5: psm lift fail
+  - trial 6: rkv push fail
+  - trial 7: rkv close ok
+The repertoire: turn, close, lift and push.
+What should be done about rzr?
+
+Answer with exactly one of: push | turn | close | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lml&quot;: &quot;lift&quot;,
+  &quot;psm&quot;: &quot;turn&quot;,
+  &quot;rkv&quot;: &quot;close&quot;,
+  &quot;rzr&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;rzr&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: srl turn fail
+  - trial 1: klk open ok
+  - trial 2: vzp turn fail
+  - trial 3: klk close fail
+  - trial 4: pkt push fail
+  - trial 5: srl close ok
+  - trial 6: vzp push ok
+  - trial 7: pkt push fail
+The repertoire: push, open, turn and close.
+What should be done about pkt?
+
+Answer with exactly one of: close | open | push | turn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;klk&quot;: &quot;open&quot;,
+  &quot;pkt&quot;: &quot;turn&quot;,
+  &quot;srl&quot;: &quot;close&quot;,
+  &quot;vzp&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;pkt&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: sss open fail
+  - trial 1: ksv lift fail
+  - trial 2: zvp lift fail
+  - trial 3: plz lift ok
+  - trial 4: sss push ok
+  - trial 5: ksv open ok
+  - trial 6: plz push fail
+  - trial 7: zvp open fail
+The repertoire: open, wait, push and lift.
+What should be done about zvp?
+
+Answer with exactly one of: wait | push | open | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;ksv&quot;: &quot;open&quot;,
+  &quot;plz&quot;: &quot;lift&quot;,
+  &quot;sss&quot;: &quot;push&quot;,
+  &quot;zvp&quot;: &quot;wait&quot;
+ },
+ &quot;query_signal&quot;: &quot;zvp&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: smv wait fail
+  - trial 1: pvr wait ok
+  - trial 2: kkv push fail
+  - trial 3: ktz wait fail
+  - trial 4: pvr push fail
+  - trial 5: kkv close ok
+  - trial 6: ktz close fail
+  - trial 7: smv push ok
+The repertoire: turn, wait, close and push.
+What should be done about ktz?
+
+Answer with exactly one of: wait | push | turn | close
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kkv&quot;: &quot;close&quot;,
+  &quot;ktz&quot;: &quot;turn&quot;,
+  &quot;pvr&quot;: &quot;wait&quot;,
+  &quot;smv&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;ktz&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: zsv turn fail
+  - trial 1: vlk push fail
+  - trial 2: zzt turn fail
+  - trial 3: zsv lift ok
+  - trial 4: mtt wait fail
+  - trial 5: zzt lift fail
+  - trial 6: mtt push ok
+  - trial 7: vlk turn ok
+The repertoire: lift, push, wait and turn.
+What should be done about zzt?
+
+Answer with exactly one of: turn | wait | push | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mtt&quot;: &quot;push&quot;,
+  &quot;vlk&quot;: &quot;turn&quot;,
+  &quot;zsv&quot;: &quot;lift&quot;,
+  &quot;zzt&quot;: &quot;wait&quot;
+ },
+ &quot;query_signal&quot;: &quot;zzt&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">push</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: lkv lift fail
+  - trial 1: llm lift ok
+  - trial 2: llm push fail
+  - trial 3: vtr lift fail
+  - trial 4: slz wait fail
+  - trial 5: vtr wait ok
+  - trial 6: lkv wait fail
+  - trial 7: slz close ok
+The repertoire: wait, lift, close and push.
+What should be done about lkv?
+
+Answer with exactly one of: wait | push | close | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lkv&quot;: &quot;push&quot;,
+  &quot;llm&quot;: &quot;lift&quot;,
+  &quot;slz&quot;: &quot;close&quot;,
+  &quot;vtr&quot;: &quot;wait&quot;
+ },
+ &quot;query_signal&quot;: &quot;lkv&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: trt lift ok
+  - trial 1: tkz turn fail
+  - trial 2: vzl wait fail
+  - trial 3: tkz lift fail
+  - trial 4: tms close ok
+  - trial 5: tms lift fail
+  - trial 6: trt close fail
+  - trial 7: vzl turn ok
+The repertoire: wait, turn, lift and close.
+What should be done about tkz?
+
+Answer with exactly one of: close | wait | turn | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;tkz&quot;: &quot;wait&quot;,
+  &quot;tms&quot;: &quot;close&quot;,
+  &quot;trt&quot;: &quot;lift&quot;,
+  &quot;vzl&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;tkz&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">push</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: zvm wait fail
+  - trial 1: pmm close fail
+  - trial 2: pmm lift ok
+  - trial 3: szm push fail
+  - trial 4: vvz lift fail
+  - trial 5: szm wait ok
+  - trial 6: zvm wait fail
+  - trial 7: vvz close ok
+The repertoire: close, push, lift and wait.
+What should be done about zvm?
+
+Answer with exactly one of: push | close | lift | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;pmm&quot;: &quot;lift&quot;,
+  &quot;szm&quot;: &quot;wait&quot;,
+  &quot;vvz&quot;: &quot;close&quot;,
+  &quot;zvm&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;zvm&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: zst open ok
+  - trial 1: mpv turn fail
+  - trial 2: zst turn fail
+  - trial 3: rks lift ok
+  - trial 4: vmp close fail
+  - trial 5: vmp lift fail
+  - trial 6: rks turn fail
+  - trial 7: mpv close ok
+The repertoire: open, lift, turn and close.
+What should be done about vmp?
+
+Answer with exactly one of: turn | close | open | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mpv&quot;: &quot;close&quot;,
+  &quot;rks&quot;: &quot;lift&quot;,
+  &quot;vmp&quot;: &quot;turn&quot;,
+  &quot;zst&quot;: &quot;open&quot;
+ },
+ &quot;query_signal&quot;: &quot;vmp&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: vrv lift fail
+  - trial 1: rsv close fail
+  - trial 2: vrv wait ok
+  - trial 3: rlp wait fail
+  - trial 4: rsv turn fail
+  - trial 5: pzz close fail
+  - trial 6: pzz turn ok
+  - trial 7: rlp close ok
+The repertoire: turn, close, wait and lift.
+What should be done about rsv?
+
+Answer with exactly one of: turn | lift | close | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;pzz&quot;: &quot;turn&quot;,
+  &quot;rlp&quot;: &quot;close&quot;,
+  &quot;rsv&quot;: &quot;lift&quot;,
+  &quot;vrv&quot;: &quot;wait&quot;
+ },
+ &quot;query_signal&quot;: &quot;rsv&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: svz turn ok
+  - trial 1: svz open fail
+  - trial 2: mzp push fail
+  - trial 3: zrm push fail
+  - trial 4: mzp open ok
+  - trial 5: vtv push ok
+  - trial 6: vtv turn fail
+  - trial 7: zrm push fail
+The repertoire: turn, push, open and lift.
+What should be done about zrm?
+
+Answer with exactly one of: open | push | lift | turn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mzp&quot;: &quot;open&quot;,
+  &quot;svz&quot;: &quot;turn&quot;,
+  &quot;vtv&quot;: &quot;push&quot;,
+  &quot;zrm&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;zrm&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: pvz turn ok
+  - trial 1: vpz turn fail
+  - trial 2: mmp lift fail
+  - trial 3: mmp push ok
+  - trial 4: skt wait ok
+  - trial 5: skt push fail
+  - trial 6: vpz turn fail
+  - trial 7: pvz wait fail
+The repertoire: turn, push, wait and lift.
+What should be done about vpz?
+
+Answer with exactly one of: lift | push | turn | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mmp&quot;: &quot;push&quot;,
+  &quot;pvz&quot;: &quot;turn&quot;,
+  &quot;skt&quot;: &quot;wait&quot;,
+  &quot;vpz&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;vpz&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">push</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: zlv close ok
+  - trial 1: rlt close fail
+  - trial 2: zlv open fail
+  - trial 3: spv close fail
+  - trial 4: vrm open ok
+  - trial 5: rlt open fail
+  - trial 6: vrm lift fail
+  - trial 7: spv lift ok
+The repertoire: push, open, close and lift.
+What should be done about rlt?
+
+Answer with exactly one of: open | push | close | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;rlt&quot;: &quot;push&quot;,
+  &quot;spv&quot;: &quot;lift&quot;,
+  &quot;vrm&quot;: &quot;open&quot;,
+  &quot;zlv&quot;: &quot;close&quot;
+ },
+ &quot;query_signal&quot;: &quot;rlt&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: pvr push fail
+  - trial 1: rpv open fail
+  - trial 2: kmt push ok
+  - trial 3: rpv wait ok
+  - trial 4: pvr open fail
+  - trial 5: mll open ok
+  - trial 6: kmt wait fail
+  - trial 7: mll push fail
+The repertoire: open, push, wait and lift.
+What should be done about pvr?
+
+Answer with exactly one of: push | open | lift | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kmt&quot;: &quot;push&quot;,
+  &quot;mll&quot;: &quot;open&quot;,
+  &quot;pvr&quot;: &quot;lift&quot;,
+  &quot;rpv&quot;: &quot;wait&quot;
+ },
+ &quot;query_signal&quot;: &quot;pvr&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: vtl wait fail
+  - trial 1: mts push ok
+  - trial 2: pps lift fail
+  - trial 3: pps wait fail
+  - trial 4: mzv wait ok
+  - trial 5: mzv push fail
+  - trial 6: vtl lift ok
+  - trial 7: mts wait fail
+The repertoire: lift, wait, push and turn.
+What should be done about pps?
+
+Answer with exactly one of: push | wait | turn | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mts&quot;: &quot;push&quot;,
+  &quot;mzv&quot;: &quot;wait&quot;,
+  &quot;pps&quot;: &quot;turn&quot;,
+  &quot;vtl&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;pps&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: zms push ok
+  - trial 1: zts open fail
+  - trial 2: zts push fail
+  - trial 3: lrk push fail
+  - trial 4: rks turn ok
+  - trial 5: rks open fail
+  - trial 6: zms turn fail
+  - trial 7: lrk open ok
+The repertoire: push, open, lift and turn.
+What should be done about zts?
+
+Answer with exactly one of: lift | push | turn | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lrk&quot;: &quot;open&quot;,
+  &quot;rks&quot;: &quot;turn&quot;,
+  &quot;zms&quot;: &quot;push&quot;,
+  &quot;zts&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;zts&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: ptk turn fail
+  - trial 1: tls close fail
+  - trial 2: mtl turn fail
+  - trial 3: tls wait ok
+  - trial 4: rlz turn ok
+  - trial 5: rlz wait fail
+  - trial 6: ptk wait fail
+  - trial 7: mtl close ok
+The repertoire: close, wait, lift and turn.
+What should be done about ptk?
+
+Answer with exactly one of: close | wait | lift | turn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mtl&quot;: &quot;close&quot;,
+  &quot;ptk&quot;: &quot;lift&quot;,
+  &quot;rlz&quot;: &quot;turn&quot;,
+  &quot;tls&quot;: &quot;wait&quot;
+ },
+ &quot;query_signal&quot;: &quot;ptk&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: vtv wait ok
+  - trial 1: prr wait fail
+  - trial 2: zmr turn ok
+  - trial 3: zmr lift fail
+  - trial 4: zmv open fail
+  - trial 5: prr open ok
+  - trial 6: vtv turn fail
+  - trial 7: zmv wait fail
+The repertoire: open, turn, lift and wait.
+What should be done about zmv?
+
+Answer with exactly one of: turn | wait | lift | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;prr&quot;: &quot;open&quot;,
+  &quot;vtv&quot;: &quot;wait&quot;,
+  &quot;zmr&quot;: &quot;turn&quot;,
+  &quot;zmv&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;zmv&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: slm open fail
+  - trial 1: vvr open ok
+  - trial 2: mzt wait ok
+  - trial 3: vvr push fail
+  - trial 4: mzt open fail
+  - trial 5: slm open fail
+  - trial 6: rml open fail
+  - trial 7: rml push ok
+The repertoire: push, turn, open and wait.
+What should be done about slm?
+
+Answer with exactly one of: wait | turn | push | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mzt&quot;: &quot;wait&quot;,
+  &quot;rml&quot;: &quot;push&quot;,
+  &quot;slm&quot;: &quot;turn&quot;,
+  &quot;vvr&quot;: &quot;open&quot;
+ },
+ &quot;query_signal&quot;: &quot;slm&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: krv push ok
+  - trial 1: krv close fail
+  - trial 2: vpv wait ok
+  - trial 3: lml close ok
+  - trial 4: mzz close fail
+  - trial 5: vpv push fail
+  - trial 6: lml turn fail
+  - trial 7: mzz close fail
+The repertoire: push, wait, close and turn.
+What should be done about mzz?
+
+Answer with exactly one of: close | push | wait | turn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;krv&quot;: &quot;push&quot;,
+  &quot;lml&quot;: &quot;close&quot;,
+  &quot;mzz&quot;: &quot;turn&quot;,
+  &quot;vpv&quot;: &quot;wait&quot;
+ },
+ &quot;query_signal&quot;: &quot;mzz&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: lvp turn ok
+  - trial 1: psz push ok
+  - trial 2: zvv turn fail
+  - trial 3: lvp push fail
+  - trial 4: psz close fail
+  - trial 5: szk close fail
+  - trial 6: zvv close ok
+  - trial 7: szk turn fail
+The repertoire: push, lift, close and turn.
+What should be done about szk?
+
+Answer with exactly one of: close | push | turn | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lvp&quot;: &quot;turn&quot;,
+  &quot;psz&quot;: &quot;push&quot;,
+  &quot;szk&quot;: &quot;lift&quot;,
+  &quot;zvv&quot;: &quot;close&quot;
+ },
+ &quot;query_signal&quot;: &quot;szk&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">close</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: zvr close fail
+  - trial 1: ssm lift fail
+  - trial 2: str close fail
+  - trial 3: str turn ok
+  - trial 4: ssm open ok
+  - trial 5: zls turn fail
+  - trial 6: zls lift fail
+  - trial 7: zvr lift ok
+The repertoire: open, lift, close and turn.
+What should be done about zls?
+
+Answer with exactly one of: turn | lift | close | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;ssm&quot;: &quot;open&quot;,
+  &quot;str&quot;: &quot;turn&quot;,
+  &quot;zls&quot;: &quot;close&quot;,
+  &quot;zvr&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;zls&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: smz open fail
+  - trial 1: tps open ok
+  - trial 2: zpk wait fail
+  - trial 3: smz lift ok
+  - trial 4: tps turn fail
+  - trial 5: vpr lift fail
+  - trial 6: vpr open fail
+  - trial 7: zpk turn ok
+The repertoire: open, wait, lift and turn.
+What should be done about vpr?
+
+Answer with exactly one of: wait | turn | lift | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;smz&quot;: &quot;lift&quot;,
+  &quot;tps&quot;: &quot;open&quot;,
+  &quot;vpr&quot;: &quot;wait&quot;,
+  &quot;zpk&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;vpr&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">close</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: vtm push ok
+  - trial 1: tvl push fail
+  - trial 2: vtm wait fail
+  - trial 3: lks lift fail
+  - trial 4: tss close fail
+  - trial 5: tss wait ok
+  - trial 6: tvl lift ok
+  - trial 7: lks push fail
+The repertoire: wait, lift, push and close.
+What should be done about lks?
+
+Answer with exactly one of: push | close | wait | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lks&quot;: &quot;close&quot;,
+  &quot;tss&quot;: &quot;wait&quot;,
+  &quot;tvl&quot;: &quot;lift&quot;,
+  &quot;vtm&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;lks&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: zpr turn ok
+  - trial 1: rpl lift ok
+  - trial 2: rpl close fail
+  - trial 3: pll turn fail
+  - trial 4: krp lift fail
+  - trial 5: zpr open fail
+  - trial 6: krp close ok
+  - trial 7: pll turn fail
+The repertoire: close, turn, lift and open.
+What should be done about pll?
+
+Answer with exactly one of: close | turn | open | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;krp&quot;: &quot;close&quot;,
+  &quot;pll&quot;: &quot;open&quot;,
+  &quot;rpl&quot;: &quot;lift&quot;,
+  &quot;zpr&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;pll&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: rrp push fail
+  - trial 1: tvk open fail
+  - trial 2: rvl push ok
+  - trial 3: rrp close ok
+  - trial 4: rvl lift fail
+  - trial 5: vkt push fail
+  - trial 6: vkt push fail
+  - trial 7: tvk lift ok
+The repertoire: push, lift, open and close.
+What should be done about vkt?
+
+Answer with exactly one of: push | lift | open | close
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;rrp&quot;: &quot;close&quot;,
+  &quot;rvl&quot;: &quot;push&quot;,
+  &quot;tvk&quot;: &quot;lift&quot;,
+  &quot;vkt&quot;: &quot;open&quot;
+ },
+ &quot;query_signal&quot;: &quot;vkt&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: ztk close ok
+  - trial 1: ztt push ok
+  - trial 2: pvm push fail
+  - trial 3: ztk push fail
+  - trial 4: tvr turn ok
+  - trial 5: pvm push fail
+  - trial 6: ztt lift fail
+  - trial 7: tvr push fail
+The repertoire: lift, push, close and turn.
+What should be done about pvm?
+
+Answer with exactly one of: turn | close | push | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;pvm&quot;: &quot;lift&quot;,
+  &quot;tvr&quot;: &quot;turn&quot;,
+  &quot;ztk&quot;: &quot;close&quot;,
+  &quot;ztt&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;pvm&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: tzm open ok
+  - trial 1: tpk wait ok
+  - trial 2: tzm wait fail
+  - trial 3: vvm lift ok
+  - trial 4: vvm open fail
+  - trial 5: kss open fail
+  - trial 6: kss open fail
+  - trial 7: tpk lift fail
+The repertoire: lift, turn, wait and open.
+What should be done about kss?
+
+Answer with exactly one of: lift | open | turn | wait
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kss&quot;: &quot;turn&quot;,
+  &quot;tpk&quot;: &quot;wait&quot;,
+  &quot;tzm&quot;: &quot;open&quot;,
+  &quot;vvm&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;kss&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: krl open fail
+  - trial 1: krl push ok
+  - trial 2: svv turn fail
+  - trial 3: rlt open fail
+  - trial 4: zkv turn fail
+  - trial 5: svv push fail
+  - trial 6: rlt turn ok
+  - trial 7: zkv open ok
+The repertoire: push, wait, turn and open.
+What should be done about svv?
+
+Answer with exactly one of: wait | open | turn | push
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;krl&quot;: &quot;push&quot;,
+  &quot;rlt&quot;: &quot;turn&quot;,
+  &quot;svv&quot;: &quot;wait&quot;,
+  &quot;zkv&quot;: &quot;open&quot;
+ },
+ &quot;query_signal&quot;: &quot;svv&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">push</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: sml open fail
+  - trial 1: sml close ok
+  - trial 2: ssv open ok
+  - trial 3: lsp push fail
+  - trial 4: rrs close fail
+  - trial 5: lsp wait ok
+  - trial 6: ssv close fail
+  - trial 7: rrs wait fail
+The repertoire: wait, push, close and open.
+What should be done about rrs?
+
+Answer with exactly one of: wait | push | open | close
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lsp&quot;: &quot;wait&quot;,
+  &quot;rrs&quot;: &quot;push&quot;,
+  &quot;sml&quot;: &quot;close&quot;,
+  &quot;ssv&quot;: &quot;open&quot;
+ },
+ &quot;query_signal&quot;: &quot;rrs&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">turn</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: rmp open ok
+  - trial 1: krl lift fail
+  - trial 2: rmp lift fail
+  - trial 3: zpm lift fail
+  - trial 4: kmr lift ok
+  - trial 5: krl wait ok
+  - trial 6: kmr wait fail
+  - trial 7: zpm wait fail
+The repertoire: wait, open, lift and turn.
+What should be done about zpm?
+
+Answer with exactly one of: lift | wait | turn | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kmr&quot;: &quot;lift&quot;,
+  &quot;krl&quot;: &quot;wait&quot;,
+  &quot;rmp&quot;: &quot;open&quot;,
+  &quot;zpm&quot;: &quot;turn&quot;
+ },
+ &quot;query_signal&quot;: &quot;zpm&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: lkz lift fail
+  - trial 1: tsr push fail
+  - trial 2: lkz push ok
+  - trial 3: rlm wait fail
+  - trial 4: tsr lift fail
+  - trial 5: mzl lift ok
+  - trial 6: rlm close ok
+  - trial 7: mzl push fail
+The repertoire: wait, lift, push and close.
+What should be done about tsr?
+
+Answer with exactly one of: wait | push | close | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lkz&quot;: &quot;push&quot;,
+  &quot;mzl&quot;: &quot;lift&quot;,
+  &quot;rlm&quot;: &quot;close&quot;,
+  &quot;tsr&quot;: &quot;wait&quot;
+ },
+ &quot;query_signal&quot;: &quot;tsr&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: psl open fail
+  - trial 1: klv open ok
+  - trial 2: klv turn fail
+  - trial 3: tsm close fail
+  - trial 4: tsm turn fail
+  - trial 5: tkr wait fail
+  - trial 6: psl close ok
+  - trial 7: tkr turn ok
+The repertoire: turn, open, close and wait.
+What should be done about tsm?
+
+Answer with exactly one of: wait | open | close | turn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;klv&quot;: &quot;open&quot;,
+  &quot;psl&quot;: &quot;close&quot;,
+  &quot;tkr&quot;: &quot;turn&quot;,
+  &quot;tsm&quot;: &quot;wait&quot;
+ },
+ &quot;query_signal&quot;: &quot;tsm&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: pls wait ok
+  - trial 1: zlm push ok
+  - trial 2: lmt open fail
+  - trial 3: pls open fail
+  - trial 4: mzt wait fail
+  - trial 5: lmt turn ok
+  - trial 6: mzt turn fail
+  - trial 7: zlm wait fail
+The repertoire: open, wait, turn and push.
+What should be done about mzt?
+
+Answer with exactly one of: push | wait | open | turn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lmt&quot;: &quot;turn&quot;,
+  &quot;mzt&quot;: &quot;open&quot;,
+  &quot;pls&quot;: &quot;wait&quot;,
+  &quot;zlm&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;mzt&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">push</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: zlm lift fail
+  - trial 1: smv lift fail
+  - trial 2: zlv lift fail
+  - trial 3: zzv lift ok
+  - trial 4: zlm open fail
+  - trial 5: zzv open fail
+  - trial 6: smv open ok
+  - trial 7: zlv turn ok
+The repertoire: push, lift, open and turn.
+What should be done about zlm?
+
+Answer with exactly one of: turn | lift | open | push
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;smv&quot;: &quot;open&quot;,
+  &quot;zlm&quot;: &quot;push&quot;,
+  &quot;zlv&quot;: &quot;turn&quot;,
+  &quot;zzv&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;zlm&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: pvv turn ok
+  - trial 1: pvv wait fail
+  - trial 2: ssl turn fail
+  - trial 3: mtt close fail
+  - trial 4: vvz open ok
+  - trial 5: mtt close fail
+  - trial 6: vvz close fail
+  - trial 7: ssl close ok
+The repertoire: open, wait, close and turn.
+What should be done about mtt?
+
+Answer with exactly one of: wait | turn | open | close
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mtt&quot;: &quot;wait&quot;,
+  &quot;pvv&quot;: &quot;turn&quot;,
+  &quot;ssl&quot;: &quot;close&quot;,
+  &quot;vvz&quot;: &quot;open&quot;
+ },
+ &quot;query_signal&quot;: &quot;mtt&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">close</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: mlk push ok
+  - trial 1: rvt push fail
+  - trial 2: rvt turn ok
+  - trial 3: prr lift ok
+  - trial 4: prr push fail
+  - trial 5: rzm push fail
+  - trial 6: mlk lift fail
+  - trial 7: rzm turn fail
+The repertoire: turn, close, lift and push.
+What should be done about rzm?
+
+Answer with exactly one of: push | lift | close | turn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mlk&quot;: &quot;push&quot;,
+  &quot;prr&quot;: &quot;lift&quot;,
+  &quot;rvt&quot;: &quot;turn&quot;,
+  &quot;rzm&quot;: &quot;close&quot;
+ },
+ &quot;query_signal&quot;: &quot;rzm&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">lift</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: tpm lift fail
+  - trial 1: mlt open ok
+  - trial 2: vlm open fail
+  - trial 3: tkr push fail
+  - trial 4: tpm push ok
+  - trial 5: tkr turn ok
+  - trial 6: mlt turn fail
+  - trial 7: vlm open fail
+The repertoire: open, push, lift and turn.
+What should be done about vlm?
+
+Answer with exactly one of: open | push | turn | lift
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;mlt&quot;: &quot;open&quot;,
+  &quot;tkr&quot;: &quot;turn&quot;,
+  &quot;tpm&quot;: &quot;push&quot;,
+  &quot;vlm&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;vlm&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">close</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: kvl wait ok
+  - trial 1: kvl lift fail
+  - trial 2: zpz wait fail
+  - trial 3: zzp lift ok
+  - trial 4: rtm wait fail
+  - trial 5: zpz open fail
+  - trial 6: zzp wait fail
+  - trial 7: rtm open ok
+The repertoire: open, close, lift and wait.
+What should be done about zpz?
+
+Answer with exactly one of: close | wait | lift | open
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kvl&quot;: &quot;wait&quot;,
+  &quot;rtm&quot;: &quot;open&quot;,
+  &quot;zpz&quot;: &quot;close&quot;,
+  &quot;zzp&quot;: &quot;lift&quot;
+ },
+ &quot;query_signal&quot;: &quot;zpz&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">open</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: zsk turn fail
+  - trial 1: tvk close ok
+  - trial 2: zsk push ok
+  - trial 3: rrr turn fail
+  - trial 4: tkm close fail
+  - trial 5: rrr turn fail
+  - trial 6: tvk turn fail
+  - trial 7: tkm turn ok
+The repertoire: open, close, turn and push.
+What should be done about rrr?
+
+Answer with exactly one of: push | turn | open | close
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;rrr&quot;: &quot;open&quot;,
+  &quot;tkm&quot;: &quot;turn&quot;,
+  &quot;tvk&quot;: &quot;close&quot;,
+  &quot;zsk&quot;: &quot;push&quot;
+ },
+ &quot;query_signal&quot;: &quot;rrr&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">close</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: llp push ok
+  - trial 1: plm turn ok
+  - trial 2: sml open fail
+  - trial 3: plm open fail
+  - trial 4: llp turn fail
+  - trial 5: kkt open ok
+  - trial 6: kkt push fail
+  - trial 7: sml turn fail
+The repertoire: close, open, turn and push.
+What should be done about sml?
+
+Answer with exactly one of: open | turn | close | push
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kkt&quot;: &quot;open&quot;,
+  &quot;llp&quot;: &quot;push&quot;,
+  &quot;plm&quot;: &quot;turn&quot;,
+  &quot;sml&quot;: &quot;close&quot;
+ },
+ &quot;query_signal&quot;: &quot;sml&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">close</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: spl open fail
+  - trial 1: kkz open ok
+  - trial 2: kkz close fail
+  - trial 3: kkr wait ok
+  - trial 4: lkm wait fail
+  - trial 5: kkr open fail
+  - trial 6: lkm push ok
+  - trial 7: spl wait fail
+The repertoire: wait, push, open and close.
+What should be done about spl?
+
+Answer with exactly one of: open | wait | push | close
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;kkr&quot;: &quot;wait&quot;,
+  &quot;kkz&quot;: &quot;open&quot;,
+  &quot;lkm&quot;: &quot;push&quot;,
+  &quot;spl&quot;: &quot;close&quot;
+ },
+ &quot;query_signal&quot;: &quot;spl&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">wait</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: zrm lift fail
+  - trial 1: pkv push ok
+  - trial 2: lkl lift ok
+  - trial 3: pkv close fail
+  - trial 4: vsp close fail
+  - trial 5: zrm close ok
+  - trial 6: lkl close fail
+  - trial 7: vsp close fail
+The repertoire: push, lift, wait and close.
+What should be done about vsp?
+
+Answer with exactly one of: wait | lift | close | push
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;lkl&quot;: &quot;lift&quot;,
+  &quot;pkv&quot;: &quot;push&quot;,
+  &quot;vsp&quot;: &quot;wait&quot;,
+  &quot;zrm&quot;: &quot;close&quot;
+ },
+ &quot;query_signal&quot;: &quot;vsp&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">close</span></summary>
+<div class="body">
+<p>prompt</p><pre>What happened before:
+  - trial 0: tss open ok
+  - trial 1: pps lift ok
+  - trial 2: tss close fail
+  - trial 3: tmz wait ok
+  - trial 4: pps close fail
+  - trial 5: tmz close fail
+  - trial 6: prr open fail
+  - trial 7: prr lift fail
+The repertoire: open, close, lift and wait.
+What should be done about prr?
+
+Answer with exactly one of: lift | wait | open | close
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;convention&quot;: {
+  &quot;pps&quot;: &quot;lift&quot;,
+  &quot;prr&quot;: &quot;close&quot;,
+  &quot;tmz&quot;: &quot;wait&quot;,
+  &quot;tss&quot;: &quot;open&quot;
+ },
+ &quot;query_signal&quot;: &quot;prr&quot;,
+ &quot;trials&quot;: 8
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

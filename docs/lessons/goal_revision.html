@@ -1,0 +1,3672 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>goal_revision — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#xv">values and goal cognition</a> &rsaquo;
+  goal_revision</p>
+<h1>#160 <code>goal_revision</code></h1>
+<p class="lede">the goal new evidence makes infeasible</p>
+<div class="tags"><span class="tag ">level 160</span><span class="tag ">section xv</span><span class="tag ">value_learning</span><span class="tag ">planning</span><span class="tag ">causal_reasoning</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.32</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>New evidence removes a resource; which goal is no longer achievable?</p><p>    Availability propagates down a short derivation chain, so the depleted
+    resource is usually not the one any goal names. Exactly one goal loses a
+    requirement once the chain is followed.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The evidence: depleted res3.
+The goals are:
+  - goal1 requires res2
+  - res1 derived from res0
+  - res0 derived from res3
+  - goal0 requires res2
+  - goal0 requires res5
+  - goal3 requires res4
+  - goal2 requires res5
+  - goal1 requires res4
+  - goal2 requires res3
+  - goal3 requires res5
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal2 | goal0 | goal1
+Reply with the answer only.</pre><h3>spanish</h3><pre>La evidencia es: está agotado: res3.
+Los objetivos son:
+  - goal1 requiere res2
+  - res1 se deriva de res0
+  - res0 se deriva de res3
+  - goal0 requiere res2
+  - goal0 requiere res5
+  - goal3 requiere res4
+  - goal2 requiere res5
+  - goal1 requiere res4
+  - goal2 requiere res3
+  - goal3 requiere res5
+Las reglas son:
+  - la regla: derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - la regla: a_depleted_resource_is_unavailable
+  - la regla: a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+¿Qué objetivo se debe descartar?
+
+Responde exactamente con una de estas opciones: goal3 | goal2 | goal0 | goal1
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>证据如下：已耗尽：res3。
+目标如下：
+  - goal1需要res2
+  - res1派生自res0
+  - res0派生自res3
+  - goal0需要res2
+  - goal0需要res5
+  - goal3需要res4
+  - goal2需要res5
+  - goal1需要res4
+  - goal2需要res3
+  - goal3需要res5
+规则如下：
+  - 规则：derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - 规则：a_depleted_resource_is_unavailable
+  - 规则：a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+应该放弃哪一个目标？
+
+请从以下选项中选出恰好一个作答：goal3 | goal2 | goal0 | goal1
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The evidence: depleted res3.
+The goals are:
+  - goal1 requires res2
+  - res1 derived from res0
+  - res0 derived from res3
+  - goal0 requires res2
+  - goal0 requires res5
+  - goal3 requires res4
+  - goal2 requires res5
+  - goal1 requires res4
+  - goal2 requires res3
+  - goal3 requires res5
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal2 | goal0 | goal1
+Reply with the answer only.</pre><h3>symbols</h3><pre>{evidence: [(depleted res3)], goals: [(requires goal1 res2) (derived_from res1 res0) (derived_from res0 res3) (requires goal0 res2) (requires goal0 res5) (requires goal3 res4) (requires goal2 res5) (requires goal1 res4) (requires goal2 res3) (requires goal3 res5)], query: which_goal_to_drop, rules: [(rule derived_from_a_b_means_a_is_available_only_while_b_is_available) (rule a_depleted_resource_is_unavailable) (rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource)]}
+
+Answer with exactly one of: goal3 | goal2 | goal0 | goal1
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/goal_revision.jsonl</code> &middot; <code>data/samples/spanish/goal_revision.jsonl</code> &middot; <code>data/samples/chinese/goal_revision.jsonl</code> &middot; <code>data/samples/english_synonym/goal_revision.jsonl</code> &middot; <code>data/samples/symbols/goal_revision.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res3.
+The goals are:
+  - goal1 requires res2
+  - res1 derived from res0
+  - res0 derived from res3
+  - goal0 requires res2
+  - goal0 requires res5
+  - goal3 requires res4
+  - goal2 requires res5
+  - goal1 requires res4
+  - goal2 requires res3
+  - goal3 requires res5
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal2 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res0&quot;,
+  &quot;res3&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res3&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal3 requires res5
+  - goal3 requires res3
+  - goal2 requires res4
+  - goal1 requires res5
+  - goal0 requires res3
+  - res1 derived from res4
+  - goal1 requires res2
+  - res0 derived from res1
+  - goal2 requires res3
+  - goal0 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal2 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res3.
+The goals are:
+  - goal2 requires res0
+  - res5 derived from res3
+  - goal0 requires res4
+  - goal1 requires res4
+  - res1 derived from res5
+  - goal3 requires res4
+  - goal3 requires res0
+  - goal0 requires res5
+  - goal2 requires res4
+  - goal1 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal0 | goal2 | goal1 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res5&quot;,
+  &quot;res3&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res3&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res0.
+The goals are:
+  - goal0 requires res1
+  - goal0 requires res4
+  - goal1 requires res3
+  - res4 derived from res0
+  - goal2 requires res5
+  - goal3 requires res5
+  - goal1 requires res5
+  - goal2 requires res1
+  - goal3 requires res3
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal3 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res0&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal0 requires res1
+  - goal0 requires res4
+  - goal3 requires res3
+  - res5 derived from res3
+  - goal1 requires res0
+  - goal2 requires res0
+  - goal3 requires res1
+  - goal2 requires res4
+  - res3 derived from res2
+  - goal1 requires res4
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal3 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res5&quot;,
+  &quot;res3&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res3&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal1 requires res2
+  - goal0 requires res2
+  - goal1 requires res3
+  - goal2 requires res4
+  - goal3 requires res3
+  - goal3 requires res5
+  - res0 derived from res1
+  - res1 derived from res4
+  - goal0 requires res5
+  - goal2 requires res3
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal1 | goal0 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res0.
+The goals are:
+  - goal2 requires res0
+  - goal2 requires res2
+  - res5 derived from res0
+  - goal1 requires res2
+  - goal3 requires res4
+  - goal0 requires res2
+  - goal1 requires res4
+  - goal3 requires res3
+  - goal0 requires res1
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal1 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res5&quot;,
+  &quot;res0&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal2 requires res0
+  - res1 derived from res4
+  - goal0 requires res2
+  - goal1 requires res0
+  - goal3 requires res5
+  - goal2 requires res2
+  - goal3 requires res0
+  - goal0 requires res1
+  - goal1 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal0 | goal3 | goal2 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal2 requires res3
+  - goal2 requires res1
+  - goal3 requires res3
+  - res5 derived from res4
+  - goal0 requires res1
+  - goal3 requires res0
+  - goal1 requires res1
+  - goal0 requires res3
+  - goal1 requires res5
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal0 | goal2 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res5&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res4&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res5.
+The goals are:
+  - goal2 requires res0
+  - goal3 requires res4
+  - res3 derived from res5
+  - goal3 requires res2
+  - goal0 requires res0
+  - goal2 requires res4
+  - goal0 requires res3
+  - goal1 requires res2
+  - goal1 requires res1
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal2 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res3&quot;,
+  &quot;res5&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res3&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal3 requires res1
+  - goal1 requires res4
+  - goal1 requires res1
+  - goal2 requires res2
+  - res3 derived from res4
+  - goal0 requires res5
+  - goal0 requires res1
+  - goal2 requires res0
+  - goal3 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal0 | goal1 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res3&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res3&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res5.
+The goals are:
+  - goal3 requires res1
+  - goal3 requires res2
+  - goal0 requires res3
+  - goal1 requires res2
+  - goal0 requires res4
+  - res4 derived from res5
+  - goal1 requires res1
+  - goal2 requires res0
+  - goal2 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal2 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res5&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res4&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal2 requires res5
+  - goal2 requires res1
+  - goal0 requires res5
+  - res0 derived from res4
+  - goal1 requires res0
+  - goal3 requires res3
+  - goal3 requires res1
+  - goal0 requires res2
+  - goal1 requires res3
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal2 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal3 requires res3
+  - goal0 requires res1
+  - goal2 requires res1
+  - res0 derived from res2
+  - goal0 requires res0
+  - goal2 requires res4
+  - goal3 requires res4
+  - goal1 requires res3
+  - goal1 requires res4
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal1 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res2&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - goal3 requires res3
+  - goal2 requires res4
+  - res5 derived from res1
+  - goal2 requires res1
+  - goal1 requires res4
+  - goal0 requires res2
+  - goal0 requires res3
+  - goal1 requires res3
+  - res0 derived from res5
+  - goal3 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal3 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res5&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal2 requires res3
+  - goal2 requires res4
+  - goal1 requires res1
+  - goal3 requires res4
+  - goal0 requires res2
+  - goal3 requires res0
+  - goal1 requires res0
+  - res5 derived from res2
+  - goal0 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal0 | goal1 | goal3 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res5&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res0.
+The goals are:
+  - res4 derived from res0
+  - goal1 requires res4
+  - goal2 requires res3
+  - goal3 requires res3
+  - goal3 requires res5
+  - goal0 requires res5
+  - goal0 requires res1
+  - goal2 requires res1
+  - goal1 requires res3
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal1 | goal0 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res0&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res3.
+The goals are:
+  - goal2 requires res2
+  - goal1 requires res2
+  - res4 derived from res3
+  - goal1 requires res1
+  - goal2 requires res0
+  - goal0 requires res2
+  - goal0 requires res0
+  - goal3 requires res4
+  - goal3 requires res1
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal0 | goal3 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res3&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res3&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - goal0 requires res5
+  - goal1 requires res3
+  - goal1 requires res4
+  - goal0 requires res2
+  - goal3 requires res2
+  - goal2 requires res5
+  - goal3 requires res4
+  - res3 derived from res1
+  - goal2 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal0 | goal1 | goal3 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res3&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res3&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res5.
+The goals are:
+  - goal3 requires res3
+  - goal1 requires res4
+  - goal1 requires res1
+  - goal0 requires res0
+  - goal2 requires res4
+  - res2 derived from res0
+  - goal2 requires res3
+  - res0 derived from res5
+  - goal3 requires res1
+  - goal0 requires res3
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal3 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res2&quot;,
+  &quot;res0&quot;,
+  &quot;res5&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res2&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal0 requires res5
+  - goal3 requires res2
+  - goal2 requires res2
+  - goal0 requires res2
+  - goal1 requires res2
+  - res1 derived from res0
+  - goal2 requires res4
+  - goal3 requires res3
+  - res0 derived from res4
+  - goal1 requires res3
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal2 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res0&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - goal0 requires res5
+  - goal3 requires res2
+  - goal1 requires res2
+  - res5 derived from res4
+  - goal2 requires res3
+  - goal0 requires res0
+  - goal2 requires res0
+  - goal3 requires res3
+  - goal1 requires res3
+  - res4 derived from res1
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal0 | goal1 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res5&quot;,
+  &quot;res4&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res4&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res3.
+The goals are:
+  - goal2 requires res2
+  - res1 derived from res3
+  - goal3 requires res2
+  - goal0 requires res1
+  - goal0 requires res4
+  - goal1 requires res4
+  - goal1 requires res2
+  - goal3 requires res0
+  - goal2 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal1 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res3&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res3&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res5.
+The goals are:
+  - goal0 requires res1
+  - goal2 requires res3
+  - goal1 requires res1
+  - goal2 requires res5
+  - goal3 requires res3
+  - res4 derived from res0
+  - goal0 requires res3
+  - res0 derived from res5
+  - goal3 requires res1
+  - goal1 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal3 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res0&quot;,
+  &quot;res5&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res4&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal1 requires res5
+  - goal3 requires res3
+  - res2 derived from res4
+  - goal0 requires res2
+  - goal3 requires res0
+  - goal2 requires res5
+  - goal0 requires res5
+  - goal1 requires res3
+  - goal2 requires res1
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal3 | goal0 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res2&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal3 requires res3
+  - goal0 requires res4
+  - goal2 requires res0
+  - goal1 requires res0
+  - goal1 requires res1
+  - goal2 requires res3
+  - goal3 requires res0
+  - res5 derived from res4
+  - goal0 requires res1
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal0 | goal2 | goal3 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res5&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res4&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - res4 derived from res2
+  - goal2 requires res0
+  - goal3 requires res2
+  - goal0 requires res5
+  - goal2 requires res3
+  - goal0 requires res1
+  - goal3 requires res0
+  - goal1 requires res3
+  - goal1 requires res1
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal1 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - goal1 requires res0
+  - goal0 requires res0
+  - goal1 requires res3
+  - goal2 requires res4
+  - goal3 requires res5
+  - res4 derived from res1
+  - goal3 requires res2
+  - goal2 requires res5
+  - goal0 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal0 | goal1 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - goal2 requires res0
+  - goal0 requires res3
+  - res2 derived from res1
+  - goal2 requires res3
+  - goal1 requires res5
+  - goal1 requires res3
+  - goal3 requires res3
+  - res4 derived from res2
+  - goal0 requires res2
+  - goal3 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal3 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res2&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res2&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res3.
+The goals are:
+  - goal1 requires res1
+  - goal2 requires res4
+  - goal0 requires res2
+  - goal1 requires res4
+  - res0 derived from res3
+  - goal3 requires res4
+  - goal2 requires res3
+  - goal3 requires res2
+  - goal0 requires res5
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal1 | goal0 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res3&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res3&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal3 requires res4
+  - goal1 requires res5
+  - goal0 requires res5
+  - goal3 requires res3
+  - goal0 requires res4
+  - res0 derived from res2
+  - goal2 requires res3
+  - goal1 requires res4
+  - goal2 requires res2
+  - res1 derived from res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal2 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res0&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res2&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal2 requires res0
+  - goal2 requires res3
+  - goal1 requires res0
+  - goal1 requires res1
+  - goal0 requires res5
+  - goal0 requires res2
+  - goal3 requires res1
+  - res4 derived from res2
+  - goal3 requires res3
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal3 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - goal2 requires res4
+  - goal3 requires res5
+  - res0 derived from res1
+  - goal1 requires res3
+  - goal0 requires res0
+  - res2 derived from res0
+  - goal0 requires res4
+  - goal3 requires res4
+  - goal1 requires res5
+  - goal2 requires res5
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal2 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res2&quot;,
+  &quot;res0&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res2&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - goal1 requires res0
+  - goal2 requires res4
+  - goal1 requires res2
+  - goal0 requires res3
+  - goal0 requires res5
+  - goal2 requires res0
+  - res4 derived from res1
+  - goal3 requires res2
+  - goal3 requires res5
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal2 | goal0 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res0.
+The goals are:
+  - goal2 requires res2
+  - goal1 requires res4
+  - res1 derived from res0
+  - goal0 requires res4
+  - goal3 requires res2
+  - goal0 requires res3
+  - goal2 requires res5
+  - goal3 requires res5
+  - res3 derived from res1
+  - goal1 requires res5
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal0 | goal2 | goal3 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res3&quot;,
+  &quot;res1&quot;,
+  &quot;res0&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res3&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - goal0 requires res0
+  - goal1 requires res4
+  - goal2 requires res4
+  - goal3 requires res0
+  - res5 derived from res1
+  - goal0 requires res3
+  - goal2 requires res3
+  - goal3 requires res5
+  - goal1 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal0 | goal2 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res5&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res3.
+The goals are:
+  - goal1 requires res1
+  - goal3 requires res2
+  - goal2 requires res5
+  - res0 derived from res3
+  - goal3 requires res0
+  - goal0 requires res4
+  - goal0 requires res2
+  - goal1 requires res4
+  - goal2 requires res4
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal2 | goal0 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res3&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res3&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - goal0 requires res2
+  - goal1 requires res3
+  - goal1 requires res2
+  - goal0 requires res5
+  - goal2 requires res3
+  - res0 derived from res4
+  - goal3 requires res3
+  - res4 derived from res1
+  - goal3 requires res0
+  - goal2 requires res5
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal2 | goal0 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res4&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal3 requires res3
+  - goal0 requires res5
+  - goal1 requires res3
+  - goal2 requires res0
+  - goal0 requires res4
+  - goal3 requires res5
+  - res2 derived from res4
+  - goal2 requires res3
+  - goal1 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal1 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res2&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal2 requires res0
+  - res3 derived from res2
+  - goal3 requires res5
+  - goal1 requires res0
+  - goal1 requires res1
+  - goal3 requires res4
+  - goal0 requires res4
+  - goal0 requires res5
+  - goal2 requires res3
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal2 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res3&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res3&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res5.
+The goals are:
+  - goal1 requires res3
+  - goal1 requires res2
+  - goal2 requires res4
+  - goal0 requires res2
+  - goal2 requires res2
+  - res1 derived from res5
+  - goal0 requires res1
+  - goal3 requires res4
+  - goal3 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal0 | goal1 | goal2 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res5&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - goal2 requires res5
+  - goal3 requires res4
+  - goal3 requires res5
+  - res2 derived from res0
+  - res0 derived from res1
+  - goal2 requires res3
+  - goal0 requires res2
+  - goal0 requires res3
+  - goal1 requires res4
+  - goal1 requires res3
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal3 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res2&quot;,
+  &quot;res0&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res2&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res5.
+The goals are:
+  - goal0 requires res1
+  - res1 derived from res5
+  - goal2 requires res4
+  - goal1 requires res0
+  - goal1 requires res3
+  - goal3 requires res3
+  - goal2 requires res2
+  - goal0 requires res2
+  - goal3 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal0 | goal1 | goal3 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res5&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal1 requires res3
+  - res1 derived from res2
+  - goal2 requires res5
+  - goal3 requires res1
+  - goal0 requires res4
+  - goal2 requires res4
+  - goal3 requires res5
+  - goal1 requires res0
+  - goal0 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal1 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res2&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal2 requires res4
+  - goal1 requires res0
+  - goal3 requires res4
+  - goal0 requires res0
+  - goal1 requires res1
+  - res5 derived from res2
+  - goal3 requires res2
+  - goal2 requires res3
+  - goal0 requires res4
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal2 | goal0 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res5&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res3.
+The goals are:
+  - res1 derived from res5
+  - goal2 requires res2
+  - goal0 requires res3
+  - goal1 requires res0
+  - goal3 requires res0
+  - res5 derived from res3
+  - goal0 requires res0
+  - goal1 requires res4
+  - goal3 requires res4
+  - goal2 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal3 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res5&quot;,
+  &quot;res3&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res3&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res0.
+The goals are:
+  - goal2 requires res4
+  - goal3 requires res2
+  - goal0 requires res5
+  - goal1 requires res1
+  - res3 derived from res0
+  - goal2 requires res2
+  - goal1 requires res5
+  - goal3 requires res0
+  - goal0 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal2 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res3&quot;,
+  &quot;res0&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res3&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res3.
+The goals are:
+  - goal3 requires res0
+  - goal1 requires res2
+  - res5 derived from res0
+  - goal0 requires res4
+  - res0 derived from res3
+  - goal2 requires res1
+  - goal1 requires res4
+  - goal0 requires res2
+  - goal3 requires res2
+  - goal2 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal0 | goal2 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res5&quot;,
+  &quot;res0&quot;,
+  &quot;res3&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res3&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - goal2 requires res2
+  - goal0 requires res3
+  - res4 derived from res1
+  - goal3 requires res3
+  - goal1 requires res2
+  - goal3 requires res0
+  - goal0 requires res0
+  - goal1 requires res1
+  - goal2 requires res3
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal2 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal3 requires res3
+  - goal3 requires res4
+  - goal0 requires res5
+  - goal1 requires res1
+  - goal0 requires res3
+  - goal2 requires res1
+  - goal1 requires res2
+  - res0 derived from res4
+  - goal2 requires res5
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal3 | goal0 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res3.
+The goals are:
+  - goal0 requires res4
+  - res5 derived from res1
+  - goal2 requires res0
+  - goal3 requires res4
+  - goal0 requires res5
+  - goal1 requires res2
+  - goal1 requires res4
+  - goal2 requires res2
+  - res1 derived from res3
+  - goal3 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal3 | goal0 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res5&quot;,
+  &quot;res1&quot;,
+  &quot;res3&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res3&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - goal0 requires res0
+  - goal0 requires res2
+  - goal2 requires res2
+  - goal1 requires res3
+  - res4 derived from res1
+  - res5 derived from res4
+  - goal3 requires res3
+  - goal3 requires res0
+  - goal1 requires res0
+  - goal2 requires res1
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal2 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res5&quot;,
+  &quot;res4&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res4&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal3 requires res1
+  - goal2 requires res4
+  - goal2 requires res0
+  - goal0 requires res4
+  - res5 derived from res2
+  - goal1 requires res0
+  - goal0 requires res0
+  - goal1 requires res1
+  - goal3 requires res5
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal1 | goal0 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res5&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res0.
+The goals are:
+  - goal0 requires res5
+  - goal2 requires res5
+  - goal2 requires res2
+  - goal1 requires res5
+  - res4 derived from res3
+  - goal0 requires res1
+  - goal3 requires res5
+  - goal3 requires res2
+  - res3 derived from res0
+  - goal1 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal0 | goal2 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res3&quot;,
+  &quot;res0&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res3&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res5.
+The goals are:
+  - goal2 requires res0
+  - res2 derived from res5
+  - goal1 requires res1
+  - res4 derived from res2
+  - goal3 requires res3
+  - goal0 requires res3
+  - goal1 requires res5
+  - goal2 requires res1
+  - goal0 requires res1
+  - goal3 requires res1
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal1 | goal0 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res2&quot;,
+  &quot;res5&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res4&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res3.
+The goals are:
+  - goal1 requires res1
+  - goal0 requires res4
+  - goal2 requires res4
+  - goal2 requires res3
+  - goal3 requires res2
+  - res0 derived from res3
+  - goal0 requires res1
+  - goal3 requires res1
+  - goal1 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal1 | goal0 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res3&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res3&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res5.
+The goals are:
+  - goal3 requires res0
+  - res1 derived from res5
+  - goal2 requires res0
+  - res4 derived from res1
+  - goal3 requires res5
+  - goal1 requires res3
+  - goal0 requires res2
+  - goal0 requires res0
+  - goal1 requires res0
+  - goal2 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal1 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res1&quot;,
+  &quot;res5&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res4&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal1 requires res1
+  - goal2 requires res2
+  - goal0 requires res4
+  - goal1 requires res0
+  - goal3 requires res1
+  - goal2 requires res1
+  - res3 derived from res5
+  - res5 derived from res2
+  - goal0 requires res0
+  - goal3 requires res4
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal1 | goal0 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res3&quot;,
+  &quot;res5&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res3&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res5.
+The goals are:
+  - res0 derived from res5
+  - goal3 requires res2
+  - goal0 requires res4
+  - goal2 requires res4
+  - goal2 requires res2
+  - goal1 requires res3
+  - goal1 requires res0
+  - goal3 requires res4
+  - goal0 requires res1
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal0 | goal3 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res5&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res0.
+The goals are:
+  - goal2 requires res2
+  - goal2 requires res3
+  - res5 derived from res0
+  - res1 derived from res5
+  - goal3 requires res4
+  - goal3 requires res2
+  - goal0 requires res2
+  - goal0 requires res4
+  - goal1 requires res2
+  - goal1 requires res1
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal3 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res5&quot;,
+  &quot;res0&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal1 requires res0
+  - goal3 requires res4
+  - goal2 requires res0
+  - res1 derived from res3
+  - goal0 requires res5
+  - goal0 requires res0
+  - goal2 requires res5
+  - goal1 requires res5
+  - goal3 requires res2
+  - res3 derived from res4
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal1 | goal0 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res3&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res3&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal2 requires res3
+  - res0 derived from res4
+  - goal1 requires res1
+  - goal2 requires res1
+  - res3 derived from res0
+  - goal3 requires res1
+  - goal0 requires res5
+  - goal3 requires res5
+  - goal1 requires res2
+  - goal0 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal2 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res3&quot;,
+  &quot;res0&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res3&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res5.
+The goals are:
+  - goal1 requires res2
+  - res4 derived from res3
+  - goal2 requires res2
+  - goal3 requires res1
+  - goal1 requires res0
+  - res3 derived from res5
+  - goal0 requires res0
+  - goal0 requires res3
+  - goal3 requires res2
+  - goal2 requires res1
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal1 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res3&quot;,
+  &quot;res5&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res3&quot;,
+  &quot;res4&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res0.
+The goals are:
+  - goal0 requires res5
+  - goal3 requires res3
+  - goal3 requires res5
+  - goal2 requires res0
+  - goal1 requires res5
+  - res2 derived from res0
+  - goal0 requires res4
+  - goal1 requires res4
+  - goal2 requires res1
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal3 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res2&quot;,
+  &quot;res0&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res2&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal3 requires res3
+  - goal0 requires res0
+  - goal1 requires res4
+  - goal1 requires res1
+  - res2 derived from res4
+  - goal3 requires res1
+  - goal0 requires res3
+  - goal2 requires res5
+  - goal2 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal0 | goal2 | goal3 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res2&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res3.
+The goals are:
+  - goal3 requires res5
+  - goal1 requires res1
+  - goal2 requires res1
+  - goal0 requires res0
+  - goal0 requires res1
+  - goal3 requires res1
+  - goal2 requires res0
+  - res2 derived from res3
+  - res4 derived from res2
+  - goal1 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal0 | goal1 | goal2 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res2&quot;,
+  &quot;res3&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res3&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal3 requires res1
+  - goal1 requires res2
+  - goal0 requires res0
+  - goal0 requires res3
+  - goal2 requires res0
+  - goal1 requires res3
+  - res2 derived from res4
+  - goal3 requires res0
+  - goal2 requires res1
+  - res5 derived from res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal2 | goal0 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res5&quot;,
+  &quot;res2&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res4&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res0.
+The goals are:
+  - goal3 requires res2
+  - res5 derived from res3
+  - goal2 requires res1
+  - goal1 requires res4
+  - goal0 requires res4
+  - goal0 requires res1
+  - res3 derived from res0
+  - goal1 requires res2
+  - goal2 requires res2
+  - goal3 requires res3
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal3 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res5&quot;,
+  &quot;res3&quot;,
+  &quot;res0&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res3&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res3.
+The goals are:
+  - goal2 requires res1
+  - res0 derived from res2
+  - goal2 requires res4
+  - goal3 requires res5
+  - goal0 requires res5
+  - goal0 requires res1
+  - goal3 requires res1
+  - goal1 requires res5
+  - goal1 requires res2
+  - res2 derived from res3
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal0 | goal2 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res2&quot;,
+  &quot;res3&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res2&quot;,
+  &quot;res3&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - res0 derived from res4
+  - res3 derived from res0
+  - goal0 requires res5
+  - goal3 requires res2
+  - goal3 requires res1
+  - goal1 requires res1
+  - goal0 requires res2
+  - goal1 requires res4
+  - goal2 requires res1
+  - goal2 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal0 | goal1 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res3&quot;,
+  &quot;res0&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res3&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal0 requires res3
+  - goal1 requires res3
+  - res4 derived from res5
+  - goal3 requires res1
+  - res5 derived from res2
+  - goal2 requires res1
+  - goal0 requires res0
+  - goal1 requires res0
+  - goal3 requires res5
+  - goal2 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal0 | goal2 | goal1 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res5&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res4&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res5.
+The goals are:
+  - goal0 requires res2
+  - goal1 requires res0
+  - goal1 requires res3
+  - goal3 requires res4
+  - goal2 requires res4
+  - res1 derived from res5
+  - goal0 requires res1
+  - goal3 requires res3
+  - goal2 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal3 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res5&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal2 requires res5
+  - goal0 requires res5
+  - res4 derived from res2
+  - goal1 requires res0
+  - goal1 requires res5
+  - goal3 requires res1
+  - goal2 requires res3
+  - goal0 requires res3
+  - res0 derived from res4
+  - goal3 requires res5
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal1 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res4&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res2&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - goal0 requires res2
+  - goal1 requires res3
+  - goal1 requires res4
+  - res0 derived from res1
+  - goal0 requires res3
+  - goal2 requires res4
+  - goal2 requires res2
+  - goal3 requires res5
+  - res5 derived from res0
+  - goal3 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal0 | goal1 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res5&quot;,
+  &quot;res0&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - goal3 requires res0
+  - res4 derived from res1
+  - goal1 requires res4
+  - goal0 requires res5
+  - res3 derived from res4
+  - goal1 requires res5
+  - goal3 requires res2
+  - goal0 requires res2
+  - goal2 requires res5
+  - goal2 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal1 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res3&quot;,
+  &quot;res4&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res3&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal0 requires res1
+  - goal3 requires res5
+  - goal0 requires res5
+  - goal2 requires res5
+  - goal2 requires res4
+  - res3 derived from res1
+  - goal3 requires res4
+  - res1 derived from res2
+  - goal1 requires res4
+  - goal1 requires res5
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal3 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res3&quot;,
+  &quot;res1&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res2&quot;,
+  &quot;res3&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - res4 derived from res1
+  - goal0 requires res5
+  - goal1 requires res2
+  - goal0 requires res0
+  - goal2 requires res5
+  - goal1 requires res0
+  - goal3 requires res3
+  - goal3 requires res0
+  - goal2 requires res1
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal1 | goal0 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - goal0 requires res4
+  - goal2 requires res4
+  - goal3 requires res3
+  - goal1 requires res5
+  - res0 derived from res1
+  - goal2 requires res3
+  - goal1 requires res3
+  - goal0 requires res1
+  - goal3 requires res4
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal0 | goal2 | goal1 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal2 requires res0
+  - goal1 requires res5
+  - goal3 requires res1
+  - goal1 requires res1
+  - goal0 requires res3
+  - goal0 requires res1
+  - res4 derived from res5
+  - goal2 requires res1
+  - res5 derived from res2
+  - goal3 requires res3
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal0 | goal3 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res5&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res4&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal0 requires res1
+  - res0 derived from res2
+  - goal0 requires res4
+  - goal1 requires res1
+  - goal3 requires res5
+  - goal3 requires res3
+  - goal2 requires res0
+  - goal1 requires res3
+  - goal2 requires res5
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal2 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res2&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - res0 derived from res4
+  - goal3 requires res5
+  - goal1 requires res5
+  - goal0 requires res2
+  - goal1 requires res4
+  - goal3 requires res2
+  - goal2 requires res5
+  - res1 derived from res0
+  - goal2 requires res3
+  - goal0 requires res5
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal0 | goal1 | goal3 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res0&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res3.
+The goals are:
+  - goal2 requires res5
+  - goal1 requires res2
+  - goal0 requires res2
+  - goal1 requires res4
+  - goal3 requires res2
+  - goal2 requires res3
+  - goal3 requires res5
+  - goal0 requires res5
+  - res0 derived from res1
+  - res1 derived from res3
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal0 | goal1 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res3&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res3&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal2 requires res3
+  - goal2 requires res1
+  - goal0 requires res5
+  - res4 derived from res5
+  - res5 derived from res2
+  - goal1 requires res3
+  - goal3 requires res3
+  - goal0 requires res3
+  - goal3 requires res1
+  - goal1 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal0 | goal2 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res4&quot;,
+  &quot;res5&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res4&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - goal0 requires res0
+  - res2 derived from res1
+  - goal2 requires res2
+  - goal3 requires res0
+  - goal0 requires res3
+  - goal1 requires res3
+  - goal1 requires res0
+  - goal2 requires res3
+  - goal3 requires res5
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal1 | goal0 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res2&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res2&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal2 requires res5
+  - goal3 requires res2
+  - goal3 requires res4
+  - goal0 requires res1
+  - goal0 requires res5
+  - goal2 requires res1
+  - goal1 requires res1
+  - res0 derived from res2
+  - res3 derived from res0
+  - goal1 requires res5
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal0 | goal3 | goal2 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res3&quot;,
+  &quot;res0&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res2&quot;,
+  &quot;res3&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res5.
+The goals are:
+  - goal3 requires res2
+  - goal0 requires res1
+  - goal3 requires res0
+  - goal2 requires res2
+  - goal1 requires res1
+  - goal0 requires res4
+  - goal2 requires res3
+  - res0 derived from res5
+  - goal1 requires res4
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal1 | goal0 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res5&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal2 requires res1
+  - goal0 requires res2
+  - goal3 requires res1
+  - goal3 requires res5
+  - goal1 requires res3
+  - goal0 requires res4
+  - res0 derived from res4
+  - goal2 requires res3
+  - goal1 requires res1
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal1 | goal0 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - res1 derived from res3
+  - goal3 requires res4
+  - goal1 requires res2
+  - goal2 requires res5
+  - goal0 requires res5
+  - goal0 requires res2
+  - goal2 requires res2
+  - res3 derived from res4
+  - goal3 requires res5
+  - goal1 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal0 | goal1 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res3&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res3&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal0 requires res5
+  - goal2 requires res2
+  - goal1 requires res5
+  - goal2 requires res1
+  - res0 derived from res2
+  - goal3 requires res3
+  - goal3 requires res5
+  - goal0 requires res3
+  - goal1 requires res4
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal0 | goal3 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res2&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal1 requires res5
+  - goal0 requires res5
+  - goal3 requires res4
+  - goal1 requires res0
+  - goal2 requires res0
+  - goal3 requires res3
+  - goal2 requires res3
+  - goal0 requires res1
+  - res1 derived from res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal0 | goal1 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res2&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - goal3 requires res5
+  - goal1 requires res3
+  - goal2 requires res4
+  - res3 derived from res0
+  - goal3 requires res4
+  - goal1 requires res5
+  - goal2 requires res1
+  - res0 derived from res2
+  - goal0 requires res1
+  - goal0 requires res4
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal1 | goal0 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res3&quot;,
+  &quot;res0&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res2&quot;,
+  &quot;res3&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal1 requires res3
+  - goal2 requires res5
+  - goal2 requires res2
+  - goal3 requires res5
+  - goal0 requires res4
+  - goal0 requires res3
+  - res0 derived from res4
+  - goal3 requires res3
+  - goal1 requires res5
+  - res1 derived from res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal1 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res0&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res5.
+The goals are:
+  - goal3 requires res3
+  - res1 derived from res5
+  - goal0 requires res4
+  - goal3 requires res4
+  - res0 derived from res1
+  - goal2 requires res5
+  - goal1 requires res3
+  - goal0 requires res2
+  - goal2 requires res3
+  - goal1 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal0 | goal1 | goal3 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res5&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res2.
+The goals are:
+  - res3 derived from res2
+  - goal1 requires res3
+  - goal1 requires res4
+  - goal3 requires res1
+  - goal0 requires res4
+  - res5 derived from res3
+  - goal3 requires res4
+  - goal2 requires res0
+  - goal0 requires res1
+  - goal2 requires res1
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal3 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res5&quot;,
+  &quot;res3&quot;,
+  &quot;res2&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res3&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res5.
+The goals are:
+  - goal1 requires res1
+  - goal3 requires res4
+  - goal1 requires res2
+  - res0 derived from res5
+  - goal0 requires res5
+  - goal0 requires res2
+  - res3 derived from res0
+  - goal3 requires res1
+  - goal2 requires res2
+  - goal2 requires res4
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal1 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res3&quot;,
+  &quot;res0&quot;,
+  &quot;res5&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res3&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res5.
+The goals are:
+  - goal3 requires res0
+  - goal2 requires res4
+  - goal2 requires res1
+  - goal0 requires res4
+  - goal0 requires res3
+  - goal1 requires res0
+  - goal3 requires res1
+  - res2 derived from res5
+  - goal1 requires res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal1 | goal3 | goal0 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res2&quot;,
+  &quot;res5&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res2&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res4.
+The goals are:
+  - goal2 requires res0
+  - goal1 requires res0
+  - goal0 requires res4
+  - goal2 requires res5
+  - goal3 requires res5
+  - goal0 requires res3
+  - goal1 requires res3
+  - res2 derived from res4
+  - goal3 requires res3
+  - res1 derived from res2
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal2 | goal1 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res1&quot;,
+  &quot;res2&quot;,
+  &quot;res4&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res1&quot;,
+  &quot;res2&quot;,
+  &quot;res4&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res0.
+The goals are:
+  - goal2 requires res3
+  - goal3 requires res4
+  - goal0 requires res1
+  - goal0 requires res2
+  - goal2 requires res5
+  - goal1 requires res1
+  - goal1 requires res3
+  - goal3 requires res2
+  - res5 derived from res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal0 | goal3 | goal2 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res5&quot;,
+  &quot;res0&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res5&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res1.
+The goals are:
+  - goal1 requires res5
+  - goal3 requires res4
+  - goal2 requires res3
+  - res0 derived from res1
+  - goal2 requires res4
+  - goal1 requires res3
+  - goal0 requires res4
+  - goal3 requires res3
+  - goal0 requires res0
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal2 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res1&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The evidence: depleted res3.
+The goals are:
+  - goal3 requires res2
+  - goal2 requires res5
+  - goal1 requires res1
+  - goal3 requires res3
+  - res0 derived from res3
+  - goal1 requires res5
+  - goal0 requires res2
+  - goal2 requires res2
+  - goal0 requires res4
+The rules are:
+  - rule derived_from_a_b_means_a_is_available_only_while_b_is_available
+  - rule a_depleted_resource_is_unavailable
+  - rule a_goal_is_infeasible_iff_it_requires_an_unavailable_resource
+Which goal should be dropped?
+
+Answer with exactly one of: goal3 | goal1 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: [
+  &quot;res0&quot;,
+  &quot;res3&quot;
+ ],
+ &quot;unavailable&quot;: [
+  &quot;res0&quot;,
+  &quot;res3&quot;
+ ]
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

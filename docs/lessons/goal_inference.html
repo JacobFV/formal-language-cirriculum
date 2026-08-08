@@ -1,0 +1,3324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>goal_inference — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#xv">values and goal cognition</a> &rsaquo;
+  goal_inference</p>
+<h1>#159 <code>goal_inference</code></h1>
+<p class="lede">the goal that explains all of the behaviour</p>
+<div class="tags"><span class="tag ">level 159</span><span class="tag ">section xv</span><span class="tag ">belief_modeling</span><span class="tag ">value_learning</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.29</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Which goal explains everything the observed agent took, and nothing it left.</p><p>    The agent&#x27;s picks are exactly the extension of one candidate goal; the other
+    candidates each over- or under-cover, so a goal that merely explains most of
+    the behaviour is not good enough.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>ambiguity</td><td class='num'>2</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The episode:
+  - collected i0
+  - i5: red, cube, big
+  - i1: blue, cone, medium
+  - i3: blue, cone, small
+  - i2: blue, sphere, medium
+  - i0: blue, sphere, small
+  - i4: green, cube, medium
+  - collected i2
+The goals are: goal: goal3, shape and sphere; goal: goal2, size and big; goal: goal1, colour and green; goal: goal0, colour and red.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal0 | goal2 | goal3
+Reply with the answer only.</pre><h3>spanish</h3><pre>El episodio es:
+  - recogió: i0
+  - i5: rojo, cubo, grande
+  - i1: azul, cono, mediano
+  - i3: azul, cono, pequeño
+  - i2: azul, esfera, mediano
+  - i0: azul, esfera, pequeño
+  - i4: verde, cubo, mediano
+  - recogió: i2
+Los objetivos son: el objetivo: goal3, forma y esfera; el objetivo: goal2, tamaño y grande; el objetivo: goal1, color y verde; el objetivo: goal0, color y rojo.
+Las reglas son:
+  - la regla: an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - la regla: exactly_one_candidate_goal_explains_the_observed_behaviour
+¿Qué objetivo?
+
+Responde exactamente con una de estas opciones: goal1 | goal0 | goal2 | goal3
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>本回合如下：
+  - 收集了：i0
+  - i5：红色，立方体，大
+  - i1：蓝色，圆锥，中等
+  - i3：蓝色，圆锥，小
+  - i2：蓝色，球体，中等
+  - i0：蓝色，球体，小
+  - i4：绿色，立方体，中等
+  - 收集了：i2
+目标如下：目标：goal3、形状和球体；目标：goal2、大小和大；目标：goal1、颜色和绿色；目标：goal0、颜色和红色。
+规则如下：
+  - 规则：an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - 规则：exactly_one_candidate_goal_explains_the_observed_behaviour
+是哪一个目标？
+
+请从以下选项中选出恰好一个作答：goal1 | goal0 | goal2 | goal3
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The episode:
+  - collected i0
+  - i5: red, cube, big
+  - i1: blue, cone, medium
+  - i3: blue, cone, small
+  - i2: blue, sphere, medium
+  - i0: blue, sphere, small
+  - i4: green, cube, medium
+  - collected i2
+The goals are: goal: goal3, shape and sphere; goal: goal2, size and big; goal: goal1, colour and green; goal: goal0, colour and red.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal0 | goal2 | goal3
+Reply with the answer only.</pre><h3>symbols</h3><pre>{episode: [(collected i0) (item i5 red cube big) (item i1 blue cone medium) (item i3 blue cone small) (item i2 blue sphere medium) (item i0 blue sphere small) (item i4 green cube medium) (collected i2)], goals: [(goal goal3 shape sphere) (goal goal2 size big) (goal goal1 color green) (goal goal0 color red)], query: which_goal, rules: [(rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value) (rule exactly_one_candidate_goal_explains_the_observed_behaviour)]}
+
+Answer with exactly one of: goal1 | goal0 | goal2 | goal3
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/goal_inference.jsonl</code> &middot; <code>data/samples/spanish/goal_inference.jsonl</code> &middot; <code>data/samples/chinese/goal_inference.jsonl</code> &middot; <code>data/samples/english_synonym/goal_inference.jsonl</code> &middot; <code>data/samples/symbols/goal_inference.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i0
+  - i5: red, cube, big
+  - i1: blue, cone, medium
+  - i3: blue, cone, small
+  - i2: blue, sphere, medium
+  - i0: blue, sphere, small
+  - i4: green, cube, medium
+  - collected i2
+The goals are: goal: goal3, shape and sphere; goal: goal2, size and big; goal: goal1, colour and green; goal: goal0, colour and red.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal0 | goal2 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i2&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;sphere&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i2: blue, sphere, big
+  - i3: blue, cube, small
+  - i1: blue, cube, medium
+  - collected i1
+  - i4: blue, cube, medium
+  - i5: blue, cone, small
+  - collected i4
+  - i0: red, cone, small
+The goals are: goal: goal3, shape and sphere; goal: goal2, size and medium; goal: goal1, shape and cone; goal: goal0, colour and blue.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal1 | goal0 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;medium&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: red, cone, big
+  - i0: red, cube, small
+  - i1: blue, cube, big
+  - i5: red, sphere, big
+  - collected i0
+  - i3: green, cube, big
+  - i2: green, sphere, medium
+The goals are: goal: goal2, shape and cube; goal: goal0, shape and sphere; goal: goal1, size and small; goal: goal3, shape and cone.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal3 | goal2 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;small&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i2: red, cone, small
+  - i1: blue, cone, small
+  - i0: green, cone, medium
+  - i4: red, cone, small
+  - collected i3
+  - i3: green, sphere, big
+  - i5: red, cone, small
+The goals are: goal: goal1, size and medium; goal: goal2, colour and red; goal: goal3, colour and green; goal: goal0, shape and sphere.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal1 | goal0 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i3&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;sphere&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i0: red, sphere, small
+  - i5: green, cone, medium
+  - i3: red, sphere, big
+  - collected i1
+  - i2: red, cube, small
+  - collected i0
+  - i1: green, sphere, medium
+  - collected i3
+  - i4: blue, cube, small
+The goals are: goal: goal2, colour and red; goal: goal3, colour and green; goal: goal0, size and medium; goal: goal1, shape and sphere.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal1 | goal0 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i1&quot;,
+  &quot;i3&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;sphere&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i2: green, cone, small
+  - collected i4
+  - i5: blue, sphere, small
+  - i0: green, sphere, big
+  - collected i5
+  - i3: blue, cube, big
+  - i1: blue, cone, big
+  - i4: red, cube, small
+  - collected i2
+The goals are: goal: goal0, size and big; goal: goal2, shape and sphere; goal: goal1, size and small; goal: goal3, colour and blue.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal2 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;,
+  &quot;i4&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;small&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i5: blue, cube, big
+  - i4: blue, cube, medium
+  - i1: blue, cube, small
+  - i0: green, cube, medium
+  - i2: red, cone, big
+  - i3: blue, cone, medium
+  - collected i1
+The goals are: goal: goal2, shape and sphere; goal: goal1, size and small; goal: goal0, colour and blue; goal: goal3, size and big.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal2 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;small&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i4
+  - collected i3
+  - i3: green, cube, big
+  - i1: red, cone, small
+  - i5: red, cube, big
+  - i4: green, sphere, small
+  - i0: red, cone, medium
+  - i2: red, cone, big
+The goals are: goal: goal1, shape and cone; goal: goal0, colour and blue; goal: goal2, shape and sphere; goal: goal3, colour and green.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal2 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i3&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i3
+  - collected i2
+  - i1: red, cube, big
+  - collected i4
+  - i4: blue, cone, small
+  - i2: red, cube, small
+  - i5: blue, sphere, medium
+  - i0: red, sphere, medium
+  - i3: red, cone, small
+The goals are: goal: goal3, colour and blue; goal: goal1, size and big; goal: goal0, shape and sphere; goal: goal2, size and small.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal1 | goal3 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;,
+  &quot;i3&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;small&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i5
+  - i4: red, sphere, big
+  - i2: green, cube, medium
+  - i5: green, cone, small
+  - i1: blue, cube, small
+  - collected i1
+  - i0: blue, cone, medium
+  - i3: green, sphere, big
+The goals are: goal: goal0, shape and cone; goal: goal3, shape and cube; goal: goal2, colour and green; goal: goal1, size and small.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal3 | goal0 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;small&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i1
+  - i5: blue, cube, small
+  - i0: green, cube, medium
+  - collected i3
+  - i2: red, sphere, medium
+  - i1: blue, cone, small
+  - i3: blue, cone, small
+  - collected i4
+  - i4: red, cone, medium
+The goals are: goal: goal0, shape and cone; goal: goal1, shape and cube; goal: goal2, colour and blue; goal: goal3, colour and red.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal2 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i3&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cone&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i3: blue, cone, big
+  - i5: blue, cube, small
+  - i2: red, cube, big
+  - i4: red, cube, medium
+  - collected i2
+  - collected i1
+  - collected i3
+  - i1: blue, cone, big
+  - i0: blue, cone, medium
+The goals are: goal: goal1, size and big; goal: goal2, shape and sphere; goal: goal0, colour and red; goal: goal3, shape and cube.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal1 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i2&quot;,
+  &quot;i3&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;big&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i2
+  - i3: blue, sphere, medium
+  - i4: green, sphere, big
+  - i5: green, cube, big
+  - i0: blue, sphere, big
+  - i1: green, cone, medium
+  - i2: red, sphere, small
+The goals are: goal: goal0, size and medium; goal: goal1, shape and cone; goal: goal2, colour and red; goal: goal3, colour and green.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal3 | goal1 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i5: green, cube, big
+  - i1: green, cube, big
+  - collected i0
+  - i4: red, cube, small
+  - i3: red, cone, big
+  - i2: red, cone, small
+  - i0: blue, sphere, big
+The goals are: goal: goal0, colour and green; goal: goal3, colour and red; goal: goal2, shape and sphere; goal: goal1, shape and cone.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal3 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;sphere&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i2: blue, cone, medium
+  - i3: blue, cone, small
+  - i0: red, cone, big
+  - i1: green, cone, small
+  - i4: green, sphere, medium
+  - collected i3
+  - collected i1
+  - i5: blue, cone, medium
+The goals are: goal: goal2, size and big; goal: goal1, colour and green; goal: goal0, size and small; goal: goal3, colour and blue.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal3 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i3&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;small&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: red, cube, small
+  - i1: blue, cone, medium
+  - i2: green, cone, medium
+  - collected i4
+  - i5: green, cube, big
+  - i0: blue, cone, medium
+  - i3: blue, cube, medium
+The goals are: goal: goal2, shape and cube; goal: goal3, colour and red; goal: goal0, shape and cone; goal: goal1, shape and sphere.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal1 | goal0 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i3: green, cone, medium
+  - i2: blue, cube, medium
+  - i5: red, sphere, medium
+  - collected i3
+  - collected i4
+  - i1: blue, sphere, small
+  - i0: blue, sphere, medium
+  - i4: red, cone, small
+The goals are: goal: goal2, shape and sphere; goal: goal3, colour and green; goal: goal1, shape and cone; goal: goal0, size and small.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal2 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i3&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cone&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i2: green, cone, big
+  - i0: green, sphere, medium
+  - i3: green, sphere, small
+  - i4: red, cube, medium
+  - i5: green, sphere, medium
+  - collected i2
+  - i1: blue, sphere, small
+The goals are: goal: goal1, shape and cube; goal: goal2, colour and green; goal: goal0, size and medium; goal: goal3, size and big.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal0 | goal2 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;big&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i0: red, cube, big
+  - collected i3
+  - collected i1
+  - i1: blue, sphere, small
+  - i4: blue, sphere, medium
+  - i2: red, sphere, big
+  - i5: red, sphere, big
+  - collected i4
+  - i3: blue, cube, medium
+The goals are: goal: goal3, colour and blue; goal: goal1, size and big; goal: goal0, shape and cone; goal: goal2, size and small.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal2 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i3&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i5
+  - collected i2
+  - i2: blue, sphere, big
+  - i5: blue, sphere, medium
+  - collected i4
+  - i4: green, sphere, small
+  - i0: green, cube, big
+  - i3: blue, cone, small
+  - i1: red, cone, small
+The goals are: goal: goal0, size and medium; goal: goal2, colour and green; goal: goal3, colour and blue; goal: goal1, shape and sphere.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal3 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;,
+  &quot;i4&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;sphere&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i2: red, sphere, big
+  - collected i5
+  - i1: blue, cone, big
+  - collected i3
+  - i4: blue, cube, small
+  - i0: green, cone, small
+  - i3: red, cube, medium
+  - i5: red, sphere, medium
+The goals are: goal: goal2, size and big; goal: goal0, size and medium; goal: goal3, colour and blue; goal: goal1, size and small.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal3 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i3&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;medium&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i2: blue, cube, medium
+  - i1: blue, cone, medium
+  - i0: red, sphere, big
+  - i4: green, cube, small
+  - collected i4
+  - i5: red, sphere, big
+  - i3: green, cube, big
+The goals are: goal: goal0, colour and blue; goal: goal3, size and small; goal: goal2, size and big; goal: goal1, size and medium.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal1 | goal3 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;small&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i5: blue, cone, small
+  - collected i2
+  - i0: red, cube, small
+  - i4: red, sphere, small
+  - i1: green, sphere, small
+  - i3: green, sphere, small
+  - i2: green, cube, big
+The goals are: goal: goal3, size and big; goal: goal1, size and small; goal: goal0, colour and red; goal: goal2, shape and cone.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal1 | goal3 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;big&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i3: red, cone, small
+  - i4: blue, sphere, small
+  - collected i5
+  - i5: red, cone, medium
+  - i1: green, sphere, medium
+  - i0: blue, cube, small
+  - i2: blue, cone, medium
+  - collected i3
+The goals are: goal: goal3, size and small; goal: goal2, colour and red; goal: goal1, colour and blue; goal: goal0, colour and green.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal0 | goal3 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i3&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i5: green, cube, medium
+  - collected i4
+  - collected i5
+  - i1: red, cube, small
+  - i2: red, cube, big
+  - i0: green, sphere, big
+  - i3: green, cube, big
+  - i4: red, cone, medium
+The goals are: goal: goal1, shape and sphere; goal: goal2, colour and blue; goal: goal0, size and medium; goal: goal3, colour and red.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal2 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i4&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;medium&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i0
+  - i3: blue, cone, medium
+  - i1: blue, cone, medium
+  - i2: red, sphere, small
+  - i5: green, cone, big
+  - i0: blue, cube, small
+  - i4: red, cone, small
+The goals are: goal: goal2, colour and blue; goal: goal0, shape and cube; goal: goal3, size and medium; goal: goal1, size and small.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal3 | goal0 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cube&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i2
+  - i0: green, cube, big
+  - collected i0
+  - i5: red, cone, medium
+  - i3: blue, cube, big
+  - i4: green, cone, big
+  - i1: red, sphere, big
+  - collected i3
+  - i2: green, cube, small
+The goals are: goal: goal2, size and small; goal: goal3, size and medium; goal: goal0, colour and blue; goal: goal1, shape and cube.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal0 | goal2 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i2&quot;,
+  &quot;i3&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cube&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: blue, sphere, small
+  - i1: blue, sphere, small
+  - collected i4
+  - i2: red, cube, medium
+  - i3: green, sphere, medium
+  - i0: green, sphere, big
+  - i5: red, cube, medium
+  - collected i1
+The goals are: goal: goal0, shape and cone; goal: goal1, size and medium; goal: goal3, colour and blue; goal: goal2, size and big.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal3 | goal2 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: red, cube, small
+  - i0: red, cone, small
+  - i3: green, sphere, medium
+  - i2: red, cube, small
+  - collected i5
+  - i1: green, cone, big
+  - collected i4
+  - i5: blue, cube, small
+  - collected i2
+The goals are: goal: goal2, shape and sphere; goal: goal0, colour and red; goal: goal3, shape and cube; goal: goal1, size and big.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal0 | goal2 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;,
+  &quot;i4&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cube&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i0: green, cube, medium
+  - i4: red, cube, medium
+  - i2: red, cone, medium
+  - collected i3
+  - i5: green, cube, medium
+  - i3: blue, sphere, small
+  - i1: green, cone, medium
+The goals are: goal: goal1, size and big; goal: goal2, colour and blue; goal: goal0, shape and cone; goal: goal3, shape and cube.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal2 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i3&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i3: blue, sphere, big
+  - collected i2
+  - i5: red, cone, small
+  - i2: red, sphere, small
+  - i4: red, cube, medium
+  - collected i5
+  - i0: green, sphere, big
+  - collected i1
+  - i1: red, cone, big
+  - collected i4
+The goals are: goal: goal1, colour and green; goal: goal0, colour and red; goal: goal3, shape and cone; goal: goal2, size and big.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal0 | goal1 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i2&quot;,
+  &quot;i4&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i2: red, cube, small
+  - collected i3
+  - i3: green, cube, big
+  - i5: red, cone, small
+  - i0: red, sphere, small
+  - i4: red, cube, big
+  - i1: blue, cube, big
+The goals are: goal: goal1, shape and sphere; goal: goal3, size and small; goal: goal0, colour and green; goal: goal2, shape and cone.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal3 | goal1 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i3&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i1
+  - i5: green, cone, medium
+  - collected i5
+  - i2: blue, cube, big
+  - i0: red, cube, small
+  - i3: red, cube, medium
+  - i1: blue, cone, small
+  - i4: green, sphere, small
+The goals are: goal: goal3, colour and red; goal: goal0, colour and blue; goal: goal1, shape and sphere; goal: goal2, shape and cone.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal3 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cone&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i3: red, cone, big
+  - i4: green, sphere, big
+  - collected i5
+  - i1: red, sphere, medium
+  - i5: green, sphere, medium
+  - i2: green, cone, big
+  - collected i4
+  - collected i1
+  - i0: green, cube, big
+The goals are: goal: goal2, shape and cube; goal: goal0, shape and sphere; goal: goal1, colour and blue; goal: goal3, colour and green.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal1 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i4&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;sphere&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i4
+  - i3: blue, sphere, medium
+  - i1: red, cube, small
+  - i0: green, sphere, big
+  - i4: red, cone, big
+  - i5: red, cube, medium
+  - i2: blue, sphere, small
+The goals are: goal: goal2, shape and cone; goal: goal0, colour and blue; goal: goal1, colour and red; goal: goal3, size and medium.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal0 | goal2 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cone&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i1: green, sphere, small
+  - i4: green, sphere, big
+  - collected i2
+  - i3: green, cube, big
+  - i2: blue, sphere, medium
+  - i0: green, sphere, small
+  - collected i5
+  - i5: blue, cone, big
+The goals are: goal: goal3, colour and red; goal: goal2, colour and blue; goal: goal0, shape and cone; goal: goal1, size and small.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal2 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i5: green, sphere, big
+  - i4: green, sphere, medium
+  - i2: green, cone, small
+  - collected i0
+  - i0: blue, cube, small
+  - i1: blue, cube, small
+  - collected i1
+  - i3: red, sphere, big
+The goals are: goal: goal3, size and medium; goal: goal2, size and small; goal: goal0, colour and blue; goal: goal1, shape and cone.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal0 | goal3 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i1&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i0: green, cone, small
+  - collected i2
+  - collected i0
+  - i3: green, sphere, medium
+  - i5: blue, cone, medium
+  - i2: green, cone, small
+  - i4: green, cube, big
+  - i1: green, cone, big
+The goals are: goal: goal1, size and medium; goal: goal0, colour and blue; goal: goal3, shape and cube; goal: goal2, size and small.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal3 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i2&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;small&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i2
+  - i0: green, sphere, medium
+  - i2: blue, cone, medium
+  - i5: blue, sphere, medium
+  - i1: green, cube, small
+  - i3: blue, cube, big
+  - i4: green, cube, big
+The goals are: goal: goal3, size and big; goal: goal0, shape and cube; goal: goal2, shape and sphere; goal: goal1, shape and cone.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal2 | goal3 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cone&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: green, sphere, big
+  - i5: red, cube, medium
+  - i1: red, cube, small
+  - i2: blue, cone, big
+  - i3: red, cone, medium
+  - i0: red, sphere, medium
+  - collected i2
+The goals are: goal: goal0, colour and blue; goal: goal1, colour and red; goal: goal2, size and small; goal: goal3, size and medium.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal0 | goal3 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i3: red, cube, medium
+  - i5: red, cone, big
+  - i1: red, cube, medium
+  - i0: blue, cone, big
+  - i2: green, cone, big
+  - i4: blue, cone, medium
+  - collected i2
+The goals are: goal: goal3, colour and blue; goal: goal1, colour and green; goal: goal0, size and small; goal: goal2, colour and red.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal2 | goal1 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i2
+  - i4: green, cube, small
+  - i5: green, cube, medium
+  - collected i4
+  - collected i5
+  - i2: green, sphere, big
+  - i3: blue, sphere, big
+  - i0: blue, sphere, small
+  - i1: red, sphere, big
+The goals are: goal: goal0, shape and cube; goal: goal3, size and small; goal: goal2, colour and green; goal: goal1, size and big.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal3 | goal1 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;,
+  &quot;i4&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i2: red, cube, big
+  - i1: green, sphere, small
+  - i0: green, cube, small
+  - i3: red, cone, big
+  - i4: green, cube, big
+  - collected i5
+  - i5: blue, cube, small
+The goals are: goal: goal3, shape and sphere; goal: goal0, shape and cone; goal: goal1, colour and blue; goal: goal2, colour and green.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal2 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i2: green, cone, small
+  - i4: green, cube, big
+  - i5: blue, cone, medium
+  - i3: blue, cone, medium
+  - collected i4
+  - i0: red, sphere, big
+  - i1: red, sphere, medium
+  - collected i0
+The goals are: goal: goal2, size and small; goal: goal1, size and big; goal: goal0, colour and blue; goal: goal3, shape and cube.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal3 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;big&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i4
+  - i4: red, cube, medium
+  - i0: blue, sphere, small
+  - i1: green, sphere, small
+  - i5: green, cube, small
+  - i3: blue, sphere, small
+  - i2: blue, sphere, small
+The goals are: goal: goal3, colour and red; goal: goal1, size and small; goal: goal2, size and big; goal: goal0, shape and sphere.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal0 | goal1 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i2: blue, cone, big
+  - i0: red, sphere, small
+  - i1: red, sphere, medium
+  - collected i0
+  - i4: green, cone, big
+  - i5: green, cone, medium
+  - collected i1
+  - i3: green, cone, big
+The goals are: goal: goal1, colour and red; goal: goal0, shape and cube; goal: goal3, shape and cone; goal: goal2, colour and green.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal2 | goal0 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i1&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i3
+  - i4: red, cube, medium
+  - i1: green, cone, small
+  - collected i5
+  - collected i1
+  - i0: red, sphere, small
+  - i3: green, cone, small
+  - collected i2
+  - i2: green, cone, small
+  - i5: green, cube, small
+The goals are: goal: goal3, colour and green; goal: goal2, shape and cone; goal: goal0, shape and cube; goal: goal1, size and big.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal0 | goal3 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i2&quot;,
+  &quot;i3&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: red, sphere, big
+  - collected i2
+  - collected i1
+  - i2: blue, sphere, big
+  - i0: blue, cube, medium
+  - i1: green, sphere, big
+  - collected i3
+  - i5: red, cube, small
+  - collected i4
+  - i3: blue, sphere, big
+The goals are: goal: goal2, size and medium; goal: goal3, shape and sphere; goal: goal0, shape and cone; goal: goal1, shape and cube.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal3 | goal1 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i2&quot;,
+  &quot;i3&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;sphere&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i1: red, sphere, small
+  - i4: green, cube, small
+  - i3: red, cube, medium
+  - collected i1
+  - i0: green, cone, big
+  - i5: red, cone, big
+  - i2: red, cube, medium
+The goals are: goal: goal2, shape and sphere; goal: goal1, size and small; goal: goal0, colour and green; goal: goal3, size and big.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal0 | goal2 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;sphere&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: red, sphere, big
+  - collected i5
+  - i2: green, cube, big
+  - collected i2
+  - collected i4
+  - i1: red, sphere, big
+  - i5: red, cone, big
+  - i3: red, cone, medium
+  - i0: red, sphere, medium
+  - collected i1
+The goals are: goal: goal0, size and big; goal: goal2, shape and sphere; goal: goal1, shape and cube; goal: goal3, size and small.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal0 | goal3 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i2&quot;,
+  &quot;i4&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;big&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: green, cone, small
+  - i1: green, cube, big
+  - i3: green, sphere, small
+  - i2: blue, sphere, small
+  - collected i4
+  - i0: blue, sphere, medium
+  - i5: red, sphere, small
+The goals are: goal: goal1, colour and blue; goal: goal2, size and small; goal: goal0, size and medium; goal: goal3, shape and cone.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal3 | goal2 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cone&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i0
+  - collected i4
+  - i5: green, sphere, big
+  - i2: green, sphere, medium
+  - i1: red, cube, small
+  - i3: green, sphere, big
+  - i0: red, cone, big
+  - i4: green, cone, big
+The goals are: goal: goal0, shape and cube; goal: goal1, shape and cone; goal: goal2, size and medium; goal: goal3, colour and green.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal0 | goal2 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cone&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i0: blue, cube, big
+  - i4: blue, sphere, big
+  - collected i2
+  - i3: red, sphere, small
+  - i2: blue, cube, small
+  - i5: red, cube, big
+  - i1: green, sphere, medium
+  - collected i3
+The goals are: goal: goal3, colour and red; goal: goal2, size and big; goal: goal0, colour and blue; goal: goal1, size and small.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal2 | goal3 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;,
+  &quot;i3&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;small&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i2: green, cone, medium
+  - collected i3
+  - i0: green, cube, medium
+  - i4: red, cube, small
+  - i5: blue, cone, small
+  - i1: green, cone, medium
+  - i3: green, sphere, big
+The goals are: goal: goal2, shape and sphere; goal: goal3, size and small; goal: goal0, colour and blue; goal: goal1, colour and red.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal1 | goal3 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i3&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;sphere&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i4
+  - i3: blue, cone, big
+  - i5: red, cube, medium
+  - i2: blue, cube, medium
+  - i0: red, sphere, big
+  - i1: blue, sphere, medium
+  - collected i3
+  - i4: blue, cube, big
+  - collected i0
+The goals are: goal: goal3, shape and sphere; goal: goal2, colour and red; goal: goal1, size and medium; goal: goal0, size and big.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal0 | goal1 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i3&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;big&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i0
+  - i2: green, cube, medium
+  - i5: blue, sphere, big
+  - i3: red, sphere, big
+  - collected i1
+  - i4: green, sphere, big
+  - i1: green, sphere, small
+  - i0: red, cube, small
+The goals are: goal: goal1, shape and cone; goal: goal2, size and big; goal: goal3, size and small; goal: goal0, shape and cube.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal2 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i1&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;small&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i5: green, sphere, big
+  - i2: green, sphere, big
+  - collected i3
+  - i4: green, cube, medium
+  - collected i4
+  - i3: red, cube, medium
+  - i1: green, cone, medium
+  - i0: green, cube, medium
+  - collected i0
+The goals are: goal: goal0, size and medium; goal: goal3, shape and cube; goal: goal1, shape and cone; goal: goal2, colour and red.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal0 | goal3 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i3&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cube&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i3: blue, sphere, big
+  - i0: red, sphere, big
+  - i2: green, sphere, medium
+  - i1: green, cube, small
+  - i4: blue, cube, big
+  - i5: red, cone, big
+  - collected i5
+The goals are: goal: goal2, shape and cube; goal: goal0, shape and cone; goal: goal3, colour and red; goal: goal1, size and medium.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal0 | goal2 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cone&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i1: green, cone, small
+  - i3: blue, sphere, medium
+  - collected i4
+  - i4: blue, sphere, big
+  - i0: green, cube, small
+  - i2: red, cube, medium
+  - i5: blue, sphere, big
+  - collected i3
+  - collected i5
+The goals are: goal: goal1, colour and red; goal: goal3, colour and green; goal: goal2, colour and blue; goal: goal0, shape and cone.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal2 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i3&quot;,
+  &quot;i4&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i3: green, cone, small
+  - i4: blue, sphere, medium
+  - collected i2
+  - i1: blue, cube, small
+  - collected i3
+  - i0: red, cube, big
+  - i2: blue, cone, small
+  - i5: green, sphere, small
+The goals are: goal: goal0, colour and red; goal: goal1, shape and sphere; goal: goal3, colour and green; goal: goal2, shape and cone.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal0 | goal1 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;,
+  &quot;i3&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cone&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i1: red, sphere, small
+  - i3: red, cube, big
+  - i5: red, cube, big
+  - collected i4
+  - collected i3
+  - collected i1
+  - i4: red, cube, medium
+  - i0: blue, sphere, big
+  - i2: blue, sphere, medium
+  - collected i5
+The goals are: goal: goal0, size and big; goal: goal2, colour and red; goal: goal1, size and small; goal: goal3, size and medium.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal1 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i3&quot;,
+  &quot;i4&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i0: blue, cube, big
+  - i4: red, sphere, medium
+  - collected i1
+  - collected i4
+  - i3: blue, sphere, medium
+  - i5: blue, cube, medium
+  - i1: red, sphere, medium
+  - i2: blue, cone, small
+The goals are: goal: goal3, colour and red; goal: goal0, size and small; goal: goal1, colour and green; goal: goal2, size and big.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal2 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: red, sphere, big
+  - collected i1
+  - i3: green, cube, small
+  - i2: green, sphere, small
+  - i0: green, cube, small
+  - i1: red, sphere, medium
+  - i5: red, cube, small
+The goals are: goal: goal2, colour and red; goal: goal0, size and big; goal: goal3, shape and sphere; goal: goal1, size and medium.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal2 | goal0 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;medium&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i3
+  - i3: red, cube, big
+  - i2: red, sphere, big
+  - collected i2
+  - i1: blue, sphere, big
+  - i5: green, sphere, big
+  - i4: red, sphere, small
+  - collected i4
+  - i0: blue, sphere, medium
+The goals are: goal: goal3, colour and red; goal: goal1, shape and sphere; goal: goal0, size and small; goal: goal2, colour and green.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal3 | goal0 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;,
+  &quot;i3&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i3: blue, cone, big
+  - i5: red, cube, medium
+  - i2: green, cube, small
+  - i4: red, cone, big
+  - collected i5
+  - i1: green, sphere, big
+  - i0: blue, cube, big
+The goals are: goal: goal0, colour and red; goal: goal2, size and medium; goal: goal1, shape and cone; goal: goal3, shape and cube.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal3 | goal0 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;medium&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i4
+  - collected i1
+  - i3: green, sphere, big
+  - i0: blue, sphere, medium
+  - i1: green, cube, medium
+  - i5: green, sphere, medium
+  - i4: blue, cube, small
+  - i2: blue, cone, medium
+The goals are: goal: goal2, shape and cube; goal: goal3, size and big; goal: goal0, size and small; goal: goal1, shape and cone.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal2 | goal1 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cube&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: blue, cone, small
+  - i5: green, cube, big
+  - i0: red, sphere, medium
+  - i2: blue, cone, small
+  - collected i4
+  - i3: green, sphere, small
+  - collected i2
+  - i1: red, sphere, medium
+The goals are: goal: goal1, shape and cone; goal: goal3, shape and sphere; goal: goal2, colour and green; goal: goal0, size and medium.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal3 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cone&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i1: blue, sphere, medium
+  - collected i3
+  - i2: green, sphere, medium
+  - collected i4
+  - i0: red, cube, medium
+  - i4: green, cube, big
+  - i5: red, sphere, small
+  - collected i2
+  - i3: green, sphere, small
+The goals are: goal: goal1, colour and blue; goal: goal3, colour and green; goal: goal0, colour and red; goal: goal2, size and big.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal3 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;,
+  &quot;i3&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: green, cone, medium
+  - collected i1
+  - i5: blue, cone, medium
+  - i3: blue, sphere, medium
+  - collected i4
+  - collected i0
+  - collected i2
+  - i2: green, cone, small
+  - i1: green, cone, small
+  - i0: green, sphere, big
+The goals are: goal: goal3, shape and cone; goal: goal2, colour and green; goal: goal0, colour and red; goal: goal1, colour and blue.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal3 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i1&quot;,
+  &quot;i2&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: green, sphere, big
+  - i3: blue, sphere, medium
+  - i0: green, cube, small
+  - i2: blue, sphere, big
+  - i5: blue, cone, big
+  - collected i3
+  - i1: red, cube, big
+The goals are: goal: goal1, shape and cube; goal: goal2, colour and green; goal: goal0, size and small; goal: goal3, size and medium.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal1 | goal2 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i3&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;medium&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: red, cone, big
+  - i5: blue, sphere, small
+  - collected i5
+  - i2: blue, cube, small
+  - i3: green, cone, big
+  - collected i1
+  - i0: red, sphere, big
+  - i1: blue, sphere, small
+  - collected i2
+The goals are: goal: goal2, shape and cone; goal: goal1, colour and red; goal: goal3, size and medium; goal: goal0, size and small.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal2 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i2&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;small&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i2: red, sphere, small
+  - collected i0
+  - collected i3
+  - i1: red, sphere, small
+  - i3: red, cone, small
+  - collected i5
+  - i4: green, cube, big
+  - i5: red, cone, big
+  - i0: blue, cone, big
+The goals are: goal: goal3, size and medium; goal: goal1, shape and cone; goal: goal0, size and big; goal: goal2, colour and blue.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal3 | goal2 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i3&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cone&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i0: blue, cube, big
+  - collected i3
+  - i4: green, sphere, big
+  - i3: red, sphere, small
+  - i2: blue, cube, medium
+  - i1: red, cone, small
+  - collected i5
+  - collected i4
+  - i5: red, sphere, medium
+The goals are: goal: goal1, colour and green; goal: goal3, shape and sphere; goal: goal2, colour and blue; goal: goal0, size and small.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal0 | goal2 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i3&quot;,
+  &quot;i4&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;sphere&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i2: blue, sphere, big
+  - i5: blue, cube, small
+  - collected i2
+  - i0: blue, cube, big
+  - i1: blue, cone, small
+  - i3: red, sphere, medium
+  - i4: green, cone, small
+  - collected i3
+The goals are: goal: goal3, colour and red; goal: goal1, size and big; goal: goal2, size and medium; goal: goal0, shape and sphere.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal3 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;,
+  &quot;i3&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;sphere&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: blue, sphere, big
+  - i1: green, cube, small
+  - i2: red, sphere, small
+  - i3: green, sphere, small
+  - collected i0
+  - i5: blue, cube, big
+  - collected i1
+  - collected i5
+  - i0: green, cube, big
+The goals are: goal: goal3, colour and green; goal: goal2, shape and cone; goal: goal0, shape and cube; goal: goal1, colour and red.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal2 | goal1 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i1&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cube&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i1: blue, cube, big
+  - collected i5
+  - i2: green, cone, big
+  - collected i4
+  - i5: green, sphere, small
+  - i4: green, sphere, small
+  - i3: blue, cone, big
+  - i0: blue, cone, medium
+The goals are: goal: goal3, size and big; goal: goal1, shape and cube; goal: goal0, shape and sphere; goal: goal2, colour and green.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal0 | goal2 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i4&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;sphere&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i2: blue, cone, small
+  - i5: green, sphere, small
+  - i4: red, cube, big
+  - i3: blue, cone, medium
+  - collected i2
+  - collected i1
+  - i0: red, cube, big
+  - i1: blue, cone, big
+  - collected i3
+The goals are: goal: goal1, colour and blue; goal: goal3, size and medium; goal: goal0, colour and green; goal: goal2, colour and red.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal2 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i2&quot;,
+  &quot;i3&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: green, cone, big
+  - i1: red, cube, small
+  - i3: green, cube, small
+  - collected i1
+  - i5: green, cube, medium
+  - i0: blue, sphere, small
+  - i2: blue, sphere, big
+The goals are: goal: goal3, size and medium; goal: goal0, colour and green; goal: goal2, colour and red; goal: goal1, size and big.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal0 | goal3 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i3
+  - i4: blue, cone, small
+  - i0: red, cube, medium
+  - i1: green, cone, medium
+  - i3: green, cube, big
+  - i5: green, sphere, medium
+  - i2: green, sphere, small
+The goals are: goal: goal2, colour and red; goal: goal1, colour and blue; goal: goal0, size and big; goal: goal3, size and small.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal3 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i3&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;big&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: blue, cube, small
+  - i1: green, cube, small
+  - i5: red, cone, medium
+  - collected i0
+  - i2: red, cone, big
+  - i0: red, sphere, medium
+  - i3: blue, cube, small
+The goals are: goal: goal0, colour and green; goal: goal1, shape and sphere; goal: goal3, shape and cube; goal: goal2, size and medium.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal2 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;sphere&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i3: blue, cube, big
+  - i0: blue, sphere, big
+  - i5: red, sphere, small
+  - i1: green, sphere, medium
+  - i4: blue, cube, big
+  - collected i1
+  - i2: blue, cone, medium
+The goals are: goal: goal1, shape and sphere; goal: goal3, colour and green; goal: goal2, colour and red; goal: goal0, colour and blue.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal1 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: green, cube, medium
+  - i0: green, sphere, medium
+  - i3: red, sphere, big
+  - i1: green, cone, medium
+  - collected i4
+  - i5: blue, cone, medium
+  - collected i2
+  - i2: blue, cube, small
+The goals are: goal: goal3, size and small; goal: goal1, shape and cone; goal: goal2, shape and cube; goal: goal0, colour and blue.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal1 | goal3 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cube&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: green, cube, small
+  - i2: green, sphere, small
+  - collected i1
+  - i5: blue, cone, small
+  - i0: red, sphere, big
+  - collected i5
+  - i3: red, sphere, medium
+  - i1: blue, cube, small
+The goals are: goal: goal2, size and small; goal: goal3, size and big; goal: goal1, colour and red; goal: goal0, colour and blue.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal1 | goal3 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i3: red, sphere, medium
+  - i0: red, sphere, big
+  - collected i5
+  - i1: green, cube, medium
+  - collected i3
+  - i4: blue, cone, big
+  - i5: red, cone, medium
+  - collected i1
+  - i2: red, cube, small
+The goals are: goal: goal2, shape and sphere; goal: goal1, size and small; goal: goal0, size and big; goal: goal3, size and medium.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal2 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i3&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;medium&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i3: blue, sphere, big
+  - collected i4
+  - collected i0
+  - i5: red, cone, big
+  - i1: blue, cube, big
+  - collected i3
+  - i4: green, sphere, big
+  - i0: green, sphere, small
+  - collected i2
+  - i2: green, sphere, small
+The goals are: goal: goal0, size and big; goal: goal3, shape and cube; goal: goal2, size and small; goal: goal1, shape and sphere.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal1 | goal2 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i2&quot;,
+  &quot;i3&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;sphere&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i1: red, sphere, small
+  - i0: red, cone, big
+  - i2: red, sphere, medium
+  - collected i2
+  - i3: green, cube, big
+  - i5: red, cone, big
+  - i4: blue, cone, big
+The goals are: goal: goal1, colour and red; goal: goal0, size and big; goal: goal3, size and medium; goal: goal2, size and small.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal0 | goal2 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;medium&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i5
+  - i1: green, cube, small
+  - i5: red, sphere, medium
+  - i4: blue, cube, big
+  - i3: green, sphere, big
+  - i0: red, cone, medium
+  - i2: green, cone, big
+  - collected i0
+The goals are: goal: goal0, colour and green; goal: goal3, shape and cone; goal: goal1, colour and red; goal: goal2, size and small.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal2 | goal3 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i3: green, sphere, big
+  - i1: green, cube, medium
+  - collected i1
+  - i2: blue, cone, big
+  - i0: red, cone, small
+  - i4: red, sphere, small
+  - i5: blue, sphere, small
+The goals are: goal: goal2, size and medium; goal: goal0, shape and cone; goal: goal3, size and big; goal: goal1, colour and red.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal0 | goal1 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;medium&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i1: red, cone, small
+  - i4: red, cube, small
+  - i5: green, cube, big
+  - collected i2
+  - collected i5
+  - i3: blue, cone, medium
+  - i0: blue, cube, medium
+  - i2: green, cone, small
+The goals are: goal: goal1, size and big; goal: goal0, shape and sphere; goal: goal2, colour and green; goal: goal3, shape and cube.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal0 | goal2 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i2&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i5: red, cone, small
+  - collected i3
+  - i4: green, cone, medium
+  - i2: red, cube, medium
+  - collected i2
+  - i0: red, cone, big
+  - i3: blue, cube, medium
+  - collected i1
+  - collected i4
+  - i1: blue, cube, medium
+The goals are: goal: goal3, size and small; goal: goal0, colour and blue; goal: goal2, size and medium; goal: goal1, colour and red.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal2 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i2&quot;,
+  &quot;i3&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;medium&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i5: blue, sphere, small
+  - i3: blue, sphere, big
+  - collected i2
+  - i0: red, cone, small
+  - collected i3
+  - collected i1
+  - i4: blue, sphere, medium
+  - i2: green, sphere, big
+  - i1: blue, cone, big
+The goals are: goal: goal1, colour and red; goal: goal2, colour and green; goal: goal3, shape and cone; goal: goal0, size and big.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal1 | goal0 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i2&quot;,
+  &quot;i3&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;big&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i0: red, cone, small
+  - i1: green, cone, small
+  - collected i4
+  - i3: blue, sphere, medium
+  - i2: blue, sphere, big
+  - i4: blue, cube, small
+  - i5: green, sphere, medium
+The goals are: goal: goal3, shape and cube; goal: goal1, shape and sphere; goal: goal2, size and big; goal: goal0, colour and red.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal3 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cube&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: red, cube, big
+  - i0: blue, cone, big
+  - i2: blue, cone, small
+  - i1: green, cone, big
+  - collected i4
+  - i3: green, cone, medium
+  - i5: green, cone, medium
+The goals are: goal: goal2, size and big; goal: goal3, colour and red; goal: goal1, colour and green; goal: goal0, colour and blue.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal2 | goal0 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">goal1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i0: blue, cone, big
+  - i4: green, cube, big
+  - i2: blue, cube, small
+  - i5: green, cube, big
+  - i3: blue, cube, small
+  - i1: blue, cube, small
+  - collected i0
+The goals are: goal: goal0, size and small; goal: goal1, shape and cone; goal: goal3, size and medium; goal: goal2, colour and red.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal2 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cone&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">goal3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i4: green, sphere, big
+  - collected i5
+  - i0: green, cube, small
+  - i2: red, cone, medium
+  - i1: blue, sphere, medium
+  - i5: red, sphere, small
+  - i3: blue, sphere, medium
+  - collected i0
+The goals are: goal: goal3, size and small; goal: goal1, colour and green; goal: goal0, shape and cone; goal: goal2, shape and cube.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal1 | goal2 | goal0 | goal3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;small&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">goal2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i0: green, cone, big
+  - i5: green, cone, big
+  - collected i2
+  - i3: green, cube, big
+  - i1: green, cube, medium
+  - i4: blue, cube, small
+  - collected i3
+  - collected i1
+  - collected i4
+  - i2: red, cube, small
+The goals are: goal: goal3, size and medium; goal: goal1, colour and green; goal: goal2, shape and cube; goal: goal0, colour and blue.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal0 | goal3 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i1&quot;,
+  &quot;i2&quot;,
+  &quot;i3&quot;,
+  &quot;i4&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cube&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i0
+  - i3: red, cube, medium
+  - i0: blue, sphere, big
+  - i4: green, sphere, small
+  - i2: blue, cube, big
+  - collected i5
+  - i1: blue, cube, small
+  - i5: blue, sphere, medium
+  - collected i4
+The goals are: goal: goal2, shape and cone; goal: goal1, colour and green; goal: goal3, colour and red; goal: goal0, shape and sphere.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal2 | goal0 | goal3 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i4&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;sphere&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - collected i5
+  - i2: green, cube, small
+  - i3: green, sphere, medium
+  - i0: red, sphere, medium
+  - i5: blue, sphere, big
+  - i1: red, cone, small
+  - i4: red, cube, big
+The goals are: goal: goal2, size and small; goal: goal1, shape and cube; goal: goal3, colour and green; goal: goal0, colour and blue.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal2 | goal1 | goal0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;color&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i5: red, cone, big
+  - i2: blue, sphere, big
+  - collected i5
+  - i3: green, cone, small
+  - collected i0
+  - i4: blue, cube, medium
+  - i1: blue, sphere, small
+  - collected i3
+  - i0: blue, cone, small
+The goals are: goal: goal2, colour and red; goal: goal0, shape and cone; goal: goal3, size and big; goal: goal1, size and medium.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal3 | goal0 | goal1 | goal2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i0&quot;,
+  &quot;i3&quot;,
+  &quot;i5&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;shape&quot;,
+  &quot;cone&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">goal0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The episode:
+  - i2: red, cube, small
+  - i0: blue, sphere, small
+  - i3: blue, cone, medium
+  - i4: green, cone, big
+  - i1: green, cube, small
+  - i5: green, cube, big
+  - collected i3
+The goals are: goal: goal2, shape and cube; goal: goal1, shape and cone; goal: goal0, size and medium; goal: goal3, size and big.
+The rules are:
+  - rule an_agent_pursuing_a_goal_collects_exactly_the_items_matching_that_goals_attribute_and_value
+  - rule exactly_one_candidate_goal_explains_the_observed_behaviour
+Which goal?
+
+Answer with exactly one of: goal0 | goal3 | goal2 | goal1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;collected&quot;: [
+  &quot;i3&quot;
+ ],
+ &quot;goal&quot;: [
+  &quot;size&quot;,
+  &quot;medium&quot;
+ ]
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

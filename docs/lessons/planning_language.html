@@ -1,0 +1,3051 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>planning_language — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iv">analogy, causality, planning, and programs</a> &rsaquo;
+  planning_language</p>
+<h1>#44 <code>planning_language</code></h1>
+<p class="lede">goal to executable plan: the first action of a shortest plan</p>
+<div class="tags"><span class="tag ">level 44</span><span class="tag ">section iv</span><span class="tag ">planning</span><span class="tag ">spatial_reasoning</span><span class="tag ">proof_search</span></div>
+<div class="stats">
+<div class="stat"><span class="n">3.2</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.318</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.01</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Answer the first action of a shortest plan. The episode is only emitted
+    when breadth-first search says that first action is unique, so &#x27;correct&#x27; is
+    well defined; the plan length travels in ``hidden``.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>2</td></tr><tr><td>lexical_novelty</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The actions: move_kim, move_gel and move_les.
+The goal is at(agent, lum).
+The current state is: at(agent, vud); agent holding nothing.
+The world contains:
+  - gel road vud
+  - kim road vud
+  - les road vud
+  - lum road vud
+  - nel key at lum
+  - gel road lum
+  - unlocked by: lum, vud and nel
+  - lum locked vud
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_kim | move_gel | move_les
+Reply with the answer only.</pre><h3>spanish</h3><pre>Las acciones son: move_kim, move_gel y move_les.
+El objetivo es at(agente, lum).
+El estado actual es: at(agente, vud); agente sostiene nothing.
+El mundo contiene:
+  - gel la carretera vud
+  - kim la carretera vud
+  - les la carretera vud
+  - lum la carretera vud
+  - nel la llave en lum
+  - gel la carretera lum
+  - se desbloquea: lum, vud y nel
+  - lum está cerrado con llave vud
+¿Cuál es la primera acción del plan más corto?
+
+Responde exactamente con una de estas opciones: move_kim | move_gel | move_les
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>动作如下：move_kim、move_gel和move_les。
+目标是at(智能体, lum)。
+状态是：at(智能体, vud)；智能体手持nothing。
+世界如下：
+  - gel有道路通往vud
+  - kim有道路通往vud
+  - les有道路通往vud
+  - lum有道路通往vud
+  - nel处的钥匙是lum
+  - gel有道路通往lum
+  - 解锁钥匙：lum、vud和nel
+  - lum已锁定vud
+最短计划的第一个动作是什么？
+
+请从以下选项中选出恰好一个作答：move_kim | move_gel | move_les
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The actions: move_kim, move_gel and move_les.
+The goal is at(agent, lum).
+The current state is: at(agent, vud); agent holding nothing.
+The world contains:
+  - gel road vud
+  - kim road vud
+  - les road vud
+  - lum road vud
+  - nel key at lum
+  - gel road lum
+  - unlocked by: lum, vud and nel
+  - lum locked vud
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_kim | move_gel | move_les
+Reply with the answer only.</pre><h3>symbols</h3><pre>{actions: [move_kim move_gel move_les], goal: (at agent lum), query: first_action_of_shortest_plan, state: [(at agent vud) (holding agent nothing)], world: [(road gel vud) (road kim vud) (road les vud) (road lum vud) (key_at nel lum) (road gel lum) (unlocked_by lum vud nel) (locked lum vud)]}
+
+Answer with exactly one of: move_kim | move_gel | move_les
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/planning_language.jsonl</code> &middot; <code>data/samples/spanish/planning_language.jsonl</code> &middot; <code>data/samples/chinese/planning_language.jsonl</code> &middot; <code>data/samples/english_synonym/planning_language.jsonl</code> &middot; <code>data/samples/symbols/planning_language.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">move_gel</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_kim, move_gel and move_les.
+The goal is at(agent, lum).
+The current state is: at(agent, vud); agent holding nothing.
+The world contains:
+  - gel road vud
+  - kim road vud
+  - les road vud
+  - lum road vud
+  - nel key at lum
+  - gel road lum
+  - unlocked by: lum, vud and nel
+  - lum locked vud
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_kim | move_gel | move_les
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_gel&quot;,
+ &quot;goal&quot;: &quot;lum&quot;,
+ &quot;locked&quot;: [
+  &quot;lum&quot;,
+  &quot;vud&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;vud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">move_pul</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_pul, move_zub and move_biv.
+The goal is at(agent, nun).
+The current state is: at(agent, gap); agent holding nothing.
+The world contains:
+  - gap road zub
+  - nun road pul
+  - tun key at nun
+  - pul road zub
+  - pul locked zub
+  - gap road pul
+  - unlocked by: pul, zub and tun
+  - biv road gap
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_pul | move_zub | move_biv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_pul&quot;,
+ &quot;goal&quot;: &quot;nun&quot;,
+ &quot;locked&quot;: [
+  &quot;pul&quot;,
+  &quot;zub&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;gap&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">take_tub</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: take_tub, move_sad and move_nob.
+The goal is at(agent, kon).
+The current state is: at(agent, gev); agent holding nothing.
+The world contains:
+  - gev road nob
+  - tub key at gev
+  - unlocked by: gev, kon and tub
+  - gev road kon
+  - dim road sad
+  - gev locked kon
+  - nob road sad
+  - gev road sad
+What is the first action of shortest plan?
+
+Answer with exactly one of: take_tub | move_sad | move_nob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_tub&quot;,
+ &quot;goal&quot;: &quot;kon&quot;,
+ &quot;locked&quot;: [
+  &quot;gev&quot;,
+  &quot;kon&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;gev&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">move_noz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_nid, move_noz and move_mor.
+The goal is at(agent, bur).
+The current state is: at(agent, dim); agent holding nothing.
+The world contains:
+  - bur road noz
+  - dim road nid
+  - mor road noz
+  - dim road noz
+  - dim road mor
+  - lag key at mor
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_nid | move_noz | move_mor
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_noz&quot;,
+ &quot;goal&quot;: &quot;bur&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;dim&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">move_zas</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_zas, move_tam and move_gov.
+The goal is at(agent, kor).
+The current state is: at(agent, sim); agent holding nothing.
+The world contains:
+  - sim road zas
+  - tam road zas
+  - gov road sim
+  - kor road zas
+  - unlocked by: tam, zas and rul
+  - rul key at tam
+  - gov road zas
+  - sim road tam
+  - tam locked zas
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_zas | move_tam | move_gov
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_zas&quot;,
+ &quot;goal&quot;: &quot;kor&quot;,
+ &quot;locked&quot;: [
+  &quot;tam&quot;,
+  &quot;zas&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;sim&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">move_diz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_sir, take_tad and move_diz.
+The goal is at(agent, bit).
+The current state is: at(agent, raz); agent holding nothing.
+The world contains:
+  - raz road sir
+  - diz road raz
+  - diz road lig
+  - tad key at raz
+  - bit road lig
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_sir | take_tad | move_diz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_diz&quot;,
+ &quot;goal&quot;: &quot;bit&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 3,
+ &quot;start&quot;: &quot;raz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">move_vet</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_dir, move_nek and move_vet.
+The goal is at(agent, ras).
+The current state is: at(agent, beg); agent holding nothing.
+The world contains:
+  - beg road vet
+  - beg road dir
+  - dub key at vet
+  - unlocked by: dir, ras and dub
+  - dir road ras
+  - dir locked ras
+  - nek road vet
+  - beg road nek
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_dir | move_nek | move_vet
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_vet&quot;,
+ &quot;goal&quot;: &quot;ras&quot;,
+ &quot;locked&quot;: [
+  &quot;dir&quot;,
+  &quot;ras&quot;
+ ],
+ &quot;plan_length&quot;: 5,
+ &quot;start&quot;: &quot;beg&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">move_gag</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_gag, move_bod and move_tet.
+The goal is at(agent, veb).
+The current state is: at(agent, keb); agent holding nothing.
+The world contains:
+  - keb road veb
+  - keb road tet
+  - keb locked veb
+  - gag road veb
+  - bod road keb
+  - gag road keb
+  - ler key at tet
+  - unlocked by: keb, veb and ler
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_gag | move_bod | move_tet
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_gag&quot;,
+ &quot;goal&quot;: &quot;veb&quot;,
+ &quot;locked&quot;: [
+  &quot;keb&quot;,
+  &quot;veb&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;keb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">move_zip</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_gab, move_zip and take_dum.
+The goal is at(agent, kir).
+The current state is: at(agent, tam); agent holding nothing.
+The world contains:
+  - kir road zip
+  - tob road zip
+  - tam road zip
+  - gab road tam
+  - dum key at tam
+  - unlocked by: tam, tob and dum
+  - tam locked tob
+  - tam road tob
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_gab | move_zip | take_dum
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_zip&quot;,
+ &quot;goal&quot;: &quot;kir&quot;,
+ &quot;locked&quot;: [
+  &quot;tam&quot;,
+  &quot;tob&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;tam&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">move_vib</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_kin, move_vus and move_vib.
+The goal is at(agent, rek).
+The current state is: at(agent, las); agent holding nothing.
+The world contains:
+  - las road vus
+  - rek road vib
+  - kin road vib
+  - las road vib
+  - kar key at rek
+  - kin road las
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_kin | move_vus | move_vib
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_vib&quot;,
+ &quot;goal&quot;: &quot;rek&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;las&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">move_naz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_naz, move_tot and move_gim.
+The goal is at(agent, kur).
+The current state is: at(agent, lup); agent holding nothing.
+The world contains:
+  - kur road tot
+  - nel key at gim
+  - gim road lup
+  - kur road naz
+  - kur locked tot
+  - lup road naz
+  - lup road tot
+  - unlocked by: kur, tot and nel
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_naz | move_tot | move_gim
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_naz&quot;,
+ &quot;goal&quot;: &quot;kur&quot;,
+ &quot;locked&quot;: [
+  &quot;kur&quot;,
+  &quot;tot&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;lup&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">take_kon</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_mud, take_kon and move_kop.
+The goal is at(agent, mil).
+The current state is: at(agent, gop); agent holding nothing.
+The world contains:
+  - gop locked mil
+  - gop road mud
+  - mud road sil
+  - gop road kop
+  - kon key at gop
+  - unlocked by: gop, mil and kon
+  - mil road sil
+  - gop road mil
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_mud | take_kon | move_kop
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_kon&quot;,
+ &quot;goal&quot;: &quot;mil&quot;,
+ &quot;locked&quot;: [
+  &quot;gop&quot;,
+  &quot;mil&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;gop&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">move_nal</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_nal, take_dit, move_nol and move_rod.
+The goal is at(agent, kar).
+The current state is: at(agent, bil); agent holding nothing.
+The world contains:
+  - unlocked by: nal, nol and dit
+  - bil road rod
+  - bil road nol
+  - kar road nal
+  - dit key at bil
+  - bil road nal
+  - nal locked nol
+  - nal road nol
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_nal | take_dit | move_nol | move_rod
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_nal&quot;,
+ &quot;goal&quot;: &quot;kar&quot;,
+ &quot;locked&quot;: [
+  &quot;nal&quot;,
+  &quot;nol&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;bil&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">move_mod</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: take_nod, move_mod, move_dop and move_kok.
+The goal is at(agent, git).
+The current state is: at(agent, sev); agent holding nothing.
+The world contains:
+  - kok road sev
+  - git road kok
+  - dop road sev
+  - git road mod
+  - unlocked by: git, kok and nod
+  - nod key at sev
+  - mod road sev
+  - git locked kok
+What is the first action of shortest plan?
+
+Answer with exactly one of: take_nod | move_mod | move_dop | move_kok
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_mod&quot;,
+ &quot;goal&quot;: &quot;git&quot;,
+ &quot;locked&quot;: [
+  &quot;git&quot;,
+  &quot;kok&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;sev&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">move_zov</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_zov, move_tek and move_tup.
+The goal is at(agent, kaz).
+The current state is: at(agent, ges); agent holding nothing.
+The world contains:
+  - tek road zov
+  - ges road tek
+  - ges road tup
+  - gir key at zov
+  - ges road zov
+  - kaz road zov
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_zov | move_tek | move_tup
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_zov&quot;,
+ &quot;goal&quot;: &quot;kaz&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;ges&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">take_pil</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_rup, move_sen and take_pil.
+The goal is at(agent, guv).
+The current state is: at(agent, ras); agent holding nothing.
+The world contains:
+  - ras road rup
+  - dag road guv
+  - dag locked ras
+  - ras road sen
+  - pil key at ras
+  - dag road ras
+  - unlocked by: dag, ras and pil
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_rup | move_sen | take_pil
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_pil&quot;,
+ &quot;goal&quot;: &quot;guv&quot;,
+ &quot;locked&quot;: [
+  &quot;dag&quot;,
+  &quot;ras&quot;
+ ],
+ &quot;plan_length&quot;: 3,
+ &quot;start&quot;: &quot;ras&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">move_tip</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_nag, move_zal and move_tip.
+The goal is at(agent, lob).
+The current state is: at(agent, bil); agent holding nothing.
+The world contains:
+  - nag road zal
+  - bil road tip
+  - unlocked by: lob, zal and net
+  - lob road zal
+  - bil road zal
+  - lob locked zal
+  - net key at tip
+  - bil road nag
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_nag | move_zal | move_tip
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_tip&quot;,
+ &quot;goal&quot;: &quot;lob&quot;,
+ &quot;locked&quot;: [
+  &quot;lob&quot;,
+  &quot;zal&quot;
+ ],
+ &quot;plan_length&quot;: 5,
+ &quot;start&quot;: &quot;bil&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">move_lav</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_lav, move_lel and move_kan.
+The goal is at(agent, mub).
+The current state is: at(agent, nil); agent holding nothing.
+The world contains:
+  - giv key at mub
+  - lav road nil
+  - kan road nil
+  - lav road mub
+  - lel road nil
+  - kan road lav
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_lav | move_lel | move_kan
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_lav&quot;,
+ &quot;goal&quot;: &quot;mub&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;nil&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">take_mid</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_zoz, move_mez and take_mid.
+The goal is at(agent, tit).
+The current state is: at(agent, gom); agent holding nothing.
+The world contains:
+  - gom road zoz
+  - pab locked zoz
+  - gom road mez
+  - unlocked by: pab, zoz and mid
+  - pab road tit
+  - pab road zoz
+  - mid key at gom
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_zoz | move_mez | take_mid
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_mid&quot;,
+ &quot;goal&quot;: &quot;tit&quot;,
+ &quot;locked&quot;: [
+  &quot;pab&quot;,
+  &quot;zoz&quot;
+ ],
+ &quot;plan_length&quot;: 4,
+ &quot;start&quot;: &quot;gom&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">move_dep</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_dep, move_led and move_nab.
+The goal is at(agent, tov).
+The current state is: at(agent, var); agent holding nothing.
+The world contains:
+  - led road var
+  - nab locked tov
+  - dep road var
+  - nab road var
+  - unlocked by: nab, tov and dor
+  - dep road tov
+  - nab road tov
+  - dor key at dep
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_dep | move_led | move_nab
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_dep&quot;,
+ &quot;goal&quot;: &quot;tov&quot;,
+ &quot;locked&quot;: [
+  &quot;nab&quot;,
+  &quot;tov&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;var&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">move_neb</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_neb, move_giv and move_bal.
+The goal is at(agent, vaz).
+The current state is: at(agent, gez); agent holding nothing.
+The world contains:
+  - bug key at neb
+  - unlocked by: giv, vaz and bug
+  - giv locked vaz
+  - gez road neb
+  - gez road giv
+  - giv road vaz
+  - bal road gez
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_neb | move_giv | move_bal
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_neb&quot;,
+ &quot;goal&quot;: &quot;vaz&quot;,
+ &quot;locked&quot;: [
+  &quot;giv&quot;,
+  &quot;vaz&quot;
+ ],
+ &quot;plan_length&quot;: 5,
+ &quot;start&quot;: &quot;gez&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">take_pos</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: take_pos, move_zul and move_vem.
+The goal is at(agent, tad).
+The current state is: at(agent, mit); agent holding nothing.
+The world contains:
+  - mit road vem
+  - mit road mom
+  - mom road tad
+  - pos key at mit
+  - mit locked mom
+  - unlocked by: mit, mom and pos
+  - mit road zul
+What is the first action of shortest plan?
+
+Answer with exactly one of: take_pos | move_zul | move_vem
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_pos&quot;,
+ &quot;goal&quot;: &quot;tad&quot;,
+ &quot;locked&quot;: [
+  &quot;mit&quot;,
+  &quot;mom&quot;
+ ],
+ &quot;plan_length&quot;: 3,
+ &quot;start&quot;: &quot;mit&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">move_mud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_taz, move_mud and move_lav.
+The goal is at(agent, teg).
+The current state is: at(agent, tub); agent holding nothing.
+The world contains:
+  - teg road tub
+  - mud road tub
+  - taz road tub
+  - lav road tub
+  - lav road mud
+  - teg locked tub
+  - zor key at mud
+  - unlocked by: teg, tub and zor
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_taz | move_mud | move_lav
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_mud&quot;,
+ &quot;goal&quot;: &quot;teg&quot;,
+ &quot;locked&quot;: [
+  &quot;teg&quot;,
+  &quot;tub&quot;
+ ],
+ &quot;plan_length&quot;: 4,
+ &quot;start&quot;: &quot;tub&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">move_rer</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_bug, move_rer and take_riz.
+The goal is at(agent, pap).
+The current state is: at(agent, giv); agent holding nothing.
+The world contains:
+  - riz key at giv
+  - pap road rer
+  - giv road rer
+  - bug road giv
+  - pap road tog
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_bug | move_rer | take_riz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_rer&quot;,
+ &quot;goal&quot;: &quot;pap&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;giv&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">move_nid</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_vup, move_nid, move_sam and take_bis.
+The goal is at(agent, num).
+The current state is: at(agent, tuk); agent holding nothing.
+The world contains:
+  - tuk road vup
+  - nid road tuk
+  - nid locked sam
+  - sam road tuk
+  - nid road sam
+  - bis key at tuk
+  - unlocked by: nid, sam and bis
+  - nid road num
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_vup | move_nid | move_sam | take_bis
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_nid&quot;,
+ &quot;goal&quot;: &quot;num&quot;,
+ &quot;locked&quot;: [
+  &quot;nid&quot;,
+  &quot;sam&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;tuk&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">move_vol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_zag, move_vas and move_vol.
+The goal is at(agent, bel).
+The current state is: at(agent, rik); agent holding nothing.
+The world contains:
+  - rik road zag
+  - raz key at vas
+  - rik road vol
+  - bel road vol
+  - rik road vas
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_zag | move_vas | move_vol
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_vol&quot;,
+ &quot;goal&quot;: &quot;bel&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;rik&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">take_kat</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_rop, take_kat and move_meg.
+The goal is at(agent, big).
+The current state is: at(agent, seb); agent holding nothing.
+The world contains:
+  - rop road seb
+  - mud road rop
+  - unlocked by: big, seb and kat
+  - big locked seb
+  - kat key at seb
+  - big road seb
+  - meg road seb
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_rop | take_kat | move_meg
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_kat&quot;,
+ &quot;goal&quot;: &quot;big&quot;,
+ &quot;locked&quot;: [
+  &quot;big&quot;,
+  &quot;seb&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;seb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">move_las</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_nag, move_las and move_nek.
+The goal is at(agent, bab).
+The current state is: at(agent, bor); agent holding nothing.
+The world contains:
+  - bor road nek
+  - nag road nek
+  - mom key at bab
+  - bab road las
+  - bor road nag
+  - bor road las
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_nag | move_las | move_nek
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_las&quot;,
+ &quot;goal&quot;: &quot;bab&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;bor&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">take_zul</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_mos, move_pen, move_guv and take_zul.
+The goal is at(agent, reg).
+The current state is: at(agent, ril); agent holding nothing.
+The world contains:
+  - pen locked reg
+  - unlocked by: pen, reg and zul
+  - guv road ril
+  - zul key at ril
+  - pen road ril
+  - mos road ril
+  - pen road reg
+  - guv road mos
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_mos | move_pen | move_guv | take_zul
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_zul&quot;,
+ &quot;goal&quot;: &quot;reg&quot;,
+ &quot;locked&quot;: [
+  &quot;pen&quot;,
+  &quot;reg&quot;
+ ],
+ &quot;plan_length&quot;: 3,
+ &quot;start&quot;: &quot;ril&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">take_den</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_pok, take_den and move_ral.
+The goal is at(agent, mul).
+The current state is: at(agent, kav); agent holding nothing.
+The world contains:
+  - den key at kav
+  - buz road pok
+  - unlocked by: kav, mul and den
+  - kav road ral
+  - kav road mul
+  - kav locked mul
+  - kav road pok
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_pok | take_den | move_ral
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_den&quot;,
+ &quot;goal&quot;: &quot;mul&quot;,
+ &quot;locked&quot;: [
+  &quot;kav&quot;,
+  &quot;mul&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;kav&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">move_boz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_dum, move_boz and move_tiz.
+The goal is at(agent, zum).
+The current state is: at(agent, teg); agent holding nothing.
+The world contains:
+  - boz road teg
+  - boz road zum
+  - teg road tiz
+  - lan key at dum
+  - dum road tiz
+  - dum road teg
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_dum | move_boz | move_tiz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_boz&quot;,
+ &quot;goal&quot;: &quot;zum&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;teg&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">take_nok</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: take_nok, move_gep, move_bes and move_tet.
+The goal is at(agent, kel).
+The current state is: at(agent, buk); agent holding nothing.
+The world contains:
+  - nok key at buk
+  - bes road buk
+  - gep road tet
+  - buk road gep
+  - buk road kel
+  - buk locked kel
+  - buk road tet
+  - unlocked by: buk, kel and nok
+What is the first action of shortest plan?
+
+Answer with exactly one of: take_nok | move_gep | move_bes | move_tet
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_nok&quot;,
+ &quot;goal&quot;: &quot;kel&quot;,
+ &quot;locked&quot;: [
+  &quot;buk&quot;,
+  &quot;kel&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;buk&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">move_tak</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_bes, move_ram and move_tak.
+The goal is at(agent, din).
+The current state is: at(agent, daz); agent holding nothing.
+The world contains:
+  - daz locked din
+  - bes road daz
+  - unlocked by: daz, din and sil
+  - din road tak
+  - daz road din
+  - sil key at ram
+  - daz road tak
+  - daz road ram
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_bes | move_ram | move_tak
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_tak&quot;,
+ &quot;goal&quot;: &quot;din&quot;,
+ &quot;locked&quot;: [
+  &quot;daz&quot;,
+  &quot;din&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;daz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">move_bed</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_bed, move_tur and move_siv.
+The goal is at(agent, dur).
+The current state is: at(agent, luv); agent holding nothing.
+The world contains:
+  - luv road siv
+  - bed road dur
+  - luv road tur
+  - unlocked by: dur, siv and vid
+  - vid key at siv
+  - dur road siv
+  - dur locked siv
+  - bed road luv
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_bed | move_tur | move_siv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_bed&quot;,
+ &quot;goal&quot;: &quot;dur&quot;,
+ &quot;locked&quot;: [
+  &quot;dur&quot;,
+  &quot;siv&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;luv&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">move_led</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: take_sit, move_sud, move_led and move_sez.
+The goal is at(agent, ver).
+The current state is: at(agent, rin); agent holding nothing.
+The world contains:
+  - sit key at rin
+  - rin road sud
+  - led road sez
+  - led road ver
+  - sez road sud
+  - led road rin
+  - rin road sez
+What is the first action of shortest plan?
+
+Answer with exactly one of: take_sit | move_sud | move_led | move_sez
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_led&quot;,
+ &quot;goal&quot;: &quot;ver&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;rin&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">move_zug</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_mek, move_zug and take_tob.
+The goal is at(agent, dam).
+The current state is: at(agent, bek); agent holding nothing.
+The world contains:
+  - mek road zug
+  - tob key at bek
+  - dam road sen
+  - bek locked sen
+  - bek road mek
+  - dam road zug
+  - bek road zug
+  - bek road sen
+  - unlocked by: bek, sen and tob
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_mek | move_zug | take_tob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_zug&quot;,
+ &quot;goal&quot;: &quot;dam&quot;,
+ &quot;locked&quot;: [
+  &quot;bek&quot;,
+  &quot;sen&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;bek&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">take_rel</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_nod, move_nin, move_nuk and take_rel.
+The goal is at(agent, gon).
+The current state is: at(agent, sol); agent holding nothing.
+The world contains:
+  - unlocked by: gon, sol and rel
+  - nod road nuk
+  - rel key at sol
+  - gon locked sol
+  - gon road sol
+  - nuk road sol
+  - nod road sol
+  - nin road sol
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_nod | move_nin | move_nuk | take_rel
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_rel&quot;,
+ &quot;goal&quot;: &quot;gon&quot;,
+ &quot;locked&quot;: [
+  &quot;gon&quot;,
+  &quot;sol&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;sol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">move_mot</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_gov, move_zip and move_mot.
+The goal is at(agent, lul).
+The current state is: at(agent, pug); agent holding nothing.
+The world contains:
+  - lul road mot
+  - gov road pug
+  - gev key at gov
+  - mot road pug
+  - pug road zip
+  - gov road zip
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_gov | move_zip | move_mot
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_mot&quot;,
+ &quot;goal&quot;: &quot;lul&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;pug&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">move_rig</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_rig, take_vup and move_pek.
+The goal is at(agent, sok).
+The current state is: at(agent, mug); agent holding nothing.
+The world contains:
+  - vup key at mug
+  - mur road rig
+  - unlocked by: mug, mur and vup
+  - mug road pek
+  - rig road sok
+  - mug locked mur
+  - mug road mur
+  - mug road rig
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_rig | take_vup | move_pek
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_rig&quot;,
+ &quot;goal&quot;: &quot;sok&quot;,
+ &quot;locked&quot;: [
+  &quot;mug&quot;,
+  &quot;mur&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;mug&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">move_buv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_buv, move_bon and take_mez.
+The goal is at(agent, div).
+The current state is: at(agent, tup); agent holding nothing.
+The world contains:
+  - buv road tup
+  - div road lip
+  - bon road tup
+  - mez key at tup
+  - buv road div
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_buv | move_bon | take_mez
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_buv&quot;,
+ &quot;goal&quot;: &quot;div&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;tup&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">move_zum</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_zum, move_pak and move_nob.
+The goal is at(agent, vud).
+The current state is: at(agent, non); agent holding nothing.
+The world contains:
+  - non road zum
+  - nob road non
+  - vud road zum
+  - pab key at zum
+  - nob road zum
+  - non road pak
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_zum | move_pak | move_nob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_zum&quot;,
+ &quot;goal&quot;: &quot;vud&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;non&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">move_gir</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_pis, take_ned, move_gir and move_nuk.
+The goal is at(agent, zog).
+The current state is: at(agent, tob); agent holding nothing.
+The world contains:
+  - unlocked by: nuk, pis and ned
+  - nuk road pis
+  - nuk road tob
+  - nuk locked pis
+  - gir road tob
+  - pis road tob
+  - gir road zog
+  - ned key at tob
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_pis | take_ned | move_gir | move_nuk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_gir&quot;,
+ &quot;goal&quot;: &quot;zog&quot;,
+ &quot;locked&quot;: [
+  &quot;nuk&quot;,
+  &quot;pis&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;tob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">move_sis</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_got, move_sis and move_zog.
+The goal is at(agent, gud).
+The current state is: at(agent, kug); agent holding nothing.
+The world contains:
+  - unlocked by: gud, kug and rag
+  - gud locked kug
+  - gud road kug
+  - kug road sis
+  - kug road zog
+  - rag key at sis
+  - sis road zog
+  - got road kug
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_got | move_sis | move_zog
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_sis&quot;,
+ &quot;goal&quot;: &quot;gud&quot;,
+ &quot;locked&quot;: [
+  &quot;gud&quot;,
+  &quot;kug&quot;
+ ],
+ &quot;plan_length&quot;: 4,
+ &quot;start&quot;: &quot;kug&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">move_sos</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_zol, move_sos and move_kag.
+The goal is at(agent, pag).
+The current state is: at(agent, muv); agent holding nothing.
+The world contains:
+  - muv road zol
+  - kag road muv
+  - dup key at zol
+  - pag road sos
+  - muv road sos
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_zol | move_sos | move_kag
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_sos&quot;,
+ &quot;goal&quot;: &quot;pag&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;muv&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">move_bep</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_mil, move_meb and move_bep.
+The goal is at(agent, nad).
+The current state is: at(agent, gap); agent holding nothing.
+The world contains:
+  - unlocked by: bep, nad and bom
+  - bep road nad
+  - gap road mil
+  - bom key at bep
+  - bep locked nad
+  - bep road gap
+  - gap road meb
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_mil | move_meb | move_bep
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_bep&quot;,
+ &quot;goal&quot;: &quot;nad&quot;,
+ &quot;locked&quot;: [
+  &quot;bep&quot;,
+  &quot;nad&quot;
+ ],
+ &quot;plan_length&quot;: 3,
+ &quot;start&quot;: &quot;gap&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">move_zep</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_tan, move_zep and move_tam.
+The goal is at(agent, dok).
+The current state is: at(agent, nub); agent holding nothing.
+The world contains:
+  - nub road zep
+  - nub road tan
+  - dok locked nub
+  - nub road tam
+  - unlocked by: dok, nub and par
+  - dok road nub
+  - par key at zep
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_tan | move_zep | move_tam
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_zep&quot;,
+ &quot;goal&quot;: &quot;dok&quot;,
+ &quot;locked&quot;: [
+  &quot;dok&quot;,
+  &quot;nub&quot;
+ ],
+ &quot;plan_length&quot;: 4,
+ &quot;start&quot;: &quot;nub&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">move_lar</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: take_ken, move_nan and move_lar.
+The goal is at(agent, pal).
+The current state is: at(agent, nud); agent holding nothing.
+The world contains:
+  - nan road nud
+  - unlocked by: meb, nud and ken
+  - meb road nud
+  - meb road pal
+  - lar road pal
+  - lar road nud
+  - ken key at nud
+  - meb locked nud
+What is the first action of shortest plan?
+
+Answer with exactly one of: take_ken | move_nan | move_lar
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_lar&quot;,
+ &quot;goal&quot;: &quot;pal&quot;,
+ &quot;locked&quot;: [
+  &quot;meb&quot;,
+  &quot;nud&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;nud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">move_sem</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_gem, move_sem and move_tut.
+The goal is at(agent, tum).
+The current state is: at(agent, meb); agent holding nothing.
+The world contains:
+  - gem road meb
+  - meb road sem
+  - pim key at sem
+  - sem road tum
+  - meb road tut
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_gem | move_sem | move_tut
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_sem&quot;,
+ &quot;goal&quot;: &quot;tum&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;meb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">move_gab</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_gab, move_gav and move_lob.
+The goal is at(agent, bul).
+The current state is: at(agent, mub); agent holding nothing.
+The world contains:
+  - gav road mub
+  - lob road mub
+  - bul road gab
+  - gab road mub
+  - bul road gav
+  - dud key at bul
+  - bul locked gav
+  - unlocked by: bul, gav and dud
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_gab | move_gav | move_lob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_gab&quot;,
+ &quot;goal&quot;: &quot;bul&quot;,
+ &quot;locked&quot;: [
+  &quot;bul&quot;,
+  &quot;gav&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;mub&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">move_bom</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_lim, move_bom, take_dug and move_zig.
+The goal is at(agent, bat).
+The current state is: at(agent, bin); agent holding nothing.
+The world contains:
+  - bin road zig
+  - lim road zig
+  - unlocked by: lim, zig and dug
+  - lim locked zig
+  - bin road lim
+  - dug key at bin
+  - bin road bom
+  - bat road bom
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_lim | move_bom | take_dug | move_zig
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_bom&quot;,
+ &quot;goal&quot;: &quot;bat&quot;,
+ &quot;locked&quot;: [
+  &quot;lim&quot;,
+  &quot;zig&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;bin&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">move_ruz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_pir, move_ruz and move_lat.
+The goal is at(agent, tek).
+The current state is: at(agent, dip); agent holding nothing.
+The world contains:
+  - dip road ruz
+  - dip road tek
+  - dip road lat
+  - dip locked tek
+  - roz key at ruz
+  - dip road pir
+  - unlocked by: dip, tek and roz
+  - pir road ruz
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_pir | move_ruz | move_lat
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_ruz&quot;,
+ &quot;goal&quot;: &quot;tek&quot;,
+ &quot;locked&quot;: [
+  &quot;dip&quot;,
+  &quot;tek&quot;
+ ],
+ &quot;plan_length&quot;: 4,
+ &quot;start&quot;: &quot;dip&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">take_pas</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_sub, move_teg and take_pas.
+The goal is at(agent, bep).
+The current state is: at(agent, guk); agent holding nothing.
+The world contains:
+  - bov road teg
+  - guk road teg
+  - unlocked by: bep, guk and pas
+  - bep locked guk
+  - pas key at guk
+  - guk road sub
+  - bep road guk
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_sub | move_teg | take_pas
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_pas&quot;,
+ &quot;goal&quot;: &quot;bep&quot;,
+ &quot;locked&quot;: [
+  &quot;bep&quot;,
+  &quot;guk&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;guk&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">move_tut</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_tut, move_rem and move_gup.
+The goal is at(agent, zok).
+The current state is: at(agent, rat); agent holding nothing.
+The world contains:
+  - rem road tut
+  - gup road rat
+  - rat road rem
+  - tut road zok
+  - net key at gup
+  - rat road tut
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_tut | move_rem | move_gup
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_tut&quot;,
+ &quot;goal&quot;: &quot;zok&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;rat&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">move_rus</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_gal, move_tum and move_rus.
+The goal is at(agent, pov).
+The current state is: at(agent, som); agent holding nothing.
+The world contains:
+  - rus road som
+  - pov road rus
+  - gal road som
+  - gal road pov
+  - som road tum
+  - rom key at rus
+  - unlocked by: gal, pov and rom
+  - gal locked pov
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_gal | move_tum | move_rus
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_rus&quot;,
+ &quot;goal&quot;: &quot;pov&quot;,
+ &quot;locked&quot;: [
+  &quot;gal&quot;,
+  &quot;pov&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;som&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">move_pev</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_pev, move_zov and move_lug.
+The goal is at(agent, peg).
+The current state is: at(agent, tor); agent holding nothing.
+The world contains:
+  - tor road zov
+  - sav key at lug
+  - peg road pev
+  - pev road tor
+  - lug road tor
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_pev | move_zov | move_lug
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_pev&quot;,
+ &quot;goal&quot;: &quot;peg&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;tor&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">move_met</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_mig, move_met and move_dor.
+The goal is at(agent, gez).
+The current state is: at(agent, gim); agent holding nothing.
+The world contains:
+  - dor road mig
+  - gez road met
+  - por key at met
+  - gim road met
+  - gim road mig
+  - dor road gim
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_mig | move_met | move_dor
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_met&quot;,
+ &quot;goal&quot;: &quot;gez&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;gim&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">move_kor</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_mud, move_mem and move_kor.
+The goal is at(agent, zun).
+The current state is: at(agent, sez); agent holding nothing.
+The world contains:
+  - unlocked by: kor, mem and tud
+  - mud road sez
+  - tud key at kor
+  - kor road mem
+  - kor road sez
+  - kor road zun
+  - mem road sez
+  - kor locked mem
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_mud | move_mem | move_kor
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_kor&quot;,
+ &quot;goal&quot;: &quot;zun&quot;,
+ &quot;locked&quot;: [
+  &quot;kor&quot;,
+  &quot;mem&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;sez&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">move_bol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_vad, move_bol and take_vok.
+The goal is at(agent, pep).
+The current state is: at(agent, sez); agent holding nothing.
+The world contains:
+  - sez road vad
+  - bol road sez
+  - bol road pep
+  - bur road vad
+  - vok key at sez
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_vad | move_bol | take_vok
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_bol&quot;,
+ &quot;goal&quot;: &quot;pep&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;sez&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">move_baz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_zoz, move_tib and move_baz.
+The goal is at(agent, gim).
+The current state is: at(agent, nuk); agent holding nothing.
+The world contains:
+  - nuk road tib
+  - unlocked by: baz, gim and kin
+  - kin key at baz
+  - baz locked gim
+  - baz road gim
+  - nuk road zoz
+  - baz road zoz
+  - baz road nuk
+  - baz road tib
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_zoz | move_tib | move_baz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_baz&quot;,
+ &quot;goal&quot;: &quot;gim&quot;,
+ &quot;locked&quot;: [
+  &quot;baz&quot;,
+  &quot;gim&quot;
+ ],
+ &quot;plan_length&quot;: 3,
+ &quot;start&quot;: &quot;nuk&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">move_bud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_bud, move_pip and move_bas.
+The goal is at(agent, tud).
+The current state is: at(agent, tuk); agent holding nothing.
+The world contains:
+  - bas road pip
+  - bud road tuk
+  - lel key at bud
+  - pip road tud
+  - unlocked by: pip, tud and lel
+  - pip locked tud
+  - pip road tuk
+  - bas road tuk
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_bud | move_pip | move_bas
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_bud&quot;,
+ &quot;goal&quot;: &quot;tud&quot;,
+ &quot;locked&quot;: [
+  &quot;pip&quot;,
+  &quot;tud&quot;
+ ],
+ &quot;plan_length&quot;: 5,
+ &quot;start&quot;: &quot;tuk&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">move_sil</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_liv, move_nim and move_sil.
+The goal is at(agent, lek).
+The current state is: at(agent, bav); agent holding nothing.
+The world contains:
+  - bav road nim
+  - bav road lek
+  - bav road sil
+  - sur key at sil
+  - bav locked lek
+  - bav road liv
+  - unlocked by: bav, lek and sur
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_liv | move_nim | move_sil
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_sil&quot;,
+ &quot;goal&quot;: &quot;lek&quot;,
+ &quot;locked&quot;: [
+  &quot;bav&quot;,
+  &quot;lek&quot;
+ ],
+ &quot;plan_length&quot;: 4,
+ &quot;start&quot;: &quot;bav&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">move_tav</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: take_lit, move_tav, move_bup and move_dom.
+The goal is at(agent, gis).
+The current state is: at(agent, ber); agent holding nothing.
+The world contains:
+  - ber road tav
+  - ber road bup
+  - lit key at ber
+  - bup road tav
+  - ber road dom
+  - gis road tav
+What is the first action of shortest plan?
+
+Answer with exactly one of: take_lit | move_tav | move_bup | move_dom
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_tav&quot;,
+ &quot;goal&quot;: &quot;gis&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;ber&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">move_rum</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_val, move_pip, move_rum and take_dom.
+The goal is at(agent, pug).
+The current state is: at(agent, mag); agent holding nothing.
+The world contains:
+  - rum road val
+  - mag road rum
+  - mag road val
+  - dom key at mag
+  - mag road pip
+  - pug road rum
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_val | move_pip | move_rum | take_dom
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_rum&quot;,
+ &quot;goal&quot;: &quot;pug&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;mag&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">move_pob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_vip, move_der and move_pob.
+The goal is at(agent, bun).
+The current state is: at(agent, gat); agent holding nothing.
+The world contains:
+  - bun road vip
+  - gat road pob
+  - bun locked vip
+  - der road gat
+  - unlocked by: bun, vip and toz
+  - gat road vip
+  - pob road vip
+  - toz key at pob
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_vip | move_der | move_pob
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_pob&quot;,
+ &quot;goal&quot;: &quot;bun&quot;,
+ &quot;locked&quot;: [
+  &quot;bun&quot;,
+  &quot;vip&quot;
+ ],
+ &quot;plan_length&quot;: 4,
+ &quot;start&quot;: &quot;gat&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">take_ken</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_vul, move_kal and take_ken.
+The goal is at(agent, pin).
+The current state is: at(agent, pip); agent holding nothing.
+The world contains:
+  - vul road zad
+  - unlocked by: pin, pip and ken
+  - pin road pip
+  - kal road pip
+  - ken key at pip
+  - kal road zad
+  - pin locked pip
+  - pip road vul
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_vul | move_kal | take_ken
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_ken&quot;,
+ &quot;goal&quot;: &quot;pin&quot;,
+ &quot;locked&quot;: [
+  &quot;pin&quot;,
+  &quot;pip&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;pip&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">move_piz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_piz, take_roz and move_rid.
+The goal is at(agent, rev).
+The current state is: at(agent, pem); agent holding nothing.
+The world contains:
+  - pem road vuv
+  - pem locked vuv
+  - rev road vuv
+  - pem road rid
+  - pem road piz
+  - roz key at pem
+  - piz road rev
+  - unlocked by: pem, vuv and roz
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_piz | take_roz | move_rid
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_piz&quot;,
+ &quot;goal&quot;: &quot;rev&quot;,
+ &quot;locked&quot;: [
+  &quot;pem&quot;,
+  &quot;vuv&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;pem&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">take_zep</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_ras, move_vun and take_zep.
+The goal is at(agent, rub).
+The current state is: at(agent, piz); agent holding nothing.
+The world contains:
+  - piz road vun
+  - piz road ras
+  - piz locked rub
+  - piz road rub
+  - ket road rub
+  - unlocked by: piz, rub and zep
+  - zep key at piz
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_ras | move_vun | take_zep
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_zep&quot;,
+ &quot;goal&quot;: &quot;rub&quot;,
+ &quot;locked&quot;: [
+  &quot;piz&quot;,
+  &quot;rub&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;piz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">move_vik</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_rum, move_vik and take_dos.
+The goal is at(agent, min).
+The current state is: at(agent, vel); agent holding nothing.
+The world contains:
+  - vel road vik
+  - vel road voz
+  - min road vik
+  - rum road vel
+  - unlocked by: vel, voz and dos
+  - dos key at vel
+  - min road voz
+  - vel locked voz
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_rum | move_vik | take_dos
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_vik&quot;,
+ &quot;goal&quot;: &quot;min&quot;,
+ &quot;locked&quot;: [
+  &quot;vel&quot;,
+  &quot;voz&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;vel&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">move_biz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_biz, move_kud and move_gas.
+The goal is at(agent, vug).
+The current state is: at(agent, saz); agent holding nothing.
+The world contains:
+  - saz road vug
+  - saz locked vug
+  - res key at biz
+  - unlocked by: saz, vug and res
+  - kud road saz
+  - gas road saz
+  - biz road saz
+  - gas road kud
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_biz | move_kud | move_gas
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_biz&quot;,
+ &quot;goal&quot;: &quot;vug&quot;,
+ &quot;locked&quot;: [
+  &quot;saz&quot;,
+  &quot;vug&quot;
+ ],
+ &quot;plan_length&quot;: 4,
+ &quot;start&quot;: &quot;saz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">move_dod</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_zut, move_dos and move_dod.
+The goal is at(agent, dip).
+The current state is: at(agent, nos); agent holding nothing.
+The world contains:
+  - dos road nos
+  - dip road dod
+  - nos road zut
+  - dod road nos
+  - dod road dos
+  - voz key at dod
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_zut | move_dos | move_dod
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_dod&quot;,
+ &quot;goal&quot;: &quot;dip&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;nos&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">move_div</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_big, move_div and move_zim.
+The goal is at(agent, dog).
+The current state is: at(agent, deb); agent holding nothing.
+The world contains:
+  - deb road zim
+  - big road deb
+  - tos key at div
+  - big road dog
+  - div road zim
+  - deb road div
+  - big locked dog
+  - unlocked by: big, dog and tos
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_big | move_div | move_zim
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_div&quot;,
+ &quot;goal&quot;: &quot;dog&quot;,
+ &quot;locked&quot;: [
+  &quot;big&quot;,
+  &quot;dog&quot;
+ ],
+ &quot;plan_length&quot;: 5,
+ &quot;start&quot;: &quot;deb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">move_naz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_naz, move_tez and move_lub.
+The goal is at(agent, kus).
+The current state is: at(agent, mer); agent holding nothing.
+The world contains:
+  - lub road mer
+  - mer road naz
+  - mer road tez
+  - rag key at tez
+  - kus road naz
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_naz | move_tez | move_lub
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_naz&quot;,
+ &quot;goal&quot;: &quot;kus&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;mer&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">take_ped</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_zut, move_gis, take_ped and move_mug.
+The goal is at(agent, tig).
+The current state is: at(agent, rul); agent holding nothing.
+The world contains:
+  - gis road rul
+  - ped key at rul
+  - unlocked by: gis, tig and ped
+  - mug road rul
+  - gis road tig
+  - mug road zut
+  - rul road zut
+  - gis locked tig
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_zut | move_gis | take_ped | move_mug
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_ped&quot;,
+ &quot;goal&quot;: &quot;tig&quot;,
+ &quot;locked&quot;: [
+  &quot;gis&quot;,
+  &quot;tig&quot;
+ ],
+ &quot;plan_length&quot;: 3,
+ &quot;start&quot;: &quot;rul&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">move_zuk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_lav, move_zuk and move_lag.
+The goal is at(agent, kug).
+The current state is: at(agent, dam); agent holding nothing.
+The world contains:
+  - ted key at kug
+  - dam road lag
+  - dam road lav
+  - lav road zuk
+  - kug road zuk
+  - unlocked by: lav, zuk and ted
+  - dam road zuk
+  - lav locked zuk
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_lav | move_zuk | move_lag
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_zuk&quot;,
+ &quot;goal&quot;: &quot;kug&quot;,
+ &quot;locked&quot;: [
+  &quot;lav&quot;,
+  &quot;zuk&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;dam&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">move_ves</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_ves, move_vok and move_doz.
+The goal is at(agent, ner).
+The current state is: at(agent, zez); agent holding nothing.
+The world contains:
+  - ves road zez
+  - tal key at vok
+  - ves road vok
+  - vok road zez
+  - ner road ves
+  - doz road zez
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_ves | move_vok | move_doz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_ves&quot;,
+ &quot;goal&quot;: &quot;ner&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;zez&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">move_kil</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_kil, take_zir and move_vaz.
+The goal is at(agent, sam).
+The current state is: at(agent, pan); agent holding nothing.
+The world contains:
+  - pan road vaz
+  - kil road pan
+  - zir key at pan
+  - unlocked by: bam, pan and zir
+  - bam locked pan
+  - kil road sam
+  - bam road pan
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_kil | take_zir | move_vaz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_kil&quot;,
+ &quot;goal&quot;: &quot;sam&quot;,
+ &quot;locked&quot;: [
+  &quot;bam&quot;,
+  &quot;pan&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;pan&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">take_zel</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_sal, move_zov and take_zel.
+The goal is at(agent, sik).
+The current state is: at(agent, lop); agent holding nothing.
+The world contains:
+  - lop road zov
+  - lop locked sik
+  - pez road zov
+  - pez road sik
+  - zel key at lop
+  - unlocked by: lop, sik and zel
+  - lop road sal
+  - lop road sik
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_sal | move_zov | take_zel
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_zel&quot;,
+ &quot;goal&quot;: &quot;sik&quot;,
+ &quot;locked&quot;: [
+  &quot;lop&quot;,
+  &quot;sik&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;lop&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">move_duk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_rob, move_biz and move_duk.
+The goal is at(agent, vuv).
+The current state is: at(agent, nik); agent holding nothing.
+The world contains:
+  - nik locked vuv
+  - nik road vuv
+  - unlocked by: nik, vuv and bap
+  - duk road nik
+  - bap key at duk
+  - biz road nik
+  - nik road rob
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_rob | move_biz | move_duk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_duk&quot;,
+ &quot;goal&quot;: &quot;vuv&quot;,
+ &quot;locked&quot;: [
+  &quot;nik&quot;,
+  &quot;vuv&quot;
+ ],
+ &quot;plan_length&quot;: 4,
+ &quot;start&quot;: &quot;nik&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">take_par</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_bil, move_dep, move_lor and take_par.
+The goal is at(agent, nav).
+The current state is: at(agent, lot); agent holding nothing.
+The world contains:
+  - par key at lot
+  - dep road lot
+  - dep road nav
+  - lor road lot
+  - dep locked nav
+  - unlocked by: dep, nav and par
+  - bil road lot
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_bil | move_dep | move_lor | take_par
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_par&quot;,
+ &quot;goal&quot;: &quot;nav&quot;,
+ &quot;locked&quot;: [
+  &quot;dep&quot;,
+  &quot;nav&quot;
+ ],
+ &quot;plan_length&quot;: 3,
+ &quot;start&quot;: &quot;lot&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">move_zir</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_kip, move_zir and take_rov.
+The goal is at(agent, meg).
+The current state is: at(agent, sil); agent holding nothing.
+The world contains:
+  - dev locked sil
+  - kip road sil
+  - sil road zir
+  - rov key at sil
+  - unlocked by: dev, sil and rov
+  - dev road sil
+  - meg road zir
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_kip | move_zir | take_rov
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_zir&quot;,
+ &quot;goal&quot;: &quot;meg&quot;,
+ &quot;locked&quot;: [
+  &quot;dev&quot;,
+  &quot;sil&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;sil&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">move_zor</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_gol, move_zor and move_nos.
+The goal is at(agent, lar).
+The current state is: at(agent, lup); agent holding nothing.
+The world contains:
+  - unlocked by: gol, zor and bap
+  - bap key at gol
+  - lup road nos
+  - lup road zor
+  - gol locked zor
+  - gol road lup
+  - lar road zor
+  - gol road zor
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_gol | move_zor | move_nos
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_zor&quot;,
+ &quot;goal&quot;: &quot;lar&quot;,
+ &quot;locked&quot;: [
+  &quot;gol&quot;,
+  &quot;zor&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;lup&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">take_lig</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_rup, move_vat and take_lig.
+The goal is at(agent, nuk).
+The current state is: at(agent, tod); agent holding nothing.
+The world contains:
+  - lig key at tod
+  - unlocked by: nuk, tod and lig
+  - nuk road tod
+  - rup road tod
+  - rup road vat
+  - nuk locked tod
+  - tod road vat
+  - nuk road rol
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_rup | move_vat | take_lig
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_lig&quot;,
+ &quot;goal&quot;: &quot;nuk&quot;,
+ &quot;locked&quot;: [
+  &quot;nuk&quot;,
+  &quot;tod&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;tod&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">take_kig</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_nez, take_kig, move_bab and move_zir.
+The goal is at(agent, den).
+The current state is: at(agent, geg); agent holding nothing.
+The world contains:
+  - geg road zir
+  - den road nez
+  - geg road nez
+  - kig key at geg
+  - den locked nez
+  - bab road geg
+  - unlocked by: den, nez and kig
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_nez | take_kig | move_bab | move_zir
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_kig&quot;,
+ &quot;goal&quot;: &quot;den&quot;,
+ &quot;locked&quot;: [
+  &quot;den&quot;,
+  &quot;nez&quot;
+ ],
+ &quot;plan_length&quot;: 3,
+ &quot;start&quot;: &quot;geg&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">take_vuv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_kek, move_lam, move_goz and take_vuv.
+The goal is at(agent, lad).
+The current state is: at(agent, kot); agent holding nothing.
+The world contains:
+  - goz road kot
+  - vuv key at kot
+  - goz road kek
+  - unlocked by: goz, lad and vuv
+  - goz locked lad
+  - goz road lad
+  - kot road lam
+  - kek road kot
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_kek | move_lam | move_goz | take_vuv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_vuv&quot;,
+ &quot;goal&quot;: &quot;lad&quot;,
+ &quot;locked&quot;: [
+  &quot;goz&quot;,
+  &quot;lad&quot;
+ ],
+ &quot;plan_length&quot;: 3,
+ &quot;start&quot;: &quot;kot&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">move_rep</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_roz, take_gop and move_rep.
+The goal is at(agent, guk).
+The current state is: at(agent, mes); agent holding nothing.
+The world contains:
+  - mes road nip
+  - mes locked nip
+  - mes road rep
+  - unlocked by: mes, nip and gop
+  - gop key at mes
+  - mes road roz
+  - guk road rep
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_roz | take_gop | move_rep
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_rep&quot;,
+ &quot;goal&quot;: &quot;guk&quot;,
+ &quot;locked&quot;: [
+  &quot;mes&quot;,
+  &quot;nip&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;mes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">move_zem</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_zem, move_zek and move_daz.
+The goal is at(agent, kir).
+The current state is: at(agent, zid); agent holding nothing.
+The world contains:
+  - zem road zid
+  - kod key at zem
+  - daz road zid
+  - zek road zid
+  - unlocked by: kir, zid and kod
+  - kir locked zid
+  - kir road zid
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_zem | move_zek | move_daz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_zem&quot;,
+ &quot;goal&quot;: &quot;kir&quot;,
+ &quot;locked&quot;: [
+  &quot;kir&quot;,
+  &quot;zid&quot;
+ ],
+ &quot;plan_length&quot;: 4,
+ &quot;start&quot;: &quot;zid&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">move_vir</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_kam, take_zet and move_vir.
+The goal is at(agent, puk).
+The current state is: at(agent, dit); agent holding nothing.
+The world contains:
+  - dit locked nik
+  - dit road vir
+  - kam road vir
+  - dit road kam
+  - puk road vir
+  - dit road nik
+  - unlocked by: dit, nik and zet
+  - zet key at dit
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_kam | take_zet | move_vir
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_vir&quot;,
+ &quot;goal&quot;: &quot;puk&quot;,
+ &quot;locked&quot;: [
+  &quot;dit&quot;,
+  &quot;nik&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;dit&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">take_nav</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: take_nav, move_lal and move_kip.
+The goal is at(agent, lug).
+The current state is: at(agent, min); agent holding nothing.
+The world contains:
+  - lug road min
+  - kip road min
+  - kip road lal
+  - lal road min
+  - lug locked min
+  - lug road ter
+  - unlocked by: lug, min and nav
+  - nav key at min
+What is the first action of shortest plan?
+
+Answer with exactly one of: take_nav | move_lal | move_kip
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_nav&quot;,
+ &quot;goal&quot;: &quot;lug&quot;,
+ &quot;locked&quot;: [
+  &quot;lug&quot;,
+  &quot;min&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;min&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">move_nuk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_mot, move_suv and move_nuk.
+The goal is at(agent, por).
+The current state is: at(agent, vor); agent holding nothing.
+The world contains:
+  - mot road por
+  - pat key at por
+  - suv road vor
+  - nuk road vor
+  - mot locked por
+  - nuk road por
+  - mot road vor
+  - unlocked by: mot, por and pat
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_mot | move_suv | move_nuk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_nuk&quot;,
+ &quot;goal&quot;: &quot;por&quot;,
+ &quot;locked&quot;: [
+  &quot;mot&quot;,
+  &quot;por&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;vor&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">move_dir</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_dir, move_ted and move_gap.
+The goal is at(agent, ter).
+The current state is: at(agent, vor); agent holding nothing.
+The world contains:
+  - gap road vor
+  - dir road vor
+  - zer key at dir
+  - gap locked ter
+  - gap road ter
+  - dir road ter
+  - ted road vor
+  - dir road ted
+  - unlocked by: gap, ter and zer
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_dir | move_ted | move_gap
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_dir&quot;,
+ &quot;goal&quot;: &quot;ter&quot;,
+ &quot;locked&quot;: [
+  &quot;gap&quot;,
+  &quot;ter&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;vor&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">move_sik</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_gen, move_sik and take_suz.
+The goal is at(agent, bov).
+The current state is: at(agent, tur); agent holding nothing.
+The world contains:
+  - tar road tur
+  - sik road tar
+  - unlocked by: tar, tur and suz
+  - suz key at tur
+  - sik road tur
+  - tar locked tur
+  - gen road tur
+  - bov road sik
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_gen | move_sik | take_suz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_sik&quot;,
+ &quot;goal&quot;: &quot;bov&quot;,
+ &quot;locked&quot;: [
+  &quot;tar&quot;,
+  &quot;tur&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;tur&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">move_nar</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: take_leb, move_nar and move_mup.
+The goal is at(agent, kop).
+The current state is: at(agent, tus); agent holding nothing.
+The world contains:
+  - leb key at tus
+  - pir road tus
+  - unlocked by: pir, tus and leb
+  - mup road tus
+  - pir locked tus
+  - kop road nar
+  - nar road tus
+  - mup road pir
+What is the first action of shortest plan?
+
+Answer with exactly one of: take_leb | move_nar | move_mup
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_nar&quot;,
+ &quot;goal&quot;: &quot;kop&quot;,
+ &quot;locked&quot;: [
+  &quot;pir&quot;,
+  &quot;tus&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;tus&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">move_paz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_bev, move_paz and move_bes.
+The goal is at(agent, tes).
+The current state is: at(agent, nap); agent holding nothing.
+The world contains:
+  - paz road tes
+  - nap road paz
+  - bes road nap
+  - bev road tes
+  - bev locked tes
+  - bev road nap
+  - unlocked by: bev, tes and diz
+  - diz key at tes
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_bev | move_paz | move_bes
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_paz&quot;,
+ &quot;goal&quot;: &quot;tes&quot;,
+ &quot;locked&quot;: [
+  &quot;bev&quot;,
+  &quot;tes&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;nap&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">take_kiz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: take_kiz, move_per and move_dil.
+The goal is at(agent, kel).
+The current state is: at(agent, vol); agent holding nothing.
+The world contains:
+  - kel road vol
+  - kiz key at vol
+  - dil road vol
+  - unlocked by: kel, vol and kiz
+  - per road vol
+  - kel locked vol
+  - kel road vun
+What is the first action of shortest plan?
+
+Answer with exactly one of: take_kiz | move_per | move_dil
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_kiz&quot;,
+ &quot;goal&quot;: &quot;kel&quot;,
+ &quot;locked&quot;: [
+  &quot;kel&quot;,
+  &quot;vol&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;vol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">move_per</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: take_gap, move_per and move_got.
+The goal is at(agent, tan).
+The current state is: at(agent, pun); agent holding nothing.
+The world contains:
+  - got road pun
+  - pun road vul
+  - pun locked vul
+  - unlocked by: pun, vul and gap
+  - tan road vul
+  - per road pun
+  - gap key at pun
+  - per road tan
+What is the first action of shortest plan?
+
+Answer with exactly one of: take_gap | move_per | move_got
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_per&quot;,
+ &quot;goal&quot;: &quot;tan&quot;,
+ &quot;locked&quot;: [
+  &quot;pun&quot;,
+  &quot;vul&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;pun&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">move_nut</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_suk, move_nut and move_lin.
+The goal is at(agent, big).
+The current state is: at(agent, tos); agent holding nothing.
+The world contains:
+  - suk road tos
+  - lin road tos
+  - big road nut
+  - unlocked by: big, suk and kip
+  - nut road tos
+  - kip key at big
+  - big locked suk
+  - lin road suk
+  - big road suk
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_suk | move_nut | move_lin
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_nut&quot;,
+ &quot;goal&quot;: &quot;big&quot;,
+ &quot;locked&quot;: [
+  &quot;big&quot;,
+  &quot;suk&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;tos&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">take_zil</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: take_zil, move_dim, move_kep and move_pem.
+The goal is at(agent, lag).
+The current state is: at(agent, lid); agent holding nothing.
+The world contains:
+  - lid road pem
+  - dim locked lag
+  - zil key at lid
+  - unlocked by: dim, lag and zil
+  - dim road lid
+  - dim road lag
+  - kep road lid
+What is the first action of shortest plan?
+
+Answer with exactly one of: take_zil | move_dim | move_kep | move_pem
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;take_zil&quot;,
+ &quot;goal&quot;: &quot;lag&quot;,
+ &quot;locked&quot;: [
+  &quot;dim&quot;,
+  &quot;lag&quot;
+ ],
+ &quot;plan_length&quot;: 3,
+ &quot;start&quot;: &quot;lid&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">move_vuz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_leb, move_bep and move_vuz.
+The goal is at(agent, zed).
+The current state is: at(agent, vam); agent holding nothing.
+The world contains:
+  - vam road vuz
+  - leb road vam
+  - bep road vam
+  - vuz road zed
+  - lur key at bep
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_leb | move_bep | move_vuz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_vuz&quot;,
+ &quot;goal&quot;: &quot;zed&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;vam&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">move_sal</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: move_sal, move_led and move_gus.
+The goal is at(agent, vom).
+The current state is: at(agent, lir); agent holding nothing.
+The world contains:
+  - sal road vom
+  - gul key at sal
+  - lir road sal
+  - led road lir
+  - gus road lir
+What is the first action of shortest plan?
+
+Answer with exactly one of: move_sal | move_led | move_gus
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_sal&quot;,
+ &quot;goal&quot;: &quot;vom&quot;,
+ &quot;locked&quot;: null,
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;lir&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">move_zeg</span></summary>
+<div class="body">
+<p>prompt</p><pre>The actions: take_kap, move_zeg and move_rud.
+The goal is at(agent, zab).
+The current state is: at(agent, kan); agent holding nothing.
+The world contains:
+  - bun road rud
+  - kan road zeg
+  - zab road zeg
+  - bun locked zab
+  - bun road zab
+  - unlocked by: bun, zab and kap
+  - kap key at kan
+  - kan road rud
+What is the first action of shortest plan?
+
+Answer with exactly one of: take_kap | move_zeg | move_rud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;move_zeg&quot;,
+ &quot;goal&quot;: &quot;zab&quot;,
+ &quot;locked&quot;: [
+  &quot;bun&quot;,
+  &quot;zab&quot;
+ ],
+ &quot;plan_length&quot;: 2,
+ &quot;start&quot;: &quot;kan&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

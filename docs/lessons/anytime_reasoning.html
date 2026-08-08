@@ -1,0 +1,2165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>anytime_reasoning — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#ix">problem formulation and hierarchical agency</a> &rsaquo;
+  anytime_reasoning</p>
+<h1>#109 <code>anytime_reasoning</code></h1>
+<p class="lede">quality-vs-compute profiles read at a deadline</p>
+<div class="tags"><span class="tag ">level 109</span><span class="tag ">section ix</span><span class="tag ">metareasoning</span><span class="tag ">decision_theory</span><span class="tag ">computational_cost</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.01</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Quality against compute, read at a deadline.</p><p>    Every algorithm publishes a profile of (compute, quality) checkpoints; at a
+    deadline its quality is whatever its last reached checkpoint delivered, and
+    nothing at all if it has not reached one. The profiles are built to cross,
+    and the episode is rejected unless the winner at the deadline differs from
+    the winner given unlimited time — the point being that the best algorithm is
+    a function of the budget.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>computational_budget</td><td class='num'>4</td></tr><tr><td>reasoning_depth</td><td class='num'>3</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The profiles: kgks profile (at(3, 12), at(8, 28), at(10, 49), at(19, 60)); tdmv profile (at(2, 38), at(4, 50), at(7, 65), at(13, 98)); krpg profile (at(1, 57), at(4, 65), at(6, 77), at(15, 92)); sdkn profile (at(2, 25), at(6, 48), at(7, 72)).
+What is the best answer by deadline for 5?
+
+Answer with exactly one of: kgks | tdmv | sdkn | krpg
+Reply with the answer only.</pre><h3>spanish</h3><pre>Los perfiles son: kgks el perfil (at(3, 12), at(8, 28), at(10, 49), at(19, 60)); tdmv el perfil (at(2, 38), at(4, 50), at(7, 65), at(13, 98)); krpg el perfil (at(1, 57), at(4, 65), at(6, 77), at(15, 92)); sdkn el perfil (at(2, 25), at(6, 48), at(7, 72)).
+¿Cuál es la mejor respuesta antes del plazo para 5?
+
+Responde exactamente con una de estas opciones: kgks | tdmv | sdkn | krpg
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>档案如下：kgks的档案是(at(3, 12)，at(8, 28)，at(10, 49)，at(19, 60))；tdmv的档案是(at(2, 38)，at(4, 50)，at(7, 65)，at(13, 98))；krpg的档案是(at(1, 57)，at(4, 65)，at(6, 77)，at(15, 92))；sdkn的档案是(at(2, 25)，at(6, 48)，at(7, 72))。
+5的在截止前的最佳答案是什么？
+
+请从以下选项中选出恰好一个作答：kgks | tdmv | sdkn | krpg
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The profiles: kgks profile (at(3, 12), at(8, 28), at(10, 49), at(19, 60)); tdmv profile (at(2, 38), at(4, 50), at(7, 65), at(13, 98)); krpg profile (at(1, 57), at(4, 65), at(6, 77), at(15, 92)); sdkn profile (at(2, 25), at(6, 48), at(7, 72)).
+What is the best answer by deadline for 5?
+
+Answer with exactly one of: kgks | tdmv | sdkn | krpg
+Reply with the answer only.</pre><h3>symbols</h3><pre>{profiles: [(profile kgks [(at 3 12) (at 8 28) (at 10 49) (at 19 60)]) (profile tdmv [(at 2 38) (at 4 50) (at 7 65) (at 13 98)]) (profile krpg [(at 1 57) (at 4 65) (at 6 77) (at 15 92)]) (profile sdkn [(at 2 25) (at 6 48) (at 7 72)])], query: (best_answer_by_deadline 5)}
+
+Answer with exactly one of: kgks | tdmv | sdkn | krpg
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/anytime_reasoning.jsonl</code> &middot; <code>data/samples/spanish/anytime_reasoning.jsonl</code> &middot; <code>data/samples/chinese/anytime_reasoning.jsonl</code> &middot; <code>data/samples/english_synonym/anytime_reasoning.jsonl</code> &middot; <code>data/samples/symbols/anytime_reasoning.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">krpg</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: kgks profile (at(3, 12), at(8, 28), at(10, 49), at(19, 60)); tdmv profile (at(2, 38), at(4, 50), at(7, 65), at(13, 98)); krpg profile (at(1, 57), at(4, 65), at(6, 77), at(15, 92)); sdkn profile (at(2, 25), at(6, 48), at(7, 72)).
+What is the best answer by deadline for 5?
+
+Answer with exactly one of: kgks | tdmv | sdkn | krpg
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;krpg&quot;,
+ &quot;best_unbounded&quot;: &quot;tdmv&quot;,
+ &quot;deadline&quot;: 5,
+ &quot;quality_at_deadline&quot;: {
+  &quot;kgks&quot;: 12,
+  &quot;krpg&quot;: 65,
+  &quot;sdkn&quot;: 25,
+  &quot;tdmv&quot;: 50
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">vkpp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: npsm profile (at(1, 34), at(8, 49), at(15, 68), at(17, 75)); mvvv profile (at(1, 32), at(18, 53), at(19, 92)); vkpp profile (at(8, 7), at(10, 58), at(15, 76)); tgmz profile (at(8, 18), at(9, 45), at(15, 80)).
+What is the best answer by deadline for 13?
+
+Answer with exactly one of: vkpp | mvvv | npsm | tgmz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vkpp&quot;,
+ &quot;best_unbounded&quot;: &quot;mvvv&quot;,
+ &quot;deadline&quot;: 13,
+ &quot;quality_at_deadline&quot;: {
+  &quot;mvvv&quot;: 32,
+  &quot;npsm&quot;: 49,
+  &quot;tgmz&quot;: 45,
+  &quot;vkpp&quot;: 58
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">tdnz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: kgnt profile (at(14, 50), at(15, 51), at(17, 80)); kmml profile (at(9, 8), at(12, 9), at(15, 51), at(17, 64)); tdnz profile (at(6, 27), at(13, 34), at(14, 35), at(17, 76)); zgsg profile (at(6, 22), at(11, 51), at(19, 70)).
+What is the best answer by deadline for 10?
+
+Answer with exactly one of: kmml | tdnz | zgsg | kgnt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;tdnz&quot;,
+ &quot;best_unbounded&quot;: &quot;kgnt&quot;,
+ &quot;deadline&quot;: 10,
+ &quot;quality_at_deadline&quot;: {
+  &quot;kgnt&quot;: 0,
+  &quot;kmml&quot;: 8,
+  &quot;tdnz&quot;: 27,
+  &quot;zgsg&quot;: 22
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">lgvn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: sgrt profile (at(13, 24), at(16, 34), at(18, 71), at(19, 86)); lgvn profile (at(1, 8), at(2, 39), at(3, 43), at(6, 65)); vzrs profile (at(7, 54), at(9, 58), at(10, 69), at(14, 78)); gmgk profile (at(5, 9), at(13, 17), at(14, 22), at(15, 51)).
+What is the best answer by deadline for 7?
+
+Answer with exactly one of: gmgk | sgrt | vzrs | lgvn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;lgvn&quot;,
+ &quot;best_unbounded&quot;: &quot;sgrt&quot;,
+ &quot;deadline&quot;: 7,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gmgk&quot;: 9,
+  &quot;lgvn&quot;: 65,
+  &quot;sgrt&quot;: 0,
+  &quot;vzrs&quot;: 54
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">pvts</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: kvnz profile (at(2, 34), at(4, 40), at(11, 95)); rrnv profile (at(4, 8), at(6, 42), at(11, 63)); zzkm profile (at(6, 46), at(9, 76), at(12, 80), at(14, 86)); pvts profile (at(3, 30), at(7, 85), at(14, 86)).
+What is the best answer by deadline for 9?
+
+Answer with exactly one of: pvts | zzkm | rrnv | kvnz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;pvts&quot;,
+ &quot;best_unbounded&quot;: &quot;kvnz&quot;,
+ &quot;deadline&quot;: 9,
+ &quot;quality_at_deadline&quot;: {
+  &quot;kvnz&quot;: 40,
+  &quot;pvts&quot;: 85,
+  &quot;rrnv&quot;: 42,
+  &quot;zzkm&quot;: 76
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">nstd</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: nstd profile (at(3, 44), at(10, 50), at(11, 66)); spzk profile (at(6, 7), at(16, 12), at(18, 37), at(19, 50)); zmlz profile (at(4, 36), at(6, 49), at(7, 64)); lptt profile (at(1, 6), at(12, 53), at(14, 62), at(18, 79)).
+What is the best answer by deadline for 13?
+
+Answer with exactly one of: lptt | spzk | nstd | zmlz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nstd&quot;,
+ &quot;best_unbounded&quot;: &quot;lptt&quot;,
+ &quot;deadline&quot;: 13,
+ &quot;quality_at_deadline&quot;: {
+  &quot;lptt&quot;: 53,
+  &quot;nstd&quot;: 66,
+  &quot;spzk&quot;: 7,
+  &quot;zmlz&quot;: 64
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">nzzd</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: rsmg profile (at(2, 28), at(5, 55), at(10, 59), at(16, 81)); pzlg profile (at(5, 6), at(7, 29), at(8, 71), at(16, 94)); mmrn profile (at(1, 52), at(10, 53), at(11, 72)); nzzd profile (at(3, 62), at(8, 82), at(15, 90)).
+What is the best answer by deadline for 7?
+
+Answer with exactly one of: pzlg | rsmg | mmrn | nzzd
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nzzd&quot;,
+ &quot;best_unbounded&quot;: &quot;pzlg&quot;,
+ &quot;deadline&quot;: 7,
+ &quot;quality_at_deadline&quot;: {
+  &quot;mmrn&quot;: 52,
+  &quot;nzzd&quot;: 62,
+  &quot;pzlg&quot;: 29,
+  &quot;rsmg&quot;: 55
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">plvg</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: mgkg profile (at(3, 48), at(10, 68), at(17, 98)); svnr profile (at(3, 24), at(4, 26), at(10, 48), at(14, 67)); vlzs profile (at(3, 12), at(9, 13), at(16, 90), at(19, 94)); plvg profile (at(2, 49), at(3, 68), at(11, 81), at(17, 93)).
+What is the best answer by deadline for 6?
+
+Answer with exactly one of: mgkg | svnr | vlzs | plvg
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;plvg&quot;,
+ &quot;best_unbounded&quot;: &quot;mgkg&quot;,
+ &quot;deadline&quot;: 6,
+ &quot;quality_at_deadline&quot;: {
+  &quot;mgkg&quot;: 48,
+  &quot;plvg&quot;: 68,
+  &quot;svnr&quot;: 26,
+  &quot;vlzs&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">pnkv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: tsrs profile (at(3, 12), at(13, 18), at(18, 89)); pnkv profile (at(3, 13), at(7, 23), at(8, 79), at(16, 82)); sdkm profile (at(13, 19), at(14, 38), at(16, 89), at(17, 97)); slpt profile (at(7, 7), at(13, 16), at(16, 34), at(19, 67)).
+What is the best answer by deadline for 11?
+
+Answer with exactly one of: slpt | pnkv | tsrs | sdkm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;pnkv&quot;,
+ &quot;best_unbounded&quot;: &quot;sdkm&quot;,
+ &quot;deadline&quot;: 11,
+ &quot;quality_at_deadline&quot;: {
+  &quot;pnkv&quot;: 79,
+  &quot;sdkm&quot;: 0,
+  &quot;slpt&quot;: 7,
+  &quot;tsrs&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">lrvg</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: lrvg profile (at(3, 31), at(9, 40), at(14, 55)); ttnk profile (at(3, 18), at(13, 31), at(17, 42)); mlrg profile (at(1, 12), at(2, 22), at(7, 53), at(14, 67)); vglz profile (at(6, 11), at(14, 19), at(15, 26), at(19, 35)).
+What is the best answer by deadline for 4?
+
+Answer with exactly one of: ttnk | mlrg | lrvg | vglz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;lrvg&quot;,
+ &quot;best_unbounded&quot;: &quot;mlrg&quot;,
+ &quot;deadline&quot;: 4,
+ &quot;quality_at_deadline&quot;: {
+  &quot;lrvg&quot;: 31,
+  &quot;mlrg&quot;: 22,
+  &quot;ttnk&quot;: 18,
+  &quot;vglz&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">krvl</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: gkpv profile (at(2, 22), at(12, 50), at(14, 82)); vznt profile (at(5, 10), at(8, 53), at(15, 79), at(18, 83)); krvl profile (at(5, 43), at(7, 51), at(8, 73)); gksv profile (at(9, 27), at(10, 43), at(14, 89), at(15, 92)).
+What is the best answer by deadline for 5?
+
+Answer with exactly one of: vznt | gkpv | gksv | krvl
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;krvl&quot;,
+ &quot;best_unbounded&quot;: &quot;gksv&quot;,
+ &quot;deadline&quot;: 5,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gkpv&quot;: 22,
+  &quot;gksv&quot;: 0,
+  &quot;krvl&quot;: 43,
+  &quot;vznt&quot;: 10
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">nzpr</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: srzk profile (at(1, 17), at(4, 22), at(11, 36), at(14, 95)); nzpr profile (at(1, 11), at(3, 31), at(13, 32), at(17, 65)); mgmp profile (at(2, 27), at(15, 76), at(16, 92)); mdzl profile (at(3, 16), at(7, 39), at(13, 48), at(14, 91)).
+What is the best answer by deadline for 5?
+
+Answer with exactly one of: nzpr | srzk | mgmp | mdzl
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nzpr&quot;,
+ &quot;best_unbounded&quot;: &quot;srzk&quot;,
+ &quot;deadline&quot;: 5,
+ &quot;quality_at_deadline&quot;: {
+  &quot;mdzl&quot;: 16,
+  &quot;mgmp&quot;: 27,
+  &quot;nzpr&quot;: 31,
+  &quot;srzk&quot;: 22
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">nltp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: nvdg profile (at(5, 11), at(6, 26), at(11, 76), at(18, 94)); klvz profile (at(1, 16), at(2, 19), at(3, 59), at(8, 61)); nltp profile (at(3, 48), at(7, 70), at(19, 92)); vznr profile (at(5, 25), at(12, 31), at(15, 48)).
+What is the best answer by deadline for 7?
+
+Answer with exactly one of: vznr | klvz | nltp | nvdg
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nltp&quot;,
+ &quot;best_unbounded&quot;: &quot;nvdg&quot;,
+ &quot;deadline&quot;: 7,
+ &quot;quality_at_deadline&quot;: {
+  &quot;klvz&quot;: 59,
+  &quot;nltp&quot;: 70,
+  &quot;nvdg&quot;: 26,
+  &quot;vznr&quot;: 25
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">trlz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: vrsg profile (at(5, 10), at(8, 32), at(16, 79), at(17, 84)); zptg profile (at(6, 30), at(9, 49), at(14, 85), at(19, 95)); lvzg profile (at(1, 23), at(2, 33), at(13, 68), at(14, 94)); trlz profile (at(3, 60), at(5, 85), at(12, 88)).
+What is the best answer by deadline for 7?
+
+Answer with exactly one of: zptg | trlz | vrsg | lvzg
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;trlz&quot;,
+ &quot;best_unbounded&quot;: &quot;zptg&quot;,
+ &quot;deadline&quot;: 7,
+ &quot;quality_at_deadline&quot;: {
+  &quot;lvzg&quot;: 33,
+  &quot;trlz&quot;: 85,
+  &quot;vrsg&quot;: 10,
+  &quot;zptg&quot;: 30
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">nvzv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: zzdm profile (at(1, 15), at(4, 31), at(11, 40)); nvzv profile (at(4, 51), at(13, 79), at(15, 80), at(17, 86)); mgdn profile (at(4, 38), at(8, 45), at(9, 50), at(13, 51)); rszd profile (at(6, 6), at(9, 26), at(18, 88)).
+What is the best answer by deadline for 14?
+
+Answer with exactly one of: mgdn | zzdm | nvzv | rszd
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nvzv&quot;,
+ &quot;best_unbounded&quot;: &quot;rszd&quot;,
+ &quot;deadline&quot;: 14,
+ &quot;quality_at_deadline&quot;: {
+  &quot;mgdn&quot;: 51,
+  &quot;nvzv&quot;: 79,
+  &quot;rszd&quot;: 26,
+  &quot;zzdm&quot;: 40
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">mvdr</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: gddk profile (at(6, 15), at(8, 26), at(12, 35), at(17, 44)); mmpk profile (at(13, 6), at(16, 38), at(18, 99)); mvdr profile (at(2, 12), at(3, 37), at(10, 62)); zrvt profile (at(11, 14), at(13, 23), at(15, 39), at(16, 65)).
+What is the best answer by deadline for 8?
+
+Answer with exactly one of: zrvt | mmpk | gddk | mvdr
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mvdr&quot;,
+ &quot;best_unbounded&quot;: &quot;mmpk&quot;,
+ &quot;deadline&quot;: 8,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gddk&quot;: 26,
+  &quot;mmpk&quot;: 0,
+  &quot;mvdr&quot;: 37,
+  &quot;zrvt&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">ndzs</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: ndzs profile (at(4, 18), at(7, 19), at(13, 58), at(17, 85)); nkmd profile (at(9, 9), at(13, 56), at(14, 64)); mskp profile (at(8, 18), at(17, 19), at(19, 87)); nkpt profile (at(2, 8), at(9, 30), at(15, 59), at(17, 95)).
+What is the best answer by deadline for 6?
+
+Answer with exactly one of: nkpt | nkmd | mskp | ndzs
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;ndzs&quot;,
+ &quot;best_unbounded&quot;: &quot;nkpt&quot;,
+ &quot;deadline&quot;: 6,
+ &quot;quality_at_deadline&quot;: {
+  &quot;mskp&quot;: 0,
+  &quot;ndzs&quot;: 18,
+  &quot;nkmd&quot;: 0,
+  &quot;nkpt&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">gkdl</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: gkdl profile (at(3, 29), at(9, 76), at(19, 82)); kpsm profile (at(9, 6), at(11, 11), at(19, 49)); rssr profile (at(9, 11), at(15, 86), at(16, 98)); kvlg profile (at(9, 26), at(10, 45), at(12, 47)).
+What is the best answer by deadline for 9?
+
+Answer with exactly one of: rssr | kvlg | kpsm | gkdl
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gkdl&quot;,
+ &quot;best_unbounded&quot;: &quot;rssr&quot;,
+ &quot;deadline&quot;: 9,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gkdl&quot;: 76,
+  &quot;kpsm&quot;: 6,
+  &quot;kvlg&quot;: 26,
+  &quot;rssr&quot;: 11
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">lmll</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: tgds profile (at(2, 37), at(9, 56), at(14, 77)); tzmg profile (at(3, 22), at(6, 52), at(7, 91), at(10, 93)); lmll profile (at(3, 64), at(4, 72), at(9, 76), at(11, 78)); tszm profile (at(6, 57), at(12, 70), at(13, 71), at(14, 99)).
+What is the best answer by deadline for 5?
+
+Answer with exactly one of: tzmg | tszm | tgds | lmll
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;lmll&quot;,
+ &quot;best_unbounded&quot;: &quot;tszm&quot;,
+ &quot;deadline&quot;: 5,
+ &quot;quality_at_deadline&quot;: {
+  &quot;lmll&quot;: 72,
+  &quot;tgds&quot;: 37,
+  &quot;tszm&quot;: 0,
+  &quot;tzmg&quot;: 22
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">pstt</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: nvmr profile (at(4, 41), at(5, 42), at(9, 56), at(16, 62)); pstt profile (at(1, 8), at(3, 53), at(8, 64)); dvkv profile (at(10, 10), at(15, 44), at(19, 91)); gdms profile (at(16, 52), at(17, 59), at(19, 68)).
+What is the best answer by deadline for 11?
+
+Answer with exactly one of: nvmr | pstt | gdms | dvkv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;pstt&quot;,
+ &quot;best_unbounded&quot;: &quot;dvkv&quot;,
+ &quot;deadline&quot;: 11,
+ &quot;quality_at_deadline&quot;: {
+  &quot;dvkv&quot;: 10,
+  &quot;gdms&quot;: 0,
+  &quot;nvmr&quot;: 56,
+  &quot;pstt&quot;: 64
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">sgsk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: ztdn profile (at(7, 15), at(14, 19), at(17, 27)); lgdv profile (at(1, 11), at(11, 72), at(13, 90), at(15, 97)); sgsk profile (at(6, 20), at(14, 56), at(17, 93), at(18, 95)); kngz profile (at(12, 19), at(14, 33), at(19, 82)).
+What is the best answer by deadline for 6?
+
+Answer with exactly one of: kngz | lgdv | sgsk | ztdn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sgsk&quot;,
+ &quot;best_unbounded&quot;: &quot;lgdv&quot;,
+ &quot;deadline&quot;: 6,
+ &quot;quality_at_deadline&quot;: {
+  &quot;kngz&quot;: 0,
+  &quot;lgdv&quot;: 11,
+  &quot;sgsk&quot;: 20,
+  &quot;ztdn&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">mssn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: mrvr profile (at(4, 26), at(11, 28), at(19, 90)); mssn profile (at(10, 39), at(12, 45), at(13, 54), at(15, 67)); ngdm profile (at(3, 5), at(6, 13), at(16, 67)); pslt profile (at(8, 13), at(10, 18), at(11, 26), at(12, 27)).
+What is the best answer by deadline for 12?
+
+Answer with exactly one of: ngdm | pslt | mrvr | mssn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mssn&quot;,
+ &quot;best_unbounded&quot;: &quot;mrvr&quot;,
+ &quot;deadline&quot;: 12,
+ &quot;quality_at_deadline&quot;: {
+  &quot;mrvr&quot;: 28,
+  &quot;mssn&quot;: 45,
+  &quot;ngdm&quot;: 13,
+  &quot;pslt&quot;: 27
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">glpg</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: rzrp profile (at(4, 12), at(12, 56), at(15, 60)); rkpz profile (at(14, 16), at(17, 59), at(18, 72), at(19, 91)); glpg profile (at(1, 27), at(6, 47), at(13, 49)); pntz profile (at(8, 5), at(13, 17), at(17, 63)).
+What is the best answer by deadline for 4?
+
+Answer with exactly one of: rzrp | pntz | rkpz | glpg
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;glpg&quot;,
+ &quot;best_unbounded&quot;: &quot;rkpz&quot;,
+ &quot;deadline&quot;: 4,
+ &quot;quality_at_deadline&quot;: {
+  &quot;glpg&quot;: 27,
+  &quot;pntz&quot;: 0,
+  &quot;rkpz&quot;: 0,
+  &quot;rzrp&quot;: 12
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">zppr</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: zvks profile (at(6, 62), at(16, 80), at(19, 91)); ltds profile (at(10, 45), at(12, 78), at(19, 89)); zmkg profile (at(1, 7), at(3, 58), at(4, 70), at(16, 85)); zppr profile (at(2, 27), at(7, 52), at(12, 80), at(18, 89)).
+What is the best answer by deadline for 13?
+
+Answer with exactly one of: zppr | zmkg | zvks | ltds
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zppr&quot;,
+ &quot;best_unbounded&quot;: &quot;zvks&quot;,
+ &quot;deadline&quot;: 13,
+ &quot;quality_at_deadline&quot;: {
+  &quot;ltds&quot;: 78,
+  &quot;zmkg&quot;: 70,
+  &quot;zppr&quot;: 80,
+  &quot;zvks&quot;: 62
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">mldp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: prvg profile (at(9, 45), at(10, 52), at(13, 91), at(15, 97)); rpps profile (at(1, 13), at(13, 26), at(16, 64)); zzlz profile (at(5, 22), at(7, 27), at(17, 62)); mldp profile (at(1, 56), at(3, 58), at(9, 87), at(18, 93)).
+What is the best answer by deadline for 6?
+
+Answer with exactly one of: prvg | rpps | zzlz | mldp
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mldp&quot;,
+ &quot;best_unbounded&quot;: &quot;prvg&quot;,
+ &quot;deadline&quot;: 6,
+ &quot;quality_at_deadline&quot;: {
+  &quot;mldp&quot;: 58,
+  &quot;prvg&quot;: 0,
+  &quot;rpps&quot;: 13,
+  &quot;zzlz&quot;: 22
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">pksz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: pksz profile (at(6, 50), at(11, 70), at(17, 75)); nvkz profile (at(4, 29), at(12, 50), at(17, 58), at(18, 91)); kzgp profile (at(3, 13), at(15, 56), at(18, 77)); mgmg profile (at(2, 14), at(6, 33), at(18, 79)).
+What is the best answer by deadline for 14?
+
+Answer with exactly one of: pksz | kzgp | nvkz | mgmg
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;pksz&quot;,
+ &quot;best_unbounded&quot;: &quot;nvkz&quot;,
+ &quot;deadline&quot;: 14,
+ &quot;quality_at_deadline&quot;: {
+  &quot;kzgp&quot;: 13,
+  &quot;mgmg&quot;: 33,
+  &quot;nvkz&quot;: 50,
+  &quot;pksz&quot;: 70
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">pgrt</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: zsgp profile (at(2, 14), at(4, 63), at(14, 79), at(18, 95)); pgrt profile (at(4, 15), at(8, 22), at(12, 91)); kmmt profile (at(12, 9), at(14, 54), at(16, 82), at(19, 96)); pdsk profile (at(2, 16), at(7, 52), at(14, 81)).
+What is the best answer by deadline for 12?
+
+Answer with exactly one of: kmmt | zsgp | pgrt | pdsk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;pgrt&quot;,
+ &quot;best_unbounded&quot;: &quot;kmmt&quot;,
+ &quot;deadline&quot;: 12,
+ &quot;quality_at_deadline&quot;: {
+  &quot;kmmt&quot;: 9,
+  &quot;pdsk&quot;: 52,
+  &quot;pgrt&quot;: 91,
+  &quot;zsgp&quot;: 63
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">zsmm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: lpts profile (at(5, 11), at(6, 38), at(15, 74)); nvdz profile (at(3, 11), at(14, 61), at(17, 89), at(19, 99)); zrlz profile (at(4, 9), at(10, 72), at(13, 92)); zsmm profile (at(1, 34), at(5, 48), at(9, 83), at(16, 88)).
+What is the best answer by deadline for 7?
+
+Answer with exactly one of: zrlz | zsmm | nvdz | lpts
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zsmm&quot;,
+ &quot;best_unbounded&quot;: &quot;nvdz&quot;,
+ &quot;deadline&quot;: 7,
+ &quot;quality_at_deadline&quot;: {
+  &quot;lpts&quot;: 38,
+  &quot;nvdz&quot;: 11,
+  &quot;zrlz&quot;: 9,
+  &quot;zsmm&quot;: 48
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">sstp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: gdts profile (at(5, 27), at(11, 69), at(14, 71)); sstp profile (at(3, 26), at(4, 30), at(9, 58), at(17, 78)); mdtr profile (at(1, 13), at(7, 35), at(19, 57)); tnvp profile (at(5, 6), at(7, 41), at(8, 86), at(15, 91)).
+What is the best answer by deadline for 6?
+
+Answer with exactly one of: mdtr | tnvp | gdts | sstp
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sstp&quot;,
+ &quot;best_unbounded&quot;: &quot;tnvp&quot;,
+ &quot;deadline&quot;: 6,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gdts&quot;: 27,
+  &quot;mdtr&quot;: 13,
+  &quot;sstp&quot;: 30,
+  &quot;tnvp&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">nnpv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: rptp profile (at(5, 6), at(10, 11), at(14, 97)); zgnt profile (at(1, 27), at(5, 62), at(17, 96)); tdlm profile (at(1, 56), at(9, 58), at(18, 75)); nnpv profile (at(1, 12), at(4, 71), at(10, 85)).
+What is the best answer by deadline for 9?
+
+Answer with exactly one of: rptp | zgnt | nnpv | tdlm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nnpv&quot;,
+ &quot;best_unbounded&quot;: &quot;rptp&quot;,
+ &quot;deadline&quot;: 9,
+ &quot;quality_at_deadline&quot;: {
+  &quot;nnpv&quot;: 71,
+  &quot;rptp&quot;: 6,
+  &quot;tdlm&quot;: 58,
+  &quot;zgnt&quot;: 62
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">rzgk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: kppn profile (at(4, 21), at(9, 44), at(18, 68), at(19, 83)); gnsz profile (at(1, 36), at(3, 40), at(13, 77), at(18, 91)); tmvk profile (at(3, 22), at(9, 36), at(10, 45), at(17, 94)); rzgk profile (at(1, 56), at(3, 72), at(6, 81)).
+What is the best answer by deadline for 12?
+
+Answer with exactly one of: gnsz | tmvk | rzgk | kppn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;rzgk&quot;,
+ &quot;best_unbounded&quot;: &quot;tmvk&quot;,
+ &quot;deadline&quot;: 12,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gnsz&quot;: 40,
+  &quot;kppn&quot;: 44,
+  &quot;rzgk&quot;: 81,
+  &quot;tmvk&quot;: 45
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">vznv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: mngd profile (at(2, 39), at(8, 46), at(14, 92)); tnrl profile (at(7, 11), at(10, 33), at(13, 57), at(18, 75)); sklr profile (at(2, 36), at(11, 67), at(18, 98)); vznv profile (at(2, 10), at(5, 33), at(10, 57), at(11, 73)).
+What is the best answer by deadline for 12?
+
+Answer with exactly one of: sklr | mngd | vznv | tnrl
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vznv&quot;,
+ &quot;best_unbounded&quot;: &quot;sklr&quot;,
+ &quot;deadline&quot;: 12,
+ &quot;quality_at_deadline&quot;: {
+  &quot;mngd&quot;: 46,
+  &quot;sklr&quot;: 67,
+  &quot;tnrl&quot;: 33,
+  &quot;vznv&quot;: 73
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">zszl</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: zszl profile (at(2, 5), at(7, 69), at(16, 72), at(19, 93)); msnp profile (at(8, 46), at(12, 72), at(16, 78), at(18, 84)); dzgg profile (at(1, 16), at(3, 25), at(6, 62), at(16, 94)); gmkg profile (at(2, 23), at(5, 43), at(9, 75)).
+What is the best answer by deadline for 8?
+
+Answer with exactly one of: dzgg | gmkg | zszl | msnp
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zszl&quot;,
+ &quot;best_unbounded&quot;: &quot;dzgg&quot;,
+ &quot;deadline&quot;: 8,
+ &quot;quality_at_deadline&quot;: {
+  &quot;dzgg&quot;: 62,
+  &quot;gmkg&quot;: 43,
+  &quot;msnp&quot;: 46,
+  &quot;zszl&quot;: 69
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">ndnr</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: nmkl profile (at(7, 50), at(12, 63), at(13, 65), at(18, 81)); mlkk profile (at(2, 16), at(16, 82), at(19, 93)); ndnr profile (at(1, 19), at(3, 51), at(10, 53), at(16, 66)); mmtm profile (at(1, 45), at(15, 94), at(18, 97)).
+What is the best answer by deadline for 10?
+
+Answer with exactly one of: nmkl | ndnr | mmtm | mlkk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;ndnr&quot;,
+ &quot;best_unbounded&quot;: &quot;mmtm&quot;,
+ &quot;deadline&quot;: 10,
+ &quot;quality_at_deadline&quot;: {
+  &quot;mlkk&quot;: 16,
+  &quot;mmtm&quot;: 45,
+  &quot;ndnr&quot;: 53,
+  &quot;nmkl&quot;: 50
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">pmgz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: dmvz profile (at(5, 22), at(12, 25), at(15, 34), at(19, 40)); stpl profile (at(10, 13), at(12, 63), at(14, 83)); pmgz profile (at(3, 43), at(4, 57), at(10, 72), at(19, 79)); vmrd profile (at(2, 27), at(11, 28), at(14, 46)).
+What is the best answer by deadline for 11?
+
+Answer with exactly one of: dmvz | pmgz | vmrd | stpl
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;pmgz&quot;,
+ &quot;best_unbounded&quot;: &quot;stpl&quot;,
+ &quot;deadline&quot;: 11,
+ &quot;quality_at_deadline&quot;: {
+  &quot;dmvz&quot;: 22,
+  &quot;pmgz&quot;: 72,
+  &quot;stpl&quot;: 13,
+  &quot;vmrd&quot;: 28
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">kmnl</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: gvrr profile (at(4, 8), at(6, 21), at(19, 94)); gpkz profile (at(8, 7), at(9, 27), at(18, 79)); vvlp profile (at(3, 30), at(4, 54), at(13, 61), at(17, 92)); kmnl profile (at(1, 42), at(6, 61), at(15, 73), at(17, 74)).
+What is the best answer by deadline for 12?
+
+Answer with exactly one of: gpkz | vvlp | kmnl | gvrr
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;kmnl&quot;,
+ &quot;best_unbounded&quot;: &quot;gvrr&quot;,
+ &quot;deadline&quot;: 12,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gpkz&quot;: 27,
+  &quot;gvrr&quot;: 21,
+  &quot;kmnl&quot;: 61,
+  &quot;vvlp&quot;: 54
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">mkrn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: nplr profile (at(1, 22), at(6, 32), at(13, 58), at(18, 68)); mkrn profile (at(4, 68), at(6, 70), at(13, 94)); lkkz profile (at(14, 49), at(16, 54), at(19, 55)); tszd profile (at(6, 67), at(10, 80), at(17, 95)).
+What is the best answer by deadline for 8?
+
+Answer with exactly one of: mkrn | lkkz | nplr | tszd
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mkrn&quot;,
+ &quot;best_unbounded&quot;: &quot;tszd&quot;,
+ &quot;deadline&quot;: 8,
+ &quot;quality_at_deadline&quot;: {
+  &quot;lkkz&quot;: 0,
+  &quot;mkrn&quot;: 70,
+  &quot;nplr&quot;: 32,
+  &quot;tszd&quot;: 67
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">knlv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: knlv profile (at(1, 13), at(3, 33), at(12, 79), at(18, 95)); ndnr profile (at(2, 32), at(12, 69), at(14, 72), at(19, 84)); rmnv profile (at(11, 7), at(12, 25), at(17, 98)); ngmg profile (at(5, 11), at(13, 14), at(14, 16), at(15, 57)).
+What is the best answer by deadline for 13?
+
+Answer with exactly one of: ngmg | rmnv | knlv | ndnr
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;knlv&quot;,
+ &quot;best_unbounded&quot;: &quot;rmnv&quot;,
+ &quot;deadline&quot;: 13,
+ &quot;quality_at_deadline&quot;: {
+  &quot;knlv&quot;: 79,
+  &quot;ndnr&quot;: 69,
+  &quot;ngmg&quot;: 14,
+  &quot;rmnv&quot;: 25
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">gdlr</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: tvnz profile (at(2, 9), at(5, 42), at(16, 99)); zzsp profile (at(8, 12), at(14, 27), at(18, 58)); gvst profile (at(10, 25), at(12, 39), at(16, 77)); gdlr profile (at(1, 38), at(2, 47), at(8, 69), at(19, 95)).
+What is the best answer by deadline for 5?
+
+Answer with exactly one of: gdlr | gvst | tvnz | zzsp
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gdlr&quot;,
+ &quot;best_unbounded&quot;: &quot;tvnz&quot;,
+ &quot;deadline&quot;: 5,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gdlr&quot;: 47,
+  &quot;gvst&quot;: 0,
+  &quot;tvnz&quot;: 42,
+  &quot;zzsp&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">szpk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: szpk profile (at(1, 17), at(3, 49), at(4, 55), at(12, 59)); gknz profile (at(2, 53), at(7, 84), at(16, 86)); nldt profile (at(10, 14), at(12, 22), at(13, 60), at(16, 72)); sspd profile (at(3, 37), at(9, 46), at(14, 77), at(15, 78)).
+What is the best answer by deadline for 4?
+
+Answer with exactly one of: nldt | szpk | gknz | sspd
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;szpk&quot;,
+ &quot;best_unbounded&quot;: &quot;gknz&quot;,
+ &quot;deadline&quot;: 4,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gknz&quot;: 53,
+  &quot;nldt&quot;: 0,
+  &quot;sspd&quot;: 37,
+  &quot;szpk&quot;: 55
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">sznn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: zdvk profile (at(6, 13), at(7, 60), at(10, 67), at(15, 71)); vgrk profile (at(2, 11), at(7, 27), at(15, 82)); nstl profile (at(2, 24), at(8, 25), at(11, 44), at(18, 99)); sznn profile (at(4, 17), at(5, 70), at(9, 71), at(11, 92)).
+What is the best answer by deadline for 12?
+
+Answer with exactly one of: nstl | sznn | zdvk | vgrk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sznn&quot;,
+ &quot;best_unbounded&quot;: &quot;nstl&quot;,
+ &quot;deadline&quot;: 12,
+ &quot;quality_at_deadline&quot;: {
+  &quot;nstl&quot;: 44,
+  &quot;sznn&quot;: 92,
+  &quot;vgrk&quot;: 27,
+  &quot;zdvk&quot;: 67
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">msvv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: msvv profile (at(1, 8), at(6, 24), at(8, 80), at(13, 88)); gpkg profile (at(1, 36), at(8, 72), at(9, 76), at(19, 98)); vtvz profile (at(11, 27), at(14, 51), at(16, 79)); ddrk profile (at(2, 28), at(6, 70), at(11, 80), at(17, 93)).
+What is the best answer by deadline for 14?
+
+Answer with exactly one of: gpkg | vtvz | ddrk | msvv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;msvv&quot;,
+ &quot;best_unbounded&quot;: &quot;gpkg&quot;,
+ &quot;deadline&quot;: 14,
+ &quot;quality_at_deadline&quot;: {
+  &quot;ddrk&quot;: 80,
+  &quot;gpkg&quot;: 76,
+  &quot;msvv&quot;: 88,
+  &quot;vtvz&quot;: 51
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">kdvr</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: mpmr profile (at(6, 31), at(12, 39), at(17, 90), at(19, 94)); gsdm profile (at(2, 9), at(8, 34), at(11, 45), at(18, 56)); kdvr profile (at(3, 17), at(8, 40), at(10, 53)); zngl profile (at(6, 25), at(8, 53), at(18, 64)).
+What is the best answer by deadline for 4?
+
+Answer with exactly one of: gsdm | mpmr | kdvr | zngl
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;kdvr&quot;,
+ &quot;best_unbounded&quot;: &quot;mpmr&quot;,
+ &quot;deadline&quot;: 4,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gsdm&quot;: 9,
+  &quot;kdvr&quot;: 17,
+  &quot;mpmr&quot;: 0,
+  &quot;zngl&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">kmmt</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: dklm profile (at(2, 27), at(6, 29), at(12, 73), at(13, 95)); vgkt profile (at(2, 31), at(3, 56), at(13, 91), at(18, 96)); kmmt profile (at(9, 57), at(13, 80), at(19, 81)); drvz profile (at(8, 29), at(10, 32), at(19, 49)).
+What is the best answer by deadline for 11?
+
+Answer with exactly one of: dklm | drvz | kmmt | vgkt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;kmmt&quot;,
+ &quot;best_unbounded&quot;: &quot;vgkt&quot;,
+ &quot;deadline&quot;: 11,
+ &quot;quality_at_deadline&quot;: {
+  &quot;dklm&quot;: 29,
+  &quot;drvz&quot;: 32,
+  &quot;kmmt&quot;: 57,
+  &quot;vgkt&quot;: 56
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">zksm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: mtps profile (at(3, 17), at(4, 39), at(17, 80)); prrd profile (at(11, 14), at(12, 41), at(13, 48), at(19, 84)); zksm profile (at(2, 17), at(4, 54), at(10, 65), at(12, 66)); gkmt profile (at(5, 10), at(7, 11), at(9, 36)).
+What is the best answer by deadline for 12?
+
+Answer with exactly one of: prrd | gkmt | mtps | zksm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zksm&quot;,
+ &quot;best_unbounded&quot;: &quot;prrd&quot;,
+ &quot;deadline&quot;: 12,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gkmt&quot;: 36,
+  &quot;mtps&quot;: 39,
+  &quot;prrd&quot;: 41,
+  &quot;zksm&quot;: 66
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">ksvd</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: gpzs profile (at(2, 5), at(9, 18), at(13, 84)); pppt profile (at(7, 36), at(9, 39), at(15, 47), at(18, 87)); ksvd profile (at(1, 26), at(2, 28), at(10, 43), at(17, 45)); gvrm profile (at(1, 7), at(5, 38), at(16, 81)).
+What is the best answer by deadline for 12?
+
+Answer with exactly one of: gvrm | pppt | ksvd | gpzs
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;ksvd&quot;,
+ &quot;best_unbounded&quot;: &quot;pppt&quot;,
+ &quot;deadline&quot;: 12,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gpzs&quot;: 18,
+  &quot;gvrm&quot;: 38,
+  &quot;ksvd&quot;: 43,
+  &quot;pppt&quot;: 39
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">tgrk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: tgrk profile (at(4, 33), at(15, 48), at(18, 60)); gsnr profile (at(12, 24), at(13, 64), at(16, 65)); mpkg profile (at(5, 47), at(10, 72), at(18, 96)); kmln profile (at(4, 13), at(5, 47), at(9, 63), at(12, 82)).
+What is the best answer by deadline for 4?
+
+Answer with exactly one of: kmln | mpkg | gsnr | tgrk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;tgrk&quot;,
+ &quot;best_unbounded&quot;: &quot;mpkg&quot;,
+ &quot;deadline&quot;: 4,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gsnr&quot;: 0,
+  &quot;kmln&quot;: 13,
+  &quot;mpkg&quot;: 0,
+  &quot;tgrk&quot;: 33
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">kpnk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: lmpr profile (at(1, 45), at(9, 59), at(16, 77)); vglz profile (at(8, 35), at(17, 50), at(18, 61)); rppg profile (at(12, 48), at(18, 76), at(19, 81)); kpnk profile (at(2, 17), at(5, 47), at(8, 51)).
+What is the best answer by deadline for 5?
+
+Answer with exactly one of: vglz | kpnk | rppg | lmpr
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;kpnk&quot;,
+ &quot;best_unbounded&quot;: &quot;rppg&quot;,
+ &quot;deadline&quot;: 5,
+ &quot;quality_at_deadline&quot;: {
+  &quot;kpnk&quot;: 47,
+  &quot;lmpr&quot;: 45,
+  &quot;rppg&quot;: 0,
+  &quot;vglz&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">tlnp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: tlnp profile (at(4, 47), at(5, 65), at(8, 73)); tspg profile (at(1, 5), at(4, 45), at(12, 58), at(14, 59)); zklm profile (at(5, 29), at(9, 52), at(14, 64), at(16, 77)); zgzg profile (at(6, 24), at(8, 25), at(19, 40)).
+What is the best answer by deadline for 11?
+
+Answer with exactly one of: tspg | tlnp | zklm | zgzg
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;tlnp&quot;,
+ &quot;best_unbounded&quot;: &quot;zklm&quot;,
+ &quot;deadline&quot;: 11,
+ &quot;quality_at_deadline&quot;: {
+  &quot;tlnp&quot;: 73,
+  &quot;tspg&quot;: 45,
+  &quot;zgzg&quot;: 25,
+  &quot;zklm&quot;: 52
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">krtk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: krtk profile (at(3, 48), at(8, 57), at(17, 72), at(19, 77)); pzdr profile (at(6, 18), at(9, 57), at(11, 68), at(15, 96)); smzm profile (at(6, 18), at(12, 83), at(18, 97)); vddv profile (at(2, 29), at(3, 43), at(11, 59), at(14, 65)).
+What is the best answer by deadline for 4?
+
+Answer with exactly one of: krtk | pzdr | vddv | smzm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;krtk&quot;,
+ &quot;best_unbounded&quot;: &quot;smzm&quot;,
+ &quot;deadline&quot;: 4,
+ &quot;quality_at_deadline&quot;: {
+  &quot;krtk&quot;: 48,
+  &quot;pzdr&quot;: 0,
+  &quot;smzm&quot;: 0,
+  &quot;vddv&quot;: 43
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">vgrz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: vgrz profile (at(3, 58), at(8, 64), at(9, 72)); mlrt profile (at(3, 7), at(13, 11), at(16, 20), at(19, 51)); rrnt profile (at(8, 9), at(9, 48), at(13, 85)); nrvp profile (at(1, 17), at(8, 25), at(14, 78), at(16, 97)).
+What is the best answer by deadline for 4?
+
+Answer with exactly one of: nrvp | mlrt | rrnt | vgrz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vgrz&quot;,
+ &quot;best_unbounded&quot;: &quot;nrvp&quot;,
+ &quot;deadline&quot;: 4,
+ &quot;quality_at_deadline&quot;: {
+  &quot;mlrt&quot;: 7,
+  &quot;nrvp&quot;: 17,
+  &quot;rrnt&quot;: 0,
+  &quot;vgrz&quot;: 58
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">ssrz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: prvd profile (at(1, 6), at(6, 12), at(7, 18), at(15, 65)); ssrz profile (at(6, 43), at(12, 52), at(16, 83)); srrt profile (at(1, 8), at(9, 19), at(13, 38), at(19, 73)); drrn profile (at(6, 7), at(15, 60), at(18, 92)).
+What is the best answer by deadline for 9?
+
+Answer with exactly one of: prvd | drrn | ssrz | srrt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;ssrz&quot;,
+ &quot;best_unbounded&quot;: &quot;drrn&quot;,
+ &quot;deadline&quot;: 9,
+ &quot;quality_at_deadline&quot;: {
+  &quot;drrn&quot;: 7,
+  &quot;prvd&quot;: 18,
+  &quot;srrt&quot;: 19,
+  &quot;ssrz&quot;: 43
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">gndp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: gksk profile (at(3, 24), at(6, 34), at(7, 69), at(18, 77)); sndr profile (at(5, 14), at(8, 30), at(13, 72), at(17, 90)); vvtt profile (at(1, 13), at(2, 38), at(12, 56)); gndp profile (at(3, 30), at(5, 44), at(7, 76)).
+What is the best answer by deadline for 5?
+
+Answer with exactly one of: vvtt | gksk | sndr | gndp
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gndp&quot;,
+ &quot;best_unbounded&quot;: &quot;sndr&quot;,
+ &quot;deadline&quot;: 5,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gksk&quot;: 24,
+  &quot;gndp&quot;: 44,
+  &quot;sndr&quot;: 14,
+  &quot;vvtt&quot;: 38
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">gsvr</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: ldvd profile (at(5, 16), at(9, 75), at(11, 91)); gsvr profile (at(2, 21), at(6, 30), at(12, 34), at(19, 61)); kktl profile (at(5, 11), at(8, 62), at(13, 66), at(15, 87)); dvdr profile (at(11, 56), at(12, 70), at(17, 89)).
+What is the best answer by deadline for 6?
+
+Answer with exactly one of: kktl | ldvd | gsvr | dvdr
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gsvr&quot;,
+ &quot;best_unbounded&quot;: &quot;ldvd&quot;,
+ &quot;deadline&quot;: 6,
+ &quot;quality_at_deadline&quot;: {
+  &quot;dvdr&quot;: 0,
+  &quot;gsvr&quot;: 30,
+  &quot;kktl&quot;: 11,
+  &quot;ldvd&quot;: 16
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">tvrz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: vvps profile (at(4, 9), at(9, 61), at(18, 80)); tvrz profile (at(3, 39), at(11, 42), at(15, 58), at(18, 71)); vlgd profile (at(1, 7), at(9, 26), at(12, 34), at(19, 98)); psds profile (at(1, 31), at(8, 62), at(13, 94)).
+What is the best answer by deadline for 4?
+
+Answer with exactly one of: vvps | vlgd | tvrz | psds
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;tvrz&quot;,
+ &quot;best_unbounded&quot;: &quot;vlgd&quot;,
+ &quot;deadline&quot;: 4,
+ &quot;quality_at_deadline&quot;: {
+  &quot;psds&quot;: 31,
+  &quot;tvrz&quot;: 39,
+  &quot;vlgd&quot;: 7,
+  &quot;vvps&quot;: 9
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">nvrp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: nvrp profile (at(1, 18), at(10, 44), at(11, 57)); mstd profile (at(2, 10), at(9, 34), at(11, 70), at(14, 95)); zmdt profile (at(8, 11), at(15, 34), at(19, 53)); zmld profile (at(7, 31), at(14, 34), at(17, 57)).
+What is the best answer by deadline for 10?
+
+Answer with exactly one of: zmld | mstd | nvrp | zmdt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nvrp&quot;,
+ &quot;best_unbounded&quot;: &quot;mstd&quot;,
+ &quot;deadline&quot;: 10,
+ &quot;quality_at_deadline&quot;: {
+  &quot;mstd&quot;: 34,
+  &quot;nvrp&quot;: 44,
+  &quot;zmdt&quot;: 11,
+  &quot;zmld&quot;: 31
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">rkvn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: rkvn profile (at(1, 22), at(2, 76), at(7, 79)); rzrp profile (at(1, 17), at(5, 28), at(8, 30), at(13, 83)); dsml profile (at(6, 13), at(13, 21), at(15, 90)); gmln profile (at(6, 22), at(7, 27), at(17, 75)).
+What is the best answer by deadline for 8?
+
+Answer with exactly one of: rzrp | gmln | dsml | rkvn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;rkvn&quot;,
+ &quot;best_unbounded&quot;: &quot;dsml&quot;,
+ &quot;deadline&quot;: 8,
+ &quot;quality_at_deadline&quot;: {
+  &quot;dsml&quot;: 13,
+  &quot;gmln&quot;: 27,
+  &quot;rkvn&quot;: 79,
+  &quot;rzrp&quot;: 30
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">vzpn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: vzpn profile (at(6, 33), at(12, 70), at(14, 71), at(17, 78)); klgg profile (at(4, 37), at(13, 74), at(16, 83), at(19, 87)); ksrl profile (at(5, 24), at(18, 53), at(19, 76)); pkdt profile (at(7, 6), at(9, 58), at(13, 62)).
+What is the best answer by deadline for 12?
+
+Answer with exactly one of: vzpn | ksrl | klgg | pkdt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vzpn&quot;,
+ &quot;best_unbounded&quot;: &quot;klgg&quot;,
+ &quot;deadline&quot;: 12,
+ &quot;quality_at_deadline&quot;: {
+  &quot;klgg&quot;: 37,
+  &quot;ksrl&quot;: 24,
+  &quot;pkdt&quot;: 58,
+  &quot;vzpn&quot;: 70
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">nvdg</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: nvdg profile (at(1, 12), at(2, 51), at(5, 78)); llrk profile (at(3, 11), at(12, 55), at(16, 72), at(19, 83)); krdz profile (at(4, 24), at(12, 31), at(14, 67)); lmtt profile (at(3, 20), at(11, 31), at(14, 78), at(15, 87)).
+What is the best answer by deadline for 7?
+
+Answer with exactly one of: krdz | lmtt | llrk | nvdg
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nvdg&quot;,
+ &quot;best_unbounded&quot;: &quot;lmtt&quot;,
+ &quot;deadline&quot;: 7,
+ &quot;quality_at_deadline&quot;: {
+  &quot;krdz&quot;: 24,
+  &quot;llrk&quot;: 11,
+  &quot;lmtt&quot;: 20,
+  &quot;nvdg&quot;: 78
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">zgts</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: grzk profile (at(6, 6), at(8, 38), at(17, 93)); tmmn profile (at(1, 8), at(5, 31), at(15, 34), at(16, 89)); tgnr profile (at(6, 44), at(12, 65), at(14, 69), at(19, 72)); zgts profile (at(4, 44), at(5, 89), at(16, 92)).
+What is the best answer by deadline for 7?
+
+Answer with exactly one of: grzk | tmmn | zgts | tgnr
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zgts&quot;,
+ &quot;best_unbounded&quot;: &quot;grzk&quot;,
+ &quot;deadline&quot;: 7,
+ &quot;quality_at_deadline&quot;: {
+  &quot;grzk&quot;: 6,
+  &quot;tgnr&quot;: 44,
+  &quot;tmmn&quot;: 31,
+  &quot;zgts&quot;: 89
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">zzgt</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: ttpk profile (at(5, 30), at(7, 79), at(9, 98)); zsvv profile (at(2, 18), at(17, 77), at(18, 81)); lkmn profile (at(1, 13), at(5, 35), at(8, 40), at(10, 74)); zzgt profile (at(5, 44), at(6, 84), at(14, 85)).
+What is the best answer by deadline for 7?
+
+Answer with exactly one of: zzgt | lkmn | zsvv | ttpk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zzgt&quot;,
+ &quot;best_unbounded&quot;: &quot;ttpk&quot;,
+ &quot;deadline&quot;: 7,
+ &quot;quality_at_deadline&quot;: {
+  &quot;lkmn&quot;: 35,
+  &quot;ttpk&quot;: 79,
+  &quot;zsvv&quot;: 18,
+  &quot;zzgt&quot;: 84
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">vtrs</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: kvll profile (at(6, 21), at(9, 28), at(12, 34), at(14, 57)); mpvl profile (at(12, 6), at(16, 54), at(18, 74)); lzld profile (at(10, 48), at(13, 61), at(18, 99)); vtrs profile (at(1, 8), at(3, 23), at(6, 48), at(17, 60)).
+What is the best answer by deadline for 6?
+
+Answer with exactly one of: lzld | kvll | vtrs | mpvl
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vtrs&quot;,
+ &quot;best_unbounded&quot;: &quot;lzld&quot;,
+ &quot;deadline&quot;: 6,
+ &quot;quality_at_deadline&quot;: {
+  &quot;kvll&quot;: 21,
+  &quot;lzld&quot;: 0,
+  &quot;mpvl&quot;: 0,
+  &quot;vtrs&quot;: 48
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">vznl</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: vznl profile (at(3, 62), at(7, 74), at(11, 77)); kznt profile (at(8, 27), at(9, 29), at(10, 81), at(14, 98)); trtt profile (at(10, 6), at(11, 51), at(13, 64)); gtms profile (at(16, 7), at(17, 48), at(19, 80)).
+What is the best answer by deadline for 5?
+
+Answer with exactly one of: vznl | trtt | kznt | gtms
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vznl&quot;,
+ &quot;best_unbounded&quot;: &quot;kznt&quot;,
+ &quot;deadline&quot;: 5,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gtms&quot;: 0,
+  &quot;kznt&quot;: 0,
+  &quot;trtt&quot;: 0,
+  &quot;vznl&quot;: 62
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">vnmp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: szmn profile (at(1, 11), at(6, 55), at(19, 61)); vnmp profile (at(2, 59), at(6, 76), at(8, 83)); vvzz profile (at(5, 35), at(8, 40), at(11, 81)); dmmn profile (at(4, 9), at(7, 47), at(12, 48), at(16, 84)).
+What is the best answer by deadline for 8?
+
+Answer with exactly one of: szmn | dmmn | vnmp | vvzz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vnmp&quot;,
+ &quot;best_unbounded&quot;: &quot;dmmn&quot;,
+ &quot;deadline&quot;: 8,
+ &quot;quality_at_deadline&quot;: {
+  &quot;dmmn&quot;: 47,
+  &quot;szmn&quot;: 55,
+  &quot;vnmp&quot;: 83,
+  &quot;vvzz&quot;: 40
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">prnk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: prnk profile (at(2, 30), at(4, 33), at(9, 74)); szdn profile (at(1, 22), at(13, 32), at(15, 42)); sdnt profile (at(10, 27), at(12, 67), at(17, 71), at(19, 93)); vmng profile (at(1, 5), at(3, 13), at(7, 56), at(15, 91)).
+What is the best answer by deadline for 5?
+
+Answer with exactly one of: prnk | szdn | vmng | sdnt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;prnk&quot;,
+ &quot;best_unbounded&quot;: &quot;sdnt&quot;,
+ &quot;deadline&quot;: 5,
+ &quot;quality_at_deadline&quot;: {
+  &quot;prnk&quot;: 33,
+  &quot;sdnt&quot;: 0,
+  &quot;szdn&quot;: 22,
+  &quot;vmng&quot;: 13
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">svvr</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: vrln profile (at(8, 11), at(13, 24), at(15, 65), at(19, 94)); svvr profile (at(4, 52), at(5, 78), at(12, 88)); pzzr profile (at(2, 19), at(7, 25), at(9, 72), at(16, 99)); psmr profile (at(9, 6), at(11, 27), at(19, 39)).
+What is the best answer by deadline for 11?
+
+Answer with exactly one of: svvr | vrln | psmr | pzzr
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;svvr&quot;,
+ &quot;best_unbounded&quot;: &quot;pzzr&quot;,
+ &quot;deadline&quot;: 11,
+ &quot;quality_at_deadline&quot;: {
+  &quot;psmr&quot;: 27,
+  &quot;pzzr&quot;: 72,
+  &quot;svvr&quot;: 78,
+  &quot;vrln&quot;: 11
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">kvnm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: kvnm profile (at(4, 53), at(6, 58), at(9, 71), at(18, 76)); pmrm profile (at(4, 32), at(7, 39), at(9, 60), at(12, 95)); gsmd profile (at(3, 6), at(8, 20), at(19, 80)); zdpg profile (at(3, 26), at(6, 32), at(12, 91), at(13, 97)).
+What is the best answer by deadline for 6?
+
+Answer with exactly one of: pmrm | kvnm | zdpg | gsmd
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;kvnm&quot;,
+ &quot;best_unbounded&quot;: &quot;zdpg&quot;,
+ &quot;deadline&quot;: 6,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gsmd&quot;: 6,
+  &quot;kvnm&quot;: 58,
+  &quot;pmrm&quot;: 32,
+  &quot;zdpg&quot;: 32
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">rnsv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: nmzm profile (at(1, 49), at(5, 63), at(15, 69)); rnsv profile (at(3, 50), at(4, 81), at(12, 84)); rdlk profile (at(9, 12), at(10, 33), at(17, 93)); rdpn profile (at(8, 11), at(10, 62), at(19, 73)).
+What is the best answer by deadline for 5?
+
+Answer with exactly one of: nmzm | rdlk | rnsv | rdpn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;rnsv&quot;,
+ &quot;best_unbounded&quot;: &quot;rdlk&quot;,
+ &quot;deadline&quot;: 5,
+ &quot;quality_at_deadline&quot;: {
+  &quot;nmzm&quot;: 63,
+  &quot;rdlk&quot;: 0,
+  &quot;rdpn&quot;: 0,
+  &quot;rnsv&quot;: 81
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">gvpr</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: lkzt profile (at(9, 7), at(15, 20), at(16, 36)); gvpr profile (at(4, 9), at(8, 68), at(9, 77), at(11, 92)); nmmm profile (at(4, 14), at(9, 26), at(11, 31), at(14, 93)); gzgt profile (at(8, 51), at(11, 59), at(14, 77), at(16, 95)).
+What is the best answer by deadline for 9?
+
+Answer with exactly one of: nmmm | gzgt | gvpr | lkzt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gvpr&quot;,
+ &quot;best_unbounded&quot;: &quot;gzgt&quot;,
+ &quot;deadline&quot;: 9,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gvpr&quot;: 77,
+  &quot;gzgt&quot;: 51,
+  &quot;lkzt&quot;: 7,
+  &quot;nmmm&quot;: 26
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">zrrp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: zrrp profile (at(7, 38), at(9, 58), at(14, 77), at(16, 90)); kzmd profile (at(12, 12), at(17, 53), at(18, 78)); mdln profile (at(7, 28), at(16, 40), at(19, 73)); mzpn profile (at(5, 20), at(14, 51), at(15, 93)).
+What is the best answer by deadline for 8?
+
+Answer with exactly one of: kzmd | mdln | zrrp | mzpn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zrrp&quot;,
+ &quot;best_unbounded&quot;: &quot;mzpn&quot;,
+ &quot;deadline&quot;: 8,
+ &quot;quality_at_deadline&quot;: {
+  &quot;kzmd&quot;: 0,
+  &quot;mdln&quot;: 28,
+  &quot;mzpn&quot;: 20,
+  &quot;zrrp&quot;: 38
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">vtlm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: mzdv profile (at(3, 40), at(13, 45), at(17, 53)); sdnp profile (at(2, 10), at(13, 44), at(17, 99)); tnng profile (at(3, 22), at(4, 34), at(15, 50), at(16, 73)); vtlm profile (at(2, 8), at(3, 22), at(4, 41), at(16, 49)).
+What is the best answer by deadline for 10?
+
+Answer with exactly one of: vtlm | tnng | sdnp | mzdv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vtlm&quot;,
+ &quot;best_unbounded&quot;: &quot;sdnp&quot;,
+ &quot;deadline&quot;: 10,
+ &quot;quality_at_deadline&quot;: {
+  &quot;mzdv&quot;: 40,
+  &quot;sdnp&quot;: 10,
+  &quot;tnng&quot;: 34,
+  &quot;vtlm&quot;: 41
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">psvz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: rdlg profile (at(12, 11), at(15, 66), at(18, 80)); pzzp profile (at(1, 13), at(2, 36), at(14, 46), at(17, 48)); psvz profile (at(9, 37), at(11, 57), at(13, 91)); vrvk profile (at(4, 44), at(10, 72), at(13, 75), at(17, 99)).
+What is the best answer by deadline for 14?
+
+Answer with exactly one of: pzzp | rdlg | vrvk | psvz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;psvz&quot;,
+ &quot;best_unbounded&quot;: &quot;vrvk&quot;,
+ &quot;deadline&quot;: 14,
+ &quot;quality_at_deadline&quot;: {
+  &quot;psvz&quot;: 91,
+  &quot;pzzp&quot;: 46,
+  &quot;rdlg&quot;: 11,
+  &quot;vrvk&quot;: 75
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">mgdt</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: ngtd profile (at(8, 28), at(12, 43), at(16, 57), at(19, 94)); ldrg profile (at(3, 16), at(10, 45), at(15, 69)); mgdt profile (at(1, 33), at(5, 63), at(13, 93)); lzdd profile (at(9, 33), at(14, 49), at(18, 52)).
+What is the best answer by deadline for 9?
+
+Answer with exactly one of: ngtd | lzdd | mgdt | ldrg
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mgdt&quot;,
+ &quot;best_unbounded&quot;: &quot;ngtd&quot;,
+ &quot;deadline&quot;: 9,
+ &quot;quality_at_deadline&quot;: {
+  &quot;ldrg&quot;: 16,
+  &quot;lzdd&quot;: 33,
+  &quot;mgdt&quot;: 63,
+  &quot;ngtd&quot;: 28
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">zmrv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: zmrv profile (at(1, 50), at(9, 58), at(14, 76)); rrsv profile (at(7, 11), at(9, 35), at(18, 95)); gmvp profile (at(3, 21), at(12, 34), at(15, 42)); gtvz profile (at(6, 12), at(14, 38), at(16, 77), at(18, 81)).
+What is the best answer by deadline for 5?
+
+Answer with exactly one of: gtvz | gmvp | rrsv | zmrv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zmrv&quot;,
+ &quot;best_unbounded&quot;: &quot;rrsv&quot;,
+ &quot;deadline&quot;: 5,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gmvp&quot;: 21,
+  &quot;gtvz&quot;: 0,
+  &quot;rrsv&quot;: 0,
+  &quot;zmrv&quot;: 50
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">rzvt</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: mzts profile (at(8, 5), at(9, 30), at(14, 75), at(18, 89)); lmvv profile (at(2, 10), at(7, 47), at(19, 96)); grml profile (at(1, 21), at(2, 24), at(17, 34), at(19, 61)); rzvt profile (at(1, 68), at(4, 77), at(13, 93)).
+What is the best answer by deadline for 9?
+
+Answer with exactly one of: grml | lmvv | rzvt | mzts
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;rzvt&quot;,
+ &quot;best_unbounded&quot;: &quot;lmvv&quot;,
+ &quot;deadline&quot;: 9,
+ &quot;quality_at_deadline&quot;: {
+  &quot;grml&quot;: 24,
+  &quot;lmvv&quot;: 47,
+  &quot;mzts&quot;: 30,
+  &quot;rzvt&quot;: 77
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">kdrn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: nvnn profile (at(5, 43), at(7, 68), at(19, 81)); kdrn profile (at(1, 64), at(9, 74), at(13, 78), at(14, 92)); dlmd profile (at(1, 12), at(10, 83), at(15, 96)); vgpv profile (at(9, 49), at(16, 90), at(19, 97)).
+What is the best answer by deadline for 9?
+
+Answer with exactly one of: kdrn | dlmd | vgpv | nvnn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;kdrn&quot;,
+ &quot;best_unbounded&quot;: &quot;vgpv&quot;,
+ &quot;deadline&quot;: 9,
+ &quot;quality_at_deadline&quot;: {
+  &quot;dlmd&quot;: 12,
+  &quot;kdrn&quot;: 74,
+  &quot;nvnn&quot;: 68,
+  &quot;vgpv&quot;: 49
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">smlz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: lvps profile (at(1, 35), at(2, 54), at(14, 80), at(18, 82)); zzvv profile (at(3, 18), at(8, 78), at(10, 92)); zkps profile (at(1, 24), at(3, 56), at(15, 85), at(18, 89)); smlz profile (at(1, 27), at(7, 68), at(19, 83)).
+What is the best answer by deadline for 7?
+
+Answer with exactly one of: zzvv | smlz | lvps | zkps
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;smlz&quot;,
+ &quot;best_unbounded&quot;: &quot;zzvv&quot;,
+ &quot;deadline&quot;: 7,
+ &quot;quality_at_deadline&quot;: {
+  &quot;lvps&quot;: 54,
+  &quot;smlz&quot;: 68,
+  &quot;zkps&quot;: 56,
+  &quot;zzvv&quot;: 18
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">smzv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: smzv profile (at(3, 14), at(4, 29), at(9, 31), at(16, 33)); rgst profile (at(7, 73), at(15, 81), at(18, 95)); zlss profile (at(1, 28), at(6, 47), at(7, 54), at(16, 69)); rnnr profile (at(4, 16), at(7, 17), at(11, 78)).
+What is the best answer by deadline for 4?
+
+Answer with exactly one of: rnnr | zlss | smzv | rgst
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;smzv&quot;,
+ &quot;best_unbounded&quot;: &quot;rgst&quot;,
+ &quot;deadline&quot;: 4,
+ &quot;quality_at_deadline&quot;: {
+  &quot;rgst&quot;: 0,
+  &quot;rnnr&quot;: 16,
+  &quot;smzv&quot;: 29,
+  &quot;zlss&quot;: 28
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">kntn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: smzn profile (at(1, 48), at(6, 49), at(8, 59), at(18, 85)); dzdp profile (at(6, 11), at(12, 17), at(17, 29), at(19, 31)); kntn profile (at(5, 72), at(10, 81), at(15, 87)); pnsd profile (at(3, 5), at(6, 19), at(13, 69), at(17, 97)).
+What is the best answer by deadline for 11?
+
+Answer with exactly one of: kntn | smzn | pnsd | dzdp
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;kntn&quot;,
+ &quot;best_unbounded&quot;: &quot;pnsd&quot;,
+ &quot;deadline&quot;: 11,
+ &quot;quality_at_deadline&quot;: {
+  &quot;dzdp&quot;: 11,
+  &quot;kntn&quot;: 81,
+  &quot;pnsd&quot;: 19,
+  &quot;smzn&quot;: 59
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">nrmv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: nrmv profile (at(2, 14), at(7, 44), at(11, 48), at(13, 74)); mdpg profile (at(13, 44), at(15, 75), at(16, 84)); gvnv profile (at(10, 14), at(15, 44), at(17, 97)); rlrt profile (at(3, 24), at(5, 29), at(14, 52)).
+What is the best answer by deadline for 11?
+
+Answer with exactly one of: gvnv | rlrt | mdpg | nrmv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;nrmv&quot;,
+ &quot;best_unbounded&quot;: &quot;gvnv&quot;,
+ &quot;deadline&quot;: 11,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gvnv&quot;: 14,
+  &quot;mdpg&quot;: 0,
+  &quot;nrmv&quot;: 48,
+  &quot;rlrt&quot;: 29
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">zprd</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: psgk profile (at(1, 42), at(5, 43), at(17, 52)); plkr profile (at(3, 17), at(9, 45), at(19, 89)); pllr profile (at(6, 27), at(8, 50), at(12, 80)); zprd profile (at(1, 23), at(6, 62), at(17, 84)).
+What is the best answer by deadline for 10?
+
+Answer with exactly one of: plkr | pllr | psgk | zprd
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;zprd&quot;,
+ &quot;best_unbounded&quot;: &quot;plkr&quot;,
+ &quot;deadline&quot;: 10,
+ &quot;quality_at_deadline&quot;: {
+  &quot;plkr&quot;: 45,
+  &quot;pllr&quot;: 50,
+  &quot;psgk&quot;: 43,
+  &quot;zprd&quot;: 62
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">gklz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: rpvk profile (at(6, 34), at(11, 62), at(13, 88)); gklz profile (at(4, 12), at(6, 44), at(12, 59), at(19, 89)); rvlr profile (at(3, 32), at(5, 43), at(10, 70)); ttvn profile (at(1, 42), at(14, 49), at(15, 99)).
+What is the best answer by deadline for 9?
+
+Answer with exactly one of: rpvk | ttvn | rvlr | gklz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gklz&quot;,
+ &quot;best_unbounded&quot;: &quot;ttvn&quot;,
+ &quot;deadline&quot;: 9,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gklz&quot;: 44,
+  &quot;rpvk&quot;: 34,
+  &quot;rvlr&quot;: 43,
+  &quot;ttvn&quot;: 42
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">gmsz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: ttnz profile (at(1, 35), at(3, 43), at(6, 50), at(16, 95)); tkpv profile (at(12, 42), at(15, 54), at(18, 58)); gmsz profile (at(1, 19), at(9, 36), at(10, 43), at(12, 93)); tvrz profile (at(3, 46), at(4, 49), at(16, 85)).
+What is the best answer by deadline for 12?
+
+Answer with exactly one of: ttnz | gmsz | tvrz | tkpv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gmsz&quot;,
+ &quot;best_unbounded&quot;: &quot;ttnz&quot;,
+ &quot;deadline&quot;: 12,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gmsz&quot;: 93,
+  &quot;tkpv&quot;: 42,
+  &quot;ttnz&quot;: 50,
+  &quot;tvrz&quot;: 49
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">mkpt</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: pkkn profile (at(12, 28), at(13, 78), at(15, 97)); vvmt profile (at(7, 8), at(8, 10), at(16, 26), at(18, 62)); sstz profile (at(11, 22), at(15, 34), at(16, 57), at(18, 96)); mkpt profile (at(1, 29), at(5, 52), at(19, 61)).
+What is the best answer by deadline for 9?
+
+Answer with exactly one of: mkpt | sstz | pkkn | vvmt
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mkpt&quot;,
+ &quot;best_unbounded&quot;: &quot;pkkn&quot;,
+ &quot;deadline&quot;: 9,
+ &quot;quality_at_deadline&quot;: {
+  &quot;mkpt&quot;: 52,
+  &quot;pkkn&quot;: 0,
+  &quot;sstz&quot;: 0,
+  &quot;vvmt&quot;: 10
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">lnzr</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: pggz profile (at(5, 35), at(6, 45), at(18, 59)); drzg profile (at(1, 18), at(9, 22), at(13, 33), at(19, 42)); mgsd profile (at(6, 16), at(8, 20), at(15, 38), at(16, 84)); lnzr profile (at(1, 19), at(2, 68), at(11, 77)).
+What is the best answer by deadline for 8?
+
+Answer with exactly one of: drzg | pggz | lnzr | mgsd
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;lnzr&quot;,
+ &quot;best_unbounded&quot;: &quot;mgsd&quot;,
+ &quot;deadline&quot;: 8,
+ &quot;quality_at_deadline&quot;: {
+  &quot;drzg&quot;: 18,
+  &quot;lnzr&quot;: 68,
+  &quot;mgsd&quot;: 20,
+  &quot;pggz&quot;: 45
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">sdgm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: lgsn profile (at(1, 69), at(5, 75), at(13, 91)); prrs profile (at(2, 12), at(11, 25), at(15, 38)); lssv profile (at(5, 19), at(8, 49), at(16, 58), at(18, 93)); sdgm profile (at(1, 60), at(3, 65), at(4, 84), at(14, 92)).
+What is the best answer by deadline for 14?
+
+Answer with exactly one of: sdgm | lgsn | prrs | lssv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;sdgm&quot;,
+ &quot;best_unbounded&quot;: &quot;lssv&quot;,
+ &quot;deadline&quot;: 14,
+ &quot;quality_at_deadline&quot;: {
+  &quot;lgsn&quot;: 91,
+  &quot;lssv&quot;: 49,
+  &quot;prrs&quot;: 25,
+  &quot;sdgm&quot;: 92
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">llnp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: ztgd profile (at(2, 47), at(6, 53), at(10, 66), at(17, 98)); llnp profile (at(1, 17), at(2, 33), at(4, 53), at(6, 67)); vnrd profile (at(14, 72), at(17, 94), at(19, 96)); gppg profile (at(2, 35), at(18, 47), at(19, 63)).
+What is the best answer by deadline for 11?
+
+Answer with exactly one of: gppg | llnp | vnrd | ztgd
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;llnp&quot;,
+ &quot;best_unbounded&quot;: &quot;ztgd&quot;,
+ &quot;deadline&quot;: 11,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gppg&quot;: 35,
+  &quot;llnp&quot;: 67,
+  &quot;vnrd&quot;: 0,
+  &quot;ztgd&quot;: 66
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">vsnp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: mdkz profile (at(9, 32), at(10, 33), at(12, 74)); ngzv profile (at(5, 41), at(11, 43), at(18, 53)); vsnp profile (at(5, 9), at(8, 47), at(10, 83), at(14, 84)); gkkr profile (at(8, 19), at(12, 29), at(18, 47), at(19, 88)).
+What is the best answer by deadline for 8?
+
+Answer with exactly one of: gkkr | vsnp | mdkz | ngzv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vsnp&quot;,
+ &quot;best_unbounded&quot;: &quot;gkkr&quot;,
+ &quot;deadline&quot;: 8,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gkkr&quot;: 19,
+  &quot;mdkz&quot;: 0,
+  &quot;ngzv&quot;: 41,
+  &quot;vsnp&quot;: 47
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">klnv</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: klnv profile (at(1, 35), at(6, 72), at(8, 87)); tsmd profile (at(1, 54), at(13, 65), at(16, 69), at(17, 70)); nkrd profile (at(4, 12), at(6, 24), at(11, 36), at(15, 61)); pslt profile (at(11, 22), at(14, 60), at(15, 90)).
+What is the best answer by deadline for 6?
+
+Answer with exactly one of: nkrd | klnv | pslt | tsmd
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;klnv&quot;,
+ &quot;best_unbounded&quot;: &quot;pslt&quot;,
+ &quot;deadline&quot;: 6,
+ &quot;quality_at_deadline&quot;: {
+  &quot;klnv&quot;: 72,
+  &quot;nkrd&quot;: 24,
+  &quot;pslt&quot;: 0,
+  &quot;tsmd&quot;: 54
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">tdnz</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: tdnz profile (at(6, 35), at(9, 52), at(10, 75), at(14, 89)); nlgr profile (at(7, 35), at(10, 70), at(17, 83), at(18, 88)); rtrv profile (at(5, 42), at(10, 43), at(15, 79)); pnvl profile (at(7, 60), at(14, 81), at(18, 97)).
+What is the best answer by deadline for 12?
+
+Answer with exactly one of: rtrv | pnvl | nlgr | tdnz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;tdnz&quot;,
+ &quot;best_unbounded&quot;: &quot;pnvl&quot;,
+ &quot;deadline&quot;: 12,
+ &quot;quality_at_deadline&quot;: {
+  &quot;nlgr&quot;: 70,
+  &quot;pnvl&quot;: 60,
+  &quot;rtrv&quot;: 43,
+  &quot;tdnz&quot;: 75
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">lgzt</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: glzv profile (at(6, 20), at(10, 39), at(12, 53)); mvld profile (at(6, 12), at(7, 43), at(9, 56), at(18, 79)); rprd profile (at(2, 48), at(16, 68), at(18, 76), at(19, 93)); lgzt profile (at(4, 33), at(5, 43), at(6, 76), at(17, 91)).
+What is the best answer by deadline for 9?
+
+Answer with exactly one of: mvld | rprd | lgzt | glzv
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;lgzt&quot;,
+ &quot;best_unbounded&quot;: &quot;rprd&quot;,
+ &quot;deadline&quot;: 9,
+ &quot;quality_at_deadline&quot;: {
+  &quot;glzv&quot;: 20,
+  &quot;lgzt&quot;: 76,
+  &quot;mvld&quot;: 56,
+  &quot;rprd&quot;: 48
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">mgtn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: zssg profile (at(2, 12), at(9, 55), at(17, 59)); mgtn profile (at(3, 16), at(7, 62), at(13, 92), at(19, 94)); dvvv profile (at(6, 52), at(11, 76), at(13, 90), at(19, 99)); ntpv profile (at(12, 75), at(13, 88), at(18, 93), at(19, 98)).
+What is the best answer by deadline for 9?
+
+Answer with exactly one of: zssg | ntpv | dvvv | mgtn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mgtn&quot;,
+ &quot;best_unbounded&quot;: &quot;dvvv&quot;,
+ &quot;deadline&quot;: 9,
+ &quot;quality_at_deadline&quot;: {
+  &quot;dvvv&quot;: 52,
+  &quot;mgtn&quot;: 62,
+  &quot;ntpv&quot;: 0,
+  &quot;zssg&quot;: 55
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">mppr</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: mppr profile (at(3, 29), at(6, 46), at(11, 71), at(18, 80)); mkdr profile (at(7, 27), at(13, 74), at(14, 79)); lvpr profile (at(3, 31), at(11, 60), at(15, 97)); snns profile (at(2, 5), at(3, 29), at(10, 93), at(13, 96)).
+What is the best answer by deadline for 8?
+
+Answer with exactly one of: mkdr | snns | mppr | lvpr
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;mppr&quot;,
+ &quot;best_unbounded&quot;: &quot;lvpr&quot;,
+ &quot;deadline&quot;: 8,
+ &quot;quality_at_deadline&quot;: {
+  &quot;lvpr&quot;: 31,
+  &quot;mkdr&quot;: 27,
+  &quot;mppr&quot;: 46,
+  &quot;snns&quot;: 29
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">drtn</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: drtn profile (at(1, 22), at(15, 57), at(18, 69)); vptd profile (at(1, 12), at(10, 58), at(18, 69)); zdlg profile (at(7, 11), at(11, 49), at(16, 73)); rnmd profile (at(5, 9), at(8, 10), at(9, 25), at(18, 49)).
+What is the best answer by deadline for 5?
+
+Answer with exactly one of: vptd | rnmd | drtn | zdlg
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;drtn&quot;,
+ &quot;best_unbounded&quot;: &quot;zdlg&quot;,
+ &quot;deadline&quot;: 5,
+ &quot;quality_at_deadline&quot;: {
+  &quot;drtn&quot;: 22,
+  &quot;rnmd&quot;: 9,
+  &quot;vptd&quot;: 12,
+  &quot;zdlg&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">gzrk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: zpkn profile (at(6, 16), at(14, 21), at(15, 38)); gzrk profile (at(2, 35), at(8, 48), at(9, 62)); rtmz profile (at(12, 32), at(14, 49), at(15, 90)); vlzp profile (at(3, 10), at(9, 49), at(12, 60), at(16, 85)).
+What is the best answer by deadline for 10?
+
+Answer with exactly one of: rtmz | gzrk | vlzp | zpkn
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gzrk&quot;,
+ &quot;best_unbounded&quot;: &quot;rtmz&quot;,
+ &quot;deadline&quot;: 10,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gzrk&quot;: 62,
+  &quot;rtmz&quot;: 0,
+  &quot;vlzp&quot;: 49,
+  &quot;zpkn&quot;: 16
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">stnk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: stnk profile (at(3, 15), at(5, 32), at(12, 50), at(14, 74)); rzrm profile (at(1, 11), at(10, 49), at(16, 81)); tmzp profile (at(6, 29), at(10, 61), at(19, 88)); nngr profile (at(3, 18), at(7, 43), at(19, 46)).
+What is the best answer by deadline for 6?
+
+Answer with exactly one of: tmzp | nngr | rzrm | stnk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;stnk&quot;,
+ &quot;best_unbounded&quot;: &quot;tmzp&quot;,
+ &quot;deadline&quot;: 6,
+ &quot;quality_at_deadline&quot;: {
+  &quot;nngr&quot;: 18,
+  &quot;rzrm&quot;: 11,
+  &quot;stnk&quot;: 32,
+  &quot;tmzp&quot;: 29
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">llnp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: llnp profile (at(1, 61), at(5, 66), at(9, 74), at(17, 78)); smlk profile (at(8, 8), at(11, 12), at(12, 20), at(17, 26)); nlmz profile (at(7, 11), at(9, 57), at(18, 60), at(19, 81)); dktp profile (at(3, 19), at(7, 22), at(12, 75), at(17, 80)).
+What is the best answer by deadline for 9?
+
+Answer with exactly one of: dktp | llnp | smlk | nlmz
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;llnp&quot;,
+ &quot;best_unbounded&quot;: &quot;nlmz&quot;,
+ &quot;deadline&quot;: 9,
+ &quot;quality_at_deadline&quot;: {
+  &quot;dktp&quot;: 22,
+  &quot;llnp&quot;: 74,
+  &quot;nlmz&quot;: 57,
+  &quot;smlk&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">ktvk</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: lmdg profile (at(2, 57), at(8, 59), at(18, 75)); ktvk profile (at(6, 15), at(8, 42), at(11, 69)); sktd profile (at(4, 11), at(6, 41), at(12, 48), at(15, 82)); gtrs profile (at(1, 10), at(2, 17), at(14, 72), at(15, 97)).
+What is the best answer by deadline for 13?
+
+Answer with exactly one of: lmdg | sktd | gtrs | ktvk
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;ktvk&quot;,
+ &quot;best_unbounded&quot;: &quot;gtrs&quot;,
+ &quot;deadline&quot;: 13,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gtrs&quot;: 17,
+  &quot;ktvk&quot;: 69,
+  &quot;lmdg&quot;: 59,
+  &quot;sktd&quot;: 48
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">gmpp</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: snvn profile (at(6, 46), at(11, 70), at(19, 94)); sdvd profile (at(5, 49), at(6, 65), at(10, 69), at(18, 85)); pmrm profile (at(13, 7), at(14, 53), at(16, 59), at(18, 87)); gmpp profile (at(2, 37), at(5, 68), at(6, 74), at(19, 78)).
+What is the best answer by deadline for 11?
+
+Answer with exactly one of: pmrm | snvn | gmpp | sdvd
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;gmpp&quot;,
+ &quot;best_unbounded&quot;: &quot;snvn&quot;,
+ &quot;deadline&quot;: 11,
+ &quot;quality_at_deadline&quot;: {
+  &quot;gmpp&quot;: 74,
+  &quot;pmrm&quot;: 0,
+  &quot;sdvd&quot;: 69,
+  &quot;snvn&quot;: 70
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">vnpm</span></summary>
+<div class="body">
+<p>prompt</p><pre>The profiles: tdvg profile (at(1, 22), at(5, 47), at(10, 53)); vnpm profile (at(5, 23), at(6, 27), at(10, 57)); kmkt profile (at(2, 17), at(5, 20), at(16, 57), at(17, 82)); trnt profile (at(2, 21), at(7, 37), at(15, 56), at(19, 74)).
+What is the best answer by deadline for 10?
+
+Answer with exactly one of: kmkt | trnt | tdvg | vnpm
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;vnpm&quot;,
+ &quot;best_unbounded&quot;: &quot;kmkt&quot;,
+ &quot;deadline&quot;: 10,
+ &quot;quality_at_deadline&quot;: {
+  &quot;kmkt&quot;: 20,
+  &quot;tdvg&quot;: 53,
+  &quot;trnt&quot;: 37,
+  &quot;vnpm&quot;: 57
+ }
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "langcurriculum"
+version = "0.1.0"
+description = "A procedurally generated language curriculum: 170 lessons for evaluating and training text agents."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+keywords = [
+    "curriculum", "evaluation", "benchmark", "language", "synthetic-data",
+    "compositionality", "reasoning", "agents", "nlp",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic",
+    "Typing :: Typed",
+]
+
+# No runtime dependencies, on purpose. The generators are pure Python and the
+# whole point is that anyone can install this next to anything else.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+langcurriculum = "langcurriculum.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/JacobFV/language-curriculum"
+Documentation = "https://jacobfv.github.io/language-curriculum/"
+Source = "https://github.com/JacobFV/language-curriculum"
+
+[tool.hatch.build.targets.wheel]
+packages = ["langcurriculum"]
+
+[tool.hatch.build.targets.sdist]
+# The sample set and the rendered site are big and rebuildable; they belong to
+# the repository, not to the distribution.
+include = ["langcurriculum", "tests", "scripts", "README.md", "LICENSE", "pyproject.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

@@ -1,0 +1,3264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>scope_ambiguity — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#ii">compositional semantics and logical language</a> &rsaquo;
+  scope_ambiguity</p>
+<h1>#14 <code>scope_ambiguity</code></h1>
+<p class="lede">one string, two logical forms</p>
+<div class="tags"><span class="tag ">level 14</span><span class="tag ">section ii</span><span class="tag ">quantification</span><span class="tag ">proof_search</span></div>
+<div class="stats">
+<div class="stat"><span class="n">3.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.333</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.37</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>One sentence, two logical forms; the world decides which hold.</p><p>    ``r1 = forall a. exists b. reads(a,b)`` and ``r2 = exists b. forall a.
+    reads(a,b)``. ``r2`` entails ``r1``, so the honest label set is
+    {both, r1_only, neither} — the label is drawn first and the world built to
+    realize it.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>ambiguity</td><td class='num'>4</td></tr><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The agents are: Dave, Alice and Carol.
+The books: apple, clock and coin.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Dave reads clock, Alice reads clock and Carol reads apple.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre><h3>spanish</h3><pre>Los agentes son: David, Alicia y Carolina.
+Los libros son: manzana, reloj y moneda.
+Las lecturas son: r1 la lectura forall a exists b reads(a,b); r2 la lectura exists b forall a reads(a,b).
+La frase es every agent read a book.
+El mundo contiene: David lee reloj, Alicia lee reloj y Carolina lee manzana.
+¿Qué lecturas son válidas?
+
+Responde exactamente con una de estas opciones: neither | r1_only | both
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>智能体如下：戴夫、爱丽丝和卡罗尔。
+书如下：苹果、时钟和硬币。
+解读如下：r1的解读是forall a exists b reads(a,b)；r2的解读是exists b forall a reads(a,b)。
+句子是every agent read a book。
+世界如下：戴夫读取时钟；爱丽丝读取时钟；卡罗尔读取苹果。
+哪些解读成立？
+
+请从以下选项中选出恰好一个作答：neither | r1_only | both
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The agents are: Dave, Alice and Carol.
+The books: apple, clock and coin.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Dave reads clock, Alice reads clock and Carol reads apple.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre><h3>symbols</h3><pre>{agents: [dave alice carol], books: [apple clock coin], query: which_readings_hold, readings: [(reading r1 &quot;forall a exists b reads(a,b)&quot;) (reading r2 &quot;exists b forall a reads(a,b)&quot;)], sentence: &quot;every agent read a book&quot;, world: [(reads dave clock) (reads alice clock) (reads carol apple)]}
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/scope_ambiguity.jsonl</code> &middot; <code>data/samples/spanish/scope_ambiguity.jsonl</code> &middot; <code>data/samples/chinese/scope_ambiguity.jsonl</code> &middot; <code>data/samples/english_synonym/scope_ambiguity.jsonl</code> &middot; <code>data/samples/symbols/scope_ambiguity.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Alice and Carol.
+The books: apple, clock and coin.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Dave reads clock, Alice reads clock and Carol reads apple.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;dave&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Alice and Carol.
+The books: tea, clock and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Carol reads tea, Alice reads clock, Carol reads clock and Erin reads clock.
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;carol&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Frank and Carol.
+The books: book, lamp and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains:
+  - Alice reads apple
+  - Alice reads book
+  - Frank reads apple
+  - Carol reads apple
+  - Carol reads lamp
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;lamp&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Frank and Bob.
+The books: lamp, apple and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Bob reads clock, Frank reads clock and Erin reads clock.
+Which readings hold?
+
+Answer with exactly one of: r1_only | both | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Alice and Dave.
+The books: clock, book and tea.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Carol reads tea, Carol reads clock, Dave reads clock and Alice reads clock.
+Which readings hold?
+
+Answer with exactly one of: neither | both | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;carol&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Frank and Alice.
+The books: clock, book and tea.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Alice reads book and Frank reads clock.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Dave and Carol.
+The books: tea, coin and book.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Alice reads book and Dave reads coin.
+Which readings hold?
+
+Answer with exactly one of: neither | both | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;coin&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Bob, Dave and Alice.
+The books: tea, apple and coin.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Dave reads coin, Dave reads tea, Alice reads apple and Bob reads apple.
+Which readings hold?
+
+Answer with exactly one of: r1_only | neither | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;dave&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Dave and Bob.
+The books: book, tea and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains:
+  - Bob reads tea
+  - Bob reads book
+  - Carol reads apple
+  - Dave reads apple
+  - Dave reads book
+  - Carol reads book
+Which readings hold?
+
+Answer with exactly one of: neither | both | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Carol and Frank.
+The books: book, coin and tea.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Carol reads tea, Erin reads coin and Frank reads tea.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;carol&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;tea&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Dave and Erin.
+The books: apple, tea and book.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads tea and Alice reads tea.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;tea&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Dave and Frank.
+The books: apple, coin and book.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Frank reads coin, Frank reads apple, Dave reads coin and Erin reads apple.
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;frank&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Erin and Frank.
+The books: book, clock and tea.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads tea, Frank reads tea and Carol reads clock.
+Which readings hold?
+
+Answer with exactly one of: r1_only | both | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Bob and Erin.
+The books: coin, book and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads book, Bob reads coin, Erin reads apple and Carol reads apple.
+Which readings hold?
+
+Answer with exactly one of: neither | both | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Frank and Bob.
+The books: lamp, coin and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads coin, Erin reads apple, Bob reads apple and Frank reads apple.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Erin and Frank.
+The books: book, coin and tea.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Frank reads book, Alice reads book and Erin reads book.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;frank&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Frank and Carol.
+The books: clock, book and coin.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Frank reads coin, Dave reads clock and Carol reads clock.
+Which readings hold?
+
+Answer with exactly one of: both | neither | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;frank&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Carol and Erin.
+The books: lamp, book and coin.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Carol reads lamp and Erin reads lamp.
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;carol&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;lamp&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Dave and Carol.
+The books: book, coin and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains:
+  - Alice reads coin
+  - Dave reads coin
+  - Dave reads clock
+  - Carol reads clock
+  - Alice reads clock
+Which readings hold?
+
+Answer with exactly one of: r1_only | neither | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Erin and Frank.
+The books: apple, book and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Frank reads book and Alice reads clock.
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;frank&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Frank, Bob and Carol.
+The books: coin, tea and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Bob reads coin and Frank reads coin.
+Which readings hold?
+
+Answer with exactly one of: neither | both | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;coin&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Frank and Carol.
+The books: clock, book and coin.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Dave reads coin, Frank reads clock, Carol reads coin and Frank reads coin.
+Which readings hold?
+
+Answer with exactly one of: r1_only | neither | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;dave&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;coin&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Bob, Alice and Dave.
+The books: book, tea and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains:
+  - Alice reads lamp
+  - Dave reads lamp
+  - Bob reads book
+  - Alice reads book
+  - Dave reads book
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Frank and Carol.
+The books: clock, coin and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Carol reads clock, Frank reads coin and Alice reads clock.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;carol&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Erin and Bob.
+The books: book, coin and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads apple and Bob reads apple.
+Which readings hold?
+
+Answer with exactly one of: r1_only | both | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Bob and Carol.
+The books: coin, clock and tea.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains:
+  - Bob reads coin
+  - Carol reads tea
+  - Alice reads clock
+  - Bob reads clock
+  - Alice reads tea
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;tea&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Bob, Frank and Dave.
+The books: apple, coin and tea.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Frank reads coin and Dave reads apple.
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;frank&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Carol and Erin.
+The books: book, tea and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Dave reads apple and Erin reads tea.
+Which readings hold?
+
+Answer with exactly one of: both | neither | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;dave&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;tea&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Frank, Bob and Erin.
+The books: book, coin and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains:
+  - Erin reads coin
+  - Frank reads book
+  - Frank reads coin
+  - Bob reads book
+  - Bob reads coin
+Which readings hold?
+
+Answer with exactly one of: r1_only | neither | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;coin&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Carol and Erin.
+The books: tea, apple and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads tea and Alice reads apple.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Erin and Alice.
+The books: apple, book and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads book and Alice reads book.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Alice and Frank.
+The books: book, tea and coin.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Dave reads book, Frank reads coin, Frank reads book and Alice reads book.
+Which readings hold?
+
+Answer with exactly one of: r1_only | neither | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;dave&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Bob, Frank and Carol.
+The books: coin, book and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Frank reads clock, Bob reads coin, Carol reads coin and Frank reads coin.
+Which readings hold?
+
+Answer with exactly one of: r1_only | both | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;frank&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;coin&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Bob, Frank and Carol.
+The books: clock, apple and book.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Bob reads book and Frank reads book.
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Erin and Alice.
+The books: book, tea and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Alice reads tea and Carol reads book.
+Which readings hold?
+
+Answer with exactly one of: neither | both | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Bob and Frank.
+The books: book, lamp and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Carol reads clock and Frank reads book.
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;carol&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Frank and Carol.
+The books: tea, coin and book.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains:
+  - Alice reads book
+  - Carol reads book
+  - Alice reads tea
+  - Frank reads coin
+  - Carol reads coin
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;coin&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Alice and Frank.
+The books: coin, lamp and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Alice reads clock and Erin reads coin.
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;coin&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Frank and Alice.
+The books: tea, lamp and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Dave reads tea and Alice reads clock.
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;dave&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Dave and Alice.
+The books: book, coin and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Carol reads clock, Dave reads clock, Alice reads clock and Alice reads coin.
+Which readings hold?
+
+Answer with exactly one of: r1_only | both | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;carol&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;coin&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Frank and Alice.
+The books: book, lamp and coin.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads book, Alice reads lamp and Frank reads lamp.
+Which readings hold?
+
+Answer with exactly one of: r1_only | neither | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;lamp&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Bob and Erin.
+The books: clock, apple and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Carol reads clock, Erin reads apple, Erin reads lamp and Bob reads clock.
+Which readings hold?
+
+Answer with exactly one of: both | neither | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;carol&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Frank and Carol.
+The books: book, coin and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Frank reads apple and Alice reads book.
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;frank&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Bob and Dave.
+The books: lamp, tea and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Carol reads lamp, Bob reads clock, Carol reads clock and Dave reads clock.
+Which readings hold?
+
+Answer with exactly one of: r1_only | neither | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;carol&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Frank and Alice.
+The books: book, clock and coin.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains:
+  - Alice reads coin
+  - Erin reads book
+  - Frank reads coin
+  - Frank reads book
+  - Erin reads clock
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Frank and Carol.
+The books: tea, lamp and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Dave reads tea, Carol reads lamp and Frank reads tea.
+Which readings hold?
+
+Answer with exactly one of: r1_only | both | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;dave&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;tea&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Alice and Bob.
+The books: coin, apple and book.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Bob reads apple, Bob reads book, Dave reads book and Alice reads book.
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Dave and Erin.
+The books: apple, lamp and coin.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads coin, Erin reads apple, Dave reads apple and Alice reads coin.
+Which readings hold?
+
+Answer with exactly one of: r1_only | both | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;coin&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Bob and Frank.
+The books: apple, book and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Frank reads clock and Bob reads apple.
+Which readings hold?
+
+Answer with exactly one of: neither | both | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;frank&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Dave and Alice.
+The books: lamp, apple and tea.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Alice reads tea, Dave reads tea, Dave reads apple and Carol reads tea.
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;tea&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Frank and Bob.
+The books: coin, clock and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Bob reads coin, Carol reads clock, Frank reads coin and Frank reads clock.
+Which readings hold?
+
+Answer with exactly one of: r1_only | both | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Frank and Bob.
+The books: book, coin and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Bob reads coin, Erin reads coin, Frank reads lamp and Frank reads coin.
+Which readings hold?
+
+Answer with exactly one of: both | neither | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;coin&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Erin and Dave.
+The books: lamp, clock and tea.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads lamp, Alice reads lamp, Dave reads clock and Alice reads clock.
+Which readings hold?
+
+Answer with exactly one of: neither | both | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Bob, Dave and Erin.
+The books: coin, apple and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Dave reads lamp and Bob reads apple.
+Which readings hold?
+
+Answer with exactly one of: r1_only | neither | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;dave&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Erin and Carol.
+The books: clock, coin and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads clock, Carol reads clock, Dave reads clock and Dave reads apple.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Bob, Frank and Carol.
+The books: tea, book and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Bob reads lamp, Bob reads tea, Carol reads tea and Frank reads tea.
+Which readings hold?
+
+Answer with exactly one of: both | neither | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;tea&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Dave and Carol.
+The books: apple, clock and book.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Dave reads clock and Carol reads book.
+Which readings hold?
+
+Answer with exactly one of: both | neither | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;dave&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Erin and Alice.
+The books: book, apple and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Carol reads apple, Erin reads apple and Alice reads apple.
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;carol&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Bob, Frank and Erin.
+The books: tea, book and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Bob reads book and Erin reads book.
+Which readings hold?
+
+Answer with exactly one of: both | neither | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Dave and Frank.
+The books: book, lamp and tea.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Frank reads tea, Dave reads tea, Alice reads tea and Frank reads lamp.
+Which readings hold?
+
+Answer with exactly one of: r1_only | both | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;frank&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;lamp&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Erin and Bob.
+The books: lamp, book and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Carol reads book, Erin reads lamp and Bob reads lamp.
+Which readings hold?
+
+Answer with exactly one of: neither | both | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;carol&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;lamp&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Bob, Erin and Frank.
+The books: lamp, coin and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads apple, Frank reads apple, Bob reads coin and Frank reads lamp.
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;lamp&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Bob, Alice and Frank.
+The books: clock, lamp and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Frank reads clock and Alice reads apple.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;frank&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Carol and Erin.
+The books: clock, tea and coin.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Carol reads coin, Dave reads coin, Erin reads tea and Carol reads clock.
+Which readings hold?
+
+Answer with exactly one of: neither | both | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;carol&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Erin and Dave.
+The books: apple, tea and book.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Dave reads apple, Alice reads tea and Erin reads book.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;dave&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Frank and Bob.
+The books: clock, coin and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Frank reads coin, Bob reads clock, Carol reads coin and Carol reads apple.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;frank&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Dave and Bob.
+The books: clock, lamp and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Dave reads apple, Carol reads apple, Carol reads lamp and Bob reads apple.
+Which readings hold?
+
+Answer with exactly one of: r1_only | both | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;dave&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Dave and Erin.
+The books: clock, lamp and coin.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads clock, Alice reads lamp, Erin reads lamp and Dave reads lamp.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;lamp&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Erin and Alice.
+The books: apple, coin and book.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Alice reads coin and Dave reads coin.
+Which readings hold?
+
+Answer with exactly one of: both | neither | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;coin&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Frank and Bob.
+The books: tea, apple and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Alice reads lamp and Bob reads apple.
+Which readings hold?
+
+Answer with exactly one of: both | neither | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Dave and Erin.
+The books: book, lamp and tea.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads book, Carol reads book, Dave reads book and Erin reads tea.
+Which readings hold?
+
+Answer with exactly one of: neither | both | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;tea&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Frank and Alice.
+The books: lamp, book and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Frank reads lamp, Alice reads apple, Erin reads apple and Erin reads book.
+Which readings hold?
+
+Answer with exactly one of: neither | both | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;frank&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Bob and Carol.
+The books: coin, apple and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Bob reads apple, Carol reads apple and Erin reads apple.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Erin and Dave.
+The books: apple, book and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads book, Dave reads clock, Dave reads apple and Alice reads book.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Alice and Carol.
+The books: tea, lamp and book.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Alice reads lamp and Carol reads tea.
+Which readings hold?
+
+Answer with exactly one of: both | neither | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;tea&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Dave and Frank.
+The books: tea, apple and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Frank reads tea, Dave reads clock and Erin reads clock.
+Which readings hold?
+
+Answer with exactly one of: both | neither | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;frank&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Frank and Bob.
+The books: lamp, tea and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Bob reads tea, Dave reads lamp, Frank reads clock and Dave reads tea.
+Which readings hold?
+
+Answer with exactly one of: r1_only | neither | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;tea&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Bob and Erin.
+The books: book, tea and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads lamp, Carol reads tea and Bob reads lamp.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;lamp&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Alice, Carol and Erin.
+The books: coin, clock and tea.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Alice reads tea, Erin reads tea and Carol reads tea.
+Which readings hold?
+
+Answer with exactly one of: r1_only | both | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;tea&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Carol and Bob.
+The books: book, coin and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains:
+  - Bob reads book
+  - Carol reads book
+  - Dave reads book
+  - Carol reads clock
+  - Bob reads coin
+Which readings hold?
+
+Answer with exactly one of: r1_only | both | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;coin&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Erin and Frank.
+The books: lamp, coin and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads lamp, Dave reads coin and Frank reads lamp.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;lamp&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Carol and Frank.
+The books: clock, tea and book.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Frank reads book and Carol reads tea.
+Which readings hold?
+
+Answer with exactly one of: both | neither | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;frank&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;tea&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Erin and Carol.
+The books: book, coin and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads book, Dave reads book, Erin reads coin and Carol reads book.
+Which readings hold?
+
+Answer with exactly one of: r1_only | both | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Alice and Bob.
+The books: clock, tea and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains:
+  - Bob reads tea
+  - Alice reads clock
+  - Dave reads apple
+  - Alice reads tea
+  - Dave reads clock
+Which readings hold?
+
+Answer with exactly one of: neither | both | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Alice and Dave.
+The books: tea, apple and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Alice reads apple and Dave reads apple.
+Which readings hold?
+
+Answer with exactly one of: r1_only | both | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Frank, Erin and Alice.
+The books: lamp, book and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Alice reads lamp, Alice reads book, Erin reads book and Frank reads book.
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Carol and Alice.
+The books: tea, apple and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Alice reads lamp, Carol reads lamp, Alice reads apple and Erin reads lamp.
+Which readings hold?
+
+Answer with exactly one of: neither | r1_only | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;lamp&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Frank, Bob and Alice.
+The books: lamp, coin and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Bob reads apple, Frank reads apple, Alice reads coin and Alice reads apple.
+Which readings hold?
+
+Answer with exactly one of: r1_only | both | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Bob, Carol and Frank.
+The books: coin, tea and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Bob reads tea, Frank reads apple, Carol reads coin and Frank reads coin.
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;coin&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Carol and Bob.
+The books: lamp, tea and book.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains:
+  - Erin reads tea
+  - Carol reads book
+  - Erin reads lamp
+  - Bob reads book
+  - Carol reads tea
+  - Bob reads tea
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;tea&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Frank, Alice and Dave.
+The books: coin, apple and lamp.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Alice reads lamp, Frank reads lamp and Dave reads lamp.
+Which readings hold?
+
+Answer with exactly one of: both | neither | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;lamp&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Bob and Frank.
+The books: clock, coin and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Bob reads coin, Erin reads coin, Bob reads apple and Frank reads coin.
+Which readings hold?
+
+Answer with exactly one of: neither | both | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;coin&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Frank and Carol.
+The books: coin, tea and clock.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Frank reads clock, Erin reads coin and Carol reads clock.
+Which readings hold?
+
+Answer with exactly one of: neither | both | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;frank&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Carol and Alice.
+The books: tea, lamp and book.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Alice reads tea, Erin reads tea and Carol reads book.
+Which readings hold?
+
+Answer with exactly one of: r1_only | neither | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Bob, Alice and Carol.
+The books: lamp, clock and tea.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Alice reads clock and Bob reads clock.
+Which readings hold?
+
+Answer with exactly one of: both | neither | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;clock&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">neither</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Frank and Bob.
+The books: clock, tea and book.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Bob reads clock and Frank reads book.
+Which readings hold?
+
+Answer with exactly one of: r1_only | neither | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;clock&quot;
+  ],
+  [
+   &quot;frank&quot;,
+   &quot;book&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Carol, Dave and Bob.
+The books: tea, lamp and coin.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Bob reads lamp, Dave reads tea and Carol reads coin.
+Which readings hold?
+
+Answer with exactly one of: r1_only | neither | both
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;bob&quot;,
+   &quot;lamp&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;coin&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">both</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Carol and Alice.
+The books: apple, tea and coin.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Alice reads apple, Carol reads apple and Dave reads apple.
+Which readings hold?
+
+Answer with exactly one of: neither | both | r1_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;alice&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Erin, Alice and Carol.
+The books: clock, tea and coin.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Erin reads tea, Alice reads coin and Carol reads tea.
+Which readings hold?
+
+Answer with exactly one of: both | r1_only | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;erin&quot;,
+   &quot;tea&quot;
+  ],
+  [
+   &quot;alice&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;carol&quot;,
+   &quot;tea&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">r1_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The agents are: Dave, Bob and Erin.
+The books: book, coin and apple.
+The readings: reading r1: forall an exists b reads(a,b); reading r2: exists b forall a reads(a,b).
+The sentence is every agent read a book.
+The world contains: Dave reads coin, Dave reads book, Bob reads apple and Erin reads apple.
+Which readings hold?
+
+Answer with exactly one of: r1_only | both | neither
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;edges&quot;: [
+  [
+   &quot;dave&quot;,
+   &quot;coin&quot;
+  ],
+  [
+   &quot;dave&quot;,
+   &quot;book&quot;
+  ],
+  [
+   &quot;bob&quot;,
+   &quot;apple&quot;
+  ],
+  [
+   &quot;erin&quot;,
+   &quot;apple&quot;
+  ]
+ ]
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

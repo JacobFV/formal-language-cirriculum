@@ -1,0 +1,4077 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>compressed_language — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iv">analogy, causality, planning, and programs</a> &rsaquo;
+  compressed_language</p>
+<h1>#53 <code>compressed_language</code></h1>
+<p class="lede">codes, budgets and unique decodability</p>
+<div class="tags"><span class="tag ">level 53</span><span class="tag ">section iv</span><span class="tag ">abstraction</span><span class="tag ">program_synthesis</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.205</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Four candidate codes, one channel budget, exactly one code that works.</p><p>    Each rival fails for a different reason and the reasons are the two real
+    pressures on a communication protocol: a fixed-width code is unambiguous but
+    over budget, and the two short codes fit the budget but are not uniquely
+    decodable (one has a codeword that prefixes another, one reuses a codeword for
+    two words). Deciding this is exact — check prefix-freeness, then sum lengths
+    against the budget — and it is decided by the generator with the same checker
+    the learner would have to apply.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>grammar_complexity</td><td class='num'>4</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The budget is 21.
+The codes:
+  - alpha code (mm takes 1 bits, lv takes 01 bits, rm takes 11 bits, lp takes 0 bits)
+  - sigma code (mm takes 11 bits, lv takes 0 bits, rm takes 10 bits, lp takes 10 bits)
+  - gamma code (mm takes 110 bits, lv takes 10 bits, rm takes 0 bits, lp takes 111 bits)
+  - delta code (mm takes 0011 bits, lv takes 0001 bits, rm takes 0010 bits, lp takes 0000 bits)
+The message:
+  - lv
+  - lp
+  - lp
+  - rm
+  - mm
+  - mm
+  - mm
+  - lp
+What is the usable code?
+
+Answer with exactly one of: gamma | sigma | alpha | delta
+Reply with the answer only.</pre><h3>spanish</h3><pre>El presupuesto es 21.
+Los códigos son:
+  - alfa el código (mm ocupa 1 bits, lv ocupa 01 bits, rm ocupa 11 bits, lp ocupa 0 bits)
+  - sigma el código (mm ocupa 11 bits, lv ocupa 0 bits, rm ocupa 10 bits, lp ocupa 10 bits)
+  - gamma el código (mm ocupa 110 bits, lv ocupa 10 bits, rm ocupa 0 bits, lp ocupa 111 bits)
+  - delta el código (mm ocupa 0011 bits, lv ocupa 0001 bits, rm ocupa 0010 bits, lp ocupa 0000 bits)
+El mensaje es:
+  - lv
+  - lp
+  - lp
+  - rm
+  - mm
+  - mm
+  - mm
+  - lp
+¿Qué código se puede usar?
+
+Responde exactamente con una de estas opciones: gamma | sigma | alfa | delta
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>预算是21。
+编码如下：阿尔法的编码是(mm占1比特，lv占01比特，rm占11比特，lp占0比特)；西格玛的编码是(mm占11比特，lv占0比特，rm占10比特，lp占10比特)；伽马的编码是(mm占110比特，lv占10比特，rm占0比特，lp占111比特)；德尔塔的编码是(mm占0011比特，lv占0001比特，rm占0010比特，lp占0000比特)。
+消息是：
+  - lv
+  - lp
+  - lp
+  - rm
+  - mm
+  - mm
+  - mm
+  - lp
+可用的编码是哪一个？
+
+请从以下选项中选出恰好一个作答：伽马 | 西格玛 | 阿尔法 | 德尔塔
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The budget is 21.
+The codes:
+  - alpha code (mm takes 1 bits, lv takes 01 bits, rm takes 11 bits, lp takes 0 bits)
+  - sigma code (mm takes 11 bits, lv takes 0 bits, rm takes 10 bits, lp takes 10 bits)
+  - gamma code (mm takes 110 bits, lv takes 10 bits, rm takes 0 bits, lp takes 111 bits)
+  - delta code (mm takes 0011 bits, lv takes 0001 bits, rm takes 0010 bits, lp takes 0000 bits)
+The message:
+  - lv
+  - lp
+  - lp
+  - rm
+  - mm
+  - mm
+  - mm
+  - lp
+What is the usable code?
+
+Answer with exactly one of: gamma | sigma | alpha | delta
+Reply with the answer only.</pre><h3>symbols</h3><pre>{budget: 21, codes: [(code alpha [(bits mm 1) (bits lv 01) (bits rm 11) (bits lp 0)]) (code sigma [(bits mm 11) (bits lv 0) (bits rm 10) (bits lp 10)]) (code gamma [(bits mm 110) (bits lv 10) (bits rm 0) (bits lp 111)]) (code delta [(bits mm 0011) (bits lv 0001) (bits rm 0010) (bits lp 0000)])], message: [lv lp lp rm mm mm mm lp], query: usable_code}
+
+Answer with exactly one of: gamma | sigma | alpha | delta
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/compressed_language.jsonl</code> &middot; <code>data/samples/spanish/compressed_language.jsonl</code> &middot; <code>data/samples/chinese/compressed_language.jsonl</code> &middot; <code>data/samples/english_synonym/compressed_language.jsonl</code> &middot; <code>data/samples/symbols/compressed_language.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 21.
+The codes:
+  - alpha code (mm takes 1 bits, lv takes 01 bits, rm takes 11 bits, lp takes 0 bits)
+  - sigma code (mm takes 11 bits, lv takes 0 bits, rm takes 10 bits, lp takes 10 bits)
+  - gamma code (mm takes 110 bits, lv takes 10 bits, rm takes 0 bits, lp takes 111 bits)
+  - delta code (mm takes 0011 bits, lv takes 0001 bits, rm takes 0010 bits, lp takes 0000 bits)
+The message:
+  - lv
+  - lp
+  - lp
+  - rm
+  - mm
+  - mm
+  - mm
+  - lp
+What is the usable code?
+
+Answer with exactly one of: gamma | sigma | alpha | delta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 21,
+ &quot;lengths&quot;: [
+  10,
+  15,
+  21,
+  32
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  false,
+  true,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - delta code (vr takes 0 bits, sl takes 1 bits, ss takes 11 bits, vz takes 01 bits)
+  - beta code (vr takes 0001 bits, sl takes 0000 bits, ss takes 0010 bits, vz takes 0011 bits)
+  - gamma code (vr takes 110 bits, sl takes 10 bits, ss takes 111 bits, vz takes 0 bits)
+  - sigma code (vr takes 10 bits, sl takes 0 bits, ss takes 10 bits, vz takes 11 bits)
+The message:
+  - vz
+  - vr
+  - sl
+  - ss
+  - vr
+  - ss
+What is the usable code?
+
+Answer with exactly one of: sigma | beta | delta | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  9,
+  24,
+  15,
+  11
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - sigma code (vk takes 111 bits, zv takes 0 bits, rk takes 10 bits, zp takes 110 bits)
+  - alpha code (vk takes 0000 bits, zv takes 0011 bits, rk takes 0010 bits, zp takes 0001 bits)
+  - beta code (vk takes 0 bits, zv takes 11 bits, rk takes 10 bits, zp takes 10 bits)
+  - gamma code (vk takes 0 bits, zv takes 01 bits, rk takes 1 bits, zp takes 11 bits)
+The message:
+  - zp
+  - zv
+  - vk
+  - rk
+  - vk
+  - vk
+  - zp
+What is the usable code?
+
+Answer with exactly one of: beta | gamma | alpha | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  18,
+  28,
+  11,
+  10
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 21.
+The codes:
+  - omega code (rp takes 10 bits, km takes 110 bits, tk takes 0 bits, zk takes 111 bits)
+  - beta code (rp takes 0011 bits, km takes 0001 bits, tk takes 0000 bits, zk takes 0010 bits)
+  - gamma code (rp takes 0 bits, km takes 10 bits, tk takes 11 bits, zk takes 10 bits)
+  - delta code (rp takes 0 bits, km takes 11 bits, tk takes 01 bits, zk takes 1 bits)
+The message:
+  - zk
+  - zk
+  - zk
+  - zk
+  - zk
+  - km
+  - tk
+  - rp
+What is the usable code?
+
+Answer with exactly one of: gamma | delta | beta | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 21,
+ &quot;lengths&quot;: [
+  21,
+  32,
+  15,
+  10
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - alpha code (sz takes 0 bits, mp takes 10 bits, vt takes 111 bits, mm takes 110 bits)
+  - omega code (sz takes 10 bits, mp takes 0 bits, vt takes 11 bits, mm takes 10 bits)
+  - gamma code (sz takes 0010 bits, mp takes 0011 bits, vt takes 0000 bits, mm takes 0001 bits)
+  - delta code (sz takes 1 bits, mp takes 11 bits, vt takes 0 bits, mm takes 01 bits)
+The message:
+  - mm
+  - vt
+  - sz
+  - mp
+  - vt
+  - vt
+What is the usable code?
+
+Answer with exactly one of: omega | alpha | gamma | delta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  15,
+  11,
+  24,
+  8
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">beta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - beta code (zl takes 0 bits, rk takes 110 bits, vs takes 10 bits, kt takes 111 bits)
+  - sigma code (zl takes 10 bits, rk takes 0 bits, vs takes 10 bits, kt takes 11 bits)
+  - alpha code (zl takes 01 bits, rk takes 1 bits, vs takes 0 bits, kt takes 11 bits)
+  - delta code (zl takes 0011 bits, rk takes 0000 bits, vs takes 0010 bits, kt takes 0001 bits)
+The message:
+  - vs
+  - kt
+  - rk
+  - kt
+  - zl
+  - rk
+What is the usable code?
+
+Answer with exactly one of: delta | alpha | beta | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;beta&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  15,
+  10,
+  9,
+  24
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - alpha code (mv takes 110 bits, zk takes 0 bits, kt takes 111 bits, vl takes 10 bits)
+  - sigma code (mv takes 10 bits, zk takes 10 bits, kt takes 11 bits, vl takes 0 bits)
+  - beta code (mv takes 11 bits, zk takes 1 bits, kt takes 01 bits, vl takes 0 bits)
+  - gamma code (mv takes 0011 bits, zk takes 0010 bits, kt takes 0001 bits, vl takes 0000 bits)
+The message:
+  - mv
+  - kt
+  - vl
+  - zk
+  - vl
+  - mv
+  - zk
+  - kt
+What is the usable code?
+
+Answer with exactly one of: gamma | alpha | sigma | beta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  18,
+  14,
+  12,
+  32
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 23.
+The codes:
+  - gamma code (sm takes 110 bits, rp takes 111 bits, km takes 10 bits, sk takes 0 bits)
+  - delta code (sm takes 0010 bits, rp takes 0011 bits, km takes 0001 bits, sk takes 0000 bits)
+  - omega code (sm takes 1 bits, rp takes 0 bits, km takes 11 bits, sk takes 01 bits)
+  - beta code (sm takes 11 bits, rp takes 0 bits, km takes 10 bits, sk takes 10 bits)
+The message:
+  - sm
+  - rp
+  - sm
+  - rp
+  - km
+  - sk
+  - rp
+  - sm
+  - km
+What is the usable code?
+
+Answer with exactly one of: delta | beta | gamma | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 23,
+ &quot;lengths&quot;: [
+  23,
+  36,
+  12,
+  15
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">delta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 23.
+The codes:
+  - delta code (rp takes 111 bits, vp takes 110 bits, mz takes 0 bits, mm takes 10 bits)
+  - beta code (rp takes 01 bits, vp takes 0 bits, mz takes 1 bits, mm takes 11 bits)
+  - omega code (rp takes 0011 bits, vp takes 0000 bits, mz takes 0010 bits, mm takes 0001 bits)
+  - gamma code (rp takes 0 bits, vp takes 11 bits, mz takes 10 bits, mm takes 10 bits)
+The message:
+  - mm
+  - rp
+  - rp
+  - mz
+  - vp
+  - rp
+  - mm
+  - vp
+  - vp
+What is the usable code?
+
+Answer with exactly one of: gamma | beta | omega | delta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;delta&quot;,
+ &quot;budget&quot;: 23,
+ &quot;lengths&quot;: [
+  23,
+  14,
+  36,
+  15
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 23.
+The codes:
+  - sigma code (vl takes 0010 bits, zt takes 0011 bits, tk takes 0001 bits, lr takes 0000 bits)
+  - delta code (vl takes 10 bits, zt takes 0 bits, tk takes 10 bits, lr takes 11 bits)
+  - alpha code (vl takes 10 bits, zt takes 110 bits, tk takes 0 bits, lr takes 111 bits)
+  - beta code (vl takes 01 bits, zt takes 11 bits, tk takes 1 bits, lr takes 0 bits)
+The message:
+  - vl
+  - tk
+  - vl
+  - lr
+  - zt
+  - lr
+  - lr
+  - zt
+  - zt
+What is the usable code?
+
+Answer with exactly one of: sigma | alpha | beta | delta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 23,
+ &quot;lengths&quot;: [
+  36,
+  15,
+  23,
+  14
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">beta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - beta code (kp takes 111 bits, vk takes 10 bits, sv takes 110 bits, vz takes 0 bits)
+  - delta code (kp takes 0010 bits, vk takes 0001 bits, sv takes 0000 bits, vz takes 0011 bits)
+  - sigma code (kp takes 10 bits, vk takes 10 bits, sv takes 11 bits, vz takes 0 bits)
+  - omega code (kp takes 0 bits, vk takes 1 bits, sv takes 01 bits, vz takes 11 bits)
+The message:
+  - kp
+  - vz
+  - sv
+  - kp
+  - vk
+  - sv
+  - kp
+What is the usable code?
+
+Answer with exactly one of: delta | sigma | beta | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;beta&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  18,
+  28,
+  13,
+  10
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 23.
+The codes:
+  - omega code (vr takes 110 bits, vv takes 10 bits, rs takes 0 bits, tr takes 111 bits)
+  - beta code (vr takes 11 bits, vv takes 0 bits, rs takes 01 bits, tr takes 1 bits)
+  - sigma code (vr takes 0001 bits, vv takes 0011 bits, rs takes 0010 bits, tr takes 0000 bits)
+  - gamma code (vr takes 10 bits, vv takes 11 bits, rs takes 10 bits, tr takes 0 bits)
+The message:
+  - vv
+  - vr
+  - tr
+  - rs
+  - vv
+  - vr
+  - vr
+  - tr
+  - tr
+What is the usable code?
+
+Answer with exactly one of: gamma | omega | beta | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 23,
+ &quot;lengths&quot;: [
+  23,
+  13,
+  36,
+  15
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 23.
+The codes:
+  - alpha code (vz takes 0010 bits, rl takes 0011 bits, tp takes 0001 bits, kl takes 0000 bits)
+  - delta code (vz takes 10 bits, rl takes 0 bits, tp takes 10 bits, kl takes 11 bits)
+  - omega code (vz takes 11 bits, rl takes 01 bits, tp takes 1 bits, kl takes 0 bits)
+  - sigma code (vz takes 0 bits, rl takes 111 bits, tp takes 110 bits, kl takes 10 bits)
+The message:
+  - tp
+  - kl
+  - rl
+  - vz
+  - rl
+  - kl
+  - tp
+  - rl
+  - tp
+What is the usable code?
+
+Answer with exactly one of: omega | delta | alpha | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 23,
+ &quot;lengths&quot;: [
+  36,
+  15,
+  13,
+  23
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 20.
+The codes:
+  - delta code (mr takes 0000 bits, sz takes 0011 bits, kp takes 0001 bits, tk takes 0010 bits)
+  - sigma code (mr takes 0 bits, sz takes 110 bits, kp takes 111 bits, tk takes 10 bits)
+  - beta code (mr takes 0 bits, sz takes 1 bits, kp takes 11 bits, tk takes 01 bits)
+  - omega code (mr takes 11 bits, sz takes 10 bits, kp takes 10 bits, tk takes 0 bits)
+The message:
+  - sz
+  - mr
+  - kp
+  - tk
+  - tk
+  - sz
+  - kp
+  - kp
+What is the usable code?
+
+Answer with exactly one of: beta | omega | delta | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 20,
+ &quot;lengths&quot;: [
+  32,
+  20,
+  13,
+  14
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 21.
+The codes:
+  - alpha code (mr takes 10 bits, sz takes 11 bits, zz takes 10 bits, mv takes 0 bits)
+  - sigma code (mr takes 0001 bits, sz takes 0010 bits, zz takes 0011 bits, mv takes 0000 bits)
+  - gamma code (mr takes 0 bits, sz takes 11 bits, zz takes 1 bits, mv takes 01 bits)
+  - omega code (mr takes 10 bits, sz takes 0 bits, zz takes 110 bits, mv takes 111 bits)
+The message:
+  - mv
+  - mv
+  - mv
+  - mr
+  - zz
+  - sz
+  - zz
+  - zz
+What is the usable code?
+
+Answer with exactly one of: alpha | gamma | sigma | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 21,
+ &quot;lengths&quot;: [
+  13,
+  32,
+  12,
+  21
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - delta code (sk takes 1 bits, rk takes 11 bits, ts takes 0 bits, kk takes 01 bits)
+  - sigma code (sk takes 0000 bits, rk takes 0010 bits, ts takes 0001 bits, kk takes 0011 bits)
+  - alpha code (sk takes 0 bits, rk takes 10 bits, ts takes 111 bits, kk takes 110 bits)
+  - beta code (sk takes 10 bits, rk takes 10 bits, ts takes 11 bits, kk takes 0 bits)
+The message:
+  - ts
+  - rk
+  - sk
+  - ts
+  - kk
+  - ts
+  - ts
+What is the usable code?
+
+Answer with exactly one of: delta | beta | sigma | alpha
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  9,
+  28,
+  18,
+  13
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 21.
+The codes:
+  - beta code (ks takes 10 bits, zk takes 0 bits, tk takes 11 bits, vv takes 10 bits)
+  - gamma code (ks takes 0001 bits, zk takes 0000 bits, tk takes 0010 bits, vv takes 0011 bits)
+  - omega code (ks takes 10 bits, zk takes 0 bits, tk takes 111 bits, vv takes 110 bits)
+  - sigma code (ks takes 01 bits, zk takes 0 bits, tk takes 11 bits, vv takes 1 bits)
+The message:
+  - zk
+  - tk
+  - tk
+  - tk
+  - vv
+  - ks
+  - tk
+  - vv
+What is the usable code?
+
+Answer with exactly one of: omega | beta | gamma | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 21,
+ &quot;lengths&quot;: [
+  15,
+  32,
+  21,
+  13
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - alpha code (rp takes 10 bits, zl takes 11 bits, zt takes 0 bits, rz takes 10 bits)
+  - omega code (rp takes 1 bits, zl takes 11 bits, zt takes 01 bits, rz takes 0 bits)
+  - delta code (rp takes 0010 bits, zl takes 0000 bits, zt takes 0001 bits, rz takes 0011 bits)
+  - gamma code (rp takes 10 bits, zl takes 0 bits, zt takes 110 bits, rz takes 111 bits)
+The message:
+  - rp
+  - zl
+  - rz
+  - rz
+  - zt
+  - zt
+What is the usable code?
+
+Answer with exactly one of: alpha | gamma | delta | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  10,
+  9,
+  24,
+  15
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  false,
+  true,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">beta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - beta code (tm takes 10 bits, vl takes 0 bits, ss takes 111 bits, vv takes 110 bits)
+  - gamma code (tm takes 0 bits, vl takes 11 bits, ss takes 10 bits, vv takes 10 bits)
+  - omega code (tm takes 1 bits, vl takes 11 bits, ss takes 01 bits, vv takes 0 bits)
+  - alpha code (tm takes 0001 bits, vl takes 0000 bits, ss takes 0011 bits, vv takes 0010 bits)
+The message:
+  - vv
+  - ss
+  - vv
+  - ss
+  - vl
+  - ss
+  - tm
+What is the usable code?
+
+Answer with exactly one of: alpha | beta | gamma | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;beta&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  18,
+  13,
+  11,
+  28
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">delta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 21.
+The codes:
+  - alpha code (kr takes 0001 bits, mr takes 0010 bits, sp takes 0011 bits, lr takes 0000 bits)
+  - delta code (kr takes 110 bits, mr takes 0 bits, sp takes 111 bits, lr takes 10 bits)
+  - sigma code (kr takes 1 bits, mr takes 11 bits, sp takes 01 bits, lr takes 0 bits)
+  - omega code (kr takes 11 bits, mr takes 10 bits, sp takes 10 bits, lr takes 0 bits)
+The message:
+  - mr
+  - sp
+  - kr
+  - sp
+  - lr
+  - sp
+  - sp
+  - kr
+What is the usable code?
+
+Answer with exactly one of: alpha | sigma | delta | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;delta&quot;,
+ &quot;budget&quot;: 21,
+ &quot;lengths&quot;: [
+  32,
+  21,
+  13,
+  15
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - omega code (tz takes 0010 bits, ml takes 0011 bits, tk takes 0000 bits, pp takes 0001 bits)
+  - beta code (tz takes 0 bits, ml takes 1 bits, tk takes 11 bits, pp takes 01 bits)
+  - alpha code (tz takes 0 bits, ml takes 110 bits, tk takes 10 bits, pp takes 111 bits)
+  - delta code (tz takes 11 bits, ml takes 10 bits, tk takes 10 bits, pp takes 0 bits)
+The message:
+  - tz
+  - ml
+  - tk
+  - pp
+  - pp
+  - pp
+What is the usable code?
+
+Answer with exactly one of: beta | alpha | delta | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  24,
+  10,
+  15,
+  9
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - sigma code (tp takes 0010 bits, pz takes 0011 bits, vs takes 0001 bits, vr takes 0000 bits)
+  - gamma code (tp takes 111 bits, pz takes 110 bits, vs takes 0 bits, vr takes 10 bits)
+  - alpha code (tp takes 0 bits, pz takes 01 bits, vs takes 1 bits, vr takes 11 bits)
+  - delta code (tp takes 10 bits, pz takes 10 bits, vs takes 0 bits, vr takes 11 bits)
+The message:
+  - pz
+  - tp
+  - tp
+  - vs
+  - vr
+  - tp
+  - pz
+What is the usable code?
+
+Answer with exactly one of: gamma | alpha | delta | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  28,
+  18,
+  10,
+  13
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - delta code (ts takes 11 bits, kv takes 10 bits, tm takes 10 bits, lm takes 0 bits)
+  - gamma code (ts takes 111 bits, kv takes 10 bits, tm takes 110 bits, lm takes 0 bits)
+  - beta code (ts takes 0000 bits, kv takes 0010 bits, tm takes 0011 bits, lm takes 0001 bits)
+  - sigma code (ts takes 1 bits, kv takes 11 bits, tm takes 01 bits, lm takes 0 bits)
+The message:
+  - tm
+  - ts
+  - tm
+  - kv
+  - lm
+  - ts
+  - ts
+What is the usable code?
+
+Answer with exactly one of: gamma | delta | sigma | beta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  13,
+  18,
+  28,
+  10
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 17.
+The codes:
+  - sigma code (zm takes 10 bits, kz takes 0 bits, pp takes 11 bits, rl takes 10 bits)
+  - beta code (zm takes 0011 bits, kz takes 0001 bits, pp takes 0000 bits, rl takes 0010 bits)
+  - omega code (zm takes 1 bits, kz takes 01 bits, pp takes 0 bits, rl takes 11 bits)
+  - gamma code (zm takes 10 bits, kz takes 111 bits, pp takes 0 bits, rl takes 110 bits)
+The message:
+  - kz
+  - pp
+  - rl
+  - zm
+  - kz
+  - rl
+  - zm
+What is the usable code?
+
+Answer with exactly one of: sigma | beta | gamma | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 17,
+ &quot;lengths&quot;: [
+  12,
+  28,
+  11,
+  17
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 23.
+The codes:
+  - delta code (zk takes 11 bits, vv takes 10 bits, mk takes 0 bits, rt takes 10 bits)
+  - gamma code (zk takes 10 bits, vv takes 0 bits, mk takes 111 bits, rt takes 110 bits)
+  - omega code (zk takes 0 bits, vv takes 11 bits, mk takes 01 bits, rt takes 1 bits)
+  - sigma code (zk takes 0001 bits, vv takes 0000 bits, mk takes 0011 bits, rt takes 0010 bits)
+The message:
+  - rt
+  - mk
+  - rt
+  - zk
+  - mk
+  - vv
+  - mk
+  - mk
+  - zk
+What is the usable code?
+
+Answer with exactly one of: gamma | sigma | delta | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 23,
+ &quot;lengths&quot;: [
+  14,
+  23,
+  14,
+  36
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - delta code (pk takes 0011 bits, sz takes 0000 bits, vk takes 0010 bits, zk takes 0001 bits)
+  - omega code (pk takes 0 bits, sz takes 1 bits, vk takes 11 bits, zk takes 01 bits)
+  - alpha code (pk takes 111 bits, sz takes 110 bits, vk takes 10 bits, zk takes 0 bits)
+  - gamma code (pk takes 10 bits, sz takes 11 bits, vk takes 10 bits, zk takes 0 bits)
+The message:
+  - zk
+  - pk
+  - pk
+  - sz
+  - vk
+  - sz
+  - vk
+  - zk
+What is the usable code?
+
+Answer with exactly one of: gamma | delta | alpha | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  32,
+  12,
+  18,
+  14
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 23.
+The codes:
+  - omega code (sl takes 0000 bits, mr takes 0001 bits, lm takes 0011 bits, pk takes 0010 bits)
+  - alpha code (sl takes 0 bits, mr takes 01 bits, lm takes 11 bits, pk takes 1 bits)
+  - delta code (sl takes 10 bits, mr takes 0 bits, lm takes 10 bits, pk takes 11 bits)
+  - sigma code (sl takes 111 bits, mr takes 10 bits, lm takes 110 bits, pk takes 0 bits)
+The message:
+  - pk
+  - sl
+  - sl
+  - lm
+  - sl
+  - mr
+  - sl
+  - mr
+  - lm
+What is the usable code?
+
+Answer with exactly one of: sigma | omega | delta | alpha
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 23,
+ &quot;lengths&quot;: [
+  36,
+  13,
+  16,
+  23
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 20.
+The codes:
+  - omega code (vz takes 01 bits, zs takes 0 bits, mm takes 1 bits, zr takes 11 bits)
+  - gamma code (vz takes 0 bits, zs takes 111 bits, mm takes 110 bits, zr takes 10 bits)
+  - beta code (vz takes 0011 bits, zs takes 0001 bits, mm takes 0010 bits, zr takes 0000 bits)
+  - sigma code (vz takes 10 bits, zs takes 10 bits, mm takes 0 bits, zr takes 11 bits)
+The message:
+  - mm
+  - mm
+  - zr
+  - zs
+  - zs
+  - zs
+  - zr
+  - vz
+What is the usable code?
+
+Answer with exactly one of: beta | sigma | omega | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 20,
+ &quot;lengths&quot;: [
+  11,
+  20,
+  32,
+  14
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - delta code (kp takes 11 bits, sm takes 01 bits, mp takes 1 bits, lt takes 0 bits)
+  - gamma code (kp takes 0010 bits, sm takes 0001 bits, mp takes 0011 bits, lt takes 0000 bits)
+  - beta code (kp takes 10 bits, sm takes 11 bits, mp takes 0 bits, lt takes 10 bits)
+  - sigma code (kp takes 10 bits, sm takes 111 bits, mp takes 110 bits, lt takes 0 bits)
+The message:
+  - mp
+  - sm
+  - lt
+  - sm
+  - sm
+  - kp
+  - mp
+What is the usable code?
+
+Answer with exactly one of: sigma | delta | gamma | beta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  11,
+  28,
+  12,
+  18
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 23.
+The codes:
+  - omega code (rm takes 111 bits, lz takes 0 bits, mr takes 10 bits, lp takes 110 bits)
+  - beta code (rm takes 1 bits, lz takes 0 bits, mr takes 01 bits, lp takes 11 bits)
+  - delta code (rm takes 0001 bits, lz takes 0000 bits, mr takes 0010 bits, lp takes 0011 bits)
+  - sigma code (rm takes 10 bits, lz takes 10 bits, mr takes 0 bits, lp takes 11 bits)
+The message:
+  - rm
+  - rm
+  - rm
+  - lp
+  - lz
+  - mr
+  - rm
+  - lp
+  - mr
+What is the usable code?
+
+Answer with exactly one of: omega | delta | sigma | beta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 23,
+ &quot;lengths&quot;: [
+  23,
+  13,
+  36,
+  16
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 20.
+The codes:
+  - delta code (rp takes 0001 bits, lr takes 0010 bits, mp takes 0011 bits, ks takes 0000 bits)
+  - gamma code (rp takes 11 bits, lr takes 10 bits, mp takes 0 bits, ks takes 10 bits)
+  - sigma code (rp takes 10 bits, lr takes 0 bits, mp takes 111 bits, ks takes 110 bits)
+  - omega code (rp takes 1 bits, lr takes 11 bits, mp takes 0 bits, ks takes 01 bits)
+The message:
+  - ks
+  - rp
+  - mp
+  - rp
+  - ks
+  - mp
+  - lr
+  - mp
+What is the usable code?
+
+Answer with exactly one of: delta | gamma | omega | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 20,
+ &quot;lengths&quot;: [
+  32,
+  13,
+  20,
+  11
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 23.
+The codes:
+  - beta code (pz takes 1 bits, zs takes 01 bits, mv takes 0 bits, sl takes 11 bits)
+  - omega code (pz takes 0001 bits, zs takes 0011 bits, mv takes 0010 bits, sl takes 0000 bits)
+  - delta code (pz takes 0 bits, zs takes 10 bits, mv takes 11 bits, sl takes 10 bits)
+  - alpha code (pz takes 111 bits, zs takes 10 bits, mv takes 110 bits, sl takes 0 bits)
+The message:
+  - sl
+  - pz
+  - pz
+  - mv
+  - pz
+  - pz
+  - zs
+  - zs
+  - mv
+What is the usable code?
+
+Answer with exactly one of: beta | alpha | omega | delta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 23,
+ &quot;lengths&quot;: [
+  12,
+  36,
+  14,
+  23
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 24.
+The codes:
+  - omega code (rt takes 111 bits, rk takes 10 bits, vs takes 0 bits, zs takes 110 bits)
+  - sigma code (rt takes 0 bits, rk takes 10 bits, vs takes 11 bits, zs takes 10 bits)
+  - alpha code (rt takes 1 bits, rk takes 11 bits, vs takes 0 bits, zs takes 01 bits)
+  - delta code (rt takes 0011 bits, rk takes 0001 bits, vs takes 0000 bits, zs takes 0010 bits)
+The message:
+  - rt
+  - vs
+  - rt
+  - rt
+  - rt
+  - rk
+  - zs
+  - rt
+  - zs
+What is the usable code?
+
+Answer with exactly one of: delta | sigma | omega | alpha
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 24,
+ &quot;lengths&quot;: [
+  24,
+  13,
+  12,
+  36
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - delta code (mk takes 0 bits, vp takes 1 bits, pl takes 01 bits, ms takes 11 bits)
+  - gamma code (mk takes 110 bits, vp takes 0 bits, pl takes 10 bits, ms takes 111 bits)
+  - omega code (mk takes 0011 bits, vp takes 0001 bits, pl takes 0010 bits, ms takes 0000 bits)
+  - alpha code (mk takes 0 bits, vp takes 10 bits, pl takes 10 bits, ms takes 11 bits)
+The message:
+  - ms
+  - pl
+  - vp
+  - ms
+  - ms
+  - mk
+What is the usable code?
+
+Answer with exactly one of: omega | gamma | alpha | delta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  10,
+  15,
+  24,
+  11
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 23.
+The codes:
+  - alpha code (tm takes 0 bits, pp takes 10 bits, rz takes 10 bits, tr takes 11 bits)
+  - gamma code (tm takes 0001 bits, pp takes 0000 bits, rz takes 0011 bits, tr takes 0010 bits)
+  - omega code (tm takes 0 bits, pp takes 111 bits, rz takes 10 bits, tr takes 110 bits)
+  - delta code (tm takes 1 bits, pp takes 0 bits, rz takes 11 bits, tr takes 01 bits)
+The message:
+  - tr
+  - pp
+  - tr
+  - rz
+  - tr
+  - rz
+  - tm
+  - pp
+  - pp
+What is the usable code?
+
+Answer with exactly one of: delta | alpha | gamma | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 23,
+ &quot;lengths&quot;: [
+  17,
+  36,
+  23,
+  14
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 17.
+The codes:
+  - omega code (mv takes 10 bits, lk takes 111 bits, lv takes 110 bits, kk takes 0 bits)
+  - delta code (mv takes 01 bits, lk takes 11 bits, lv takes 1 bits, kk takes 0 bits)
+  - alpha code (mv takes 0010 bits, lk takes 0001 bits, lv takes 0011 bits, kk takes 0000 bits)
+  - beta code (mv takes 0 bits, lk takes 11 bits, lv takes 10 bits, kk takes 10 bits)
+The message:
+  - lv
+  - mv
+  - lk
+  - lv
+  - lk
+  - mv
+  - kk
+What is the usable code?
+
+Answer with exactly one of: delta | omega | alpha | beta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 17,
+ &quot;lengths&quot;: [
+  17,
+  11,
+  28,
+  12
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 23.
+The codes:
+  - sigma code (pl takes 0 bits, ps takes 110 bits, pt takes 10 bits, mr takes 111 bits)
+  - omega code (pl takes 10 bits, ps takes 0 bits, pt takes 11 bits, mr takes 10 bits)
+  - gamma code (pl takes 1 bits, ps takes 01 bits, pt takes 11 bits, mr takes 0 bits)
+  - beta code (pl takes 0010 bits, ps takes 0011 bits, pt takes 0000 bits, mr takes 0001 bits)
+The message:
+  - ps
+  - pt
+  - ps
+  - mr
+  - pt
+  - ps
+  - pl
+  - mr
+  - mr
+What is the usable code?
+
+Answer with exactly one of: gamma | omega | beta | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 23,
+ &quot;lengths&quot;: [
+  23,
+  15,
+  14,
+  36
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">delta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 21.
+The codes:
+  - gamma code (rt takes 11 bits, kk takes 0 bits, sz takes 1 bits, sr takes 01 bits)
+  - sigma code (rt takes 10 bits, kk takes 0 bits, sz takes 11 bits, sr takes 10 bits)
+  - alpha code (rt takes 0011 bits, kk takes 0010 bits, sz takes 0001 bits, sr takes 0000 bits)
+  - delta code (rt takes 10 bits, kk takes 111 bits, sz takes 110 bits, sr takes 0 bits)
+The message:
+  - rt
+  - sz
+  - sz
+  - kk
+  - sr
+  - kk
+  - kk
+  - sz
+What is the usable code?
+
+Answer with exactly one of: delta | alpha | gamma | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;delta&quot;,
+ &quot;budget&quot;: 21,
+ &quot;lengths&quot;: [
+  10,
+  13,
+  32,
+  21
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  false,
+  true,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">delta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - delta code (sm takes 110 bits, rv takes 10 bits, tp takes 0 bits, rs takes 111 bits)
+  - gamma code (sm takes 10 bits, rv takes 10 bits, tp takes 0 bits, rs takes 11 bits)
+  - omega code (sm takes 0010 bits, rv takes 0000 bits, tp takes 0011 bits, rs takes 0001 bits)
+  - alpha code (sm takes 1 bits, rv takes 0 bits, tp takes 01 bits, rs takes 11 bits)
+The message:
+  - rs
+  - tp
+  - sm
+  - rv
+  - rs
+  - sm
+What is the usable code?
+
+Answer with exactly one of: omega | delta | gamma | alpha
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;delta&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  15,
+  11,
+  24,
+  9
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 24.
+The codes:
+  - omega code (pk takes 0001 bits, pt takes 0011 bits, rs takes 0010 bits, mr takes 0000 bits)
+  - alpha code (pk takes 1 bits, pt takes 11 bits, rs takes 0 bits, mr takes 01 bits)
+  - beta code (pk takes 10 bits, pt takes 10 bits, rs takes 11 bits, mr takes 0 bits)
+  - sigma code (pk takes 0 bits, pt takes 111 bits, rs takes 110 bits, mr takes 10 bits)
+The message:
+  - pt
+  - pt
+  - pt
+  - pt
+  - pk
+  - mr
+  - rs
+  - rs
+  - pt
+What is the usable code?
+
+Answer with exactly one of: alpha | sigma | beta | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 24,
+ &quot;lengths&quot;: [
+  36,
+  15,
+  17,
+  24
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - omega code (vt takes 0001 bits, sv takes 0010 bits, pr takes 0000 bits, mt takes 0011 bits)
+  - delta code (vt takes 0 bits, sv takes 01 bits, pr takes 1 bits, mt takes 11 bits)
+  - beta code (vt takes 10 bits, sv takes 10 bits, pr takes 0 bits, mt takes 11 bits)
+  - gamma code (vt takes 111 bits, sv takes 110 bits, pr takes 0 bits, mt takes 10 bits)
+The message:
+  - vt
+  - vt
+  - mt
+  - pr
+  - vt
+  - sv
+  - sv
+What is the usable code?
+
+Answer with exactly one of: beta | delta | omega | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  28,
+  10,
+  13,
+  18
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">beta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 23.
+The codes:
+  - alpha code (pl takes 0011 bits, st takes 0000 bits, pz takes 0001 bits, rz takes 0010 bits)
+  - sigma code (pl takes 01 bits, st takes 1 bits, pz takes 0 bits, rz takes 11 bits)
+  - beta code (pl takes 110 bits, st takes 111 bits, pz takes 10 bits, rz takes 0 bits)
+  - gamma code (pl takes 11 bits, st takes 10 bits, pz takes 10 bits, rz takes 0 bits)
+The message:
+  - pl
+  - st
+  - pl
+  - rz
+  - st
+  - st
+  - pz
+  - st
+  - pz
+What is the usable code?
+
+Answer with exactly one of: beta | gamma | alpha | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;beta&quot;,
+ &quot;budget&quot;: 23,
+ &quot;lengths&quot;: [
+  36,
+  12,
+  23,
+  17
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">delta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 21.
+The codes:
+  - omega code (rk takes 11 bits, rs takes 1 bits, rp takes 01 bits, sv takes 0 bits)
+  - gamma code (rk takes 10 bits, rs takes 10 bits, rp takes 11 bits, sv takes 0 bits)
+  - sigma code (rk takes 0011 bits, rs takes 0001 bits, rp takes 0000 bits, sv takes 0010 bits)
+  - delta code (rk takes 10 bits, rs takes 110 bits, rp takes 111 bits, sv takes 0 bits)
+The message:
+  - rk
+  - rs
+  - sv
+  - rp
+  - rp
+  - rs
+  - rs
+  - rp
+What is the usable code?
+
+Answer with exactly one of: delta | omega | sigma | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;delta&quot;,
+ &quot;budget&quot;: 21,
+ &quot;lengths&quot;: [
+  12,
+  15,
+  32,
+  21
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  false,
+  true,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - delta code (kz takes 0011 bits, tv takes 0001 bits, lm takes 0000 bits, vv takes 0010 bits)
+  - alpha code (kz takes 110 bits, tv takes 0 bits, lm takes 10 bits, vv takes 111 bits)
+  - omega code (kz takes 10 bits, tv takes 10 bits, lm takes 0 bits, vv takes 11 bits)
+  - gamma code (kz takes 1 bits, tv takes 11 bits, lm takes 01 bits, vv takes 0 bits)
+The message:
+  - vv
+  - lm
+  - vv
+  - vv
+  - tv
+  - kz
+What is the usable code?
+
+Answer with exactly one of: alpha | omega | gamma | delta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  24,
+  15,
+  11,
+  8
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - alpha code (kl takes 1 bits, pm takes 11 bits, vv takes 0 bits, ss takes 01 bits)
+  - beta code (kl takes 0 bits, pm takes 10 bits, vv takes 10 bits, ss takes 11 bits)
+  - sigma code (kl takes 0000 bits, pm takes 0010 bits, vv takes 0011 bits, ss takes 0001 bits)
+  - gamma code (kl takes 111 bits, pm takes 10 bits, vv takes 110 bits, ss takes 0 bits)
+The message:
+  - vv
+  - pm
+  - kl
+  - kl
+  - ss
+  - kl
+  - vv
+What is the usable code?
+
+Answer with exactly one of: gamma | alpha | beta | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  9,
+  11,
+  28,
+  18
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  false,
+  true,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">delta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 20.
+The codes:
+  - omega code (pm takes 0000 bits, kl takes 0001 bits, lp takes 0010 bits, rr takes 0011 bits)
+  - delta code (pm takes 10 bits, kl takes 111 bits, lp takes 110 bits, rr takes 0 bits)
+  - alpha code (pm takes 1 bits, kl takes 01 bits, lp takes 11 bits, rr takes 0 bits)
+  - gamma code (pm takes 10 bits, kl takes 10 bits, lp takes 0 bits, rr takes 11 bits)
+The message:
+  - pm
+  - rr
+  - lp
+  - kl
+  - lp
+  - kl
+  - pm
+  - kl
+What is the usable code?
+
+Answer with exactly one of: gamma | delta | alpha | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;delta&quot;,
+ &quot;budget&quot;: 20,
+ &quot;lengths&quot;: [
+  32,
+  20,
+  13,
+  14
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">beta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 21.
+The codes:
+  - beta code (rl takes 10 bits, mp takes 110 bits, vl takes 0 bits, tv takes 111 bits)
+  - alpha code (rl takes 11 bits, mp takes 01 bits, vl takes 1 bits, tv takes 0 bits)
+  - sigma code (rl takes 0011 bits, mp takes 0001 bits, vl takes 0010 bits, tv takes 0000 bits)
+  - gamma code (rl takes 10 bits, mp takes 10 bits, vl takes 0 bits, tv takes 11 bits)
+The message:
+  - rl
+  - tv
+  - rl
+  - tv
+  - mp
+  - vl
+  - tv
+  - vl
+  - mp
+What is the usable code?
+
+Answer with exactly one of: gamma | alpha | beta | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;beta&quot;,
+ &quot;budget&quot;: 21,
+ &quot;lengths&quot;: [
+  21,
+  13,
+  36,
+  16
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - gamma code (tl takes 0 bits, ml takes 111 bits, pr takes 10 bits, rz takes 110 bits)
+  - omega code (tl takes 0 bits, ml takes 11 bits, pr takes 1 bits, rz takes 01 bits)
+  - beta code (tl takes 0000 bits, ml takes 0001 bits, pr takes 0011 bits, rz takes 0010 bits)
+  - sigma code (tl takes 10 bits, ml takes 0 bits, pr takes 11 bits, rz takes 10 bits)
+The message:
+  - ml
+  - pr
+  - ml
+  - rz
+  - tl
+  - rz
+What is the usable code?
+
+Answer with exactly one of: omega | sigma | beta | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  15,
+  10,
+  24,
+  10
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 21.
+The codes:
+  - beta code (pr takes 0011 bits, rv takes 0000 bits, lv takes 0001 bits, pz takes 0010 bits)
+  - gamma code (pr takes 0 bits, rv takes 110 bits, lv takes 10 bits, pz takes 111 bits)
+  - sigma code (pr takes 10 bits, rv takes 10 bits, lv takes 11 bits, pz takes 0 bits)
+  - omega code (pr takes 01 bits, rv takes 11 bits, lv takes 0 bits, pz takes 1 bits)
+The message:
+  - pz
+  - rv
+  - rv
+  - pr
+  - pz
+  - pz
+  - rv
+  - lv
+What is the usable code?
+
+Answer with exactly one of: omega | beta | sigma | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 21,
+ &quot;lengths&quot;: [
+  32,
+  21,
+  13,
+  12
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - sigma code (ml takes 10 bits, pm takes 110 bits, lr takes 111 bits, rk takes 0 bits)
+  - delta code (ml takes 11 bits, pm takes 10 bits, lr takes 10 bits, rk takes 0 bits)
+  - alpha code (ml takes 0001 bits, pm takes 0010 bits, lr takes 0011 bits, rk takes 0000 bits)
+  - gamma code (ml takes 01 bits, pm takes 11 bits, lr takes 1 bits, rk takes 0 bits)
+The message:
+  - lr
+  - pm
+  - rk
+  - ml
+  - pm
+  - lr
+What is the usable code?
+
+Answer with exactly one of: delta | sigma | alpha | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  15,
+  11,
+  24,
+  9
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 20.
+The codes:
+  - omega code (ks takes 0 bits, lz takes 01 bits, pm takes 1 bits, sv takes 11 bits)
+  - delta code (ks takes 11 bits, lz takes 10 bits, pm takes 0 bits, sv takes 10 bits)
+  - sigma code (ks takes 0001 bits, lz takes 0000 bits, pm takes 0010 bits, sv takes 0011 bits)
+  - gamma code (ks takes 110 bits, lz takes 10 bits, pm takes 0 bits, sv takes 111 bits)
+The message:
+  - sv
+  - lz
+  - pm
+  - lz
+  - ks
+  - sv
+  - ks
+  - sv
+What is the usable code?
+
+Answer with exactly one of: gamma | sigma | omega | delta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 20,
+ &quot;lengths&quot;: [
+  13,
+  15,
+  32,
+  20
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  false,
+  true,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - sigma code (tr takes 10 bits, vk takes 0 bits, pp takes 110 bits, sl takes 111 bits)
+  - alpha code (tr takes 0001 bits, vk takes 0000 bits, pp takes 0010 bits, sl takes 0011 bits)
+  - gamma code (tr takes 10 bits, vk takes 0 bits, pp takes 10 bits, sl takes 11 bits)
+  - beta code (tr takes 01 bits, vk takes 0 bits, pp takes 1 bits, sl takes 11 bits)
+The message:
+  - sl
+  - vk
+  - pp
+  - sl
+  - sl
+  - tr
+What is the usable code?
+
+Answer with exactly one of: beta | alpha | gamma | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  15,
+  24,
+  11,
+  10
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - alpha code (zk takes 110 bits, rv takes 0 bits, lp takes 10 bits, kt takes 111 bits)
+  - sigma code (zk takes 11 bits, rv takes 0 bits, lp takes 01 bits, kt takes 1 bits)
+  - delta code (zk takes 0010 bits, rv takes 0000 bits, lp takes 0001 bits, kt takes 0011 bits)
+  - omega code (zk takes 10 bits, rv takes 10 bits, lp takes 0 bits, kt takes 11 bits)
+The message:
+  - kt
+  - rv
+  - lp
+  - kt
+  - zk
+  - zk
+  - kt
+What is the usable code?
+
+Answer with exactly one of: alpha | sigma | delta | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  18,
+  10,
+  28,
+  13
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 20.
+The codes:
+  - alpha code (kl takes 10 bits, sv takes 10 bits, ss takes 0 bits, tt takes 11 bits)
+  - sigma code (kl takes 1 bits, sv takes 11 bits, ss takes 0 bits, tt takes 01 bits)
+  - omega code (kl takes 110 bits, sv takes 0 bits, ss takes 111 bits, tt takes 10 bits)
+  - beta code (kl takes 0001 bits, sv takes 0010 bits, ss takes 0000 bits, tt takes 0011 bits)
+The message:
+  - ss
+  - tt
+  - kl
+  - ss
+  - ss
+  - sv
+  - kl
+  - tt
+What is the usable code?
+
+Answer with exactly one of: alpha | sigma | omega | beta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 20,
+ &quot;lengths&quot;: [
+  13,
+  11,
+  20,
+  32
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  false,
+  true,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 21.
+The codes:
+  - gamma code (tv takes 0000 bits, rz takes 0010 bits, vv takes 0011 bits, ps takes 0001 bits)
+  - sigma code (tv takes 10 bits, rz takes 110 bits, vv takes 0 bits, ps takes 111 bits)
+  - alpha code (tv takes 1 bits, rz takes 11 bits, vv takes 0 bits, ps takes 01 bits)
+  - delta code (tv takes 10 bits, rz takes 10 bits, vv takes 11 bits, ps takes 0 bits)
+The message:
+  - vv
+  - ps
+  - rz
+  - rz
+  - tv
+  - ps
+  - ps
+  - tv
+  - vv
+What is the usable code?
+
+Answer with exactly one of: sigma | alpha | delta | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 21,
+ &quot;lengths&quot;: [
+  36,
+  21,
+  14,
+  15
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 20.
+The codes:
+  - delta code (tm takes 0 bits, pv takes 1 bits, vv takes 11 bits, mv takes 01 bits)
+  - gamma code (tm takes 10 bits, pv takes 0 bits, vv takes 11 bits, mv takes 10 bits)
+  - sigma code (tm takes 0010 bits, pv takes 0000 bits, vv takes 0011 bits, mv takes 0001 bits)
+  - omega code (tm takes 0 bits, pv takes 110 bits, vv takes 10 bits, mv takes 111 bits)
+The message:
+  - vv
+  - tm
+  - vv
+  - pv
+  - mv
+  - mv
+  - mv
+  - pv
+What is the usable code?
+
+Answer with exactly one of: delta | gamma | omega | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 20,
+ &quot;lengths&quot;: [
+  13,
+  14,
+  32,
+  20
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  false,
+  true,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - sigma code (zt takes 0001 bits, zv takes 0000 bits, kt takes 0011 bits, kz takes 0010 bits)
+  - delta code (zt takes 11 bits, zv takes 01 bits, kt takes 1 bits, kz takes 0 bits)
+  - gamma code (zt takes 10 bits, zv takes 11 bits, kt takes 10 bits, kz takes 0 bits)
+  - alpha code (zt takes 111 bits, zv takes 0 bits, kt takes 10 bits, kz takes 110 bits)
+The message:
+  - zt
+  - zt
+  - kt
+  - kz
+  - zv
+  - zt
+  - kz
+What is the usable code?
+
+Answer with exactly one of: gamma | alpha | sigma | delta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  28,
+  11,
+  12,
+  18
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 23.
+The codes:
+  - beta code (kl takes 01 bits, ks takes 11 bits, rl takes 0 bits, vz takes 1 bits)
+  - gamma code (kl takes 110 bits, ks takes 0 bits, rl takes 10 bits, vz takes 111 bits)
+  - delta code (kl takes 0001 bits, ks takes 0011 bits, rl takes 0010 bits, vz takes 0000 bits)
+  - omega code (kl takes 10 bits, ks takes 0 bits, rl takes 10 bits, vz takes 11 bits)
+The message:
+  - vz
+  - kl
+  - ks
+  - rl
+  - vz
+  - vz
+  - kl
+  - vz
+  - rl
+What is the usable code?
+
+Answer with exactly one of: beta | delta | omega | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 23,
+ &quot;lengths&quot;: [
+  12,
+  23,
+  36,
+  17
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">beta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 20.
+The codes:
+  - gamma code (ss takes 0010 bits, sk takes 0001 bits, sv takes 0000 bits, pl takes 0011 bits)
+  - sigma code (ss takes 11 bits, sk takes 0 bits, sv takes 10 bits, pl takes 10 bits)
+  - beta code (ss takes 110 bits, sk takes 0 bits, sv takes 10 bits, pl takes 111 bits)
+  - omega code (ss takes 0 bits, sk takes 01 bits, sv takes 1 bits, pl takes 11 bits)
+The message:
+  - sv
+  - pl
+  - pl
+  - sv
+  - ss
+  - ss
+  - pl
+  - sk
+What is the usable code?
+
+Answer with exactly one of: omega | gamma | beta | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;beta&quot;,
+ &quot;budget&quot;: 20,
+ &quot;lengths&quot;: [
+  32,
+  15,
+  20,
+  12
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 21.
+The codes:
+  - sigma code (sm takes 11 bits, vk takes 0 bits, tz takes 10 bits, kk takes 10 bits)
+  - omega code (sm takes 10 bits, vk takes 0 bits, tz takes 111 bits, kk takes 110 bits)
+  - alpha code (sm takes 0011 bits, vk takes 0010 bits, tz takes 0001 bits, kk takes 0000 bits)
+  - beta code (sm takes 11 bits, vk takes 0 bits, tz takes 01 bits, kk takes 1 bits)
+The message:
+  - kk
+  - kk
+  - tz
+  - vk
+  - tz
+  - vk
+  - sm
+  - sm
+  - tz
+What is the usable code?
+
+Answer with exactly one of: sigma | beta | alpha | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 21,
+ &quot;lengths&quot;: [
+  16,
+  21,
+  36,
+  14
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 23.
+The codes:
+  - alpha code (kk takes 11 bits, rm takes 10 bits, mt takes 10 bits, pl takes 0 bits)
+  - delta code (kk takes 0001 bits, rm takes 0000 bits, mt takes 0011 bits, pl takes 0010 bits)
+  - sigma code (kk takes 11 bits, rm takes 01 bits, mt takes 0 bits, pl takes 1 bits)
+  - omega code (kk takes 110 bits, rm takes 0 bits, mt takes 10 bits, pl takes 111 bits)
+The message:
+  - pl
+  - rm
+  - mt
+  - mt
+  - pl
+  - kk
+  - pl
+  - kk
+  - pl
+What is the usable code?
+
+Answer with exactly one of: omega | sigma | alpha | delta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 23,
+ &quot;lengths&quot;: [
+  14,
+  36,
+  12,
+  23
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">delta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 23.
+The codes:
+  - delta code (vt takes 10 bits, rs takes 0 bits, lz takes 111 bits, lk takes 110 bits)
+  - gamma code (vt takes 10 bits, rs takes 11 bits, lz takes 0 bits, lk takes 10 bits)
+  - omega code (vt takes 0011 bits, rs takes 0000 bits, lz takes 0010 bits, lk takes 0001 bits)
+  - sigma code (vt takes 1 bits, rs takes 01 bits, lz takes 11 bits, lk takes 0 bits)
+The message:
+  - lz
+  - lz
+  - vt
+  - lk
+  - lk
+  - lz
+  - rs
+  - lz
+  - vt
+What is the usable code?
+
+Answer with exactly one of: delta | sigma | omega | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;delta&quot;,
+ &quot;budget&quot;: 23,
+ &quot;lengths&quot;: [
+  23,
+  14,
+  36,
+  14
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - omega code (tm takes 111 bits, sv takes 110 bits, zl takes 0 bits, tr takes 10 bits)
+  - alpha code (tm takes 0001 bits, sv takes 0000 bits, zl takes 0010 bits, tr takes 0011 bits)
+  - delta code (tm takes 10 bits, sv takes 11 bits, zl takes 10 bits, tr takes 0 bits)
+  - beta code (tm takes 01 bits, sv takes 0 bits, zl takes 11 bits, tr takes 1 bits)
+The message:
+  - sv
+  - tm
+  - zl
+  - sv
+  - tm
+  - tm
+  - tr
+What is the usable code?
+
+Answer with exactly one of: omega | beta | alpha | delta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  18,
+  28,
+  13,
+  11
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 23.
+The codes:
+  - delta code (tl takes 11 bits, sz takes 10 bits, kk takes 0 bits, ts takes 10 bits)
+  - alpha code (tl takes 0011 bits, sz takes 0000 bits, kk takes 0001 bits, ts takes 0010 bits)
+  - gamma code (tl takes 110 bits, sz takes 0 bits, kk takes 111 bits, ts takes 10 bits)
+  - sigma code (tl takes 11 bits, sz takes 1 bits, kk takes 01 bits, ts takes 0 bits)
+The message:
+  - ts
+  - kk
+  - ts
+  - sz
+  - tl
+  - tl
+  - tl
+  - kk
+  - kk
+What is the usable code?
+
+Answer with exactly one of: alpha | gamma | sigma | delta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 23,
+ &quot;lengths&quot;: [
+  15,
+  36,
+  23,
+  15
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 17.
+The codes:
+  - beta code (km takes 0 bits, tm takes 01 bits, kz takes 11 bits, sr takes 1 bits)
+  - sigma code (km takes 111 bits, tm takes 10 bits, kz takes 0 bits, sr takes 110 bits)
+  - alpha code (km takes 10 bits, tm takes 11 bits, kz takes 10 bits, sr takes 0 bits)
+  - gamma code (km takes 0000 bits, tm takes 0010 bits, kz takes 0001 bits, sr takes 0011 bits)
+The message:
+  - km
+  - km
+  - sr
+  - sr
+  - tm
+  - kz
+  - tm
+What is the usable code?
+
+Answer with exactly one of: sigma | gamma | beta | alpha
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 17,
+ &quot;lengths&quot;: [
+  10,
+  17,
+  12,
+  28
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 21.
+The codes:
+  - omega code (pz takes 110 bits, zr takes 0 bits, sv takes 10 bits, vr takes 111 bits)
+  - beta code (pz takes 0010 bits, zr takes 0000 bits, sv takes 0011 bits, vr takes 0001 bits)
+  - sigma code (pz takes 0 bits, zr takes 11 bits, sv takes 10 bits, vr takes 10 bits)
+  - delta code (pz takes 01 bits, zr takes 11 bits, sv takes 1 bits, vr takes 0 bits)
+The message:
+  - sv
+  - vr
+  - zr
+  - pz
+  - vr
+  - sv
+  - zr
+  - vr
+  - pz
+What is the usable code?
+
+Answer with exactly one of: sigma | omega | beta | delta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 21,
+ &quot;lengths&quot;: [
+  21,
+  36,
+  16,
+  13
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - sigma code (mz takes 0000 bits, ps takes 0011 bits, vz takes 0001 bits, zr takes 0010 bits)
+  - delta code (mz takes 11 bits, ps takes 0 bits, vz takes 1 bits, zr takes 01 bits)
+  - beta code (mz takes 10 bits, ps takes 10 bits, vz takes 0 bits, zr takes 11 bits)
+  - gamma code (mz takes 10 bits, ps takes 111 bits, vz takes 0 bits, zr takes 110 bits)
+The message:
+  - zr
+  - ps
+  - zr
+  - ps
+  - mz
+  - vz
+What is the usable code?
+
+Answer with exactly one of: sigma | delta | gamma | beta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  24,
+  9,
+  11,
+  15
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - beta code (zs takes 01 bits, kt takes 11 bits, zk takes 0 bits, tv takes 1 bits)
+  - delta code (zs takes 0001 bits, kt takes 0000 bits, zk takes 0010 bits, tv takes 0011 bits)
+  - alpha code (zs takes 111 bits, kt takes 10 bits, zk takes 0 bits, tv takes 110 bits)
+  - gamma code (zs takes 10 bits, kt takes 0 bits, zk takes 10 bits, tv takes 11 bits)
+The message:
+  - zs
+  - zs
+  - tv
+  - zk
+  - kt
+  - tv
+  - zs
+What is the usable code?
+
+Answer with exactly one of: alpha | beta | delta | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  11,
+  28,
+  18,
+  13
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">beta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 24.
+The codes:
+  - omega code (vr takes 0 bits, ms takes 10 bits, pv takes 10 bits, zl takes 11 bits)
+  - beta code (vr takes 111 bits, ms takes 10 bits, pv takes 110 bits, zl takes 0 bits)
+  - gamma code (vr takes 11 bits, ms takes 01 bits, pv takes 1 bits, zl takes 0 bits)
+  - alpha code (vr takes 0010 bits, ms takes 0011 bits, pv takes 0001 bits, zl takes 0000 bits)
+The message:
+  - pv
+  - ms
+  - vr
+  - vr
+  - zl
+  - vr
+  - pv
+  - vr
+  - vr
+What is the usable code?
+
+Answer with exactly one of: gamma | beta | alpha | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;beta&quot;,
+ &quot;budget&quot;: 24,
+ &quot;lengths&quot;: [
+  13,
+  24,
+  15,
+  36
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 24.
+The codes:
+  - gamma code (km takes 0010 bits, tm takes 0000 bits, ll takes 0011 bits, rp takes 0001 bits)
+  - omega code (km takes 110 bits, tm takes 0 bits, ll takes 10 bits, rp takes 111 bits)
+  - sigma code (km takes 01 bits, tm takes 11 bits, ll takes 0 bits, rp takes 1 bits)
+  - alpha code (km takes 10 bits, tm takes 11 bits, ll takes 10 bits, rp takes 0 bits)
+The message:
+  - rp
+  - rp
+  - ll
+  - rp
+  - tm
+  - rp
+  - rp
+  - km
+  - rp
+What is the usable code?
+
+Answer with exactly one of: omega | sigma | alpha | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 24,
+ &quot;lengths&quot;: [
+  36,
+  24,
+  11,
+  12
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - alpha code (mz takes 10 bits, vv takes 10 bits, tl takes 11 bits, mt takes 0 bits)
+  - delta code (mz takes 11 bits, vv takes 01 bits, tl takes 0 bits, mt takes 1 bits)
+  - sigma code (mz takes 0001 bits, vv takes 0010 bits, tl takes 0000 bits, mt takes 0011 bits)
+  - omega code (mz takes 10 bits, vv takes 0 bits, tl takes 110 bits, mt takes 111 bits)
+The message:
+  - mt
+  - mt
+  - vv
+  - mt
+  - mz
+  - tl
+  - tl
+What is the usable code?
+
+Answer with exactly one of: delta | alpha | omega | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  11,
+  9,
+  28,
+  18
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  false,
+  true,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 17.
+The codes:
+  - beta code (lr takes 0010 bits, kz takes 0011 bits, ts takes 0000 bits, zm takes 0001 bits)
+  - omega code (lr takes 11 bits, kz takes 1 bits, ts takes 0 bits, zm takes 01 bits)
+  - sigma code (lr takes 110 bits, kz takes 111 bits, ts takes 10 bits, zm takes 0 bits)
+  - alpha code (lr takes 0 bits, kz takes 11 bits, ts takes 10 bits, zm takes 10 bits)
+The message:
+  - lr
+  - kz
+  - lr
+  - ts
+  - zm
+  - kz
+  - ts
+What is the usable code?
+
+Answer with exactly one of: beta | alpha | sigma | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 17,
+ &quot;lengths&quot;: [
+  28,
+  10,
+  17,
+  12
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">delta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - gamma code (tz takes 0010 bits, pl takes 0001 bits, tv takes 0011 bits, sk takes 0000 bits)
+  - delta code (tz takes 110 bits, pl takes 10 bits, tv takes 0 bits, sk takes 111 bits)
+  - sigma code (tz takes 1 bits, pl takes 01 bits, tv takes 0 bits, sk takes 11 bits)
+  - beta code (tz takes 10 bits, pl takes 0 bits, tv takes 10 bits, sk takes 11 bits)
+The message:
+  - tv
+  - sk
+  - tz
+  - sk
+  - tz
+  - pl
+What is the usable code?
+
+Answer with exactly one of: sigma | delta | beta | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;delta&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  24,
+  15,
+  9,
+  11
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 21.
+The codes:
+  - gamma code (vp takes 11 bits, rr takes 1 bits, sv takes 01 bits, mk takes 0 bits)
+  - alpha code (vp takes 0011 bits, rr takes 0010 bits, sv takes 0000 bits, mk takes 0001 bits)
+  - beta code (vp takes 10 bits, rr takes 0 bits, sv takes 11 bits, mk takes 10 bits)
+  - sigma code (vp takes 0 bits, rr takes 110 bits, sv takes 10 bits, mk takes 111 bits)
+The message:
+  - mk
+  - vp
+  - mk
+  - sv
+  - mk
+  - mk
+  - mk
+  - rr
+What is the usable code?
+
+Answer with exactly one of: gamma | sigma | beta | alpha
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 21,
+ &quot;lengths&quot;: [
+  10,
+  32,
+  15,
+  21
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 17.
+The codes:
+  - sigma code (zr takes 11 bits, kr takes 0 bits, kt takes 10 bits, sv takes 10 bits)
+  - delta code (zr takes 0 bits, kr takes 11 bits, kt takes 1 bits, sv takes 01 bits)
+  - beta code (zr takes 0001 bits, kr takes 0011 bits, kt takes 0010 bits, sv takes 0000 bits)
+  - gamma code (zr takes 0 bits, kr takes 111 bits, kt takes 110 bits, sv takes 10 bits)
+The message:
+  - sv
+  - kr
+  - kt
+  - kt
+  - sv
+  - zr
+  - kr
+What is the usable code?
+
+Answer with exactly one of: gamma | sigma | beta | delta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 17,
+ &quot;lengths&quot;: [
+  12,
+  11,
+  28,
+  17
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  false,
+  true,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - alpha code (zv takes 11 bits, tv takes 01 bits, kz takes 1 bits, km takes 0 bits)
+  - gamma code (zv takes 110 bits, tv takes 0 bits, kz takes 111 bits, km takes 10 bits)
+  - omega code (zv takes 10 bits, tv takes 10 bits, kz takes 11 bits, km takes 0 bits)
+  - beta code (zv takes 0011 bits, tv takes 0010 bits, kz takes 0001 bits, km takes 0000 bits)
+The message:
+  - kz
+  - kz
+  - tv
+  - zv
+  - zv
+  - km
+What is the usable code?
+
+Answer with exactly one of: gamma | beta | alpha | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  9,
+  15,
+  11,
+  24
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 17.
+The codes:
+  - sigma code (zz takes 0010 bits, vv takes 0000 bits, sm takes 0001 bits, lz takes 0011 bits)
+  - omega code (zz takes 10 bits, vv takes 0 bits, sm takes 110 bits, lz takes 111 bits)
+  - alpha code (zz takes 10 bits, vv takes 11 bits, sm takes 10 bits, lz takes 0 bits)
+  - delta code (zz takes 1 bits, vv takes 0 bits, sm takes 01 bits, lz takes 11 bits)
+The message:
+  - sm
+  - zz
+  - zz
+  - lz
+  - lz
+  - vv
+  - sm
+What is the usable code?
+
+Answer with exactly one of: alpha | omega | delta | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 17,
+ &quot;lengths&quot;: [
+  28,
+  17,
+  12,
+  11
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">beta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - alpha code (zl takes 0 bits, ss takes 10 bits, sm takes 11 bits, zv takes 10 bits)
+  - sigma code (zl takes 1 bits, ss takes 0 bits, sm takes 11 bits, zv takes 01 bits)
+  - beta code (zl takes 110 bits, ss takes 111 bits, sm takes 10 bits, zv takes 0 bits)
+  - gamma code (zl takes 0010 bits, ss takes 0001 bits, sm takes 0000 bits, zv takes 0011 bits)
+The message:
+  - ss
+  - zl
+  - sm
+  - zl
+  - zv
+  - ss
+  - ss
+What is the usable code?
+
+Answer with exactly one of: sigma | alpha | beta | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;beta&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  12,
+  9,
+  18,
+  28
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  false,
+  true,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - delta code (sm takes 0000 bits, zz takes 0001 bits, pk takes 0011 bits, tp takes 0010 bits)
+  - gamma code (sm takes 1 bits, zz takes 11 bits, pk takes 0 bits, tp takes 01 bits)
+  - beta code (sm takes 10 bits, zz takes 0 bits, pk takes 11 bits, tp takes 10 bits)
+  - omega code (sm takes 0 bits, zz takes 110 bits, pk takes 10 bits, tp takes 111 bits)
+The message:
+  - tp
+  - tp
+  - sm
+  - zz
+  - zz
+  - pk
+  - tp
+What is the usable code?
+
+Answer with exactly one of: gamma | delta | omega | beta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  28,
+  12,
+  12,
+  18
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - sigma code (tv takes 01 bits, lt takes 0 bits, ss takes 11 bits, vt takes 1 bits)
+  - delta code (tv takes 0000 bits, lt takes 0011 bits, ss takes 0001 bits, vt takes 0010 bits)
+  - alpha code (tv takes 110 bits, lt takes 10 bits, ss takes 111 bits, vt takes 0 bits)
+  - omega code (tv takes 10 bits, lt takes 10 bits, ss takes 0 bits, vt takes 11 bits)
+The message:
+  - ss
+  - tv
+  - lt
+  - tv
+  - vt
+  - ss
+What is the usable code?
+
+Answer with exactly one of: delta | alpha | sigma | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  10,
+  24,
+  15,
+  10
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - beta code (lk takes 0001 bits, rp takes 0000 bits, sk takes 0011 bits, ps takes 0010 bits)
+  - omega code (lk takes 11 bits, rp takes 10 bits, sk takes 0 bits, ps takes 10 bits)
+  - gamma code (lk takes 0 bits, rp takes 11 bits, sk takes 01 bits, ps takes 1 bits)
+  - sigma code (lk takes 110 bits, rp takes 111 bits, sk takes 0 bits, ps takes 10 bits)
+The message:
+  - lk
+  - rp
+  - ps
+  - rp
+  - rp
+  - rp
+  - sk
+What is the usable code?
+
+Answer with exactly one of: omega | beta | sigma | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  28,
+  13,
+  12,
+  18
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">delta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - sigma code (rv takes 11 bits, lr takes 01 bits, rp takes 0 bits, vk takes 1 bits)
+  - delta code (rv takes 10 bits, lr takes 110 bits, rp takes 111 bits, vk takes 0 bits)
+  - beta code (rv takes 0 bits, lr takes 11 bits, rp takes 10 bits, vk takes 10 bits)
+  - gamma code (rv takes 0001 bits, lr takes 0000 bits, rp takes 0011 bits, vk takes 0010 bits)
+The message:
+  - lr
+  - vk
+  - rv
+  - rp
+  - rp
+  - rp
+  - lr
+What is the usable code?
+
+Answer with exactly one of: beta | delta | sigma | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;delta&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  10,
+  18,
+  13,
+  28
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">omega</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - sigma code (tv takes 0 bits, rz takes 1 bits, tt takes 11 bits, zt takes 01 bits)
+  - gamma code (tv takes 0011 bits, rz takes 0010 bits, tt takes 0000 bits, zt takes 0001 bits)
+  - alpha code (tv takes 11 bits, rz takes 10 bits, tt takes 0 bits, zt takes 10 bits)
+  - omega code (tv takes 0 bits, rz takes 111 bits, tt takes 10 bits, zt takes 110 bits)
+The message:
+  - zt
+  - zt
+  - tv
+  - rz
+  - tt
+  - rz
+What is the usable code?
+
+Answer with exactly one of: sigma | gamma | omega | alpha
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;omega&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  9,
+  24,
+  11,
+  15
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 17.
+The codes:
+  - gamma code (vv takes 01 bits, mt takes 0 bits, pk takes 1 bits, ks takes 11 bits)
+  - delta code (vv takes 0001 bits, mt takes 0000 bits, pk takes 0011 bits, ks takes 0010 bits)
+  - beta code (vv takes 10 bits, mt takes 0 bits, pk takes 10 bits, ks takes 11 bits)
+  - sigma code (vv takes 10 bits, mt takes 111 bits, pk takes 110 bits, ks takes 0 bits)
+The message:
+  - mt
+  - pk
+  - vv
+  - vv
+  - ks
+  - mt
+  - pk
+What is the usable code?
+
+Answer with exactly one of: gamma | sigma | delta | beta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 17,
+ &quot;lengths&quot;: [
+  10,
+  28,
+  12,
+  17
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - alpha code (kr takes 110 bits, kt takes 111 bits, kv takes 10 bits, rz takes 0 bits)
+  - omega code (kr takes 10 bits, kt takes 0 bits, kv takes 10 bits, rz takes 11 bits)
+  - beta code (kr takes 11 bits, kt takes 0 bits, kv takes 1 bits, rz takes 01 bits)
+  - gamma code (kr takes 0011 bits, kt takes 0010 bits, kv takes 0000 bits, rz takes 0001 bits)
+The message:
+  - kr
+  - kt
+  - kt
+  - rz
+  - kt
+  - kv
+What is the usable code?
+
+Answer with exactly one of: beta | gamma | alpha | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  15,
+  9,
+  8,
+  24
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - delta code (tp takes 01 bits, ml takes 1 bits, tk takes 11 bits, pt takes 0 bits)
+  - sigma code (tp takes 111 bits, ml takes 10 bits, tk takes 110 bits, pt takes 0 bits)
+  - alpha code (tp takes 10 bits, ml takes 11 bits, tk takes 0 bits, pt takes 10 bits)
+  - omega code (tp takes 0010 bits, ml takes 0000 bits, tk takes 0001 bits, pt takes 0011 bits)
+The message:
+  - tp
+  - pt
+  - tk
+  - ml
+  - tp
+  - tk
+  - tp
+What is the usable code?
+
+Answer with exactly one of: omega | sigma | alpha | delta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  12,
+  18,
+  12,
+  28
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  false,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - gamma code (pk takes 0011 bits, mk takes 0001 bits, tm takes 0010 bits, pv takes 0000 bits)
+  - alpha code (pk takes 111 bits, mk takes 10 bits, tm takes 0 bits, pv takes 110 bits)
+  - sigma code (pk takes 0 bits, mk takes 11 bits, tm takes 01 bits, pv takes 1 bits)
+  - delta code (pk takes 10 bits, mk takes 0 bits, tm takes 10 bits, pv takes 11 bits)
+The message:
+  - pk
+  - pk
+  - pk
+  - tm
+  - pv
+  - mk
+  - pv
+What is the usable code?
+
+Answer with exactly one of: delta | sigma | alpha | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  28,
+  18,
+  9,
+  13
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 24.
+The codes:
+  - omega code (mk takes 11 bits, zz takes 10 bits, ls takes 0 bits, sr takes 10 bits)
+  - gamma code (mk takes 10 bits, zz takes 111 bits, ls takes 110 bits, sr takes 0 bits)
+  - alpha code (mk takes 0011 bits, zz takes 0000 bits, ls takes 0010 bits, sr takes 0001 bits)
+  - beta code (mk takes 01 bits, zz takes 11 bits, ls takes 1 bits, sr takes 0 bits)
+The message:
+  - ls
+  - zz
+  - sr
+  - zz
+  - ls
+  - mk
+  - zz
+  - ls
+  - zz
+What is the usable code?
+
+Answer with exactly one of: alpha | omega | gamma | beta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 24,
+ &quot;lengths&quot;: [
+  15,
+  24,
+  36,
+  14
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 24.
+The codes:
+  - beta code (ps takes 0001 bits, lt takes 0011 bits, kr takes 0000 bits, kl takes 0010 bits)
+  - alpha code (ps takes 11 bits, lt takes 1 bits, kr takes 01 bits, kl takes 0 bits)
+  - sigma code (ps takes 0 bits, lt takes 111 bits, kr takes 10 bits, kl takes 110 bits)
+  - gamma code (ps takes 11 bits, lt takes 0 bits, kr takes 10 bits, kl takes 10 bits)
+The message:
+  - lt
+  - lt
+  - ps
+  - lt
+  - lt
+  - kl
+  - kl
+  - kr
+  - kl
+What is the usable code?
+
+Answer with exactly one of: alpha | beta | sigma | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 24,
+ &quot;lengths&quot;: [
+  36,
+  11,
+  24,
+  14
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">beta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 17.
+The codes:
+  - gamma code (mz takes 11 bits, tl takes 01 bits, mt takes 1 bits, pl takes 0 bits)
+  - sigma code (mz takes 0000 bits, tl takes 0011 bits, mt takes 0010 bits, pl takes 0001 bits)
+  - beta code (mz takes 110 bits, tl takes 10 bits, mt takes 111 bits, pl takes 0 bits)
+  - alpha code (mz takes 11 bits, tl takes 10 bits, mt takes 0 bits, pl takes 10 bits)
+The message:
+  - mt
+  - mt
+  - mz
+  - tl
+  - pl
+  - mz
+  - tl
+What is the usable code?
+
+Answer with exactly one of: sigma | beta | alpha | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;beta&quot;,
+ &quot;budget&quot;: 17,
+ &quot;lengths&quot;: [
+  11,
+  28,
+  17,
+  12
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 23.
+The codes:
+  - sigma code (sm takes 11 bits, vz takes 10 bits, lv takes 0 bits, zz takes 10 bits)
+  - delta code (sm takes 11 bits, vz takes 0 bits, lv takes 1 bits, zz takes 01 bits)
+  - alpha code (sm takes 110 bits, vz takes 0 bits, lv takes 111 bits, zz takes 10 bits)
+  - omega code (sm takes 0001 bits, vz takes 0011 bits, lv takes 0010 bits, zz takes 0000 bits)
+The message:
+  - lv
+  - lv
+  - sm
+  - vz
+  - sm
+  - zz
+  - lv
+  - zz
+  - sm
+What is the usable code?
+
+Answer with exactly one of: delta | alpha | omega | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 23,
+ &quot;lengths&quot;: [
+  15,
+  14,
+  23,
+  36
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  false,
+  true,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 17.
+The codes:
+  - sigma code (rp takes 10 bits, tl takes 10 bits, tp takes 11 bits, lr takes 0 bits)
+  - gamma code (rp takes 110 bits, tl takes 10 bits, tp takes 0 bits, lr takes 111 bits)
+  - delta code (rp takes 0011 bits, tl takes 0001 bits, tp takes 0010 bits, lr takes 0000 bits)
+  - beta code (rp takes 0 bits, tl takes 01 bits, tp takes 1 bits, lr takes 11 bits)
+The message:
+  - tp
+  - rp
+  - rp
+  - lr
+  - lr
+  - tl
+  - tl
+What is the usable code?
+
+Answer with exactly one of: beta | gamma | delta | sigma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 17,
+ &quot;lengths&quot;: [
+  12,
+  17,
+  28,
+  11
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 24.
+The codes:
+  - beta code (tp takes 10 bits, vt takes 10 bits, mt takes 11 bits, vm takes 0 bits)
+  - omega code (tp takes 0 bits, vt takes 01 bits, mt takes 1 bits, vm takes 11 bits)
+  - gamma code (tp takes 0001 bits, vt takes 0011 bits, mt takes 0000 bits, vm takes 0010 bits)
+  - sigma code (tp takes 10 bits, vt takes 111 bits, mt takes 110 bits, vm takes 0 bits)
+The message:
+  - mt
+  - vm
+  - tp
+  - mt
+  - vt
+  - vt
+  - vt
+  - vt
+  - vt
+What is the usable code?
+
+Answer with exactly one of: gamma | omega | sigma | beta
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 24,
+ &quot;lengths&quot;: [
+  17,
+  15,
+  36,
+  24
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  false,
+  true,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - delta code (vl takes 0 bits, mm takes 11 bits, lt takes 10 bits, tp takes 10 bits)
+  - alpha code (vl takes 111 bits, mm takes 10 bits, lt takes 110 bits, tp takes 0 bits)
+  - omega code (vl takes 0011 bits, mm takes 0000 bits, lt takes 0010 bits, tp takes 0001 bits)
+  - sigma code (vl takes 0 bits, mm takes 11 bits, lt takes 1 bits, tp takes 01 bits)
+The message:
+  - mm
+  - vl
+  - vl
+  - lt
+  - tp
+  - vl
+What is the usable code?
+
+Answer with exactly one of: sigma | delta | omega | alpha
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  9,
+  15,
+  24,
+  8
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  true,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">beta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 21.
+The codes:
+  - delta code (lk takes 11 bits, rk takes 0 bits, zs takes 10 bits, kv takes 10 bits)
+  - omega code (lk takes 11 bits, rk takes 01 bits, zs takes 1 bits, kv takes 0 bits)
+  - beta code (lk takes 10 bits, rk takes 111 bits, zs takes 0 bits, kv takes 110 bits)
+  - gamma code (lk takes 0011 bits, rk takes 0000 bits, zs takes 0010 bits, kv takes 0001 bits)
+The message:
+  - rk
+  - zs
+  - rk
+  - lk
+  - rk
+  - kv
+  - rk
+  - kv
+What is the usable code?
+
+Answer with exactly one of: gamma | beta | delta | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;beta&quot;,
+ &quot;budget&quot;: 21,
+ &quot;lengths&quot;: [
+  12,
+  13,
+  21,
+  32
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  false,
+  true,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 17.
+The codes:
+  - alpha code (zp takes 10 bits, lt takes 0 bits, tt takes 110 bits, pl takes 111 bits)
+  - beta code (zp takes 0010 bits, lt takes 0000 bits, tt takes 0011 bits, pl takes 0001 bits)
+  - sigma code (zp takes 0 bits, lt takes 01 bits, tt takes 11 bits, pl takes 1 bits)
+  - gamma code (zp takes 10 bits, lt takes 10 bits, tt takes 11 bits, pl takes 0 bits)
+The message:
+  - pl
+  - tt
+  - lt
+  - zp
+  - zp
+  - tt
+  - pl
+What is the usable code?
+
+Answer with exactly one of: beta | sigma | gamma | alpha
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 17,
+ &quot;lengths&quot;: [
+  17,
+  28,
+  10,
+  12
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">sigma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 18.
+The codes:
+  - delta code (tr takes 0001 bits, kv takes 0011 bits, rv takes 0000 bits, vl takes 0010 bits)
+  - sigma code (tr takes 111 bits, kv takes 10 bits, rv takes 110 bits, vl takes 0 bits)
+  - alpha code (tr takes 0 bits, kv takes 10 bits, rv takes 11 bits, vl takes 10 bits)
+  - beta code (tr takes 01 bits, kv takes 11 bits, rv takes 1 bits, vl takes 0 bits)
+The message:
+  - rv
+  - rv
+  - tr
+  - kv
+  - tr
+  - tr
+  - vl
+What is the usable code?
+
+Answer with exactly one of: delta | sigma | beta | alpha
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;sigma&quot;,
+ &quot;budget&quot;: 18,
+ &quot;lengths&quot;: [
+  28,
+  18,
+  11,
+  11
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  true,
+  false,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">gamma</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 20.
+The codes:
+  - alpha code (sp takes 10 bits, lk takes 11 bits, kr takes 10 bits, kk takes 0 bits)
+  - sigma code (sp takes 01 bits, lk takes 0 bits, kr takes 1 bits, kk takes 11 bits)
+  - gamma code (sp takes 111 bits, lk takes 0 bits, kr takes 10 bits, kk takes 110 bits)
+  - delta code (sp takes 0010 bits, lk takes 0001 bits, kr takes 0011 bits, kk takes 0000 bits)
+The message:
+  - kr
+  - sp
+  - sp
+  - kk
+  - kk
+  - sp
+  - kr
+  - lk
+What is the usable code?
+
+Answer with exactly one of: sigma | delta | gamma | alpha
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;gamma&quot;,
+ &quot;budget&quot;: 20,
+ &quot;lengths&quot;: [
+  14,
+  13,
+  20,
+  32
+ ],
+ &quot;prefix_free&quot;: [
+  false,
+  false,
+  true,
+  true
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">beta</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 15.
+The codes:
+  - gamma code (lk takes 0011 bits, lp takes 0010 bits, kv takes 0001 bits, zr takes 0000 bits)
+  - omega code (lk takes 1 bits, lp takes 01 bits, kv takes 11 bits, zr takes 0 bits)
+  - beta code (lk takes 111 bits, lp takes 0 bits, kv takes 10 bits, zr takes 110 bits)
+  - alpha code (lk takes 10 bits, lp takes 11 bits, kv takes 10 bits, zr takes 0 bits)
+The message:
+  - zr
+  - lp
+  - zr
+  - lk
+  - kv
+  - lk
+What is the usable code?
+
+Answer with exactly one of: gamma | alpha | beta | omega
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;beta&quot;,
+ &quot;budget&quot;: 15,
+ &quot;lengths&quot;: [
+  24,
+  8,
+  15,
+  10
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">alpha</span></summary>
+<div class="body">
+<p>prompt</p><pre>The budget is 21.
+The codes:
+  - alpha code (pp takes 10 bits, st takes 110 bits, ss takes 0 bits, tm takes 111 bits)
+  - gamma code (pp takes 0 bits, st takes 11 bits, ss takes 1 bits, tm takes 01 bits)
+  - sigma code (pp takes 0010 bits, st takes 0011 bits, ss takes 0000 bits, tm takes 0001 bits)
+  - beta code (pp takes 11 bits, st takes 0 bits, ss takes 10 bits, tm takes 10 bits)
+The message:
+  - tm
+  - pp
+  - tm
+  - st
+  - tm
+  - st
+  - ss
+  - tm
+What is the usable code?
+
+Answer with exactly one of: sigma | alpha | beta | gamma
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_tag&quot;: &quot;alpha&quot;,
+ &quot;budget&quot;: 21,
+ &quot;lengths&quot;: [
+  21,
+  14,
+  32,
+  14
+ ],
+ &quot;prefix_free&quot;: [
+  true,
+  false,
+  true,
+  false
+ ]
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

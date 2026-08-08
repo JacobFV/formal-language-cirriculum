@@ -1,0 +1,3224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>noisy_channel_language — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iv">analogy, causality, planning, and programs</a> &rsaquo;
+  noisy_channel_language</p>
+<h1>#54 <code>noisy_channel_language</code></h1>
+<p class="lede">error correction from redundancy</p>
+<div class="tags"><span class="tag ">level 54</span><span class="tag ">section iv</span><span class="tag ">finite_state_induction</span><span class="tag ">abstraction</span></div>
+<div class="stats">
+<div class="stat"><span class="n">5.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.2</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.2</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>A codebook with slack, a message damaged in transit, one recoverable reading.</p><p>    The codebook is drawn with pairwise Hamming distance at least three, so a
+    single substitution, deletion or transposition leaves the sent word strictly
+    nearest to what arrived. That is *checked*, not assumed: the generator scores
+    the corrupted string against every codeword and rejects any episode where the
+    minimum is tied or lands on the wrong word, so a decoder that reasons about
+    the redundancy is exactly right and a decoder that pattern-matches is not.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>ambiguity</td><td class='num'>3</td></tr><tr><td>grammar_complexity</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The codebook:
+  - fire code acbcc
+  - wind code acaba
+  - water code cabac
+  - cloud code bbbbc
+  - stone code cacbb
+The received: a, c, b and b.
+What is the intended word?
+
+Answer with exactly one of: fire | stone | wind | water | cloud
+Reply with the answer only.</pre><h3>spanish</h3><pre>El libro de códigos es:
+  - fuego el código acbcc
+  - viento el código acaba
+  - agua el código cabac
+  - nube el código bbbbc
+  - piedra el código cacbb
+Lo recibido: a, c, b y b.
+¿Qué palabra se quería decir?
+
+Responde exactamente con una de estas opciones: fuego | piedra | viento | agua | nube
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>码本如下：
+  - 火的编码是acbcc
+  - 风的编码是acaba
+  - 水的编码是cabac
+  - 云的编码是bbbbc
+  - 石头的编码是cacbb
+收到的内容是：a、c、b和b。
+想表达的词是哪一个？
+
+请从以下选项中选出恰好一个作答：火 | 石头 | 风 | 水 | 云
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The codebook:
+  - fire code acbcc
+  - wind code acaba
+  - water code cabac
+  - cloud code bbbbc
+  - stone code cacbb
+The received: a, c, b and b.
+What is the intended word?
+
+Answer with exactly one of: fire | stone | wind | water | cloud
+Reply with the answer only.</pre><h3>symbols</h3><pre>{codebook: [(code fire acbcc) (code wind acaba) (code water cabac) (code cloud bbbbc) (code stone cacbb)], query: intended_word, received: [a c b b]}
+
+Answer with exactly one of: fire | stone | wind | water | cloud
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/noisy_channel_language.jsonl</code> &middot; <code>data/samples/spanish/noisy_channel_language.jsonl</code> &middot; <code>data/samples/chinese/noisy_channel_language.jsonl</code> &middot; <code>data/samples/english_synonym/noisy_channel_language.jsonl</code> &middot; <code>data/samples/symbols/noisy_channel_language.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code acbcc
+  - wind code acaba
+  - water code cabac
+  - cloud code bbbbc
+  - stone code cacbb
+The received: a, c, b and b.
+What is the intended word?
+
+Answer with exactly one of: fire | stone | wind | water | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cacbb&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 2,
+  &quot;stone&quot;: 1,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 2
+ },
+ &quot;received&quot;: &quot;acbb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">wind</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code bbbcb
+  - fire code bcaca
+  - wind code baaac
+  - seed code aabab
+  - cloud code cabca
+The received:
+  - a
+  - b
+  - a
+  - a
+  - c
+What is the intended word?
+
+Answer with exactly one of: fire | water | wind | seed | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;baaac&quot;,
+ &quot;corruption&quot;: &quot;transpose&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 3,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 2
+ },
+ &quot;received&quot;: &quot;abaac&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - seed code abcbc
+  - cloud code bbbca
+  - water code baabb
+  - wind code acacc
+  - fire code ccbbc
+The received:
+  - b
+  - a
+  - b
+  - c
+  - a
+What is the intended word?
+
+Answer with exactly one of: cloud | fire | water | seed | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bbbca&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 3,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;babca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">wind</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code bcabc
+  - water code caccb
+  - seed code bcbcb
+  - cloud code aaaba
+  - fire code cccac
+The received:
+  - c
+  - c
+  - a
+  - b
+  - c
+What is the intended word?
+
+Answer with exactly one of: wind | water | cloud | seed | fire
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bcabc&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 2,
+  &quot;seed&quot;: 3,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 1
+ },
+ &quot;received&quot;: &quot;ccabc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">seed</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code aabca
+  - cloud code ccbcc
+  - stone code aaabc
+  - seed code cbaca
+  - fire code bbcbb
+The received:
+  - c
+  - b
+  - c
+  - a
+  - a
+What is the intended word?
+
+Answer with exactly one of: wind | fire | seed | cloud | stone
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cbaca&quot;,
+ &quot;corruption&quot;: &quot;transpose&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 2,
+  &quot;stone&quot;: 5,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;cbcaa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - cloud code cbaaa
+  - fire code bbacc
+  - stone code abbab
+  - seed code bacaa
+  - wind code cabba
+The received:
+  - a
+  - c
+  - b
+  - a
+  - b
+What is the intended word?
+
+Answer with exactly one of: wind | seed | cloud | fire | stone
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;abbab&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 1,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;acbab&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code ccaac
+  - fire code cbbab
+  - cloud code bacbc
+  - seed code aaccb
+  - wind code baaca
+The received: b, c, b and c.
+What is the intended word?
+
+Answer with exactly one of: seed | cloud | wind | water | fire
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bacbc&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 4,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;bcbc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">wind</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - stone code acabc
+  - cloud code accca
+  - water code bbaaa
+  - wind code ccbaa
+  - fire code cabcc
+The received: c, c, b and a.
+What is the intended word?
+
+Answer with exactly one of: wind | stone | cloud | fire | water
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;ccbaa&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 2,
+  &quot;fire&quot;: 3,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 1
+ },
+ &quot;received&quot;: &quot;ccba&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code bacab
+  - seed code ccbbc
+  - cloud code aacbc
+  - water code caaaa
+  - stone code bbbbb
+The received: a, c, b and c.
+What is the intended word?
+
+Answer with exactly one of: stone | water | seed | fire | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;aacbc&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 2,
+  &quot;stone&quot;: 4,
+  &quot;water&quot;: 4
+ },
+ &quot;received&quot;: &quot;acbc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - stone code aaaaa
+  - fire code babbb
+  - seed code ccacb
+  - water code cacba
+  - cloud code acabc
+The received:
+  - c
+  - c
+  - a
+  - b
+  - c
+What is the intended word?
+
+Answer with exactly one of: stone | fire | water | seed | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;acabc&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 2,
+  &quot;stone&quot;: 4,
+  &quot;water&quot;: 3
+ },
+ &quot;received&quot;: &quot;ccabc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code bbcca
+  - stone code ccbcb
+  - wind code bcaaa
+  - fire code bbbac
+  - cloud code caabc
+The received: c, b, c and b.
+What is the intended word?
+
+Answer with exactly one of: water | wind | stone | cloud | fire
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;ccbcb&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 4,
+  &quot;stone&quot;: 1,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;cbcb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code cbbac
+  - seed code aabba
+  - wind code ccaca
+  - cloud code acbcc
+  - water code acabb
+The received: a, c, c and c.
+What is the intended word?
+
+Answer with exactly one of: cloud | water | fire | seed | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;acbcc&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 4,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;accc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code bbcbc
+  - seed code ccbbc
+  - fire code abbca
+  - cloud code bcacb
+  - stone code cbcaa
+The received: c, a, c and b.
+What is the intended word?
+
+Answer with exactly one of: cloud | water | stone | seed | fire
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bcacb&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 3
+ },
+ &quot;received&quot;: &quot;cacb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">seed</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code cbaba
+  - stone code caacc
+  - water code abbcb
+  - fire code bccbc
+  - seed code bcbca
+The received:
+  - b
+  - b
+  - c
+  - c
+  - a
+What is the intended word?
+
+Answer with exactly one of: fire | seed | stone | wind | water
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bcbca&quot;,
+ &quot;corruption&quot;: &quot;transpose&quot;,
+ &quot;distances&quot;: {
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 2,
+  &quot;stone&quot;: 4,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;bbcca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - seed code bbcbb
+  - cloud code acbaa
+  - stone code babbc
+  - water code aaccc
+  - fire code bcacb
+The received:
+  - c
+  - a
+  - b
+  - a
+  - a
+What is the intended word?
+
+Answer with exactly one of: fire | water | stone | seed | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;acbaa&quot;,
+ &quot;corruption&quot;: &quot;transpose&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 2,
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 5,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 4
+ },
+ &quot;received&quot;: &quot;cabaa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - cloud code cbaab
+  - water code bacbb
+  - fire code abccb
+  - stone code bcaac
+  - seed code aaaba
+The received: c, b, an and b.
+What is the intended word?
+
+Answer with exactly one of: water | stone | fire | cloud | seed
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cbaab&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 3
+ },
+ &quot;received&quot;: &quot;cbab&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code cccab
+  - cloud code cbaca
+  - wind code cacbc
+  - seed code accba
+  - stone code ababc
+The received: b, a, b and c.
+What is the intended word?
+
+Answer with exactly one of: stone | water | wind | seed | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;ababc&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;seed&quot;: 4,
+  &quot;stone&quot;: 1,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 2
+ },
+ &quot;received&quot;: &quot;babc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">wind</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code baaba
+  - cloud code abbca
+  - wind code bcacb
+  - water code bcbbc
+  - stone code acbab
+The received:
+  - b
+  - a
+  - c
+  - c
+  - b
+What is the intended word?
+
+Answer with exactly one of: water | stone | fire | cloud | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bcacb&quot;,
+ &quot;corruption&quot;: &quot;transpose&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 3,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 2
+ },
+ &quot;received&quot;: &quot;baccb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code cacbc
+  - stone code babab
+  - seed code bccaa
+  - water code cbccb
+  - wind code abbcc
+The received:
+  - b
+  - a
+  - b
+  - b
+  - b
+What is the intended word?
+
+Answer with exactly one of: stone | fire | seed | water | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;babab&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 4,
+  &quot;stone&quot;: 1,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;babbb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - cloud code cccaa
+  - fire code acbab
+  - seed code bacca
+  - wind code bbcbc
+  - stone code aaacb
+The received:
+  - a
+  - b
+  - a
+  - c
+  - b
+What is the intended word?
+
+Answer with exactly one of: seed | cloud | fire | stone | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;aaacb&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 5,
+  &quot;fire&quot;: 2,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 1,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;abacb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">water</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code bcbba
+  - cloud code bbacc
+  - wind code bcaab
+  - fire code aaaaa
+  - stone code abccb
+The received: b, c, b and a.
+What is the intended word?
+
+Answer with exactly one of: water | fire | cloud | stone | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bcbba&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 4,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 1,
+  &quot;wind&quot;: 2
+ },
+ &quot;received&quot;: &quot;bcba&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code cccca
+  - water code acbcb
+  - fire code bbbba
+  - cloud code baaaa
+  - stone code abacc
+The received:
+  - a
+  - b
+  - a
+  - c
+  - b
+What is the intended word?
+
+Answer with exactly one of: cloud | fire | wind | stone | water
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;abacc&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 4,
+  &quot;stone&quot;: 1,
+  &quot;water&quot;: 2,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;abacb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">fire</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code cbcac
+  - seed code bccab
+  - wind code baaba
+  - water code acacc
+  - stone code acbbb
+The received:
+  - c
+  - c
+  - b
+  - a
+  - c
+What is the intended word?
+
+Answer with exactly one of: water | wind | seed | fire | stone
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cbcac&quot;,
+ &quot;corruption&quot;: &quot;transpose&quot;,
+ &quot;distances&quot;: {
+  &quot;fire&quot;: 2,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;ccbac&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - seed code ccaaa
+  - cloud code cbbca
+  - stone code acbcb
+  - wind code cbcab
+  - water code baaca
+The received:
+  - c
+  - b
+  - a
+  - c
+  - a
+What is the intended word?
+
+Answer with exactly one of: seed | stone | water | wind | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cbbca&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;seed&quot;: 2,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 2,
+  &quot;wind&quot;: 2
+ },
+ &quot;received&quot;: &quot;cbaca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - cloud code cacbc
+  - stone code baacb
+  - wind code aacca
+  - fire code cbcaa
+  - water code abbcc
+The received:
+  - c
+  - c
+  - a
+  - b
+  - c
+What is the intended word?
+
+Answer with exactly one of: cloud | wind | stone | water | fire
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cacbc&quot;,
+ &quot;corruption&quot;: &quot;transpose&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 2,
+  &quot;fire&quot;: 3,
+  &quot;stone&quot;: 4,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;ccabc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code ccacc
+  - stone code babba
+  - fire code bacac
+  - cloud code ababc
+  - wind code accbb
+The received: a, b, an and c.
+What is the intended word?
+
+Answer with exactly one of: fire | stone | cloud | water | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;ababc&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 2,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;abac&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">seed</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code ccacb
+  - fire code aacbb
+  - cloud code cacaa
+  - seed code acbca
+  - wind code abacc
+The received:
+  - a
+  - c
+  - b
+  - c
+  - b
+What is the intended word?
+
+Answer with exactly one of: water | cloud | seed | wind | fire
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;acbca&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 2,
+  &quot;seed&quot;: 1,
+  &quot;water&quot;: 2,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;acbcb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code ccacb
+  - wind code aabcb
+  - stone code abacc
+  - cloud code bbbaa
+  - fire code bacbb
+The received:
+  - b
+  - b
+  - a
+  - b
+  - a
+What is the intended word?
+
+Answer with exactly one of: stone | fire | cloud | water | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bbbaa&quot;,
+ &quot;corruption&quot;: &quot;transpose&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 2,
+  &quot;fire&quot;: 3,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;bbaba&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code abaac
+  - seed code aaaba
+  - stone code bccba
+  - wind code aaccc
+  - fire code cbbaa
+The received:
+  - b
+  - c
+  - b
+  - c
+  - a
+What is the intended word?
+
+Answer with exactly one of: stone | water | wind | fire | seed
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bccba&quot;,
+ &quot;corruption&quot;: &quot;transpose&quot;,
+ &quot;distances&quot;: {
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 4,
+  &quot;stone&quot;: 2,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;bcbca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - seed code acbbb
+  - water code cbaba
+  - stone code ccbca
+  - cloud code abbcc
+  - fire code aaabc
+The received:
+  - c
+  - c
+  - b
+  - c
+  - c
+What is the intended word?
+
+Answer with exactly one of: fire | seed | water | stone | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;ccbca&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 2,
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 1,
+  &quot;water&quot;: 4
+ },
+ &quot;received&quot;: &quot;ccbcc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code cbbca
+  - fire code cbcbc
+  - stone code aaaac
+  - cloud code bbcaa
+  - seed code babbc
+The received:
+  - a
+  - a
+  - a
+  - c
+  - a
+What is the intended word?
+
+Answer with exactly one of: seed | fire | wind | cloud | stone
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;aaaac&quot;,
+ &quot;corruption&quot;: &quot;transpose&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 5,
+  &quot;seed&quot;: 4,
+  &quot;stone&quot;: 2,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;aaaca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - seed code accbc
+  - fire code caaac
+  - water code bbaab
+  - wind code ccbcb
+  - cloud code acaaa
+The received:
+  - a
+  - c
+  - a
+  - c
+  - a
+What is the intended word?
+
+Answer with exactly one of: seed | wind | cloud | fire | water
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;acaaa&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 3,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;acaca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">seed</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - stone code bbbca
+  - wind code cbccc
+  - seed code aacba
+  - cloud code cbaab
+  - fire code bcbac
+The received:
+  - a
+  - c
+  - c
+  - b
+  - a
+What is the intended word?
+
+Answer with exactly one of: seed | fire | stone | cloud | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;aacba&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 1,
+  &quot;stone&quot;: 4,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;accba&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">water</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - seed code cccac
+  - wind code caaab
+  - water code bbbcc
+  - cloud code cbcbb
+  - stone code aabbb
+The received:
+  - b
+  - b
+  - b
+  - b
+  - c
+What is the intended word?
+
+Answer with exactly one of: water | stone | seed | cloud | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bbbcc&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;seed&quot;: 4,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 1,
+  &quot;wind&quot;: 5
+ },
+ &quot;received&quot;: &quot;bbbbc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code ccbcb
+  - seed code bbabb
+  - stone code bacca
+  - fire code abbca
+  - cloud code acaab
+The received:
+  - a
+  - a
+  - c
+  - c
+  - a
+What is the intended word?
+
+Answer with exactly one of: stone | cloud | seed | fire | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bacca&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 2,
+  &quot;seed&quot;: 5,
+  &quot;stone&quot;: 1,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;aacca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - stone code bccab
+  - wind code cbaaa
+  - cloud code baaba
+  - water code acaac
+  - seed code abbbc
+The received:
+  - b
+  - a
+  - a
+  - c
+  - a
+What is the intended word?
+
+Answer with exactly one of: seed | water | cloud | wind | stone
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;baaba&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;seed&quot;: 4,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 2
+ },
+ &quot;received&quot;: &quot;baaca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">seed</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - seed code cbcac
+  - fire code bccbb
+  - water code abccb
+  - stone code accaa
+  - cloud code bbaab
+The received:
+  - c
+  - b
+  - c
+  - c
+  - c
+What is the intended word?
+
+Answer with exactly one of: water | stone | fire | seed | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cbcac&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 1,
+  &quot;stone&quot;: 4,
+  &quot;water&quot;: 2
+ },
+ &quot;received&quot;: &quot;cbccc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code abacb
+  - stone code bccbc
+  - wind code cbbca
+  - seed code cbcbb
+  - cloud code baaac
+The received: a, a, an and c.
+What is the intended word?
+
+Answer with exactly one of: stone | cloud | wind | seed | fire
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;baaac&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 2,
+  &quot;seed&quot;: 5,
+  &quot;stone&quot;: 4,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;aaac&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - seed code bbbcb
+  - fire code babac
+  - cloud code accac
+  - stone code ccbbc
+  - wind code abcbb
+The received: c, c, an and c.
+What is the intended word?
+
+Answer with exactly one of: wind | fire | cloud | stone | seed
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;accac&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 4,
+  &quot;stone&quot;: 2,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;ccac&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">fire</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - stone code cbcbc
+  - fire code babcc
+  - seed code bbcab
+  - water code abcca
+  - cloud code baabb
+The received: b, a, b and c.
+What is the intended word?
+
+Answer with exactly one of: water | seed | cloud | fire | stone
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;babcc&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 2,
+  &quot;fire&quot;: 1,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 2,
+  &quot;water&quot;: 3
+ },
+ &quot;received&quot;: &quot;babc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">fire</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - cloud code cccaa
+  - water code ababc
+  - wind code baccc
+  - fire code acbab
+  - seed code bbcba
+The received:
+  - a
+  - b
+  - b
+  - a
+  - b
+What is the intended word?
+
+Answer with exactly one of: water | cloud | fire | seed | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;acbab&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 1,
+  &quot;seed&quot;: 3,
+  &quot;water&quot;: 2,
+  &quot;wind&quot;: 5
+ },
+ &quot;received&quot;: &quot;abbab&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">fire</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - stone code bccaa
+  - water code cabaa
+  - fire code cbabc
+  - wind code aacbc
+  - cloud code ccbcb
+The received:
+  - c
+  - b
+  - a
+  - b
+  - a
+What is the intended word?
+
+Answer with exactly one of: fire | wind | stone | water | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cbabc&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 1,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 2,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;cbaba&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">water</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code aaaca
+  - fire code cccac
+  - stone code aacbb
+  - seed code babcb
+  - water code cbacb
+The received:
+  - c
+  - b
+  - a
+  - a
+  - b
+What is the intended word?
+
+Answer with exactly one of: stone | wind | seed | fire | water
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cbacb&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 4,
+  &quot;water&quot;: 1,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;cbaab&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">water</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - seed code bcaaa
+  - fire code baccb
+  - stone code aaaca
+  - wind code bcbbb
+  - water code acbac
+The received: a, c, an and c.
+What is the intended word?
+
+Answer with exactly one of: stone | water | wind | seed | fire
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;acbac&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 2,
+  &quot;water&quot;: 1,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;acac&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">fire</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code cbccb
+  - water code ccbca
+  - cloud code abaaa
+  - seed code caaac
+  - wind code babbc
+The received: c, b, c and b.
+What is the intended word?
+
+Answer with exactly one of: seed | cloud | water | fire | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cbccb&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 1,
+  &quot;seed&quot;: 4,
+  &quot;water&quot;: 2,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;cbcb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">fire</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code abcaa
+  - seed code ccaca
+  - cloud code aabab
+  - stone code bbaab
+  - fire code bbccc
+The received:
+  - b
+  - c
+  - b
+  - c
+  - c
+What is the intended word?
+
+Answer with exactly one of: fire | water | stone | seed | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bbccc&quot;,
+ &quot;corruption&quot;: &quot;transpose&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 2,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 4,
+  &quot;water&quot;: 4
+ },
+ &quot;received&quot;: &quot;bcbcc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - seed code cbbba
+  - stone code babcc
+  - wind code cbcab
+  - fire code ccacc
+  - cloud code aaabc
+The received: b, a, c and c.
+What is the intended word?
+
+Answer with exactly one of: stone | cloud | fire | wind | seed
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;babcc&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 2,
+  &quot;seed&quot;: 4,
+  &quot;stone&quot;: 1,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;bacc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code abccb
+  - seed code bcaca
+  - cloud code cbbbc
+  - wind code ccabb
+  - water code aacac
+The received:
+  - a
+  - b
+  - b
+  - b
+  - c
+What is the intended word?
+
+Answer with exactly one of: cloud | seed | water | fire | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cbbbc&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 4,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;abbbc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">wind</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code abaaa
+  - stone code acabc
+  - seed code cacba
+  - water code aaccc
+  - cloud code cbcab
+The received:
+  - a
+  - c
+  - a
+  - a
+  - a
+What is the intended word?
+
+Answer with exactly one of: cloud | stone | wind | water | seed
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;abaaa&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 2,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 1
+ },
+ &quot;received&quot;: &quot;acaaa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">water</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code bcbbb
+  - stone code cbabc
+  - fire code ccaca
+  - cloud code aacaa
+  - water code acbcc
+The received:
+  - c
+  - c
+  - b
+  - c
+  - c
+What is the intended word?
+
+Answer with exactly one of: fire | wind | water | cloud | stone
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;acbcc&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 5,
+  &quot;fire&quot;: 2,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 1,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;ccbcc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - stone code bacca
+  - cloud code cbbac
+  - seed code ababb
+  - fire code abccc
+  - wind code bcaab
+The received:
+  - c
+  - b
+  - b
+  - c
+  - a
+What is the intended word?
+
+Answer with exactly one of: fire | stone | cloud | seed | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cbbac&quot;,
+ &quot;corruption&quot;: &quot;transpose&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 2,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 4,
+  &quot;stone&quot;: 3,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;cbbca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">seed</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code bbcaa
+  - water code cbbcb
+  - seed code ccccc
+  - stone code acbab
+  - wind code bccbb
+The received: c, c, c and c.
+What is the intended word?
+
+Answer with exactly one of: wind | seed | stone | fire | water
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;ccccc&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 1,
+  &quot;stone&quot;: 4,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;cccc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">fire</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - stone code cbcaa
+  - wind code bacac
+  - fire code abacc
+  - water code baaca
+  - cloud code cccbc
+The received:
+  - a
+  - a
+  - a
+  - c
+  - c
+What is the intended word?
+
+Answer with exactly one of: fire | wind | cloud | stone | water
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;abacc&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 1,
+  &quot;stone&quot;: 5,
+  &quot;water&quot;: 2,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;aaacc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - seed code ccbcb
+  - stone code accbb
+  - cloud code babba
+  - wind code cbbaa
+  - water code caaab
+The received: a, c, b and b.
+What is the intended word?
+
+Answer with exactly one of: wind | seed | stone | water | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;accbb&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;seed&quot;: 2,
+  &quot;stone&quot;: 1,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;acbb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - stone code abcbc
+  - wind code acbcb
+  - cloud code cbaca
+  - water code babbc
+  - seed code bbcaa
+The received: a, b, c and c.
+What is the intended word?
+
+Answer with exactly one of: cloud | wind | water | seed | stone
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;abcbc&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 1,
+  &quot;water&quot;: 2,
+  &quot;wind&quot;: 2
+ },
+ &quot;received&quot;: &quot;abcc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">water</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code bccbc
+  - stone code cbaac
+  - fire code acaba
+  - cloud code ccbaa
+  - seed code cbcca
+The received: b, c, b and c.
+What is the intended word?
+
+Answer with exactly one of: fire | cloud | water | seed | stone
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bccbc&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 1
+ },
+ &quot;received&quot;: &quot;bcbc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code bcabc
+  - stone code cabac
+  - cloud code aacca
+  - water code acbcc
+  - seed code cbcaa
+The received:
+  - c
+  - a
+  - c
+  - c
+  - a
+What is the intended word?
+
+Answer with exactly one of: seed | cloud | fire | stone | water
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;aacca&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 2,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 3
+ },
+ &quot;received&quot;: &quot;cacca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code abbac
+  - stone code acacc
+  - wind code cccbc
+  - fire code bbbcb
+  - cloud code aabca
+The received: a, b, c and a.
+What is the intended word?
+
+Answer with exactly one of: water | stone | wind | fire | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;aabca&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 3,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 2,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;abca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code caaab
+  - water code abbcc
+  - wind code babba
+  - stone code accca
+  - cloud code bccbc
+The received:
+  - b
+  - c
+  - c
+  - b
+  - a
+What is the intended word?
+
+Answer with exactly one of: stone | wind | fire | water | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bccbc&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 4,
+  &quot;stone&quot;: 2,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 2
+ },
+ &quot;received&quot;: &quot;bccba&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code aaccb
+  - cloud code ccbba
+  - stone code bcacb
+  - seed code cbcbc
+  - wind code aabbc
+The received:
+  - c
+  - c
+  - b
+  - a
+  - a
+What is the intended word?
+
+Answer with exactly one of: cloud | stone | seed | fire | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;ccbba&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 4,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;ccbaa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">fire</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - stone code cccca
+  - fire code bcbcc
+  - seed code aaabc
+  - wind code cabcb
+  - cloud code babaa
+The received:
+  - b
+  - c
+  - c
+  - c
+  - c
+What is the intended word?
+
+Answer with exactly one of: cloud | seed | wind | fire | stone
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bcbcc&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 1,
+  &quot;seed&quot;: 4,
+  &quot;stone&quot;: 2,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;bcccc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">seed</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - cloud code abaab
+  - wind code acbcb
+  - fire code bcaba
+  - seed code cbabc
+  - water code aaaca
+The received:
+  - c
+  - c
+  - a
+  - b
+  - c
+What is the intended word?
+
+Answer with exactly one of: wind | water | fire | cloud | seed
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cbabc&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 2,
+  &quot;seed&quot;: 1,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;ccabc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code cabcc
+  - water code aaabc
+  - seed code bcbac
+  - cloud code acaca
+  - wind code cbbbb
+The received:
+  - a
+  - c
+  - c
+  - c
+  - a
+What is the intended word?
+
+Answer with exactly one of: cloud | seed | fire | wind | water
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;acaca&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 4,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 5
+ },
+ &quot;received&quot;: &quot;accca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">water</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - stone code aaabc
+  - water code bccab
+  - fire code aabab
+  - seed code abbcc
+  - wind code cbacb
+The received:
+  - b
+  - c
+  - a
+  - a
+  - b
+What is the intended word?
+
+Answer with exactly one of: wind | stone | fire | seed | water
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bccab&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 5,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 1,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;bcaab&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">wind</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code ccabb
+  - cloud code cccca
+  - stone code babba
+  - seed code cabcc
+  - water code cbaac
+The received:
+  - c
+  - a
+  - a
+  - b
+  - b
+What is the intended word?
+
+Answer with exactly one of: wind | cloud | water | seed | stone
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;ccabb&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 1
+ },
+ &quot;received&quot;: &quot;caabb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">seed</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code aacca
+  - cloud code bbcbc
+  - fire code caacb
+  - stone code bcbaa
+  - seed code cbbac
+The received:
+  - c
+  - b
+  - b
+  - c
+  - a
+What is the intended word?
+
+Answer with exactly one of: seed | cloud | stone | fire | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cbbac&quot;,
+ &quot;corruption&quot;: &quot;transpose&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 2,
+  &quot;stone&quot;: 3,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;cbbca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">wind</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code ccaca
+  - wind code abccb
+  - cloud code cacbc
+  - stone code babca
+  - fire code bbcac
+The received:
+  - a
+  - b
+  - a
+  - c
+  - b
+What is the intended word?
+
+Answer with exactly one of: fire | wind | cloud | stone | water
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;abccb&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 3,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 1
+ },
+ &quot;received&quot;: &quot;abacb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code abcac
+  - water code bbaaa
+  - seed code acbba
+  - fire code ccbab
+  - cloud code caaca
+The received:
+  - c
+  - a
+  - a
+  - b
+  - a
+What is the intended word?
+
+Answer with exactly one of: cloud | fire | water | seed | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;caaca&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 3,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;caaba&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code ccbaa
+  - wind code cbbcb
+  - stone code aaacb
+  - fire code bbbba
+  - seed code aacbc
+The received:
+  - a
+  - a
+  - b
+  - c
+  - b
+What is the intended word?
+
+Answer with exactly one of: stone | water | fire | seed | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;aaacb&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 2,
+  &quot;stone&quot;: 1,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 2
+ },
+ &quot;received&quot;: &quot;aabcb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">wind</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code bbcbc
+  - stone code aabcc
+  - cloud code cccca
+  - wind code cbbcb
+  - seed code aaaba
+The received: c, b, b and c.
+What is the intended word?
+
+Answer with exactly one of: stone | seed | cloud | wind | fire
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cbbcb&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 2,
+  &quot;seed&quot;: 4,
+  &quot;stone&quot;: 3,
+  &quot;wind&quot;: 1
+ },
+ &quot;received&quot;: &quot;cbbc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - cloud code cbbbb
+  - stone code caccb
+  - water code aaabb
+  - fire code baacc
+  - wind code abcaa
+The received:
+  - b
+  - c
+  - b
+  - b
+  - b
+What is the intended word?
+
+Answer with exactly one of: water | stone | wind | cloud | fire
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cbbbb&quot;,
+ &quot;corruption&quot;: &quot;transpose&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 2,
+  &quot;fire&quot;: 4,
+  &quot;stone&quot;: 4,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;bcbbb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">seed</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - seed code acaca
+  - cloud code cabcc
+  - fire code ccbba
+  - stone code abaac
+  - water code bcaab
+The received:
+  - a
+  - c
+  - c
+  - c
+  - a
+What is the intended word?
+
+Answer with exactly one of: water | fire | stone | cloud | seed
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;acaca&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 1,
+  &quot;stone&quot;: 4,
+  &quot;water&quot;: 4
+ },
+ &quot;received&quot;: &quot;accca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">water</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code abbbb
+  - seed code accba
+  - stone code abaaa
+  - fire code bcccc
+  - cloud code babbc
+The received: b, b, b and b.
+What is the intended word?
+
+Answer with exactly one of: water | stone | seed | cloud | fire
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;abbbb&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 2,
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 4,
+  &quot;stone&quot;: 4,
+  &quot;water&quot;: 1
+ },
+ &quot;received&quot;: &quot;bbbb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code cbaac
+  - seed code ababb
+  - fire code aabba
+  - cloud code ccaca
+  - stone code bbcab
+The received:
+  - b
+  - b
+  - c
+  - b
+  - a
+What is the intended word?
+
+Answer with exactly one of: fire | seed | stone | wind | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bbcab&quot;,
+ &quot;corruption&quot;: &quot;transpose&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 2,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;bbcba&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">fire</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - cloud code cacac
+  - wind code bbcbb
+  - fire code abbcc
+  - water code accaa
+  - seed code baaba
+The received:
+  - b
+  - b
+  - b
+  - c
+  - c
+What is the intended word?
+
+Answer with exactly one of: cloud | seed | fire | wind | water
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;abbcc&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 1,
+  &quot;seed&quot;: 4,
+  &quot;water&quot;: 5,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;bbbcc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code bccbc
+  - seed code cbabb
+  - water code caaaa
+  - fire code bbcab
+  - cloud code ccccb
+The received: c, c, c and c.
+What is the intended word?
+
+Answer with exactly one of: water | fire | cloud | seed | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;ccccb&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 4,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 2
+ },
+ &quot;received&quot;: &quot;cccc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">water</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - seed code acbcc
+  - cloud code babca
+  - fire code bcabc
+  - water code caccb
+  - stone code ababb
+The received:
+  - c
+  - a
+  - c
+  - c
+  - a
+What is the intended word?
+
+Answer with exactly one of: stone | water | seed | cloud | fire
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;caccb&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 2,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 5,
+  &quot;water&quot;: 1
+ },
+ &quot;received&quot;: &quot;cacca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">wind</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code cabab
+  - stone code abbcc
+  - water code aacba
+  - fire code bbaac
+  - seed code bcbaa
+The received:
+  - a
+  - a
+  - b
+  - a
+  - b
+What is the intended word?
+
+Answer with exactly one of: seed | fire | water | wind | stone
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cabab&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 2,
+  &quot;wind&quot;: 1
+ },
+ &quot;received&quot;: &quot;aabab&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">seed</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - seed code babca
+  - wind code ccbbc
+  - cloud code aacbc
+  - stone code ccaaa
+  - fire code bbacc
+The received: b, a, b and a.
+What is the intended word?
+
+Answer with exactly one of: cloud | wind | fire | seed | stone
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;babca&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 1,
+  &quot;stone&quot;: 3,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;baba&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - stone code ccbca
+  - fire code acbbb
+  - seed code abaca
+  - cloud code aabaa
+  - water code aaccb
+The received:
+  - c
+  - a
+  - b
+  - a
+  - a
+What is the intended word?
+
+Answer with exactly one of: cloud | seed | water | fire | stone
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;aabaa&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 2,
+  &quot;stone&quot;: 2,
+  &quot;water&quot;: 4
+ },
+ &quot;received&quot;: &quot;cabaa&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">water</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code cacab
+  - water code cccba
+  - seed code bbcbc
+  - cloud code bcaca
+  - wind code aaabb
+The received:
+  - c
+  - c
+  - c
+  - b
+  - c
+What is the intended word?
+
+Answer with exactly one of: seed | wind | fire | water | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cccba&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 2,
+  &quot;water&quot;: 1,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;cccbc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">wind</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code bacba
+  - stone code acaac
+  - seed code baaab
+  - cloud code ccabb
+  - water code aaccb
+The received:
+  - c
+  - a
+  - c
+  - b
+  - a
+What is the intended word?
+
+Answer with exactly one of: cloud | stone | seed | water | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bacba&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;seed&quot;: 4,
+  &quot;stone&quot;: 3,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 1
+ },
+ &quot;received&quot;: &quot;cacba&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code abbac
+  - seed code bacac
+  - cloud code caaba
+  - stone code ccbbb
+  - water code cbaab
+The received:
+  - c
+  - c
+  - b
+  - c
+  - b
+What is the intended word?
+
+Answer with exactly one of: stone | seed | cloud | fire | water
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;ccbbb&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 4,
+  &quot;stone&quot;: 1,
+  &quot;water&quot;: 3
+ },
+ &quot;received&quot;: &quot;ccbcb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">fire</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code cbbbc
+  - cloud code aacaa
+  - fire code abbca
+  - seed code bccab
+  - wind code abaab
+The received: a, b, c and a.
+What is the intended word?
+
+Answer with exactly one of: fire | seed | cloud | wind | water
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;abbca&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 2,
+  &quot;fire&quot;: 1,
+  &quot;seed&quot;: 3,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 2
+ },
+ &quot;received&quot;: &quot;abca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">fire</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code cbabb
+  - seed code aaaca
+  - wind code abcba
+  - fire code cccbc
+  - stone code babaa
+The received: c, c, c and b.
+What is the intended word?
+
+Answer with exactly one of: stone | wind | fire | seed | water
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cccbc&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;fire&quot;: 1,
+  &quot;seed&quot;: 4,
+  &quot;stone&quot;: 5,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;cccb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">seed</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code cabbc
+  - fire code cbaac
+  - water code abbca
+  - seed code ccccb
+  - cloud code aabab
+The received:
+  - c
+  - c
+  - b
+  - c
+  - b
+What is the intended word?
+
+Answer with exactly one of: cloud | water | wind | seed | fire
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;ccccb&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 1,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;ccbcb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - stone code aabaa
+  - seed code bcbac
+  - cloud code bbabb
+  - fire code acccc
+  - wind code caaab
+The received:
+  - b
+  - b
+  - a
+  - b
+  - a
+What is the intended word?
+
+Answer with exactly one of: stone | fire | wind | seed | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bbabb&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 5,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 3,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;bbaba&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">seed</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - seed code bbcaa
+  - wind code ababb
+  - stone code cacab
+  - fire code abccc
+  - water code cccbc
+The received:
+  - b
+  - b
+  - c
+  - c
+  - a
+What is the intended word?
+
+Answer with exactly one of: seed | water | wind | stone | fire
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bbcaa&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;fire&quot;: 2,
+  &quot;seed&quot;: 1,
+  &quot;stone&quot;: 4,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;bbcca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">seed</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - stone code bbaab
+  - cloud code bacac
+  - wind code bccba
+  - seed code acbcc
+  - water code ccbbb
+The received:
+  - c
+  - a
+  - b
+  - c
+  - c
+What is the intended word?
+
+Answer with exactly one of: water | seed | wind | stone | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;acbcc&quot;,
+ &quot;corruption&quot;: &quot;transpose&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;seed&quot;: 2,
+  &quot;stone&quot;: 5,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;cabcc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">seed</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code aabba
+  - wind code bbabb
+  - water code acaca
+  - seed code bccba
+  - stone code cbcaa
+The received: c, c, b and a.
+What is the intended word?
+
+Answer with exactly one of: fire | wind | stone | seed | water
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bccba&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 1,
+  &quot;stone&quot;: 2,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;ccba&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">cloud</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - stone code cccaa
+  - wind code cacbb
+  - seed code ccacb
+  - fire code bbcbc
+  - cloud code baaca
+The received: a, a, c and a.
+What is the intended word?
+
+Answer with exactly one of: cloud | stone | seed | fire | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;baaca&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 1,
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 3,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;aaca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code aacbc
+  - fire code bbcbb
+  - stone code ccbbc
+  - seed code bbaac
+  - wind code cbaba
+The received:
+  - c
+  - c
+  - b
+  - c
+  - b
+What is the intended word?
+
+Answer with exactly one of: stone | water | seed | fire | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;ccbbc&quot;,
+ &quot;corruption&quot;: &quot;transpose&quot;,
+ &quot;distances&quot;: {
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 5,
+  &quot;stone&quot;: 2,
+  &quot;water&quot;: 3,
+  &quot;wind&quot;: 3
+ },
+ &quot;received&quot;: &quot;ccbcb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">seed</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - cloud code ccbaa
+  - fire code acaac
+  - seed code aacca
+  - stone code cbbcc
+  - wind code babbb
+The received: a, c, c and a.
+What is the intended word?
+
+Answer with exactly one of: wind | stone | seed | fire | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;aacca&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 2,
+  &quot;seed&quot;: 1,
+  &quot;stone&quot;: 4,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;acca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">fire</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - stone code accbb
+  - wind code aacac
+  - seed code acacc
+  - fire code caaab
+  - cloud code baaba
+The received:
+  - c
+  - a
+  - c
+  - a
+  - b
+What is the intended word?
+
+Answer with exactly one of: fire | cloud | stone | seed | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;caaab&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 1,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 3,
+  &quot;wind&quot;: 2
+ },
+ &quot;received&quot;: &quot;cacab&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - seed code aaabc
+  - fire code abbcb
+  - stone code aacab
+  - wind code cccca
+  - cloud code bbcac
+The received: a, c, an and b.
+What is the intended word?
+
+Answer with exactly one of: fire | wind | stone | cloud | seed
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;aacab&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 2,
+  &quot;stone&quot;: 1,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;acab&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">stone</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - water code bacba
+  - wind code aaaac
+  - cloud code bbcab
+  - seed code cbbbb
+  - stone code acacb
+The received:
+  - a
+  - c
+  - a
+  - c
+  - c
+What is the intended word?
+
+Answer with exactly one of: stone | seed | cloud | water | wind
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;acacb&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;seed&quot;: 5,
+  &quot;stone&quot;: 1,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 2
+ },
+ &quot;received&quot;: &quot;acacc&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">wind</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - cloud code aaaab
+  - stone code babca
+  - wind code cbbaa
+  - fire code cacbc
+  - seed code bcaac
+The received:
+  - c
+  - b
+  - b
+  - a
+  - c
+What is the intended word?
+
+Answer with exactly one of: fire | seed | stone | wind | cloud
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cbbaa&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 3,
+  &quot;stone&quot;: 4,
+  &quot;wind&quot;: 1
+ },
+ &quot;received&quot;: &quot;cbbac&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">seed</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - seed code cccca
+  - water code caacb
+  - fire code aaaac
+  - cloud code bcaba
+  - stone code babbc
+The received: c, c, c and a.
+What is the intended word?
+
+Answer with exactly one of: water | cloud | fire | stone | seed
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;cccca&quot;,
+ &quot;corruption&quot;: &quot;delete&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 3,
+  &quot;fire&quot;: 4,
+  &quot;seed&quot;: 1,
+  &quot;stone&quot;: 5,
+  &quot;water&quot;: 3
+ },
+ &quot;received&quot;: &quot;ccca&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">water</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - wind code bcaca
+  - stone code abbcc
+  - water code aacac
+  - fire code accba
+  - seed code cabab
+The received:
+  - a
+  - a
+  - b
+  - a
+  - c
+What is the intended word?
+
+Answer with exactly one of: water | fire | wind | stone | seed
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;aacac&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;fire&quot;: 3,
+  &quot;seed&quot;: 2,
+  &quot;stone&quot;: 2,
+  &quot;water&quot;: 1,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;aabac&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">fire</span></summary>
+<div class="body">
+<p>prompt</p><pre>The codebook:
+  - fire code bbbab
+  - stone code bccca
+  - wind code cbccc
+  - cloud code aaaab
+  - water code cacba
+The received:
+  - b
+  - b
+  - b
+  - b
+  - b
+What is the intended word?
+
+Answer with exactly one of: water | wind | cloud | stone | fire
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;clean&quot;: &quot;bbbab&quot;,
+ &quot;corruption&quot;: &quot;substitute&quot;,
+ &quot;distances&quot;: {
+  &quot;cloud&quot;: 4,
+  &quot;fire&quot;: 1,
+  &quot;stone&quot;: 4,
+  &quot;water&quot;: 4,
+  &quot;wind&quot;: 4
+ },
+ &quot;received&quot;: &quot;bbbbb&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

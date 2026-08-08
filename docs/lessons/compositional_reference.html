@@ -1,0 +1,2660 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>compositional_reference — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#ii">compositional semantics and logical language</a> &rsaquo;
+  compositional_reference</p>
+<h1>#15 <code>compositional_reference</code></h1>
+<p class="lede">recursive denotation</p>
+<div class="tags"><span class="tag ">level 13</span><span class="tag ">section ii</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.305</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>&#x27;the red object left of the blue cube&#x27; — recursive denotation.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>ambiguity</td><td class='num'>1</td></tr><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>world_complexity</td><td class='num'>2</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>In the scene: o0 is a yellow prism at (6, 4); o1 is a purple prism at (2, 4); o2 is a yellow cone at (4, 3); o3 is a purple sphere at (0, 2).
+Find the purple object to the left of the purple prism.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre><h3>spanish</h3><pre>En la escena: o0 es un prisma amarillo y está en (6, 4); o1 es un prisma morado y está en (2, 4); o2 es un cono amarillo y está en (4, 3); o3 es una esfera morada y está en (0, 2).
+Busca el objeto morado a la izquierda de el prisma morado.
+
+Responde exactamente con una de estas opciones: o0 | o1 | o2 | o3
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>场景中：o0是一个黄色的棱镜，位于(6,4)；o1是一个紫色的棱镜，位于(2,4)；o2是一个黄色的圆锥，位于(4,3)；o3是一个紫色的球体，位于(0,2)。
+请找出在紫色的棱镜的左边紫色的物体。
+
+请从以下选项中选出恰好一个作答：o0 | o1 | o2 | o3
+只回答答案本身。</pre><h3>english_synonym</h3><pre>In the scene: o0 is a yellow prism at (6, 4); o1 is a purple prism at (2, 4); o2 is a yellow cone at (4, 3); o3 is a purple sphere at (0, 2).
+Find the violet object to the left of the violet wedge.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre><h3>symbols</h3><pre>{query: (the purple (left_of purple prism)), scene: [(obj o0 yellow prism 6 4) (obj o1 purple prism 2 4) (obj o2 yellow cone 4 3) (obj o3 purple sphere 0 2)]}
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/compositional_reference.jsonl</code> &middot; <code>data/samples/spanish/compositional_reference.jsonl</code> &middot; <code>data/samples/chinese/compositional_reference.jsonl</code> &middot; <code>data/samples/english_synonym/compositional_reference.jsonl</code> &middot; <code>data/samples/symbols/compositional_reference.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow prism at (6, 4); o1 is a purple prism at (2, 4); o2 is a yellow cone at (4, 3); o3 is a purple sphere at (0, 2).
+Find the purple object to the left of the purple prism.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 4
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a blue disc at (6, 4); o1 is a red prism at (2, 7); o2 is an orange prism at (4, 1); o3 is a yellow cube at (0, 6).
+Find the red object to the left of the blue disc.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 4
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 7
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a red cube at (0, 5); o1 is a blue rod at (2, 4); o2 is a purple sphere at (4, 0); o3 is a purple rod at (6, 6).
+Find the purple object to the left of the purple rod.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 6
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a blue disc at (0, 2); o1 is a green disc at (2, 9); o2 is a red disc at (4, 7); o3 is a green disc at (6, 3).
+Find the blue object to the left of the green disc.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 3
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a blue cone at (6, 6); o1 is a yellow sphere at (0, 1); o2 is a red prism at (2, 4); o3 is a red sphere at (4, 8).
+Find the yellow object to the left of the red prism.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 4
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple cone at (6, 8); o1 is a red prism at (4, 0); o2 is a blue cube at (0, 7); o3 is a blue prism at (2, 1).
+Find the red object to the left of the purple cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 8
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple cube at (2, 4); o1 is a red cube at (0, 9); o2 is a yellow rod at (4, 5); o3 is a red cone at (6, 3).
+Find the yellow object to the left of the red cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 3
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a green sphere at (2, 0); o1 is a red disc at (4, 5); o2 is a purple cube at (6, 3); o3 is a red cube at (0, 6).
+Find the red object to the left of the green sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 0
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a red cone at (0, 2); o1 is a yellow rod at (4, 1); o2 is a blue sphere at (2, 3); o3 is a yellow rod at (6, 7).
+Find the red object to the left of the yellow rod.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 7
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow disc at (4, 4); o1 is a blue sphere at (2, 5); o2 is a purple prism at (0, 1); o3 is a green disc at (6, 0).
+Find the yellow object to the left of the green disc.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 0
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a green cube at (0, 7); o1 is a purple cube at (6, 7); o2 is a yellow cone at (4, 0); o3 is a blue prism at (2, 1).
+Find the blue object to the left of the purple cube.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 7
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow disc at (2, 7); o1 is a purple disc at (6, 2); o2 is a purple prism at (4, 2); o3 is a red prism at (0, 2).
+Find the purple object to the left of the purple disc.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 2
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow cone at (0, 5); o1 is a blue prism at (4, 5); o2 is a yellow cone at (6, 9); o3 is a blue disc at (2, 9).
+Find the yellow object to the left of the yellow cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 9
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a green cone at (6, 3); o1 is a green sphere at (0, 2); o2 is a blue cube at (4, 3); o3 is a yellow cone at (2, 6).
+Find the yellow object to the left of the green cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 3
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a red disc at (4, 3); o1 is a green rod at (6, 4); o2 is an orange cube at (2, 4); o3 is a yellow rod at (0, 6).
+Find the yellow object to the left of the orange cube.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 4
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a blue cube at (0, 0); o1 is a blue sphere at (6, 0); o2 is an orange sphere at (2, 3); o3 is a red cone at (4, 5).
+Find the blue object to the left of the blue sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 0
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a green prism at (6, 4); o1 is a yellow sphere at (0, 0); o2 is a yellow rod at (2, 3); o3 is an orange sphere at (4, 4).
+Find the yellow object to the left of the yellow rod.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 3
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple prism at (0, 5); o1 is a green sphere at (2, 4); o2 is a red cube at (6, 6); o3 is an orange prism at (4, 8).
+Find the orange object to the left of the red cube.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 6
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a blue cube at (2, 5); o1 is an orange sphere at (0, 7); o2 is a blue prism at (6, 7); o3 is a green sphere at (4, 1).
+Find the green object to the left of the blue prism.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 7
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is an orange cube at (0, 1); o1 is a purple sphere at (4, 5); o2 is a purple cone at (2, 2); o3 is a purple cone at (6, 4).
+Find the orange object to the left of the purple cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 2
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is an orange rod at (0, 4); o1 is an orange rod at (6, 5); o2 is a purple sphere at (2, 6); o3 is a yellow cube at (4, 2).
+Find the orange object to the left of the orange rod.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 5
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a red prism at (2, 4); o1 is a yellow sphere at (4, 8); o2 is a yellow disc at (0, 3); o3 is a red cube at (6, 9).
+Find the yellow object to the left of the yellow sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 8
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a blue sphere at (2, 9); o1 is a yellow sphere at (0, 5); o2 is a red sphere at (4, 0); o3 is a green disc at (6, 8).
+Find the yellow object to the left of the blue sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 9
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow cube at (2, 9); o1 is a red prism at (4, 8); o2 is a purple sphere at (0, 4); o3 is a yellow cube at (6, 9).
+Find the purple object to the left of the yellow cube.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 9
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is an orange prism at (2, 2); o1 is a yellow sphere at (0, 2); o2 is an orange rod at (4, 2); o3 is an orange cone at (6, 7).
+Find the yellow object to the left of the orange cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 7
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is an orange cube at (0, 4); o1 is an orange prism at (6, 4); o2 is a red cone at (4, 6); o3 is a purple disc at (2, 9).
+Find the purple object to the left of the orange prism.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 4
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 9
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is an orange sphere at (2, 6); o1 is a purple disc at (0, 2); o2 is a yellow cube at (4, 8); o3 is a blue rod at (6, 3).
+Find the purple object to the left of the orange sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 6
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is an orange prism at (2, 4); o1 is a blue cube at (4, 4); o2 is a purple cone at (0, 5); o3 is a yellow sphere at (6, 3).
+Find the blue object to the left of the yellow sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 3
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a red rod at (6, 8); o1 is a blue rod at (4, 3); o2 is a blue rod at (0, 6); o3 is a purple sphere at (2, 6).
+Find the purple object to the left of the red rod.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 8
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple cube at (6, 9); o1 is a purple cone at (2, 8); o2 is a green prism at (0, 0); o3 is a red cube at (4, 3).
+Find the red object to the left of the purple cube.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 9
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple cone at (6, 0); o1 is a purple rod at (4, 4); o2 is a red prism at (0, 2); o3 is a red prism at (2, 8).
+Find the red object to the left of the red prism.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 8
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a red prism at (4, 6); o1 is a blue rod at (6, 2); o2 is a red disc at (0, 2); o3 is a blue rod at (2, 0).
+Find the blue object to the left of the blue rod.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 2
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow sphere at (4, 4); o1 is an orange sphere at (0, 0); o2 is a blue cube at (2, 5); o3 is a purple cone at (6, 8).
+Find the orange object to the left of the purple cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 8
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple sphere at (4, 4); o1 is a yellow rod at (0, 8); o2 is a blue rod at (2, 8); o3 is a green rod at (6, 7).
+Find the yellow object to the left of the green rod.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 7
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple cone at (6, 0); o1 is a blue cube at (4, 5); o2 is a blue prism at (2, 5); o3 is a purple disc at (0, 2).
+Find the purple object to the left of the blue cube.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 5
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is an orange cone at (2, 5); o1 is a blue cone at (6, 4); o2 is a red cube at (0, 4); o3 is a green cone at (4, 1).
+Find the green object to the left of the blue cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 4
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a green cube at (0, 4); o1 is a red cube at (4, 2); o2 is a blue cone at (2, 5); o3 is a purple cone at (6, 1).
+Find the red object to the left of the purple cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 1
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow disc at (0, 9); o1 is an orange rod at (6, 0); o2 is a red cone at (2, 8); o3 is a purple rod at (4, 9).
+Find the red object to the left of the orange rod.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 0
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is an orange prism at (0, 1); o1 is a red cone at (6, 5); o2 is a red disc at (2, 9); o3 is a green cone at (4, 5).
+Find the green object to the left of the red cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 5
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a blue cone at (4, 0); o1 is a blue sphere at (6, 9); o2 is a red rod at (2, 5); o3 is an orange sphere at (0, 4).
+Find the red object to the left of the blue sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 9
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow disc at (0, 0); o1 is a blue cone at (6, 2); o2 is a green cone at (4, 0); o3 is a purple rod at (2, 0).
+Find the yellow object to the left of the blue cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 2
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow cone at (4, 2); o1 is a yellow disc at (6, 8); o2 is a green prism at (0, 0); o3 is a blue rod at (2, 7).
+Find the blue object to the left of the yellow disc.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 8
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 7
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is an orange cube at (2, 4); o1 is a blue sphere at (4, 1); o2 is an orange rod at (6, 1); o3 is a purple prism at (0, 0).
+Find the purple object to the left of the orange cube.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 4
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a red cone at (4, 7); o1 is a green rod at (0, 7); o2 is a purple prism at (2, 0); o3 is a purple prism at (6, 5).
+Find the red object to the left of the purple prism.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 5
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 7
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow disc at (0, 1); o1 is a blue prism at (2, 4); o2 is a red sphere at (6, 9); o3 is a red cube at (4, 8).
+Find the blue object to the left of the red sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 9
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a green prism at (4, 4); o1 is a red cone at (2, 0); o2 is a red prism at (6, 1); o3 is a green cube at (0, 0).
+Find the green object to the left of the red cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 0
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a red prism at (0, 9); o1 is a purple sphere at (6, 2); o2 is a purple disc at (4, 0); o3 is a red cone at (2, 0).
+Find the purple object to the left of the purple sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 2
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a green cube at (6, 8); o1 is a yellow disc at (4, 4); o2 is a purple prism at (2, 9); o3 is a red prism at (0, 1).
+Find the purple object to the left of the green cube.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 8
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 9
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple cone at (6, 8); o1 is an orange disc at (4, 8); o2 is a blue rod at (0, 2); o3 is a blue rod at (2, 7).
+Find the orange object to the left of the purple cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 8
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a red cone at (0, 1); o1 is a green disc at (6, 0); o2 is an orange cube at (4, 2); o3 is a yellow rod at (2, 8).
+Find the red object to the left of the yellow rod.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 8
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow cone at (6, 3); o1 is an orange prism at (0, 1); o2 is a purple cone at (2, 8); o3 is a red sphere at (4, 1).
+Find the purple object to the left of the yellow cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 3
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a blue disc at (0, 2); o1 is a blue sphere at (6, 4); o2 is a yellow disc at (2, 8); o3 is a purple rod at (4, 9).
+Find the blue object to the left of the blue sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 4
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow cube at (4, 7); o1 is a blue prism at (0, 2); o2 is an orange prism at (2, 5); o3 is a yellow rod at (6, 0).
+Find the blue object to the left of the yellow rod.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 0
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple sphere at (2, 8); o1 is an orange prism at (4, 5); o2 is an orange prism at (6, 0); o3 is a blue cone at (0, 4).
+Find the orange object to the left of the orange prism.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 0
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a blue prism at (0, 4); o1 is a yellow prism at (2, 3); o2 is a yellow cone at (4, 6); o3 is a blue rod at (6, 0).
+Find the yellow object to the left of the yellow cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 6
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a red sphere at (0, 4); o1 is a red rod at (2, 4); o2 is a red cone at (6, 8); o3 is a yellow prism at (4, 6).
+Find the yellow object to the left of the red cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 8
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple cube at (6, 8); o1 is a blue disc at (4, 3); o2 is a yellow cone at (0, 1); o3 is an orange rod at (2, 9).
+Find the blue object to the left of the purple cube.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 8
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a red cone at (0, 9); o1 is a red sphere at (6, 5); o2 is a yellow cone at (2, 6); o3 is a red rod at (4, 8).
+Find the yellow object to the left of the red rod.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 8
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple sphere at (4, 3); o1 is an orange sphere at (2, 6); o2 is a green cone at (6, 7); o3 is a yellow prism at (0, 9).
+Find the yellow object to the left of the green cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 7
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 9
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a blue cube at (2, 0); o1 is a blue cone at (0, 9); o2 is a red prism at (6, 7); o3 is a purple cone at (4, 9).
+Find the blue object to the left of the blue cube.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 0
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 9
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a green cone at (4, 2); o1 is a green sphere at (6, 7); o2 is a green cube at (2, 2); o3 is a blue prism at (0, 3).
+Find the blue object to the left of the green sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 7
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow sphere at (2, 3); o1 is a green cone at (0, 0); o2 is a yellow cone at (6, 1); o3 is a yellow prism at (4, 2).
+Find the green object to the left of the yellow sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 3
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple sphere at (6, 3); o1 is a yellow cone at (4, 2); o2 is a purple sphere at (2, 0); o3 is a green rod at (0, 1).
+Find the green object to the left of the purple sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 0
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a blue prism at (2, 4); o1 is a blue rod at (4, 6); o2 is an orange cube at (6, 3); o3 is a purple cube at (0, 9).
+Find the purple object to the left of the orange cube.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 3
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 9
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow cube at (4, 6); o1 is a purple rod at (2, 3); o2 is a green rod at (6, 2); o3 is a red prism at (0, 3).
+Find the purple object to the left of the yellow cube.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 6
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow cone at (6, 8); o1 is a blue prism at (2, 8); o2 is a yellow disc at (0, 6); o3 is a blue cube at (4, 7).
+Find the yellow object to the left of the yellow cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 8
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is an orange cone at (2, 3); o1 is a purple cone at (0, 8); o2 is a red rod at (6, 2); o3 is a red disc at (4, 1).
+Find the red object to the left of the red rod.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 2
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a red cube at (4, 7); o1 is a yellow cone at (2, 6); o2 is a yellow disc at (6, 3); o3 is an orange cube at (0, 4).
+Find the orange object to the left of the yellow disc.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 3
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a red prism at (4, 1); o1 is a purple disc at (2, 6); o2 is a yellow cone at (6, 7); o3 is a blue cone at (0, 8).
+Find the red object to the left of the yellow cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 7
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is an orange cube at (4, 2); o1 is a red disc at (2, 5); o2 is a purple prism at (0, 6); o3 is a purple prism at (6, 5).
+Find the purple object to the left of the orange cube.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 2
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a red cone at (4, 7); o1 is a blue cone at (0, 2); o2 is an orange rod at (6, 3); o3 is an orange rod at (2, 6).
+Find the blue object to the left of the orange rod.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 3
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a green disc at (6, 0); o1 is a green sphere at (0, 4); o2 is a red sphere at (2, 0); o3 is a purple sphere at (4, 0).
+Find the green object to the left of the green disc.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 0
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a red disc at (2, 5); o1 is an orange disc at (4, 5); o2 is a green rod at (0, 2); o3 is an orange rod at (6, 3).
+Find the green object to the left of the orange disc.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 5
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 2
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a green cube at (4, 7); o1 is a purple sphere at (2, 4); o2 is a purple cube at (6, 6); o3 is a purple disc at (0, 7).
+Find the green object to the left of the purple cube.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 6
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 7
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple disc at (6, 5); o1 is a red cone at (0, 3); o2 is a green cube at (2, 7); o3 is a purple cone at (4, 2).
+Find the red object to the left of the purple disc.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 5
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow disc at (0, 7); o1 is a red rod at (6, 7); o2 is an orange rod at (2, 1); o3 is an orange cone at (4, 4).
+Find the orange object to the left of the orange cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 4
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple prism at (4, 3); o1 is a yellow cube at (0, 3); o2 is a green cone at (6, 7); o3 is an orange cube at (2, 4).
+Find the purple object to the left of the green cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 7
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a green cone at (6, 3); o1 is a blue cube at (2, 7); o2 is a purple disc at (0, 2); o3 is a purple rod at (4, 0).
+Find the blue object to the left of the green cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 3
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 7
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a blue cube at (0, 4); o1 is an orange prism at (4, 2); o2 is an orange prism at (6, 7); o3 is a yellow disc at (2, 3).
+Find the yellow object to the left of the orange prism.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 7
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow prism at (0, 9); o1 is a red sphere at (4, 7); o2 is a blue cube at (6, 0); o3 is a green cube at (2, 4).
+Find the red object to the left of the blue cube.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 0
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 7
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a green prism at (6, 6); o1 is a green cone at (4, 6); o2 is a green cube at (0, 6); o3 is a blue disc at (2, 6).
+Find the blue object to the left of the green prism.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 6
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple prism at (4, 8); o1 is a purple prism at (0, 0); o2 is a blue sphere at (6, 9); o3 is a red cone at (2, 5).
+Find the red object to the left of the blue sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 9
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a blue prism at (4, 4); o1 is a blue sphere at (6, 2); o2 is a green prism at (0, 9); o3 is an orange sphere at (2, 8).
+Find the green object to the left of the blue sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 2
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 9
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow prism at (2, 2); o1 is a yellow cube at (0, 3); o2 is a blue sphere at (6, 1); o3 is a red prism at (4, 5).
+Find the red object to the left of the blue sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 1
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is an orange cone at (0, 7); o1 is a red disc at (4, 3); o2 is a yellow prism at (2, 5); o3 is a purple sphere at (6, 4).
+Find the yellow object to the left of the red disc.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 3
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 5
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a blue rod at (0, 1); o1 is a blue sphere at (2, 7); o2 is a yellow disc at (4, 6); o3 is a purple disc at (6, 9).
+Find the yellow object to the left of the purple disc.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 9
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 6
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a green disc at (4, 0); o1 is a red rod at (6, 4); o2 is a red prism at (0, 8); o3 is a yellow prism at (2, 0).
+Find the red object to the left of the red rod.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 4
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a blue rod at (2, 8); o1 is a red cone at (0, 8); o2 is an orange cone at (4, 5); o3 is a red cone at (6, 1).
+Find the red object to the left of the red cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 1
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow sphere at (0, 2); o1 is an orange cube at (4, 0); o2 is a green rod at (6, 2); o3 is a blue cube at (2, 9).
+Find the orange object to the left of the green rod.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 2
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a red disc at (2, 2); o1 is a green cube at (4, 6); o2 is a green sphere at (6, 5); o3 is a red disc at (0, 7).
+Find the red object to the left of the red disc.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 2
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 7
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a blue rod at (2, 7); o1 is an orange disc at (6, 4); o2 is an orange cone at (0, 9); o3 is a green cone at (4, 4).
+Find the green object to the left of the orange disc.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 4
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 4
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a red disc at (4, 2); o1 is a yellow prism at (0, 7); o2 is a yellow cone at (6, 3); o3 is a purple cone at (2, 3).
+Find the purple object to the left of the red disc.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 2
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 3
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow disc at (2, 8); o1 is a purple disc at (4, 1); o2 is a purple disc at (6, 2); o3 is a red disc at (0, 0).
+Find the yellow object to the left of the purple disc.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 1
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 8
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow disc at (6, 1); o1 is a yellow cone at (0, 2); o2 is a blue cube at (2, 9); o3 is a purple disc at (4, 1).
+Find the blue object to the left of the yellow disc.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 1
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 9
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple sphere at (6, 4); o1 is a blue prism at (2, 7); o2 is an orange cone at (4, 9); o3 is an orange disc at (0, 6).
+Find the blue object to the left of the purple sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 4
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 7
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple disc at (6, 2); o1 is a yellow cube at (0, 0); o2 is a purple cube at (4, 3); o3 is a red disc at (2, 9).
+Find the red object to the left of the purple disc.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 2
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;disc&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 9
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a green cone at (6, 3); o1 is a red cone at (0, 0); o2 is a blue prism at (4, 1); o3 is a green cone at (2, 4).
+Find the red object to the left of the green cone.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;green&quot;,
+  &quot;id&quot;: &quot;o3&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 4
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">o0</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a purple prism at (4, 0); o1 is a purple cube at (6, 0); o2 is a blue rod at (2, 5); o3 is a blue cube at (0, 7).
+Find the purple object to the left of the purple cube.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 0
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;purple&quot;,
+  &quot;id&quot;: &quot;o0&quot;,
+  &quot;shape&quot;: &quot;prism&quot;,
+  &quot;x&quot;: 4,
+  &quot;y&quot;: 0
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a green disc at (2, 5); o1 is a yellow cube at (6, 4); o2 is an orange rod at (0, 1); o3 is a yellow sphere at (4, 0).
+Find the orange object to the left of the yellow cube.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;yellow&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;cube&quot;,
+  &quot;x&quot;: 6,
+  &quot;y&quot;: 4
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;orange&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;rod&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 1
+ }
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>In the scene: o0 is a yellow prism at (4, 9); o1 is a blue sphere at (2, 2); o2 is a red cone at (0, 8); o3 is an orange rod at (6, 1).
+Find the red object to the left of the blue sphere.
+
+Answer with exactly one of: o0 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;anchor&quot;: {
+  &quot;color&quot;: &quot;blue&quot;,
+  &quot;id&quot;: &quot;o1&quot;,
+  &quot;shape&quot;: &quot;sphere&quot;,
+  &quot;x&quot;: 2,
+  &quot;y&quot;: 2
+ },
+ &quot;target&quot;: {
+  &quot;color&quot;: &quot;red&quot;,
+  &quot;id&quot;: &quot;o2&quot;,
+  &quot;shape&quot;: &quot;cone&quot;,
+  &quot;x&quot;: 0,
+  &quot;y&quot;: 8
+ }
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

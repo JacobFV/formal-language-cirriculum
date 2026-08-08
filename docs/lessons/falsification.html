@@ -1,0 +1,2010 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>falsification — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#vi">scientific induction and model discovery</a> &rsaquo;
+  falsification</p>
+<h1>#72 <code>falsification</code></h1>
+<p class="lede">the observation that would refute the law</p>
+<div class="tags"><span class="tag ">level 72</span><span class="tag ">section vi</span><span class="tag ">scientific_induction</span><span class="tag ">quantification</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.28</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Which single observation would refute the stated law?</p><p>    Half the episodes state a universal (``every X-shaped thing is C``) and half
+    an equation. Exactly one candidate contradicts it; the others are consistent,
+    and among them is always at least one that is *irrelevant* rather than
+    confirming — vacuous satisfaction and genuine confirmation both count as
+    &quot;not a refutation&quot;, which is the distinction the lesson is about.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>ambiguity</td><td class='num'>1</td></tr><tr><td>compositional_depth</td><td class='num'>2</td></tr><tr><td>reasoning_depth</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The candidates are: candidate: o1, 0 and -6; candidate: o2, -3 and -10; candidate: o3, 1 and -5; candidate: o4, -1 and -7.
+The law is y equals 1 times x plus -6.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o1 | o4 | o2
+Reply with the answer only.</pre><h3>spanish</h3><pre>Los candidatos son: el candidato: o1, 0 y -6; el candidato: o2, -3 y -10; el candidato: o3, 1 y -5; el candidato: o4, -1 y -7.
+La ley es y es igual a 1 por x más -6.
+¿Qué observación refuta la ley?
+
+Responde exactamente con una de estas opciones: o3 | o1 | o4 | o2
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>候选项如下：候选：o1、0和-6；候选：o2、-3和-10；候选：o3、1和-5；候选：o4、-1和-7。
+定律是y等于1乘以x加上-6。
+哪一项反驳了该定律？
+
+请从以下选项中选出恰好一个作答：o3 | o1 | o4 | o2
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The candidates are: candidate: o1, 0 and -6; candidate: o2, -3 and -10; candidate: o3, 1 and -5; candidate: o4, -1 and -7.
+The law is y equals 1 times x plus -6.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o1 | o4 | o2
+Reply with the answer only.</pre><h3>symbols</h3><pre>{candidates: [(candidate o1 0 -6) (candidate o2 -3 -10) (candidate o3 1 -5) (candidate o4 -1 -7)], law: (eq y (add (mul 1 x) -6)), query: refutes_the_law}
+
+Answer with exactly one of: o3 | o1 | o4 | o2
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/falsification.jsonl</code> &middot; <code>data/samples/spanish/falsification.jsonl</code> &middot; <code>data/samples/chinese/falsification.jsonl</code> &middot; <code>data/samples/english_synonym/falsification.jsonl</code> &middot; <code>data/samples/symbols/falsification.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 0 and -6; candidate: o2, -3 and -10; candidate: o3, 1 and -5; candidate: o4, -1 and -7.
+The law is y equals 1 times x plus -6.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o1 | o4 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  1,
+  -6
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cube and green; candidate: o2, disc and purple; candidate: o3, cube and red; candidate: o4, disc and green.
+The law is cube all are green.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o2 | o1 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  &quot;cube&quot;,
+  &quot;green&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -2 and 1; candidate: o2, -6 and 12; candidate: o3, 4 and -17; candidate: o4, -5 and 10.
+The law is y equals -3 times x plus -5.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o4 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  -3,
+  -5
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, disc and blue; candidate: o2, rod and blue; candidate: o3, rod and purple; candidate: o4, disc and yellow.
+The law is disc all are blue.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o1 | o2 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;disc&quot;,
+  &quot;blue&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, disc and blue; candidate: o2, cube and orange; candidate: o3, sphere and orange; candidate: o4, cube and yellow.
+The law is cube all are orange.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o4 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;cube&quot;,
+  &quot;orange&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 6 and 17; candidate: o2, 3 and 8; candidate: o3, 4 and 11; candidate: o4, 5 and 18.
+The law is y equals 3 times x plus -1.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o3 | o4 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  3,
+  -1
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 5 and -17; candidate: o2, -3 and 10; candidate: o3, -7 and 22; candidate: o4, 7 and -20.
+The law is y equals -3 times x plus 1.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o2 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  -3,
+  1
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, sphere and yellow; candidate: o2, sphere and red; candidate: o3, cube and yellow; candidate: o4, cube and orange.
+The law is sphere all are yellow.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o3 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  &quot;sphere&quot;,
+  &quot;yellow&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, sphere and blue; candidate: o2, prism and green; candidate: o3, cube and red; candidate: o4, prism and blue.
+The law is prism all are blue.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o1 | o3 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  &quot;prism&quot;,
+  &quot;blue&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cone and green; candidate: o2, cone and blue; candidate: o3, sphere and red; candidate: o4, prism and green.
+The law is cone all are green.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o1 | o4 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  &quot;cone&quot;,
+  &quot;green&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -7 and -6; candidate: o2, 2 and 6; candidate: o3, 0 and 1; candidate: o4, -4 and -3.
+The law is y equals 1 times x plus 1.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o2 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  1,
+  1
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, disc and purple; candidate: o2, sphere and yellow; candidate: o3, rod and orange; candidate: o4, disc and yellow.
+The law is disc all are yellow.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o4 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  &quot;disc&quot;,
+  &quot;yellow&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, rod and green; candidate: o2, cube and purple; candidate: o3, rod and purple; candidate: o4, sphere and yellow.
+The law is rod all are purple.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o1 | o3 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  &quot;rod&quot;,
+  &quot;purple&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, sphere and orange; candidate: o2, sphere and blue; candidate: o3, rod and blue; candidate: o4, rod and orange.
+The law is rod all are orange.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o4 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  &quot;rod&quot;,
+  &quot;orange&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, rod and orange; candidate: o2, rod and purple; candidate: o3, cone and orange; candidate: o4, sphere and green.
+The law is rod all are orange.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o3 | o2 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  &quot;rod&quot;,
+  &quot;orange&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -7 and 23; candidate: o2, -4 and 14; candidate: o3, -5 and 17; candidate: o4, 4 and -15.
+The law is y equals -3 times x plus 2.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o4 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  -3,
+  2
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, prism and purple; candidate: o2, prism and green; candidate: o3, sphere and purple; candidate: o4, cube and green.
+The law is prism all are green.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o1 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  &quot;prism&quot;,
+  &quot;green&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -5 and 4; candidate: o2, 4 and -5; candidate: o3, -3 and 6; candidate: o4, 5 and -6.
+The law is y equals -1 times x plus -1.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o3 | o4 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  -1,
+  -1
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, sphere and blue; candidate: o2, rod and yellow; candidate: o3, rod and green; candidate: o4, prism and yellow.
+The law is rod all are yellow.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o4 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  &quot;rod&quot;,
+  &quot;yellow&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -4 and -13; candidate: o2, 1 and 1; candidate: o3, -2 and -9; candidate: o4, -1 and -7.
+The law is y equals 2 times x plus -5.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o2 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  2,
+  -5
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -5 and -9; candidate: o2, 5 and 17; candidate: o3, 3 and 15; candidate: o4, -3 and -3.
+The law is y equals 3 times x plus 6.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o3 | o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  3,
+  6
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, prism and yellow; candidate: o2, rod and green; candidate: o3, prism and blue; candidate: o4, rod and yellow.
+The law is rod all are yellow.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o2 | o4 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  &quot;rod&quot;,
+  &quot;yellow&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 2 and -7; candidate: o2, -5 and 7; candidate: o3, -7 and 7; candidate: o4, 0 and -3.
+The law is y equals -2 times x plus -3.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o2 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  -2,
+  -3
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 2 and -7; candidate: o2, -1 and -4; candidate: o3, -7 and 4; candidate: o4, -3 and -2.
+The law is y equals -1 times x plus -5.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o1 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  -1,
+  -5
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -4 and -16; candidate: o2, 6 and 8; candidate: o3, 7 and 10; candidate: o4, -5 and -14.
+The law is y equals 2 times x plus -4.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o3 | o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  2,
+  -4
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, prism and blue; candidate: o2, disc and red; candidate: o3, cube and blue; candidate: o4, cube and yellow.
+The law is cube all are blue.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o4 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;cube&quot;,
+  &quot;blue&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 2 and 0; candidate: o2, -4 and 7; candidate: o3, 1 and 2; candidate: o4, -1 and 6.
+The law is y equals -2 times x plus 4.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o4 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  -2,
+  4
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -3 and -12; candidate: o2, 5 and 13; candidate: o3, -4 and -14; candidate: o4, -6 and -20.
+The law is y equals 3 times x plus -2.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o3 | o1 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  3,
+  -2
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cone and blue; candidate: o2, sphere and orange; candidate: o3, sphere and purple; candidate: o4, cone and purple.
+The law is sphere all are purple.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o4 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  &quot;sphere&quot;,
+  &quot;purple&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 6 and 1; candidate: o2, -6 and 9; candidate: o3, 2 and 1; candidate: o4, -3 and 6.
+The law is y equals -1 times x plus 3.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o3 | o4 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  -1,
+  3
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -4 and 7; candidate: o2, 3 and 0; candidate: o3, 2 and 1; candidate: o4, -7 and 9.
+The law is y equals -1 times x plus 3.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o4 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  -1,
+  3
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, sphere and yellow; candidate: o2, cube and blue; candidate: o3, sphere and blue; candidate: o4, cube and yellow.
+The law is cube all are yellow.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o1 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  &quot;cube&quot;,
+  &quot;yellow&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cone and purple; candidate: o2, sphere and blue; candidate: o3, cube and blue; candidate: o4, sphere and yellow.
+The law is sphere all are blue.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o2 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;sphere&quot;,
+  &quot;blue&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 6 and 19; candidate: o2, 0 and -3; candidate: o3, -3 and -12; candidate: o4, 7 and 18.
+The law is y equals 3 times x plus -3.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o3 | o2 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  3,
+  -3
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -1 and -8; candidate: o2, -7 and -20; candidate: o3, -4 and -14; candidate: o4, 6 and 7.
+The law is y equals 2 times x plus -6.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o4 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  2,
+  -6
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 6 and -7; candidate: o2, -2 and 11; candidate: o3, -3 and 11; candidate: o4, -5 and 15.
+The law is y equals -2 times x plus 5.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o2 | o4 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  -2,
+  5
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cube and red; candidate: o2, sphere and orange; candidate: o3, cone and green; candidate: o4, cube and green.
+The law is cube all are green.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o2 | o4 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  &quot;cube&quot;,
+  &quot;green&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 7 and -18; candidate: o2, 6 and -15; candidate: o3, 4 and -9; candidate: o4, 3 and -2.
+The law is y equals -3 times x plus 3.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o1 | o3 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  -3,
+  3
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -6 and 0; candidate: o2, -2 and 4; candidate: o3, 4 and 13; candidate: o4, 6 and 12.
+The law is y equals 1 times x plus 6.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o4 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  1,
+  6
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, rod and red; candidate: o2, prism and red; candidate: o3, sphere and purple; candidate: o4, prism and green.
+The law is prism all are red.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o1 | o4 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;prism&quot;,
+  &quot;red&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, disc and green; candidate: o2, sphere and red; candidate: o3, disc and red; candidate: o4, cone and green.
+The law is disc all are red.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o4 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  &quot;disc&quot;,
+  &quot;red&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, rod and blue; candidate: o2, sphere and purple; candidate: o3, sphere and blue; candidate: o4, rod and yellow.
+The law is sphere all are blue.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o1 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  &quot;sphere&quot;,
+  &quot;blue&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -5 and 20; candidate: o2, -4 and 17; candidate: o3, 6 and -13; candidate: o4, -3 and 10.
+The law is y equals -3 times x plus 5.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o3 | o4 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  -3,
+  5
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, rod and blue; candidate: o2, rod and purple; candidate: o3, cone and red; candidate: o4, prism and blue.
+The law is rod all are blue.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o2 | o3 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  &quot;rod&quot;,
+  &quot;blue&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, disc and orange; candidate: o2, sphere and orange; candidate: o3, disc and red; candidate: o4, sphere and yellow.
+The law is disc all are orange.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o4 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  &quot;disc&quot;,
+  &quot;orange&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cone and yellow; candidate: o2, cube and green; candidate: o3, prism and green; candidate: o4, prism and red.
+The law is prism all are green.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o4 | o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;prism&quot;,
+  &quot;green&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 3 and -3; candidate: o2, 2 and 0; candidate: o3, -4 and -10; candidate: o4, 7 and 1.
+The law is y equals 1 times x plus -6.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o2 | o4 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  1,
+  -6
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, rod and green; candidate: o2, prism and yellow; candidate: o3, prism and purple; candidate: o4, cone and purple.
+The law is prism all are purple.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o1 | o3 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  &quot;prism&quot;,
+  &quot;purple&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 1 and 0; candidate: o2, -3 and 8; candidate: o3, 4 and -8; candidate: o4, 6 and -10.
+The law is y equals -2 times x plus 2.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o4 | o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  -2,
+  2
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cube and red; candidate: o2, prism and red; candidate: o3, rod and orange; candidate: o4, prism and yellow.
+The law is prism all are red.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o1 | o4 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;prism&quot;,
+  &quot;red&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cone and green; candidate: o2, cube and green; candidate: o3, cone and blue; candidate: o4, disc and yellow.
+The law is cone all are green.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o1 | o4 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  &quot;cone&quot;,
+  &quot;green&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, disc and blue; candidate: o2, rod and purple; candidate: o3, disc and purple; candidate: o4, sphere and blue.
+The law is disc all are purple.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o2 | o4 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  &quot;disc&quot;,
+  &quot;purple&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -2 and 11; candidate: o2, -1 and 8; candidate: o3, 1 and -3; candidate: o4, 0 and 5.
+The law is y equals -3 times x plus 5.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o3 | o4 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  -3,
+  5
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 1 and 3; candidate: o2, 4 and -7; candidate: o3, 6 and -11; candidate: o4, 0 and 1.
+The law is y equals -2 times x plus 1.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o3 | o4 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  -2,
+  1
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 1 and 1; candidate: o2, 0 and 1; candidate: o3, 5 and -9; candidate: o4, -3 and 7.
+The law is y equals -2 times x plus 1.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o3 | o1 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  -2,
+  1
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, prism and blue; candidate: o2, cube and green; candidate: o3, sphere and blue; candidate: o4, sphere and yellow.
+The law is sphere all are blue.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o3 | o2 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;sphere&quot;,
+  &quot;blue&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 3 and 0; candidate: o2, 0 and -2; candidate: o3, 1 and -4; candidate: o4, -3 and -12.
+The law is y equals 2 times x plus -6.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o4 | o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  2,
+  -6
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, disc and red; candidate: o2, sphere and orange; candidate: o3, disc and purple; candidate: o4, cone and purple.
+The law is disc all are purple.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o3 | o1 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  &quot;disc&quot;,
+  &quot;purple&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 3 and 2; candidate: o2, -7 and 19; candidate: o3, -4 and 13; candidate: o4, 6 and -7.
+The law is y equals -2 times x plus 5.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o4 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  -2,
+  5
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cube and yellow; candidate: o2, sphere and green; candidate: o3, rod and yellow; candidate: o4, rod and red.
+The law is rod all are yellow.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o2 | o3 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;rod&quot;,
+  &quot;yellow&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, disc and blue; candidate: o2, prism and blue; candidate: o3, disc and yellow; candidate: o4, sphere and purple.
+The law is disc all are blue.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o4 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  &quot;disc&quot;,
+  &quot;blue&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, disc and yellow; candidate: o2, cone and yellow; candidate: o3, disc and blue; candidate: o4, cube and blue.
+The law is disc all are blue.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o3 | o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  &quot;disc&quot;,
+  &quot;blue&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -3 and 1; candidate: o2, 6 and -16; candidate: o3, 0 and -5; candidate: o4, -4 and 3.
+The law is y equals -2 times x plus -5.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o4 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  -2,
+  -5
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cone and green; candidate: o2, cube and green; candidate: o3, cube and purple; candidate: o4, cone and purple.
+The law is cone all are green.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o2 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;cone&quot;,
+  &quot;green&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, rod and purple; candidate: o2, rod and yellow; candidate: o3, sphere and purple; candidate: o4, disc and red.
+The law is rod all are purple.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o4 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  &quot;rod&quot;,
+  &quot;purple&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cone and blue; candidate: o2, cone and purple; candidate: o3, disc and yellow; candidate: o4, rod and purple.
+The law is cone all are purple.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o3 | o1 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  &quot;cone&quot;,
+  &quot;purple&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, rod and blue; candidate: o2, prism and blue; candidate: o3, cone and yellow; candidate: o4, prism and purple.
+The law is prism all are blue.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o1 | o4 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;prism&quot;,
+  &quot;blue&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, prism and purple; candidate: o2, prism and yellow; candidate: o3, cone and orange; candidate: o4, disc and yellow.
+The law is prism all are yellow.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o1 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  &quot;prism&quot;,
+  &quot;yellow&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 6 and 28; candidate: o2, -6 and -13; candidate: o3, 2 and 11; candidate: o4, 1 and 8.
+The law is y equals 3 times x plus 5.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o2 | o4 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  3,
+  5
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -5 and 22; candidate: o2, 2 and 0; candidate: o3, -6 and 24; candidate: o4, -2 and 12.
+The law is y equals -3 times x plus 6.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o2 | o3 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  -3,
+  6
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -2 and 7; candidate: o2, 0 and 1; candidate: o3, -5 and 10; candidate: o4, 7 and -2.
+The law is y equals -1 times x plus 5.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o1 | o2 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  -1,
+  5
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, disc and red; candidate: o2, sphere and green; candidate: o3, cone and red; candidate: o4, disc and yellow.
+The law is disc all are red.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o1 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;disc&quot;,
+  &quot;red&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, rod and orange; candidate: o2, disc and blue; candidate: o3, disc and orange; candidate: o4, cone and purple.
+The law is disc all are orange.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o2 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  &quot;disc&quot;,
+  &quot;orange&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cone and yellow; candidate: o2, sphere and purple; candidate: o3, disc and yellow; candidate: o4, disc and orange.
+The law is disc all are yellow.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o1 | o4 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;disc&quot;,
+  &quot;yellow&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 5 and 5; candidate: o2, -2 and -12; candidate: o3, -3 and -11; candidate: o4, -6 and -17.
+The law is y equals 2 times x plus -5.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o3 | o2 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  2,
+  -5
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cone and yellow; candidate: o2, prism and yellow; candidate: o3, rod and purple; candidate: o4, prism and red.
+The law is prism all are yellow.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o3 | o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;prism&quot;,
+  &quot;yellow&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, prism and yellow; candidate: o2, sphere and blue; candidate: o3, prism and blue; candidate: o4, cube and purple.
+The law is prism all are blue.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o3 | o1 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  &quot;prism&quot;,
+  &quot;blue&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -3 and 0; candidate: o2, -6 and 3; candidate: o3, -4 and 4; candidate: o4, 7 and -10.
+The law is y equals -1 times x plus -3.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o2 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  -1,
+  -3
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 3 and -11; candidate: o2, -3 and 7; candidate: o3, 4 and -14; candidate: o4, 7 and -21.
+The law is y equals -3 times x plus -2.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o1 | o3 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  -3,
+  -2
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, sphere and blue; candidate: o2, disc and purple; candidate: o3, cone and blue; candidate: o4, cone and purple.
+The law is cone all are purple.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o3 | o4 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  &quot;cone&quot;,
+  &quot;purple&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cone and green; candidate: o2, disc and yellow; candidate: o3, disc and orange; candidate: o4, rod and orange.
+The law is disc all are orange.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o3 | o1 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  &quot;disc&quot;,
+  &quot;orange&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -1 and -2; candidate: o2, 0 and -1; candidate: o3, 1 and -5; candidate: o4, 7 and 6.
+The law is y equals 1 times x plus -1.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o3 | o2 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  1,
+  -1
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, sphere and blue; candidate: o2, cone and purple; candidate: o3, prism and green; candidate: o4, prism and purple.
+The law is prism all are purple.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o1 | o3 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  &quot;prism&quot;,
+  &quot;purple&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cube and red; candidate: o2, disc and blue; candidate: o3, prism and green; candidate: o4, prism and red.
+The law is prism all are red.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o4 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  &quot;prism&quot;,
+  &quot;red&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -7 and 20; candidate: o2, 3 and -8; candidate: o3, 1 and -2; candidate: o4, -2 and 7.
+The law is y equals -3 times x plus 1.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o4 | o3 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  -3,
+  1
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, disc and red; candidate: o2, disc and yellow; candidate: o3, prism and red; candidate: o4, sphere and green.
+The law is disc all are red.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o1 | o3 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  &quot;disc&quot;,
+  &quot;red&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 6 and -20; candidate: o2, -2 and 8; candidate: o3, -7 and 23; candidate: o4, 4 and -10.
+The law is y equals -3 times x plus 2.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o4 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  -3,
+  2
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">o2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, sphere and purple; candidate: o2, sphere and red; candidate: o3, rod and purple; candidate: o4, prism and green.
+The law is sphere all are purple.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o2 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o2&quot;,
+ &quot;law&quot;: [
+  &quot;sphere&quot;,
+  &quot;purple&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, sphere and blue; candidate: o2, sphere and green; candidate: o3, cube and green; candidate: o4, cube and orange.
+The law is sphere all are green.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o3 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  &quot;sphere&quot;,
+  &quot;green&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, disc and green; candidate: o2, sphere and green; candidate: o3, cube and orange; candidate: o4, disc and orange.
+The law is disc all are orange.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o3 | o4 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  &quot;disc&quot;,
+  &quot;orange&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cube and orange; candidate: o2, cube and yellow; candidate: o3, rod and green; candidate: o4, prism and yellow.
+The law is cube all are yellow.
+Which observation refutes the law?
+
+Answer with exactly one of: o1 | o4 | o2 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  &quot;cube&quot;,
+  &quot;yellow&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, sphere and blue; candidate: o2, disc and yellow; candidate: o3, sphere and orange; candidate: o4, disc and orange.
+The law is sphere all are orange.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o4 | o1 | o2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  &quot;sphere&quot;,
+  &quot;orange&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, disc and purple; candidate: o2, rod and green; candidate: o3, disc and orange; candidate: o4, cube and purple.
+The law is disc all are purple.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o4 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  &quot;disc&quot;,
+  &quot;purple&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -6 and -3; candidate: o2, 5 and 8; candidate: o3, 4 and 8; candidate: o4, -2 and 1.
+The law is y equals 1 times x plus 3.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o3 | o4 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  1,
+  3
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">o1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, -3 and 10; candidate: o2, 3 and -11; candidate: o3, -1 and 1; candidate: o4, -7 and 19.
+The law is y equals -3 times x plus -2.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o1 | o4 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o1&quot;,
+ &quot;law&quot;: [
+  -3,
+  -2
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">o3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, 0 and 5; candidate: o2, -5 and -5; candidate: o3, 1 and 2; candidate: o4, 5 and 15.
+The law is y equals 2 times x plus 5.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o4 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o3&quot;,
+ &quot;law&quot;: [
+  2,
+  5
+ ],
+ &quot;mode&quot;: &quot;equation&quot;,
+ &quot;offset&quot;: -5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cube and green; candidate: o2, rod and yellow; candidate: o3, cube and yellow; candidate: o4, rod and blue.
+The law is rod all are yellow.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o2 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;rod&quot;,
+  &quot;yellow&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cube and red; candidate: o2, cone and red; candidate: o3, cube and orange; candidate: o4, cone and orange.
+The law is cone all are red.
+Which observation refutes the law?
+
+Answer with exactly one of: o2 | o4 | o1 | o3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;cone&quot;,
+  &quot;red&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, sphere and purple; candidate: o2, prism and green; candidate: o3, cube and green; candidate: o4, cube and purple.
+The law is cube all are green.
+Which observation refutes the law?
+
+Answer with exactly one of: o3 | o2 | o1 | o4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;cube&quot;,
+  &quot;green&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">o4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The candidates are: candidate: o1, cone and purple; candidate: o2, cone and blue; candidate: o3, sphere and purple; candidate: o4, sphere and blue.
+The law is sphere all are purple.
+Which observation refutes the law?
+
+Answer with exactly one of: o4 | o2 | o3 | o1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: &quot;o4&quot;,
+ &quot;law&quot;: [
+  &quot;sphere&quot;,
+  &quot;purple&quot;
+ ],
+ &quot;mode&quot;: &quot;universal&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

@@ -1,0 +1,3399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>counterfactuals — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iv">analogy, causality, planning, and programs</a> &rsaquo;
+  counterfactuals</p>
+<h1>#43 <code>counterfactuals</code></h1>
+<p class="lede">re-running a structural causal model under a different intervention</p>
+<div class="tags"><span class="tag ">level 43</span><span class="tag ">section iv</span><span class="tag ">causal_reasoning</span><span class="tag ">variable_binding</span><span class="tag ">abstraction</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.27</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Given a factual observation and the model, what would the target have
+    been under a different intervention?</p><p>    The exogenous values are read off the factual world and held fixed while the
+    model is re-run with the antecedent forced — the answer is the value that
+    re-run produces, computed, not estimated.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The equations: equation: piv, lus, 1 and 0; equation: zuv, piv, 1 and 2; equation: rez, lus, 1 and 2; equation: pok, rez, 3 and 3.
+The exogenous: root lus.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - rez has value 1
+  - zuv has value 1
+  - lus has value 3
+  - piv has value 3
+  - pok has value 2
+What is the counterfactual for pok rez 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre><h3>spanish</h3><pre>Las ecuaciones son: la ecuación: piv, lus, 1 y 0; la ecuación: zuv, piv, 1 y 2; la ecuación: rez, lus, 1 y 2; la ecuación: pok, rez, 3 y 3.
+Las variables exógenas son: la raíz: lus.
+La forma es child = (a * parent + b) mod m.
+El módulo es 4.
+Lo observado:
+  - rez tiene el valor 1
+  - zuv tiene el valor 1
+  - lus tiene el valor 3
+  - piv tiene el valor 3
+  - pok tiene el valor 2
+¿Cuál es el contrafactual para pok rez 3?
+
+Responde exactamente con una de estas opciones: 0 | 1 | 2 | 3
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>方程如下：方程：piv、lus、1和0；方程：zuv、piv、1和2；方程：rez、lus、1和2；方程：pok、rez、3和3。
+外生变量如下：根：lus。
+形式是child = (a * parent + b) mod m。
+模数是4。
+已观察到：
+  - rez的值是1
+  - zuv的值是1
+  - lus的值是3
+  - piv的值是3
+  - pok的值是2
+pokrez3的反事实是什么？
+
+请从以下选项中选出恰好一个作答：0 | 1 | 2 | 3
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The equations: equation: piv, lus, 1 and 0; equation: zuv, piv, 1 and 2; equation: rez, lus, 1 and 2; equation: pok, rez, 3 and 3.
+The exogenous: root lus.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - rez has value 1
+  - zuv has value 1
+  - lus has value 3
+  - piv has value 3
+  - pok has value 2
+What is the counterfactual for pok rez 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre><h3>symbols</h3><pre>{equations: [(equation piv lus 1 0) (equation zuv piv 1 2) (equation rez lus 1 2) (equation pok rez 3 3)], exogenous: [(root lus)], form: &quot;child = (a * parent + b) mod m&quot;, modulus: 4, observed: [(value rez 1) (value zuv 1) (value lus 3) (value piv 3) (value pok 2)], query: (counterfactual pok rez 3)}
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/counterfactuals.jsonl</code> &middot; <code>data/samples/spanish/counterfactuals.jsonl</code> &middot; <code>data/samples/chinese/counterfactuals.jsonl</code> &middot; <code>data/samples/english_synonym/counterfactuals.jsonl</code> &middot; <code>data/samples/symbols/counterfactuals.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: piv, lus, 1 and 0; equation: zuv, piv, 1 and 2; equation: rez, lus, 1 and 2; equation: pok, rez, 3 and 3.
+The exogenous: root lus.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - rez has value 1
+  - zuv has value 1
+  - lus has value 3
+  - piv has value 3
+  - pok has value 2
+What is the counterfactual for pok rez 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;rez&quot;,
+ &quot;factual&quot;: {
+  &quot;lus&quot;: 3,
+  &quot;piv&quot;: 3,
+  &quot;pok&quot;: 2,
+  &quot;rez&quot;: 1,
+  &quot;zuv&quot;: 1
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;pok&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: tun, mon, 1 and 2; equation: vod, naz, 1 and 0; equation: naz, pem, 3 and 1; equation: mon, pem, 1 and 3.
+The exogenous: root pem.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - mon has value 3
+  - vod has value 1
+  - naz has value 1
+  - pem has value 0
+  - tun has value 1
+What is the counterfactual for vod pem 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;pem&quot;,
+ &quot;factual&quot;: {
+  &quot;mon&quot;: 3,
+  &quot;naz&quot;: 1,
+  &quot;pem&quot;: 0,
+  &quot;tun&quot;: 1,
+  &quot;vod&quot;: 1
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;vod&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: niz, kam, 3 and 0; equation: beb, kud, 1 and 2; equation: leg, niz, 3 and 2; equation: kud, kam, 3 and 3.
+The exogenous: root kam.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - beb has value 2
+  - niz has value 1
+  - kam has value 3
+  - leg has value 1
+  - kud has value 0
+What is the counterfactual for beb kam 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;kam&quot;,
+ &quot;factual&quot;: {
+  &quot;beb&quot;: 2,
+  &quot;kam&quot;: 3,
+  &quot;kud&quot;: 0,
+  &quot;leg&quot;: 1,
+  &quot;niz&quot;: 1
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;beb&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: bav, zus, 3 and 0; equation: zus, sur, 3 and 1; equation: tib, vum, 1 and 1; equation: vum, sur, 1 and 1.
+The exogenous: root sur.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - sur has value 0
+  - zus has value 1
+  - vum has value 1
+  - tib has value 2
+  - bav has value 3
+What is the counterfactual for bav zus 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;zus&quot;,
+ &quot;factual&quot;: {
+  &quot;bav&quot;: 3,
+  &quot;sur&quot;: 0,
+  &quot;tib&quot;: 2,
+  &quot;vum&quot;: 1,
+  &quot;zus&quot;: 1
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;bav&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: zas, gov, 1 and 1; equation: sim, kor, 1 and 2; equation: gov, kor, 1 and 0; equation: tam, sim, 3 and 2.
+The exogenous: root kor.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - zas has value 3
+  - gov has value 2
+  - kor has value 2
+  - sim has value 0
+  - tam has value 2
+What is the counterfactual for tam sim 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;sim&quot;,
+ &quot;factual&quot;: {
+  &quot;gov&quot;: 2,
+  &quot;kor&quot;: 2,
+  &quot;sim&quot;: 0,
+  &quot;tam&quot;: 2,
+  &quot;zas&quot;: 3
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;tam&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: kem, ved, 1 and 0; equation: los, luk, 1 and 1; equation: big, los, 1 and 3; equation: ved, luk, 3 and 2.
+The exogenous: root luk.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - los has value 2
+  - ved has value 1
+  - big has value 1
+  - kem has value 1
+  - luk has value 1
+What is the counterfactual for kem ved 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;ved&quot;,
+ &quot;factual&quot;: {
+  &quot;big&quot;: 1,
+  &quot;kem&quot;: 1,
+  &quot;los&quot;: 2,
+  &quot;luk&quot;: 1,
+  &quot;ved&quot;: 1
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;kem&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: ked, gil, 1 and 3; equation: gil, bon, 3 and 0; equation: num, vik, 3 and 0; equation: vik, bon, 1 and 2.
+The exogenous: root bon.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - num has value 0
+  - ked has value 1
+  - bon has value 2
+  - vik has value 0
+  - gil has value 2
+What is the counterfactual for ked bon 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;bon&quot;,
+ &quot;factual&quot;: {
+  &quot;bon&quot;: 2,
+  &quot;gil&quot;: 2,
+  &quot;ked&quot;: 1,
+  &quot;num&quot;: 0,
+  &quot;vik&quot;: 0
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;ked&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: bar, lep, 3 and 0; equation: ral, dam, 1 and 3; equation: sam, ral, 1 and 0; equation: lep, dam, 1 and 0.
+The exogenous: root dam.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - sam has value 0
+  - bar has value 3
+  - lep has value 1
+  - dam has value 1
+  - ral has value 0
+What is the counterfactual for ral dam 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;dam&quot;,
+ &quot;factual&quot;: {
+  &quot;bar&quot;: 3,
+  &quot;dam&quot;: 1,
+  &quot;lep&quot;: 1,
+  &quot;ral&quot;: 0,
+  &quot;sam&quot;: 0
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;ral&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: teg, sip, 1 and 3; equation: pav, kat, 1 and 0; equation: sus, teg, 3 and 3; equation: kat, sip, 1 and 3.
+The exogenous: root sip.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - pav has value 2
+  - teg has value 2
+  - kat has value 2
+  - sus has value 1
+  - sip has value 3
+What is the counterfactual for pav sip 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;sip&quot;,
+ &quot;factual&quot;: {
+  &quot;kat&quot;: 2,
+  &quot;pav&quot;: 2,
+  &quot;sip&quot;: 3,
+  &quot;sus&quot;: 1,
+  &quot;teg&quot;: 2
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;pav&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: zet, rob, 1 and 3; equation: mir, dal, 1 and 0; equation: vul, zet, 1 and 1; equation: dal, rob, 3 and 1.
+The exogenous: root rob.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - zet has value 0
+  - vul has value 1
+  - mir has value 0
+  - dal has value 0
+  - rob has value 1
+What is the counterfactual for mir dal 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;dal&quot;,
+ &quot;factual&quot;: {
+  &quot;dal&quot;: 0,
+  &quot;mir&quot;: 0,
+  &quot;rob&quot;: 1,
+  &quot;vul&quot;: 1,
+  &quot;zet&quot;: 0
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;mir&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: bap, sov, 3 and 2; equation: sov, rol, 1 and 2; equation: zek, rol, 1 and 3; equation: vuk, zek, 3 and 3.
+The exogenous: root rol.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - sov has value 1
+  - bap has value 1
+  - rol has value 3
+  - vuk has value 1
+  - zek has value 2
+What is the counterfactual for sov rol 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;rol&quot;,
+ &quot;factual&quot;: {
+  &quot;bap&quot;: 1,
+  &quot;rol&quot;: 3,
+  &quot;sov&quot;: 1,
+  &quot;vuk&quot;: 1,
+  &quot;zek&quot;: 2
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;sov&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: vun, bet, 3 and 1; equation: bet, nuv, 1 and 0; equation: vor, dun, 1 and 0; equation: dun, nuv, 1 and 3.
+The exogenous: root nuv.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - vor has value 3
+  - nuv has value 0
+  - bet has value 0
+  - dun has value 3
+  - vun has value 1
+What is the counterfactual for bet nuv 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;nuv&quot;,
+ &quot;factual&quot;: {
+  &quot;bet&quot;: 0,
+  &quot;dun&quot;: 3,
+  &quot;nuv&quot;: 0,
+  &quot;vor&quot;: 3,
+  &quot;vun&quot;: 1
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;bet&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: rit, pal, 1 and 0; equation: vid, nog, 3 and 3; equation: nog, ber, 1 and 0; equation: pal, ber, 1 and 2.
+The exogenous: root ber.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - vid has value 3
+  - pal has value 2
+  - nog has value 0
+  - ber has value 0
+  - rit has value 2
+What is the counterfactual for pal ber 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;ber&quot;,
+ &quot;factual&quot;: {
+  &quot;ber&quot;: 0,
+  &quot;nog&quot;: 0,
+  &quot;pal&quot;: 2,
+  &quot;rit&quot;: 2,
+  &quot;vid&quot;: 3
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;pal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: ded, mus, 1 and 0; equation: det, mus, 1 and 2; equation: ses, ded, 3 and 1; equation: zid, det, 3 and 3.
+The exogenous: root mus.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - mus has value 2
+  - det has value 0
+  - ses has value 3
+  - zid has value 3
+  - ded has value 2
+What is the counterfactual for zid det 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;det&quot;,
+ &quot;factual&quot;: {
+  &quot;ded&quot;: 2,
+  &quot;det&quot;: 0,
+  &quot;mus&quot;: 2,
+  &quot;ses&quot;: 3,
+  &quot;zid&quot;: 3
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;zid&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: nus, ziz, 1 and 2; equation: mug, ziz, 3 and 2; equation: viv, nus, 3 and 1; equation: gad, mug, 1 and 2.
+The exogenous: root ziz.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - mug has value 1
+  - viv has value 2
+  - nus has value 3
+  - gad has value 3
+  - ziz has value 1
+What is the counterfactual for nus ziz 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;ziz&quot;,
+ &quot;factual&quot;: {
+  &quot;gad&quot;: 3,
+  &quot;mug&quot;: 1,
+  &quot;nus&quot;: 3,
+  &quot;viv&quot;: 2,
+  &quot;ziz&quot;: 1
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;nus&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: neg, gat, 1 and 1; equation: lem, sar, 3 and 2; equation: gat, sar, 3 and 3; equation: sak, lem, 3 and 2.
+The exogenous: root sar.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - lem has value 1
+  - gat has value 2
+  - sar has value 1
+  - sak has value 1
+  - neg has value 3
+What is the counterfactual for neg gat 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;gat&quot;,
+ &quot;factual&quot;: {
+  &quot;gat&quot;: 2,
+  &quot;lem&quot;: 1,
+  &quot;neg&quot;: 3,
+  &quot;sak&quot;: 1,
+  &quot;sar&quot;: 1
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;neg&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: zos, dis, 1 and 2; equation: lov, dis, 3 and 0; equation: dek, lov, 1 and 1; equation: vap, zos, 1 and 3.
+The exogenous: root dis.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - dek has value 2
+  - dis has value 3
+  - lov has value 1
+  - vap has value 0
+  - zos has value 1
+What is the counterfactual for vap zos 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;zos&quot;,
+ &quot;factual&quot;: {
+  &quot;dek&quot;: 2,
+  &quot;dis&quot;: 3,
+  &quot;lov&quot;: 1,
+  &quot;vap&quot;: 0,
+  &quot;zos&quot;: 1
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;vap&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: ziz, ron, 3 and 1; equation: zak, sog, 1 and 2; equation: tud, ziz, 1 and 1; equation: sog, ron, 1 and 1.
+The exogenous: root ron.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - ziz has value 1
+  - zak has value 3
+  - sog has value 1
+  - tud has value 2
+  - ron has value 0
+What is the counterfactual for zak ron 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;ron&quot;,
+ &quot;factual&quot;: {
+  &quot;ron&quot;: 0,
+  &quot;sog&quot;: 1,
+  &quot;tud&quot;: 2,
+  &quot;zak&quot;: 3,
+  &quot;ziz&quot;: 1
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;zak&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: vis, vev, 3 and 1; equation: sod, tad, 1 and 1; equation: tad, zoz, 3 and 1; equation: vev, zoz, 1 and 1.
+The exogenous: root zoz.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - vis has value 1
+  - tad has value 2
+  - zoz has value 3
+  - sod has value 3
+  - vev has value 0
+What is the counterfactual for vev zoz 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;zoz&quot;,
+ &quot;factual&quot;: {
+  &quot;sod&quot;: 3,
+  &quot;tad&quot;: 2,
+  &quot;vev&quot;: 0,
+  &quot;vis&quot;: 1,
+  &quot;zoz&quot;: 3
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;vev&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: rar, tuz, 3 and 2; equation: dan, rar, 1 and 1; equation: rib, tuz, 3 and 0; equation: sol, rib, 1 and 1.
+The exogenous: root tuz.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - rib has value 0
+  - rar has value 2
+  - dan has value 3
+  - sol has value 1
+  - tuz has value 0
+What is the counterfactual for dan rar 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;rar&quot;,
+ &quot;factual&quot;: {
+  &quot;dan&quot;: 3,
+  &quot;rar&quot;: 2,
+  &quot;rib&quot;: 0,
+  &quot;sol&quot;: 1,
+  &quot;tuz&quot;: 0
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;dan&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: pom, dal, 3 and 3; equation: mel, gez, 3 and 0; equation: dal, bek, 3 and 2; equation: gez, bek, 1 and 2.
+The exogenous: root bek.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - dal has value 2
+  - gez has value 2
+  - mel has value 2
+  - pom has value 1
+  - bek has value 0
+What is the counterfactual for dal bek 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;bek&quot;,
+ &quot;factual&quot;: {
+  &quot;bek&quot;: 0,
+  &quot;dal&quot;: 2,
+  &quot;gez&quot;: 2,
+  &quot;mel&quot;: 2,
+  &quot;pom&quot;: 1
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;dal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: ren, son, 1 and 3; equation: piv, rer, 1 and 1; equation: son, rer, 1 and 1; equation: tog, piv, 3 and 3.
+The exogenous: root rer.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - son has value 1
+  - tog has value 2
+  - ren has value 0
+  - rer has value 0
+  - piv has value 1
+What is the counterfactual for ren son 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;son&quot;,
+ &quot;factual&quot;: {
+  &quot;piv&quot;: 1,
+  &quot;ren&quot;: 0,
+  &quot;rer&quot;: 0,
+  &quot;son&quot;: 1,
+  &quot;tog&quot;: 2
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;ren&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: tek, din, 1 and 1; equation: gag, mez, 3 and 3; equation: mez, bot, 3 and 0; equation: din, bot, 1 and 2.
+The exogenous: root bot.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - gag has value 3
+  - bot has value 0
+  - mez has value 0
+  - din has value 2
+  - tek has value 3
+What is the counterfactual for tek din 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;din&quot;,
+ &quot;factual&quot;: {
+  &quot;bot&quot;: 0,
+  &quot;din&quot;: 2,
+  &quot;gag&quot;: 3,
+  &quot;mez&quot;: 0,
+  &quot;tek&quot;: 3
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;tek&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: leg, siv, 1 and 0; equation: kuz, leg, 3 and 0; equation: por, siv, 1 and 3; equation: nim, por, 3 and 2.
+The exogenous: root siv.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - siv has value 0
+  - kuz has value 0
+  - por has value 3
+  - leg has value 0
+  - nim has value 3
+What is the counterfactual for por siv 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;siv&quot;,
+ &quot;factual&quot;: {
+  &quot;kuz&quot;: 0,
+  &quot;leg&quot;: 0,
+  &quot;nim&quot;: 3,
+  &quot;por&quot;: 3,
+  &quot;siv&quot;: 0
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;por&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: tet, dag, 1 and 3; equation: gob, nen, 3 and 2; equation: nen, dag, 1 and 0; equation: sed, tet, 3 and 0.
+The exogenous: root dag.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - nen has value 2
+  - dag has value 2
+  - gob has value 0
+  - tet has value 1
+  - sed has value 3
+What is the counterfactual for sed tet 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;tet&quot;,
+ &quot;factual&quot;: {
+  &quot;dag&quot;: 2,
+  &quot;gob&quot;: 0,
+  &quot;nen&quot;: 2,
+  &quot;sed&quot;: 3,
+  &quot;tet&quot;: 1
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;sed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: nik, pas, 3 and 0; equation: zok, zup, 1 and 2; equation: mum, nik, 3 and 2; equation: zup, pas, 1 and 2.
+The exogenous: root pas.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - zup has value 3
+  - mum has value 3
+  - nik has value 3
+  - pas has value 1
+  - zok has value 1
+What is the counterfactual for mum pas 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;pas&quot;,
+ &quot;factual&quot;: {
+  &quot;mum&quot;: 3,
+  &quot;nik&quot;: 3,
+  &quot;pas&quot;: 1,
+  &quot;zok&quot;: 1,
+  &quot;zup&quot;: 3
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;mum&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: nok, gur, 1 and 1; equation: gur, rat, 1 and 0; equation: sob, ged, 3 and 3; equation: ged, rat, 1 and 1.
+The exogenous: root rat.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - gur has value 2
+  - nok has value 3
+  - ged has value 3
+  - rat has value 2
+  - sob has value 0
+What is the counterfactual for ged rat 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;rat&quot;,
+ &quot;factual&quot;: {
+  &quot;ged&quot;: 3,
+  &quot;gur&quot;: 2,
+  &quot;nok&quot;: 3,
+  &quot;rat&quot;: 2,
+  &quot;sob&quot;: 0
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;ged&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: lot, dog, 3 and 2; equation: dog, maz, 1 and 3; equation: zis, riz, 1 and 3; equation: riz, maz, 3 and 0.
+The exogenous: root maz.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - riz has value 2
+  - lot has value 1
+  - maz has value 2
+  - dog has value 1
+  - zis has value 1
+What is the counterfactual for riz maz 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;maz&quot;,
+ &quot;factual&quot;: {
+  &quot;dog&quot;: 1,
+  &quot;lot&quot;: 1,
+  &quot;maz&quot;: 2,
+  &quot;riz&quot;: 2,
+  &quot;zis&quot;: 1
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;riz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: mer, pes, 1 and 0; equation: ton, pes, 3 and 1; equation: bes, mer, 1 and 1; equation: tot, ton, 3 and 2.
+The exogenous: root pes.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - bes has value 3
+  - ton has value 3
+  - tot has value 3
+  - mer has value 2
+  - pes has value 2
+What is the counterfactual for bes mer 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;mer&quot;,
+ &quot;factual&quot;: {
+  &quot;bes&quot;: 3,
+  &quot;mer&quot;: 2,
+  &quot;pes&quot;: 2,
+  &quot;ton&quot;: 3,
+  &quot;tot&quot;: 3
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;bes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: buz, ral, 3 and 3; equation: mul, kav, 1 and 1; equation: kav, pok, 3 and 3; equation: ral, pok, 1 and 3.
+The exogenous: root pok.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - pok has value 1
+  - ral has value 0
+  - mul has value 3
+  - kav has value 2
+  - buz has value 3
+What is the counterfactual for buz ral 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;ral&quot;,
+ &quot;factual&quot;: {
+  &quot;buz&quot;: 3,
+  &quot;kav&quot;: 2,
+  &quot;mul&quot;: 3,
+  &quot;pok&quot;: 1,
+  &quot;ral&quot;: 0
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;buz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: rib, tav, 1 and 2; equation: kud, sik, 3 and 0; equation: tav, pod, 3 and 0; equation: sik, pod, 1 and 3.
+The exogenous: root pod.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - tav has value 1
+  - pod has value 3
+  - sik has value 2
+  - kud has value 2
+  - rib has value 3
+What is the counterfactual for rib tav 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;tav&quot;,
+ &quot;factual&quot;: {
+  &quot;kud&quot;: 2,
+  &quot;pod&quot;: 3,
+  &quot;rib&quot;: 3,
+  &quot;sik&quot;: 2,
+  &quot;tav&quot;: 1
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;rib&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: kom, mus, 3 and 2; equation: dat, not, 3 and 3; equation: get, dat, 1 and 0; equation: mus, not, 1 and 0.
+The exogenous: root not.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - mus has value 1
+  - not has value 1
+  - get has value 2
+  - kom has value 1
+  - dat has value 2
+What is the counterfactual for mus not 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;not&quot;,
+ &quot;factual&quot;: {
+  &quot;dat&quot;: 2,
+  &quot;get&quot;: 2,
+  &quot;kom&quot;: 1,
+  &quot;mus&quot;: 1,
+  &quot;not&quot;: 1
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;mus&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: kug, zev, 3 and 1; equation: met, zev, 1 and 0; equation: lul, kug, 3 and 0; equation: kam, met, 3 and 1.
+The exogenous: root zev.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - kug has value 3
+  - lul has value 1
+  - met has value 2
+  - zev has value 2
+  - kam has value 3
+What is the counterfactual for met zev 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;zev&quot;,
+ &quot;factual&quot;: {
+  &quot;kam&quot;: 3,
+  &quot;kug&quot;: 3,
+  &quot;lul&quot;: 1,
+  &quot;met&quot;: 2,
+  &quot;zev&quot;: 2
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;met&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: tur, luv, 3 and 2; equation: bed, siv, 3 and 3; equation: dur, bed, 1 and 3; equation: luv, siv, 3 and 3.
+The exogenous: root siv.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - dur has value 1
+  - bed has value 2
+  - tur has value 0
+  - luv has value 2
+  - siv has value 1
+What is the counterfactual for bed siv 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;siv&quot;,
+ &quot;factual&quot;: {
+  &quot;bed&quot;: 2,
+  &quot;dur&quot;: 1,
+  &quot;luv&quot;: 2,
+  &quot;siv&quot;: 1,
+  &quot;tur&quot;: 0
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;bed&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: kek, mur, 1 and 3; equation: rib, pim, 3 and 2; equation: mur, pil, 1 and 0; equation: pim, pil, 1 and 1.
+The exogenous: root pil.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - kek has value 0
+  - rib has value 0
+  - pil has value 1
+  - pim has value 2
+  - mur has value 1
+What is the counterfactual for kek mur 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;mur&quot;,
+ &quot;factual&quot;: {
+  &quot;kek&quot;: 0,
+  &quot;mur&quot;: 1,
+  &quot;pil&quot;: 1,
+  &quot;pim&quot;: 2,
+  &quot;rib&quot;: 0
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;kek&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: tit, rid, 3 and 2; equation: rin, bag, 1 and 2; equation: zoz, tit, 3 and 0; equation: bag, rid, 1 and 0.
+The exogenous: root rid.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - rin has value 2
+  - tit has value 2
+  - zoz has value 2
+  - rid has value 0
+  - bag has value 0
+What is the counterfactual for tit rid 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;rid&quot;,
+ &quot;factual&quot;: {
+  &quot;bag&quot;: 0,
+  &quot;rid&quot;: 0,
+  &quot;rin&quot;: 2,
+  &quot;tit&quot;: 2,
+  &quot;zoz&quot;: 2
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;tit&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: gol, tez, 3 and 1; equation: tez, nim, 3 and 2; equation: lak, nim, 3 and 3; equation: kud, lak, 3 and 1.
+The exogenous: root nim.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - nim has value 0
+  - gol has value 3
+  - tez has value 2
+  - kud has value 2
+  - lak has value 3
+What is the counterfactual for gol tez 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;tez&quot;,
+ &quot;factual&quot;: {
+  &quot;gol&quot;: 3,
+  &quot;kud&quot;: 2,
+  &quot;lak&quot;: 3,
+  &quot;nim&quot;: 0,
+  &quot;tez&quot;: 2
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;gol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: div, vun, 3 and 2; equation: buk, dum, 3 and 1; equation: vun, dum, 1 and 0; equation: rad, buk, 3 and 0.
+The exogenous: root dum.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - dum has value 3
+  - rad has value 2
+  - vun has value 3
+  - buk has value 2
+  - div has value 3
+What is the counterfactual for div vun 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;vun&quot;,
+ &quot;factual&quot;: {
+  &quot;buk&quot;: 2,
+  &quot;div&quot;: 3,
+  &quot;dum&quot;: 3,
+  &quot;rad&quot;: 2,
+  &quot;vun&quot;: 3
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;div&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: lol, kud, 1 and 3; equation: kud, dop, 3 and 1; equation: tul, nam, 1 and 3; equation: nam, dop, 3 and 3.
+The exogenous: root dop.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - kud has value 0
+  - lol has value 3
+  - dop has value 1
+  - tul has value 1
+  - nam has value 2
+What is the counterfactual for nam dop 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;dop&quot;,
+ &quot;factual&quot;: {
+  &quot;dop&quot;: 1,
+  &quot;kud&quot;: 0,
+  &quot;lol&quot;: 3,
+  &quot;nam&quot;: 2,
+  &quot;tul&quot;: 1
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;nam&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: did, lek, 1 and 3; equation: kes, lek, 3 and 3; equation: sip, did, 1 and 3; equation: puk, kes, 3 and 2.
+The exogenous: root lek.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - did has value 3
+  - sip has value 2
+  - kes has value 3
+  - lek has value 0
+  - puk has value 3
+What is the counterfactual for sip lek 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;lek&quot;,
+ &quot;factual&quot;: {
+  &quot;did&quot;: 3,
+  &quot;kes&quot;: 3,
+  &quot;lek&quot;: 0,
+  &quot;puk&quot;: 3,
+  &quot;sip&quot;: 2
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;sip&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: det, niz, 3 and 0; equation: gok, vur, 3 and 1; equation: vur, niz, 1 and 2; equation: kez, det, 1 and 2.
+The exogenous: root niz.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - vur has value 2
+  - niz has value 0
+  - kez has value 2
+  - gok has value 3
+  - det has value 0
+What is the counterfactual for kez niz 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;niz&quot;,
+ &quot;factual&quot;: {
+  &quot;det&quot;: 0,
+  &quot;gok&quot;: 3,
+  &quot;kez&quot;: 2,
+  &quot;niz&quot;: 0,
+  &quot;vur&quot;: 2
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;kez&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: zog, gir, 1 and 2; equation: pis, zog, 1 and 0; equation: tob, nuk, 1 and 3; equation: nuk, gir, 1 and 2.
+The exogenous: root gir.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - tob has value 3
+  - gir has value 2
+  - nuk has value 0
+  - zog has value 0
+  - pis has value 0
+What is the counterfactual for tob gir 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;gir&quot;,
+ &quot;factual&quot;: {
+  &quot;gir&quot;: 2,
+  &quot;nuk&quot;: 0,
+  &quot;pis&quot;: 0,
+  &quot;tob&quot;: 3,
+  &quot;zog&quot;: 0
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;tob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: mum, gis, 3 and 1; equation: seg, gis, 1 and 1; equation: bok, seg, 3 and 2; equation: dak, mum, 1 and 1.
+The exogenous: root gis.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - mum has value 2
+  - bok has value 2
+  - seg has value 0
+  - dak has value 3
+  - gis has value 3
+What is the counterfactual for bok seg 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;seg&quot;,
+ &quot;factual&quot;: {
+  &quot;bok&quot;: 2,
+  &quot;dak&quot;: 3,
+  &quot;gis&quot;: 3,
+  &quot;mum&quot;: 2,
+  &quot;seg&quot;: 0
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;bok&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: Bob, kig, 1 and 0; equation: lav, nev, 1 and 3; equation: nev, kig, 3 and 1; equation: kup, Bob, 1 and 0.
+The exogenous: root kig.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - Bob has value 1
+  - kig has value 1
+  - lav has value 3
+  - nev has value 0
+  - kup has value 1
+What is the counterfactual for kup Bob 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;bob&quot;,
+ &quot;factual&quot;: {
+  &quot;bob&quot;: 1,
+  &quot;kig&quot;: 1,
+  &quot;kup&quot;: 1,
+  &quot;lav&quot;: 3,
+  &quot;nev&quot;: 0
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;kup&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: pez, bam, 3 and 2; equation: bam, pur, 3 and 2; equation: gat, kem, 1 and 0; equation: kem, pur, 3 and 0.
+The exogenous: root pur.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - pez has value 0
+  - gat has value 0
+  - bam has value 2
+  - pur has value 0
+  - kem has value 0
+What is the counterfactual for gat kem 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;kem&quot;,
+ &quot;factual&quot;: {
+  &quot;bam&quot;: 2,
+  &quot;gat&quot;: 0,
+  &quot;kem&quot;: 0,
+  &quot;pez&quot;: 0,
+  &quot;pur&quot;: 0
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;gat&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: zov, vam, 1 and 1; equation: vam, lam, 1 and 3; equation: gab, lam, 1 and 3; equation: zaz, gab, 1 and 0.
+The exogenous: root lam.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - zaz has value 1
+  - vam has value 1
+  - gab has value 1
+  - zov has value 2
+  - lam has value 2
+What is the counterfactual for zaz gab 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;gab&quot;,
+ &quot;factual&quot;: {
+  &quot;gab&quot;: 1,
+  &quot;lam&quot;: 2,
+  &quot;vam&quot;: 1,
+  &quot;zaz&quot;: 1,
+  &quot;zov&quot;: 2
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;zaz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: kam, bus, 3 and 2; equation: mok, kam, 3 and 2; equation: dut, bun, 1 and 3; equation: bun, bus, 1 and 3.
+The exogenous: root bus.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - bus has value 3
+  - kam has value 3
+  - dut has value 1
+  - mok has value 3
+  - bun has value 2
+What is the counterfactual for kam bus 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;bus&quot;,
+ &quot;factual&quot;: {
+  &quot;bun&quot;: 2,
+  &quot;bus&quot;: 3,
+  &quot;dut&quot;: 1,
+  &quot;kam&quot;: 3,
+  &quot;mok&quot;: 3
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;kam&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: kod, rob, 1 and 1; equation: lap, pob, 3 and 3; equation: rob, lir, 3 and 0; equation: pob, lir, 3 and 3.
+The exogenous: root lir.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - rob has value 3
+  - lir has value 1
+  - kod has value 0
+  - pob has value 2
+  - lap has value 1
+What is the counterfactual for rob lir 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;lir&quot;,
+ &quot;factual&quot;: {
+  &quot;kod&quot;: 0,
+  &quot;lap&quot;: 1,
+  &quot;lir&quot;: 1,
+  &quot;pob&quot;: 2,
+  &quot;rob&quot;: 3
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;rob&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: nus, got, 1 and 0; equation: tav, rit, 3 and 0; equation: rit, got, 3 and 1; equation: ruz, nus, 1 and 3.
+The exogenous: root got.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - ruz has value 0
+  - nus has value 1
+  - tav has value 0
+  - rit has value 0
+  - got has value 1
+What is the counterfactual for nus got 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;got&quot;,
+ &quot;factual&quot;: {
+  &quot;got&quot;: 1,
+  &quot;nus&quot;: 1,
+  &quot;rit&quot;: 0,
+  &quot;ruz&quot;: 0,
+  &quot;tav&quot;: 0
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;nus&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: git, min, 3 and 2; equation: kan, run, 1 and 3; equation: run, min, 3 and 0; equation: mip, git, 1 and 1.
+The exogenous: root min.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - mip has value 0
+  - git has value 3
+  - run has value 1
+  - min has value 3
+  - kan has value 0
+What is the counterfactual for mip git 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;git&quot;,
+ &quot;factual&quot;: {
+  &quot;git&quot;: 3,
+  &quot;kan&quot;: 0,
+  &quot;min&quot;: 3,
+  &quot;mip&quot;: 0,
+  &quot;run&quot;: 1
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;mip&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: dum, ris, 3 and 1; equation: vil, ris, 1 and 0; equation: deg, vil, 1 and 0; equation: vim, dum, 3 and 3.
+The exogenous: root ris.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - vim has value 0
+  - ris has value 2
+  - dum has value 3
+  - deg has value 2
+  - vil has value 2
+What is the counterfactual for deg ris 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;ris&quot;,
+ &quot;factual&quot;: {
+  &quot;deg&quot;: 2,
+  &quot;dum&quot;: 3,
+  &quot;ris&quot;: 2,
+  &quot;vil&quot;: 2,
+  &quot;vim&quot;: 0
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;deg&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: tes, sur, 1 and 0; equation: gur, rog, 3 and 0; equation: rip, tes, 3 and 1; equation: rog, sur, 3 and 0.
+The exogenous: root sur.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - tes has value 2
+  - rog has value 2
+  - rip has value 3
+  - gur has value 2
+  - sur has value 2
+What is the counterfactual for rip tes 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;tes&quot;,
+ &quot;factual&quot;: {
+  &quot;gur&quot;: 2,
+  &quot;rip&quot;: 3,
+  &quot;rog&quot;: 2,
+  &quot;sur&quot;: 2,
+  &quot;tes&quot;: 2
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;rip&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: pat, tot, 1 and 0; equation: rol, tot, 3 and 0; equation: lod, rol, 1 and 1; equation: zag, pat, 3 and 1.
+The exogenous: root tot.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - pat has value 2
+  - rol has value 2
+  - tot has value 2
+  - lod has value 3
+  - zag has value 3
+What is the counterfactual for lod tot 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;tot&quot;,
+ &quot;factual&quot;: {
+  &quot;lod&quot;: 3,
+  &quot;pat&quot;: 2,
+  &quot;rol&quot;: 2,
+  &quot;tot&quot;: 2,
+  &quot;zag&quot;: 3
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;lod&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: bev, tig, 1 and 0; equation: rig, bev, 3 and 1; equation: vak, tig, 3 and 1; equation: rog, vak, 1 and 1.
+The exogenous: root tig.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - rig has value 0
+  - rog has value 1
+  - bev has value 1
+  - vak has value 0
+  - tig has value 1
+What is the counterfactual for rig bev 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;bev&quot;,
+ &quot;factual&quot;: {
+  &quot;bev&quot;: 1,
+  &quot;rig&quot;: 0,
+  &quot;rog&quot;: 1,
+  &quot;tig&quot;: 1,
+  &quot;vak&quot;: 0
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;rig&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: tor, pev, 3 and 1; equation: zov, peg, 1 and 2; equation: pev, lug, 1 and 2; equation: peg, lug, 3 and 3.
+The exogenous: root lug.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - pev has value 0
+  - tor has value 1
+  - lug has value 2
+  - zov has value 3
+  - peg has value 1
+What is the counterfactual for tor lug 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;lug&quot;,
+ &quot;factual&quot;: {
+  &quot;lug&quot;: 2,
+  &quot;peg&quot;: 1,
+  &quot;pev&quot;: 0,
+  &quot;tor&quot;: 1,
+  &quot;zov&quot;: 3
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;tor&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: gim, met, 3 and 3; equation: mig, gez, 1 and 3; equation: dor, gim, 1 and 1; equation: gez, met, 1 and 2.
+The exogenous: root met.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - gez has value 3
+  - dor has value 3
+  - met has value 1
+  - mig has value 2
+  - gim has value 2
+What is the counterfactual for gim met 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;met&quot;,
+ &quot;factual&quot;: {
+  &quot;dor&quot;: 3,
+  &quot;gez&quot;: 3,
+  &quot;gim&quot;: 2,
+  &quot;met&quot;: 1,
+  &quot;mig&quot;: 2
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;gim&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: rav, duz, 1 and 1; equation: gem, duz, 1 and 1; equation: nup, gem, 1 and 3; equation: lum, rav, 3 and 0.
+The exogenous: root duz.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - duz has value 1
+  - nup has value 1
+  - gem has value 2
+  - rav has value 2
+  - lum has value 2
+What is the counterfactual for gem duz 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;duz&quot;,
+ &quot;factual&quot;: {
+  &quot;duz&quot;: 1,
+  &quot;gem&quot;: 2,
+  &quot;lum&quot;: 2,
+  &quot;nup&quot;: 1,
+  &quot;rav&quot;: 2
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;gem&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: riv, zod, 1 and 1; equation: bas, pag, 3 and 1; equation: pag, kib, 3 and 1; equation: zod, kib, 1 and 3.
+The exogenous: root kib.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - riv has value 3
+  - kib has value 3
+  - bas has value 3
+  - pag has value 2
+  - zod has value 2
+What is the counterfactual for bas pag 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;pag&quot;,
+ &quot;factual&quot;: {
+  &quot;bas&quot;: 3,
+  &quot;kib&quot;: 3,
+  &quot;pag&quot;: 2,
+  &quot;riv&quot;: 3,
+  &quot;zod&quot;: 2
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;bas&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: lin, bes, 1 and 3; equation: bes, sop, 1 and 3; equation: zon, gek, 3 and 2; equation: gek, sop, 1 and 3.
+The exogenous: root sop.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - lin has value 2
+  - sop has value 0
+  - zon has value 3
+  - gek has value 3
+  - bes has value 3
+What is the counterfactual for bes sop 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;sop&quot;,
+ &quot;factual&quot;: {
+  &quot;bes&quot;: 3,
+  &quot;gek&quot;: 3,
+  &quot;lin&quot;: 2,
+  &quot;sop&quot;: 0,
+  &quot;zon&quot;: 3
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;bes&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: sad, bav, 1 and 2; equation: zad, vat, 1 and 2; equation: vat, bav, 1 and 0; equation: pon, sad, 3 and 0.
+The exogenous: root bav.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - vat has value 0
+  - zad has value 2
+  - bav has value 0
+  - pon has value 2
+  - sad has value 2
+What is the counterfactual for sad bav 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;bav&quot;,
+ &quot;factual&quot;: {
+  &quot;bav&quot;: 0,
+  &quot;pon&quot;: 2,
+  &quot;sad&quot;: 2,
+  &quot;vat&quot;: 0,
+  &quot;zad&quot;: 2
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;sad&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: nov, tis, 3 and 1; equation: lan, met, 1 and 2; equation: zib, nov, 1 and 0; equation: met, tis, 1 and 2.
+The exogenous: root tis.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - nov has value 0
+  - zib has value 0
+  - tis has value 1
+  - met has value 3
+  - lan has value 1
+What is the counterfactual for nov tis 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;tis&quot;,
+ &quot;factual&quot;: {
+  &quot;lan&quot;: 1,
+  &quot;met&quot;: 3,
+  &quot;nov&quot;: 0,
+  &quot;tis&quot;: 1,
+  &quot;zib&quot;: 0
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;nov&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: lav, ver, 3 and 1; equation: ver, pol, 1 and 1; equation: lim, pol, 3 and 0; equation: siz, lim, 1 and 3.
+The exogenous: root pol.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - ver has value 3
+  - pol has value 2
+  - lav has value 2
+  - lim has value 2
+  - siz has value 1
+What is the counterfactual for lav ver 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;ver&quot;,
+ &quot;factual&quot;: {
+  &quot;lav&quot;: 2,
+  &quot;lim&quot;: 2,
+  &quot;pol&quot;: 2,
+  &quot;siz&quot;: 1,
+  &quot;ver&quot;: 3
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;lav&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: bem, kid, 1 and 0; equation: soz, ret, 3 and 3; equation: kid, dit, 3 and 0; equation: ret, dit, 3 and 1.
+The exogenous: root dit.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - soz has value 2
+  - ret has value 1
+  - kid has value 0
+  - dit has value 0
+  - bem has value 0
+What is the counterfactual for soz ret 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;ret&quot;,
+ &quot;factual&quot;: {
+  &quot;bem&quot;: 0,
+  &quot;dit&quot;: 0,
+  &quot;kid&quot;: 0,
+  &quot;ret&quot;: 1,
+  &quot;soz&quot;: 2
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;soz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: mog, mad, 1 and 3; equation: mad, zod, 3 and 0; equation: sim, zod, 3 and 1; equation: voz, sim, 1 and 1.
+The exogenous: root zod.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - mad has value 1
+  - sim has value 2
+  - voz has value 3
+  - mog has value 0
+  - zod has value 3
+What is the counterfactual for mog zod 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;zod&quot;,
+ &quot;factual&quot;: {
+  &quot;mad&quot;: 1,
+  &quot;mog&quot;: 0,
+  &quot;sim&quot;: 2,
+  &quot;voz&quot;: 3,
+  &quot;zod&quot;: 3
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;mog&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: vad, bor, 1 and 0; equation: nem, das, 1 and 0; equation: zeg, vad, 1 and 2; equation: das, bor, 1 and 3.
+The exogenous: root bor.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - vad has value 1
+  - bor has value 1
+  - zeg has value 3
+  - das has value 0
+  - nem has value 0
+What is the counterfactual for zeg vad 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;vad&quot;,
+ &quot;factual&quot;: {
+  &quot;bor&quot;: 1,
+  &quot;das&quot;: 0,
+  &quot;nem&quot;: 0,
+  &quot;vad&quot;: 1,
+  &quot;zeg&quot;: 3
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;zeg&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: piz, vuv, 3 and 0; equation: pem, rev, 1 and 1; equation: rid, piz, 1 and 1; equation: rev, vuv, 3 and 0.
+The exogenous: root vuv.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - vuv has value 2
+  - rev has value 2
+  - pem has value 3
+  - rid has value 3
+  - piz has value 2
+What is the counterfactual for rid piz 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;piz&quot;,
+ &quot;factual&quot;: {
+  &quot;pem&quot;: 3,
+  &quot;piz&quot;: 2,
+  &quot;rev&quot;: 2,
+  &quot;rid&quot;: 3,
+  &quot;vuv&quot;: 2
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;rid&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: mip, got, 3 and 0; equation: got, soz, 1 and 0; equation: vut, soz, 3 and 3; equation: zum, vut, 3 and 1.
+The exogenous: root soz.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - mip has value 0
+  - soz has value 0
+  - vut has value 3
+  - zum has value 2
+  - got has value 0
+What is the counterfactual for mip soz 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;soz&quot;,
+ &quot;factual&quot;: {
+  &quot;got&quot;: 0,
+  &quot;mip&quot;: 0,
+  &quot;soz&quot;: 0,
+  &quot;vut&quot;: 3,
+  &quot;zum&quot;: 2
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;mip&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: vuz, sad, 3 and 1; equation: zup, vuz, 3 and 2; equation: man, sad, 1 and 0; equation: pop, man, 1 and 3.
+The exogenous: root sad.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - zup has value 1
+  - vuz has value 1
+  - man has value 0
+  - sad has value 0
+  - pop has value 3
+What is the counterfactual for zup sad 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;sad&quot;,
+ &quot;factual&quot;: {
+  &quot;man&quot;: 0,
+  &quot;pop&quot;: 3,
+  &quot;sad&quot;: 0,
+  &quot;vuz&quot;: 1,
+  &quot;zup&quot;: 1
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;zup&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: bus, poz, 1 and 0; equation: gog, gum, 1 and 2; equation: giv, gog, 1 and 1; equation: poz, gum, 1 and 3.
+The exogenous: root gum.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - bus has value 0
+  - gum has value 1
+  - gog has value 3
+  - poz has value 0
+  - giv has value 0
+What is the counterfactual for poz gum 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;gum&quot;,
+ &quot;factual&quot;: {
+  &quot;bus&quot;: 0,
+  &quot;giv&quot;: 0,
+  &quot;gog&quot;: 3,
+  &quot;gum&quot;: 1,
+  &quot;poz&quot;: 0
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;poz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: vob, dam, 3 and 0; equation: nup, vob, 1 and 1; equation: bil, nem, 3 and 2; equation: nem, dam, 1 and 3.
+The exogenous: root dam.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - nup has value 0
+  - vob has value 3
+  - nem has value 0
+  - dam has value 1
+  - bil has value 2
+What is the counterfactual for bil nem 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;nem&quot;,
+ &quot;factual&quot;: {
+  &quot;bil&quot;: 2,
+  &quot;dam&quot;: 1,
+  &quot;nem&quot;: 0,
+  &quot;nup&quot;: 0,
+  &quot;vob&quot;: 3
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;bil&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: vot, mig, 1 and 0; equation: mig, lat, 3 and 2; equation: gon, lat, 3 and 3; equation: dus, gon, 1 and 3.
+The exogenous: root lat.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - mig has value 0
+  - dus has value 0
+  - gon has value 1
+  - vot has value 0
+  - lat has value 2
+What is the counterfactual for vot mig 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;mig&quot;,
+ &quot;factual&quot;: {
+  &quot;dus&quot;: 0,
+  &quot;gon&quot;: 1,
+  &quot;lat&quot;: 2,
+  &quot;mig&quot;: 0,
+  &quot;vot&quot;: 0
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;vot&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: naz, mer, 3 and 1; equation: kus, tez, 1 and 3; equation: lub, naz, 1 and 2; equation: tez, mer, 3 and 1.
+The exogenous: root mer.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - lub has value 2
+  - kus has value 3
+  - tez has value 0
+  - naz has value 0
+  - mer has value 1
+What is the counterfactual for tez mer 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;mer&quot;,
+ &quot;factual&quot;: {
+  &quot;kus&quot;: 3,
+  &quot;lub&quot;: 2,
+  &quot;mer&quot;: 1,
+  &quot;naz&quot;: 0,
+  &quot;tez&quot;: 0
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;tez&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: mug, gis, 1 and 3; equation: zut, rul, 1 and 2; equation: rul, gis, 1 and 3; equation: tig, mug, 1 and 2.
+The exogenous: root gis.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - tig has value 1
+  - gis has value 0
+  - zut has value 1
+  - rul has value 3
+  - mug has value 3
+What is the counterfactual for tig gis 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;gis&quot;,
+ &quot;factual&quot;: {
+  &quot;gis&quot;: 0,
+  &quot;mug&quot;: 3,
+  &quot;rul&quot;: 3,
+  &quot;tig&quot;: 1,
+  &quot;zut&quot;: 1
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;tig&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: zar, vut, 3 and 3; equation: mop, rus, 3 and 1; equation: vut, vib, 3 and 0; equation: rus, vib, 3 and 2.
+The exogenous: root vib.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - mop has value 3
+  - vib has value 0
+  - vut has value 0
+  - rus has value 2
+  - zar has value 3
+What is the counterfactual for zar vut 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;vut&quot;,
+ &quot;factual&quot;: {
+  &quot;mop&quot;: 3,
+  &quot;rus&quot;: 2,
+  &quot;vib&quot;: 0,
+  &quot;vut&quot;: 0,
+  &quot;zar&quot;: 3
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;zar&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: lan, nor, 3 and 0; equation: lav, lan, 1 and 3; equation: bum, nor, 1 and 1; equation: zes, bum, 1 and 3.
+The exogenous: root nor.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - zes has value 1
+  - lav has value 2
+  - bum has value 2
+  - nor has value 1
+  - lan has value 3
+What is the counterfactual for lav lan 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;lan&quot;,
+ &quot;factual&quot;: {
+  &quot;bum&quot;: 2,
+  &quot;lan&quot;: 3,
+  &quot;lav&quot;: 2,
+  &quot;nor&quot;: 1,
+  &quot;zes&quot;: 1
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;lav&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: dim, dod, 3 and 2; equation: vag, dod, 3 and 2; equation: vup, dim, 3 and 0; equation: nud, vag, 3 and 3.
+The exogenous: root dod.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - vag has value 1
+  - dod has value 1
+  - vup has value 3
+  - dim has value 1
+  - nud has value 2
+What is the counterfactual for vag dod 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;dod&quot;,
+ &quot;factual&quot;: {
+  &quot;dim&quot;: 1,
+  &quot;dod&quot;: 1,
+  &quot;nud&quot;: 2,
+  &quot;vag&quot;: 1,
+  &quot;vup&quot;: 3
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;vag&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: zov, sal, 3 and 1; equation: lop, sal, 1 and 3; equation: sik, lop, 3 and 3; equation: pez, zov, 1 and 0.
+The exogenous: root sal.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - lop has value 2
+  - sik has value 1
+  - pez has value 2
+  - sal has value 3
+  - zov has value 2
+What is the counterfactual for zov sal 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;sal&quot;,
+ &quot;factual&quot;: {
+  &quot;lop&quot;: 2,
+  &quot;pez&quot;: 2,
+  &quot;sal&quot;: 3,
+  &quot;sik&quot;: 1,
+  &quot;zov&quot;: 2
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;zov&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: rus, miv, 3 and 1; equation: ses, miv, 1 and 3; equation: nil, rus, 1 and 2; equation: tud, ses, 3 and 0.
+The exogenous: root miv.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - tud has value 1
+  - ses has value 3
+  - nil has value 3
+  - miv has value 0
+  - rus has value 1
+What is the counterfactual for tud ses 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;ses&quot;,
+ &quot;factual&quot;: {
+  &quot;miv&quot;: 0,
+  &quot;nil&quot;: 3,
+  &quot;rus&quot;: 1,
+  &quot;ses&quot;: 3,
+  &quot;tud&quot;: 1
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;tud&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: ton, pad, 1 and 1; equation: saz, dig, 1 and 1; equation: deg, saz, 3 and 3; equation: pad, dig, 3 and 3.
+The exogenous: root dig.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - pad has value 1
+  - dig has value 2
+  - ton has value 2
+  - deg has value 0
+  - saz has value 3
+What is the counterfactual for deg saz 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;saz&quot;,
+ &quot;factual&quot;: {
+  &quot;deg&quot;: 0,
+  &quot;dig&quot;: 2,
+  &quot;pad&quot;: 1,
+  &quot;saz&quot;: 3,
+  &quot;ton&quot;: 2
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;deg&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: mik, tol, 3 and 0; equation: bes, sag, 3 and 2; equation: sot, bes, 1 and 2; equation: tol, sag, 1 and 3.
+The exogenous: root sag.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - bes has value 0
+  - tol has value 1
+  - mik has value 3
+  - sot has value 2
+  - sag has value 2
+What is the counterfactual for mik sag 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;sag&quot;,
+ &quot;factual&quot;: {
+  &quot;bes&quot;: 0,
+  &quot;mik&quot;: 3,
+  &quot;sag&quot;: 2,
+  &quot;sot&quot;: 2,
+  &quot;tol&quot;: 1
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;mik&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: gol, lup, 1 and 3; equation: nos, gol, 1 and 2; equation: zor, lar, 1 and 1; equation: lar, lup, 1 and 0.
+The exogenous: root lup.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - lar has value 2
+  - zor has value 3
+  - nos has value 3
+  - gol has value 1
+  - lup has value 2
+What is the counterfactual for nos gol 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;gol&quot;,
+ &quot;factual&quot;: {
+  &quot;gol&quot;: 1,
+  &quot;lar&quot;: 2,
+  &quot;lup&quot;: 2,
+  &quot;nos&quot;: 3,
+  &quot;zor&quot;: 3
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;nos&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: tod, rol, 1 and 0; equation: rup, rol, 1 and 2; equation: nuk, rup, 1 and 2; equation: vat, tod, 1 and 2.
+The exogenous: root rol.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - vat has value 3
+  - tod has value 1
+  - rup has value 3
+  - nuk has value 1
+  - rol has value 1
+What is the counterfactual for nuk rol 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;rol&quot;,
+ &quot;factual&quot;: {
+  &quot;nuk&quot;: 1,
+  &quot;rol&quot;: 1,
+  &quot;rup&quot;: 3,
+  &quot;tod&quot;: 1,
+  &quot;vat&quot;: 3
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;nuk&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: nap, vum, 1 and 2; equation: tit, tor, 3 and 3; equation: zen, nap, 1 and 3; equation: tor, vum, 1 and 3.
+The exogenous: root vum.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - zen has value 2
+  - tor has value 0
+  - tit has value 3
+  - nap has value 3
+  - vum has value 1
+What is the counterfactual for tor vum 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;vum&quot;,
+ &quot;factual&quot;: {
+  &quot;nap&quot;: 3,
+  &quot;tit&quot;: 3,
+  &quot;tor&quot;: 0,
+  &quot;vum&quot;: 1,
+  &quot;zen&quot;: 2
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;tor&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: kes, tim, 1 and 3; equation: vom, tok, 3 and 1; equation: tim, tok, 3 and 1; equation: kot, vom, 1 and 0.
+The exogenous: root tok.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - tok has value 2
+  - vom has value 3
+  - tim has value 3
+  - kes has value 2
+  - kot has value 3
+What is the counterfactual for kot tok 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;tok&quot;,
+ &quot;factual&quot;: {
+  &quot;kes&quot;: 2,
+  &quot;kot&quot;: 3,
+  &quot;tim&quot;: 3,
+  &quot;tok&quot;: 2,
+  &quot;vom&quot;: 3
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;kot&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: nib, gin, 3 and 2; equation: kok, vor, 1 and 1; equation: vor, gin, 1 and 1; equation: ris, nib, 3 and 0.
+The exogenous: root gin.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - vor has value 1
+  - ris has value 2
+  - kok has value 2
+  - nib has value 2
+  - gin has value 0
+What is the counterfactual for ris gin 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;gin&quot;,
+ &quot;factual&quot;: {
+  &quot;gin&quot;: 0,
+  &quot;kok&quot;: 2,
+  &quot;nib&quot;: 2,
+  &quot;ris&quot;: 2,
+  &quot;vor&quot;: 1
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;ris&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: sor, les, 3 and 3; equation: vib, sum, 1 and 3; equation: ren, vib, 3 and 1; equation: les, sum, 1 and 0.
+The exogenous: root sum.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - les has value 1
+  - ren has value 1
+  - vib has value 0
+  - sor has value 2
+  - sum has value 1
+What is the counterfactual for vib sum 2?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;sum&quot;,
+ &quot;factual&quot;: {
+  &quot;les&quot;: 1,
+  &quot;ren&quot;: 1,
+  &quot;sor&quot;: 2,
+  &quot;sum&quot;: 1,
+  &quot;vib&quot;: 0
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 2,
+ &quot;target&quot;: &quot;vib&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: par, mug, 1 and 1; equation: dig, par, 1 and 3; equation: lan, mug, 3 and 0; equation: nar, lan, 3 and 0.
+The exogenous: root mug.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - mug has value 3
+  - nar has value 3
+  - par has value 0
+  - lan has value 1
+  - dig has value 3
+What is the counterfactual for dig mug 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;mug&quot;,
+ &quot;factual&quot;: {
+  &quot;dig&quot;: 3,
+  &quot;lan&quot;: 1,
+  &quot;mug&quot;: 3,
+  &quot;nar&quot;: 3,
+  &quot;par&quot;: 0
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;dig&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: lug, min, 1 and 0; equation: lal, kip, 3 and 0; equation: kip, min, 1 and 2; equation: ter, lug, 3 and 3.
+The exogenous: root min.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - min has value 3
+  - ter has value 0
+  - lug has value 3
+  - lal has value 3
+  - kip has value 1
+What is the counterfactual for lal kip 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;kip&quot;,
+ &quot;factual&quot;: {
+  &quot;kip&quot;: 1,
+  &quot;lal&quot;: 3,
+  &quot;lug&quot;: 3,
+  &quot;min&quot;: 3,
+  &quot;ter&quot;: 0
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;lal&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: nal, pel, 3 and 3; equation: sag, nal, 1 and 0; equation: dot, pel, 1 and 2; equation: tar, dot, 3 and 2.
+The exogenous: root pel.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - dot has value 2
+  - tar has value 0
+  - sag has value 3
+  - pel has value 0
+  - nal has value 3
+What is the counterfactual for dot pel 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;pel&quot;,
+ &quot;factual&quot;: {
+  &quot;dot&quot;: 2,
+  &quot;nal&quot;: 3,
+  &quot;pel&quot;: 0,
+  &quot;sag&quot;: 3,
+  &quot;tar&quot;: 0
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;dot&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: gim, lez, 1 and 3; equation: lez, mep, 3 and 0; equation: zel, mug, 3 and 0; equation: mug, mep, 1 and 1.
+The exogenous: root mep.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - gim has value 0
+  - lez has value 1
+  - zel has value 0
+  - mep has value 3
+  - mug has value 0
+What is the counterfactual for mug mep 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;mep&quot;,
+ &quot;factual&quot;: {
+  &quot;gim&quot;: 0,
+  &quot;lez&quot;: 1,
+  &quot;mep&quot;: 3,
+  &quot;mug&quot;: 0,
+  &quot;zel&quot;: 0
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;mug&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: vuz, dub, 1 and 3; equation: zoz, dub, 3 and 3; equation: sav, vuz, 1 and 1; equation: zin, zoz, 1 and 0.
+The exogenous: root dub.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - vuz has value 3
+  - zoz has value 3
+  - zin has value 3
+  - sav has value 0
+  - dub has value 0
+What is the counterfactual for vuz dub 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;dub&quot;,
+ &quot;factual&quot;: {
+  &quot;dub&quot;: 0,
+  &quot;sav&quot;: 0,
+  &quot;vuz&quot;: 3,
+  &quot;zin&quot;: 3,
+  &quot;zoz&quot;: 3
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;vuz&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: dep, sul, 3 and 2; equation: mut, vov, 3 and 2; equation: sul, vov, 1 and 0; equation: vis, mut, 3 and 3.
+The exogenous: root vov.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - mut has value 1
+  - vov has value 1
+  - dep has value 1
+  - sul has value 1
+  - vis has value 2
+What is the counterfactual for dep sul 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;sul&quot;,
+ &quot;factual&quot;: {
+  &quot;dep&quot;: 1,
+  &quot;mut&quot;: 1,
+  &quot;sul&quot;: 1,
+  &quot;vis&quot;: 2,
+  &quot;vov&quot;: 1
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;dep&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: bin, nab, 3 and 3; equation: pub, rot, 1 and 0; equation: nab, run, 1 and 1; equation: rot, run, 1 and 1.
+The exogenous: root run.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - nab has value 2
+  - bin has value 1
+  - pub has value 2
+  - rot has value 2
+  - run has value 1
+What is the counterfactual for bin run 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;run&quot;,
+ &quot;factual&quot;: {
+  &quot;bin&quot;: 1,
+  &quot;nab&quot;: 2,
+  &quot;pub&quot;: 2,
+  &quot;rot&quot;: 2,
+  &quot;run&quot;: 1
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;bin&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: let, pan, 1 and 1; equation: tuk, let, 1 and 2; equation: lam, pan, 3 and 0; equation: vug, lam, 1 and 3.
+The exogenous: root pan.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - vug has value 1
+  - tuk has value 1
+  - let has value 3
+  - lam has value 2
+  - pan has value 2
+What is the counterfactual for vug lam 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 3,
+ &quot;antecedent&quot;: &quot;lam&quot;,
+ &quot;factual&quot;: {
+  &quot;lam&quot;: 2,
+  &quot;let&quot;: 3,
+  &quot;pan&quot;: 2,
+  &quot;tuk&quot;: 1,
+  &quot;vug&quot;: 1
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;vug&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: kol, zuk, 3 and 1; equation: zob, kol, 3 and 1; equation: rem, zip, 1 and 3; equation: zip, zuk, 3 and 3.
+The exogenous: root zuk.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - zob has value 2
+  - rem has value 0
+  - zip has value 1
+  - kol has value 3
+  - zuk has value 2
+What is the counterfactual for kol zuk 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;antecedent&quot;: &quot;zuk&quot;,
+ &quot;factual&quot;: {
+  &quot;kol&quot;: 3,
+  &quot;rem&quot;: 0,
+  &quot;zip&quot;: 1,
+  &quot;zob&quot;: 2,
+  &quot;zuk&quot;: 2
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;kol&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: gun, tok, 1 and 1; equation: tok, min, 3 and 3; equation: tab, min, 1 and 2; equation: nur, tab, 3 and 1.
+The exogenous: root min.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - tab has value 1
+  - min has value 3
+  - nur has value 0
+  - tok has value 0
+  - gun has value 1
+What is the counterfactual for nur tab 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;tab&quot;,
+ &quot;factual&quot;: {
+  &quot;gun&quot;: 1,
+  &quot;min&quot;: 3,
+  &quot;nur&quot;: 0,
+  &quot;tab&quot;: 1,
+  &quot;tok&quot;: 0
+ },
+ &quot;root&quot;: 3,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;nur&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: lag, pem, 1 and 2; equation: kep, lid, 1 and 0; equation: pem, lid, 3 and 3; equation: dim, kep, 3 and 2.
+The exogenous: root lid.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - pem has value 1
+  - lid has value 2
+  - dim has value 0
+  - kep has value 2
+  - lag has value 3
+What is the counterfactual for kep lid 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;lid&quot;,
+ &quot;factual&quot;: {
+  &quot;dim&quot;: 0,
+  &quot;kep&quot;: 2,
+  &quot;lag&quot;: 3,
+  &quot;lid&quot;: 2,
+  &quot;pem&quot;: 1
+ },
+ &quot;root&quot;: 2,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;kep&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: zik, kun, 3 and 1; equation: son, lab, 1 and 1; equation: kag, zik, 3 and 3; equation: lab, kun, 3 and 1.
+The exogenous: root kun.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - kag has value 2
+  - zik has value 1
+  - lab has value 1
+  - son has value 2
+  - kun has value 0
+What is the counterfactual for lab kun 3?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;antecedent&quot;: &quot;kun&quot;,
+ &quot;factual&quot;: {
+  &quot;kag&quot;: 2,
+  &quot;kun&quot;: 0,
+  &quot;lab&quot;: 1,
+  &quot;son&quot;: 2,
+  &quot;zik&quot;: 1
+ },
+ &quot;root&quot;: 0,
+ &quot;set_to&quot;: 3,
+ &quot;target&quot;: &quot;lab&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: luk, lok, 3 and 0; equation: dum, vig, 3 and 1; equation: vig, nos, 3 and 2; equation: lok, nos, 1 and 0.
+The exogenous: root nos.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - nos has value 1
+  - luk has value 3
+  - vig has value 1
+  - dum has value 0
+  - lok has value 1
+What is the counterfactual for luk nos 0?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;nos&quot;,
+ &quot;factual&quot;: {
+  &quot;dum&quot;: 0,
+  &quot;lok&quot;: 1,
+  &quot;luk&quot;: 3,
+  &quot;nos&quot;: 1,
+  &quot;vig&quot;: 1
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 0,
+ &quot;target&quot;: &quot;luk&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The equations: equation: pos, bes, 3 and 1; equation: sen, mig, 1 and 2; equation: pud, sen, 1 and 3; equation: bes, mig, 1 and 3.
+The exogenous: root mig.
+The form is child = (a * parent + b) mod m.
+The modulus is 4.
+The observed:
+  - pud has value 2
+  - mig has value 1
+  - bes has value 0
+  - sen has value 3
+  - pos has value 1
+What is the counterfactual for pud sen 1?
+
+Answer with exactly one of: 0 | 1 | 2 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;antecedent&quot;: &quot;sen&quot;,
+ &quot;factual&quot;: {
+  &quot;bes&quot;: 0,
+  &quot;mig&quot;: 1,
+  &quot;pos&quot;: 1,
+  &quot;pud&quot;: 2,
+  &quot;sen&quot;: 3
+ },
+ &quot;root&quot;: 1,
+ &quot;set_to&quot;: 1,
+ &quot;target&quot;: &quot;pud&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

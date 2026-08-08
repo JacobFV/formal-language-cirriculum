@@ -1,0 +1,1873 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>compiler_construction — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#x">reflective computation and language design</a> &rsaquo;
+  compiler_construction</p>
+<h1>#119 <code>compiler_construction</code></h1>
+<p class="lede">expand nested macros to primitives, then execute</p>
+<div class="tags"><span class="tag ">level 119</span><span class="tag ">section x</span><span class="tag ">program_synthesis</span><span class="tag ">abstraction</span><span class="tag ">recursive_syntax</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.02</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Compile a high-level program to primitives, then run it.</p><p>    Macros are defined in terms of primitives *and of each other*, and a
+    ``times`` construct repeats a token, so the compiled instruction stream is
+    several times longer than what is written. Only the final value is graded,
+    and the distractors are the values produced by the three natural failures:
+    not expanding macros, treating ``times n`` as ``times 1``, and expanding
+    only the outermost macro layer.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>5</td></tr><tr><td>reasoning_depth</td><td class='num'>5</td></tr><tr><td>recursion_depth</td><td class='num'>5</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The macros: psr abbreviates (2 times gk, lz); dmt abbreviates (lz, psr).
+The primitives: prim: gk, add and 4; prim: kv, sub and 1; prim: lz, mul and 2.
+The program is: psr and 2 times psr.
+What does the program output for 1?
+
+Answer with exactly one of: 1 | 64 | 52 | 120
+Reply with the answer only.</pre><h3>spanish</h3><pre>Las macros son: psr abrevia (2 por gk, lz); dmt abrevia (lz, psr).
+Las primitivas son: la primitiva: gk, sumar y 4; la primitiva: kv, restar y 1; la primitiva: lz, multiplicar y 2.
+El programa es: psr y 2 por psr.
+¿Qué produce el programa para 1?
+
+Responde exactamente con una de estas opciones: 1 | 64 | 52 | 120
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>宏如下：psr是(2乘以gk，lz)的简写；dmt是(lz，psr)的简写。
+原语如下：原语：gk、加上和4；原语：kv、减和1；原语：lz、乘和2。
+程序如下：psr；2乘以psr。
+输入1时的输出是什么？
+
+请从以下选项中选出恰好一个作答：1 | 64 | 52 | 120
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The macros: psr abbreviates (2 times gk, lz); dmt abbreviates (lz, psr).
+The primitives: prim: gk, add and 4; prim: kv, sub and 1; prim: lz, mul and 2.
+The program is: psr and 2 times psr.
+What does the program output for 1?
+
+Answer with exactly one of: 1 | 64 | 52 | 120
+Reply with the answer only.</pre><h3>symbols</h3><pre>{macros: [(macro psr [(times 2 gk) lz]) (macro dmt [lz psr])], primitives: [(prim gk add 4) (prim kv sub 1) (prim lz mul 2)], program: [psr (times 2 psr)], query: (output_for_input 1)}
+
+Answer with exactly one of: 1 | 64 | 52 | 120
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/compiler_construction.jsonl</code> &middot; <code>data/samples/spanish/compiler_construction.jsonl</code> &middot; <code>data/samples/chinese/compiler_construction.jsonl</code> &middot; <code>data/samples/english_synonym/compiler_construction.jsonl</code> &middot; <code>data/samples/symbols/compiler_construction.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">120</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: psr abbreviates (2 times gk, lz); dmt abbreviates (lz, psr).
+The primitives: prim: gk, add and 4; prim: kv, sub and 1; prim: lz, mul and 2.
+The program is: psr and 2 times psr.
+What does the program output for 1?
+
+Answer with exactly one of: 1 | 64 | 52 | 120
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 120,
+ &quot;compiled&quot;: &quot;gk gk lz gk gk lz gk gk lz&quot;,
+ &quot;compiled_length&quot;: 9,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">323</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: tkr abbreviates (mm, 3 times mm, tp); kgs abbreviates (tkr, mm).
+The primitives: prim: mm, add and 5; prim: zz, sub and 3; prim: tp, mul and 2.
+The program is: 2 times kgs and kgs.
+What does the program output for 1?
+
+Answer with exactly one of: 16 | 1 | 323 | 139
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 323,
+ &quot;compiled&quot;: &quot;mm mm mm mm tp mm mm mm mm mm tp mm mm mm mm mm tp mm&quot;,
+ &quot;compiled_length&quot;: 18,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">63</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: pdk abbreviates (lt, 2 times vr); rtd abbreviates (lz, pdk).
+The primitives: prim: vr, add and 3; prim: lt, sub and 5; prim: lz, mul and 2.
+The program is: 2 times rtd and 2 times rtd.
+What does the program output for 3?
+
+Answer with exactly one of: 15 | 48 | 3 | 63
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 63,
+ &quot;compiled&quot;: &quot;lz lt vr vr lz lt vr vr lz lt vr vr lz lt vr vr&quot;,
+ &quot;compiled_length&quot;: 16,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">-6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: rls abbreviates (2 times rs, rp); mgz abbreviates (rs, rls).
+The primitives: prim: rp, add and 5; prim: rs, sub and 3; prim: kv, mul and 2.
+The program is: rls and 2 times mgz.
+What does the program output for 3?
+
+Answer with exactly one of: -6 | -1 | 3 | -2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -6,
+ &quot;compiled&quot;: &quot;rs rs rp rs rs rs rp rs rs rs rp&quot;,
+ &quot;compiled_length&quot;: 11,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">-19</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: pdd abbreviates (lk, zt); kvp abbreviates (pdd, lk).
+The primitives: prim: zt, add and 1; prim: lk, sub and 5; prim: lg, mul and 2.
+The program is: lg, kvp and 2 times kvp.
+What does the program output for 4?
+
+Answer with exactly one of: -7 | 8 | -10 | -19
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -19,
+ &quot;compiled&quot;: &quot;lg lk zt lk lk zt lk lk zt lk&quot;,
+ &quot;compiled_length&quot;: 10,
+ &quot;input&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">78</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: dkt abbreviates (2 times gz, rk); mlv abbreviates (gz, dkt, ld).
+The primitives: prim: gz, add and 4; prim: ld, sub and 2; prim: rk, mul and 2.
+The program is: 2 times mlv and gz.
+What does the program output for 2?
+
+Answer with exactly one of: 6 | 10 | 78 | 30
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 78,
+ &quot;compiled&quot;: &quot;gz gz gz rk ld gz gz gz rk ld gz&quot;,
+ &quot;compiled_length&quot;: 11,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">59</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: gsd abbreviates (dz, 3 times ms); lvs abbreviates (zv, gsd).
+The primitives: prim: zv, add and 1; prim: ms, sub and 1; prim: dz, mul and 2.
+The program is: 2 times lvs and 2 times gsd.
+What does the program output for 5?
+
+Answer with exactly one of: 15 | 25 | 5 | 59
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 59,
+ &quot;compiled&quot;: &quot;zv dz ms ms ms zv dz ms ms ms dz ms ms ms dz ms ms ms&quot;,
+ &quot;compiled_length&quot;: 18,
+ &quot;input&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">-118</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: mpv abbreviates (zt, lt); tds abbreviates (lt, lt, mpv).
+The primitives: prim: dd, add and 4; prim: lt, sub and 2; prim: zt, mul and 2.
+The program is: 2 times tds, mpv and tds.
+What does the program output for 1?
+
+Answer with exactly one of: -46 | -20 | 1 | -118
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -118,
+ &quot;compiled&quot;: &quot;lt lt zt lt lt lt zt lt zt lt lt lt zt lt&quot;,
+ &quot;compiled_length&quot;: 14,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: tgm abbreviates (ls, 3 times mv); rkv abbreviates (ls, tgm, ls).
+The primitives: prim: ls, add and 2; prim: mv, sub and 5; prim: dr, mul and 2.
+The program is: dr, dr and 2 times rkv.
+What does the program output for 5?
+
+Answer with exactly one of: 11 | 20 | 28 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 2,
+ &quot;compiled&quot;: &quot;dr dr ls ls mv mv mv ls ls ls mv mv mv ls&quot;,
+ &quot;compiled_length&quot;: 14,
+ &quot;input&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">-32</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: zlk abbreviates (2 times sp, sp); skp abbreviates (sd, zlk).
+The primitives: prim: sd, add and 2; prim: sp, sub and 4; prim: mz, mul and 2.
+The program is: 2 times zlk and skp.
+What does the program output for 2?
+
+Answer with exactly one of: -12 | -20 | -32 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -32,
+ &quot;compiled&quot;: &quot;sp sp sp sp sp sp sd sp sp sp&quot;,
+ &quot;compiled_length&quot;: 10,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">22</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: szr abbreviates (pk, pk, vg); lsl abbreviates (vg, gk, szr).
+The primitives: prim: vg, add and 2; prim: pk, sub and 2; prim: gk, mul and 2.
+The program is: 2 times lsl and 2 times szr.
+What does the program output for 5?
+
+Answer with exactly one of: 5 | 28 | 22 | 10
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 22,
+ &quot;compiled&quot;: &quot;vg gk pk pk vg vg gk pk pk vg pk pk vg pk pk vg&quot;,
+ &quot;compiled_length&quot;: 16,
+ &quot;input&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">-42</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: ppp abbreviates (3 times dk, dk); mgd abbreviates (mk, mk, ppp).
+The primitives: prim: mk, add and 1; prim: dk, sub and 4; prim: ss, mul and 2.
+The program is: 2 times mgd and ppp.
+What does the program output for 2?
+
+Answer with exactly one of: -42 | -28 | -2 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -42,
+ &quot;compiled&quot;: &quot;mk mk dk dk dk dk mk mk dk dk dk dk dk dk dk dk&quot;,
+ &quot;compiled_length&quot;: 16,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">72</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: rgr abbreviates (dz, 3 times dz, dz); tkp abbreviates (sl, rgr).
+The primitives: prim: dz, add and 3; prim: mz, sub and 3; prim: sl, mul and 2.
+The program is: 2 times tkp and rgr.
+What does the program output for 3?
+
+Answer with exactly one of: 72 | 21 | 3 | 36
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 72,
+ &quot;compiled&quot;: &quot;sl dz dz dz dz dz sl dz dz dz dz dz dz dz dz dz dz&quot;,
+ &quot;compiled_length&quot;: 17,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">84</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: klp abbreviates (ps, ls); vmm abbreviates (klp, gz, ls).
+The primitives: prim: ls, add and 3; prim: gz, sub and 4; prim: ps, mul and 2.
+The program is: vmm, 2 times klp and vmm.
+What does the program output for 3?
+
+Answer with exactly one of: 16 | 3 | 40 | 84
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 84,
+ &quot;compiled&quot;: &quot;ps ls gz ls ps ls ps ls ps ls gz ls&quot;,
+ &quot;compiled_length&quot;: 12,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">74</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: ptv abbreviates (rp, rp); smt abbreviates (ptv, zl).
+The primitives: prim: rp, add and 5; prim: km, sub and 4; prim: zl, mul and 2.
+The program is: 2 times smt and ptv.
+What does the program output for 1?
+
+Answer with exactly one of: 14 | 32 | 1 | 74
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 74,
+ &quot;compiled&quot;: &quot;rp rp zl rp rp zl rp rp&quot;,
+ &quot;compiled_length&quot;: 8,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: vkl abbreviates (kd, kd, 2 times dt); vvg abbreviates (vkl, kd, kd).
+The primitives: prim: dt, add and 5; prim: kd, sub and 4; prim: gk, mul and 2.
+The program is: 2 times vkl and vvg.
+What does the program output for 3?
+
+Answer with exactly one of: -11 | 1 | -1 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 1,
+ &quot;compiled&quot;: &quot;kd kd dt dt kd kd dt dt kd kd dt dt kd kd&quot;,
+ &quot;compiled_length&quot;: 14,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">148</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: tvr abbreviates (sg, 3 times sr); mdd abbreviates (tvr, sg).
+The primitives: prim: sr, add and 4; prim: dv, sub and 5; prim: sg, mul and 2.
+The program is: mdd and 2 times tvr.
+What does the program output for 1?
+
+Answer with exactly one of: 20 | 68 | 1 | 148
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 148,
+ &quot;compiled&quot;: &quot;sg sr sr sr sg sg sr sr sr sg sr sr sr&quot;,
+ &quot;compiled_length&quot;: 13,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">67</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: dpv abbreviates (ll, pm); mrm abbreviates (kt, dpv).
+The primitives: prim: ll, add and 3; prim: kt, sub and 3; prim: pm, mul and 2.
+The program is: 2 times mrm, 2 times mrm and ll.
+What does the program output for 4?
+
+Answer with exactly one of: 7 | 19 | 67 | -5
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 67,
+ &quot;compiled&quot;: &quot;kt ll pm kt ll pm kt ll pm kt ll pm ll&quot;,
+ &quot;compiled_length&quot;: 13,
+ &quot;input&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: dvt abbreviates (2 times tm, dv, ls); vzv abbreviates (dvt, tm).
+The primitives: prim: tm, add and 2; prim: dv, sub and 4; prim: ls, mul and 2.
+The program is: dv and 2 times vzv.
+What does the program output for 4?
+
+Answer with exactly one of: 6 | 0 | 4 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 6,
+ &quot;compiled&quot;: &quot;dv tm tm dv ls tm tm tm dv ls tm&quot;,
+ &quot;compiled_length&quot;: 11,
+ &quot;input&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">39</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: lsr abbreviates (3 times mk, mk); rkz abbreviates (kd, lsr, gp).
+The primitives: prim: mk, add and 2; prim: gp, sub and 5; prim: kd, mul and 2.
+The program is: mk, 2 times rkz and mk.
+What does the program output for 5?
+
+Answer with exactly one of: 15 | 39 | 19 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 39,
+ &quot;compiled&quot;: &quot;mk kd mk mk mk mk gp kd mk mk mk mk gp mk&quot;,
+ &quot;compiled_length&quot;: 14,
+ &quot;input&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">18</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: drt abbreviates (2 times ks, sr, ks); ztp abbreviates (rk, drt, ks).
+The primitives: prim: ks, add and 2; prim: sr, sub and 1; prim: rk, mul and 2.
+The program is: 2 times drt and drt.
+What does the program output for 3?
+
+Answer with exactly one of: 18 | 12 | 3 | 13
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 18,
+ &quot;compiled&quot;: &quot;ks ks sr ks ks ks sr ks ks ks sr ks&quot;,
+ &quot;compiled_length&quot;: 12,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">144</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: rtr abbreviates (2 times tp, zv); rsk abbreviates (rtr, pd).
+The primitives: prim: tp, add and 2; prim: pd, sub and 4; prim: zv, mul and 2.
+The program is: rsk, 2 times rsk and rtr.
+What does the program output for 5?
+
+Answer with exactly one of: 144 | 5 | 72 | -10
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 144,
+ &quot;compiled&quot;: &quot;tp tp zv pd tp tp zv pd tp tp zv pd tp tp zv&quot;,
+ &quot;compiled_length&quot;: 15,
+ &quot;input&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">25</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: tkz abbreviates (2 times ld, ms); mgv abbreviates (rz, ld, tkz).
+The primitives: prim: ld, add and 4; prim: ms, sub and 1; prim: rz, mul and 2.
+The program is: tkz, ms and 2 times tkz.
+What does the program output for 5?
+
+Answer with exactly one of: 13 | 4 | 25 | 18
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 25,
+ &quot;compiled&quot;: &quot;ld ld ms ms ld ld ms ld ld ms&quot;,
+ &quot;compiled_length&quot;: 10,
+ &quot;input&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">118</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: smz abbreviates (rs, 2 times rs); dgm abbreviates (rs, dr, smz).
+The primitives: prim: rs, add and 5; prim: tr, sub and 5; prim: dr, mul and 2.
+The program is: dgm, 2 times smz and dr.
+What does the program output for 2?
+
+Answer with exactly one of: 4 | 88 | 68 | 118
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 118,
+ &quot;compiled&quot;: &quot;rs dr rs rs rs rs rs rs rs rs rs dr&quot;,
+ &quot;compiled_length&quot;: 12,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">14</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: rpp abbreviates (lp, km, lp); szz abbreviates (pr, rpp).
+The primitives: prim: km, add and 4; prim: lp, sub and 5; prim: pr, mul and 2.
+The program is: km, szz and 2 times szz.
+What does the program output for 3?
+
+Answer with exactly one of: 10 | 14 | 7 | 56
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 14,
+ &quot;compiled&quot;: &quot;km pr lp km lp pr lp km lp pr lp km lp&quot;,
+ &quot;compiled_length&quot;: 13,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">10</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: kzv abbreviates (ks, lv, 2 times lv); lzt abbreviates (vv, lv, kzv).
+The primitives: prim: lv, add and 3; prim: ks, sub and 5; prim: vv, mul and 2.
+The program is: vv and 2 times kzv.
+What does the program output for 1?
+
+Answer with exactly one of: 6 | 2 | 4 | 10
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 10,
+ &quot;compiled&quot;: &quot;vv ks lv lv lv ks lv lv lv&quot;,
+ &quot;compiled_length&quot;: 9,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">56</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: klm abbreviates (pv, 3 times pk); dsm abbreviates (pv, lm, klm).
+The primitives: prim: lm, add and 5; prim: pk, sub and 1; prim: pv, mul and 2.
+The program is: 2 times dsm and lm.
+What does the program output for 1?
+
+Answer with exactly one of: 24 | 16 | 56 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 56,
+ &quot;compiled&quot;: &quot;pv lm pv pk pk pk pv lm pv pk pk pk lm&quot;,
+ &quot;compiled_length&quot;: 13,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">37</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: zzr abbreviates (ll, 3 times rm, rm); mzv abbreviates (rm, zzr).
+The primitives: prim: rm, add and 3; prim: ll, sub and 1; prim: kp, mul and 2.
+The program is: ll, 2 times zzr and mzv.
+What does the program output for 2?
+
+Answer with exactly one of: 26 | 37 | 1 | 14
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 37,
+ &quot;compiled&quot;: &quot;ll ll rm rm rm rm ll rm rm rm rm rm ll rm rm rm rm&quot;,
+ &quot;compiled_length&quot;: 17,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">-39</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: rzm abbreviates (3 times zd, sk); gpt abbreviates (zd, rzm, zd).
+The primitives: prim: sk, add and 1; prim: zd, sub and 5; prim: dz, mul and 2.
+The program is: rzm and 2 times rzm.
+What does the program output for 3?
+
+Answer with exactly one of: -39 | -25 | 3 | -9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -39,
+ &quot;compiled&quot;: &quot;zd zd zd sk zd zd zd sk zd zd zd sk&quot;,
+ &quot;compiled_length&quot;: 12,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">66</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: gss abbreviates (ds, 2 times ll, ll); kpt abbreviates (sl, sl, gss).
+The primitives: prim: ll, add and 2; prim: ds, sub and 3; prim: sl, mul and 2.
+The program is: ll, 2 times kpt and gss.
+What does the program output for 1?
+
+Answer with exactly one of: 66 | 3 | 49 | 18
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 66,
+ &quot;compiled&quot;: &quot;ll sl sl ds ll ll ll sl sl ds ll ll ll ds ll ll ll&quot;,
+ &quot;compiled_length&quot;: 17,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">8</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: gss abbreviates (2 times rz, lr); ggt abbreviates (gss, lr).
+The primitives: prim: lr, add and 3; prim: rz, sub and 2; prim: sg, mul and 2.
+The program is: gss, 2 times ggt and sg.
+What does the program output for 1?
+
+Answer with exactly one of: 16 | 8 | 4 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 8,
+ &quot;compiled&quot;: &quot;rz rz lr rz rz lr lr rz rz lr lr sg&quot;,
+ &quot;compiled_length&quot;: 12,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">119</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: sms abbreviates (lz, 2 times ss, lz); gvv abbreviates (sms, sl).
+The primitives: prim: ss, add and 3; prim: sl, sub and 1; prim: lz, mul and 2.
+The program is: sl and 2 times gvv.
+What does the program output for 5?
+
+Answer with exactly one of: 4 | 119 | 27 | 2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 119,
+ &quot;compiled&quot;: &quot;sl lz ss ss lz sl lz ss ss lz sl&quot;,
+ &quot;compiled_length&quot;: 11,
+ &quot;input&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">-22</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: kvk abbreviates (zt, zt, kr); rrl abbreviates (kvk, kr).
+The primitives: prim: kr, add and 2; prim: zt, sub and 5; prim: pk, mul and 2.
+The program is: 2 times rrl, rrl and kvk.
+What does the program output for 4?
+
+Answer with exactly one of: -16 | 2 | 4 | -22
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -22,
+ &quot;compiled&quot;: &quot;zt zt kr kr zt zt kr kr zt zt kr kr zt zt kr&quot;,
+ &quot;compiled_length&quot;: 15,
+ &quot;input&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">-44</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: pkg abbreviates (mg, 3 times mp); mvv abbreviates (pkg, mp).
+The primitives: prim: gr, add and 5; prim: mp, sub and 4; prim: mg, mul and 2.
+The program is: 2 times mvv and mp.
+What does the program output for 2?
+
+Answer with exactly one of: -2 | -44 | -16 | -10
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -44,
+ &quot;compiled&quot;: &quot;mg mp mp mp mp mg mp mp mp mp mp&quot;,
+ &quot;compiled_length&quot;: 11,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">10</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: mpz abbreviates (2 times rl, gk); lmg abbreviates (mpz, gk).
+The primitives: prim: rl, add and 4; prim: gk, sub and 3; prim: sk, mul and 2.
+The program is: rl and 2 times lmg.
+What does the program output for 2?
+
+Answer with exactly one of: 0 | 10 | 6 | 8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 10,
+ &quot;compiled&quot;: &quot;rl rl rl gk gk rl rl gk gk&quot;,
+ &quot;compiled_length&quot;: 9,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">13</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: gkr abbreviates (tl, rl); zdl abbreviates (gkr, rl).
+The primitives: prim: rl, add and 4; prim: tl, sub and 3; prim: tz, mul and 2.
+The program is: tl, 2 times gkr and 2 times zdl.
+What does the program output for 4?
+
+Answer with exactly one of: 1 | 7 | 13 | 11
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 13,
+ &quot;compiled&quot;: &quot;tl tl rl tl rl tl rl rl tl rl rl&quot;,
+ &quot;compiled_length&quot;: 11,
+ &quot;input&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">50</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: rvk abbreviates (tv, 3 times md); gtp abbreviates (rvk, tm).
+The primitives: prim: md, add and 3; prim: tm, sub and 3; prim: tv, mul and 2.
+The program is: 2 times gtp and gtp.
+What does the program output for 1?
+
+Answer with exactly one of: 50 | 1 | -8 | 22
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 50,
+ &quot;compiled&quot;: &quot;tv md md md tm tv md md md tm tv md md md tm&quot;,
+ &quot;compiled_length&quot;: 15,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">24</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: kgr abbreviates (lv, lv, 2 times vv); zdk abbreviates (kgr, vv, lv).
+The primitives: prim: vv, add and 4; prim: lv, sub and 1; prim: zt, mul and 2.
+The program is: zdk and 2 times kgr.
+What does the program output for 3?
+
+Answer with exactly one of: 24 | 10 | 3 | 18
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 24,
+ &quot;compiled&quot;: &quot;lv lv vv vv vv lv lv lv vv vv lv lv vv vv&quot;,
+ &quot;compiled_length&quot;: 14,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">40</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: kld abbreviates (kl, ls); lkt abbreviates (kl, kld).
+The primitives: prim: ls, add and 2; prim: mm, sub and 2; prim: kl, mul and 2.
+The program is: 2 times kld, lkt and mm.
+What does the program output for 1?
+
+Answer with exactly one of: 40 | 18 | -1 | 16
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 40,
+ &quot;compiled&quot;: &quot;kl ls kl ls kl kl ls mm&quot;,
+ &quot;compiled_length&quot;: 8,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">-56</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: smg abbreviates (3 times dr, lk); vgk abbreviates (lk, smg, kr).
+The primitives: prim: kr, add and 3; prim: dr, sub and 4; prim: lk, mul and 2.
+The program is: 2 times smg and dr.
+What does the program output for 5?
+
+Answer with exactly one of: -18 | -8 | -56 | 1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -56,
+ &quot;compiled&quot;: &quot;dr dr dr lk dr dr dr lk dr&quot;,
+ &quot;compiled_length&quot;: 9,
+ &quot;input&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">62</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: lzv abbreviates (sz, vg); krt abbreviates (lzv, vg, vg).
+The primitives: prim: vg, add and 2; prim: rk, sub and 2; prim: sz, mul and 2.
+The program is: 2 times krt and lzv.
+What does the program output for 3?
+
+Answer with exactly one of: 26 | 3 | 62 | 24
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 62,
+ &quot;compiled&quot;: &quot;sz vg vg vg sz vg vg vg sz vg&quot;,
+ &quot;compiled_length&quot;: 10,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">41</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: plg abbreviates (2 times vm, rs); pzv abbreviates (rs, vm, plg).
+The primitives: prim: vm, add and 2; prim: dz, sub and 3; prim: rs, mul and 2.
+The program is: 2 times plg and dz.
+What does the program output for 5?
+
+Answer with exactly one of: 41 | 2 | 29 | 15
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 41,
+ &quot;compiled&quot;: &quot;vm vm rs vm vm rs dz&quot;,
+ &quot;compiled_length&quot;: 7,
+ &quot;input&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">95</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: drm abbreviates (2 times ss, dm); gpk abbreviates (drm, dm, kz).
+The primitives: prim: dm, add and 2; prim: kz, sub and 1; prim: ss, mul and 2.
+The program is: dm and 2 times gpk.
+What does the program output for 3?
+
+Answer with exactly one of: 7 | 23 | 5 | 95
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 95,
+ &quot;compiled&quot;: &quot;dm ss ss dm dm kz ss ss dm dm kz&quot;,
+ &quot;compiled_length&quot;: 11,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">59</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: tzz abbreviates (gk, gk); mrg abbreviates (tzz, tp).
+The primitives: prim: tp, add and 2; prim: mk, sub and 1; prim: gk, mul and 2.
+The program is: 2 times mrg, tp and mk.
+What does the program output for 3?
+
+Answer with exactly one of: 4 | 59 | 8 | 15
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 59,
+ &quot;compiled&quot;: &quot;gk gk tp gk gk tp tp mk&quot;,
+ &quot;compiled_length&quot;: 8,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">38</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: ttk abbreviates (2 times pg, pg); lzk abbreviates (dd, ttk).
+The primitives: prim: pg, add and 2; prim: dd, sub and 2; prim: rv, mul and 2.
+The program is: lzk, 2 times ttk and rv.
+What does the program output for 3?
+
+Answer with exactly one of: 26 | 18 | 6 | 38
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 38,
+ &quot;compiled&quot;: &quot;dd pg pg pg pg pg pg pg pg pg rv&quot;,
+ &quot;compiled_length&quot;: 11,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">55</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: pgz abbreviates (dd, 3 times dd); psk abbreviates (pgz, rd, rd).
+The primitives: prim: dd, add and 5; prim: rd, sub and 3; prim: tg, mul and 2.
+The program is: pgz, dd and 2 times psk.
+What does the program output for 2?
+
+Answer with exactly one of: 55 | 41 | 5 | 7
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 55,
+ &quot;compiled&quot;: &quot;dd dd dd dd dd dd dd dd dd rd rd dd dd dd dd rd rd&quot;,
+ &quot;compiled_length&quot;: 17,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">76</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: vpt abbreviates (zt, 3 times zt); pzl abbreviates (mg, vpt).
+The primitives: prim: zt, add and 5; prim: mg, sub and 3; prim: lm, mul and 2.
+The program is: vpt, 2 times pzl and vpt.
+What does the program output for 2?
+
+Answer with exactly one of: 2 | 76 | 59 | 16
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 76,
+ &quot;compiled&quot;: &quot;zt zt zt zt mg zt zt zt zt mg zt zt zt zt zt zt zt zt&quot;,
+ &quot;compiled_length&quot;: 18,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">-112</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: vsz abbreviates (3 times zm, ts); kmg abbreviates (vsz, zm, mv).
+The primitives: prim: mv, add and 2; prim: zm, sub and 4; prim: ts, mul and 2.
+The program is: ts, 2 times vsz and ts.
+What does the program output for 2?
+
+Answer with exactly one of: -32 | -16 | 8 | -112
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -112,
+ &quot;compiled&quot;: &quot;ts zm zm zm ts zm zm zm ts ts&quot;,
+ &quot;compiled_length&quot;: 10,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">-103</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: sgt abbreviates (3 times gr, rl); vrm abbreviates (sgt, gr).
+The primitives: prim: pp, add and 3; prim: gr, sub and 3; prim: rl, mul and 2.
+The program is: vrm, pp and 2 times vrm.
+What does the program output for 4?
+
+Answer with exactly one of: -103 | -2 | 7 | -41
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -103,
+ &quot;compiled&quot;: &quot;gr gr gr rl gr pp gr gr gr rl gr gr gr gr rl gr&quot;,
+ &quot;compiled_length&quot;: 16,
+ &quot;input&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">105</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: dkz abbreviates (3 times ml, pm); tvk abbreviates (dkz, ml).
+The primitives: prim: ml, add and 5; prim: pm, sub and 1; prim: lr, mul and 2.
+The program is: 2 times tvk, lr and tvk.
+What does the program output for 5?
+
+Answer with exactly one of: 10 | 105 | 35 | 67
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 105,
+ &quot;compiled&quot;: &quot;ml ml ml pm ml ml ml ml pm ml lr ml ml ml pm ml&quot;,
+ &quot;compiled_length&quot;: 16,
+ &quot;input&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">26</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: rls abbreviates (ld, vz); drm abbreviates (vz, vz, rls).
+The primitives: prim: vz, add and 3; prim: ld, sub and 1; prim: sv, mul and 2.
+The program is: rls, sv and 2 times drm.
+What does the program output for 3?
+
+Answer with exactly one of: 18 | 26 | 22 | 6
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 26,
+ &quot;compiled&quot;: &quot;ld vz sv vz vz ld vz vz vz ld vz&quot;,
+ &quot;compiled_length&quot;: 11,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">36</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: mdm abbreviates (2 times gr, gr); vrs abbreviates (ls, mdm, sv).
+The primitives: prim: gr, add and 4; prim: sv, sub and 2; prim: ls, mul and 2.
+The program is: vrs and 2 times mdm.
+What does the program output for 1?
+
+Answer with exactly one of: 1 | 16 | 36 | 24
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 36,
+ &quot;compiled&quot;: &quot;ls gr gr gr sv gr gr gr gr gr gr&quot;,
+ &quot;compiled_length&quot;: 11,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">-136</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: dpz abbreviates (ll, 3 times ll); mvs abbreviates (dpz, lz, lz).
+The primitives: prim: rl, add and 1; prim: ll, sub and 2; prim: lz, mul and 2.
+The program is: 2 times mvs and dpz.
+What does the program output for 2?
+
+Answer with exactly one of: 2 | -32 | 28 | -136
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -136,
+ &quot;compiled&quot;: &quot;ll ll ll ll lz lz ll ll ll ll lz lz ll ll ll ll&quot;,
+ &quot;compiled_length&quot;: 16,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">-18</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: tmk abbreviates (dv, 2 times dv, dv); dmk abbreviates (kv, tmk).
+The primitives: prim: kv, add and 5; prim: dv, sub and 2; prim: sl, mul and 2.
+The program is: tmk, 2 times dmk and tmk.
+What does the program output for 4?
+
+Answer with exactly one of: 4 | 2 | -15 | -18
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -18,
+ &quot;compiled&quot;: &quot;dv dv dv dv kv dv dv dv dv kv dv dv dv dv dv dv dv dv&quot;,
+ &quot;compiled_length&quot;: 18,
+ &quot;input&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">-72</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: dsv abbreviates (rk, dz, ls); kgz abbreviates (dsv, rk).
+The primitives: prim: dz, add and 1; prim: rk, sub and 5; prim: ls, mul and 2.
+The program is: kgz, 2 times kgz and rk.
+What does the program output for 3?
+
+Answer with exactly one of: -17 | -2 | -72 | -32
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -72,
+ &quot;compiled&quot;: &quot;rk dz ls rk rk dz ls rk rk dz ls rk rk&quot;,
+ &quot;compiled_length&quot;: 13,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">62</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: ddp abbreviates (rm, zt, rm); mps abbreviates (ddp, gr).
+The primitives: prim: rm, add and 4; prim: gr, sub and 2; prim: zt, mul and 2.
+The program is: rm and 2 times mps.
+What does the program output for 4?
+
+Answer with exactly one of: 4 | 62 | 26 | 8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 62,
+ &quot;compiled&quot;: &quot;rm rm zt rm gr rm zt rm gr&quot;,
+ &quot;compiled_length&quot;: 9,
+ &quot;input&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">212</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: sml abbreviates (rz, rk, rk); gml abbreviates (rk, sml).
+The primitives: prim: rk, add and 5; prim: vd, sub and 4; prim: rz, mul and 2.
+The program is: sml, sml and 2 times gml.
+What does the program output for 2?
+
+Answer with exactly one of: 96 | 48 | 2 | 212
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 212,
+ &quot;compiled&quot;: &quot;rz rk rk rz rk rk rk rz rk rk rk rz rk rk&quot;,
+ &quot;compiled_length&quot;: 14,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">63</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: spt abbreviates (rr, rr); mks abbreviates (spt, rr, rr).
+The primitives: prim: rr, add and 5; prim: pt, sub and 4; prim: gp, mul and 2.
+The program is: mks and 2 times mks.
+What does the program output for 3?
+
+Answer with exactly one of: 33 | 43 | 63 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 63,
+ &quot;compiled&quot;: &quot;rr rr rr rr rr rr rr rr rr rr rr rr&quot;,
+ &quot;compiled_length&quot;: 12,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">156</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: dsz abbreviates (sm, 3 times dp, dp); rvk abbreviates (mk, dsz).
+The primitives: prim: dp, add and 5; prim: mk, sub and 4; prim: sm, mul and 2.
+The program is: dsz and 2 times dsz.
+What does the program output for 2?
+
+Answer with exactly one of: 156 | 2 | 68 | 86
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 156,
+ &quot;compiled&quot;: &quot;sm dp dp dp dp sm dp dp dp dp sm dp dp dp dp&quot;,
+ &quot;compiled_length&quot;: 15,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">28</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: svg abbreviates (3 times zm, zv, zm); mml abbreviates (svg, zv).
+The primitives: prim: zm, add and 2; prim: zv, sub and 2; prim: mv, mul and 2.
+The program is: svg, mv and 2 times svg.
+What does the program output for 2?
+
+Answer with exactly one of: 22 | 28 | 4 | 12
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 28,
+ &quot;compiled&quot;: &quot;zm zm zm zv zm mv zm zm zm zv zm zm zm zm zv zm&quot;,
+ &quot;compiled_length&quot;: 16,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">-1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: pgk abbreviates (vl, pk, pk); pgz abbreviates (kv, pk, pgk).
+The primitives: prim: vl, add and 3; prim: pk, sub and 2; prim: kv, mul and 2.
+The program is: 2 times pgk and pgz.
+What does the program output for 3?
+
+Answer with exactly one of: 3 | 0 | -1 | 1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -1,
+ &quot;compiled&quot;: &quot;vl pk pk vl pk pk kv pk vl pk pk&quot;,
+ &quot;compiled_length&quot;: 11,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">112</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: ttk abbreviates (zp, 3 times dd); rlv abbreviates (ttk, dd).
+The primitives: prim: dd, add and 4; prim: tg, sub and 2; prim: zp, mul and 2.
+The program is: tg, rlv and 2 times rlv.
+What does the program output for 2?
+
+Answer with exactly one of: 12 | 0 | 112 | 48
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 112,
+ &quot;compiled&quot;: &quot;tg zp dd dd dd dd zp dd dd dd dd zp dd dd dd dd&quot;,
+ &quot;compiled_length&quot;: 16,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">48</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: dpl abbreviates (pp, 3 times pp); pvl abbreviates (sg, dpl).
+The primitives: prim: pp, add and 5; prim: sg, sub and 1; prim: tt, mul and 2.
+The program is: tt and 2 times pvl.
+What does the program output for 5?
+
+Answer with exactly one of: 48 | 29 | 10 | 8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 48,
+ &quot;compiled&quot;: &quot;tt sg pp pp pp pp sg pp pp pp pp&quot;,
+ &quot;compiled_length&quot;: 11,
+ &quot;input&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">-420</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: rsv abbreviates (rd, rd, rd); pzd abbreviates (rsv, mt, mt).
+The primitives: prim: zt, add and 3; prim: rd, sub and 3; prim: mt, mul and 2.
+The program is: 2 times rsv and 2 times pzd.
+What does the program output for 3?
+
+Answer with exactly one of: -240 | -60 | -420 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -420,
+ &quot;compiled&quot;: &quot;rd rd rd rd rd rd rd rd rd mt mt rd rd rd mt mt&quot;,
+ &quot;compiled_length&quot;: 16,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">27</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: ztt abbreviates (tg, tg); zkt abbreviates (ztt, tg).
+The primitives: prim: tg, add and 3; prim: zp, sub and 2; prim: vz, mul and 2.
+The program is: zp, 2 times zkt and zkt.
+What does the program output for 2?
+
+Answer with exactly one of: 0 | 18 | 9 | 27
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 27,
+ &quot;compiled&quot;: &quot;zp tg tg tg tg tg tg tg tg tg&quot;,
+ &quot;compiled_length&quot;: 10,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">-40</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: dtd abbreviates (2 times pt, lk); svg abbreviates (dtd, lk).
+The primitives: prim: kk, add and 3; prim: pt, sub and 2; prim: lk, mul and 2.
+The program is: 2 times dtd and 2 times dtd.
+What does the program output for 5?
+
+Answer with exactly one of: -40 | 20 | 5 | -4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -40,
+ &quot;compiled&quot;: &quot;pt pt lk pt pt lk pt pt lk pt pt lk&quot;,
+ &quot;compiled_length&quot;: 12,
+ &quot;input&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">-81</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: zrr abbreviates (3 times pm, pm); pps abbreviates (zrr, pm).
+The primitives: prim: mg, add and 2; prim: pm, sub and 5; prim: rg, mul and 2.
+The program is: 2 times zrr, pps and zrr.
+What does the program output for 4?
+
+Answer with exactly one of: 4 | -81 | -31 | -61
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -81,
+ &quot;compiled&quot;: &quot;pm pm pm pm pm pm pm pm pm pm pm pm pm pm pm pm pm&quot;,
+ &quot;compiled_length&quot;: 17,
+ &quot;input&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">-26</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: kvk abbreviates (rs, ls); glg abbreviates (rs, ls, kvk).
+The primitives: prim: rs, add and 1; prim: ls, sub and 4; prim: mr, mul and 2.
+The program is: 2 times kvk, 2 times glg and mr.
+What does the program output for 5?
+
+Answer with exactly one of: 10 | -26 | -14 | -8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -26,
+ &quot;compiled&quot;: &quot;rs ls rs ls rs ls rs ls rs ls rs ls mr&quot;,
+ &quot;compiled_length&quot;: 13,
+ &quot;input&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">102</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: kmv abbreviates (dk, 2 times vv); tvg abbreviates (vv, kmv, rd).
+The primitives: prim: vv, add and 4; prim: dk, sub and 1; prim: rd, mul and 2.
+The program is: kmv and 2 times tvg.
+What does the program output for 2?
+
+Answer with exactly one of: 44 | 2 | 40 | 102
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 102,
+ &quot;compiled&quot;: &quot;dk vv vv vv dk vv vv rd vv dk vv vv rd&quot;,
+ &quot;compiled_length&quot;: 13,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">44</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: rpv abbreviates (mg, 3 times dk, mt); pgv abbreviates (dk, dk, rpv).
+The primitives: prim: dk, add and 3; prim: mt, sub and 3; prim: mg, mul and 2.
+The program is: 2 times rpv and mg.
+What does the program output for 1?
+
+Answer with exactly one of: 44 | 16 | 2 | 8
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 44,
+ &quot;compiled&quot;: &quot;mg dk dk dk mt mg dk dk dk mt mg&quot;,
+ &quot;compiled_length&quot;: 11,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">34</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: mzd abbreviates (mm, 2 times mm); kgp abbreviates (mzd, kd, mm).
+The primitives: prim: mm, add and 2; prim: vk, sub and 3; prim: kd, mul and 2.
+The program is: kgp, 2 times mzd and mzd.
+What does the program output for 1?
+
+Answer with exactly one of: 34 | 16 | 28 | 1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 34,
+ &quot;compiled&quot;: &quot;mm mm mm kd mm mm mm mm mm mm mm mm mm mm&quot;,
+ &quot;compiled_length&quot;: 14,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">14</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: sdt abbreviates (sl, sl, sl); dzt abbreviates (zm, zm, sdt).
+The primitives: prim: zm, add and 5; prim: sl, sub and 2; prim: ds, mul and 2.
+The program is: ds, dzt and 2 times dzt.
+What does the program output for 1?
+
+Answer with exactly one of: 14 | 10 | 2 | 32
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 14,
+ &quot;compiled&quot;: &quot;ds zm zm sl sl sl zm zm sl sl sl zm zm sl sl sl&quot;,
+ &quot;compiled_length&quot;: 16,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">23</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: rrd abbreviates (st, lt); vgm abbreviates (rrd, sl).
+The primitives: prim: lt, add and 5; prim: sl, sub and 4; prim: st, mul and 2.
+The program is: vgm, 2 times rrd and sl.
+What does the program output for 1?
+
+Answer with exactly one of: -1 | -3 | 23 | 7
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 23,
+ &quot;compiled&quot;: &quot;st lt sl st lt st lt sl&quot;,
+ &quot;compiled_length&quot;: 8,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">17</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: zks abbreviates (vl, vl, 2 times vl); rtg abbreviates (zks, zt).
+The primitives: prim: vl, add and 2; prim: zt, sub and 3; prim: sk, mul and 2.
+The program is: sk, 2 times rtg and rtg.
+What does the program output for 1?
+
+Answer with exactly one of: 2 | -7 | 12 | 17
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 17,
+ &quot;compiled&quot;: &quot;sk vl vl vl vl zt vl vl vl vl zt vl vl vl vl zt&quot;,
+ &quot;compiled_length&quot;: 16,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">6</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: mpg abbreviates (lk, tg); vpt abbreviates (ks, mpg, ks).
+The primitives: prim: tg, add and 1; prim: ks, sub and 1; prim: lk, mul and 2.
+The program is: mpg and 2 times vpt.
+What does the program output for 1?
+
+Answer with exactly one of: 6 | 4 | 1 | -1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 6,
+ &quot;compiled&quot;: &quot;lk tg ks lk tg ks ks lk tg ks&quot;,
+ &quot;compiled_length&quot;: 10,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">17</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: rld abbreviates (ml, tp, 3 times ml); rdv abbreviates (ss, rld).
+The primitives: prim: tp, add and 5; prim: ml, sub and 1; prim: ss, mul and 2.
+The program is: 2 times rld, tp and tp.
+What does the program output for 5?
+
+Answer with exactly one of: 21 | 16 | 15 | 17
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 17,
+ &quot;compiled&quot;: &quot;ml tp ml ml ml ml tp ml ml ml tp tp&quot;,
+ &quot;compiled_length&quot;: 12,
+ &quot;input&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">-4</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: dvd abbreviates (pv, 3 times rd); vmm abbreviates (dvd, pv).
+The primitives: prim: pv, add and 4; prim: rd, sub and 3; prim: sm, mul and 2.
+The program is: vmm, sm and 2 times dvd.
+What does the program output for 4?
+
+Answer with exactly one of: 1 | -4 | 8 | 18
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -4,
+ &quot;compiled&quot;: &quot;pv rd rd rd pv sm pv rd rd rd pv rd rd rd&quot;,
+ &quot;compiled_length&quot;: 14,
+ &quot;input&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">-32</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: kks abbreviates (zs, mt, 2 times zs); drp abbreviates (kks, mt, zs).
+The primitives: prim: ts, add and 2; prim: zs, sub and 2; prim: mt, mul and 2.
+The program is: ts, 2 times kks and kks.
+What does the program output for 1?
+
+Answer with exactly one of: -12 | -18 | -32 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -32,
+ &quot;compiled&quot;: &quot;ts zs mt zs zs zs mt zs zs zs mt zs zs&quot;,
+ &quot;compiled_length&quot;: 13,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">-18</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: dpd abbreviates (sm, 3 times zd); svp abbreviates (dpd, sm).
+The primitives: prim: sm, add and 1; prim: zd, sub and 2; prim: zp, mul and 2.
+The program is: 2 times dpd, svp and zp.
+What does the program output for 5?
+
+Answer with exactly one of: -8 | -18 | 8 | 10
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -18,
+ &quot;compiled&quot;: &quot;sm zd zd zd sm zd zd zd sm zd zd zd sm zp&quot;,
+ &quot;compiled_length&quot;: 14,
+ &quot;input&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">10</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: kgd abbreviates (sl, zl); rlk abbreviates (sl, kgd, zl).
+The primitives: prim: zl, add and 2; prim: sl, sub and 1; prim: vz, mul and 2.
+The program is: 2 times rlk and 2 times kgd.
+What does the program output for 4?
+
+Answer with exactly one of: 8 | 10 | 7 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 10,
+ &quot;compiled&quot;: &quot;sl sl zl zl sl sl zl zl sl zl sl zl&quot;,
+ &quot;compiled_length&quot;: 12,
+ &quot;input&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">15</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: lkr abbreviates (rp, 2 times zp); psg abbreviates (zp, lkr).
+The primitives: prim: zp, add and 5; prim: rp, sub and 4; prim: ll, mul and 2.
+The program is: lkr, rp and 2 times lkr.
+What does the program output for 1?
+
+Answer with exactly one of: 15 | -3 | 0 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 15,
+ &quot;compiled&quot;: &quot;rp zp zp rp rp zp zp rp zp zp&quot;,
+ &quot;compiled_length&quot;: 10,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">21</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: zpz abbreviates (ls, 2 times ss); vmp abbreviates (ll, zpz).
+The primitives: prim: ls, add and 5; prim: ss, sub and 1; prim: ll, mul and 2.
+The program is: ss and 2 times vmp.
+What does the program output for 4?
+
+Answer with exactly one of: 9 | 12 | 3 | 21
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 21,
+ &quot;compiled&quot;: &quot;ss ll ls ss ss ll ls ss ss&quot;,
+ &quot;compiled_length&quot;: 9,
+ &quot;input&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">-25</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: kpv abbreviates (tt, 3 times rz, tv); gms abbreviates (rz, kpv).
+The primitives: prim: tv, add and 3; prim: rz, sub and 2; prim: tt, mul and 2.
+The program is: 2 times gms and gms.
+What does the program output for 3?
+
+Answer with exactly one of: -25 | -9 | -3 | 3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -25,
+ &quot;compiled&quot;: &quot;rz tt rz rz rz tv rz tt rz rz rz tv rz tt rz rz rz tv&quot;,
+ &quot;compiled_length&quot;: 18,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">80</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: mzp abbreviates (dk, dk); lpt abbreviates (tg, mzp).
+The primitives: prim: dk, add and 4; prim: pg, sub and 4; prim: tg, mul and 2.
+The program is: 2 times lpt, mzp and lpt.
+What does the program output for 1?
+
+Answer with exactly one of: 1 | 44 | 24 | 80
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 80,
+ &quot;compiled&quot;: &quot;tg dk dk tg dk dk dk dk tg dk dk&quot;,
+ &quot;compiled_length&quot;: 11,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">-24</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: vvr abbreviates (rd, vk, vk); lgt abbreviates (zk, rd, vvr).
+The primitives: prim: zk, add and 3; prim: vk, sub and 2; prim: rd, mul and 2.
+The program is: 2 times vvr and lgt.
+What does the program output for 1?
+
+Answer with exactly one of: -10 | 1 | -24 | 0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -24,
+ &quot;compiled&quot;: &quot;rd vk vk rd vk vk zk rd rd vk vk&quot;,
+ &quot;compiled_length&quot;: 11,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">134</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: pzr abbreviates (dt, mk); vmk abbreviates (dt, dt, pzr).
+The primitives: prim: dt, add and 1; prim: gp, sub and 2; prim: mk, mul and 2.
+The program is: vmk, 2 times vmk and pzr.
+What does the program output for 3?
+
+Answer with exactly one of: 3 | 20 | 134 | 62
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 134,
+ &quot;compiled&quot;: &quot;dt dt dt mk dt dt dt mk dt dt dt mk dt mk&quot;,
+ &quot;compiled_length&quot;: 14,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">-25</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: mrm abbreviates (kr, 2 times lk); pvk abbreviates (mrm, lk).
+The primitives: prim: kr, add and 3; prim: lk, sub and 4; prim: mr, mul and 2.
+The program is: 2 times pvk and pvk.
+What does the program output for 2?
+
+Answer with exactly one of: 2 | -25 | -10 | -16
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -25,
+ &quot;compiled&quot;: &quot;kr lk lk lk kr lk lk lk kr lk lk lk&quot;,
+ &quot;compiled_length&quot;: 12,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">14</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: lkd abbreviates (vg, kz); gzv abbreviates (lkd, gz).
+The primitives: prim: vg, add and 1; prim: gz, sub and 3; prim: kz, mul and 2.
+The program is: 2 times gzv and vg.
+What does the program output for 4?
+
+Answer with exactly one of: 14 | 5 | 8 | -1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 14,
+ &quot;compiled&quot;: &quot;vg kz gz vg kz gz vg&quot;,
+ &quot;compiled_length&quot;: 7,
+ &quot;input&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: rgl abbreviates (gp, gg, gp); pvk abbreviates (rgl, gg).
+The primitives: prim: gg, add and 3; prim: gp, sub and 4; prim: tl, mul and 2.
+The program is: 2 times pvk and gg.
+What does the program output for 1?
+
+Answer with exactly one of: 2 | 0 | 4 | 10
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 0,
+ &quot;compiled&quot;: &quot;gp gg gp gg gp gg gp gg gg&quot;,
+ &quot;compiled_length&quot;: 9,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">-316</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: tls abbreviates (lp, 3 times lp, ll); ldg abbreviates (tls, lp).
+The primitives: prim: tg, add and 2; prim: lp, sub and 3; prim: ll, mul and 2.
+The program is: 2 times ldg, ll and tls.
+What does the program output for 2?
+
+Answer with exactly one of: -316 | 4 | -116 | -28
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -316,
+ &quot;compiled&quot;: &quot;lp lp lp lp ll lp lp lp lp lp ll lp ll lp lp lp lp ll&quot;,
+ &quot;compiled_length&quot;: 18,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">-29</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: vgz abbreviates (sm, 3 times vd, gg); zvz abbreviates (sm, vgz).
+The primitives: prim: sm, add and 3; prim: vd, sub and 3; prim: gg, mul and 2.
+The program is: 2 times vgz and sm.
+What does the program output for 1?
+
+Answer with exactly one of: 4 | -7 | 7 | -29
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -29,
+ &quot;compiled&quot;: &quot;sm vd vd vd gg sm vd vd vd gg sm&quot;,
+ &quot;compiled_length&quot;: 11,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">94</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: kgp abbreviates (gm, pk, 2 times gm); kdr abbreviates (kgp, gm, kl).
+The primitives: prim: gm, add and 5; prim: pk, sub and 2; prim: kl, mul and 2.
+The program is: 2 times kgp, kdr and pk.
+What does the program output for 4?
+
+Answer with exactly one of: 94 | 2 | 68 | 48
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 94,
+ &quot;compiled&quot;: &quot;gm pk gm gm gm pk gm gm gm pk gm gm gm kl pk&quot;,
+ &quot;compiled_length&quot;: 15,
+ &quot;input&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">-48</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: lzp abbreviates (zm, 2 times pp); grr abbreviates (pp, lzp, zm).
+The primitives: prim: lt, add and 1; prim: pp, sub and 5; prim: zm, mul and 2.
+The program is: 2 times lzp, pp and lzp.
+What does the program output for 4?
+
+Answer with exactly one of: -13 | -48 | -24 | -1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -48,
+ &quot;compiled&quot;: &quot;zm pp pp zm pp pp pp zm pp pp&quot;,
+ &quot;compiled_length&quot;: 10,
+ &quot;input&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">-78</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: zdl abbreviates (2 times ds, ds, zt); zvd abbreviates (zt, zt, zdl).
+The primitives: prim: dp, add and 2; prim: ds, sub and 5; prim: zt, mul and 2.
+The program is: dp and 2 times zdl.
+What does the program output for 1?
+
+Answer with exactly one of: -24 | -78 | 3 | -48
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -78,
+ &quot;compiled&quot;: &quot;dp ds ds ds zt ds ds ds zt&quot;,
+ &quot;compiled_length&quot;: 9,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">-172</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: rrs abbreviates (2 times lm, gm, lm); zkd abbreviates (rrs, lm, lm).
+The primitives: prim: tt, add and 2; prim: lm, sub and 4; prim: gm, mul and 2.
+The program is: 2 times zkd and rrs.
+What does the program output for 2?
+
+Answer with exactly one of: -172 | 2 | -68 | -40
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -172,
+ &quot;compiled&quot;: &quot;lm lm gm lm lm lm lm lm gm lm lm lm lm lm gm lm&quot;,
+ &quot;compiled_length&quot;: 16,
+ &quot;input&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">116</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: pgp abbreviates (lr, lr); mtm abbreviates (pgp, lz).
+The primitives: prim: lr, add and 3; prim: rg, sub and 2; prim: lz, mul and 2.
+The program is: mtm and 2 times mtm.
+What does the program output for 4?
+
+Answer with exactly one of: 32 | 52 | 116 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 116,
+ &quot;compiled&quot;: &quot;lr lr lz lr lr lz lr lr lz&quot;,
+ &quot;compiled_length&quot;: 9,
+ &quot;input&quot;: 4
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">-48</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: vmt abbreviates (tm, 2 times tm); vpm abbreviates (rz, vmt, rz).
+The primitives: prim: pv, add and 3; prim: tm, sub and 5; prim: rz, mul and 2.
+The program is: vpm and 2 times vmt.
+What does the program output for 3?
+
+Answer with exactly one of: 3 | -8 | -48 | -33
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: -48,
+ &quot;compiled&quot;: &quot;rz tm tm tm rz tm tm tm tm tm tm&quot;,
+ &quot;compiled_length&quot;: 11,
+ &quot;input&quot;: 3
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">23</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: stk abbreviates (zg, rr); gtr abbreviates (rr, stk).
+The primitives: prim: rr, add and 4; prim: zg, sub and 1; prim: mk, mul and 2.
+The program is: rr and 2 times gtr.
+What does the program output for 5?
+
+Answer with exactly one of: 23 | 16 | 17 | 9
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 23,
+ &quot;compiled&quot;: &quot;rr rr zg rr rr zg rr&quot;,
+ &quot;compiled_length&quot;: 7,
+ &quot;input&quot;: 5
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">42</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: rvs abbreviates (dk, ld, rt); dzp abbreviates (rt, rvs).
+The primitives: prim: ld, add and 3; prim: dk, sub and 2; prim: rt, mul and 2.
+The program is: 2 times rvs and dzp.
+What does the program output for 1?
+
+Answer with exactly one of: 42 | 1 | 20 | 18
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 42,
+ &quot;compiled&quot;: &quot;dk ld rt dk ld rt rt dk ld rt&quot;,
+ &quot;compiled_length&quot;: 10,
+ &quot;input&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">88</span></summary>
+<div class="body">
+<p>prompt</p><pre>The macros: ssd abbreviates (2 times pp, pp); ztg abbreviates (ssd, tr).
+The primitives: prim: pp, add and 4; prim: rs, sub and 1; prim: tr, mul and 2.
+The program is: rs and 2 times ztg.
+What does the program output for 5?
+
+Answer with exactly one of: 16 | 88 | 32 | 4
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer&quot;: 88,
+ &quot;compiled&quot;: &quot;rs pp pp pp tr pp pp pp tr&quot;,
+ &quot;compiled_length&quot;: 9,
+ &quot;input&quot;: 5
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

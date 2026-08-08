@@ -1,0 +1,3178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>source_provenance — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#viii">epistemics, argument, and teaching</a> &rsaquo;
+  source_provenance</p>
+<h1>#94 <code>source_provenance</code></h1>
+<p class="lede">what is established vs what was merely reported</p>
+<div class="tags"><span class="tag ">level 94</span><span class="tag ">section viii</span><span class="tag ">provenance</span><span class="tag ">epistemic_status</span><span class="tag ">source_modelling</span></div>
+<div class="stats">
+<div class="stat"><span class="n">5.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.2</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.215</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>``x said p`` is a separate symbol from ``p``.</p><p>    Two of the four sources are declared unreliable in the episode, so a report
+    is evidence only when its origin is. The five statuses partition the cases:
+    a proposition can be established, refuted, contested between reliable
+    sources, merely reported by unreliable ones, or never mentioned at all —
+    and only the last two are distinguishable by looking at who spoke.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>ambiguity</td><td class='num'>2</td></tr><tr><td>reasoning_depth</td><td class='num'>3</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The reports are:
+  - said: Kesh, tztm and no
+  - said: Ryn, vpzv and yes
+  - said: Ryn, gzrd and yes
+  - said: Kesh, lgsr and yes
+  - said: Ryn, tztm and yes
+The sources: unreliable Kesh, reliable Ferro, reliable Orin and unreliable Ryn.
+What is the status of vpzv?
+
+Answer with exactly one of: established | reported_only | contested | unmentioned | refuted
+Reply with the answer only.</pre><h3>spanish</h3><pre>Los informes son:
+  - dijo: Kesh, tztm y no
+  - dijo: Ryn, vpzv y sí
+  - dijo: Ryn, gzrd y sí
+  - dijo: Kesh, lgsr y sí
+  - dijo: Ryn, tztm y sí
+Las fuentes son: no es fiable: Kesh; es fiable: Ferro; es fiable: Orin; no es fiable: Ryn.
+¿Cuál es el estado de vpzv?
+
+Responde exactamente con una de estas opciones: establecido | solo informado | impugnado | no mencionado | refutado
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>报告如下：
+  - 说过：凯什、tztm和否
+  - 说过：林恩、vpzv和是
+  - 说过：林恩、gzrd和是
+  - 说过：凯什、lgsr和是
+  - 说过：林恩、tztm和是
+信息源如下：不可靠：凯什；可靠：费罗；可靠：奥林；不可靠：林恩。
+vpzv的状态是什么？
+
+请从以下选项中选出恰好一个作答：已确立 | 仅经报告 | 有争议 | 未提及 | 已驳倒
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The reports are:
+  - said: Kesh, tztm and no
+  - said: Ryn, vpzv and yes
+  - said: Ryn, gzrd and yes
+  - said: Kesh, lgsr and yes
+  - said: Ryn, tztm and yes
+The sources: unreliable Kesh, reliable Ferro, reliable Orin and unreliable Ryn.
+What is the status of vpzv?
+
+Answer with exactly one of: established | reported_only | contested | unmentioned | refuted
+Reply with the answer only.</pre><h3>symbols</h3><pre>{query: (status_of vpzv), reports: [(said kesh tztm no) (said ryn vpzv yes) (said ryn gzrd yes) (said kesh lgsr yes) (said ryn tztm yes)], sources: [(unreliable kesh) (reliable ferro) (reliable orin) (unreliable ryn)]}
+
+Answer with exactly one of: established | reported_only | contested | unmentioned | refuted
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/source_provenance.jsonl</code> &middot; <code>data/samples/spanish/source_provenance.jsonl</code> &middot; <code>data/samples/chinese/source_provenance.jsonl</code> &middot; <code>data/samples/english_synonym/source_provenance.jsonl</code> &middot; <code>data/samples/symbols/source_provenance.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, tztm and no
+  - said: Ryn, vpzv and yes
+  - said: Ryn, gzrd and yes
+  - said: Kesh, lgsr and yes
+  - said: Ryn, tztm and yes
+The sources: unreliable Kesh, reliable Ferro, reliable Orin and unreliable Ryn.
+What is the status of vpzv?
+
+Answer with exactly one of: established | reported_only | contested | unmentioned | refuted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 5,
+ &quot;proposition&quot;: &quot;vpzv&quot;,
+ &quot;reliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;orin&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, ppgk and no
+  - said: Tamm, smvk and yes
+  - said: Vela, vvnp and no
+  - said: Orin, smvk and no
+  - said: Orin, vvnp and yes
+The sources: unreliable Tamm, reliable Vela, reliable Kesh and unreliable Orin.
+What is the status of vvnp?
+
+Answer with exactly one of: unmentioned | refuted | reported_only | contested | established
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 5,
+ &quot;proposition&quot;: &quot;vvnp&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;orin&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, gsgk and no
+  - said: Kesh, npdr and yes
+  - said: Vela, dnzz and yes
+  - said: Idris, npdr and no
+  - said: Orin, gntp and no
+  - said: Orin, npdr and yes
+  - said: Idris, gntp and yes
+The sources: reliable Orin, reliable Vela, unreliable Kesh and unreliable Idris.
+What is the status of dnzz?
+
+Answer with exactly one of: established | contested | reported_only | refuted | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 7,
+ &quot;proposition&quot;: &quot;dnzz&quot;,
+ &quot;reliable&quot;: [
+  &quot;orin&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;idris&quot;,
+  &quot;kesh&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Idris, kvzr and yes
+  - said: Ryn, ssdv and yes
+  - said: Kesh, ngmg and no
+  - said: Tamm, ngmg and yes
+  - said: Tamm, ssdv and yes
+  - said: Idris, rrvp and no
+  - said: Idris, ngmg and no
+The sources: unreliable Ryn, reliable Kesh, reliable Idris and unreliable Tamm.
+What is the status of ngmg?
+
+Answer with exactly one of: established | refuted | reported_only | contested | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 7,
+ &quot;proposition&quot;: &quot;ngmg&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;kesh&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ryn&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ryn, vtmm and no
+  - said: Dola, vtmm and no
+  - said: Tamm, lztm and no
+  - said: Dola, ksrr and no
+  - said: Orin, lztm and no
+  - said: Orin, ksrr and no
+  - said: Dola, lztm and no
+  - said: Orin, vtmm and no
+  - said: Tamm, vtmm and yes
+  - said: Ryn, ksrr and no
+  - said: Ryn, kprz and yes
+The sources: reliable Orin, unreliable Dola, unreliable Tamm and reliable Ryn.
+What is the status of vtmm?
+
+Answer with exactly one of: contested | reported_only | established | unmentioned | refuted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 11,
+ &quot;proposition&quot;: &quot;vtmm&quot;,
+ &quot;reliable&quot;: [
+  &quot;orin&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Idris, mgsk and yes
+  - said: Ryn, mgsk and yes
+  - said: Ryn, vspr and yes
+  - said: Kesh, mgsk and yes
+  - said: Dola, ktml and yes
+  - said: Dola, vspr and no
+  - said: Kesh, vspr and yes
+The sources: unreliable Kesh, unreliable Idris, reliable Dola and reliable Ryn.
+What is the status of kvsn?
+
+Answer with exactly one of: reported_only | unmentioned | established | contested | refuted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 7,
+ &quot;proposition&quot;: &quot;kvsn&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;idris&quot;,
+  &quot;kesh&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, kzvs and no
+  - said: Vela, dprr and yes
+  - said: Tamm, vdll and no
+  - said: Kesh, kzvs and no
+  - said: Tamm, kzvs and yes
+The sources: reliable Vela, unreliable Kesh, unreliable Orin and reliable Tamm.
+What is the status of ktng?
+
+Answer with exactly one of: established | reported_only | unmentioned | refuted | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 5,
+ &quot;proposition&quot;: &quot;ktng&quot;,
+ &quot;reliable&quot;: [
+  &quot;tamm&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;orin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">contested</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, gkrs and yes
+  - said: Kesh, mrml and yes
+  - said: Kesh, kmpp and no
+  - said: Orin, kmpp and yes
+  - said: Dola, kmpp and yes
+  - said: Tamm, kmpp and yes
+  - said: Orin, mrml and yes
+  - said: Tamm, mrml and no
+  - said: Dola, mrml and yes
+The sources: reliable Tamm, unreliable Orin, unreliable Dola and reliable Kesh.
+What is the status of mrml?
+
+Answer with exactly one of: reported_only | established | contested | unmentioned | refuted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;contested&quot;,
+ &quot;n_reports&quot;: 9,
+ &quot;proposition&quot;: &quot;mrml&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;orin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Idris, dkmt and yes
+  - said: Tamm, dkmt and no
+  - said: Tamm, vpvg and yes
+  - said: Idris, vpvg and yes
+  - said: Tamm, srsp and yes
+  - said: Dola, dkmt and no
+  - said: Vela, vpvg and no
+  - said: Dola, srsp and no
+The sources: unreliable Vela, reliable Dola, unreliable Idris and reliable Tamm.
+What is the status of dkmt?
+
+Answer with exactly one of: established | contested | refuted | reported_only | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 8,
+ &quot;proposition&quot;: &quot;dkmt&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;idris&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Dola, dptd and yes
+  - said: Dola, rgdk and yes
+  - said: Idris, vgml and yes
+  - said: Vela, nklr and no
+  - said: Vela, rgdk and yes
+  - said: Vela, vgml and yes
+  - said: Vela, dptd and yes
+The sources: reliable Kesh, unreliable Vela, reliable Dola and unreliable Idris.
+What is the status of nklr?
+
+Answer with exactly one of: contested | unmentioned | reported_only | established | refuted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 7,
+ &quot;proposition&quot;: &quot;nklr&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;kesh&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;idris&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Orin, zntk and yes
+  - said: Ferro, sdlk and yes
+  - said: Ryn, sdlk and yes
+  - said: Ryn, rvlm and yes
+  - said: Orin, rvlm and yes
+  - said: Ferro, zntk and no
+The sources: reliable Orin, reliable Tamm, unreliable Ryn and unreliable Ferro.
+What is the status of ksvv?
+
+Answer with exactly one of: refuted | unmentioned | reported_only | contested | established
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;ksvv&quot;,
+ &quot;reliable&quot;: [
+  &quot;orin&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Tamm, ngtm and no
+  - said: Dola, vztm and yes
+  - said: Ryn, rdnk and yes
+  - said: Idris, vztm and yes
+  - said: Dola, strv and no
+  - said: Ryn, vztm and yes
+  - said: Ryn, strv and yes
+The sources: unreliable Ryn, reliable Idris, reliable Tamm and unreliable Dola.
+What is the status of strv?
+
+Answer with exactly one of: refuted | reported_only | contested | unmentioned | established
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 7,
+ &quot;proposition&quot;: &quot;strv&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, dgsr and yes
+  - said: Idris, kngt and no
+  - said: Ryn, dgsr and no
+  - said: Kesh, vznv and yes
+  - said: Dola, vznv and no
+  - said: Kesh, tpkl and yes
+The sources: reliable Ryn, reliable Dola, unreliable Kesh and unreliable Idris.
+What is the status of tpkl?
+
+Answer with exactly one of: established | refuted | contested | unmentioned | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;tpkl&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;idris&quot;,
+  &quot;kesh&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">contested</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ryn, sndt and yes
+  - said: Vela, sndt and no
+  - said: Dola, nsnt and yes
+  - said: Ferro, nsnt and no
+  - said: Ryn, nsnt and no
+  - said: Ryn, dzkp and yes
+The sources: reliable Ryn, reliable Dola, unreliable Vela and unreliable Ferro.
+What is the status of nsnt?
+
+Answer with exactly one of: established | contested | reported_only | refuted | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;contested&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;nsnt&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Dola, ppmz and no
+  - said: Tamm, sllz and yes
+  - said: Kesh, zdmn and yes
+  - said: Tamm, zdmn and yes
+  - said: Ferro, sllz and yes
+  - said: Ferro, vzvn and no
+  - said: Kesh, ppmz and no
+  - said: Dola, vzvn and yes
+  - said: Tamm, vzvn and yes
+  - said: Ferro, zdmn and no
+  - said: Dola, zdmn and yes
+  - said: Tamm, ppmz and no
+  - said: Kesh, vzvn and no
+The sources: reliable Tamm, unreliable Ferro, reliable Kesh and unreliable Dola.
+What is the status of zdmn?
+
+Answer with exactly one of: established | contested | unmentioned | reported_only | refuted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 13,
+ &quot;proposition&quot;: &quot;zdmn&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ferro&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ryn, tskk and no
+  - said: Idris, tskk and yes
+  - said: Dola, tskk and yes
+  - said: Dola, dlzp and no
+  - said: Orin, tskk and no
+  - said: Ryn, smlv and no
+  - said: Orin, ntdl and yes
+  - said: Dola, ntdl and no
+  - said: Orin, smlv and no
+The sources: unreliable Idris, unreliable Dola, reliable Ryn and reliable Orin.
+What is the status of tskk?
+
+Answer with exactly one of: contested | unmentioned | established | refuted | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 9,
+ &quot;proposition&quot;: &quot;tskk&quot;,
+ &quot;reliable&quot;: [
+  &quot;orin&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;idris&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">contested</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ferro, svkp and no
+  - said: Kesh, ndzs and yes
+  - said: Idris, svkp and yes
+  - said: Ferro, nskz and no
+  - said: Idris, nskz and yes
+  - said: Tamm, svkp and no
+The sources: reliable Idris, unreliable Kesh, reliable Tamm and unreliable Ferro.
+What is the status of svkp?
+
+Answer with exactly one of: unmentioned | refuted | reported_only | established | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;contested&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;svkp&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;kesh&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, kspd and yes
+  - said: Ferro, kspd and yes
+  - said: Dola, rnzm and yes
+  - said: Idris, kspd and yes
+  - said: Idris, pzrl and yes
+The sources: reliable Ferro, unreliable Kesh, unreliable Dola and reliable Idris.
+What is the status of ztdd?
+
+Answer with exactly one of: reported_only | refuted | unmentioned | established | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 5,
+ &quot;proposition&quot;: &quot;ztdd&quot;,
+ &quot;reliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;idris&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;kesh&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, vzsz and yes
+  - said: Tamm, ssvn and yes
+  - said: Dola, dmlr and no
+  - said: Kesh, dmlr and no
+  - said: Vela, dmlr and no
+  - said: Vela, ssvn and no
+  - said: Dola, vzsz and no
+  - said: Kesh, vzsz and no
+  - said: Dola, ssvn and no
+The sources: unreliable Tamm, reliable Dola, reliable Vela and unreliable Kesh.
+What is the status of ssvn?
+
+Answer with exactly one of: refuted | reported_only | contested | established | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 9,
+ &quot;proposition&quot;: &quot;ssvn&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Idris, lrzg and yes
+  - said: Tamm, tgzm and no
+  - said: Vela, mlzk and no
+  - said: Vela, lrzg and yes
+  - said: Ryn, tgzm and yes
+  - said: Idris, zplz and yes
+  - said: Ryn, mlzk and no
+  - said: Vela, zplz and yes
+The sources: reliable Vela, unreliable Idris, reliable Ryn and unreliable Tamm.
+What is the status of lrzg?
+
+Answer with exactly one of: unmentioned | refuted | contested | established | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 8,
+ &quot;proposition&quot;: &quot;lrzg&quot;,
+ &quot;reliable&quot;: [
+  &quot;ryn&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;idris&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Dola, ppmm and yes
+  - said: Ferro, vpss and yes
+  - said: Ryn, ppmm and no
+  - said: Ferro, tlvg and yes
+  - said: Orin, tlvg and no
+  - said: Ryn, lgtk and no
+  - said: Dola, vpss and no
+  - said: Dola, tlvg and yes
+  - said: Dola, lgtk and no
+  - said: Orin, lgtk and no
+The sources: unreliable Orin, reliable Ryn, reliable Dola and unreliable Ferro.
+What is the status of lgtk?
+
+Answer with exactly one of: refuted | unmentioned | contested | established | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 10,
+ &quot;proposition&quot;: &quot;lgtk&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;orin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Dola, pmts and yes
+  - said: Tamm, vsvr and yes
+  - said: Kesh, vsvr and yes
+  - said: Dola, vsvr and no
+  - said: Tamm, pmts and yes
+  - said: Ferro, vsvr and no
+  - said: Tamm, trrs and no
+  - said: Ferro, kklg and no
+The sources: reliable Ferro, unreliable Kesh, unreliable Tamm and reliable Dola.
+What is the status of vsvr?
+
+Answer with exactly one of: established | contested | unmentioned | reported_only | refuted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 8,
+ &quot;proposition&quot;: &quot;vsvr&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ferro&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Tamm, zklg and yes
+  - said: Orin, tdmd and no
+  - said: Ryn, tdmd and yes
+  - said: Orin, zklg and yes
+  - said: Ryn, nlms and yes
+  - said: Tamm, tdmd and no
+The sources: unreliable Ryn, reliable Orin, reliable Tamm and unreliable Idris.
+What is the status of tdmd?
+
+Answer with exactly one of: established | refuted | unmentioned | contested | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;tdmd&quot;,
+ &quot;reliable&quot;: [
+  &quot;orin&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;idris&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">contested</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, vksg and yes
+  - said: Orin, pprl and yes
+  - said: Ryn, tdsz and no
+  - said: Vela, pprl and no
+  - said: Kesh, tdsz and yes
+  - said: Orin, vkmm and no
+  - said: Kesh, vkmm and no
+The sources: reliable Orin, unreliable Ryn, unreliable Kesh and reliable Vela.
+What is the status of pprl?
+
+Answer with exactly one of: reported_only | established | contested | refuted | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;contested&quot;,
+ &quot;n_reports&quot;: 7,
+ &quot;proposition&quot;: &quot;pprl&quot;,
+ &quot;reliable&quot;: [
+  &quot;orin&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are: said: Dola, dkvv and yes; said: Dola, tnnm and no; said: Dola, dtdz and no; said: Ferro, dnmk and no.
+The sources: reliable Vela, reliable Kesh, unreliable Ferro and unreliable Dola.
+What is the status of tnnm?
+
+Answer with exactly one of: established | contested | reported_only | refuted | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 4,
+ &quot;proposition&quot;: &quot;tnnm&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ferro&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, gpmg and no
+  - said: Vela, srgl and yes
+  - said: Orin, srgl and no
+  - said: Kesh, kzkz and yes
+  - said: Tamm, srgl and no
+The sources: unreliable Tamm, unreliable Kesh, reliable Orin and reliable Vela.
+What is the status of kzkz?
+
+Answer with exactly one of: contested | established | refuted | reported_only | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 5,
+ &quot;proposition&quot;: &quot;kzkz&quot;,
+ &quot;reliable&quot;: [
+  &quot;orin&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Dola, tnps and yes
+  - said: Tamm, ktvk and no
+  - said: Ryn, dngr and yes
+  - said: Dola, dngr and yes
+  - said: Tamm, dpds and no
+The sources: reliable Idris, reliable Tamm, unreliable Ryn and unreliable Dola.
+What is the status of ktvk?
+
+Answer with exactly one of: contested | established | unmentioned | reported_only | refuted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 5,
+ &quot;proposition&quot;: &quot;ktvk&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, ssvm and no
+  - said: Orin, mzrl and yes
+  - said: Ryn, dngn and yes
+  - said: Ryn, zlpt and no
+  - said: Kesh, dngn and no
+  - said: Vela, ssvm and no
+The sources: reliable Ryn, reliable Kesh, unreliable Orin and unreliable Vela.
+What is the status of mzrl?
+
+Answer with exactly one of: established | contested | unmentioned | refuted | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;mzrl&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;orin&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, psst and yes
+  - said: Vela, pttg and yes
+  - said: Vela, stnv and no
+  - said: Ferro, sskp and no
+  - said: Ryn, stnv and yes
+  - said: Ferro, stnv and yes
+  - said: Ryn, psst and no
+  - said: Kesh, pttg and no
+  - said: Kesh, stnv and yes
+  - said: Kesh, sskp and no
+The sources: unreliable Vela, reliable Ryn, reliable Kesh and unreliable Ferro.
+What is the status of stnv?
+
+Answer with exactly one of: reported_only | contested | unmentioned | refuted | established
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 10,
+ &quot;proposition&quot;: &quot;stnv&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are: said: Dola, ppkk and yes; said: Dola, lmvl and no; said: Vela, mvns and no; said: Kesh, lmvl and no.
+The sources: reliable Vela, reliable Kesh, unreliable Dola and unreliable Ryn.
+What is the status of zmrl?
+
+Answer with exactly one of: unmentioned | refuted | contested | established | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 4,
+ &quot;proposition&quot;: &quot;zmrl&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are: said: Orin, mvkr and no; said: Ferro, ppnt and no; said: Idris, mvkr and yes.
+The sources: unreliable Orin, reliable Ryn, unreliable Ferro and reliable Idris.
+What is the status of nszk?
+
+Answer with exactly one of: reported_only | established | refuted | unmentioned | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 3,
+ &quot;proposition&quot;: &quot;nszk&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;orin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, ktsr and yes
+  - said: Vela, tdkn and yes
+  - said: Tamm, rsdt and yes
+  - said: Orin, nktm and yes
+  - said: Vela, rsdt and no
+  - said: Tamm, nktm and no
+  - said: Idris, tdkn and yes
+  - said: Orin, tdkn and no
+  - said: Idris, ktsr and yes
+The sources: unreliable Tamm, unreliable Vela, reliable Idris and reliable Orin.
+What is the status of nktm?
+
+Answer with exactly one of: established | reported_only | refuted | unmentioned | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 9,
+ &quot;proposition&quot;: &quot;nktm&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;orin&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;tamm&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ferro, vkdk and no
+  - said: Vela, mlrl and yes
+  - said: Ferro, lgkr and yes
+  - said: Kesh, krdv and yes
+  - said: Kesh, vkdk and no
+  - said: Vela, vkdk and yes
+  - said: Tamm, vkdk and yes
+  - said: Tamm, krdv and no
+  - said: Kesh, lgkr and no
+  - said: Vela, lgkr and yes
+  - said: Ferro, krdv and yes
+The sources: unreliable Ferro, reliable Vela, unreliable Kesh and reliable Tamm.
+What is the status of vkdk?
+
+Answer with exactly one of: contested | refuted | unmentioned | established | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 11,
+ &quot;proposition&quot;: &quot;vkdk&quot;,
+ &quot;reliable&quot;: [
+  &quot;tamm&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;kesh&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, vznn and yes
+  - said: Dola, tngr and no
+  - said: Idris, vznn and no
+  - said: Idris, lnrv and no
+  - said: Kesh, tngr and no
+The sources: unreliable Idris, unreliable Vela, reliable Dola and reliable Kesh.
+What is the status of vnrr?
+
+Answer with exactly one of: reported_only | unmentioned | refuted | established | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 5,
+ &quot;proposition&quot;: &quot;vnrr&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;kesh&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;idris&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are: said: Ryn, zlgk and no; said: Dola, zlgk and no; said: Orin, pzlm and yes; said: Vela, pzlm and yes.
+The sources: reliable Dola, reliable Ryn, unreliable Orin and unreliable Vela.
+What is the status of kplm?
+
+Answer with exactly one of: reported_only | contested | refuted | established | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 4,
+ &quot;proposition&quot;: &quot;kplm&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;orin&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ferro, gmlk and no
+  - said: Vela, gkdr and yes
+  - said: Ferro, gkdr and no
+  - said: Kesh, znld and yes
+  - said: Vela, znld and no
+  - said: Dola, znld and yes
+  - said: Kesh, gkdr and no
+  - said: Vela, gmlk and yes
+The sources: reliable Dola, unreliable Vela, unreliable Kesh and reliable Ferro.
+What is the status of tzpz?
+
+Answer with exactly one of: refuted | established | contested | reported_only | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 8,
+ &quot;proposition&quot;: &quot;tzpz&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ferro&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">contested</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Orin, krnt and no
+  - said: Orin, plrz and yes
+  - said: Orin, rmgp and no
+  - said: Kesh, szdn and no
+  - said: Ferro, rmgp and no
+  - said: Ferro, plrz and no
+  - said: Idris, krnt and yes
+  - said: Kesh, krnt and yes
+The sources: unreliable Ferro, reliable Idris, reliable Orin and unreliable Kesh.
+What is the status of krnt?
+
+Answer with exactly one of: reported_only | established | refuted | contested | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;contested&quot;,
+ &quot;n_reports&quot;: 8,
+ &quot;proposition&quot;: &quot;krnt&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;orin&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;kesh&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are: said: Ryn, pvtk and yes; said: Ferro, gzpd and yes; said: Vela, gzpd and no; said: Vela, rmnv and yes.
+The sources: reliable Vela, unreliable Ferro, unreliable Dola and reliable Ryn.
+What is the status of knlv?
+
+Answer with exactly one of: reported_only | contested | established | refuted | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 4,
+ &quot;proposition&quot;: &quot;knlv&quot;,
+ &quot;reliable&quot;: [
+  &quot;ryn&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ferro&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are: said: Orin, tgll and no; said: Ferro, tgll and yes; said: Dola, mldv and no; said: Dola, tgll and yes.
+The sources: unreliable Dola, unreliable Orin, reliable Idris and reliable Ferro.
+What is the status of mldv?
+
+Answer with exactly one of: contested | unmentioned | refuted | reported_only | established
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 4,
+ &quot;proposition&quot;: &quot;mldv&quot;,
+ &quot;reliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;idris&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;orin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Tamm, spdg and no
+  - said: Ryn, ldtk and yes
+  - said: Ryn, knzn and no
+  - said: Ryn, spdg and no
+  - said: Tamm, knzn and yes
+  - said: Orin, ldtk and no
+The sources: reliable Ryn, reliable Tamm, unreliable Orin and unreliable Vela.
+What is the status of spdg?
+
+Answer with exactly one of: refuted | reported_only | established | unmentioned | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;spdg&quot;,
+ &quot;reliable&quot;: [
+  &quot;ryn&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;orin&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, vkrd and yes
+  - said: Kesh, tkns and yes
+  - said: Orin, vkrd and no
+  - said: Ferro, gdvk and no
+  - said: Ferro, vkrd and yes
+  - said: Ferro, tkns and no
+  - said: Vela, gdvk and yes
+  - said: Vela, vkrd and no
+  - said: Vela, tkns and no
+  - said: Ferro, tlzd and yes
+The sources: unreliable Ferro, reliable Vela, unreliable Kesh and reliable Orin.
+What is the status of tlzd?
+
+Answer with exactly one of: unmentioned | established | refuted | reported_only | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 10,
+ &quot;proposition&quot;: &quot;tlzd&quot;,
+ &quot;reliable&quot;: [
+  &quot;orin&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;kesh&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Dola, ksnk and no
+  - said: Vela, vttd and yes
+  - said: Dola, zpdg and no
+  - said: Ferro, ksnk and no
+  - said: Tamm, zpdg and yes
+  - said: Tamm, gdzr and no
+  - said: Dola, vttd and yes
+The sources: unreliable Tamm, reliable Dola, unreliable Ferro and reliable Vela.
+What is the status of gdzr?
+
+Answer with exactly one of: unmentioned | contested | established | refuted | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 7,
+ &quot;proposition&quot;: &quot;gdzr&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Dola, mssr and yes
+  - said: Vela, gpkk and yes
+  - said: Orin, stdm and yes
+  - said: Kesh, mssr and no
+  - said: Orin, gpkk and no
+  - said: Vela, mssr and no
+The sources: unreliable Vela, reliable Orin, unreliable Kesh and reliable Dola.
+What is the status of stdm?
+
+Answer with exactly one of: refuted | established | reported_only | contested | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;stdm&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;orin&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ryn, vgvg and yes
+  - said: Tamm, lgrp and yes
+  - said: Tamm, lndm and yes
+  - said: Ryn, krpg and no
+  - said: Dola, krpg and no
+  - said: Dola, lgrp and yes
+  - said: Ryn, lndm and yes
+  - said: Tamm, vgvg and yes
+The sources: reliable Ryn, unreliable Vela, unreliable Tamm and reliable Dola.
+What is the status of lndm?
+
+Answer with exactly one of: contested | reported_only | established | unmentioned | refuted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 8,
+ &quot;proposition&quot;: &quot;lndm&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;tamm&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Idris, npgp and no
+  - said: Idris, rdzd and yes
+  - said: Ferro, rdzd and no
+  - said: Tamm, gkmt and no
+  - said: Vela, npgp and no
+  - said: Ferro, zksm and no
+  - said: Tamm, npgp and no
+The sources: unreliable Tamm, unreliable Ferro, reliable Idris and reliable Vela.
+What is the status of zksm?
+
+Answer with exactly one of: established | refuted | unmentioned | reported_only | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 7,
+ &quot;proposition&quot;: &quot;zksm&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">contested</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Tamm, mzdn and no
+  - said: Kesh, vkmz and no
+  - said: Tamm, kgmt and no
+  - said: Orin, mzdn and yes
+  - said: Ferro, vkmz and yes
+  - said: Tamm, zlkm and no
+  - said: Tamm, vkmz and no
+  - said: Ferro, zlkm and yes
+  - said: Orin, vkmz and yes
+  - said: Kesh, mzdn and no
+  - said: Ferro, kgmt and no
+The sources: reliable Tamm, reliable Ferro, unreliable Orin and unreliable Kesh.
+What is the status of zlkm?
+
+Answer with exactly one of: established | unmentioned | reported_only | refuted | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;contested&quot;,
+ &quot;n_reports&quot;: 11,
+ &quot;proposition&quot;: &quot;zlkm&quot;,
+ &quot;reliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;orin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Dola, snrt and no
+  - said: Ryn, snrt and no
+  - said: Ferro, mlnk and no
+  - said: Dola, grkk and no
+  - said: Ryn, mlnk and yes
+  - said: Orin, snrt and yes
+  - said: Ryn, ktrz and yes
+  - said: Dola, mlnk and no
+The sources: reliable Orin, unreliable Ryn, reliable Ferro and unreliable Dola.
+What is the status of snrt?
+
+Answer with exactly one of: unmentioned | established | reported_only | refuted | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 8,
+ &quot;proposition&quot;: &quot;snrt&quot;,
+ &quot;reliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;orin&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">contested</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ferro, kzvd and yes
+  - said: Tamm, pnkm and yes
+  - said: Ryn, pnkm and no
+  - said: Vela, glzr and no
+  - said: Vela, pnkm and no
+  - said: Ryn, glzr and no
+  - said: Ferro, glzr and yes
+  - said: Vela, kzvd and no
+  - said: Tamm, glzr and yes
+The sources: reliable Vela, unreliable Ryn, reliable Tamm and unreliable Ferro.
+What is the status of glzr?
+
+Answer with exactly one of: established | reported_only | unmentioned | refuted | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;contested&quot;,
+ &quot;n_reports&quot;: 9,
+ &quot;proposition&quot;: &quot;glzr&quot;,
+ &quot;reliable&quot;: [
+  &quot;tamm&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, srrr and yes
+  - said: Dola, srrr and yes
+  - said: Dola, pttn and yes
+  - said: Vela, pttn and no
+  - said: Vela, mvns and no
+  - said: Ryn, pttn and no
+The sources: reliable Vela, reliable Dola, unreliable Ryn and unreliable Idris.
+What is the status of zrsd?
+
+Answer with exactly one of: reported_only | refuted | established | contested | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;zrsd&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;idris&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, kdzt and no
+  - said: Dola, vdkn and no
+  - said: Orin, rrkn and no
+  - said: Dola, rrsg and no
+  - said: Tamm, rrkn and yes
+  - said: Tamm, kdzt and yes
+  - said: Kesh, rrkn and yes
+  - said: Dola, kdzt and no
+  - said: Dola, rrkn and yes
+  - said: Tamm, vdkn and no
+  - said: Kesh, rrsg and yes
+The sources: reliable Dola, reliable Tamm, unreliable Kesh and unreliable Orin.
+What is the status of rrkn?
+
+Answer with exactly one of: reported_only | refuted | contested | unmentioned | established
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 11,
+ &quot;proposition&quot;: &quot;rrkn&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;orin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Dola, dvlm and no
+  - said: Ryn, rlsn and no
+  - said: Vela, mlls and no
+  - said: Dola, mlls and yes
+  - said: Vela, rlsn and yes
+The sources: reliable Kesh, reliable Ryn, unreliable Vela and unreliable Dola.
+What is the status of dvlm?
+
+Answer with exactly one of: contested | reported_only | refuted | established | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 5,
+ &quot;proposition&quot;: &quot;dvlm&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, nlgn and yes
+  - said: Kesh, zprv and no
+  - said: Ryn, nlgn and yes
+  - said: Vela, ddrr and yes
+  - said: Ryn, ddrr and yes
+  - said: Ferro, ddrr and no
+  - said: Kesh, nlgn and no
+The sources: unreliable Ryn, reliable Vela, unreliable Ferro and reliable Kesh.
+What is the status of zprv?
+
+Answer with exactly one of: established | reported_only | refuted | contested | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 7,
+ &quot;proposition&quot;: &quot;zprv&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">contested</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Tamm, lpkt and yes
+  - said: Orin, tptl and yes
+  - said: Dola, vnkk and yes
+  - said: Orin, lpkt and no
+  - said: Dola, lpkt and yes
+  - said: Dola, tptl and yes
+The sources: unreliable Tamm, reliable Orin, reliable Dola and unreliable Ryn.
+What is the status of lpkt?
+
+Answer with exactly one of: contested | unmentioned | reported_only | established | refuted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;contested&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;lpkt&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;orin&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ryn&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ferro, zdkt and yes
+  - said: Idris, zdkt and yes
+  - said: Tamm, vdkk and yes
+  - said: Tamm, zdkt and no
+  - said: Idris, vdkk and yes
+  - said: Ferro, tldt and no
+  - said: Ryn, vdkk and no
+  - said: Idris, tldt and no
+The sources: reliable Idris, reliable Tamm, unreliable Ferro and unreliable Ryn.
+What is the status of drld?
+
+Answer with exactly one of: reported_only | contested | refuted | unmentioned | established
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 8,
+ &quot;proposition&quot;: &quot;drld&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ryn, vpsv and no
+  - said: Tamm, vrvg and yes
+  - said: Kesh, vrvg and yes
+  - said: Idris, vrvg and yes
+  - said: Idris, sdsk and no
+  - said: Tamm, lgdp and yes
+  - said: Ryn, vrvg and yes
+  - said: Idris, vpsv and no
+  - said: Idris, lgdp and no
+  - said: Tamm, vpsv and yes
+The sources: reliable Ryn, unreliable Kesh, reliable Idris and unreliable Tamm.
+What is the status of vpsv?
+
+Answer with exactly one of: refuted | established | unmentioned | contested | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 10,
+ &quot;proposition&quot;: &quot;vpsv&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, rpld and no
+  - said: Kesh, mldn and no
+  - said: Kesh, mdtz and no
+  - said: Vela, mdtz and yes
+  - said: Dola, rpld and yes
+  - said: Tamm, vrpp and yes
+  - said: Kesh, rpld and no
+  - said: Dola, vrpp and no
+  - said: Tamm, mdtz and yes
+  - said: Tamm, rpld and yes
+The sources: reliable Vela, reliable Tamm, unreliable Kesh and unreliable Dola.
+What is the status of mdtz?
+
+Answer with exactly one of: contested | established | unmentioned | refuted | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 10,
+ &quot;proposition&quot;: &quot;mdtz&quot;,
+ &quot;reliable&quot;: [
+  &quot;tamm&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;kesh&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Orin, mlnz and yes
+  - said: Tamm, smlg and yes
+  - said: Ryn, smlg and yes
+  - said: Ryn, gskg and no
+  - said: Dola, gskg and yes
+  - said: Dola, mlnz and no
+  - said: Orin, smlg and yes
+  - said: Ryn, mlnz and yes
+The sources: reliable Tamm, unreliable Ryn, reliable Orin and unreliable Dola.
+What is the status of zrpd?
+
+Answer with exactly one of: established | unmentioned | refuted | contested | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 8,
+ &quot;proposition&quot;: &quot;zrpd&quot;,
+ &quot;reliable&quot;: [
+  &quot;orin&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are: said: Ferro, srlv and yes; said: Dola, glpp and yes; said: Ryn, srlv and yes; said: Orin, srlv and no.
+The sources: reliable Ryn, reliable Dola, unreliable Ferro and unreliable Orin.
+What is the status of srlv?
+
+Answer with exactly one of: contested | refuted | established | unmentioned | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 4,
+ &quot;proposition&quot;: &quot;srlv&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;orin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, mkvs and no
+  - said: Ferro, lzzv and yes
+  - said: Dola, mkvs and yes
+  - said: Dola, gpzg and yes
+  - said: Vela, lzzv and no
+  - said: Tamm, gpzg and yes
+The sources: unreliable Dola, unreliable Ferro, reliable Tamm and reliable Vela.
+What is the status of ksvp?
+
+Answer with exactly one of: established | refuted | reported_only | contested | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;ksvp&quot;,
+ &quot;reliable&quot;: [
+  &quot;tamm&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ferro&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Dola, ngkv and yes
+  - said: Vela, tzdk and no
+  - said: Dola, pvrz and yes
+  - said: Tamm, ngkv and yes
+  - said: Vela, tdgl and yes
+  - said: Vela, pvrz and yes
+The sources: unreliable Orin, reliable Vela, unreliable Tamm and reliable Dola.
+What is the status of tzdk?
+
+Answer with exactly one of: unmentioned | reported_only | established | refuted | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;tzdk&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;orin&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">contested</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, kmnt and yes
+  - said: Idris, tpks and no
+  - said: Vela, tpks and yes
+  - said: Ryn, svvl and no
+  - said: Kesh, svvl and yes
+  - said: Kesh, tpks and yes
+  - said: Ryn, kmnt and no
+  - said: Vela, nkpd and no
+  - said: Idris, nkpd and yes
+  - said: Idris, svvl and yes
+The sources: unreliable Vela, reliable Ryn, unreliable Kesh and reliable Idris.
+What is the status of svvl?
+
+Answer with exactly one of: unmentioned | contested | reported_only | refuted | established
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;contested&quot;,
+ &quot;n_reports&quot;: 10,
+ &quot;proposition&quot;: &quot;svvl&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, lnkr and no
+  - said: Vela, zldk and no
+  - said: Ryn, pvlt and no
+  - said: Vela, vllm and no
+  - said: Kesh, pvlt and no
+The sources: reliable Ryn, unreliable Idris, reliable Kesh and unreliable Vela.
+What is the status of zldk?
+
+Answer with exactly one of: unmentioned | refuted | contested | established | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 5,
+ &quot;proposition&quot;: &quot;zldk&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;idris&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, kvvr and yes
+  - said: Kesh, rttk and no
+  - said: Orin, kvvr and no
+  - said: Tamm, kvvr and no
+  - said: Orin, zntm and no
+The sources: unreliable Tamm, reliable Orin, reliable Kesh and unreliable Vela.
+What is the status of znlt?
+
+Answer with exactly one of: reported_only | contested | established | refuted | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 5,
+ &quot;proposition&quot;: &quot;znlt&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;orin&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;tamm&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Idris, dgks and no
+  - said: Tamm, nmpd and no
+  - said: Tamm, mmns and yes
+  - said: Kesh, dgks and no
+  - said: Ferro, mmns and yes
+  - said: Tamm, dgks and yes
+The sources: reliable Kesh, unreliable Ferro, unreliable Tamm and reliable Idris.
+What is the status of nmpd?
+
+Answer with exactly one of: unmentioned | reported_only | refuted | established | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;nmpd&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;kesh&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Dola, pvsd and yes
+  - said: Tamm, rnks and yes
+  - said: Tamm, pvsd and no
+  - said: Ryn, dntm and yes
+  - said: Ryn, zdns and yes
+  - said: Tamm, zdns and yes
+  - said: Vela, pvsd and yes
+  - said: Vela, zdns and no
+  - said: Ryn, rnks and yes
+  - said: Dola, dntm and yes
+The sources: unreliable Ryn, reliable Dola, unreliable Tamm and reliable Vela.
+What is the status of rnks?
+
+Answer with exactly one of: contested | unmentioned | reported_only | refuted | established
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 10,
+ &quot;proposition&quot;: &quot;rnks&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ryn&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, smrv and no
+  - said: Idris, zsnv and no
+  - said: Idris, vvrv and no
+  - said: Idris, smrv and no
+  - said: Idris, rlnp and yes
+  - said: Kesh, rlnp and yes
+The sources: reliable Kesh, unreliable Vela, reliable Ryn and unreliable Idris.
+What is the status of vvrv?
+
+Answer with exactly one of: refuted | contested | reported_only | established | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;vvrv&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;idris&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ferro, zzrm and no
+  - said: Tamm, zzrm and yes
+  - said: Vela, dvtv and yes
+  - said: Tamm, dldt and no
+  - said: Ryn, dvtv and no
+  - said: Tamm, rtdm and yes
+The sources: unreliable Vela, reliable Ryn, reliable Tamm and unreliable Ferro.
+What is the status of zzrm?
+
+Answer with exactly one of: reported_only | contested | refuted | established | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;zzrm&quot;,
+ &quot;reliable&quot;: [
+  &quot;ryn&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ferro, pzgp and yes
+  - said: Dola, vgzs and yes
+  - said: Vela, zktv and yes
+  - said: Vela, pzgp and yes
+  - said: Dola, zktv and yes
+  - said: Tamm, vgzs and yes
+  - said: Vela, vgzs and yes
+The sources: unreliable Dola, reliable Ferro, reliable Vela and unreliable Tamm.
+What is the status of pzgp?
+
+Answer with exactly one of: contested | unmentioned | refuted | established | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 7,
+ &quot;proposition&quot;: &quot;pzgp&quot;,
+ &quot;reliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Idris, pvzd and no
+  - said: Vela, ltrn and no
+  - said: Ferro, pvzd and yes
+  - said: Ryn, ltrn and no
+  - said: Idris, nlvr and yes
+  - said: Ferro, nlvr and yes
+The sources: reliable Ryn, reliable Vela, unreliable Ferro and unreliable Idris.
+What is the status of pvzd?
+
+Answer with exactly one of: unmentioned | refuted | contested | established | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;pvzd&quot;,
+ &quot;reliable&quot;: [
+  &quot;ryn&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;idris&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ferro, vrlr and no
+  - said: Idris, rvtp and yes
+  - said: Idris, pvpg and yes
+  - said: Idris, gllr and no
+  - said: Vela, gllr and yes
+  - said: Vela, vrlr and yes
+  - said: Ferro, pvpg and no
+  - said: Orin, rvtp and yes
+  - said: Vela, rvtp and no
+The sources: unreliable Orin, reliable Vela, unreliable Idris and reliable Ferro.
+What is the status of gllr?
+
+Answer with exactly one of: established | reported_only | unmentioned | refuted | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 9,
+ &quot;proposition&quot;: &quot;gllr&quot;,
+ &quot;reliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;idris&quot;,
+  &quot;orin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ferro, tlmt and yes
+  - said: Tamm, dnpp and no
+  - said: Dola, tlmt and yes
+  - said: Ryn, dnpp and no
+  - said: Dola, dnpp and yes
+  - said: Tamm, nngs and no
+The sources: unreliable Ferro, reliable Ryn, unreliable Tamm and reliable Dola.
+What is the status of tlmt?
+
+Answer with exactly one of: reported_only | contested | unmentioned | refuted | established
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;tlmt&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">contested</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Dola, zmsr and yes
+  - said: Kesh, kdrl and yes
+  - said: Vela, vtln and yes
+  - said: Kesh, zmsr and yes
+  - said: Orin, kdrl and no
+  - said: Vela, kgsr and yes
+  - said: Orin, kgsr and no
+  - said: Orin, vtln and yes
+  - said: Kesh, vtln and no
+  - said: Orin, zmsr and no
+  - said: Vela, zmsr and yes
+  - said: Dola, vtln and yes
+The sources: unreliable Vela, reliable Orin, reliable Kesh and unreliable Dola.
+What is the status of zmsr?
+
+Answer with exactly one of: unmentioned | established | refuted | contested | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;contested&quot;,
+ &quot;n_reports&quot;: 12,
+ &quot;proposition&quot;: &quot;zmsr&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;orin&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Idris, glzd and yes
+  - said: Ryn, glzd and no
+  - said: Dola, glzd and yes
+  - said: Kesh, glzd and yes
+  - said: Dola, ptnk and no
+  - said: Ryn, ddls and no
+  - said: Idris, dngt and yes
+  - said: Kesh, ptnk and no
+  - said: Ryn, dngt and no
+  - said: Dola, dngt and no
+The sources: unreliable Dola, reliable Kesh, reliable Idris and unreliable Ryn.
+What is the status of glzd?
+
+Answer with exactly one of: refuted | contested | established | reported_only | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 10,
+ &quot;proposition&quot;: &quot;glzd&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;kesh&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">contested</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, mvpr and no
+  - said: Ferro, kzpk and yes
+  - said: Tamm, rsvm and yes
+  - said: Vela, tvzg and no
+  - said: Ryn, tvzg and yes
+  - said: Ferro, mvpr and yes
+The sources: reliable Vela, reliable Ryn, unreliable Tamm and unreliable Ferro.
+What is the status of tvzg?
+
+Answer with exactly one of: refuted | reported_only | contested | unmentioned | established
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;contested&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;tvzg&quot;,
+ &quot;reliable&quot;: [
+  &quot;ryn&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are: said: Orin, vvrz and no; said: Orin, vtlz and yes; said: Ferro, vvrz and no; said: Kesh, vvrz and yes.
+The sources: reliable Vela, unreliable Orin, reliable Kesh and unreliable Ferro.
+What is the status of tslm?
+
+Answer with exactly one of: established | refuted | contested | unmentioned | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 4,
+ &quot;proposition&quot;: &quot;tslm&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;orin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Orin, ndlm and no
+  - said: Ferro, zvdn and yes
+  - said: Ryn, zvdn and no
+  - said: Ferro, ndlm and no
+  - said: Orin, zvdn and yes
+  - said: Tamm, ndlm and yes
+  - said: Tamm, zvdn and no
+  - said: Ferro, dlmz and yes
+  - said: Ryn, nnvn and no
+  - said: Orin, dlmz and yes
+The sources: unreliable Ryn, reliable Tamm, unreliable Orin and reliable Ferro.
+What is the status of nnvn?
+
+Answer with exactly one of: unmentioned | established | refuted | reported_only | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 10,
+ &quot;proposition&quot;: &quot;nnvn&quot;,
+ &quot;reliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;orin&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">contested</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, mlzs and yes
+  - said: Tamm, kpsz and no
+  - said: Tamm, mlzs and no
+  - said: Vela, mlzs and no
+  - said: Vela, kpsz and yes
+  - said: Idris, kpsz and yes
+  - said: Vela, lrkk and no
+  - said: Kesh, kpsz and yes
+The sources: unreliable Kesh, reliable Idris, reliable Tamm and unreliable Vela.
+What is the status of kpsz?
+
+Answer with exactly one of: established | contested | unmentioned | refuted | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;contested&quot;,
+ &quot;n_reports&quot;: 8,
+ &quot;proposition&quot;: &quot;kpsz&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">contested</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, nnrk and yes
+  - said: Idris, zkvt and yes
+  - said: Vela, mzvr and no
+  - said: Idris, gstr and no
+  - said: Vela, gstr and no
+  - said: Ferro, nnrk and yes
+  - said: Dola, mzvr and yes
+  - said: Ferro, gstr and no
+The sources: unreliable Idris, reliable Vela, unreliable Ferro and reliable Dola.
+What is the status of mzvr?
+
+Answer with exactly one of: unmentioned | reported_only | refuted | established | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;contested&quot;,
+ &quot;n_reports&quot;: 8,
+ &quot;proposition&quot;: &quot;mzvr&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;idris&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, tnpn and no
+  - said: Vela, sdvp and yes
+  - said: Dola, dpkn and no
+  - said: Kesh, dpkn and no
+  - said: Vela, dpkn and no
+  - said: Dola, sdvp and no
+  - said: Ferro, dpkn and yes
+  - said: Ferro, sdvp and no
+  - said: Vela, tnpn and no
+  - said: Ferro, tnpn and no
+The sources: unreliable Dola, reliable Kesh, reliable Vela and unreliable Ferro.
+What is the status of dpkn?
+
+Answer with exactly one of: unmentioned | contested | established | reported_only | refuted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 10,
+ &quot;proposition&quot;: &quot;dpkn&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ferro&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Idris, ssdd and no
+  - said: Idris, ksmd and no
+  - said: Vela, vdzt and no
+  - said: Vela, ssdd and no
+  - said: Vela, vtml and no
+  - said: Ryn, vtml and yes
+  - said: Idris, vtml and no
+  - said: Kesh, ssdd and no
+The sources: unreliable Vela, unreliable Ryn, reliable Idris and reliable Kesh.
+What is the status of ssdd?
+
+Answer with exactly one of: refuted | reported_only | unmentioned | established | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 8,
+ &quot;proposition&quot;: &quot;ssdd&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;kesh&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ryn&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">contested</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Tamm, sgkp and yes
+  - said: Tamm, lkrp and no
+  - said: Ferro, llrp and yes
+  - said: Ferro, strg and yes
+  - said: Ferro, lkrp and no
+  - said: Ryn, llrp and no
+  - said: Dola, strg and no
+  - said: Tamm, strg and no
+  - said: Tamm, llrp and no
+The sources: unreliable Dola, reliable Ryn, unreliable Tamm and reliable Ferro.
+What is the status of llrp?
+
+Answer with exactly one of: established | refuted | unmentioned | reported_only | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;contested&quot;,
+ &quot;n_reports&quot;: 9,
+ &quot;proposition&quot;: &quot;llrp&quot;,
+ &quot;reliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Dola, klzd and no
+  - said: Kesh, klzd and yes
+  - said: Idris, tvng and yes
+  - said: Kesh, tvng and no
+  - said: Dola, lszn and no
+  - said: Idris, klzd and no
+  - said: Idris, lszn and no
+  - said: Kesh, lszn and no
+The sources: reliable Kesh, unreliable Dola, unreliable Ryn and reliable Idris.
+What is the status of pvkt?
+
+Answer with exactly one of: reported_only | contested | unmentioned | refuted | established
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 8,
+ &quot;proposition&quot;: &quot;pvkt&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;kesh&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, mszr and no
+  - said: Vela, tnzt and yes
+  - said: Ryn, tnzt and no
+  - said: Kesh, tnzt and yes
+  - said: Kesh, tmvm and no
+  - said: Ryn, tmvm and no
+  - said: Vela, kpvg and yes
+  - said: Idris, tnzt and no
+  - said: Ryn, mszr and no
+The sources: unreliable Kesh, unreliable Vela, reliable Ryn and reliable Idris.
+What is the status of tnzt?
+
+Answer with exactly one of: reported_only | established | unmentioned | refuted | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 9,
+ &quot;proposition&quot;: &quot;tnzt&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, kkns and yes
+  - said: Tamm, kkns and no
+  - said: Vela, kptl and no
+  - said: Tamm, kptl and yes
+  - said: Orin, kptl and yes
+The sources: unreliable Vela, reliable Idris, unreliable Tamm and reliable Orin.
+What is the status of kkns?
+
+Answer with exactly one of: refuted | unmentioned | contested | established | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 5,
+ &quot;proposition&quot;: &quot;kkns&quot;,
+ &quot;reliable&quot;: [
+  &quot;idris&quot;,
+  &quot;orin&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;tamm&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">contested</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ryn, nlsv and yes
+  - said: Orin, nlsv and yes
+  - said: Orin, zrvp and yes
+  - said: Idris, zrvp and yes
+  - said: Ryn, zrvp and yes
+  - said: Tamm, nlsv and no
+  - said: Orin, gtrd and yes
+  - said: Ryn, gtrd and yes
+  - said: Tamm, gtrd and no
+  - said: Ryn, vrdl and no
+The sources: reliable Orin, unreliable Ryn, unreliable Idris and reliable Tamm.
+What is the status of nlsv?
+
+Answer with exactly one of: contested | established | unmentioned | reported_only | refuted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;contested&quot;,
+ &quot;n_reports&quot;: 10,
+ &quot;proposition&quot;: &quot;nlsv&quot;,
+ &quot;reliable&quot;: [
+  &quot;orin&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;idris&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, vlgs and no
+  - said: Vela, nprr and yes
+  - said: Idris, sngg and yes
+  - said: Dola, vlgs and no
+  - said: Kesh, nprr and no
+  - said: Kesh, vlgs and no
+  - said: Dola, gvgp and no
+  - said: Vela, sngg and yes
+  - said: Dola, sngg and yes
+  - said: Idris, vlgs and yes
+  - said: Kesh, sngg and yes
+The sources: unreliable Idris, reliable Kesh, reliable Vela and unreliable Dola.
+What is the status of vlgs?
+
+Answer with exactly one of: reported_only | unmentioned | contested | established | refuted
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 11,
+ &quot;proposition&quot;: &quot;vlgs&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;idris&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Idris, rmpv and no
+  - said: Dola, drdn and yes
+  - said: Idris, drdn and yes
+  - said: Ferro, kgss and no
+  - said: Dola, kgss and yes
+  - said: Dola, rmpv and no
+  - said: Orin, kgss and no
+  - said: Ferro, drdn and no
+  - said: Ferro, zdpm and no
+  - said: Dola, zdpm and yes
+  - said: Idris, zdpm and yes
+The sources: unreliable Ferro, reliable Dola, reliable Idris and unreliable Orin.
+What is the status of drdn?
+
+Answer with exactly one of: contested | refuted | reported_only | established | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 11,
+ &quot;proposition&quot;: &quot;drdn&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;idris&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;orin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ryn, lkzp and no
+  - said: Orin, lkzp and no
+  - said: Tamm, zlnr and no
+  - said: Ferro, lkzp and no
+  - said: Orin, zlnr and no
+  - said: Tamm, mvrg and no
+  - said: Ferro, zlnr and no
+  - said: Ryn, dldm and yes
+  - said: Ferro, dldm and yes
+The sources: unreliable Ryn, reliable Ferro, reliable Tamm and unreliable Orin.
+What is the status of zlnr?
+
+Answer with exactly one of: unmentioned | refuted | established | contested | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 9,
+ &quot;proposition&quot;: &quot;zlnr&quot;,
+ &quot;reliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;orin&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, rdkl and yes
+  - said: Kesh, mdtg and yes
+  - said: Orin, tvpl and no
+  - said: Kesh, nvts and yes
+  - said: Orin, rdkl and no
+  - said: Tamm, mdtg and yes
+  - said: Vela, nvts and no
+  - said: Orin, nvts and yes
+The sources: unreliable Orin, reliable Kesh, unreliable Vela and reliable Tamm.
+What is the status of rdkl?
+
+Answer with exactly one of: reported_only | contested | refuted | established | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 8,
+ &quot;proposition&quot;: &quot;rdkl&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;orin&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, zdnl and no
+  - said: Kesh, mgtv and no
+  - said: Kesh, tpls and no
+  - said: Vela, gkst and yes
+  - said: Ryn, mgtv and no
+  - said: Vela, tpls and yes
+The sources: reliable Ryn, unreliable Orin, unreliable Kesh and reliable Vela.
+What is the status of tpls?
+
+Answer with exactly one of: refuted | established | reported_only | unmentioned | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 6,
+ &quot;proposition&quot;: &quot;tpls&quot;,
+ &quot;reliable&quot;: [
+  &quot;ryn&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;orin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Tamm, gznl and no
+  - said: Dola, vzlm and yes
+  - said: Tamm, vzlm and yes
+  - said: Ryn, vzlm and no
+  - said: Ryn, vgzz and no
+  - said: Ryn, rdtk and yes
+  - said: Tamm, rdtk and yes
+The sources: unreliable Ryn, reliable Vela, unreliable Dola and reliable Tamm.
+What is the status of gznl?
+
+Answer with exactly one of: reported_only | refuted | established | contested | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 7,
+ &quot;proposition&quot;: &quot;gznl&quot;,
+ &quot;reliable&quot;: [
+  &quot;tamm&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">established</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, pvdv and yes
+  - said: Kesh, sglv and no
+  - said: Dola, vvzs and no
+  - said: Vela, sglv and no
+  - said: Dola, sglv and no
+  - said: Dola, pvdv and yes
+  - said: Ferro, sglv and yes
+The sources: unreliable Vela, reliable Kesh, unreliable Ferro and reliable Dola.
+What is the status of pvdv?
+
+Answer with exactly one of: refuted | established | unmentioned | reported_only | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;established&quot;,
+ &quot;n_reports&quot;: 7,
+ &quot;proposition&quot;: &quot;pvdv&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;kesh&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ryn, mgnn and yes
+  - said: Dola, grvt and yes
+  - said: Ryn, lkkk and yes
+  - said: Ryn, nntg and no
+  - said: Ferro, nntg and no
+The sources: unreliable Dola, reliable Ferro, unreliable Orin and reliable Ryn.
+What is the status of grvt?
+
+Answer with exactly one of: reported_only | contested | refuted | unmentioned | established
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 5,
+ &quot;proposition&quot;: &quot;grvt&quot;,
+ &quot;reliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;ryn&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;orin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Ferro, rmng and no
+  - said: Dola, rmng and no
+  - said: Dola, tgkg and yes
+  - said: Dola, lpmn and yes
+  - said: Kesh, ttpm and yes
+The sources: unreliable Kesh, reliable Dola, unreliable Ferro and reliable Orin.
+What is the status of ttpm?
+
+Answer with exactly one of: unmentioned | contested | refuted | established | reported_only
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 5,
+ &quot;proposition&quot;: &quot;ttpm&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;orin&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;kesh&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are: said: Dola, zrkp and yes; said: Orin, kdpl and no; said: Kesh, zrkp and no.
+The sources: reliable Kesh, reliable Orin, unreliable Dola and unreliable Idris.
+What is the status of pknv?
+
+Answer with exactly one of: unmentioned | reported_only | established | refuted | contested
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 3,
+ &quot;proposition&quot;: &quot;pknv&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;orin&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;dola&quot;,
+  &quot;idris&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">unmentioned</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Kesh, zskg and no
+  - said: Vela, nnml and no
+  - said: Orin, zskg and no
+  - said: Vela, drgs and yes
+  - said: Tamm, zskg and yes
+The sources: reliable Kesh, unreliable Vela, reliable Tamm and unreliable Orin.
+What is the status of kgmn?
+
+Answer with exactly one of: reported_only | contested | unmentioned | refuted | established
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;unmentioned&quot;,
+ &quot;n_reports&quot;: 5,
+ &quot;proposition&quot;: &quot;kgmn&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;tamm&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;orin&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">contested</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Vela, lztr and no
+  - said: Tamm, lmzl and no
+  - said: Idris, mlkd and no
+  - said: Vela, lmzl and yes
+  - said: Dola, lmzl and yes
+  - said: Idris, lztr and yes
+  - said: Dola, lztr and yes
+  - said: Dola, mlkd and yes
+The sources: unreliable Vela, reliable Dola, reliable Idris and unreliable Tamm.
+What is the status of mlkd?
+
+Answer with exactly one of: contested | established | refuted | reported_only | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;contested&quot;,
+ &quot;n_reports&quot;: 8,
+ &quot;proposition&quot;: &quot;mlkd&quot;,
+ &quot;reliable&quot;: [
+  &quot;dola&quot;,
+  &quot;idris&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;tamm&quot;,
+  &quot;vela&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">refuted</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Orin, kdzl and yes
+  - said: Idris, kmnv and yes
+  - said: Kesh, gkrk and yes
+  - said: Ferro, vnml and yes
+  - said: Ferro, gkrk and no
+  - said: Kesh, kmnv and yes
+  - said: Idris, kdzl and no
+  - said: Ferro, kdzl and no
+  - said: Ferro, kmnv and yes
+The sources: unreliable Kesh, reliable Ferro, unreliable Orin and reliable Idris.
+What is the status of gkrk?
+
+Answer with exactly one of: refuted | contested | established | reported_only | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;refuted&quot;,
+ &quot;n_reports&quot;: 9,
+ &quot;proposition&quot;: &quot;gkrk&quot;,
+ &quot;reliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;idris&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;orin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">contested</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are:
+  - said: Tamm, rmvs and yes
+  - said: Orin, pknd and yes
+  - said: Idris, rmvs and yes
+  - said: Kesh, rmvs and no
+  - said: Kesh, pknd and yes
+  - said: Tamm, lkkp and no
+  - said: Orin, vzdn and no
+  - said: Idris, pknd and yes
+  - said: Kesh, vzdn and yes
+  - said: Idris, vzdn and yes
+  - said: Idris, lkkp and no
+The sources: reliable Orin, unreliable Idris, unreliable Tamm and reliable Kesh.
+What is the status of vzdn?
+
+Answer with exactly one of: established | contested | reported_only | refuted | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;contested&quot;,
+ &quot;n_reports&quot;: 11,
+ &quot;proposition&quot;: &quot;vzdn&quot;,
+ &quot;reliable&quot;: [
+  &quot;kesh&quot;,
+  &quot;orin&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;idris&quot;,
+  &quot;tamm&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">reported_only</span></summary>
+<div class="body">
+<p>prompt</p><pre>The reports are: said: Vela, gvsp and yes; said: Ryn, ndrm and no; said: Idris, gvsp and no; said: Ryn, sstm and yes.
+The sources: reliable Vela, reliable Ferro, unreliable Ryn and unreliable Idris.
+What is the status of sstm?
+
+Answer with exactly one of: contested | refuted | established | reported_only | unmentioned
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;label&quot;: &quot;reported_only&quot;,
+ &quot;n_reports&quot;: 4,
+ &quot;proposition&quot;: &quot;sstm&quot;,
+ &quot;reliable&quot;: [
+  &quot;ferro&quot;,
+  &quot;vela&quot;
+ ],
+ &quot;unreliable&quot;: [
+  &quot;idris&quot;,
+  &quot;ryn&quot;
+ ]
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

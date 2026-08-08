@@ -1,0 +1,3024 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>few_shot_language_learning — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iii">language as action</a> &rsaquo;
+  few_shot_language_learning</p>
+<h1>#30 <code>few_shot_language_learning</code></h1>
+<p class="lede">a new miniature language per episode</p>
+<div class="tags"><span class="tag ">level 30</span><span class="tag ">section iii</span><span class="tag ">ontology_learning</span><span class="tag ">abstraction</span><span class="tag ">lexical_grounding</span></div>
+<div class="stats">
+<div class="stat"><span class="n">3.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.333</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.185</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>A whole miniature language, invented in this episode and gone at its end.</p><p>    Three nonce primitives denote colours and three nonce function words denote
+    string operations (``F x -&gt; x x``, ``x K y -&gt; y x``, ``x B y -&gt; x y x``).
+    Support demonstrations show each word once; the query composes them in a way
+    the support never did, and asks for one position of the output.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>4</td></tr><tr><td>grammar_complexity</td><td class='num'>3</td></tr><tr><td>lexical_novelty</td><td class='num'>4</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>You are shown these demonstrations:
+  - ppk → blue
+  - zrv → green
+  - pzv → red
+  - zrv nzrn ppk → green blue green
+  - lnsr pzv → red red
+  - ppk tztm zrv → green blue
+What is output 0 for zrv tztm pzv?
+
+Answer with exactly one of: green | red | blue
+Reply with the answer only.</pre><h3>spanish</h3><pre>Se muestran estas demostraciones:
+  - ppk → azul
+  - zrv → verde
+  - pzv → rojo
+  - zrv nzrn ppk → green blue green
+  - lnsr pzv → red red
+  - ppk tztm zrv → green blue
+¿Cuál es la salida 0 para zrv tztm pzv?
+
+Responde exactamente con una de estas opciones: verde | rojo | azul
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>演示如下：
+  - ppk → 蓝色
+  - zrv → 绿色
+  - pzv → 红色
+  - zrv nzrn ppk → green blue green
+  - lnsr pzv → red red
+  - ppk tztm zrv → green blue
+zrv tztm pzv0的号输出是什么？
+
+请从以下选项中选出恰好一个作答：绿色 | 红色 | 蓝色
+只回答答案本身。</pre><h3>english_synonym</h3><pre>You are shown these demonstrations:
+  - ppk → blue
+  - zrv → green
+  - pzv → red
+  - zrv nzrn ppk → green blue green
+  - lnsr pzv → red red
+  - ppk tztm zrv → green blue
+What is output 0 for zrv tztm pzv?
+
+Answer with exactly one of: green | red | blue
+Reply with the answer only.</pre><h3>symbols</h3><pre>{demonstrations: [(ex ppk blue) (ex zrv green) (ex pzv red) (ex &quot;zrv nzrn ppk&quot; &quot;green blue green&quot;) (ex &quot;lnsr pzv&quot; &quot;red red&quot;) (ex &quot;ppk tztm zrv&quot; &quot;green blue&quot;)], query: (nth_output &quot;zrv tztm pzv&quot; 0)}
+
+Answer with exactly one of: green | red | blue
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/few_shot_language_learning.jsonl</code> &middot; <code>data/samples/spanish/few_shot_language_learning.jsonl</code> &middot; <code>data/samples/chinese/few_shot_language_learning.jsonl</code> &middot; <code>data/samples/english_synonym/few_shot_language_learning.jsonl</code> &middot; <code>data/samples/symbols/few_shot_language_learning.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - ppk → blue
+  - zrv → green
+  - pzv → red
+  - zrv nzrn ppk → green blue green
+  - lnsr pzv → red red
+  - ppk tztm zrv → green blue
+What is output 0 for zrv tztm pzv?
+
+Answer with exactly one of: green | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;zrv tztm pzv&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;ppk&quot;: &quot;blue&quot;,
+  &quot;pzv&quot;: &quot;red&quot;,
+  &quot;zrv&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - vvp → orange
+  - tnm → red
+  - tnm ppnk vvp → orange red
+  - zmv → green
+  - zmv vzsn tnm → green red green
+  - smvk tnm → red red
+What is output 0 for vvp ppnk tnm?
+
+Answer with exactly one of: green | red | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;vvp ppnk tnm&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;tnm&quot;: &quot;red&quot;,
+  &quot;vvp&quot;: &quot;orange&quot;,
+  &quot;zmv&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - ltz pprl zns → green orange
+  - nknt ltz → orange orange
+  - ltz rvrz kmm → orange red orange
+  - zns → green
+  - ltz → orange
+  - kmm → red
+What is output 0 for kmm rvrz zns?
+
+Answer with exactly one of: red | orange | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;kmm rvrz zns&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;kmm&quot;: &quot;red&quot;,
+  &quot;ltz&quot;: &quot;orange&quot;,
+  &quot;zns&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;green&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - nkvz vnm → purple purple
+  - snr rssv tln → blue orange
+  - tln → blue
+  - vnm rrvp snr → purple orange purple
+  - vnm → purple
+  - snr → orange
+What is output 2 for snr rrvp vnm?
+
+Answer with exactly one of: orange | blue | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;snr rrvp vnm&quot;,
+ &quot;index&quot;: 2,
+ &quot;lexicon&quot;: {
+  &quot;snr&quot;: &quot;orange&quot;,
+  &quot;tln&quot;: &quot;blue&quot;,
+  &quot;vnm&quot;: &quot;purple&quot;
+ },
+ &quot;output&quot;: [
+  &quot;orange&quot;,
+  &quot;purple&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - pvt → red
+  - szm → blue
+  - pvt ztmz mmk → red green red
+  - przk pvt → red red
+  - mmk → green
+  - szm srrl mmk → green blue
+What is output 0 for mmk ztmz pvt?
+
+Answer with exactly one of: red | green | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;mmk ztmz pvt&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;mmk&quot;: &quot;green&quot;,
+  &quot;pvt&quot;: &quot;red&quot;,
+  &quot;szm&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;green&quot;,
+  &quot;red&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - zls pzkl kks → red purple
+  - stt → green
+  - kks → red
+  - zls pttz stt → purple green purple
+  - rsts zls → purple purple
+  - zls → purple
+What is output 1 for rsts stt?
+
+Answer with exactly one of: purple | red | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;rsts stt&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;kks&quot;: &quot;red&quot;,
+  &quot;stt&quot;: &quot;green&quot;,
+  &quot;zls&quot;: &quot;purple&quot;
+ },
+ &quot;output&quot;: [
+  &quot;green&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - kns zlnm szm → purple red purple
+  - lvs → blue
+  - rnrk szm → red red
+  - szm → red
+  - kns → purple
+  - lvs lsnp kns → purple blue
+What is output 0 for kns lsnp szm?
+
+Answer with exactly one of: blue | purple | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;kns lsnp szm&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;kns&quot;: &quot;purple&quot;,
+  &quot;lvs&quot;: &quot;blue&quot;,
+  &quot;szm&quot;: &quot;red&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;purple&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - ppp lnkm mvp → green red
+  - ksm → orange
+  - mvp → green
+  - svtm ppp → red red
+  - ppp kntr mvp → red green red
+  - ppp → red
+What is output 1 for ksm lnkm mvp?
+
+Answer with exactly one of: red | orange | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;ksm lnkm mvp&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;ksm&quot;: &quot;orange&quot;,
+  &quot;mvp&quot;: &quot;green&quot;,
+  &quot;ppp&quot;: &quot;red&quot;
+ },
+ &quot;output&quot;: [
+  &quot;green&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - mts vvvp tsk → yellow blue
+  - tsk → yellow
+  - mts → blue
+  - rspk slp → red red
+  - mts vnsp tsk → blue yellow blue
+  - slp → red
+What is output 1 for tsk vvvp slp?
+
+Answer with exactly one of: yellow | blue | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;tsk vvvp slp&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;mts&quot;: &quot;blue&quot;,
+  &quot;slp&quot;: &quot;red&quot;,
+  &quot;tsk&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;yellow&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - klr → red
+  - vnl rnkp klr → red blue
+  - vnl → blue
+  - vnml vnl → blue blue
+  - ztt → orange
+  - klr tvpt ztt → red orange red
+What is output 0 for vnl tvpt ztt?
+
+Answer with exactly one of: red | orange | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;vnl tvpt ztt&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;klr&quot;: &quot;red&quot;,
+  &quot;vnl&quot;: &quot;blue&quot;,
+  &quot;ztt&quot;: &quot;orange&quot;
+ },
+ &quot;output&quot;: [
+  &quot;blue&quot;,
+  &quot;orange&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - nkp → purple
+  - vnk vlms svv → yellow green
+  - svv → yellow
+  - vnk lkpt nkp → green purple green
+  - vnk → green
+  - ztkr vnk → green green
+What is output 0 for vnk lkpt svv?
+
+Answer with exactly one of: green | yellow | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;vnk lkpt svv&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;nkp&quot;: &quot;purple&quot;,
+  &quot;svv&quot;: &quot;yellow&quot;,
+  &quot;vnk&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;green&quot;,
+  &quot;yellow&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - vrn → purple
+  - vrv → yellow
+  - vrv vztm str → blue yellow
+  - vrv rknp str → yellow blue yellow
+  - str → blue
+  - vntm str → blue blue
+What is output 0 for vntm vrv?
+
+Answer with exactly one of: purple | yellow | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;vntm vrv&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;str&quot;: &quot;blue&quot;,
+  &quot;vrn&quot;: &quot;purple&quot;,
+  &quot;vrv&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;yellow&quot;,
+  &quot;yellow&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - lllr szl → red red
+  - lpz nrtk szl → red blue
+  - lpz → blue
+  - szl → red
+  - mzs → yellow
+  - mzs ppkr szl → yellow red yellow
+What is output 0 for szl ppkr mzs?
+
+Answer with exactly one of: red | yellow | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;szl ppkr mzs&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;lpz&quot;: &quot;blue&quot;,
+  &quot;mzs&quot;: &quot;yellow&quot;,
+  &quot;szl&quot;: &quot;red&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;yellow&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - vvrt nzv → purple purple
+  - rnt lzlv lml → orange green orange
+  - lml zstr nzv → purple green
+  - lml → green
+  - nzv → purple
+  - rnt → orange
+What is output 2 for lml lzlv rnt?
+
+Answer with exactly one of: orange | green | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;lml lzlv rnt&quot;,
+ &quot;index&quot;: 2,
+ &quot;lexicon&quot;: {
+  &quot;lml&quot;: &quot;green&quot;,
+  &quot;nzv&quot;: &quot;purple&quot;,
+  &quot;rnt&quot;: &quot;orange&quot;
+ },
+ &quot;output&quot;: [
+  &quot;green&quot;,
+  &quot;orange&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - pvt → orange
+  - rnm → blue
+  - pvt nmzv tpm → orange yellow orange
+  - rnm vvpp tpm → yellow blue
+  - rpvz pvt → orange orange
+  - tpm → yellow
+What is output 1 for pvt vvpp rnm?
+
+Answer with exactly one of: yellow | blue | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;pvt vvpp rnm&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;pvt&quot;: &quot;orange&quot;,
+  &quot;rnm&quot;: &quot;blue&quot;,
+  &quot;tpm&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;blue&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - skr → green
+  - kts → orange
+  - skr zlss kts → green orange green
+  - lsml kts → orange orange
+  - kkt → blue
+  - kkt vlzp kts → orange blue
+What is output 1 for kts vlzp skr?
+
+Answer with exactly one of: green | orange | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;kts vlzp skr&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;kkt&quot;: &quot;blue&quot;,
+  &quot;kts&quot;: &quot;orange&quot;,
+  &quot;skr&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;green&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - zssk lvv → purple purple
+  - lvv → purple
+  - zps → green
+  - vkp zzlt lvv → purple red
+  - zps nzks vkp → green red green
+  - vkp → red
+What is output 0 for vkp nzks zps?
+
+Answer with exactly one of: purple | red | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;vkp nzks zps&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;lvv&quot;: &quot;purple&quot;,
+  &quot;vkp&quot;: &quot;red&quot;,
+  &quot;zps&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;green&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - rpz → blue
+  - kspp lzt → orange orange
+  - rzm → purple
+  - lzt → orange
+  - rzm zrlp rpz → blue purple
+  - rzm trkt rpz → purple blue purple
+What is output 1 for lzt zrlp rpz?
+
+Answer with exactly one of: blue | orange | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;lzt zrlp rpz&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;lzt&quot;: &quot;orange&quot;,
+  &quot;rpz&quot;: &quot;blue&quot;,
+  &quot;rzm&quot;: &quot;purple&quot;
+ },
+ &quot;output&quot;: [
+  &quot;blue&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - lps → blue
+  - zzk → purple
+  - prl → yellow
+  - zzk mzvn prl → purple yellow purple
+  - prl znzr zzk → purple yellow
+  - nnrz prl → yellow yellow
+What is output 0 for prl mzvn lps?
+
+Answer with exactly one of: blue | purple | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;prl mzvn lps&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;lps&quot;: &quot;blue&quot;,
+  &quot;prl&quot;: &quot;yellow&quot;,
+  &quot;zzk&quot;: &quot;purple&quot;
+ },
+ &quot;output&quot;: [
+  &quot;yellow&quot;,
+  &quot;blue&quot;,
+  &quot;yellow&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - lrz zmlz rsp → blue purple blue
+  - rsp → purple
+  - lrz → blue
+  - krm mzpl lrz → blue red
+  - krm → red
+  - ntnz krm → red red
+What is output 0 for lrz mzpl krm?
+
+Answer with exactly one of: red | blue | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;lrz mzpl krm&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;krm&quot;: &quot;red&quot;,
+  &quot;lrz&quot;: &quot;blue&quot;,
+  &quot;rsp&quot;: &quot;purple&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - zzz → green
+  - zzz nskk mms → green purple green
+  - sks → orange
+  - mms → purple
+  - ztnm mms → purple purple
+  - sks kzss mms → purple orange
+What is output 1 for ztnm zzz?
+
+Answer with exactly one of: purple | orange | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;ztnm zzz&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;mms&quot;: &quot;purple&quot;,
+  &quot;sks&quot;: &quot;orange&quot;,
+  &quot;zzz&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;green&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - rrsk vrt → yellow yellow
+  - zvs klnp vrt → yellow red
+  - tpp mtss zvs → orange red orange
+  - zvs → red
+  - tpp → orange
+  - vrt → yellow
+What is output 2 for zvs mtss tpp?
+
+Answer with exactly one of: red | yellow | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;zvs mtss tpp&quot;,
+ &quot;index&quot;: 2,
+ &quot;lexicon&quot;: {
+  &quot;tpp&quot;: &quot;orange&quot;,
+  &quot;vrt&quot;: &quot;yellow&quot;,
+  &quot;zvs&quot;: &quot;red&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;orange&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - mlm knkn tsk → yellow green yellow
+  - tsk → green
+  - tsk ntrp mlm → yellow green
+  - mlm → yellow
+  - szkl tsk → green green
+  - nvt → orange
+What is output 1 for nvt knkn mlm?
+
+Answer with exactly one of: green | yellow | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;nvt knkn mlm&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;mlm&quot;: &quot;yellow&quot;,
+  &quot;nvt&quot;: &quot;orange&quot;,
+  &quot;tsk&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;orange&quot;,
+  &quot;yellow&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - zmk → yellow
+  - nzp → red
+  - tszv nzp → red red
+  - zmk kmmv nzp → yellow red yellow
+  - zmk ksnv prl → orange yellow
+  - prl → orange
+What is output 2 for zmk kmmv prl?
+
+Answer with exactly one of: yellow | red | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;zmk kmmv prl&quot;,
+ &quot;index&quot;: 2,
+ &quot;lexicon&quot;: {
+  &quot;nzp&quot;: &quot;red&quot;,
+  &quot;prl&quot;: &quot;orange&quot;,
+  &quot;zmk&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;yellow&quot;,
+  &quot;orange&quot;,
+  &quot;yellow&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - sts → green
+  - zkvv tmt → blue blue
+  - sts mkrt tmt → blue green
+  - pnt vvzv sts → red green red
+  - pnt → red
+  - tmt → blue
+What is output 1 for pnt vvzv tmt?
+
+Answer with exactly one of: green | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;pnt vvzv tmt&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;pnt&quot;: &quot;red&quot;,
+  &quot;sts&quot;: &quot;green&quot;,
+  &quot;tmt&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;blue&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - zkz → yellow
+  - zvk → purple
+  - zkz nltr zvk → yellow purple yellow
+  - pks → green
+  - npmn zkz → yellow yellow
+  - pks mnsr zkz → yellow green
+What is output 0 for zvk mnsr pks?
+
+Answer with exactly one of: purple | green | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;zvk mnsr pks&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;pks&quot;: &quot;green&quot;,
+  &quot;zkz&quot;: &quot;yellow&quot;,
+  &quot;zvk&quot;: &quot;purple&quot;
+ },
+ &quot;output&quot;: [
+  &quot;green&quot;,
+  &quot;purple&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - ssp spsk tvk → orange purple
+  - nrk → yellow
+  - tvk → orange
+  - nrtp nrk → yellow yellow
+  - ssp stts nrk → purple yellow purple
+  - ssp → purple
+What is output 2 for tvk stts ssp?
+
+Answer with exactly one of: purple | orange | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;tvk stts ssp&quot;,
+ &quot;index&quot;: 2,
+ &quot;lexicon&quot;: {
+  &quot;nrk&quot;: &quot;yellow&quot;,
+  &quot;ssp&quot;: &quot;purple&quot;,
+  &quot;tvk&quot;: &quot;orange&quot;
+ },
+ &quot;output&quot;: [
+  &quot;orange&quot;,
+  &quot;purple&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - rkr → red
+  - sts → green
+  - sts mzzr tvl → green orange green
+  - tvl → orange
+  - rkr lkpl sts → green red
+  - vrml rkr → red red
+What is output 0 for tvl mzzr rkr?
+
+Answer with exactly one of: green | orange | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;tvl mzzr rkr&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;rkr&quot;: &quot;red&quot;,
+  &quot;sts&quot;: &quot;green&quot;,
+  &quot;tvl&quot;: &quot;orange&quot;
+ },
+ &quot;output&quot;: [
+  &quot;orange&quot;,
+  &quot;red&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - mvtv ssk → yellow yellow
+  - rpk nptp llp → blue green blue
+  - llp → green
+  - rpk → blue
+  - rpk rsrv llp → green blue
+  - ssk → yellow
+What is output 1 for ssk rsrv llp?
+
+Answer with exactly one of: blue | green | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;ssk rsrv llp&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;llp&quot;: &quot;green&quot;,
+  &quot;rpk&quot;: &quot;blue&quot;,
+  &quot;ssk&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;green&quot;,
+  &quot;yellow&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - rml mvsl mrl → blue purple
+  - rml → purple
+  - nnz → yellow
+  - mrl → blue
+  - ppkk nnz → yellow yellow
+  - nnz mvln mrl → yellow blue yellow
+What is output 2 for mrl mvln rml?
+
+Answer with exactly one of: purple | blue | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;mrl mvln rml&quot;,
+ &quot;index&quot;: 2,
+ &quot;lexicon&quot;: {
+  &quot;mrl&quot;: &quot;blue&quot;,
+  &quot;nnz&quot;: &quot;yellow&quot;,
+  &quot;rml&quot;: &quot;purple&quot;
+ },
+ &quot;output&quot;: [
+  &quot;blue&quot;,
+  &quot;purple&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - ptmv kns → green green
+  - kns → green
+  - zkp → red
+  - rzn → yellow
+  - rzn krsk zkp → red yellow
+  - zkp mtnr kns → red green red
+What is output 1 for zkp krsk rzn?
+
+Answer with exactly one of: red | yellow | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;zkp krsk rzn&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;kns&quot;: &quot;green&quot;,
+  &quot;rzn&quot;: &quot;yellow&quot;,
+  &quot;zkp&quot;: &quot;red&quot;
+ },
+ &quot;output&quot;: [
+  &quot;yellow&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - nss → yellow
+  - spn → green
+  - rkk → blue
+  - spn rvss nss → green yellow green
+  - tlts spn → green green
+  - rkk tpkm nss → yellow blue
+What is output 1 for spn tpkm rkk?
+
+Answer with exactly one of: green | blue | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;spn tpkm rkk&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;nss&quot;: &quot;yellow&quot;,
+  &quot;rkk&quot;: &quot;blue&quot;,
+  &quot;spn&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;blue&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - kkm → blue
+  - mst rvln zsv → yellow red
+  - mst → red
+  - lrlk zsv → yellow yellow
+  - zsv → yellow
+  - mst krtr zsv → red yellow red
+What is output 0 for lrlk mst?
+
+Answer with exactly one of: yellow | blue | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;lrlk mst&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;kkm&quot;: &quot;blue&quot;,
+  &quot;mst&quot;: &quot;red&quot;,
+  &quot;zsv&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - rpz → blue
+  - vzp kpll rpz → blue green
+  - vnvp rpz → blue blue
+  - vzp → green
+  - mnz → purple
+  - vzp tmtl rpz → green blue green
+What is output 2 for vzp tmtl mnz?
+
+Answer with exactly one of: blue | purple | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;vzp tmtl mnz&quot;,
+ &quot;index&quot;: 2,
+ &quot;lexicon&quot;: {
+  &quot;mnz&quot;: &quot;purple&quot;,
+  &quot;rpz&quot;: &quot;blue&quot;,
+  &quot;vzp&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;green&quot;,
+  &quot;purple&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - ksk nrtm plm → red purple
+  - plm zlnk rln → red blue red
+  - rln → blue
+  - ksk → purple
+  - plm → red
+  - pzlm rln → blue blue
+What is output 1 for rln nrtm ksk?
+
+Answer with exactly one of: purple | blue | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;rln nrtm ksk&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;ksk&quot;: &quot;purple&quot;,
+  &quot;plm&quot;: &quot;red&quot;,
+  &quot;rln&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;purple&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - krzl pzn → orange orange
+  - pzn → orange
+  - rlt rkmv pzn → green orange green
+  - rlt → green
+  - ltz nmlk rlt → green red
+  - ltz → red
+What is output 1 for rlt nmlk pzn?
+
+Answer with exactly one of: orange | red | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;rlt nmlk pzn&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;ltz&quot;: &quot;red&quot;,
+  &quot;pzn&quot;: &quot;orange&quot;,
+  &quot;rlt&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;orange&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - zmk → blue
+  - lkk → yellow
+  - zplr lkk → yellow yellow
+  - rts → orange
+  - lkk zrmn zmk → blue yellow
+  - rts pvpl lkk → orange yellow orange
+What is output 1 for zmk pvpl lkk?
+
+Answer with exactly one of: orange | blue | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;zmk pvpl lkk&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;lkk&quot;: &quot;yellow&quot;,
+  &quot;rts&quot;: &quot;orange&quot;,
+  &quot;zmk&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;blue&quot;,
+  &quot;yellow&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - nkv lkmt kzs → green orange
+  - nkv → orange
+  - kzs → green
+  - mvtl vmr → blue blue
+  - vmr → blue
+  - kzs mntr vmr → green blue green
+What is output 0 for mvtl nkv?
+
+Answer with exactly one of: orange | green | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;mvtl nkv&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;kzs&quot;: &quot;green&quot;,
+  &quot;nkv&quot;: &quot;orange&quot;,
+  &quot;vmr&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;orange&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - mlv → red
+  - ppm vnps mlv → purple red purple
+  - mlv zlnz ppm → purple red
+  - lkn → yellow
+  - ppm → purple
+  - tnll ppm → purple purple
+What is output 0 for lkn zlnz ppm?
+
+Answer with exactly one of: yellow | purple | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;lkn zlnz ppm&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;lkn&quot;: &quot;yellow&quot;,
+  &quot;mlv&quot;: &quot;red&quot;,
+  &quot;ppm&quot;: &quot;purple&quot;
+ },
+ &quot;output&quot;: [
+  &quot;purple&quot;,
+  &quot;yellow&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - pnk zmlk szp → red green
+  - zltk kss → yellow yellow
+  - pnk → green
+  - kss → yellow
+  - szp → red
+  - kss mplp pnk → yellow green yellow
+What is output 0 for pnk zmlk kss?
+
+Answer with exactly one of: red | yellow | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;pnk zmlk kss&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;kss&quot;: &quot;yellow&quot;,
+  &quot;pnk&quot;: &quot;green&quot;,
+  &quot;szp&quot;: &quot;red&quot;
+ },
+ &quot;output&quot;: [
+  &quot;yellow&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - zvkr ksz → red red
+  - vnr tksn stl → orange green
+  - vnr → green
+  - stl → orange
+  - ksz → red
+  - ksz vktn vnr → red green red
+What is output 0 for stl tksn ksz?
+
+Answer with exactly one of: green | red | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;stl tksn ksz&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;ksz&quot;: &quot;red&quot;,
+  &quot;stl&quot;: &quot;orange&quot;,
+  &quot;vnr&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - lvt nknn rkm → blue yellow
+  - lvt tpkz rkm → yellow blue yellow
+  - mtt → red
+  - kzls mtt → red red
+  - lvt → yellow
+  - rkm → blue
+What is output 0 for lvt nknn mtt?
+
+Answer with exactly one of: yellow | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;lvt nknn mtt&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;lvt&quot;: &quot;yellow&quot;,
+  &quot;mtt&quot;: &quot;red&quot;,
+  &quot;rkm&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;yellow&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - sst mssr mrm → yellow purple
+  - npkk mkz → orange orange
+  - mkz → orange
+  - mrm → yellow
+  - mkz nkrs mrm → orange yellow orange
+  - sst → purple
+What is output 1 for sst nkrs mrm?
+
+Answer with exactly one of: yellow | orange | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;sst nkrs mrm&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;mkz&quot;: &quot;orange&quot;,
+  &quot;mrm&quot;: &quot;yellow&quot;,
+  &quot;sst&quot;: &quot;purple&quot;
+ },
+ &quot;output&quot;: [
+  &quot;purple&quot;,
+  &quot;yellow&quot;,
+  &quot;purple&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - vnv pptk vlm → yellow orange yellow
+  - vnv → yellow
+  - kzt → red
+  - nkrp kzt → red red
+  - vlm → orange
+  - kzt nlnr vnv → yellow red
+What is output 1 for nkrp vlm?
+
+Answer with exactly one of: orange | red | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;nkrp vlm&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;kzt&quot;: &quot;red&quot;,
+  &quot;vlm&quot;: &quot;orange&quot;,
+  &quot;vnv&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;orange&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - smnk mtp → red red
+  - szk mtrz prr → green orange
+  - mtp → red
+  - prr pnpl szk → green orange green
+  - szk → orange
+  - prr → green
+What is output 1 for prr pnpl mtp?
+
+Answer with exactly one of: orange | red | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;prr pnpl mtp&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;mtp&quot;: &quot;red&quot;,
+  &quot;prr&quot;: &quot;green&quot;,
+  &quot;szk&quot;: &quot;orange&quot;
+ },
+ &quot;output&quot;: [
+  &quot;green&quot;,
+  &quot;red&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - vkmz lkm → red red
+  - zmz → yellow
+  - zpv → blue
+  - zmz mzkn zpv → blue yellow
+  - lkm mtzt zpv → red blue red
+  - lkm → red
+What is output 1 for vkmz zpv?
+
+Answer with exactly one of: yellow | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;vkmz zpv&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;lkm&quot;: &quot;red&quot;,
+  &quot;zmz&quot;: &quot;yellow&quot;,
+  &quot;zpv&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;blue&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - mpk → orange
+  - nns lkkt rtn → yellow red
+  - mpk rzrl nns → orange red orange
+  - rtn → yellow
+  - nns → red
+  - rkkm rtn → yellow yellow
+What is output 0 for mpk lkkt nns?
+
+Answer with exactly one of: orange | red | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;mpk lkkt nns&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;mpk&quot;: &quot;orange&quot;,
+  &quot;nns&quot;: &quot;red&quot;,
+  &quot;rtn&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - rvn → purple
+  - lmp → green
+  - ppnk lmp → green green
+  - lmp pkmk rvn → purple green
+  - lzr → yellow
+  - rvn zvrk lmp → purple green purple
+What is output 1 for ppnk lzr?
+
+Answer with exactly one of: purple | yellow | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;ppnk lzr&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;lmp&quot;: &quot;green&quot;,
+  &quot;lzr&quot;: &quot;yellow&quot;,
+  &quot;rvn&quot;: &quot;purple&quot;
+ },
+ &quot;output&quot;: [
+  &quot;yellow&quot;,
+  &quot;yellow&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - lms → green
+  - rzl nzkl zzk → red purple red
+  - rzl → red
+  - nztl zzk → purple purple
+  - zzk → purple
+  - lms ptsp rzl → red green
+What is output 1 for nztl lms?
+
+Answer with exactly one of: red | purple | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;nztl lms&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;lms&quot;: &quot;green&quot;,
+  &quot;rzl&quot;: &quot;red&quot;,
+  &quot;zzk&quot;: &quot;purple&quot;
+ },
+ &quot;output&quot;: [
+  &quot;green&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - mlr rrsn rkk → purple blue
+  - mlp → red
+  - rkk → purple
+  - mlr → blue
+  - ztvk mlp → red red
+  - mlr znlp rkk → blue purple blue
+What is output 0 for rkk rrsn mlr?
+
+Answer with exactly one of: red | blue | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;rkk rrsn mlr&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;mlp&quot;: &quot;red&quot;,
+  &quot;mlr&quot;: &quot;blue&quot;,
+  &quot;rkk&quot;: &quot;purple&quot;
+ },
+ &quot;output&quot;: [
+  &quot;blue&quot;,
+  &quot;purple&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - lkn → blue
+  - lkn tzps pvr → green blue
+  - stnm pvr → green green
+  - pvr lkrk lkn → green blue green
+  - pvr → green
+  - rtk → red
+What is output 1 for lkn tzps rtk?
+
+Answer with exactly one of: green | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;lkn tzps rtk&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;lkn&quot;: &quot;blue&quot;,
+  &quot;pvr&quot;: &quot;green&quot;,
+  &quot;rtk&quot;: &quot;red&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - trvk vkk → green green
+  - vkk → green
+  - mnm → yellow
+  - kvt → purple
+  - mnm mvrt kvt → yellow purple yellow
+  - kvt ppsl vkk → green purple
+What is output 1 for mnm ppsl kvt?
+
+Answer with exactly one of: purple | green | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;mnm ppsl kvt&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;kvt&quot;: &quot;purple&quot;,
+  &quot;mnm&quot;: &quot;yellow&quot;,
+  &quot;vkk&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;purple&quot;,
+  &quot;yellow&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - vlp vksm ktt → orange yellow orange
+  - vlp → orange
+  - ktt → yellow
+  - ptlv zkr → blue blue
+  - ktt kkrp vlp → orange yellow
+  - zkr → blue
+What is output 1 for zkr kkrp ktt?
+
+Answer with exactly one of: orange | blue | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;zkr kkrp ktt&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;ktt&quot;: &quot;yellow&quot;,
+  &quot;vlp&quot;: &quot;orange&quot;,
+  &quot;zkr&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;yellow&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - rpp → orange
+  - ztm → yellow
+  - kvvs rpp → orange orange
+  - rpp mkmk vst → orange green orange
+  - vst → green
+  - ztm lnst vst → green yellow
+What is output 0 for kvvs ztm?
+
+Answer with exactly one of: green | yellow | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;kvvs ztm&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;rpp&quot;: &quot;orange&quot;,
+  &quot;vst&quot;: &quot;green&quot;,
+  &quot;ztm&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;yellow&quot;,
+  &quot;yellow&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - pkl → red
+  - zks vpnt ktt → blue yellow
+  - zks vssn ktt → yellow blue yellow
+  - zks → yellow
+  - ktt → blue
+  - psks zks → yellow yellow
+What is output 1 for ktt vpnt pkl?
+
+Answer with exactly one of: blue | red | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;ktt vpnt pkl&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;ktt&quot;: &quot;blue&quot;,
+  &quot;pkl&quot;: &quot;red&quot;,
+  &quot;zks&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - zml → red
+  - mst → blue
+  - vrpp zml → red red
+  - zmt rplp mst → blue purple
+  - mst rkzk zmt → blue purple blue
+  - zmt → purple
+What is output 1 for vrpp mst?
+
+Answer with exactly one of: blue | red | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;vrpp mst&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;mst&quot;: &quot;blue&quot;,
+  &quot;zml&quot;: &quot;red&quot;,
+  &quot;zmt&quot;: &quot;purple&quot;
+ },
+ &quot;output&quot;: [
+  &quot;blue&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - psm → yellow
+  - rzr nskn rkv → blue purple blue
+  - rkv → purple
+  - lnml psm → yellow yellow
+  - rzr → blue
+  - rkv znsk psm → yellow purple
+What is output 0 for lnml rkv?
+
+Answer with exactly one of: blue | yellow | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;lnml rkv&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;psm&quot;: &quot;yellow&quot;,
+  &quot;rkv&quot;: &quot;purple&quot;,
+  &quot;rzr&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;purple&quot;,
+  &quot;purple&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - kln → orange
+  - rlv ppmn kln → green orange green
+  - rlv → green
+  - nks → yellow
+  - zppk rlv → green green
+  - rlv trnl kln → orange green
+What is output 0 for zppk nks?
+
+Answer with exactly one of: green | orange | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;zppk nks&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;kln&quot;: &quot;orange&quot;,
+  &quot;nks&quot;: &quot;yellow&quot;,
+  &quot;rlv&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;yellow&quot;,
+  &quot;yellow&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - zzvn vpl → purple purple
+  - nss → red
+  - nss kvsv vpl → red purple red
+  - sks pznm nss → red yellow
+  - sks → yellow
+  - vpl → purple
+What is output 1 for nss pznm vpl?
+
+Answer with exactly one of: yellow | purple | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;nss pznm vpl&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;nss&quot;: &quot;red&quot;,
+  &quot;sks&quot;: &quot;yellow&quot;,
+  &quot;vpl&quot;: &quot;purple&quot;
+ },
+ &quot;output&quot;: [
+  &quot;purple&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - smv trmm knk → green orange green
+  - vpvr ktz → red red
+  - ktz → red
+  - smv ztnl knk → orange green
+  - smv → green
+  - knk → orange
+What is output 1 for knk trmm smv?
+
+Answer with exactly one of: green | red | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;knk trmm smv&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;knk&quot;: &quot;orange&quot;,
+  &quot;ktz&quot;: &quot;red&quot;,
+  &quot;smv&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;orange&quot;,
+  &quot;green&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - lpv vlms kvl → green purple
+  - kvl → green
+  - sklz tsn → blue blue
+  - lpv → purple
+  - tsn → blue
+  - tsn zlsr kvl → blue green blue
+What is output 1 for sklz kvl?
+
+Answer with exactly one of: blue | green | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;sklz kvl&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;kvl&quot;: &quot;green&quot;,
+  &quot;lpv&quot;: &quot;purple&quot;,
+  &quot;tsn&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;green&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - ttkr tnz → blue blue
+  - tnz pmzk lnl → blue yellow blue
+  - tnz → blue
+  - lnl → yellow
+  - pps → red
+  - tnz lvkr lnl → yellow blue
+What is output 1 for ttkr pps?
+
+Answer with exactly one of: yellow | red | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;ttkr pps&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;lnl&quot;: &quot;yellow&quot;,
+  &quot;pps&quot;: &quot;red&quot;,
+  &quot;tnz&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - ntm tmkv svz → blue purple
+  - svz → blue
+  - ntm → purple
+  - ttkz ltr → orange orange
+  - ltr vrkl svz → orange blue orange
+  - ltr → orange
+What is output 1 for ntm vrkl svz?
+
+Answer with exactly one of: purple | orange | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;ntm vrkl svz&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;ltr&quot;: &quot;orange&quot;,
+  &quot;ntm&quot;: &quot;purple&quot;,
+  &quot;svz&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;purple&quot;,
+  &quot;blue&quot;,
+  &quot;purple&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - pmm nkst vvz → orange purple
+  - pmm → purple
+  - szmz pmm → purple purple
+  - vvz → orange
+  - zvm → red
+  - vvz lszn zvm → orange red orange
+What is output 1 for pmm nkst zvm?
+
+Answer with exactly one of: orange | purple | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;pmm nkst zvm&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;pmm&quot;: &quot;purple&quot;,
+  &quot;vvz&quot;: &quot;orange&quot;,
+  &quot;zvm&quot;: &quot;red&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;purple&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - vmn → purple
+  - szs → green
+  - szs skmp vmn → purple green
+  - tmpv vmn → purple purple
+  - prk → red
+  - vmn kmtm szs → purple green purple
+What is output 1 for prk skmp vmn?
+
+Answer with exactly one of: purple | red | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;prk skmp vmn&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;prk&quot;: &quot;red&quot;,
+  &quot;szs&quot;: &quot;green&quot;,
+  &quot;vmn&quot;: &quot;purple&quot;
+ },
+ &quot;output&quot;: [
+  &quot;purple&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - vktk lln → green green
+  - lns ktpm lln → purple green purple
+  - lln → green
+  - lln lzlz lns → purple green
+  - spv → red
+  - lns → purple
+What is output 0 for lns ktpm spv?
+
+Answer with exactly one of: purple | green | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;lns ktpm spv&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;lln&quot;: &quot;green&quot;,
+  &quot;lns&quot;: &quot;purple&quot;,
+  &quot;spv&quot;: &quot;red&quot;
+ },
+ &quot;output&quot;: [
+  &quot;purple&quot;,
+  &quot;red&quot;,
+  &quot;purple&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - mzp pvrk zrm → purple yellow purple
+  - mzp → purple
+  - svz → red
+  - vtvr mzp → purple purple
+  - svz tmlt mzp → purple red
+  - zrm → yellow
+What is output 2 for svz pvrk mzp?
+
+Answer with exactly one of: yellow | purple | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;svz pvrk mzp&quot;,
+ &quot;index&quot;: 2,
+ &quot;lexicon&quot;: {
+  &quot;mzp&quot;: &quot;purple&quot;,
+  &quot;svz&quot;: &quot;red&quot;,
+  &quot;zrm&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;purple&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - rknv spk → yellow yellow
+  - spk → yellow
+  - ltp → red
+  - rkv → blue
+  - ltp nktn spk → red yellow red
+  - rkv lskt spk → yellow blue
+What is output 0 for rknv ltp?
+
+Answer with exactly one of: red | blue | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;rknv ltp&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;ltp&quot;: &quot;red&quot;,
+  &quot;rkv&quot;: &quot;blue&quot;,
+  &quot;spk&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - nns → orange
+  - lvrl vrm → red red
+  - pvz → blue
+  - vrm → red
+  - vrm trmk pvz → blue red
+  - pvz rvml nns → blue orange blue
+What is output 0 for pvz trmk nns?
+
+Answer with exactly one of: red | orange | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;pvz trmk nns&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;nns&quot;: &quot;orange&quot;,
+  &quot;pvz&quot;: &quot;blue&quot;,
+  &quot;vrm&quot;: &quot;red&quot;
+ },
+ &quot;output&quot;: [
+  &quot;orange&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">green</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - kmt rlrr lrp → green red
+  - lrp → green
+  - mnl → yellow
+  - mnl vtpp kmt → yellow red yellow
+  - vpnv kmt → red red
+  - kmt → red
+What is output 0 for lrp vtpp kmt?
+
+Answer with exactly one of: yellow | green | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;lrp vtpp kmt&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;kmt&quot;: &quot;red&quot;,
+  &quot;lrp&quot;: &quot;green&quot;,
+  &quot;mnl&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;green&quot;,
+  &quot;red&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - spps vtl → orange orange
+  - mzv → red
+  - vtl pmrl mzv → red orange
+  - mzv zpvm vtl → red orange red
+  - mtn → yellow
+  - vtl → orange
+What is output 0 for mzv pmrl vtl?
+
+Answer with exactly one of: yellow | orange | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;mzv pmrl vtl&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;mtn&quot;: &quot;yellow&quot;,
+  &quot;mzv&quot;: &quot;red&quot;,
+  &quot;vtl&quot;: &quot;orange&quot;
+ },
+ &quot;output&quot;: [
+  &quot;orange&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - pvm → blue
+  - rlzn pvm → blue blue
+  - tts → green
+  - ksn pkmm tts → red green red
+  - ksn → red
+  - ksn kzls tts → green red
+What is output 1 for pvm kzls tts?
+
+Answer with exactly one of: blue | green | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;pvm kzls tts&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;ksn&quot;: &quot;red&quot;,
+  &quot;pvm&quot;: &quot;blue&quot;,
+  &quot;tts&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;green&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - mnt → red
+  - mnt tksv lrn → purple red
+  - lrn kvmz lzn → purple green purple
+  - lzn → green
+  - lrn → purple
+  - tlsp lzn → green green
+What is output 1 for lrn tksv mnt?
+
+Answer with exactly one of: purple | red | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;lrn tksv mnt&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;lrn&quot;: &quot;purple&quot;,
+  &quot;lzn&quot;: &quot;green&quot;,
+  &quot;mnt&quot;: &quot;red&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;purple&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - vnt → green
+  - zmr kzpk vzn → yellow orange yellow
+  - zmr → yellow
+  - vzn rsvm vnt → green orange
+  - vzn → orange
+  - mvpr vnt → green green
+What is output 0 for vzn rsvm zmr?
+
+Answer with exactly one of: green | orange | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;vzn rsvm zmr&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;vnt&quot;: &quot;green&quot;,
+  &quot;vzn&quot;: &quot;orange&quot;,
+  &quot;zmr&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;yellow&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - lmz → purple
+  - nrm zvtl lmz → purple orange
+  - tsl → red
+  - nrm → orange
+  - mvvr nrm → orange orange
+  - nrm zrnk lmz → orange purple orange
+What is output 1 for mvvr lmz?
+
+Answer with exactly one of: purple | orange | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;mvvr lmz&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;lmz&quot;: &quot;purple&quot;,
+  &quot;nrm&quot;: &quot;orange&quot;,
+  &quot;tsl&quot;: &quot;red&quot;
+ },
+ &quot;output&quot;: [
+  &quot;purple&quot;,
+  &quot;purple&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - vkr → orange
+  - vnp vlnv vlm → yellow purple
+  - lmzz vlm → yellow yellow
+  - vnp zpkp vlm → purple yellow purple
+  - vlm → yellow
+  - vnp → purple
+What is output 1 for vkr vlnv vnp?
+
+Answer with exactly one of: purple | yellow | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;vkr vlnv vnp&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;vkr&quot;: &quot;orange&quot;,
+  &quot;vlm&quot;: &quot;yellow&quot;,
+  &quot;vnp&quot;: &quot;purple&quot;
+ },
+ &quot;output&quot;: [
+  &quot;purple&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - zvvs psz → purple purple
+  - lvp mlzs szk → yellow orange
+  - psz → purple
+  - psz lrkk szk → purple yellow purple
+  - lvp → orange
+  - szk → yellow
+What is output 1 for zvvs lvp?
+
+Answer with exactly one of: orange | yellow | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;zvvs lvp&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;lvp&quot;: &quot;orange&quot;,
+  &quot;psz&quot;: &quot;purple&quot;,
+  &quot;szk&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;orange&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - zvr → green
+  - zvr vtsr ssm → green blue green
+  - nstr ssm → blue blue
+  - zls rkzk zvr → green yellow
+  - zls → yellow
+  - ssm → blue
+What is output 0 for ssm vtsr zls?
+
+Answer with exactly one of: blue | yellow | green
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;ssm vtsr zls&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;ssm&quot;: &quot;blue&quot;,
+  &quot;zls&quot;: &quot;yellow&quot;,
+  &quot;zvr&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;blue&quot;,
+  &quot;yellow&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - zpk → orange
+  - smz → green
+  - tps → red
+  - vprk smz → green green
+  - smz stlp tps → red green
+  - smz lptt zpk → green orange green
+What is output 0 for smz stlp zpk?
+
+Answer with exactly one of: orange | green | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;smz stlp zpk&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;smz&quot;: &quot;green&quot;,
+  &quot;tps&quot;: &quot;red&quot;,
+  &quot;zpk&quot;: &quot;orange&quot;
+ },
+ &quot;output&quot;: [
+  &quot;orange&quot;,
+  &quot;green&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - lslv tpz → orange orange
+  - mms → green
+  - mkv → blue
+  - tpz → orange
+  - mms ztmk tpz → orange green
+  - mkv nrlk tpz → blue orange blue
+What is output 2 for tpz nrlk mkv?
+
+Answer with exactly one of: green | orange | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;tpz nrlk mkv&quot;,
+ &quot;index&quot;: 2,
+ &quot;lexicon&quot;: {
+  &quot;mkv&quot;: &quot;blue&quot;,
+  &quot;mms&quot;: &quot;green&quot;,
+  &quot;tpz&quot;: &quot;orange&quot;
+ },
+ &quot;output&quot;: [
+  &quot;orange&quot;,
+  &quot;blue&quot;,
+  &quot;orange&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - pll → yellow
+  - krps zpr → blue blue
+  - zpr nkps pll → yellow blue
+  - pll trnk zpr → yellow blue yellow
+  - rpl → orange
+  - zpr → blue
+What is output 1 for zpr trnk pll?
+
+Answer with exactly one of: yellow | blue | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;zpr trnk pll&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;pll&quot;: &quot;yellow&quot;,
+  &quot;rpl&quot;: &quot;orange&quot;,
+  &quot;zpr&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;blue&quot;,
+  &quot;yellow&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - rvl → blue
+  - vkt lzls rvl → blue green
+  - vkt → green
+  - rrp → purple
+  - tvnk vkt → green green
+  - vkt ztnm rrp → green purple green
+What is output 0 for tvnk rrp?
+
+Answer with exactly one of: green | purple | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;tvnk rrp&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;rrp&quot;: &quot;purple&quot;,
+  &quot;rvl&quot;: &quot;blue&quot;,
+  &quot;vkt&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;purple&quot;,
+  &quot;purple&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - tvr → green
+  - tvr mvml ztt → green yellow green
+  - ztt → yellow
+  - pvnm ztt → yellow yellow
+  - tvr szrt ztk → red green
+  - ztk → red
+What is output 2 for ztt mvml tvr?
+
+Answer with exactly one of: green | red | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;ztt mvml tvr&quot;,
+ &quot;index&quot;: 2,
+ &quot;lexicon&quot;: {
+  &quot;tvr&quot;: &quot;green&quot;,
+  &quot;ztk&quot;: &quot;red&quot;,
+  &quot;ztt&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;yellow&quot;,
+  &quot;green&quot;,
+  &quot;yellow&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - vvm → yellow
+  - tpk → blue
+  - tpk rsvs kss → blue red blue
+  - vvm ptlz tpk → blue yellow
+  - tzmk vvm → yellow yellow
+  - kss → red
+What is output 2 for kss rsvs vvm?
+
+Answer with exactly one of: red | yellow | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;kss rsvs vvm&quot;,
+ &quot;index&quot;: 2,
+ &quot;lexicon&quot;: {
+  &quot;kss&quot;: &quot;red&quot;,
+  &quot;tpk&quot;: &quot;blue&quot;,
+  &quot;vvm&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;yellow&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - svv → red
+  - rlnt svv → red red
+  - zkv rzrv svv → red blue
+  - krl → yellow
+  - zkv plns krl → blue yellow blue
+  - zkv → blue
+What is output 2 for svv plns krl?
+
+Answer with exactly one of: red | yellow | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;svv plns krl&quot;,
+ &quot;index&quot;: 2,
+ &quot;lexicon&quot;: {
+  &quot;krl&quot;: &quot;yellow&quot;,
+  &quot;svv&quot;: &quot;red&quot;,
+  &quot;zkv&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;yellow&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - lss → purple
+  - sprr lss → purple purple
+  - lss snnn vln → orange purple
+  - vln → orange
+  - snm → red
+  - lss vnpm snm → purple red purple
+What is output 1 for snm vnpm vln?
+
+Answer with exactly one of: orange | red | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;snm vnpm vln&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;lss&quot;: &quot;purple&quot;,
+  &quot;snm&quot;: &quot;red&quot;,
+  &quot;vln&quot;: &quot;orange&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;orange&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - kmr lktp krl → red green red
+  - krl → green
+  - zpm → yellow
+  - krl knss kmr → red green
+  - kmr → red
+  - rmpv kmr → red red
+What is output 1 for kmr knss zpm?
+
+Answer with exactly one of: green | yellow | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;kmr knss zpm&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;kmr&quot;: &quot;red&quot;,
+  &quot;krl&quot;: &quot;green&quot;,
+  &quot;zpm&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;yellow&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - tsr → orange
+  - lkzp mzl → purple purple
+  - tsr mvrn mzl → purple orange
+  - mzl → purple
+  - rlm → red
+  - mzl mszt rlm → purple red purple
+What is output 0 for rlm mvrn mzl?
+
+Answer with exactly one of: orange | purple | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;rlm mvrn mzl&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;mzl&quot;: &quot;purple&quot;,
+  &quot;rlm&quot;: &quot;red&quot;,
+  &quot;tsr&quot;: &quot;orange&quot;
+ },
+ &quot;output&quot;: [
+  &quot;purple&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - psl ntvp klv → yellow blue
+  - psl lptz tkr → blue red blue
+  - klv → yellow
+  - tsmt tkr → red red
+  - tkr → red
+  - psl → blue
+What is output 0 for tsmt psl?
+
+Answer with exactly one of: blue | yellow | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;tsmt psl&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;klv&quot;: &quot;yellow&quot;,
+  &quot;psl&quot;: &quot;blue&quot;,
+  &quot;tkr&quot;: &quot;red&quot;
+ },
+ &quot;output&quot;: [
+  &quot;blue&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">red</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - szlm tpl → green green
+  - mnz ntvn tpl → green yellow
+  - mnz → yellow
+  - tlm → red
+  - tpl → green
+  - tlm kstn tpl → red green red
+What is output 1 for szlm tlm?
+
+Answer with exactly one of: red | green | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;szlm tlm&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;mnz&quot;: &quot;yellow&quot;,
+  &quot;tlm&quot;: &quot;red&quot;,
+  &quot;tpl&quot;: &quot;green&quot;
+ },
+ &quot;output&quot;: [
+  &quot;red&quot;,
+  &quot;red&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - nnz → blue
+  - lvn → purple
+  - lvn lmrt smv → red purple
+  - smv kplv lvn → red purple red
+  - zzvz smv → red red
+  - smv → red
+What is output 0 for nnz kplv smv?
+
+Answer with exactly one of: blue | purple | red
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;nnz kplv smv&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;lvn&quot;: &quot;purple&quot;,
+  &quot;nnz&quot;: &quot;blue&quot;,
+  &quot;smv&quot;: &quot;red&quot;
+ },
+ &quot;output&quot;: [
+  &quot;blue&quot;,
+  &quot;red&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - krk → yellow
+  - rsz → purple
+  - krk pzrl tpl → yellow blue yellow
+  - pptr krk → yellow yellow
+  - rsz smrp krk → yellow purple
+  - tpl → blue
+What is output 1 for rsz pzrl krk?
+
+Answer with exactly one of: purple | yellow | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;rsz pzrl krk&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;krk&quot;: &quot;yellow&quot;,
+  &quot;rsz&quot;: &quot;purple&quot;,
+  &quot;tpl&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;purple&quot;,
+  &quot;yellow&quot;,
+  &quot;purple&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - rrn nlkk zmn → blue orange
+  - zmn ktnt prn → blue purple blue
+  - rrn → orange
+  - zmn → blue
+  - rvtm zmn → blue blue
+  - prn → purple
+What is output 1 for prn ktnt zmn?
+
+Answer with exactly one of: blue | purple | orange
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;prn ktnt zmn&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;prn&quot;: &quot;purple&quot;,
+  &quot;rrn&quot;: &quot;orange&quot;,
+  &quot;zmn&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;purple&quot;,
+  &quot;blue&quot;,
+  &quot;purple&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - mml → blue
+  - ttp → purple
+  - ttp lpmm mml → purple blue purple
+  - mml nrmn vnl → orange blue
+  - vnl → orange
+  - mtnk ttp → purple purple
+What is output 0 for mml lpmm ttp?
+
+Answer with exactly one of: blue | orange | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;mml lpmm ttp&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;mml&quot;: &quot;blue&quot;,
+  &quot;ttp&quot;: &quot;purple&quot;,
+  &quot;vnl&quot;: &quot;orange&quot;
+ },
+ &quot;output&quot;: [
+  &quot;blue&quot;,
+  &quot;purple&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">yellow</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - zzp plvl rtm → red blue red
+  - kvl rkpk rtm → blue yellow
+  - zzp → red
+  - rtm → blue
+  - kvl → yellow
+  - zpnz zzp → red red
+What is output 1 for zpnz kvl?
+
+Answer with exactly one of: blue | red | yellow
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;zpnz kvl&quot;,
+ &quot;index&quot;: 1,
+ &quot;lexicon&quot;: {
+  &quot;kvl&quot;: &quot;yellow&quot;,
+  &quot;rtm&quot;: &quot;blue&quot;,
+  &quot;zzp&quot;: &quot;red&quot;
+ },
+ &quot;output&quot;: [
+  &quot;yellow&quot;,
+  &quot;yellow&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - tvk nrns tkn → purple blue
+  - mzsk rrr → green green
+  - tkn → purple
+  - rrr → green
+  - tvk → blue
+  - tkn mlzp rrr → purple green purple
+What is output 2 for tvk mlzp tkn?
+
+Answer with exactly one of: green | blue | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;tvk mlzp tkn&quot;,
+ &quot;index&quot;: 2,
+ &quot;lexicon&quot;: {
+  &quot;rrr&quot;: &quot;green&quot;,
+  &quot;tkn&quot;: &quot;purple&quot;,
+  &quot;tvk&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;blue&quot;,
+  &quot;purple&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">purple</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - kkt → orange
+  - kkt rknv sml → orange yellow orange
+  - llp llzt sml → yellow purple
+  - sml → yellow
+  - plmz sml → yellow yellow
+  - llp → purple
+What is output 0 for plmz llp?
+
+Answer with exactly one of: yellow | orange | purple
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;plmz llp&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;kkt&quot;: &quot;orange&quot;,
+  &quot;llp&quot;: &quot;purple&quot;,
+  &quot;sml&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;purple&quot;,
+  &quot;purple&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - knk → purple
+  - spl vvml rkk → blue yellow
+  - zlkm spl → yellow yellow
+  - rkk → blue
+  - rkk sztz spl → blue yellow blue
+  - spl → yellow
+What is output 0 for zlkm rkk?
+
+Answer with exactly one of: purple | yellow | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;zlkm rkk&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;knk&quot;: &quot;purple&quot;,
+  &quot;rkk&quot;: &quot;blue&quot;,
+  &quot;spl&quot;: &quot;yellow&quot;
+ },
+ &quot;output&quot;: [
+  &quot;blue&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">orange</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - lnk pzlk vzr → orange blue orange
+  - lnk → orange
+  - vzr → blue
+  - mvsp vzr → blue blue
+  - lpk → yellow
+  - lnk klkk lpk → yellow orange
+What is output 0 for vzr klkk lnk?
+
+Answer with exactly one of: yellow | orange | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;vzr klkk lnk&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;lnk&quot;: &quot;orange&quot;,
+  &quot;lpk&quot;: &quot;yellow&quot;,
+  &quot;vzr&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;orange&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">blue</span></summary>
+<div class="body">
+<p>prompt</p><pre>You are shown these demonstrations:
+  - nts mnvs pps → green yellow
+  - nts → yellow
+  - pps → green
+  - stm pnns nts → blue yellow blue
+  - stm → blue
+  - zprr pps → green green
+What is output 0 for zprr stm?
+
+Answer with exactly one of: yellow | green | blue
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;command&quot;: &quot;zprr stm&quot;,
+ &quot;index&quot;: 0,
+ &quot;lexicon&quot;: {
+  &quot;nts&quot;: &quot;yellow&quot;,
+  &quot;pps&quot;: &quot;green&quot;,
+  &quot;stm&quot;: &quot;blue&quot;
+ },
+ &quot;output&quot;: [
+  &quot;blue&quot;,
+  &quot;blue&quot;
+ ]
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

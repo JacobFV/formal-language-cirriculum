@@ -1,0 +1,3319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>question_generation — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#iii">language as action</a> &rsaquo;
+  question_generation</p>
+<h1>#37 <code>question_generation</code></h1>
+<p class="lede">identifying the one missing fact and the question that supplies it</p>
+<div class="tags"><span class="tag ">level 37</span><span class="tag ">section iii</span><span class="tag ">metareasoning</span><span class="tag ">quantification</span><span class="tag ">planning</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.315</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>The agent must answer &#x27;what colour is the box in the room where P is?&#x27;
+    and is missing exactly one link of that chain.</p><p>    Necessity and sufficiency are *computed*: the goal has ≥2 possible colours
+    under the visible facts, exactly 1 once the correct question is answered,
+    and ≥2 once any distractor is.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>ambiguity</td><td class='num'>2</td></tr><tr><td>compositional_depth</td><td class='num'>2</td></tr><tr><td>reasoning_depth</td><td class='num'>3</td></tr><tr><td>world_complexity</td><td class='num'>2</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>You know these facts:
+  - zag is yellow
+  - gut is purple
+  - piv contains gut
+  - lus contains tab
+  - miv is blue
+  - at(Alice, rez)
+  - zuv contains zag
+  - tab is purple
+  - nir is blue
+  - rez contains miv
+  - at(Dave, piv)
+The goal is colour of box in room of Frank.
+The questions: q0 asks where_is Frank, q1 asks what_colour_is miv, q2 asks where_is Dave and q3 asks what_is_in zuv.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre><h3>spanish</h3><pre>Se conocen estos hechos:
+  - zag es amarillo
+  - gut es morado
+  - piv contiene gut
+  - lus contiene tab
+  - miv es azul
+  - at(Alicia, rez)
+  - zuv contiene zag
+  - tab es morado
+  - nir es azul
+  - rez contiene miv
+  - at(David, piv)
+El objetivo es el color de la caja en la habitación: Francisco.
+Las preguntas son: la pregunta: q0, where_is y Francisco; la pregunta: q1, what_colour_is y miv; la pregunta: q2, where_is y David; la pregunta: q3, what_is_in y zuv.
+Las reglas son: la regla: each_person_is_in_exactly_one_room; la regla: no_two_people_share_a_room; la regla: each_room_contains_exactly_one_box; la regla: no_box_is_in_two_rooms.
+¿Qué pregunta hace falta?
+
+Responde exactamente con una de estas opciones: q0 | q1 | q2 | q3
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>事实如下：
+  - zag是黄色的
+  - gut是紫色的
+  - piv包含gut
+  - lus包含tab
+  - miv是蓝色的
+  - at(爱丽丝, rez)
+  - zuv包含zag
+  - tab是紫色的
+  - nir是蓝色的
+  - rez包含miv
+  - at(戴夫, piv)
+目标是所在房间里盒子的颜色：弗兰克。
+问题如下：问题：q0、where_is和弗兰克；问题：q1、what_colour_is和miv；问题：q2、where_is和戴夫；问题：q3、what_is_in和zuv。
+规则如下：规则：each_person_is_in_exactly_one_room；规则：no_two_people_share_a_room；规则：each_room_contains_exactly_one_box；规则：no_box_is_in_two_rooms。
+你需要问哪一个问题？
+
+请从以下选项中选出恰好一个作答：q0 | q1 | q2 | q3
+只回答答案本身。</pre><h3>english_synonym</h3><pre>You know these facts:
+  - zag is yellow
+  - gut is purple
+  - piv contains gut
+  - lus contains tab
+  - miv is blue
+  - at(Alice, rez)
+  - zuv contains zag
+  - tab is purple
+  - nir is blue
+  - rez contains miv
+  - at(Dave, piv)
+The goal is colour of box in room of Frank.
+The questions: q0 asks where_is Frank, q1 asks what_colour_is miv, q2 asks where_is Dave and q3 asks what_is_in zuv.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre><h3>symbols</h3><pre>{facts: [(color zag yellow) (color gut purple) (contains piv gut) (contains lus tab) (color miv blue) (at alice rez) (contains zuv zag) (color tab purple) (color nir blue) (contains rez miv) (at dave piv)], goal: (colour_of_box_in_room_of frank), query: which_question_do_you_need, questions: [(question q0 where_is frank) (question q1 what_colour_is miv) (question q2 where_is dave) (question q3 what_is_in zuv)], rules: [(rule each_person_is_in_exactly_one_room) (rule no_two_people_share_a_room) (rule each_room_contains_exactly_one_box) (rule no_box_is_in_two_rooms)]}
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/question_generation.jsonl</code> &middot; <code>data/samples/spanish/question_generation.jsonl</code> &middot; <code>data/samples/chinese/question_generation.jsonl</code> &middot; <code>data/samples/english_synonym/question_generation.jsonl</code> &middot; <code>data/samples/symbols/question_generation.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - zag is yellow
+  - gut is purple
+  - piv contains gut
+  - lus contains tab
+  - miv is blue
+  - at(Alice, rez)
+  - zuv contains zag
+  - tab is purple
+  - nir is blue
+  - rez contains miv
+  - at(Dave, piv)
+The goal is colour of box in room of Frank.
+The questions: q0 asks where_is Frank, q1 asks what_colour_is miv, q2 asks where_is Dave and q3 asks what_is_in zuv.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;frank&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - zav contains mik
+  - mik is orange
+  - at(Erin, don)
+  - at(Bob, sav)
+  - nov contains bag
+  - at(Alice, zav)
+  - neb is orange
+  - bag is orange
+  - kop is yellow
+  - vig is purple
+  - sav contains vig
+The goal is colour of box in room of Erin.
+The questions: q0 asks what_is_in zav, q1 asks what_is_in don, q2 asks what_colour_is neb and q3 asks what_is_in nov.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;don&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - at(Alice, niz)
+  - at(Erin, beb)
+  - kud contains zak
+  - at(Frank, leg)
+  - lol is red
+  - beb contains tod
+  - zak is red
+  - leg contains pul
+  - tod is red
+  - ror is blue
+  - pul is red
+The goal is colour of box in room of Alice.
+The questions: q0 asks what_is_in niz, q1 asks what_is_in beb, q2 asks what_colour_is lol and q3 asks where_is Alice.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;niz&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - at(Frank, zus)
+  - dum contains pad
+  - pad is blue
+  - at(Bob, bav)
+  - des is red
+  - der is red
+  - sor is blue
+  - zus contains rop
+  - bav contains des
+  - rop is orange
+  - luv contains der
+The goal is colour of box in room of Erin.
+The questions: q0 asks where_is Frank, q1 asks where_is Erin, q2 asks what_is_in zus and q3 asks where_is Bob.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;erin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - rul is green
+  - zek is purple
+  - zas contains zek
+  - gov contains zem
+  - kor contains din
+  - at(Carol, kor)
+  - tam contains zet
+  - din is green
+  - zet is purple
+  - at(Bob, zas)
+  - at(Alice, gov)
+The goal is colour of box in room of Alice.
+The questions: q0 asks what_colour_is zem, q1 asks where_is Bob, q2 asks where_is Carol and q3 asks what_is_in kor.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;zem&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - gep is green
+  - pen is blue
+  - at(Carol, los)
+  - zen is blue
+  - los contains zen
+  - bek is blue
+  - kem contains pum
+  - nuk contains bek
+  - at(Erin, nuk)
+  - ved contains pen
+  - pum is yellow
+The goal is colour of box in room of Frank.
+The questions: q0 asks what_colour_is pen, q1 asks where_is Frank, q2 asks what_colour_is gep and q3 asks what_colour_is zen.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;frank&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - nik contains pur
+  - at(Erin, nik)
+  - at(Alice, ked)
+  - bug is purple
+  - bon contains bug
+  - veg is red
+  - ked contains das
+  - das is orange
+  - gil contains naz
+  - naz is green
+  - at(Dave, bon)
+The goal is colour of box in room of Erin.
+The questions: q0 asks what_colour_is das, q1 asks what_is_in gil, q2 asks what_is_in ked and q3 asks what_colour_is pur.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;pur&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - sam contains duk
+  - bar contains pom
+  - at(Bob, bar)
+  - dam contains pab
+  - pab is green
+  - at(Carol, dam)
+  - at(Dave, sam)
+  - sar is yellow
+  - pom is green
+  - med is orange
+  - ral contains med
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_colour_is duk, q1 asks what_colour_is pom, q2 asks what_colour_is pab and q3 asks where_is Dave.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;duk&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - pad is purple
+  - teg contains kis
+  - kat contains vog
+  - at(Carol, sus)
+  - at(Bob, kat)
+  - mob is green
+  - kis is green
+  - vog is red
+  - sus contains mim
+  - at(Dave, teg)
+  - pav contains pad
+The goal is colour of box in room of Carol.
+The questions: q0 asks what_colour_is kis, q1 asks what_colour_is mim, q2 asks where_is Carol and q3 asks what_is_in teg.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;mim&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - vot is yellow
+  - bag is green
+  - dal contains bag
+  - tek is purple
+  - peg is yellow
+  - rob contains peg
+  - mer is red
+  - at(Erin, zet)
+  - at(Dave, rob)
+  - zet contains tek
+  - mir contains mer
+The goal is colour of box in room of Carol.
+The questions: q0 asks what_is_in rob, q1 asks what_is_in mir, q2 asks what_is_in zet and q3 asks where_is Carol.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;carol&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - at(Erin, sov)
+  - at(Dave, zek)
+  - rol contains tul
+  - vuk contains meg
+  - meg is green
+  - lap is purple
+  - zek contains poz
+  - sov contains div
+  - div is green
+  - poz is purple
+  - at(Alice, rol)
+The goal is colour of box in room of Alice.
+The questions: q0 asks what_colour_is div, q1 asks what_colour_is tul, q2 asks what_is_in vuk and q3 asks where_is Alice.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;tul&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">q2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - mun is yellow
+  - vub contains mun
+  - sen contains vit
+  - gud is purple
+  - bem contains gab
+  - at(Frank, rod)
+  - vit is green
+  - gab is purple
+  - pod is yellow
+  - at(Erin, bem)
+  - at(Dave, vub)
+The goal is colour of box in room of Frank.
+The questions: q0 asks what_colour_is vit, q1 asks what_is_in sen, q2 asks what_is_in rod and q3 asks what_colour_is gab.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q2&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;rod&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - lek is red
+  - ber contains vit
+  - bem is yellow
+  - rid is green
+  - at(Dave, tok)
+  - at(Erin, dog)
+  - at(Carol, loz)
+  - dog contains rid
+  - tok contains kut
+  - vit is green
+  - loz contains bem
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_colour_is kut, q1 asks where_is Erin, q2 asks what_is_in dog and q3 asks what_colour_is rid.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;kut&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - tan is blue
+  - gik is orange
+  - at(Bob, get)
+  - ped is blue
+  - mus contains ped
+  - at(Carol, ted)
+  - get contains niv
+  - ded contains baz
+  - baz is green
+  - at(Frank, mus)
+  - ted contains tan
+The goal is colour of box in room of Bob.
+The questions: q0 asks what_colour_is niv, q1 asks what_is_in ded, q2 asks where_is Carol and q3 asks what_is_in ted.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;niv&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - nil is purple
+  - dop contains nut
+  - viv contains sil
+  - sil is red
+  - at(Erin, viv)
+  - at(Alice, ziz)
+  - ziz contains naz
+  - tud is purple
+  - at(Bob, gad)
+  - gad contains tud
+  - nut is red
+The goal is colour of box in room of Alice.
+The questions: q0 asks what_colour_is naz, q1 asks what_colour_is sil, q2 asks what_is_in gad and q3 asks what_colour_is nil.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;naz&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - zis is blue
+  - gup is purple
+  - at(Alice, keg)
+  - at(Erin, lem)
+  - log contains zis
+  - sin is orange
+  - at(Bob, tek)
+  - keg contains sin
+  - tek contains lez
+  - lem contains gup
+  - lip is orange
+The goal is colour of box in room of Bob.
+The questions: q0 asks what_is_in log, q1 asks what_colour_is gup, q2 asks what_is_in lem and q3 asks what_colour_is lez.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;lez&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - neb is red
+  - zat is green
+  - zos contains bik
+  - dis contains zil
+  - dek contains deg
+  - at(Carol, vap)
+  - vap contains neb
+  - zil is blue
+  - at(Erin, dis)
+  - at(Dave, dek)
+  - bik is green
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_colour_is deg, q1 asks what_colour_is zil, q2 asks what_is_in dis and q3 asks what_is_in dek.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;deg&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">q2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - pir is yellow
+  - at(Erin, lit)
+  - lit contains pir
+  - zak contains dot
+  - dot is blue
+  - sog contains net
+  - net is yellow
+  - nid is red
+  - at(Dave, nud)
+  - nud contains rat
+  - at(Carol, zak)
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_is_in sog, q1 asks what_colour_is dot, q2 asks what_colour_is rat and q3 asks where_is Dave.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q2&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;rat&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - zez contains ren
+  - sib is blue
+  - at(Alice, les)
+  - ren is blue
+  - dos is orange
+  - at(Dave, vot)
+  - gal is purple
+  - vot contains ses
+  - viv contains sib
+  - at(Bob, zez)
+  - ses is purple
+The goal is colour of box in room of Alice.
+The questions: q0 asks what_is_in les, q1 asks what_is_in vot, q2 asks where_is Bob and q3 asks what_colour_is dos.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;les&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - rep contains sas
+  - at(Alice, beb)
+  - sas is blue
+  - at(Frank, rep)
+  - beb contains kub
+  - luz contains muv
+  - zaz contains miz
+  - kub is red
+  - miz is orange
+  - at(Erin, luz)
+  - piz is orange
+The goal is colour of box in room of Erin.
+The questions: q0 asks where_is Erin, q1 asks what_is_in beb, q2 asks what_is_in luz and q3 asks what_colour_is muv.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;muv&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - pom contains pes
+  - rop is purple
+  - vuv is blue
+  - at(Bob, mel)
+  - dal contains lil
+  - pad is red
+  - at(Frank, dal)
+  - lil is red
+  - pes is green
+  - mel contains pad
+  - bek contains rop
+The goal is colour of box in room of Carol.
+The questions: q0 asks where_is Carol, q1 asks what_colour_is lil, q2 asks where_is Bob and q3 asks what_colour_is vuv.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;carol&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - at(Bob, div)
+  - rer contains tes
+  - ren contains gob
+  - div contains kal
+  - kal is yellow
+  - at(Erin, son)
+  - tes is orange
+  - bom is yellow
+  - gap is red
+  - gob is blue
+  - at(Dave, rer)
+The goal is colour of box in room of Erin.
+The questions: q0 asks what_colour_is gob, q1 asks what_is_in son, q2 asks what_colour_is gap and q3 asks what_is_in rer.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;son&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - kib is green
+  - at(Bob, din)
+  - bot contains gog
+  - din contains kuk
+  - mez contains biz
+  - tud is blue
+  - gog is purple
+  - gag contains tud
+  - at(Alice, gag)
+  - kuk is purple
+  - biz is blue
+The goal is colour of box in room of Frank.
+The questions: q0 asks where_is Frank, q1 asks what_colour_is biz, q2 asks where_is Alice and q3 asks what_colour_is kuk.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;frank&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - bip contains nas
+  - tez contains rol
+  - at(Carol, pul)
+  - rol is yellow
+  - at(Erin, vas)
+  - mag is orange
+  - vok is red
+  - nas is purple
+  - pul contains vok
+  - at(Alice, tez)
+  - bok is green
+The goal is colour of box in room of Erin.
+The questions: q0 asks what_is_in tez, q1 asks where_is Carol, q2 asks what_is_in bip and q3 asks what_is_in vas.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;vas&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - gig contains rev
+  - at(Bob, tag)
+  - tag contains vak
+  - at(Dave, ses)
+  - god is green
+  - rev is orange
+  - ses contains nav
+  - nav is orange
+  - at(Frank, nen)
+  - vak is blue
+  - zom is yellow
+The goal is colour of box in room of Frank.
+The questions: q0 asks what_is_in gig, q1 asks what_is_in nen, q2 asks what_colour_is nav and q3 asks where_is Bob.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;nen&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - nul is green
+  - nik contains mab
+  - at(Dave, nik)
+  - zok contains ber
+  - at(Bob, mum)
+  - mum contains ror
+  - tul is purple
+  - ber is red
+  - ror is red
+  - zup contains nul
+  - at(Alice, zup)
+The goal is colour of box in room of Dave.
+The questions: q0 asks where_is Dave, q1 asks what_colour_is mab, q2 asks where_is Bob and q3 asks where_is Alice.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;mab&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - ken contains tos
+  - pur contains suv
+  - nok contains sad
+  - tos is yellow
+  - at(Erin, ken)
+  - gur contains set
+  - gog is purple
+  - at(Bob, nok)
+  - suv is blue
+  - set is red
+  - at(Frank, pur)
+The goal is colour of box in room of Bob.
+The questions: q0 asks what_colour_is set, q1 asks what_colour_is tos, q2 asks what_is_in nok and q3 asks what_colour_is sad.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;sad&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - zem contains som
+  - nog is orange
+  - kol is yellow
+  - som is blue
+  - mup is yellow
+  - lil contains gud
+  - at(Dave, lil)
+  - mir contains nog
+  - at(Frank, mir)
+  - pes contains kol
+  - at(Carol, zem)
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_colour_is gud, q1 asks what_is_in lil, q2 asks what_is_in mir and q3 asks what_colour_is mup.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;gud&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">q2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - sek is orange
+  - sed contains mol
+  - teb contains pem
+  - mol is purple
+  - vos contains rug
+  - at(Erin, sep)
+  - at(Alice, vos)
+  - get is green
+  - pem is yellow
+  - sep contains sek
+  - rug is green
+The goal is colour of box in room of Bob.
+The questions: q0 asks what_colour_is rug, q1 asks what_is_in sep, q2 asks where_is Bob and q3 asks what_colour_is get.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q2&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;bob&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - lav is blue
+  - den is blue
+  - at(Erin, pok)
+  - mul contains tep
+  - at(Alice, mul)
+  - tep is green
+  - lur is orange
+  - kav contains den
+  - pok contains lur
+  - buz contains pev
+  - pev is green
+The goal is colour of box in room of Carol.
+The questions: q0 asks where_is Carol, q1 asks where_is Alice, q2 asks what_colour_is den and q3 asks what_colour_is lur.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;carol&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - mok is yellow
+  - at(Erin, bez)
+  - tur is blue
+  - dem contains mok
+  - bez contains pir
+  - pir is green
+  - sud is yellow
+  - at(Alice, kop)
+  - at(Carol, dem)
+  - var contains sud
+  - sam is red
+The goal is colour of box in room of Alice.
+The questions: q0 asks what_is_in kop, q1 asks what_colour_is mok, q2 asks what_is_in var and q3 asks where_is Alice.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;kop&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - peb is green
+  - ror is blue
+  - at(Dave, dat)
+  - dat contains mak
+  - mak is green
+  - gad is yellow
+  - at(Frank, not)
+  - not contains kes
+  - mus contains peb
+  - at(Alice, get)
+  - kes is green
+The goal is colour of box in room of Alice.
+The questions: q0 asks what_is_in dat, q1 asks what_is_in get, q2 asks where_is Frank and q3 asks what_colour_is mak.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;get&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - vib is blue
+  - at(Erin, kug)
+  - kun is blue
+  - ner is purple
+  - at(Alice, zev)
+  - lul contains vib
+  - nez is yellow
+  - kug contains nez
+  - kog is red
+  - kam contains kog
+  - at(Bob, lul)
+The goal is colour of box in room of Alice.
+The questions: q0 asks what_is_in zev, q1 asks where_is Bob, q2 asks what_is_in kam and q3 asks what_colour_is ner.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;zev&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - luv contains daz
+  - zod contains vid
+  - boz is green
+  - vid is purple
+  - vag is blue
+  - at(Frank, zod)
+  - dur contains boz
+  - daz is orange
+  - at(Bob, rut)
+  - rut contains pir
+  - at(Erin, dur)
+The goal is colour of box in room of Bob.
+The questions: q0 asks where_is Frank, q1 asks what_colour_is vid, q2 asks what_is_in dur and q3 asks what_colour_is pir.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;pir&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - at(Alice, but)
+  - sap contains ban
+  - zim contains nal
+  - zug is purple
+  - but contains mil
+  - lap contains zug
+  - tum is purple
+  - ban is yellow
+  - mil is purple
+  - nal is green
+  - at(Erin, zim)
+The goal is colour of box in room of Carol.
+The questions: q0 asks where_is Carol, q1 asks what_is_in but, q2 asks what_colour_is tum and q3 asks what_is_in zim.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;carol&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - gol is red
+  - gal is yellow
+  - mik is red
+  - git contains ram
+  - rid contains lun
+  - bag contains gal
+  - zoz contains mik
+  - at(Erin, bag)
+  - at(Carol, git)
+  - ram is orange
+  - lun is purple
+The goal is colour of box in room of Bob.
+The questions: q0 asks what_is_in bag, q1 asks where_is Carol, q2 asks where_is Erin and q3 asks where_is Bob.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;bob&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - gol contains pem
+  - vol is yellow
+  - mup is purple
+  - nos is blue
+  - kud contains nos
+  - tez contains vol
+  - at(Alice, gol)
+  - at(Carol, tez)
+  - nim contains mup
+  - rir is green
+  - pem is yellow
+The goal is colour of box in room of Erin.
+The questions: q0 asks what_colour_is pem, q1 asks where_is Erin, q2 asks what_colour_is rir and q3 asks what_colour_is nos.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;erin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - vun contains pot
+  - rad contains par
+  - at(Erin, rad)
+  - zid is green
+  - at(Alice, vun)
+  - div contains zid
+  - pot is red
+  - zog is orange
+  - at(Frank, div)
+  - nam is yellow
+  - buk contains zog
+The goal is colour of box in room of Erin.
+The questions: q0 asks what_is_in div, q1 asks what_colour_is zog, q2 asks what_colour_is pot and q3 asks what_colour_is par.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;par&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - zon is yellow
+  - at(Dave, lol)
+  - bos is blue
+  - lig is yellow
+  - bar is green
+  - lug is orange
+  - nam contains bar
+  - lol contains lig
+  - at(Erin, kud)
+  - tul contains lug
+  - kud contains bos
+The goal is colour of box in room of Frank.
+The questions: q0 asks where_is Frank, q1 asks where_is Erin, q2 asks what_colour_is bos and q3 asks where_is Dave.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;frank&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - lek contains nap
+  - ruz is blue
+  - at(Dave, kes)
+  - zal is orange
+  - did contains lon
+  - puk contains kap
+  - lon is yellow
+  - at(Bob, did)
+  - kap is blue
+  - at(Carol, lek)
+  - nap is yellow
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_is_in kes, q1 asks what_is_in lek, q2 asks what_is_in puk and q3 asks what_colour_is ruz.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;kes&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - det contains gez
+  - sid contains nis
+  - gez is orange
+  - rap is orange
+  - tud is purple
+  - kig is purple
+  - at(Alice, niz)
+  - at(Erin, sid)
+  - gok contains tud
+  - nis is orange
+  - niz contains kig
+The goal is colour of box in room of Dave.
+The questions: q0 asks where_is Dave, q1 asks what_is_in sid, q2 asks where_is Erin and q3 asks what_is_in gok.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;dave&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - tit is red
+  - at(Dave, tob)
+  - nuk contains ned
+  - tob contains zub
+  - at(Carol, zog)
+  - ned is purple
+  - at(Bob, gir)
+  - gir contains kot
+  - kan is purple
+  - kot is purple
+  - zub is red
+The goal is colour of box in room of Carol.
+The questions: q0 asks what_is_in gir, q1 asks what_is_in nuk, q2 asks where_is Carol and q3 asks what_is_in zog.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;zog&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - at(Alice, mum)
+  - gup is red
+  - sob is green
+  - seg contains kas
+  - kas is yellow
+  - mum contains kus
+  - kus is yellow
+  - at(Frank, bok)
+  - at(Erin, gis)
+  - gis contains gup
+  - bok contains sub
+The goal is colour of box in room of Frank.
+The questions: q0 asks what_colour_is sub, q1 asks what_colour_is gup, q2 asks what_colour_is kus and q3 asks what_is_in mum.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;sub&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">q2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - bib is blue
+  - gav contains mer
+  - Bob contains mot
+  - rop is orange
+  - mot is yellow
+  - at(Carol, kup)
+  - mer is purple
+  - tam is orange
+  - kup contains tam
+  - at(Alice, gav)
+  - vid contains bib
+The goal is colour of box in room of Bob.
+The questions: q0 asks what_is_in gav, q1 asks what_colour_is tam, q2 asks where_is Bob and q3 asks what_colour_is mer.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q2&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;bob&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">q2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - men contains bem
+  - rig is blue
+  - at(Erin, muk)
+  - pil is red
+  - zas contains pil
+  - miz is red
+  - at(Dave, tos)
+  - muk contains dob
+  - at(Alice, zas)
+  - tos contains rig
+  - bem is red
+The goal is colour of box in room of Erin.
+The questions: q0 asks what_colour_is bem, q1 asks where_is Erin, q2 asks what_colour_is dob and q3 asks what_colour_is rig.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q2&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;dob&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">q2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - at(Dave, lam)
+  - mez is yellow
+  - zaz contains mez
+  - lam contains nom
+  - nes is yellow
+  - at(Carol, zaz)
+  - vam contains nes
+  - gak is yellow
+  - gab contains bot
+  - nom is yellow
+  - bot is purple
+The goal is colour of box in room of Erin.
+The questions: q0 asks what_colour_is nom, q1 asks what_is_in vam, q2 asks where_is Erin and q3 asks what_is_in zaz.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q2&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;erin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">q2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - bun contains gol
+  - at(Alice, bus)
+  - gol is blue
+  - rir is orange
+  - nid is yellow
+  - bus contains rir
+  - kat is blue
+  - at(Frank, kam)
+  - lap is purple
+  - dut contains lap
+  - at(Dave, dut)
+The goal is colour of box in room of Frank.
+The questions: q0 asks what_is_in bun, q1 asks what_is_in dut, q2 asks what_is_in kam and q3 asks what_is_in bus.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q2&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;kam&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - kak is yellow
+  - rob contains sur
+  - at(Carol, pob)
+  - at(Alice, kod)
+  - pob contains kak
+  - bos is blue
+  - at(Dave, lir)
+  - sur is purple
+  - kod contains ral
+  - lir contains zog
+  - zog is blue
+The goal is colour of box in room of Alice.
+The questions: q0 asks what_colour_is ral, q1 asks what_colour_is bos, q2 asks where_is Carol and q3 asks what_is_in kod.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;ral&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - sam is blue
+  - nur is orange
+  - at(Bob, nus)
+  - des is yellow
+  - pat is purple
+  - ruz contains des
+  - rev is purple
+  - tav contains rev
+  - at(Erin, got)
+  - got contains sam
+  - at(Carol, tav)
+The goal is colour of box in room of Bob.
+The questions: q0 asks what_colour_is nur, q1 asks what_is_in nus, q2 asks where_is Carol and q3 asks what_colour_is sam.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;nus&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - lok is purple
+  - at(Dave, min)
+  - run contains rus
+  - min contains lok
+  - bib is purple
+  - sem is purple
+  - vad is purple
+  - kan contains bib
+  - at(Alice, git)
+  - git contains vad
+  - rus is green
+The goal is colour of box in room of Carol.
+The questions: q0 asks where_is Dave, q1 asks where_is Carol, q2 asks where_is Alice and q3 asks what_is_in min.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;carol&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - vim contains bup
+  - dum contains tim
+  - bup is blue
+  - at(Dave, deg)
+  - tim is purple
+  - at(Erin, vim)
+  - at(Carol, dum)
+  - ris contains dam
+  - lis is yellow
+  - sal is green
+  - dam is yellow
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_colour_is tim, q1 asks what_is_in deg, q2 asks what_colour_is lis and q3 asks where_is Erin.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;deg&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - at(Erin, zor)
+  - vur contains vel
+  - at(Frank, dib)
+  - dib contains kak
+  - zog is purple
+  - ser contains rik
+  - vel is blue
+  - zor contains dip
+  - at(Bob, ser)
+  - dip is red
+  - kak is green
+The goal is colour of box in room of Bob.
+The questions: q0 asks what_colour_is dip, q1 asks what_colour_is rik, q2 asks what_colour_is kak and q3 asks where_is Frank.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;rik&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - ten contains siv
+  - vak contains rov
+  - at(Alice, vak)
+  - nop is purple
+  - pel contains tev
+  - siv is orange
+  - rov is yellow
+  - lok contains kem
+  - tev is yellow
+  - at(Carol, pel)
+  - at(Dave, lok)
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_is_in pel, q1 asks what_colour_is kem, q2 asks what_colour_is nop and q3 asks where_is Dave.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;kem&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - dok is purple
+  - pos is red
+  - at(Dave, rog)
+  - nir is orange
+  - tig contains lit
+  - at(Erin, rig)
+  - rog contains dok
+  - rig contains nir
+  - vak contains mup
+  - lit is purple
+  - mup is green
+The goal is colour of box in room of Bob.
+The questions: q0 asks what_is_in vak, q1 asks where_is Bob, q2 asks what_is_in rig and q3 asks what_colour_is pos.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;bob&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - at(Dave, bos)
+  - bar is orange
+  - at(Carol, vop)
+  - luz is orange
+  - bos contains vuv
+  - at(Bob, gek)
+  - gek contains pir
+  - sol contains tad
+  - tad is orange
+  - vuv is green
+  - vop contains luz
+The goal is colour of box in room of Bob.
+The questions: q0 asks what_colour_is pir, q1 asks what_is_in sol, q2 asks what_colour_is luz and q3 asks what_colour_is bar.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;pir&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - at(Erin, mig)
+  - at(Bob, gim)
+  - zas is yellow
+  - por is red
+  - pun is red
+  - mig contains por
+  - dad is yellow
+  - dor contains pun
+  - gim contains zas
+  - gez contains dad
+  - pig is orange
+The goal is colour of box in room of Alice.
+The questions: q0 asks what_is_in gim, q1 asks where_is Alice, q2 asks where_is Bob and q3 asks what_colour_is zas.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;alice&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - at(Erin, nup)
+  - lib is blue
+  - nup contains san
+  - at(Dave, duz)
+  - at(Alice, lum)
+  - but is blue
+  - gem contains bek
+  - pat is blue
+  - duz contains but
+  - lum contains lib
+  - bek is blue
+The goal is colour of box in room of Erin.
+The questions: q0 asks what_colour_is san, q1 asks what_is_in duz, q2 asks where_is Alice and q3 asks what_colour_is but.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;san&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - ger contains bip
+  - at(Frank, sul)
+  - pad is orange
+  - dut is yellow
+  - gud is yellow
+  - bip is blue
+  - dok contains pad
+  - vip contains vuz
+  - vuz is blue
+  - at(Alice, ger)
+  - sul contains dut
+The goal is colour of box in room of Carol.
+The questions: q0 asks what_colour_is bip, q1 asks where_is Carol, q2 asks what_is_in ger and q3 asks where_is Frank.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;carol&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - vev is red
+  - at(Bob, gek)
+  - bak is red
+  - zon contains nav
+  - nav is orange
+  - at(Frank, zon)
+  - boz is green
+  - lin contains boz
+  - rod is red
+  - sop contains rod
+  - gek contains vev
+The goal is colour of box in room of Erin.
+The questions: q0 asks where_is Erin, q1 asks what_colour_is bak, q2 asks what_is_in gek and q3 asks where_is Frank.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;erin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - dal is purple
+  - pon contains mal
+  - at(Alice, gad)
+  - der is green
+  - bav contains tul
+  - at(Bob, kez)
+  - mal is yellow
+  - at(Dave, bav)
+  - kez contains rin
+  - gad contains dal
+  - rin is yellow
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_colour_is tul, q1 asks what_colour_is rin, q2 asks what_colour_is dal and q3 asks where_is Bob.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;tul&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - zud is orange
+  - at(Bob, tep)
+  - net is purple
+  - nap is red
+  - kad contains zud
+  - ner is orange
+  - vol contains nap
+  - zen contains ner
+  - ked is yellow
+  - at(Frank, zen)
+  - at(Carol, kad)
+The goal is colour of box in room of Bob.
+The questions: q0 asks what_colour_is net, q1 asks what_is_in vol, q2 asks where_is Carol and q3 asks what_is_in tep.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;tep&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - tid is green
+  - niz contains kon
+  - lim contains tid
+  - at(Dave, pol)
+  - teg is orange
+  - mel is green
+  - lav contains teg
+  - at(Erin, lav)
+  - kug is purple
+  - pol contains kug
+  - kon is blue
+The goal is colour of box in room of Bob.
+The questions: q0 asks where_is Bob, q1 asks what_colour_is tid, q2 asks what_colour_is mel and q3 asks what_is_in pol.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;bob&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - at(Alice, kid)
+  - sal is red
+  - deg is blue
+  - kib is yellow
+  - ret contains vor
+  - vor is green
+  - at(Bob, dit)
+  - tak is blue
+  - dit contains tak
+  - soz contains deg
+  - kid contains kib
+The goal is colour of box in room of Erin.
+The questions: q0 asks where_is Erin, q1 asks what_is_in ret, q2 asks what_colour_is kib and q3 asks what_is_in soz.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;erin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - at(Carol, mog)
+  - sim contains del
+  - at(Frank, mad)
+  - mad contains dig
+  - zod contains sib
+  - dig is purple
+  - bas is orange
+  - sib is orange
+  - dak is purple
+  - mog contains bas
+  - at(Dave, sim)
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_is_in mog, q1 asks where_is Frank, q2 asks what_is_in mad and q3 asks what_colour_is del.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;del&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - sus is red
+  - kuz is orange
+  - at(Alice, pos)
+  - gam is yellow
+  - tab is purple
+  - pam is blue
+  - zeg contains kuz
+  - pos contains tab
+  - ras contains sus
+  - nem contains pam
+  - at(Frank, ras)
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_is_in nem, q1 asks what_colour_is sus, q2 asks what_colour_is gam and q3 asks where_is Dave.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;dave&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">q2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - rev contains gen
+  - pem contains roz
+  - at(Carol, pem)
+  - at(Dave, rid)
+  - roz is green
+  - gen is red
+  - vuv contains sob
+  - sob is green
+  - mer is orange
+  - at(Erin, vuv)
+  - gaz is green
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_colour_is gaz, q1 asks what_colour_is roz, q2 asks what_is_in rid and q3 asks where_is Erin.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q2&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;rid&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - rar is purple
+  - vut contains nag
+  - at(Alice, vut)
+  - nag is purple
+  - lep is green
+  - got contains lep
+  - soz contains god
+  - zum contains rar
+  - god is red
+  - at(Dave, soz)
+  - mot is purple
+The goal is colour of box in room of Carol.
+The questions: q0 asks what_colour_is rar, q1 asks what_is_in vut, q2 asks what_is_in zum and q3 asks where_is Carol.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;carol&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - bov contains zep
+  - guk is orange
+  - tik is purple
+  - at(Alice, voz)
+  - zep is yellow
+  - at(Dave, bov)
+  - voz contains tot
+  - at(Frank, bis)
+  - mav is orange
+  - tot is red
+  - dad contains guk
+The goal is colour of box in room of Frank.
+The questions: q0 asks what_colour_is guk, q1 asks what_colour_is mav, q2 asks what_colour_is tot and q3 asks what_is_in bis.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;bis&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">q2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - giv contains lam
+  - poz contains rom
+  - bus contains sek
+  - lam is purple
+  - rom is purple
+  - at(Dave, giv)
+  - nut is green
+  - at(Frank, poz)
+  - rak is yellow
+  - rit contains nut
+  - at(Alice, bus)
+The goal is colour of box in room of Alice.
+The questions: q0 asks what_colour_is nut, q1 asks what_colour_is lam, q2 asks what_colour_is sek and q3 asks where_is Alice.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q2&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;sek&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">q2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - vul is purple
+  - nem contains vep
+  - at(Alice, bil)
+  - zes is green
+  - bil contains run
+  - vep is orange
+  - vob contains pap
+  - at(Erin, nup)
+  - at(Frank, nem)
+  - pap is red
+  - run is green
+The goal is colour of box in room of Erin.
+The questions: q0 asks what_is_in vob, q1 asks where_is Alice, q2 asks what_is_in nup and q3 asks what_colour_is pap.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q2&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;nup&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">q2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - at(Carol, vel)
+  - dus contains nom
+  - nom is yellow
+  - lip is green
+  - pep is yellow
+  - at(Alice, gon)
+  - med contains dar
+  - at(Dave, med)
+  - gon contains mav
+  - vel contains pep
+  - dar is green
+The goal is colour of box in room of Alice.
+The questions: q0 asks what_is_in vel, q1 asks what_colour_is dar, q2 asks what_colour_is mav and q3 asks what_colour_is lip.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q2&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;mav&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - dek is blue
+  - at(Alice, suk)
+  - at(Carol, zen)
+  - kul is yellow
+  - suk contains dek
+  - luk is yellow
+  - pus is yellow
+  - at(Erin, ber)
+  - vel is red
+  - sim contains pus
+  - ber contains luk
+The goal is colour of box in room of Carol.
+The questions: q0 asks what_is_in suk, q1 asks what_is_in zen, q2 asks what_colour_is kul and q3 asks what_is_in ber.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;zen&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - lig contains kev
+  - at(Erin, lub)
+  - ped is yellow
+  - lub contains mim
+  - gis contains nav
+  - rig is green
+  - at(Bob, lig)
+  - kev is green
+  - mim is purple
+  - nav is blue
+  - at(Alice, gut)
+The goal is colour of box in room of Alice.
+The questions: q0 asks what_is_in lig, q1 asks where_is Erin, q2 asks where_is Bob and q3 asks what_is_in gut.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;gut&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - vup is red
+  - rev contains lup
+  - lup is green
+  - taz is orange
+  - vor contains taz
+  - at(Alice, bev)
+  - pap is green
+  - at(Dave, vor)
+  - at(Carol, rev)
+  - maz is green
+  - zum contains pap
+The goal is colour of box in room of Alice.
+The questions: q0 asks where_is Dave, q1 asks what_is_in bev, q2 asks what_colour_is pap and q3 asks what_is_in vor.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;bev&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - lav contains bag
+  - sot is purple
+  - rat is purple
+  - nor contains rat
+  - at(Erin, nor)
+  - zot is blue
+  - zes contains zot
+  - bag is purple
+  - at(Alice, lav)
+  - at(Frank, lan)
+  - lan contains lir
+The goal is colour of box in room of Frank.
+The questions: q0 asks what_colour_is sot, q1 asks what_colour_is lir, q2 asks where_is Erin and q3 asks what_is_in lan.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;lir&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - niz is purple
+  - dim contains gim
+  - at(Frank, dod)
+  - nud contains doz
+  - at(Erin, vag)
+  - gim is green
+  - vag contains vib
+  - doz is red
+  - vib is yellow
+  - dod contains pap
+  - pap is purple
+The goal is colour of box in room of Dave.
+The questions: q0 asks where_is Dave, q1 asks what_colour_is pap, q2 asks what_colour_is doz and q3 asks where_is Frank.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;dave&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">q2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - zel is blue
+  - kob is yellow
+  - pez contains kob
+  - at(Carol, pez)
+  - at(Dave, sik)
+  - nuk is yellow
+  - sal contains sir
+  - at(Erin, zov)
+  - bog is yellow
+  - zov contains bog
+  - sir is red
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_colour_is kob, q1 asks what_is_in sal, q2 asks what_is_in sik and q3 asks what_colour_is sir.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q2&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;sik&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - ruk contains pel
+  - at(Carol, sem)
+  - ter is yellow
+  - sem contains rir
+  - bet contains lam
+  - pel is yellow
+  - lam is green
+  - at(Bob, zor)
+  - zav is purple
+  - at(Frank, ruk)
+  - zor contains zav
+The goal is colour of box in room of Carol.
+The questions: q0 asks what_colour_is rir, q1 asks what_is_in ruk, q2 asks what_is_in bet and q3 asks what_colour_is ter.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;rir&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">q2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - ten is purple
+  - dig contains keg
+  - pad contains log
+  - deg contains ten
+  - vor is yellow
+  - tip is orange
+  - at(Alice, ton)
+  - at(Carol, pad)
+  - keg is orange
+  - log is green
+  - at(Bob, deg)
+The goal is colour of box in room of Alice.
+The questions: q0 asks what_is_in dig, q1 asks what_colour_is keg, q2 asks what_is_in ton and q3 asks where_is Carol.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q2&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;ton&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">q2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - mik contains nok
+  - at(Carol, sag)
+  - nok is purple
+  - bes contains vit
+  - lum is green
+  - sot contains pog
+  - sag contains paz
+  - at(Bob, bes)
+  - vit is yellow
+  - pog is yellow
+  - paz is yellow
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_colour_is vit, q1 asks what_is_in mik, q2 asks where_is Dave and q3 asks what_is_in sot.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q2&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;dave&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - ros contains vut
+  - at(Erin, bap)
+  - bat is green
+  - pik contains bat
+  - lut is orange
+  - at(Dave, lir)
+  - bap contains tel
+  - tel is red
+  - ser is green
+  - at(Carol, ros)
+  - vut is red
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_is_in lir, q1 asks what_colour_is ser, q2 asks where_is Erin and q3 asks what_colour_is lut.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;lir&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - nib is orange
+  - lez is green
+  - mer is green
+  - nuk contains nib
+  - tod contains lig
+  - at(Carol, nuk)
+  - deb is green
+  - vat contains mer
+  - rup contains lez
+  - at(Erin, vat)
+  - at(Dave, tod)
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_is_in vat, q1 asks what_is_in rup, q2 asks what_colour_is deb and q3 asks what_colour_is lig.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;lig&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">q2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - nap contains vek
+  - min is purple
+  - tit contains lom
+  - at(Bob, vum)
+  - lom is blue
+  - tav is purple
+  - vek is green
+  - at(Carol, nap)
+  - nen contains min
+  - sir is blue
+  - vum contains tav
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_colour_is tav, q1 asks what_colour_is vek, q2 asks where_is Dave and q3 asks what_colour_is sir.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q2&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;dave&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - lir is yellow
+  - kan is green
+  - vip is orange
+  - at(Alice, tok)
+  - tok contains nev
+  - kes contains kan
+  - kot contains lir
+  - nev is blue
+  - at(Frank, kes)
+  - at(Dave, tim)
+  - tim contains tan
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_colour_is nev, q1 asks what_colour_is tan, q2 asks what_colour_is vip and q3 asks where_is Alice.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;tan&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">q2</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - lus is blue
+  - at(Carol, nib)
+  - vog is purple
+  - gir is blue
+  - tok is purple
+  - nib contains lus
+  - at(Frank, vor)
+  - var contains tun
+  - tun is red
+  - vor contains tok
+  - dis contains gir
+The goal is colour of box in room of Alice.
+The questions: q0 asks what_is_in vor, q1 asks what_is_in var, q2 asks where_is Alice and q3 asks what_colour_is tun.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q2&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;alice&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - dum is red
+  - at(Alice, ren)
+  - sor contains pob
+  - pak is yellow
+  - at(Erin, les)
+  - dub is green
+  - Bob is red
+  - les contains dub
+  - vib contains pak
+  - pob is red
+  - ren contains dum
+The goal is colour of box in room of Bob.
+The questions: q0 asks what_colour_is dub, q1 asks where_is Bob, q2 asks what_is_in sor and q3 asks what_colour_is dum.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;bob&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - gan contains nes
+  - mov is yellow
+  - lan is orange
+  - kun is yellow
+  - mug contains lan
+  - dig contains kun
+  - par contains toz
+  - toz is purple
+  - at(Erin, gan)
+  - at(Alice, par)
+  - at(Carol, mug)
+The goal is colour of box in room of Erin.
+The questions: q0 asks where_is Erin, q1 asks what_colour_is nes, q2 asks what_colour_is mov and q3 asks where_is Alice.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;nes&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - mor is green
+  - zag is purple
+  - ban is purple
+  - at(Frank, mik)
+  - mik contains dez
+  - at(Bob, rig)
+  - zon contains zag
+  - zid contains ban
+  - dez is green
+  - at(Alice, zon)
+  - rig contains tum
+The goal is colour of box in room of Bob.
+The questions: q0 asks what_colour_is tum, q1 asks where_is Frank, q2 asks where_is Alice and q3 asks what_is_in zid.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;tum&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - set is orange
+  - at(Bob, tar)
+  - at(Dave, sag)
+  - nal contains set
+  - tev is purple
+  - rav is red
+  - ron is orange
+  - ked is yellow
+  - sag contains ron
+  - tar contains tev
+  - dot contains rav
+The goal is colour of box in room of Carol.
+The questions: q0 asks where_is Carol, q1 asks what_colour_is rav, q2 asks where_is Bob and q3 asks what_colour_is ked.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;carol&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - sig contains tuv
+  - at(Alice, sig)
+  - tol contains bas
+  - bas is orange
+  - at(Carol, dim)
+  - at(Erin, tim)
+  - tuv is red
+  - tim contains bev
+  - dim contains lam
+  - nar is yellow
+  - bev is yellow
+The goal is colour of box in room of Carol.
+The questions: q0 asks what_colour_is lam, q1 asks where_is Erin, q2 asks what_colour_is bev and q3 asks where_is Alice.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;lam&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - at(Bob, zin)
+  - lar is red
+  - zoz contains dol
+  - zin contains lar
+  - dub contains vat
+  - vuz contains rut
+  - at(Dave, vuz)
+  - rut is blue
+  - at(Alice, dub)
+  - gek is orange
+  - dol is orange
+The goal is colour of box in room of Alice.
+The questions: q0 asks what_colour_is vat, q1 asks where_is Bob, q2 asks what_is_in zoz and q3 asks what_is_in dub.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;vat&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - mog is purple
+  - nep is purple
+  - dep contains mog
+  - at(Bob, dep)
+  - sul contains nos
+  - vis contains rip
+  - at(Alice, vov)
+  - nos is yellow
+  - nan is blue
+  - vov contains nan
+  - rip is orange
+The goal is colour of box in room of Erin.
+The questions: q0 asks where_is Alice, q1 asks where_is Erin, q2 asks what_colour_is nep and q3 asks what_colour_is rip.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;erin&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - deb is purple
+  - tub is blue
+  - at(Carol, nab)
+  - nab contains tub
+  - at(Erin, rot)
+  - kad is blue
+  - dik contains kad
+  - geg is purple
+  - tov is blue
+  - at(Dave, mud)
+  - rot contains deb
+The goal is colour of box in room of Dave.
+The questions: q0 asks what_is_in mud, q1 asks where_is Erin, q2 asks what_colour_is tov and q3 asks what_is_in nab.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;mud&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - sot is red
+  - tep contains mul
+  - bib is orange
+  - kur contains men
+  - men is orange
+  - mal contains bib
+  - at(Erin, kur)
+  - at(Carol, meb)
+  - mul is blue
+  - at(Dave, mal)
+  - pad is green
+The goal is colour of box in room of Carol.
+The questions: q0 asks what_is_in meb, q1 asks what_colour_is sot, q2 asks what_colour_is bib and q3 asks where_is Dave.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;meb&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">q3</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - zuk contains gap
+  - zob contains vez
+  - led is blue
+  - kol contains pag
+  - vez is green
+  - gap is orange
+  - at(Bob, kol)
+  - piv is red
+  - pag is green
+  - at(Erin, zip)
+  - at(Alice, zob)
+The goal is colour of box in room of Erin.
+The questions: q0 asks what_colour_is led, q1 asks what_is_in zuk, q2 asks what_colour_is pag and q3 asks what_is_in zip.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q3&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;zip&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - min contains gub
+  - pib is purple
+  - at(Bob, nab)
+  - zol is blue
+  - at(Frank, vat)
+  - at(Erin, min)
+  - sal is orange
+  - gub is blue
+  - sab contains zol
+  - vat contains pib
+  - tet is blue
+The goal is colour of box in room of Bob.
+The questions: q0 asks what_colour_is tet, q1 asks what_is_in nab, q2 asks where_is Frank and q3 asks where_is Erin.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;contains&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_is_in&quot;,
+  &quot;nab&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - vis is purple
+  - kep contains vuv
+  - nag contains zer
+  - at(Carol, sal)
+  - at(Dave, nag)
+  - at(Frank, dim)
+  - sal contains vis
+  - nab is orange
+  - dim contains zil
+  - zil is green
+  - vuv is yellow
+The goal is colour of box in room of Dave.
+The questions: q0 asks where_is Frank, q1 asks what_colour_is zer, q2 asks what_is_in kep and q3 asks what_colour_is zil.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;zer&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - nab contains sem
+  - at(Dave, zik)
+  - kag contains sit
+  - kun contains mov
+  - zor is purple
+  - dal is blue
+  - zik contains zor
+  - at(Bob, nab)
+  - mov is red
+  - sem is blue
+  - sit is purple
+The goal is colour of box in room of Carol.
+The questions: q0 asks what_is_in nab, q1 asks where_is Carol, q2 asks what_colour_is zor and q3 asks what_colour_is mov.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;at&quot;,
+ &quot;needed_question&quot;: [
+  &quot;where_is&quot;,
+  &quot;carol&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">q0</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - dum contains pil
+  - nik is red
+  - at(Carol, nos)
+  - lok contains kos
+  - at(Erin, lok)
+  - kos is green
+  - pil is yellow
+  - pad is red
+  - at(Alice, vig)
+  - vig contains pad
+  - nos contains nan
+The goal is colour of box in room of Carol.
+The questions: q0 asks what_colour_is nan, q1 asks what_is_in vig, q2 asks what_colour_is pad and q3 asks what_colour_is pil.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q0&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;nan&quot;
+ ]
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">q1</span></summary>
+<div class="body">
+<p>prompt</p><pre>You know these facts:
+  - bos is blue
+  - mig contains sip
+  - gum is red
+  - det is yellow
+  - sen contains pub
+  - pud contains det
+  - bes contains gum
+  - at(Frank, sen)
+  - sip is orange
+  - at(Dave, pud)
+  - at(Bob, mig)
+The goal is colour of box in room of Frank.
+The questions: q0 asks what_is_in pud, q1 asks what_colour_is pub, q2 asks what_colour_is det and q3 asks what_colour_is bos.
+The rules are: rule each_person_is_in_exactly_one_room, rule no_two_people_share_a_room, rule each_room_contains_exactly_one_box and rule no_box_is_in_two_rooms.
+Which question do you need?
+
+Answer with exactly one of: q0 | q1 | q2 | q3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;answer_label&quot;: &quot;q1&quot;,
+ &quot;missing&quot;: &quot;color&quot;,
+ &quot;needed_question&quot;: [
+  &quot;what_colour_is&quot;,
+  &quot;pub&quot;
+ ]
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

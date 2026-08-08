@@ -1,0 +1,1564 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>unification — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#i">symbols, grounding, and elementary language</a> &rsaquo;
+  unification</p>
+<h1>#11 <code>unification</code></h1>
+<p class="lede">structural symbolic matching</p>
+<div class="tags"><span class="tag ">level 11</span><span class="tag ">section i</span></div>
+<div class="stats">
+<div class="stat"><span class="n">6.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.167</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.205</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>Prolog-style term matching: parent(X,bob) vs parent(alice,bob) → X=alice.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>3</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The fact is Dave is a parent of Frank.
+The pattern is Dave is a parent of A.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre><h3>spanish</h3><pre>El hecho es David es progenitor de Francisco.
+El patrón es David es progenitor de A.
+¿Con qué unifica A?
+
+Responde exactamente con una de estas opciones: Alicia | Roberto | Carolina | David | Erin | Francisco
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>事实是戴夫是弗兰克的家长。
+模式是戴夫是A的家长。
+A与什么合一？
+
+请从以下选项中选出恰好一个作答：爱丽丝 | 鲍勃 | 卡罗尔 | 戴夫 | 艾琳 | 弗兰克
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The fact is Dave is a parent of Frank.
+The pattern is Dave is a parent of A.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre><h3>symbols</h3><pre>{fact: (parent dave frank), pattern: (parent dave A), query: (unify A)}
+
+Answer with exactly one of: alice | bob | carol | dave | erin | frank
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/unification.jsonl</code> &middot; <code>data/samples/spanish/unification.jsonl</code> &middot; <code>data/samples/chinese/unification.jsonl</code> &middot; <code>data/samples/english_synonym/unification.jsonl</code> &middot; <code>data/samples/symbols/unification.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Frank.
+The pattern is Dave is a parent of A.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Erin.
+The pattern is Bob is a parent of A.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Alice is a parent of Frank.
+The pattern is Alice is a parent of A.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Erin.
+The pattern is E is a parent of Erin.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Carol.
+The pattern is Bob is a parent of A.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Carol.
+The pattern is C is a parent of Carol.
+What does C unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;C&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Alice.
+The pattern is Erin is a parent of D.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Carol is a parent of Bob.
+The pattern is D is a parent of Bob.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Carol.
+The pattern is D is a parent of Carol.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Erin.
+The pattern is Dave is a parent of C.
+What does C unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;C&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Alice.
+The pattern is Erin is a parent of D.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Erin.
+The pattern is Dave is a parent of D.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Carol.
+The pattern is Dave is a parent of E.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Carol is a parent of Frank.
+The pattern is B is a parent of Frank.
+What does B unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;B&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Alice is a parent of Erin.
+The pattern is E is a parent of Erin.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Alice.
+The pattern is E is a parent of Alice.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Carol is a parent of Dave.
+The pattern is Carol is a parent of D.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Dave.
+The pattern is Erin is a parent of C.
+What does C unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;C&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Alice.
+The pattern is Bob is a parent of D.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Frank is a parent of Alice.
+The pattern is E is a parent of Alice.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Frank is a parent of Bob.
+The pattern is C is a parent of Bob.
+What does C unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;C&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Dave.
+The pattern is Bob is a parent of D.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Frank.
+The pattern is Bob is a parent of A.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Carol is a parent of Alice.
+The pattern is Carol is a parent of A.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Frank is a parent of Dave.
+The pattern is E is a parent of Dave.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Alice.
+The pattern is Dave is a parent of B.
+What does B unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;B&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Frank is a parent of Bob.
+The pattern is Frank is a parent of B.
+What does B unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;B&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Frank is a parent of Dave.
+The pattern is Frank is a parent of C.
+What does C unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;C&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Alice is a parent of Bob.
+The pattern is E is a parent of Bob.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Alice.
+The pattern is Erin is a parent of C.
+What does C unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;C&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Carol.
+The pattern is E is a parent of Carol.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Alice is a parent of Dave.
+The pattern is Alice is a parent of A.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Alice is a parent of Bob.
+The pattern is Alice is a parent of B.
+What does B unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;B&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Bob.
+The pattern is Erin is a parent of B.
+What does B unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;B&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Carol.
+The pattern is E is a parent of Carol.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Carol.
+The pattern is Erin is a parent of B.
+What does B unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;B&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Carol is a parent of Alice.
+The pattern is Carol is a parent of A.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Frank is a parent of Erin.
+The pattern is A is a parent of Erin.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Frank is a parent of Dave.
+The pattern is D is a parent of Dave.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Carol.
+The pattern is D is a parent of Carol.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Erin.
+The pattern is E is a parent of Erin.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Carol.
+The pattern is B is a parent of Carol.
+What does B unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;B&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Frank is a parent of Alice.
+The pattern is Frank is a parent of A.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Alice is a parent of Carol.
+The pattern is Alice is a parent of B.
+What does B unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;B&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Erin.
+The pattern is E is a parent of Erin.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Carol is a parent of Dave.
+The pattern is Carol is a parent of D.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Alice is a parent of Dave.
+The pattern is A is a parent of Dave.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Carol is a parent of Alice.
+The pattern is Carol is a parent of D.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Carol.
+The pattern is Erin is a parent of B.
+What does B unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;B&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Alice is a parent of Carol.
+The pattern is D is a parent of Carol.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Carol.
+The pattern is C is a parent of Carol.
+What does C unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;C&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Erin.
+The pattern is E is a parent of Erin.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Carol is a parent of Alice.
+The pattern is Carol is a parent of E.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Bob.
+The pattern is Erin is a parent of D.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Dave.
+The pattern is Bob is a parent of E.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Alice is a parent of Bob.
+The pattern is Alice is a parent of B.
+What does B unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;B&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Alice.
+The pattern is Erin is a parent of D.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Alice is a parent of Carol.
+The pattern is E is a parent of Carol.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Bob.
+The pattern is B is a parent of Bob.
+What does B unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;B&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Alice.
+The pattern is D is a parent of Alice.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Carol is a parent of Frank.
+The pattern is E is a parent of Frank.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Bob.
+The pattern is E is a parent of Bob.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Bob.
+The pattern is A is a parent of Bob.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Frank.
+The pattern is Dave is a parent of C.
+What does C unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;C&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Alice.
+The pattern is Dave is a parent of E.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Carol.
+The pattern is C is a parent of Carol.
+What does C unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;C&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Alice is a parent of Carol.
+The pattern is D is a parent of Carol.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Alice is a parent of Frank.
+The pattern is Alice is a parent of D.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Frank is a parent of Dave.
+The pattern is E is a parent of Dave.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Frank is a parent of Alice.
+The pattern is A is a parent of Alice.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Alice is a parent of Carol.
+The pattern is Alice is a parent of D.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Carol is a parent of Erin.
+The pattern is E is a parent of Erin.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Alice is a parent of Erin.
+The pattern is Alice is a parent of B.
+What does B unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;B&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Carol is a parent of Alice.
+The pattern is Carol is a parent of E.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">Frank</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Frank.
+The pattern is Erin is a parent of A.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Erin.
+The pattern is Dave is a parent of D.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Carol is a parent of Dave.
+The pattern is D is a parent of Dave.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Carol is a parent of Frank.
+The pattern is B is a parent of Frank.
+What does B unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;B&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Alice.
+The pattern is Bob is a parent of C.
+What does C unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;C&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Dave.
+The pattern is C is a parent of Dave.
+What does C unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;C&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Carol is a parent of Dave.
+The pattern is Carol is a parent of E.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Dave.
+The pattern is Erin is a parent of C.
+What does C unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;C&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Dave.
+The pattern is Bob is a parent of E.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Frank.
+The pattern is A is a parent of Frank.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Frank is a parent of Carol.
+The pattern is Frank is a parent of A.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Erin.
+The pattern is Bob is a parent of A.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Alice is a parent of Erin.
+The pattern is C is a parent of Erin.
+What does C unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;C&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Frank.
+The pattern is E is a parent of Frank.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Bob.
+The pattern is C is a parent of Bob.
+What does C unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;C&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Alice is a parent of Erin.
+The pattern is C is a parent of Erin.
+What does C unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;C&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Alice.
+The pattern is Bob is a parent of D.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">Alice</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Alice is a parent of Erin.
+The pattern is B is a parent of Erin.
+What does B unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;B&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Erin.
+The pattern is Dave is a parent of E.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Erin.
+The pattern is C is a parent of Erin.
+What does C unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;C&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Bob.
+The pattern is Erin is a parent of A.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Erin is a parent of Frank.
+The pattern is E is a parent of Frank.
+What does E unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;E&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">Carol</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Carol is a parent of Frank.
+The pattern is D is a parent of Frank.
+What does D unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;D&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">Bob</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Bob is a parent of Dave.
+The pattern is C is a parent of Dave.
+What does C unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;C&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">Erin</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Carol is a parent of Erin.
+The pattern is Carol is a parent of A.
+What does A unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 1,
+ &quot;var&quot;: &quot;A&quot;
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">Dave</span></summary>
+<div class="body">
+<p>prompt</p><pre>The fact is Dave is a parent of Frank.
+The pattern is B is a parent of Frank.
+What does B unify with?
+
+Answer with exactly one of: Alice | Bob | Carol | Dave | Erin | Frank
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;position&quot;: 0,
+ &quot;var&quot;: &quot;B&quot;
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>

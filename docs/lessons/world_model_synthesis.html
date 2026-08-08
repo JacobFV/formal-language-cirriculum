@@ -1,0 +1,4115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>world_model_synthesis — langcurriculum</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body><div class="wrap">
+<p class="crumb"><a href="../index.html">langcurriculum</a> &rsaquo;
+  <a href="../index.html#xiv">open-ended epistemology</a> &rsaquo;
+  world_model_synthesis</p>
+<h1>#150 <code>world_model_synthesis</code></h1>
+<p class="lede">query a world model of containment and events</p>
+<div class="tags"><span class="tag ">level 150</span><span class="tag ">section xiv</span><span class="tag ">ontology_learning</span><span class="tag ">temporal_reasoning</span><span class="tag ">causal_reasoning</span></div>
+<div class="stats">
+<div class="stat"><span class="n">4.0</span>
+  <span class="k">answers per episode</span></div>
+<div class="stat"><span class="n">0.25</span>
+  <span class="k">uniform-guess floor</span></div>
+<div class="stat"><span class="n">0.32</span>
+  <span class="k">constant-guess floor</span></div>
+<div class="stat"><span class="n">100</span>
+  <span class="k">samples below</span></div>
+</div>
+<h2>What it generates</h2>
+<p>A world model with containment, nesting, and timed processes; query it.</p><p>    Objects sit inside crates or inside other objects, crates sit in rooms, and
+    crates are moved at known times. Answering &quot;where is this at time t&quot; means
+    following the containment chain *and* replaying the events in order — either
+    half alone gives the wrong room.</p>
+<h2>Difficulty axes</h2>
+<div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
+<tbody><tr><td>discourse_horizon</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>4</td></tr></tbody></table></div>
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 1, crate0 and room1
+  - crate1 stands in room0
+  - moved: 2, crate1 and room0
+  - obj1 inside crate1
+  - obj0 inside obj2
+  - crate0 stands in room0
+  - obj3 inside crate0
+  - crate2 stands in room1
+  - obj2 inside crate2
+Which room is obj0 in at time 1?
+
+Answer with exactly one of: room2 | room3 | room1 | room0
+Reply with the answer only.</pre><h3>spanish</h3><pre>Las reglas son:
+  - la regla: stands_in_gives_the_room_of_a_crate_at_time_0
+  - la regla: moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - la regla: an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+El mundo contiene:
+  - movió: 1, crate0 y room1
+  - crate1 se corresponde con room0
+  - movió: 2, crate1 y room0
+  - obj1 está dentro de crate1
+  - obj0 está dentro de obj2
+  - crate0 se corresponde con room0
+  - obj3 está dentro de crate0
+  - crate2 se corresponde con room1
+  - obj2 está dentro de crate2
+¿En qué habitación está obj0 en el momento 1?
+
+Responde exactamente con una de estas opciones: room2 | room3 | room1 | room0
+Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>规则如下：
+  - 规则：stands_in_gives_the_room_of_a_crate_at_time_0
+  - 规则：moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - 规则：an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+世界如下：
+  - 移动到：1、crate0和room1
+  - crate1对应于room0
+  - 移动到：2、crate1和room0
+  - obj1位于crate1
+  - obj0位于obj2
+  - crate0对应于room0
+  - obj3位于crate0
+  - crate2对应于room1
+  - obj2位于crate2
+obj01的所在的房间是什么？
+
+请从以下选项中选出恰好一个作答：room2 | room3 | room1 | room0
+只回答答案本身。</pre><h3>english_synonym</h3><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 1, crate0 and room1
+  - crate1 stands in room0
+  - moved: 2, crate1 and room0
+  - obj1 inside crate1
+  - obj0 inside obj2
+  - crate0 stands in room0
+  - obj3 inside crate0
+  - crate2 stands in room1
+  - obj2 inside crate2
+Which room is obj0 in at time 1?
+
+Answer with exactly one of: room2 | room3 | room1 | room0
+Reply with the answer only.</pre><h3>symbols</h3><pre>{query: (room_of obj0 1), rules: [(rule stands_in_gives_the_room_of_a_crate_at_time_0) (rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward) (rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it)], world: [(moved 1 crate0 room1) (stands_in crate1 room0) (moved 2 crate1 room0) (inside obj1 crate1) (inside obj0 obj2) (stands_in crate0 room0) (inside obj3 crate0) (stands_in crate2 room1) (inside obj2 crate2)]}
+
+Answer with exactly one of: room2 | room3 | room1 | room0
+Reply with the answer only.</pre>
+<h2>Samples</h2>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/world_model_synthesis.jsonl</code> &middot; <code>data/samples/spanish/world_model_synthesis.jsonl</code> &middot; <code>data/samples/chinese/world_model_synthesis.jsonl</code> &middot; <code>data/samples/english_synonym/world_model_synthesis.jsonl</code> &middot; <code>data/samples/symbols/world_model_synthesis.jsonl</code></p>
+<details class="sample">
+<summary><span class="seed">seed 0</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 1, crate0 and room1
+  - crate1 stands in room0
+  - moved: 2, crate1 and room0
+  - obj1 inside crate1
+  - obj0 inside obj2
+  - crate0 stands in room0
+  - obj3 inside crate0
+  - crate2 stands in room1
+  - obj2 inside crate2
+Which room is obj0 in at time 1?
+
+Answer with exactly one of: room2 | room3 | room1 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 1</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj2 inside crate1
+  - crate1 stands in room3
+  - moved: 1, crate0 and room1
+  - crate0 stands in room1
+  - obj1 inside crate0
+  - obj0 inside obj2
+  - moved: 2, crate1 and room3
+  - obj3 inside crate2
+  - crate2 stands in room3
+Which room is obj3 in at time 2?
+
+Answer with exactly one of: room2 | room1 | room0 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 2</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate2 stands in room2
+  - moved: 1, crate1 and room3
+  - obj0 inside crate1
+  - crate0 stands in room0
+  - crate1 stands in room0
+  - obj2 inside crate1
+  - obj1 inside crate2
+  - moved: 2, crate1 and room0
+  - obj3 inside obj0
+Which room is obj1 in at time 2?
+
+Answer with exactly one of: room0 | room3 | room1 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 3</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj0 inside crate1
+  - crate0 stands in room0
+  - obj2 inside crate2
+  - obj3 inside crate2
+  - moved: 1, crate1 and room1
+  - obj1 inside obj3
+  - crate2 stands in room0
+  - crate1 stands in room1
+  - moved: 2, crate2 and room0
+Which room is obj3 in at time 0?
+
+Answer with exactly one of: room1 | room0 | room3 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 4</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj2 inside crate0
+  - moved: 2, crate1 and room0
+  - moved: 1, crate2 and room3
+  - crate0 stands in room3
+  - obj0 inside crate0
+  - crate1 stands in room2
+  - crate2 stands in room0
+  - obj1 inside obj2
+  - obj3 inside crate1
+Which room is obj0 in at time 0?
+
+Answer with exactly one of: room2 | room1 | room0 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room3&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 5</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj0 inside crate1
+  - moved: 1, crate2 and room0
+  - crate0 stands in room1
+  - obj1 inside obj2
+  - moved: 2, crate2 and room1
+  - obj3 inside crate0
+  - obj2 inside crate1
+  - crate1 stands in room2
+  - crate2 stands in room2
+Which room is obj2 in at time 0?
+
+Answer with exactly one of: room2 | room3 | room0 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 6</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate2 stands in room1
+  - crate1 stands in room3
+  - moved: 2, crate0 and room3
+  - obj1 inside crate2
+  - moved: 1, crate1 and room0
+  - obj0 inside obj3
+  - obj2 inside crate2
+  - crate0 stands in room0
+  - obj3 inside crate0
+Which room is obj2 in at time 0?
+
+Answer with exactly one of: room1 | room2 | room0 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 7</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj0 inside crate1
+  - crate2 stands in room3
+  - obj2 inside crate2
+  - moved: 2, crate1 and room1
+  - crate1 stands in room1
+  - crate0 stands in room3
+  - moved: 1, crate0 and room2
+  - obj3 inside crate0
+  - obj1 inside obj3
+Which room is obj0 in at time 0?
+
+Answer with exactly one of: room1 | room0 | room2 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 8</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate1 stands in room1
+  - crate2 stands in room0
+  - moved: 2, crate2 and room1
+  - obj3 inside crate0
+  - obj1 inside obj2
+  - moved: 1, crate2 and room1
+  - obj0 inside crate1
+  - obj2 inside crate1
+  - crate0 stands in room1
+Which room is obj2 in at time 2?
+
+Answer with exactly one of: room3 | room0 | room2 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 9</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj1 inside crate0
+  - crate2 stands in room0
+  - moved: 1, crate1 and room3
+  - crate1 stands in room0
+  - crate0 stands in room2
+  - obj3 inside obj0
+  - obj0 inside crate0
+  - moved: 2, crate2 and room3
+  - obj2 inside crate1
+Which room is obj1 in at time 2?
+
+Answer with exactly one of: room1 | room0 | room2 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 10</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 1, crate1 and room2
+  - obj0 inside obj2
+  - obj2 inside crate0
+  - crate1 stands in room3
+  - moved: 2, crate2 and room1
+  - crate2 stands in room1
+  - obj1 inside crate1
+  - crate0 stands in room0
+  - obj3 inside crate2
+Which room is obj1 in at time 0?
+
+Answer with exactly one of: room3 | room2 | room0 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 11</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj3 inside crate1
+  - moved: 2, crate1 and room0
+  - obj1 inside crate2
+  - crate0 stands in room3
+  - crate1 stands in room2
+  - obj0 inside obj3
+  - crate2 stands in room0
+  - obj2 inside crate1
+  - moved: 1, crate2 and room0
+Which room is obj1 in at time 2?
+
+Answer with exactly one of: room3 | room2 | room0 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 12</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 1, crate1 and room1
+  - crate0 stands in room2
+  - obj3 inside obj2
+  - moved: 2, crate2 and room1
+  - obj1 inside crate0
+  - crate1 stands in room0
+  - crate2 stands in room2
+  - obj2 inside crate1
+  - obj0 inside crate1
+Which room is obj3 in at time 0?
+
+Answer with exactly one of: room2 | room3 | room1 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 13</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj3 inside obj2
+  - obj0 inside crate1
+  - moved: 1, crate0 and room0
+  - moved: 2, crate2 and room3
+  - crate0 stands in room1
+  - obj1 inside crate2
+  - crate2 stands in room3
+  - crate1 stands in room0
+  - obj2 inside crate1
+Which room is obj2 in at time 1?
+
+Answer with exactly one of: room3 | room1 | room2 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 14</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj2 inside crate2
+  - moved: 2, crate0 and room2
+  - obj1 inside obj0
+  - crate1 stands in room0
+  - moved: 1, crate0 and room2
+  - crate0 stands in room0
+  - obj0 inside crate1
+  - obj3 inside crate2
+  - crate2 stands in room0
+Which room is obj3 in at time 1?
+
+Answer with exactly one of: room0 | room3 | room2 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 15</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj1 inside obj2
+  - crate1 stands in room3
+  - moved: 1, crate0 and room0
+  - obj2 inside crate0
+  - crate2 stands in room0
+  - obj3 inside crate2
+  - crate0 stands in room1
+  - moved: 2, crate2 and room1
+  - obj0 inside crate1
+Which room is obj3 in at time 1?
+
+Answer with exactly one of: room3 | room1 | room0 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 16</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate2 stands in room3
+  - obj1 inside crate1
+  - moved: 1, crate0 and room1
+  - obj3 inside crate1
+  - moved: 2, crate2 and room1
+  - obj0 inside crate2
+  - crate1 stands in room3
+  - obj2 inside obj0
+  - crate0 stands in room1
+Which room is obj0 in at time 2?
+
+Answer with exactly one of: room2 | room1 | room3 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 17</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 1, crate1 and room3
+  - crate1 stands in room1
+  - obj3 inside crate2
+  - crate0 stands in room1
+  - obj1 inside obj3
+  - crate2 stands in room3
+  - moved: 2, crate2 and room0
+  - obj2 inside crate1
+  - obj0 inside crate0
+Which room is obj3 in at time 0?
+
+Answer with exactly one of: room3 | room2 | room1 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 18</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj0 inside obj2
+  - moved: 1, crate0 and room2
+  - crate1 stands in room3
+  - obj2 inside crate2
+  - crate2 stands in room1
+  - obj3 inside crate0
+  - crate0 stands in room0
+  - moved: 2, crate0 and room3
+  - obj1 inside crate0
+Which room is obj2 in at time 0?
+
+Answer with exactly one of: room2 | room1 | room0 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 19</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj1 inside crate1
+  - crate1 stands in room2
+  - crate0 stands in room1
+  - moved: 1, crate0 and room2
+  - crate2 stands in room2
+  - obj2 inside crate2
+  - moved: 2, crate0 and room1
+  - obj3 inside crate2
+  - obj0 inside obj2
+Which room is obj1 in at time 1?
+
+Answer with exactly one of: room2 | room0 | room3 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 20</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj1 inside crate2
+  - moved: 1, crate0 and room0
+  - obj2 inside crate2
+  - obj0 inside crate2
+  - crate2 stands in room3
+  - moved: 2, crate2 and room3
+  - obj3 inside obj2
+  - crate1 stands in room1
+  - crate0 stands in room1
+Which room is obj1 in at time 2?
+
+Answer with exactly one of: room1 | room2 | room3 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 21</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj0 inside crate0
+  - obj1 inside crate2
+  - moved: 2, crate0 and room2
+  - moved: 1, crate1 and room1
+  - crate0 stands in room2
+  - obj3 inside crate2
+  - crate1 stands in room0
+  - crate2 stands in room0
+  - obj2 inside obj1
+Which room is obj1 in at time 0?
+
+Answer with exactly one of: room2 | room0 | room3 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 22</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj0 inside crate2
+  - crate2 stands in room0
+  - moved: 1, crate0 and room0
+  - obj1 inside crate1
+  - crate1 stands in room2
+  - obj2 inside crate2
+  - crate0 stands in room3
+  - moved: 2, crate2 and room2
+  - obj3 inside obj0
+Which room is obj1 in at time 2?
+
+Answer with exactly one of: room2 | room1 | room0 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 23</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj2 inside crate0
+  - moved: 2, crate0 and room1
+  - moved: 1, crate0 and room2
+  - obj1 inside crate2
+  - obj3 inside crate0
+  - crate1 stands in room2
+  - crate0 stands in room0
+  - obj0 inside obj2
+  - crate2 stands in room1
+Which room is obj3 in at time 0?
+
+Answer with exactly one of: room2 | room3 | room0 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 24</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate0 stands in room3
+  - obj1 inside crate0
+  - moved: 2, crate1 and room0
+  - obj2 inside crate0
+  - obj0 inside crate1
+  - crate2 stands in room1
+  - obj3 inside obj2
+  - moved: 1, crate2 and room1
+  - crate1 stands in room2
+Which room is obj1 in at time 1?
+
+Answer with exactly one of: room3 | room0 | room1 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 25</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate0 stands in room1
+  - obj0 inside crate2
+  - moved: 1, crate1 and room0
+  - obj1 inside crate1
+  - obj2 inside obj3
+  - crate2 stands in room1
+  - crate1 stands in room2
+  - obj3 inside crate2
+  - moved: 2, crate0 and room0
+Which room is obj0 in at time 2?
+
+Answer with exactly one of: room3 | room1 | room0 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 26</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj2 inside obj0
+  - moved: 1, crate1 and room1
+  - crate0 stands in room1
+  - moved: 2, crate1 and room0
+  - crate2 stands in room0
+  - crate1 stands in room0
+  - obj0 inside crate1
+  - obj3 inside crate1
+  - obj1 inside crate1
+Which room is obj2 in at time 2?
+
+Answer with exactly one of: room1 | room3 | room2 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 27</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate2 stands in room2
+  - obj1 inside crate1
+  - moved: 1, crate2 and room1
+  - obj3 inside crate0
+  - obj0 inside crate0
+  - obj2 inside obj1
+  - crate0 stands in room3
+  - moved: 2, crate0 and room0
+  - crate1 stands in room1
+Which room is obj2 in at time 2?
+
+Answer with exactly one of: room3 | room1 | room0 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 28</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj2 inside obj3
+  - crate2 stands in room3
+  - crate0 stands in room0
+  - crate1 stands in room3
+  - moved: 1, crate1 and room3
+  - obj0 inside crate1
+  - obj1 inside crate1
+  - moved: 2, crate1 and room1
+  - obj3 inside crate0
+Which room is obj3 in at time 1?
+
+Answer with exactly one of: room1 | room0 | room2 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 29</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj2 inside obj0
+  - crate2 stands in room2
+  - moved: 2, crate0 and room0
+  - crate0 stands in room3
+  - crate1 stands in room1
+  - obj3 inside crate1
+  - obj0 inside crate2
+  - obj1 inside crate2
+  - moved: 1, crate1 and room1
+Which room is obj0 in at time 2?
+
+Answer with exactly one of: room0 | room3 | room2 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 30</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate2 stands in room1
+  - moved: 2, crate1 and room1
+  - crate1 stands in room1
+  - obj0 inside crate2
+  - moved: 1, crate2 and room0
+  - obj3 inside obj1
+  - obj2 inside crate1
+  - obj1 inside crate0
+  - crate0 stands in room2
+Which room is obj2 in at time 0?
+
+Answer with exactly one of: room0 | room1 | room2 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 31</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj3 inside crate2
+  - moved: 1, crate1 and room2
+  - obj0 inside crate1
+  - crate0 stands in room3
+  - obj1 inside obj2
+  - crate2 stands in room3
+  - obj2 inside crate1
+  - crate1 stands in room2
+  - moved: 2, crate2 and room3
+Which room is obj0 in at time 2?
+
+Answer with exactly one of: room3 | room0 | room2 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 32</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate0 stands in room1
+  - crate2 stands in room3
+  - obj1 inside obj2
+  - moved: 2, crate1 and room2
+  - obj2 inside crate2
+  - obj0 inside crate0
+  - crate1 stands in room0
+  - obj3 inside crate1
+  - moved: 1, crate0 and room1
+Which room is obj1 in at time 2?
+
+Answer with exactly one of: room2 | room3 | room0 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 33</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj2 inside crate1
+  - crate1 stands in room3
+  - obj1 inside crate2
+  - obj0 inside obj3
+  - obj3 inside crate1
+  - moved: 1, crate2 and room1
+  - moved: 2, crate2 and room1
+  - crate2 stands in room2
+  - crate0 stands in room1
+Which room is obj1 in at time 0?
+
+Answer with exactly one of: room0 | room1 | room3 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 34</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate0 stands in room1
+  - obj3 inside crate2
+  - obj0 inside crate2
+  - moved: 2, crate0 and room1
+  - crate1 stands in room1
+  - moved: 1, crate2 and room3
+  - obj1 inside crate2
+  - crate2 stands in room0
+  - obj2 inside obj0
+Which room is obj2 in at time 0?
+
+Answer with exactly one of: room1 | room2 | room0 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room3&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 35</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate2 stands in room0
+  - obj3 inside crate1
+  - moved: 2, crate2 and room2
+  - obj1 inside crate0
+  - obj0 inside crate0
+  - crate0 stands in room0
+  - obj2 inside obj0
+  - moved: 1, crate2 and room3
+  - crate1 stands in room3
+Which room is obj2 in at time 1?
+
+Answer with exactly one of: room1 | room2 | room3 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room3&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 36</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 2, crate1 and room2
+  - crate2 stands in room2
+  - obj2 inside crate0
+  - obj1 inside obj3
+  - moved: 1, crate1 and room1
+  - obj0 inside crate1
+  - obj3 inside crate2
+  - crate1 stands in room0
+  - crate0 stands in room0
+Which room is obj0 in at time 1?
+
+Answer with exactly one of: room1 | room2 | room0 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 37</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj0 inside crate2
+  - obj1 inside obj0
+  - moved: 1, crate1 and room3
+  - crate2 stands in room0
+  - obj3 inside crate2
+  - crate1 stands in room0
+  - obj2 inside crate1
+  - crate0 stands in room2
+  - moved: 2, crate0 and room1
+Which room is obj1 in at time 1?
+
+Answer with exactly one of: room1 | room0 | room2 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 38</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate0 stands in room1
+  - obj2 inside obj0
+  - obj1 inside crate0
+  - crate1 stands in room1
+  - moved: 1, crate0 and room1
+  - moved: 2, crate0 and room1
+  - crate2 stands in room1
+  - obj0 inside crate0
+  - obj3 inside crate2
+Which room is obj3 in at time 1?
+
+Answer with exactly one of: room3 | room1 | room0 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 39</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate1 stands in room3
+  - moved: 2, crate2 and room0
+  - obj0 inside crate0
+  - obj3 inside crate2
+  - obj1 inside crate0
+  - obj2 inside obj0
+  - moved: 1, crate2 and room0
+  - crate0 stands in room0
+  - crate2 stands in room2
+Which room is obj1 in at time 0?
+
+Answer with exactly one of: room0 | room3 | room2 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 40</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 2, crate0 and room3
+  - obj1 inside crate1
+  - crate2 stands in room1
+  - obj2 inside obj3
+  - moved: 1, crate0 and room0
+  - crate0 stands in room1
+  - obj0 inside crate0
+  - obj3 inside crate1
+  - crate1 stands in room0
+Which room is obj3 in at time 0?
+
+Answer with exactly one of: room1 | room0 | room3 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 41</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj3 inside crate0
+  - crate1 stands in room0
+  - moved: 1, crate1 and room0
+  - obj2 inside crate0
+  - moved: 2, crate2 and room1
+  - crate2 stands in room2
+  - crate0 stands in room2
+  - obj1 inside crate1
+  - obj0 inside obj1
+Which room is obj3 in at time 0?
+
+Answer with exactly one of: room3 | room0 | room1 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 42</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj2 inside crate0
+  - obj0 inside crate0
+  - obj3 inside obj0
+  - moved: 1, crate1 and room2
+  - crate1 stands in room2
+  - crate0 stands in room2
+  - crate2 stands in room0
+  - obj1 inside crate0
+  - moved: 2, crate1 and room1
+Which room is obj3 in at time 2?
+
+Answer with exactly one of: room1 | room0 | room2 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 43</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj3 inside obj2
+  - moved: 2, crate0 and room2
+  - crate2 stands in room1
+  - crate1 stands in room0
+  - obj0 inside crate1
+  - crate0 stands in room0
+  - moved: 1, crate2 and room3
+  - obj2 inside crate1
+  - obj1 inside crate0
+Which room is obj0 in at time 0?
+
+Answer with exactly one of: room1 | room2 | room0 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room3&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 44</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj1 inside crate0
+  - crate2 stands in room1
+  - crate0 stands in room0
+  - obj0 inside crate2
+  - moved: 1, crate0 and room2
+  - obj3 inside crate2
+  - obj2 inside obj0
+  - moved: 2, crate0 and room3
+  - crate1 stands in room1
+Which room is obj1 in at time 2?
+
+Answer with exactly one of: room3 | room2 | room0 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 45</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate2 stands in room0
+  - obj0 inside crate2
+  - moved: 2, crate1 and room0
+  - obj3 inside obj0
+  - moved: 1, crate0 and room0
+  - crate0 stands in room1
+  - crate1 stands in room0
+  - obj2 inside crate2
+  - obj1 inside crate0
+Which room is obj1 in at time 0?
+
+Answer with exactly one of: room2 | room0 | room1 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 46</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 2, crate2 and room1
+  - crate0 stands in room2
+  - obj3 inside obj0
+  - crate1 stands in room2
+  - obj1 inside crate0
+  - obj0 inside crate1
+  - obj2 inside crate1
+  - moved: 1, crate2 and room1
+  - crate2 stands in room3
+Which room is obj3 in at time 2?
+
+Answer with exactly one of: room1 | room0 | room3 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 47</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj3 inside crate1
+  - crate1 stands in room3
+  - obj0 inside obj3
+  - moved: 1, crate0 and room0
+  - obj1 inside crate2
+  - crate2 stands in room3
+  - crate0 stands in room2
+  - moved: 2, crate1 and room3
+  - obj2 inside crate0
+Which room is obj2 in at time 1?
+
+Answer with exactly one of: room3 | room1 | room2 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 48</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj3 inside crate0
+  - crate1 stands in room1
+  - moved: 2, crate1 and room3
+  - obj1 inside obj2
+  - crate2 stands in room1
+  - obj2 inside crate2
+  - crate0 stands in room1
+  - moved: 1, crate0 and room1
+  - obj0 inside crate1
+Which room is obj1 in at time 1?
+
+Answer with exactly one of: room3 | room1 | room2 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 49</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate0 stands in room2
+  - crate2 stands in room0
+  - obj3 inside crate0
+  - moved: 1, crate0 and room1
+  - crate1 stands in room3
+  - moved: 2, crate0 and room1
+  - obj1 inside obj3
+  - obj2 inside crate1
+  - obj0 inside crate2
+Which room is obj1 in at time 1?
+
+Answer with exactly one of: room2 | room3 | room1 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 50</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate1 stands in room0
+  - obj0 inside crate2
+  - obj3 inside crate1
+  - obj1 inside crate0
+  - moved: 1, crate1 and room1
+  - obj2 inside obj0
+  - moved: 2, crate0 and room2
+  - crate2 stands in room1
+  - crate0 stands in room2
+Which room is obj2 in at time 0?
+
+Answer with exactly one of: room1 | room2 | room3 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 51</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate0 stands in room1
+  - moved: 1, crate2 and room1
+  - crate2 stands in room2
+  - obj1 inside crate0
+  - obj3 inside crate0
+  - obj2 inside crate0
+  - obj0 inside obj3
+  - crate1 stands in room2
+  - moved: 2, crate0 and room3
+Which room is obj0 in at time 0?
+
+Answer with exactly one of: room1 | room3 | room0 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 52</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj1 inside obj2
+  - crate0 stands in room2
+  - crate2 stands in room3
+  - crate1 stands in room3
+  - moved: 1, crate1 and room2
+  - obj2 inside crate2
+  - obj0 inside crate2
+  - moved: 2, crate2 and room3
+  - obj3 inside crate0
+Which room is obj1 in at time 0?
+
+Answer with exactly one of: room0 | room1 | room2 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 53</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj1 inside obj0
+  - crate2 stands in room0
+  - moved: 2, crate1 and room2
+  - crate1 stands in room3
+  - crate0 stands in room2
+  - moved: 1, crate0 and room0
+  - obj0 inside crate0
+  - obj2 inside crate0
+  - obj3 inside crate1
+Which room is obj0 in at time 1?
+
+Answer with exactly one of: room1 | room3 | room2 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 54</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj1 inside crate2
+  - obj2 inside obj1
+  - crate1 stands in room2
+  - moved: 1, crate0 and room1
+  - obj3 inside crate1
+  - obj0 inside crate1
+  - crate0 stands in room1
+  - crate2 stands in room2
+  - moved: 2, crate1 and room1
+Which room is obj2 in at time 2?
+
+Answer with exactly one of: room1 | room2 | room3 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 55</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate2 stands in room0
+  - obj2 inside crate0
+  - crate1 stands in room0
+  - obj0 inside crate1
+  - moved: 1, crate2 and room0
+  - moved: 2, crate1 and room0
+  - obj3 inside crate1
+  - obj1 inside obj3
+  - crate0 stands in room0
+Which room is obj1 in at time 2?
+
+Answer with exactly one of: room2 | room3 | room1 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 56</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj1 inside crate1
+  - crate0 stands in room1
+  - moved: 2, crate0 and room2
+  - crate1 stands in room2
+  - obj2 inside obj3
+  - moved: 1, crate2 and room2
+  - obj3 inside crate2
+  - crate2 stands in room3
+  - obj0 inside crate0
+Which room is obj2 in at time 1?
+
+Answer with exactly one of: room1 | room2 | room3 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 57</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj0 inside obj2
+  - crate1 stands in room1
+  - moved: 1, crate1 and room2
+  - crate0 stands in room0
+  - crate2 stands in room3
+  - obj3 inside crate2
+  - obj2 inside crate0
+  - moved: 2, crate0 and room0
+  - obj1 inside crate1
+Which room is obj1 in at time 2?
+
+Answer with exactly one of: room2 | room0 | room1 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 58</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj2 inside crate2
+  - obj3 inside crate2
+  - moved: 1, crate1 and room1
+  - crate1 stands in room1
+  - obj0 inside obj2
+  - obj1 inside crate2
+  - crate2 stands in room0
+  - crate0 stands in room3
+  - moved: 2, crate1 and room1
+Which room is obj3 in at time 0?
+
+Answer with exactly one of: room2 | room1 | room3 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 59</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj2 inside crate1
+  - crate1 stands in room1
+  - moved: 1, crate0 and room0
+  - crate2 stands in room1
+  - crate0 stands in room1
+  - obj3 inside crate0
+  - obj1 inside obj0
+  - obj0 inside crate0
+  - moved: 2, crate1 and room0
+Which room is obj0 in at time 2?
+
+Answer with exactly one of: room3 | room0 | room1 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 60</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate1 stands in room2
+  - obj3 inside crate1
+  - moved: 2, crate1 and room3
+  - obj0 inside obj2
+  - obj2 inside crate2
+  - crate0 stands in room0
+  - moved: 1, crate2 and room0
+  - crate2 stands in room0
+  - obj1 inside crate2
+Which room is obj2 in at time 1?
+
+Answer with exactly one of: room0 | room2 | room3 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 61</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate1 stands in room3
+  - moved: 1, crate2 and room2
+  - moved: 2, crate2 and room1
+  - crate0 stands in room1
+  - obj0 inside crate2
+  - obj2 inside crate2
+  - obj1 inside obj0
+  - crate2 stands in room3
+  - obj3 inside crate2
+Which room is obj1 in at time 2?
+
+Answer with exactly one of: room1 | room3 | room2 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 62</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate2 stands in room3
+  - moved: 1, crate2 and room1
+  - crate1 stands in room3
+  - obj1 inside obj3
+  - moved: 2, crate1 and room3
+  - crate0 stands in room2
+  - obj0 inside crate0
+  - obj3 inside crate0
+  - obj2 inside crate2
+Which room is obj3 in at time 1?
+
+Answer with exactly one of: room3 | room1 | room2 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 63</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate1 stands in room1
+  - obj0 inside crate0
+  - obj1 inside crate1
+  - crate2 stands in room0
+  - obj3 inside crate0
+  - moved: 2, crate0 and room2
+  - moved: 1, crate1 and room0
+  - obj2 inside obj3
+  - crate0 stands in room1
+Which room is obj3 in at time 1?
+
+Answer with exactly one of: room0 | room2 | room1 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 64</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 2, crate1 and room3
+  - obj1 inside crate1
+  - crate0 stands in room3
+  - moved: 1, crate1 and room2
+  - crate2 stands in room3
+  - crate1 stands in room2
+  - obj2 inside obj0
+  - obj3 inside crate2
+  - obj0 inside crate2
+Which room is obj2 in at time 2?
+
+Answer with exactly one of: room0 | room1 | room3 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 65</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj3 inside crate2
+  - crate2 stands in room0
+  - obj1 inside crate0
+  - crate0 stands in room2
+  - moved: 1, crate2 and room3
+  - obj2 inside crate2
+  - moved: 2, crate0 and room2
+  - crate1 stands in room3
+  - obj0 inside obj2
+Which room is obj3 in at time 2?
+
+Answer with exactly one of: room0 | room3 | room1 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room3&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 66</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj1 inside crate1
+  - crate1 stands in room2
+  - crate0 stands in room3
+  - obj0 inside crate0
+  - obj2 inside crate2
+  - moved: 1, crate0 and room1
+  - crate2 stands in room0
+  - obj3 inside obj0
+  - moved: 2, crate0 and room2
+Which room is obj2 in at time 1?
+
+Answer with exactly one of: room2 | room0 | room1 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 67</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate1 stands in room1
+  - crate0 stands in room1
+  - crate2 stands in room2
+  - obj0 inside obj1
+  - obj2 inside crate2
+  - moved: 2, crate0 and room0
+  - obj3 inside crate1
+  - moved: 1, crate2 and room2
+  - obj1 inside crate2
+Which room is obj0 in at time 0?
+
+Answer with exactly one of: room3 | room2 | room0 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 68</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj3 inside crate0
+  - obj1 inside crate2
+  - moved: 2, crate1 and room3
+  - crate0 stands in room2
+  - moved: 1, crate2 and room1
+  - crate1 stands in room3
+  - crate2 stands in room0
+  - obj2 inside crate2
+  - obj0 inside obj2
+Which room is obj1 in at time 0?
+
+Answer with exactly one of: room1 | room2 | room0 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 69</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 1, crate2 and room0
+  - crate1 stands in room3
+  - obj0 inside obj1
+  - crate2 stands in room0
+  - crate0 stands in room0
+  - moved: 2, crate1 and room1
+  - obj1 inside crate1
+  - obj2 inside crate0
+  - obj3 inside crate1
+Which room is obj3 in at time 1?
+
+Answer with exactly one of: room2 | room1 | room3 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 70</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj0 inside crate1
+  - obj3 inside crate1
+  - crate0 stands in room0
+  - moved: 2, crate1 and room3
+  - obj1 inside obj3
+  - obj2 inside crate1
+  - moved: 1, crate2 and room0
+  - crate1 stands in room0
+  - crate2 stands in room2
+Which room is obj0 in at time 2?
+
+Answer with exactly one of: room0 | room3 | room2 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 71</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 2, crate0 and room0
+  - obj3 inside crate1
+  - obj1 inside crate2
+  - moved: 1, crate0 and room0
+  - obj0 inside crate2
+  - crate2 stands in room0
+  - crate0 stands in room1
+  - crate1 stands in room3
+  - obj2 inside obj0
+Which room is obj3 in at time 0?
+
+Answer with exactly one of: room0 | room3 | room1 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 72</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 2, crate1 and room3
+  - crate0 stands in room3
+  - obj2 inside crate2
+  - crate2 stands in room0
+  - obj1 inside obj0
+  - obj3 inside crate1
+  - crate1 stands in room3
+  - obj0 inside crate1
+  - moved: 1, crate1 and room1
+Which room is obj1 in at time 1?
+
+Answer with exactly one of: room1 | room2 | room3 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 73</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj1 inside crate0
+  - crate0 stands in room2
+  - obj2 inside obj0
+  - obj0 inside crate0
+  - moved: 1, crate1 and room0
+  - crate1 stands in room1
+  - obj3 inside crate2
+  - crate2 stands in room3
+  - moved: 2, crate0 and room3
+Which room is obj1 in at time 1?
+
+Answer with exactly one of: room2 | room3 | room0 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 74</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 2, crate1 and room2
+  - crate0 stands in room0
+  - obj2 inside obj0
+  - crate1 stands in room3
+  - crate2 stands in room1
+  - obj0 inside crate0
+  - moved: 1, crate0 and room1
+  - obj1 inside crate1
+  - obj3 inside crate0
+Which room is obj2 in at time 2?
+
+Answer with exactly one of: room2 | room3 | room0 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 75</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate0 stands in room2
+  - obj2 inside crate1
+  - moved: 2, crate1 and room3
+  - obj1 inside crate2
+  - obj3 inside crate0
+  - moved: 1, crate0 and room2
+  - crate2 stands in room0
+  - crate1 stands in room2
+  - obj0 inside obj1
+Which room is obj3 in at time 1?
+
+Answer with exactly one of: room0 | room2 | room3 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 76</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 2, crate2 and room1
+  - obj1 inside crate1
+  - crate1 stands in room3
+  - obj3 inside crate1
+  - obj0 inside crate1
+  - moved: 1, crate1 and room1
+  - crate2 stands in room2
+  - crate0 stands in room0
+  - obj2 inside obj3
+Which room is obj2 in at time 2?
+
+Answer with exactly one of: room1 | room3 | room2 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 77</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate1 stands in room0
+  - obj2 inside crate0
+  - obj0 inside crate1
+  - crate0 stands in room1
+  - moved: 1, crate1 and room2
+  - obj3 inside obj2
+  - moved: 2, crate1 and room0
+  - crate2 stands in room3
+  - obj1 inside crate0
+Which room is obj0 in at time 2?
+
+Answer with exactly one of: room2 | room1 | room3 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 78</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj3 inside crate2
+  - obj1 inside obj2
+  - crate0 stands in room3
+  - obj0 inside crate1
+  - moved: 1, crate2 and room2
+  - obj2 inside crate2
+  - moved: 2, crate0 and room3
+  - crate2 stands in room1
+  - crate1 stands in room1
+Which room is obj3 in at time 1?
+
+Answer with exactly one of: room1 | room0 | room2 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 79</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate2 stands in room0
+  - obj0 inside crate1
+  - obj3 inside crate1
+  - moved: 2, crate2 and room3
+  - obj1 inside crate0
+  - obj2 inside obj3
+  - crate1 stands in room0
+  - crate0 stands in room2
+  - moved: 1, crate2 and room1
+Which room is obj1 in at time 0?
+
+Answer with exactly one of: room1 | room2 | room3 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 80</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 1, crate0 and room0
+  - obj2 inside obj0
+  - crate2 stands in room2
+  - obj0 inside crate1
+  - crate0 stands in room0
+  - crate1 stands in room3
+  - moved: 2, crate0 and room2
+  - obj3 inside crate0
+  - obj1 inside crate2
+Which room is obj0 in at time 2?
+
+Answer with exactly one of: room2 | room0 | room3 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 81</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 2, crate1 and room2
+  - crate0 stands in room1
+  - obj2 inside obj3
+  - obj0 inside crate1
+  - obj3 inside crate1
+  - crate1 stands in room1
+  - moved: 1, crate2 and room1
+  - crate2 stands in room1
+  - obj1 inside crate2
+Which room is obj2 in at time 2?
+
+Answer with exactly one of: room0 | room3 | room1 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 82</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj0 inside crate2
+  - crate1 stands in room0
+  - moved: 2, crate1 and room1
+  - crate0 stands in room3
+  - obj3 inside crate2
+  - obj2 inside crate0
+  - obj1 inside obj3
+  - moved: 1, crate0 and room2
+  - crate2 stands in room2
+Which room is obj0 in at time 0?
+
+Answer with exactly one of: room1 | room2 | room0 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 83</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate2 stands in room2
+  - moved: 2, crate1 and room0
+  - obj2 inside crate2
+  - obj0 inside crate1
+  - crate1 stands in room2
+  - crate0 stands in room3
+  - obj1 inside obj2
+  - obj3 inside crate2
+  - moved: 1, crate2 and room1
+Which room is obj2 in at time 1?
+
+Answer with exactly one of: room2 | room3 | room1 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 84</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate0 stands in room2
+  - crate1 stands in room0
+  - crate2 stands in room1
+  - obj3 inside crate0
+  - obj1 inside crate1
+  - moved: 1, crate1 and room0
+  - obj2 inside crate0
+  - moved: 2, crate0 and room1
+  - obj0 inside obj2
+Which room is obj1 in at time 0?
+
+Answer with exactly one of: room1 | room0 | room2 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 85</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj2 inside crate1
+  - obj0 inside obj2
+  - obj3 inside crate2
+  - moved: 2, crate2 and room3
+  - obj1 inside crate1
+  - crate0 stands in room0
+  - crate2 stands in room1
+  - moved: 1, crate1 and room1
+  - crate1 stands in room1
+Which room is obj0 in at time 2?
+
+Answer with exactly one of: room2 | room1 | room3 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 86</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 1, crate1 and room1
+  - obj2 inside crate0
+  - obj1 inside crate2
+  - moved: 2, crate1 and room2
+  - crate0 stands in room0
+  - obj0 inside crate1
+  - obj3 inside obj1
+  - crate1 stands in room3
+  - crate2 stands in room0
+Which room is obj1 in at time 0?
+
+Answer with exactly one of: room3 | room2 | room0 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 87</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj2 inside crate0
+  - obj3 inside crate2
+  - crate2 stands in room1
+  - moved: 1, crate1 and room1
+  - obj0 inside obj3
+  - moved: 2, crate2 and room3
+  - crate0 stands in room2
+  - obj1 inside crate1
+  - crate1 stands in room3
+Which room is obj3 in at time 2?
+
+Answer with exactly one of: room3 | room0 | room2 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 88</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate2 stands in room1
+  - crate0 stands in room3
+  - crate1 stands in room1
+  - moved: 1, crate2 and room0
+  - obj3 inside obj2
+  - moved: 2, crate0 and room3
+  - obj0 inside crate1
+  - obj2 inside crate1
+  - obj1 inside crate1
+Which room is obj1 in at time 0?
+
+Answer with exactly one of: room3 | room0 | room2 | room1
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 89</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj3 inside crate2
+  - crate2 stands in room2
+  - obj1 inside crate1
+  - obj0 inside crate1
+  - crate0 stands in room1
+  - moved: 2, crate2 and room1
+  - moved: 1, crate1 and room3
+  - crate1 stands in room3
+  - obj2 inside obj1
+Which room is obj0 in at time 2?
+
+Answer with exactly one of: room3 | room2 | room1 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 90</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 1, crate0 and room1
+  - obj3 inside crate2
+  - obj2 inside crate2
+  - crate0 stands in room2
+  - crate1 stands in room0
+  - crate2 stands in room3
+  - obj0 inside obj3
+  - obj1 inside crate2
+  - moved: 2, crate2 and room1
+Which room is obj3 in at time 0?
+
+Answer with exactly one of: room1 | room2 | room3 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 91</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj0 inside obj2
+  - obj2 inside crate0
+  - crate0 stands in room3
+  - crate2 stands in room2
+  - obj1 inside crate0
+  - moved: 2, crate1 and room0
+  - obj3 inside crate0
+  - crate1 stands in room3
+  - moved: 1, crate0 and room3
+Which room is obj0 in at time 0?
+
+Answer with exactly one of: room2 | room1 | room0 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room3&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 92</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate1 stands in room2
+  - obj3 inside crate2
+  - obj0 inside crate2
+  - obj1 inside obj2
+  - obj2 inside crate2
+  - moved: 2, crate2 and room1
+  - crate0 stands in room0
+  - moved: 1, crate1 and room1
+  - crate2 stands in room0
+Which room is obj2 in at time 2?
+
+Answer with exactly one of: room2 | room1 | room0 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj2&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 93</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 2, crate0 and room0
+  - obj1 inside obj3
+  - crate0 stands in room2
+  - crate2 stands in room0
+  - obj0 inside crate1
+  - crate1 stands in room0
+  - obj3 inside crate2
+  - moved: 1, crate2 and room0
+  - obj2 inside crate1
+Which room is obj3 in at time 2?
+
+Answer with exactly one of: room1 | room2 | room0 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room0&quot;
+  ],
+  [
+   2,
+   &quot;crate0&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 94</span>
+<span>answer</span> <span class="ans">room2</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate0 stands in room0
+  - moved: 1, crate0 and room1
+  - moved: 2, crate2 and room1
+  - obj2 inside crate2
+  - obj1 inside crate2
+  - crate2 stands in room2
+  - obj0 inside crate2
+  - crate1 stands in room1
+  - obj3 inside obj1
+Which room is obj1 in at time 1?
+
+Answer with exactly one of: room2 | room1 | room3 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate0&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 95</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj3 inside obj1
+  - moved: 1, crate2 and room1
+  - obj2 inside crate1
+  - obj0 inside crate0
+  - moved: 2, crate2 and room0
+  - obj1 inside crate1
+  - crate1 stands in room0
+  - crate2 stands in room2
+  - crate0 stands in room3
+Which room is obj1 in at time 0?
+
+Answer with exactly one of: room1 | room3 | room2 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 96</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - obj1 inside obj3
+  - crate1 stands in room1
+  - crate0 stands in room1
+  - crate2 stands in room0
+  - obj3 inside crate1
+  - obj0 inside crate2
+  - obj2 inside crate0
+  - moved: 2, crate2 and room3
+  - moved: 1, crate2 and room1
+Which room is obj1 in at time 2?
+
+Answer with exactly one of: room3 | room1 | room2 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj3&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 2
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 97</span>
+<span>answer</span> <span class="ans">room1</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 1, crate2 and room2
+  - obj3 inside crate1
+  - crate2 stands in room1
+  - crate1 stands in room1
+  - crate0 stands in room0
+  - obj2 inside obj1
+  - obj1 inside crate2
+  - obj0 inside crate1
+  - moved: 2, crate2 and room2
+Which room is obj0 in at time 1?
+
+Answer with exactly one of: room3 | room2 | room1 | room0
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj0&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room2&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room2&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj0&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 98</span>
+<span>answer</span> <span class="ans">room0</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - moved: 1, crate2 and room1
+  - crate2 stands in room2
+  - moved: 2, crate1 and room3
+  - obj2 inside crate1
+  - obj0 inside crate1
+  - obj3 inside obj2
+  - obj1 inside crate1
+  - crate0 stands in room1
+  - crate1 stands in room0
+Which room is obj3 in at time 0?
+
+Answer with exactly one of: room0 | room3 | room1 | room2
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj2&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate2&quot;,
+   &quot;room1&quot;
+  ],
+  [
+   2,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj3&quot;,
+ &quot;time&quot;: 0
+}</pre>
+</div></details>
+<details class="sample">
+<summary><span class="seed">seed 99</span>
+<span>answer</span> <span class="ans">room3</span></summary>
+<div class="body">
+<p>prompt</p><pre>The rules are:
+  - rule stands_in_gives_the_room_of_a_crate_at_time_0
+  - rule moved_t_c_r_puts_crate_c_in_room_r_from_time_t_onward
+  - rule an_object_is_in_the_room_of_the_crate_that_transitively_contains_it
+The world contains:
+  - crate1 stands in room3
+  - crate2 stands in room3
+  - obj3 inside obj2
+  - moved: 1, crate1 and room3
+  - obj2 inside crate1
+  - crate0 stands in room2
+  - moved: 2, crate2 and room0
+  - obj0 inside crate0
+  - obj1 inside crate2
+Which room is obj1 in at time 1?
+
+Answer with exactly one of: room2 | room1 | room0 | room3
+Reply with the answer only.</pre>
+<p>hidden ground truth</p><pre>{
+ &quot;chain&quot;: &quot;obj1&quot;,
+ &quot;events&quot;: [
+  [
+   1,
+   &quot;crate1&quot;,
+   &quot;room3&quot;
+  ],
+  [
+   2,
+   &quot;crate2&quot;,
+   &quot;room0&quot;
+  ]
+ ],
+ &quot;object&quot;: &quot;obj1&quot;,
+ &quot;time&quot;: 1
+}</pre>
+</div></details>
+
+<footer>
+  <p>langcurriculum 0.1.0 &middot; 170 numbered lessons,
+  180 registered &middot; every page on this site is generated by
+  <code>scripts/build_site.py</code> from the committed samples.</p>
+</footer>
+</div></body>
+</html>
