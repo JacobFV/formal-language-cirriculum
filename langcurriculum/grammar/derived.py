@@ -678,6 +678,13 @@ class DerivedGrammar(Grammar):
         An **affix**: Finnish offered "-lla" for *at* and it was printed as its
         own token. And **nothing at all**.
 
+        Not the English word echoed back, which looks like a fourth and is
+        not. French answers *cube* with "cube" and *opaque* with "opaque"
+        because those are the French words, and refusing them promoted the
+        wrong sense filed behind: the answer options offered *oranger* and
+        *Apfelsinenbaum*, the orange **tree**. An echo is handled where it can
+        be told apart -- see :meth:`_best_form`.
+
         Applied to what the dictionary said, never to what composition later
         builds: a phrase assembled token by token is legitimately several
         words, and screening it by this rule threw away every translation it
@@ -688,12 +695,19 @@ class DerivedGrammar(Grammar):
         return not (" " not in lemma and (form.count(" ") > 1 or "'" in form))
 
     def _candidates(self, lemma: str) -> list:
-        """Every row the dictionary has, in the order it ranked them."""
-        rows = self.db.lookup_all(self.code, lemma)
-        if rows:
-            return rows
+        """Every row worth trying, the word's own first and its citation form
+        after.
+
+        Both, and in that order. Trying the citation form only where the word
+        has no rows at all was not enough: French lists exactly one row for
+        *links* and it is "links", the English echoed back, so the word looked
+        answered while *lien* sat under *link* one entry over.
+        """
+        rows = list(self.db.lookup_all(self.code, lemma))
         citation = probe_form(lemma)
-        return self.db.lookup_all(self.code, citation) if citation != lemma else []
+        if citation != lemma:
+            rows += self.db.lookup_all(self.code, citation)
+        return rows
 
     def _best_form(self, lemma: str, pos: str) -> str:
         """The first usable row, preferring the part of speech asked for.
@@ -708,18 +722,33 @@ class DerivedGrammar(Grammar):
         The closed class has chosen this way since French put *ne ... pas*
         ahead of *pas* for `not`; the open class read one row.
         """
-        rows = self._candidates(lemma)
-        for entry in rows:
-            if pos and entry.pos and entry.pos != pos:
-                continue
-            if self._speakable(entry.form, lemma):
-                return entry.form
-        if not pos:
+        own = list(self.db.lookup_all(self.code, lemma))
+        citation = probe_form(lemma)
+        borrowed = (list(self.db.lookup_all(self.code, citation))
+                    if citation != lemma else [])
+
+        def first(rows: list, typed: bool) -> str:
+            for entry in rows:
+                if typed and pos and entry.pos and entry.pos != pos:
+                    continue
+                if self._speakable(entry.form, lemma):
+                    return entry.form
             return ""
-        for entry in rows:
-            if self._speakable(entry.form, lemma):
-                return entry.form
-        return ""
+
+        best = first(own, True) or first(own, False)
+        # An echo -- the English word handed back -- is only overruled by the
+        # *citation form's* entry, never by another sense of the same one.
+        # French lists a single row for *links* and it is "links", hiding the
+        # *lien* filed under *link*; it also lists "cube" for *cube*, which is
+        # simply the French word, and "orange", where the alternative sense in
+        # the same entry is *oranger*, the orange **tree**. Going one entry
+        # over separates a leak from a cognate; picking a different sense of
+        # the same entry cannot.
+        if best == lemma and borrowed:
+            better = first(borrowed, True) or first(borrowed, False)
+            if better:
+                return better
+        return best or first(borrowed, True) or first(borrowed, False)
         return form
 
     def _first_usable(self, english: str, pos: str = "") -> str:

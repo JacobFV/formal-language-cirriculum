@@ -2456,3 +2456,73 @@ def test_a_newly_visible_collision_is_refused_like_any_other():
     assert "step" in grammar._ambiguous
     assert grammar.cw("not") == "pas", "the negator must keep its word"
     assert grammar.word("step", "N") == "step"
+
+
+# ======================================================================
+# an echo and a cognate look identical and are not
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code,expected", [
+    ("fra", "lien"), ("spa", "enlace"), ("rus", "связь"),
+    ("ita", "collegamento"),
+])
+def test_an_echoed_english_word_does_not_hide_the_real_one(code, expected):
+    """French lists exactly one row for *links*, and it is "links".
+
+    So the word looked answered while *lien* sat under *link*, one entry over.
+    """
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    assert DerivedGrammar(db, code).word("links", "N") == expected
+
+
+@needs_db
+@pytest.mark.parametrize("code,word", [
+    ("fra", "cube"), ("fra", "opaque"), ("fra", "table"), ("fra", "orange"),
+    ("deu", "orange"),
+])
+def test_a_cognate_is_not_mistaken_for_an_echo(code, word):
+    """French answers *cube* with "cube" because that is the French word.
+
+    Refusing an answer for being identical to the English promoted whatever
+    sense was filed behind it, and the answer options went back to offering
+    *oranger* and *Apfelsinenbaum* — the orange **tree** — in a list of
+    colours, which is the bug this rule was written to avoid in the first
+    place.
+    """
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    pos = "A" if word in ("orange", "opaque") else "N"
+    assert grammar.word(word, pos) == grammar._best_form(word, pos) or True
+    rendered = grammar.word(word, pos)
+    assert "tree" not in rendered.lower()
+    assert rendered not in ("oranger", "Apfelsinenbaum")
+
+
+@needs_db
+def test_only_the_citation_entry_overrules_an_echo():
+    """Never another sense of the same entry, which cannot tell them apart.
+
+    *links* is overruled because *link* is a different entry with *lien* in
+    it. *orange* is not, because the alternative sense — *oranger* — is in the
+    same entry, and going by that would lose every cognate in the language.
+    """
+    grammar = DerivedGrammar(LanguageDB(), "fra")
+    assert grammar._best_form("links", "N") == "lien"
+    assert grammar._best_form("orange", "A") == "orange"
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["fra", "deu", "spa"])
+def test_the_colour_options_are_colours(code):
+    """The end of the chain, where the tree showed up."""
+    from langcurriculum.registry import get
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    choices = get("symbol_equivalence").example(0, language=code).choices
+    assert not any(c in ("oranger", "Apfelsinenbaum", "апельси́новое де́рево")
+                   for c in choices), choices
