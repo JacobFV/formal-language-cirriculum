@@ -2593,3 +2593,36 @@ def test_a_singular_field_is_left_singular(code):
         heading = grammar.block_heading(field).rstrip(":")
         assert heading, field
         assert heading == grammar.word(field, "N") or heading == field
+
+
+# ======================================================================
+# a bare tuple is content, not notation
+# ======================================================================
+def test_a_headless_tuple_uses_the_language_s_own_separator():
+    """``f(a, b)`` keeps half-width punctuation in any script; a tuple does not.
+
+    A bare tuple reaches the linearizer with an empty name, because that is
+    how the compiler represents one, and it was taking the function-call
+    typography with it — so a Chinese scene read "(杆, 大型)", a Latin comma
+    and a space between two Chinese characters.
+    """
+    from langcurriculum.grammar.syntax import fn_app, sym
+    chinese = get_grammar("chinese")
+    tup = fn_app("", [sym("杆"), sym("大型")])
+    assert chinese.lin(tup) == "(杆、大型)"
+    call = fn_app("f", [sym("杆"), sym("大型")])
+    assert chinese.lin(call) == "f(杆, 大型)"
+
+
+def test_a_full_width_mark_is_not_left_with_a_space_in_front_of_it():
+    """The cleanup knew only the ASCII marks."""
+    from langcurriculum.grammar.linearize import _SPACE_BEFORE_PUNCT
+    for mark in "？！，；：。":
+        assert _SPACE_BEFORE_PUNCT.sub(r"\1", f"a {mark}b") == f"a{mark}b", mark
+    for mark in "?!,;:.":
+        assert _SPACE_BEFORE_PUNCT.sub(r"\1", f"a {mark}b") == f"a{mark}b", mark
+
+
+def test_a_clause_is_stripped_before_its_separator_is_written():
+    grammar = get_grammar("chinese")
+    assert grammar.join_clauses(["甲 ", " 乙"]) == "甲；乙"

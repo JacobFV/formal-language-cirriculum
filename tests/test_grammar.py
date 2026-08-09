@@ -26,7 +26,13 @@ IDS = [l.id for l in IMPLEMENTED]
 CJK = r"㐀-䶿一-鿿　-〿＀-￯"
 #: a formal call — ``t(a, b, c)``, ``op(x, 减, 5)`` — keeps half-width punctuation
 #: even inside Chinese text, so the typography checks skip over one
-CALL = re.compile(r"[A-Za-z_][A-Za-z0-9_]*\([^()]*\)")
+#: Removing notation must remove the space that went with it, or the gap left
+#: behind looks like a space between two Chinese characters and the check
+#: fails on output that was right: "b reads(a,b)；" is not "b ；".
+CALL = re.compile(r"\s*[A-Za-z_][A-Za-z0-9_]*\([^()]*\)\s*")
+#: a mapping arrow is notation for the same reason a call is, and technical
+#: Chinese spaces it half-width: "aabab → 否"
+ARROW = re.compile(r"\s*→\s*")
 FS_PL = FS({"num": "pl"})
 
 
@@ -54,7 +60,7 @@ def test_the_pack_declares_the_grammar_it_implements(code):
 @pytest.mark.parametrize("code", NATURAL)
 def test_no_two_prompts_in_a_language_carry_different_answers(code):
     """The property that says the prose still determines the answer."""
-    for lesson in IMPLEMENTED[::4]:
+    for lesson in IMPLEMENTED:
         seen: dict[str, str] = {}
         for ex in lesson.examples(30, language=code):
             prior = seen.get(ex.prompt)
@@ -214,7 +220,7 @@ def test_spanish_scene_sentences_agree_in_the_wild():
 
 
 def test_spanish_opens_and_closes_its_questions():
-    for lesson in IMPLEMENTED[::3]:
+    for lesson in IMPLEMENTED:
         q = lesson.example(2, language="spanish").observation.splitlines()[-1]
         if q.endswith("?"):
             assert "¿" in q, f"{lesson.id}: {q}"
@@ -285,17 +291,23 @@ def test_chinese_does_not_inflect():
 
 
 def test_chinese_writes_without_spaces_between_characters():
+    """Every lesson, not every third.
+
+    Sampling hid seven: a bare tuple was being given the half-width comma and
+    space that belong to a function call, so a scene read "(杆, 大型)".
+    """
     space_by_cjk = re.compile(rf"[{CJK}] | [{CJK}]")
     bullet = re.compile(r"^\s*-\s*")
-    for lesson in IMPLEMENTED[::3]:
+    for lesson in IMPLEMENTED:
         for line in lesson.example(1, language="chinese").observation.splitlines():
-            line = CALL.sub("", bullet.sub("", line))
+            line = ARROW.sub("", CALL.sub("", bullet.sub("", line)))
             assert not space_by_cjk.search(line), f"{lesson.id}: {line[:120]!r}"
 
 
 def test_chinese_uses_full_width_punctuation():
+    """Every lesson. Sampling hid two, both from the same tuple."""
     halfwidth = re.compile(rf"[{CJK}][,;:?!]|[,;:?!][{CJK}]")
-    for lesson in IMPLEMENTED[::3]:
+    for lesson in IMPLEMENTED:
         text = CALL.sub("", lesson.example(1, language="chinese").observation)
         assert not halfwidth.search(text), f"{lesson.id}: {text[:120]!r}"
 

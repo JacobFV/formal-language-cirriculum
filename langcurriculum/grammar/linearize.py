@@ -272,7 +272,10 @@ class Concord:
 # the grammar
 # ======================================================================
 _SENTENCE_END = re.compile(r"[.!?。？！]$")
-_SPACE_BEFORE_PUNCT = re.compile(r"\s+([?.!,;:])")
+#: A space before a mark, in either width. Knowing only the ASCII marks left
+#: Chinese writing "forall a exists b ；" -- the content ends in a Latin word,
+#: the clause separator is full-width, and nothing joined them up.
+_SPACE_BEFORE_PUNCT = re.compile(r"\s+([?.!,;:？．！，；：、。])")
 
 
 class Grammar:
@@ -462,7 +465,11 @@ class Grammar:
         return self.join([sep.join(items[:-1]), self.cw("and"), items[-1]])
 
     def join_clauses(self, items: Sequence[str]) -> str:
-        items = [i for i in items if i]
+        # Stripped, because the separator is written straight after the clause
+        # and a clause that ends in a space puts one in front of the mark:
+        # Chinese read "exists b ；" where the semicolon is full-width and
+        # belongs against the character before it.
+        items = [i.strip() for i in items if i and i.strip()]
         return self.typography.clause_separator.join(items)
 
     def capitalize(self, text: str) -> str:
@@ -791,7 +798,19 @@ class Grammar:
                          else [*modifiers, rendered])
 
     def lin_FnApp(self, node: Node, ctx: FS) -> str:
-        """Notation stays notation, in every script."""
+        """Notation stays notation, in every script.
+
+        A *bare tuple* is not notation, though, and it arrives here with an
+        empty name because that is how the compiler represents one. Its
+        contents are ordinary words, and giving them half-width punctuation
+        put a Latin comma and a space between two Chinese ones: 场景中 read
+        "(杆, 大型)" where Chinese writes no space at all.
+        """
+        if not node.lemma:
+            typ = self.typography
+            separator = typ.item_separator or typ.list_separator
+            return "(" + separator.join(
+                self.lin(a, ctx) for a in node.children) + ")"
         inner = self.typography.arg_separator.join(
             self.lin(a, ctx) for a in node.children)
         return f"{node.lemma}({inner})"
