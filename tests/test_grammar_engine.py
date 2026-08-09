@@ -1507,3 +1507,74 @@ def test_no_language_puts_a_bare_affix_in_a_scene():
             bare = token.strip(".,;:()?")
             assert len(bare) < 2 or (bare[0] not in dashes and bare[-1] not in dashes), \
                 f"{code}: {bare!r} is an affix, not a word"
+
+
+# ======================================================================
+# the copula is a word, or it is nothing
+# ======================================================================
+@needs_db
+def test_no_language_makes_a_gloss_fragment_its_verb():
+    """Chinese was copularised by "or implied".
+
+    The scored path refused a multi-word answer; the fallback taken when
+    nothing scored did not, so a translation table's aside became the verb of
+    every sentence in five languages — Irish by "bí cothrom le", Ancient Greek
+    by "εἰμί +".
+    """
+    db = LanguageDB()
+    offenders = []
+    for row in db.languages():
+        if (row["n_senses"] or 0) < 500:
+            continue
+        lemma = DerivedGrammar(db, row["code"])._copula_lemma()
+        if lemma and (" " in lemma or len(lemma) > 18
+                      or set(lemma) & set("+/(),")):
+            offenders.append((row["code"], lemma))
+    assert not offenders, offenders[:8]
+
+
+@needs_db
+@pytest.mark.parametrize("code,expected", [
+    ("cmn", "是"), ("gle", "is"), ("grc", "εἰμί"),
+])
+def test_the_screen_finds_the_real_copula_behind_the_junk(code, expected):
+    """It was always in the list, ranked below an aside."""
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    assert DerivedGrammar(db, code)._copula_lemma() == expected
+
+
+@needs_db
+def test_a_language_with_no_usable_candidate_writes_no_copula():
+    """Better than putting "nyob nov" where a verb belongs.
+
+    Writing none is a shape the linearizer already supports — plenty of
+    languages drop the copula — and the gap says so.
+    """
+    db = LanguageDB()
+    for code in ("hak", "mww"):
+        if db.language(code) is None:
+            continue
+        grammar = DerivedGrammar(db, code)
+        assert grammar._copula_lemma() == ""
+        assert any("no single word for the copula" in g for g in grammar.gaps())
+
+
+@needs_db
+@pytest.mark.parametrize("code,expected", [
+    ("pol", "być"), ("rus", "быть"), ("deu", "sein"), ("fra", "être"),
+    ("arb", "كَانَ"), ("lat", "sum"),
+])
+def test_the_copulas_that_were_right_are_untouched(code, expected):
+    """The screen must not cost a language a copula it already had.
+
+    Twenty-eight languages have a correct copula with no attested paradigm
+    under that spelling — Polish *być*, Arabic *كَانَ*, Latin *sum*. An earlier
+    attempt read "no paradigm" as "wrong candidate" and would have silenced
+    all of them; measuring first is what stopped it.
+    """
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    assert DerivedGrammar(db, code)._copula_lemma() == expected

@@ -163,6 +163,19 @@ def _is_affix(form: str) -> bool:
     return bool(form) and (form[0] in _DASHES or form[-1] in _DASHES)
 
 
+def _usable_copula(form: str) -> bool:
+    """Whether a candidate is a word at all, before asking whether it is right.
+
+    The scored path already refused a multi-word answer; the fallback taken
+    when nothing scores did not, so a translation table's aside became the verb
+    of every sentence. Chinese was copularised by "or implied", Irish by
+    "bí cothrom le", Ancient Greek by "εἰμί +".
+    """
+    if not form or _is_affix(form) or " " in form or len(form) > 18:
+        return False
+    return not (set(form) & set("+/(),")) and any(c.isalpha() for c in form)
+
+
 def _usable_word(form: str, english: str) -> bool:
     """Reject what a translation table offers that is not a word of the language.
 
@@ -770,9 +783,12 @@ class DerivedGrammar(Grammar):
         # *-기다*, both bound forms, and one of them stood as the verb in every
         # Korean scene.
         candidates = [e.form for e in self.db.lookup_all(self.code, "be")
-                      if e.pos in ("V", "") and not _is_affix(e.form)]
+                      if e.pos in ("V", "") and _usable_copula(e.form)]
         if not candidates:
-            return self.word("be", pos="V")
+            # Nothing offered is a word. Printing no copula is a shape the
+            # linearizer already supports -- plenty of languages drop it -- and
+            # is better than putting "nyob nov" where a verb belongs.
+            return ""
         # mood is safe to request now that a cell is rejected only where it
         # *disagrees*: an untagged cell still matches, and one tagged
         # conditional no longer does
@@ -897,7 +913,10 @@ class DerivedGrammar(Grammar):
             out.append("the dictionary records no gender on this language's "
                        "article, so it does not agree with the noun")
         lemma = self._copula_lemma()
-        if self.order.copula_overt and not self.db.paradigm(self.code, lemma):
+        if self.order.copula_overt and not lemma:
+            out.append("the dictionary offers no single word for the copula, "
+                       "so none is written")
+        elif self.order.copula_overt and not self.db.paradigm(self.code, lemma):
             out.append(f"no attested paradigm for the copula {lemma!r}; "
                        f"the citation form is used")
         if row is not None and row["n_senses"] < 500:
