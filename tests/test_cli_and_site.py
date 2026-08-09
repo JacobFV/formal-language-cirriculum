@@ -78,43 +78,73 @@ def test_the_console_script_is_wired_up():
 
 
 # ------------------------------------------------------------------ site
-needs_site = pytest.mark.skipif(not (DOCS / "index.html").exists(),
-                                reason="run scripts/build_site.py")
+@pytest.fixture(scope="module")
+def site(tmp_path_factory):
+    """Build a small site with the real exporter.
+
+    These tests used to read a prebuilt ``docs/``. When the site moved to a
+    workflow that directory stopped being committed, so the guard stopped
+    finding it and five tests skipped silently -- leaving the exporter
+    untested at the moment it began producing what is published. Two
+    languages and two samples take a few seconds and test the thing itself.
+
+    English and Spanish are hand-written packs, so this needs no language
+    database and runs anywhere.
+    """
+    out = tmp_path_factory.mktemp("site")
+    result = subprocess.run(
+        [sys.executable, "scripts/build_site.py", "--out", str(out),
+         "--languages", "english,spanish", "--samples", "2"],
+        capture_output=True, text=True, cwd=ROOT)
+    assert result.returncode == 0, result.stderr[-2000:]
+    return out
 
 
-@needs_site
-def test_there_is_a_page_for_every_lesson():
-    pages = {p.stem for p in (DOCS / "lessons").glob("*.html")}
+def test_there_is_a_page_for_every_lesson(site):
+    pages = {p.stem for p in (site / "lessons").glob("*.html")}
     assert pages == set(lc.REGISTRY)
 
 
-@needs_site
-def test_the_site_fetches_nothing_from_anywhere_else():
-    """Self-contained means self-contained: no CDN, no font, no script."""
+def test_the_site_fetches_nothing_from_anywhere_else(site):
+    """Self-contained means self-contained: no CDN, no font, no remote script.
+
+    Inline script is allowed now -- the language select switches between the
+    languages on the page, and doing that without JavaScript would mean a
+    page per language. It must stay inline: a `src` pointing anywhere is a
+    request the reader did not ask for, and the page has to render offline.
+    """
     external = re.compile(r'(?:src|href)\s*=\s*"(?!#)(?:https?:)?//', re.I)
-    for page in list((DOCS / "lessons").glob("*.html"))[:40] + [DOCS / "index.html"]:
-        text = page.read_text()
+    remote_script = re.compile(r'<script[^>]*\ssrc\s*=', re.I)
+    pages = list((site / "lessons").glob("*.html"))[:40] + [site / "index.html"]
+    for page in pages:
+        text = page.read_text(encoding="utf-8")
         assert not external.search(text), page.name
-        assert "<script" not in text.lower(), page.name
+        assert not remote_script.search(text), page.name
 
 
-@needs_site
-def test_a_lesson_page_carries_its_hundred_samples():
-    text = (DOCS / "lessons" / "symbol_grounding.html").read_text()
-    assert text.count('<details class="sample">') == 100
+def test_a_lesson_page_carries_every_language_it_was_built_with(site):
+    """One page, every exported language, the select hiding all but one."""
+    text = (site / "lessons" / "symbol_grounding.html").read_text(encoding="utf-8")
+    assert text.count('<div class="sample"') == 4, "2 languages x 2 samples"
+    assert 'data-lang="english"' in text and 'data-lang="spanish"' in text
+    assert 'id="langsel"' in text
     assert "denotation" in text
 
 
-@needs_site
-def test_the_site_shows_english_by_default():
-    text = (DOCS / "lessons" / "symbol_grounding.html").read_text()
-    assert "In the scene:" in text, "the samples on the page should be English"
-    assert "The same episode, in each language" in text
-    assert "<code>english</code>" in (DOCS / "index.html").read_text()
+def test_the_page_opens_on_the_first_language(site):
+    text = (site / "lessons" / "symbol_grounding.html").read_text(encoding="utf-8")
+    assert 'data-show="english"' in text, "the page should open on English"
+    assert "In the scene:" in text
 
 
-@needs_site
-def test_the_index_links_every_lesson_page():
-    text = (DOCS / "index.html").read_text()
+def test_the_index_links_every_lesson_page(site):
+    text = (site / "index.html").read_text(encoding="utf-8")
     for lesson_id in lc.REGISTRY:
         assert f'href="lessons/{lesson_id}.html"' in text
+
+
+def test_the_sidebar_reaches_every_lesson(site):
+    """The lesson list is the navigation; a lesson missing from it is unreachable."""
+    text = (site / "lessons" / "negation.html").read_text(encoding="utf-8")
+    for lesson_id in lc.REGISTRY:
+        assert f'href="../lessons/{lesson_id}.html"' in text, lesson_id
