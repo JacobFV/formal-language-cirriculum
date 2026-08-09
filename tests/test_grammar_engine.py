@@ -1416,3 +1416,94 @@ def test_the_ungendered_nouns_are_counted_as_nouns(code):
              if classify(k) == "noun" and grammar.lookup(k, "N")]
     bare = [k for k in nouns if not grammar.features_of(k)]
     assert f"{len(bare)} of {len(nouns)}" in stated[0]
+
+
+# ======================================================================
+# morphology may leave a word alone; it may not destroy it
+# ======================================================================
+_SCRIPTED = ["hin", "arb", "rus", "ell", "heb", "ukr", "kor", "tam", "ben"]
+
+
+@needs_db
+@pytest.mark.parametrize("code", _SCRIPTED)
+def test_inflection_never_splices_another_alphabet_into_a_word(code):
+    """Hindi turned *प्रिज़्म* into *प्film*.
+
+    The paradigms are induced by analogy and an analogy drawn from a bad row
+    can be arbitrarily destructive. A citation form that was a good word of the
+    language must not come back with a different alphabet inside it.
+    """
+    from langcurriculum.grammar.category import NUM, N
+    from langcurriculum.grammar.compile import classify, curriculum_vocabulary
+    from langcurriculum.grammar.derived import _in_script
+
+    db = LanguageDB()
+    row = db.language(code)
+    if row is None:
+        pytest.skip(f"{code} absent")
+    script = row["script"] or "Latn"
+    grammar = DerivedGrammar(db, code)
+    for key in sorted(curriculum_vocabulary()):
+        if classify(key) != "noun":
+            continue
+        surface = grammar.word(key, "N")
+        if not surface or not _in_script(surface, script):
+            continue
+        for number in ("sg", "pl"):
+            form = grammar.inflect(N.name, key, FS({NUM: number}))
+            assert _in_script(form, script), \
+                f"{code}: {key!r} inflected {surface!r} -> {form!r}"
+
+
+@needs_db
+@pytest.mark.parametrize("code", _SCRIPTED + ["deu", "fin", "tur", "hun"])
+def test_inflection_never_reduces_a_word_to_an_affix(code):
+    """Arabic reduced *كَعْبَة* to *كَ-*, which is still Arabic and still wreckage."""
+    from langcurriculum.grammar.category import NUM, N
+    from langcurriculum.grammar.compile import classify, curriculum_vocabulary
+    from langcurriculum.grammar.derived import _is_affix
+
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    for key in sorted(curriculum_vocabulary()):
+        if classify(key) != "noun":
+            continue
+        surface = grammar.word(key, "N")
+        if not surface or _is_affix(surface):
+            continue
+        for number in ("sg", "pl"):
+            assert not _is_affix(grammar.inflect(N.name, key, FS({NUM: number}))), \
+                f"{code}: {key!r} inflected to an affix"
+
+
+def test_the_affix_screen_knows_more_than_the_ascii_hyphen():
+    """Korean's copula came through as *–당하다* — an en dash, and bound all the same.
+
+    The screen has refused affixes since Finnish offered "-lla" for *at*, but
+    it tested for ``-`` alone, and a dictionary marks a bound form with
+    whichever dash it likes.
+    """
+    from langcurriculum.grammar.derived import _is_affix
+    for dash in "-‐‑‒–—―−－":
+        assert _is_affix(f"{dash}기다"), f"{dash!r} not recognised"
+        assert _is_affix(f"kirja{dash}")
+    assert not _is_affix("kirja")
+    assert not _is_affix("")
+
+
+@needs_db
+def test_no_language_puts_a_bare_affix_in_a_scene():
+    """The end of the chain, on rendered text rather than on a lexicon."""
+    import re
+    from langcurriculum.registry import get
+    dashes = "-‐‑‒–—―−－"
+    for code in ("arb", "kor", "hin", "fin", "tur", "heb", "rus", "tam"):
+        if LanguageDB().language(code) is None:
+            continue
+        text = get("symbol_grounding").example(0, language=code).observation
+        for token in re.findall(r"\S+", text):
+            bare = token.strip(".,;:()?")
+            assert len(bare) < 2 or (bare[0] not in dashes and bare[-1] not in dashes), \
+                f"{code}: {bare!r} is an affix, not a word"

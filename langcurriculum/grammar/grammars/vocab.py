@@ -24,6 +24,7 @@ from ...languages.lexicon import Vocabulary, load_vocabulary
 from ..category import CLF, CLS
 from ..features import FS
 from ..linearize import Grammar, Sandhi
+from ..derived import _is_affix
 from ..typology import instructions_for
 
 __all__ = ["VocabularyGrammar", "load_pack"]
@@ -205,7 +206,7 @@ class VocabularyGrammar(Grammar):
             # Turkish has a locative case rather than a preposition and offers
             # "-da" for *at*, which was printed as its own token.
             if (form.count(" ") > 1 or "'" in form or form == key
-                    or form.startswith("-") or form.endswith("-")):
+                    or _is_affix(form)):
                 continue
             candidates[key] = form
 

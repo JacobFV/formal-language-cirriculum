@@ -152,6 +152,17 @@ def _diacritics(form: str) -> int:
                if unicodedata.combining(c))
 
 
+#: Every dash a dictionary marks an affix with. The screen knew only the
+#: ASCII hyphen, so Korean's copula came through as *–당하다* -- an en dash,
+#: and an affix all the same.
+_DASHES = "-\u2010\u2011\u2012\u2013\u2014\u2015\u2212\uff0d"
+
+
+def _is_affix(form: str) -> bool:
+    """Whether the dictionary is offering a bound form rather than a word."""
+    return bool(form) and (form[0] in _DASHES or form[-1] in _DASHES)
+
+
 def _usable_word(form: str, english: str) -> bool:
     """Reject what a translation table offers that is not a word of the language.
 
@@ -163,7 +174,7 @@ def _usable_word(form: str, english: str) -> bool:
     """
     if not form or form == english:
         return False
-    if form.startswith("-") or form.endswith("-") or " " in form:
+    if _is_affix(form) or " " in form:
         return False
     return len(form) <= 14 and not (len(form) == 1 and form.isupper())
 
@@ -612,6 +623,12 @@ class DerivedGrammar(Grammar):
         # it produced.
         if " " not in lemma and form and (form.count(" ") > 1 or "'" in form):
             return ""
+        # An affix is not a word. The closed class and the import have refused
+        # these since Finnish offered "-lla" for *at* and it was printed as its
+        # own token; the open class never applied the same rule, so Arabic put
+        # a bare *كَ-* in a scene and Korean a bare *-기다*.
+        if _is_affix(form):
+            return ""
         return form
 
     def _first_usable(self, english: str, pos: str = "") -> str:
@@ -749,8 +766,11 @@ class DerivedGrammar(Grammar):
         is attested at all, the first stands, and the gap is reported by
         :meth:`gaps`.
         """
+        # An affix is not a copula either. Korean's table offers *–당하다* and
+        # *-기다*, both bound forms, and one of them stood as the verb in every
+        # Korean scene.
         candidates = [e.form for e in self.db.lookup_all(self.code, "be")
-                      if e.pos in ("V", "")]
+                      if e.pos in ("V", "") and not _is_affix(e.form)]
         if not candidates:
             return self.word("be", pos="V")
         # mood is safe to request now that a cell is rejected only where it
@@ -762,7 +782,7 @@ class DerivedGrammar(Grammar):
         for position, form in enumerate(dict.fromkeys(candidates[:10])):
             finite = morph._attested(form, want) if morph is not None else None
             # a copula is one word; " lenne or " is a parse artefact, not a verb
-            if not finite or " " in finite or len(finite) > 12:
+            if not finite or " " in finite or len(finite) > 12 or _is_affix(finite):
                 continue
             scored.append((len(finite), _shared_prefix(form, finite), position, form))
         if scored:
@@ -783,6 +803,34 @@ class DerivedGrammar(Grammar):
 
     def known(self, lemma: str) -> bool:
         return self.db.lookup(self.code, lemma) is not None
+
+    def inflect(self, cat: str, lemma: str, feats: FS) -> str:
+        """As the base does, unless the rule destroys the word.
+
+        The paradigms are induced by analogy, and an analogy drawn from a bad
+        row can be arbitrarily destructive: Hindi turned *प्रिज़्म* into
+        *प्film*, splicing Latin into the middle of a Devanagari word, and
+        Arabic reduced twenty-nine nouns to a bare hyphen. Both had a perfectly
+        good citation form a step earlier.
+
+        So the result has to still be a word of the language's script. An
+        uninflected noun is a visible, ordinary gap -- most of these languages
+        have unattested paradigms anyway, and :meth:`gaps` says so. A word with
+        another alphabet spliced into it is not a gap, it is wreckage.
+        """
+        surface = self.word(lemma, pos=cat)
+        inflected = super().inflect(cat, lemma, feats)
+        if inflected == surface:
+            return inflected
+        # An affix-shaped result is the same wreckage in the right alphabet:
+        # Arabic reduced *كَعْبَة* to *كَ-*, which the script test happily
+        # accepted because a prefix of an Arabic word is still Arabic.
+        if _is_affix(inflected) and not _is_affix(surface):
+            return surface
+        script = (self.db.language(self.code) or {"script": "Latn"})["script"]
+        if _in_script(surface, script) and not _in_script(inflected, script):
+            return surface
+        return inflected
 
     def features_of(self, lemma: str) -> FS:
         """Inherent features, where the dictionary records them.
