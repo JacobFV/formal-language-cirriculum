@@ -2170,3 +2170,88 @@ def test_a_supplied_language_is_unaffected_by_the_change():
     scene = get("long_range_agreement").example(0, language="deu").observation
     assert "Bücher" in scene or "Buch" in scene
     assert "farmer" not in scene and "keys" not in scene
+
+
+# ======================================================================
+# a heading is a word or it is the English, never half a word
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code,name,expected", [
+    ("deu", "entities", "Wesen"), ("fra", "entities", "entité"),
+    ("spa", "entities", "entidad"), ("deu", "boxes", "Kasten"),
+    ("fra", "boxes", "boîte"), ("deu", "classes", "Klasse"),
+])
+def test_a_plural_heading_finds_its_singular(code, name, expected):
+    """*entities* came out "entitie" in every language.
+
+    The singular was formed by dropping the last letter, so an ``-ies`` plural
+    lost the wrong one — and the result was used whether or not it turned out
+    to be a word.
+    """
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    assert DerivedGrammar(db, code).block_heading(name).rstrip(":") == expected
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["deu", "fra", "rus", "spa"])
+def test_a_word_that_is_not_a_plural_is_left_alone(code):
+    """*corpus* and *calculus* are singular, and the curriculum uses both.
+
+    Dropping the final letter regardless would have made "corpu" and
+    "calculu" of them. A candidate singular is only kept if it translates.
+    """
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    for name in ("corpus", "calculus", "status"):
+        heading = grammar.block_heading(name).rstrip(":")
+        assert not (name.startswith(heading) and len(heading) == len(name) - 1), \
+            f"{code}: {name!r} truncated to {heading!r}"
+
+
+def test_a_candidate_singular_is_offered_and_not_imposed():
+    """The guarantee, stated on the helper itself."""
+    from langcurriculum.grammar.derived import _singulars
+    assert _singulars("entities")[0] == "entity"
+    assert _singulars("boxes")[0] == "box"
+    assert _singulars("facts") == ["fact"]
+    assert _singulars("class") == []          # -ss is not a plural ending
+    assert "corpu" in _singulars("corpus")    # offered, and rejected by lookup
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["deu", "rus", "spa", "fra"])
+def test_no_heading_is_a_truncated_english_word(code):
+    """On every field the curriculum actually uses."""
+    import random
+    from langcurriculum.registry import all_lessons, get
+
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    names: set[str] = set()
+    for lesson_id in list(all_lessons()):
+        for seed in range(2):
+            try:
+                term, *_ = get(lesson_id).generate(random.Random(seed))
+            except Exception:
+                continue
+            if term.type == "record":
+                names |= {n for n, _v in term.value}
+    # The property is about where the word came from, not what it looks like.
+    # A correct translation may well be a prefix of the English -- French
+    # *profil* for *profiles*, *calcul* for *calculus* -- so guessing from the
+    # string flags the right answers along with the wrong ones.
+    from langcurriculum.grammar.derived import _singulars
+    for name in names:
+        words = name.replace("_", " ")
+        heading = grammar.block_heading(name).rstrip(":")
+        if heading == words:
+            continue                              # untranslated, and honest
+        sources = [words, *_singulars(words)]
+        assert any(grammar.word(src, pos="N") == heading for src in sources), \
+            f"{code}: {name!r} became {heading!r}, which nothing translated to"

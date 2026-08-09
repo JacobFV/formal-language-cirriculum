@@ -107,6 +107,30 @@ def _curriculum_keys() -> frozenset[str]:
     return frozenset(curriculum_vocabulary())
 
 
+def _singulars(words: str) -> list[str]:
+    """Singular forms of a field name worth trying, best first.
+
+    Only ever *offered*: the caller keeps a candidate solely if it translates,
+    so a word that is not a plural at all costs nothing. That guarantee is the
+    important half. Stripping the final letter and using the result whatever
+    came back turned *entities* into "entitie" in every language, and made
+    "corpu" of *corpus*, "calculu" of *calculus* and "boxe" of *boxes* — all
+    three of which the curriculum uses as headings.
+    """
+    last = words.rsplit(" ", 1)[-1]
+    head = words[:len(words) - len(last)]
+    out: list[str] = []
+    if last.endswith("ies") and len(last) > 4:
+        out.append(last[:-3] + "y")
+    for ending in ("ses", "xes", "zes", "ches", "shes"):
+        if last.endswith(ending):
+            out.append(last[:-2])
+            break
+    if last.endswith("s") and not last.endswith("ss"):
+        out.append(last[:-1])
+    return [head + o for o in out]
+
+
 def _shared_prefix(lemma: str, form: str) -> int:
     """How much of its own lemma an inflected form keeps.
 
@@ -953,7 +977,11 @@ class DerivedGrammar(Grammar):
         words = name.replace("_", " ")
         translated = self.word(words, pos="N")
         if translated == words:                       # try the bare singular
-            translated = self.word(words.rstrip("s"), pos="N")
+            for singular in _singulars(words):
+                attempt = self.word(singular, pos="N")
+                if attempt != singular:
+                    translated = attempt
+                    break
         return translated + self.typography.colon
 
     # ---- honesty ---------------------------------------------------------
