@@ -47,8 +47,8 @@ from .linearize import (
 )
 from .store import LanguageDB
 from .typology import (
-    SPACE_BEFORE_PUNCT, articles_for, copula_for, field_intros_for,
-    instructions_for, sandhi_for,
+    SPACE_BEFORE_PUNCT, articles_for, classifier_for, copula_for,
+    field_intros_for, instructions_for, sandhi_for,
 )
 
 __all__ = ["DerivedGrammar", "CLOSED_CLASS_KEYS"]
@@ -892,6 +892,28 @@ class DerivedGrammar(Grammar):
                     if cell not in best or len(entry.form) < len(best[cell]):
                         best[cell] = entry.form
             self._articles.update(best)
+
+    def numeral_phrase(self, count: str, head: Node | None, feats: FS) -> str:
+        """``三个`` — the numeral and its classifier are one constituent.
+
+        WALS says whether the language needs one and the profile has carried
+        the answer all along; a derived grammar even announced "numeral
+        classifiers obligatory" among its notes. Nothing wrote one, so
+        Mandarin counted 三立方體.
+
+        The general classifier only. A language that chooses by the shape of
+        the thing counted -- and Mandarin does, 本 for books and 张 for flat
+        things -- is served the over-general 个, which is what a speaker
+        reaches for when the specific one will not come. A wrong specific
+        classifier would be worse than a general one.
+
+        Joined with the language's own word joiner, so Chinese and Thai write
+        the two together and Vietnamese apart, without either being told to.
+        """
+        classifier = classifier_for(self.code)
+        if not classifier or self._params.get("classifiers") != "obligatory":
+            return count
+        return self.join([count, classifier])
 
     def determiner(self, kind: str, head: Node | None, feats: FS) -> str:
         """The gendered article where the data supports one, else the bare word."""

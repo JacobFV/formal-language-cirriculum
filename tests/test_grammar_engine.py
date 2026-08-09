@@ -2895,3 +2895,63 @@ def test_the_singular_of_a_heading_is_asked_for_too():
     for plural, singular in (("rules", "rule"), ("entities", "entity"),
                              ("boxes", "box")):
         assert singular in rendered, singular
+
+
+# ======================================================================
+# counting in a language that counts with a classifier
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code,expected", [
+    ("cmn", "3个立方体"), ("vie", "3 cái lập phương"),
+])
+def test_a_classifier_language_counts_with_one(code, expected):
+    """WALS says it needs one and the profile has carried that all along.
+
+    A derived grammar even announced "numeral classifiers obligatory" among
+    its notes, and then wrote 三立方體. The hook the linearizer offers for this
+    says "classifier languages override" and only the hand-written Chinese
+    ever did; twenty-one derived languages declared the need and wrote none.
+    """
+    from langcurriculum.grammar.syntax import mk_cn, mk_np, noun, sym
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    assert grammar.lin(mk_np(mk_cn(noun("cube")), count=sym("3"))) == expected
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["cmn", "tha"])
+def test_the_classifier_is_joined_the_way_the_language_joins_words(code):
+    """Chinese writes them together, Vietnamese apart, neither told to."""
+    from langcurriculum.grammar.syntax import mk_cn, mk_np, noun, sym
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    assert " " not in grammar.lin(mk_np(mk_cn(noun("cube")), count=sym("3")))
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["hun", "tur", "hye", "deu", "fra"])
+def test_a_language_that_does_not_need_one_does_not_get_one(code):
+    """WALS marks Hungarian and Turkish 'optional', and optional means the
+    bare numeral is grammatical — which is the one this engine can write."""
+    from langcurriculum.grammar.syntax import mk_cn, mk_np, noun, sym
+    from langcurriculum.grammar.typology import classifier_for
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    assert not classifier_for(code)
+    rendered = DerivedGrammar(db, code).lin(
+        mk_np(mk_cn(noun("cube")), count=sym("3")))
+    assert rendered.startswith("3")
+
+
+def test_the_languages_left_out_are_left_out_on_purpose():
+    """Japanese floats its numeral away from the noun and Bengali's classifier
+    is an enclitic on the numeral. Both need one; neither can be placed by
+    this parameter, and a real word in the wrong place is worse than a gap."""
+    from langcurriculum.grammar.typology import classifier_for
+    for code in ("jpn", "kor", "ben"):
+        assert not classifier_for(code)

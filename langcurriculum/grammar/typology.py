@@ -242,6 +242,21 @@ def field_intros_for(code: str) -> Mapping[str, str]:
     return _intro_tables().get(code, {})
 
 
+_CLASSIFIER_DATA = (Path(__file__).resolve().parent / "data" / "tables"
+                    / "classifiers.json")
+
+
+@lru_cache(maxsize=1)
+def _classifier_table() -> Mapping[str, str]:
+    raw = json.loads(_CLASSIFIER_DATA.read_text(encoding="utf-8"))
+    return {k: v for k, v in raw.items() if not k.startswith("_")}
+
+
+def classifier_for(code: str) -> str:
+    """The general classifier this language counts with, or ``""``."""
+    return _classifier_table().get(code, "")
+
+
 def derive_profile(code: str, wals: Mapping[str, str], *,
                    script: str = "Latn", grambank: Mapping[str, str] | None = None
                    ) -> Profile:
