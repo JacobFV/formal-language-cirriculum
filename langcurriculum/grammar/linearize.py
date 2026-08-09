@@ -374,6 +374,12 @@ class Grammar:
         gloss = PREDICATE_GLOSS.get(lemma)
         if gloss is None or gloss == lemma:
             return ""
+        # A one-word gloss keeps the category it was asked for. Composing it
+        # through `phrase` looks up each token untyped, and untyped is how
+        # `claims` came back as *Anspruch* and *réclamation* -- the noun, a
+        # legal demand, in a slot the prose uses as a verb.
+        if " " not in gloss:
+            return self.word(gloss, pos) or gloss
         return self.phrase(gloss, pos) or gloss
 
     def lookup(self, lemma: str, pos: str) -> str:

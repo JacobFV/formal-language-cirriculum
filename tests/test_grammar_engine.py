@@ -1212,3 +1212,70 @@ def test_the_directive_is_not_kept_where_the_words_are():
         grammar = get_grammar(code)
         assert not grammar.cw("instruction")
         assert not grammar.cw("instruction_many")
+
+
+# ======================================================================
+# withholding a word to avoid ambiguity, without withholding too much
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code", ["fra", "deu", "nld", "rus", "ita", "por"])
+def test_a_head_is_not_silenced_by_its_own_noun_twin(code):
+    """German *Mittel* is device, tool and the NOUN means — but not the verb.
+
+    The key and the head were one set, so blocking the noun blocked the head
+    that happens to be spelled the same, and German printed "rwzt mean grüne"
+    in an exported dataset. The two prohibitions are now separate: a key may be
+    withheld from lookup while its head still reaches the page through a gloss
+    that collides with nothing.
+    """
+    grammar = DerivedGrammar(LanguageDB(), code)
+    for head in ("claims", "attacks", "provides"):
+        rendered = grammar.word(head, "V")
+        assert rendered != head, f"{code}: {head!r} untranslated"
+        assert rendered != PREDICATE_GLOSS_FOR(head), \
+            f"{code}: {head!r} fell back to its English gloss"
+
+
+def PREDICATE_GLOSS_FOR(head: str) -> str:
+    from langcurriculum.grammar.linearize import PREDICATE_GLOSS
+    return PREDICATE_GLOSS[head]
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["fra", "deu", "rus", "spa", "ita"])
+def test_a_gloss_is_looked_up_as_the_category_it_stands_in_for(code):
+    """*claims* is a verb here; untyped it returns the noun.
+
+    Russian offered *прете́нзия* and German *Anspruch* — a legal demand — where
+    the prose uses the word as a predicate.
+    """
+    grammar = DerivedGrammar(LanguageDB(), code)
+    for head, noun_sense in (("claims", ("anspruch", "réclamation", "прете́нзия",
+                                         "reclamación", "reclamo")),):
+        assert grammar.word(head, "V").lower() not in noun_sense, code
+
+
+@needs_db
+def test_a_head_whose_gloss_is_a_curriculum_word_is_one_concept_not_two():
+    """``claim`` the key and ``claims`` the head probe the same word.
+
+    Counted as two concepts they collided with each other in every language,
+    and a translation was withheld to resolve an ambiguity that did not exist.
+    """
+    grammar = DerivedGrammar(LanguageDB(), "fra")
+    assert "claim" not in grammar._ambiguous_gloss
+
+
+@needs_db
+def test_the_collisions_that_are_real_are_still_refused():
+    """The relaxation must not undo what the rule is for.
+
+    German genuinely says *bedeuten* for both *mean* and *imply*, so both are
+    still withheld; Dutch still keeps ``min`` and ``sub`` apart.
+    """
+    db = LanguageDB()
+    german = DerivedGrammar(db, "deu")
+    assert german.word("means", "V") == "mean"
+    assert german.word("imp", "V") == "imply"
+    dutch = DerivedGrammar(db, "nld")
+    assert dutch.word("min", "V") != dutch.word("sub", "V")

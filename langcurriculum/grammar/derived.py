@@ -193,7 +193,7 @@ class DerivedGrammar(Grammar):
         self._word_cache: dict[tuple[str, str], str] = {}
         self._copula: dict[bool, str] = {}
         self._warm_closed_class()
-        self._ambiguous = self._find_collisions()
+        self._ambiguous, self._ambiguous_gloss = self._find_collisions()
         self._build_articles()
         for category, pos in ((N, "N"), (A, "A"), (V, "V")):
             self.morphology[category.name] = DataMorphology(db, code, pos)
@@ -274,7 +274,7 @@ class DerivedGrammar(Grammar):
             self.closed["is"] = self.closed["are"] = ""
 
     # ---- lexicon ---------------------------------------------------------
-    def _find_collisions(self) -> frozenset[str]:
+    def _find_collisions(self) -> tuple[frozenset[str], frozenset[str]]:
         """Curriculum words whose translations would be indistinguishable.
 
         French offers *donner* for both *give* and *hand*, and the taxonomy
@@ -334,23 +334,35 @@ class DerivedGrammar(Grammar):
         # `implies` are one concept with two spellings, and flagging them as a
         # collision with each other -- an earlier attempt did -- forces a
         # perfectly good translation back into English for no reason.
+        # Keyed by the word actually looked up, so a head whose gloss *is* a
+        # curriculum word is the same concept as that word rather than a second
+        # one. Keeping them apart made every language collide `claim` with
+        # itself -- the key and the head `claims` both probe "claim" -- and
+        # withhold a translation to resolve an ambiguity that did not exist.
         concepts: dict[str, set[str]] = {k: {k} for k in keys}
         for head, gloss in PREDICATE_GLOSS.items():
             if " " in gloss:          # a phrase will not collide with a token
                 continue
-            concepts.setdefault(f"gloss:{gloss}", set()).add(head)
+            concepts.setdefault(gloss, set()).add(head)
 
-        ambiguous: set[str] = set()
+        # Two different prohibitions, and they were one set until German
+        # printed "rwzt mean grüne". *Mittel* translates device, tool and the
+        # NOUN means, so the key `means` must not be looked up -- but the
+        # predicate head spelled the same way is the verb, its gloss is *mean*,
+        # and *bedeuten* collides with nothing. Blocking the head because its
+        # noun twin is ambiguous threw away a translation the language had.
+        blocked_keys: set[str] = set()
+        blocked_glosses: set[str] = set()
         for pos in ("", "N", "A", "V"):
             forms: dict[str, list[str]] = {}
-            for concept, members in concepts.items():
-                probe = concept[6:] if concept.startswith("gloss:") else concept
-                forms.setdefault(effective(probe, pos), []).append(concept)
+            for probe in concepts:
+                forms.setdefault(effective(probe, pos), []).append(probe)
             for sharers in forms.values():
                 if len(sharers) > 1:
-                    for concept in sharers:
-                        ambiguous.update(concepts[concept])
-        return frozenset(ambiguous)
+                    for probe in sharers:
+                        blocked_glosses.add(probe)
+                        blocked_keys.update(m for m in concepts[probe] if m in keys)
+        return frozenset(blocked_keys), frozenset(blocked_glosses)
 
     def _spell_out(self, lemma: str, pos: str) -> str:
         """As the base does, unless the gloss collides with some other word.
@@ -359,7 +371,7 @@ class DerivedGrammar(Grammar):
         colliding lexicon entry does. The two must stay distinguishable, and
         each falls back to a different English form, so they do.
         """
-        if lemma in self._ambiguous:
+        if PREDICATE_GLOSS.get(lemma, "") in self._ambiguous_gloss:
             return PREDICATE_GLOSS.get(lemma, "")
         return super()._spell_out(lemma, pos)
 
