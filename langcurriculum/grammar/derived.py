@@ -257,7 +257,12 @@ class DerivedGrammar(Grammar):
         from .compile import curriculum_vocabulary
 
         keys = sorted(curriculum_vocabulary())
-        marks = ",".join("?" * len(keys))
+        # The one-word glosses too: a head is rendered by translating its
+        # gloss, so *minus* is the spelling whose translation can collide, and
+        # querying only curriculum keys never retrieves it.
+        probes = sorted(set(keys) | {g for g in PREDICATE_GLOSS.values()
+                                     if " " not in g})
+        marks = ",".join("?" * len(probes))
         # Mirror LanguageDB.lookup exactly, including its fallback: asking for a
         # part of speech the language has no row for returns the untyped best
         # row instead. A detector that skipped that fallback disagreed with the
@@ -266,30 +271,59 @@ class DerivedGrammar(Grammar):
         for row in self.db.conn.execute(
                 f"SELECT key, form, MIN(rank) FROM sense "
                 f"WHERE code=? AND key IN ({marks}) GROUP BY key",
-                (self.code, *keys)):
+                (self.code, *probes)):
             if row["form"]:
                 best_any[row["key"]] = row["form"]
         best_pos: dict[tuple[str, str], str] = {}
         for row in self.db.conn.execute(
                 f"SELECT key, pos, form, MIN(rank) FROM sense "
                 f"WHERE code=? AND key IN ({marks}) AND pos<>'' "
-                f"GROUP BY key, pos", (self.code, *keys)):
+                f"GROUP BY key, pos", (self.code, *probes)):
             if row["form"]:
                 best_pos[(row["key"], row["pos"])] = row["form"]
 
-        # Every part of speech the linearizer asks for, plus the untyped call.
+        # What the reader actually sees, which is the translation if there is
+        # one and the English spelling if there is not. Comparing translations
+        # only to each other missed the case that a translation can collide
+        # with a word that passes through: Dutch for *minus* is "min", and
+        # `min` is itself a function a lesson names, so both printed as "min".
+        def effective(key: str, pos: str) -> str:
+            form = best_pos.get((key, pos)) if pos else None
+            return (form or best_any.get(key) or key).lower()
+
+        # Predicate heads reach the page through their gloss, so they are
+        # invisible to a pass over lexicon keys. Group them BY gloss: `imp` and
+        # `implies` are one concept with two spellings, and flagging them as a
+        # collision with each other -- an earlier attempt did -- forces a
+        # perfectly good translation back into English for no reason.
+        concepts: dict[str, set[str]] = {k: {k} for k in keys}
+        for head, gloss in PREDICATE_GLOSS.items():
+            if " " in gloss:          # a phrase will not collide with a token
+                continue
+            concepts.setdefault(f"gloss:{gloss}", set()).add(head)
+
         ambiguous: set[str] = set()
         for pos in ("", "N", "A", "V"):
             forms: dict[str, list[str]] = {}
-            for key in keys:
-                form = best_pos.get((key, pos)) if pos else None
-                form = form or best_any.get(key)
-                if form:
-                    forms.setdefault(form.lower(), []).append(key)
+            for concept, members in concepts.items():
+                probe = concept[6:] if concept.startswith("gloss:") else concept
+                forms.setdefault(effective(probe, pos), []).append(concept)
             for sharers in forms.values():
                 if len(sharers) > 1:
-                    ambiguous.update(sharers)
+                    for concept in sharers:
+                        ambiguous.update(concepts[concept])
         return frozenset(ambiguous)
+
+    def _spell_out(self, lemma: str, pos: str) -> str:
+        """As the base does, unless the gloss collides with some other word.
+
+        Then the English gloss goes out untranslated, for the same reason a
+        colliding lexicon entry does. The two must stay distinguishable, and
+        each falls back to a different English form, so they do.
+        """
+        if lemma in self._ambiguous:
+            return PREDICATE_GLOSS.get(lemma, "")
+        return super()._spell_out(lemma, pos)
 
     def lookup(self, lemma: str, pos: str = "") -> str:
         """One word from the language database, screened for junk.

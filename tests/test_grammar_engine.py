@@ -810,7 +810,8 @@ def test_two_distinct_identifiers_stay_distinct_through_a_whole_episode():
     from langcurriculum.languages import get_language
     from langcurriculum.registry import all_lessons, get
 
-    for code in ("fra", "rus", "deu", "spanish", "chinese"):
+    for code in ("fra", "rus", "deu", "por", "ita", "nld", "pol", "fin",
+                 "spanish", "chinese", "turkish", "swahili"):
         language = get_language(code)
         for lesson_id in list(all_lessons())[::7]:
             lesson = get(lesson_id)
@@ -873,3 +874,31 @@ def test_iff_keeps_the_abbreviation_its_language_actually_uses():
     """
     from langcurriculum.grammar.linearize import PREDICATE_GLOSS
     assert "iff" not in PREDICATE_GLOSS
+
+
+@needs_db
+def test_a_translation_never_collides_with_a_word_that_passes_through():
+    """The half of the rule that comparing translations to each other misses.
+
+    Dutch for *minus* is "min", and ``min`` is itself a function the lessons
+    name. Nothing translated it, so it went out as the English spelling — and
+    the two were indistinguishable even though no two *translations* clashed.
+    What a reader sees is the translation if there is one and the English if
+    there is not, so that is what has to be unique.
+    """
+    grammar = DerivedGrammar(LanguageDB(), "nld")
+    assert grammar.word("min", "V") != grammar.word("sub", "V")
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["nld", "fra", "deu", "rus"])
+def test_two_spellings_of_one_concept_are_not_treated_as_a_collision(code):
+    """``imp`` and ``implies`` mean the same thing and share a gloss.
+
+    An earlier version of the detector flagged them against each other and
+    forced a perfectly good translation back into English. Heads are grouped
+    by gloss so that one concept with two spellings stays one concept.
+    """
+    grammar = DerivedGrammar(LanguageDB(), code)
+    assert grammar.word("imp", "V") == grammar.word("implies", "V")
+    assert grammar.word("imp", "V") != "imp"
