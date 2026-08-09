@@ -92,9 +92,11 @@ class WordOrder:
     #: *üç kitaplar* — because the numeral has already expressed the plurality.
     numeral_forces_plural: bool = True
     #: where the negator sits relative to the predicate. ``pre`` for Chinese
-    #: *不*, Spanish *no*; ``post`` for Turkish *değil* and Japanese *-nai*.
-    #: English is neither and overrides, because its negator attaches to a
-    #: finite auxiliary rather than to the clause.
+    #: *不* and Spanish *no*, which negate the verb; ``post`` for Turkish
+    #: *değil* and Japanese *-nai*; ``aux`` for English, whose negator follows
+    #: the finite auxiliary rather than preceding it — *is not yellow*, not
+    #: *not is yellow*. Three values because there are three behaviours, which
+    #: is cheaper than the override English used to need.
     negation: str = "pre"
 
     @property
@@ -625,11 +627,24 @@ class Grammar:
         sep = self.typography.item_separator or self.typography.list_separator
         return self.join([sep.join(items[:-1]), self.cw("or"), items[-1]])
 
+    def negator(self) -> str:
+        """The word that marks negation, and never nothing.
+
+        A missing negator does not make a clause positive — it makes two
+        different claims render identically, and an episode whose candidate
+        glosses collapse is unanswerable rather than merely clumsy. Lithuanian
+        had no entry for *not* and rendered "some prism is yellow" for both
+        polarities. Where the dedicated word is absent the negative determiner
+        stands in, and where that is absent too the English word does: a
+        visibly foreign negator is a small problem and a vanished one is not.
+        """
+        return self.cw("not") or self.cw("no_quant") or "not"
+
     def lin_Neg(self, node: Node, ctx: FS) -> str:
         inner = node.arg("inner")
         assert inner is not None
         text = self.lin(inner, ctx)
-        neg = self.cw("not")
+        neg = self.negator()
         return (self.join([text, neg]) if self.order.negation == "post"
                 else self.join([neg, text]))
 
@@ -687,12 +702,20 @@ class Grammar:
             # through the copula gave "every agent is" with nothing after it.
             return subject
         complement = self.lin(scope, ctx)
+        verb = self.copula("attr", ctx)
         if inner_negation:
-            negator = self.cw("not")
-            complement = (self.join([complement, negator])
-                          if self.order.negation == "post"
-                          else self.join([negator, complement]))
-        return self._predicate(subject, self.copula("attr", ctx), complement)
+            negator = self.negator()
+            if self.order.negation == "post":
+                complement = self.join([complement, negator])
+            elif self.order.negation == "aux":
+                verb = self.join([verb, negator])
+            else:
+                # a preverbal negator negates the **verb**, not the complement:
+                # Spanish *no es amarillo*, not *es no amarillo*. Attaching it
+                # to the complement reads as constituent negation, which is a
+                # different claim.
+                verb = self.join([negator, verb])
+        return self._predicate(subject, verb, complement)
 
     # ---- questions -----------------------------------------------------
     #: wh-words that are determiners rather than arguments. These sit in the

@@ -211,14 +211,11 @@ class DerivedGrammar(Grammar):
 
     def _warm_closed_class(self) -> None:
         """One bulk query for the whole closed class, at construction."""
-        found = self.db.bulk_lookup(self.code, list(set(CLOSED_CLASS_KEYS.values())))
         for slot, english in CLOSED_CLASS_KEYS.items():
-            if slot in NOMINAL_SLOTS:
-                entry = self.db.lookup(self.code, english, "N")
-            else:
-                entry = found.get(english)
-            if entry is not None and _usable_word(entry.form, english):
-                self.closed[slot] = entry.form
+            pos = "N" if slot in NOMINAL_SLOTS else ""
+            form = self._first_usable(english, pos)
+            if form:
+                self.closed[slot] = form
         # a language WALS says has no article must not acquire one from a
         # dictionary that happily translates "the" into a demonstrative
         if not self._params.get("has_definite", False):
@@ -256,6 +253,24 @@ class DerivedGrammar(Grammar):
         out = form or lemma
         self._word_cache[key] = out
         return out
+
+    def _first_usable(self, english: str, pos: str = "") -> str:
+        """The first candidate that is a word of the language, not just the first.
+
+        Taking only the top-ranked entry and giving up when it fails the filter
+        threw away perfectly good words sitting immediately behind it. French
+        lists *ne … pas* first for *not* — a discontinuous negator that cannot
+        occupy a single slot — and *pas* second, so the slot came out empty and
+        French rendered "every prism is yellow" and "no prism is yellow"
+        identically. An episode whose two candidate glosses collapse is not
+        clumsy, it is unanswerable.
+        """
+        for entry in self.db.lookup_all(self.code, english):
+            if pos and entry.pos and entry.pos != pos:
+                continue
+            if _usable_word(entry.form, english):
+                return entry.form
+        return ""
 
     def _indefinite_article(self) -> str:
         """The reduced numeral, not the impersonal pronoun.

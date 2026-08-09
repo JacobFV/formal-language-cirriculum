@@ -803,3 +803,67 @@ def test_the_scheme_is_chosen_per_lemma_not_per_language(code, expected):
         pytest.skip(f"{code} absent")
     from langcurriculum.grammar.features import EMPTY
     assert DerivedGrammar(DB, code).copula("attr", EMPTY) == expected
+
+
+# ======================================================================
+# an episode must stay answerable in every language
+# ======================================================================
+def _four_claims(grammar):
+    """The four quantified claims a formalization episode asks a learner to tell apart."""
+    from langcurriculum.grammar.compile import _as_np
+    from langcurriculum.grammar.syntax import adj, mk_ap, quant
+    return [grammar.sentence(grammar.lin(
+                quant(q, _as_np("prism", det="bare"),
+                      mk_ap(adj("yellow"))).but(pol=pol)))
+            for q, pol in (("all", "pos"), ("all", "neg"),
+                           ("some", "pos"), ("some", "neg"))]
+
+
+@needs_db
+def test_no_language_collapses_two_distinct_claims():
+    """The strongest correctness property this package has, over all 404 languages.
+
+    ``deformalization`` hands a learner four glosses and asks which matches a
+    formula. If two of them render alike the episode is not clumsy, it is
+    **unanswerable** — and it fails silently, because a missing negator does not
+    look like an error, it looks like a positive sentence.
+
+    French had exactly that: its dictionary lists the discontinuous *ne … pas*
+    first, no single slot could hold it, and "every prism is yellow" and "no
+    prism is yellow" came out identical.
+    """
+    collapsed = []
+    for row in DB.languages(min_tier=3):
+        try:
+            grammar = DerivedGrammar(DB, row["code"])
+        except Exception:
+            continue
+        forms = _four_claims(grammar)
+        if len(set(forms)) < 4:
+            collapsed.append((row["code"], forms))
+    assert not collapsed, (
+        f"{len(collapsed)} languages render two different claims alike: "
+        + "; ".join(f"{c}: {f[0]!r} == {f[1]!r}" for c, f in collapsed[:5]))
+
+
+@pytest.mark.parametrize("code", ["english", "spanish", "chinese", "turkish", "swahili"])
+def test_the_hand_written_grammars_keep_the_claims_apart_too(code):
+    from langcurriculum.grammar.grammars import get_grammar
+    forms = _four_claims(get_grammar(code))
+    assert len(set(forms)) == 4, f"{code}: {forms}"
+
+
+@needs_db
+def test_a_negator_is_never_empty():
+    """A missing negator turns a negative claim into a positive one.
+
+    Where a language has no dedicated word the negative determiner stands in,
+    and where that is absent too the English word does. A visibly foreign
+    negator is a small problem; a vanished one changes what the episode says.
+    """
+    for row in DB.languages(min_tier=3)[:60]:
+        try:
+            grammar = DerivedGrammar(DB, row["code"])
+        except Exception:
+            continue
+        assert grammar.negator(), f"{row['code']} has no negator at all"

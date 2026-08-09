@@ -61,6 +61,7 @@ class English(VocabularyGrammar):
         clause="SVO", adj="AN", det="DN", numeral="NumN",
         adposition="pre", possessive="NG", label="LV", conditional="CA",
         wh_fronting=True, copula_overt=True,
+        negation="aux",            # *is not yellow*, never *not is yellow*
     )
     typography = Typography()
     #: English marks no case on full noun phrases at all
