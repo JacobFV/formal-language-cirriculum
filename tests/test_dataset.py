@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -101,13 +102,75 @@ def test_every_implemented_lesson_has_100_committed_samples(code):
 
 @needs_samples
 def test_the_committed_samples_still_regenerate_exactly():
-    """The files are a view of the generators; if they drift, they are wrong."""
-    for lesson_id in ("symbol_grounding", "quantification", "theorem_proving",
-                      "cultural_evolution", "symbolic_generalist", "palindrome"):
-        rows = read_jsonl(SAMPLES / DEFAULT_LANGUAGE / f"{lesson_id}.jsonl")
+    """The files are a view of the generators; if they drift, they are wrong.
+
+    Every lesson, not a handful. This checked six of a hundred and seventy-nine
+    and stayed green through twenty commits that changed what the generators
+    produce, so the committed dataset -- the artefact people actually download
+    -- was stale in seven hundred and fifty-eight files before anyone noticed.
+    Two seeds each keeps it quick enough to run every time.
+    """
+    stale = []
+    for lesson_id in sorted(lc.lesson_ids(implemented_only=True)):
+        path = SAMPLES / DEFAULT_LANGUAGE / f"{lesson_id}.jsonl"
+        if not path.exists():
+            continue
         lesson = lc.get(lesson_id)
-        for row in rows[:10]:
+        for row in read_jsonl(path)[:2]:
             ex = lesson.example(row["seed"])
-            assert ex.prompt == row["prompt"]
-            assert ex.answer == row["answer"]
-            assert list(ex.choices) == row["choices"]
+            if (ex.prompt, ex.answer, list(ex.choices)) != (
+                    row["prompt"], row["answer"], row["choices"]):
+                stale.append(lesson_id)
+                break
+    assert not stale, (f"{len(stale)} lessons have drifted from their samples; "
+                       f"rebuild with scripts/build_samples.py: {stale[:8]}")
+
+
+@needs_samples
+@pytest.mark.parametrize("code", ["spanish", "chinese", "turkish"])
+def test_the_other_languages_regenerate_too(code):
+    """The drift was in every language, and only English was ever checked."""
+    stale = []
+    for lesson_id in sorted(lc.lesson_ids(implemented_only=True))[::6]:
+        path = SAMPLES / code / f"{lesson_id}.jsonl"
+        if not path.exists():
+            continue
+        lesson = lc.get(lesson_id)
+        for row in read_jsonl(path)[:2]:
+            ex = lesson.example(row["seed"], language=code)
+            if ex.prompt != row["prompt"]:
+                stale.append(lesson_id)
+                break
+    assert not stale, f"{code}: {len(stale)} lessons stale: {stale[:6]}"
+
+
+@pytest.mark.parametrize("lesson_id", sorted(lc.lesson_ids(implemented_only=True))[::4])
+def test_a_seed_gives_the_same_episode_in_any_process(lesson_id):
+    """``example`` promises it, and one lesson was not keeping the promise.
+
+    ``contradiction_tolerance`` built its candidate list by iterating the set
+    a closure returned. A set of strings orders itself by hash, Python salts
+    string hashing per process, and ``rng.choice`` over the result therefore
+    picked a different atom in every run — so the same seed gave a different
+    episode each time the samples were rebuilt, and the committed files could
+    never have matched.
+
+    Run as a subprocess with a different hash seed, because within one process
+    the ordering is fixed and nothing is visible.
+    """
+    import json
+    import subprocess
+    import sys
+
+    script = (
+        "import json,sys,langcurriculum as lc;"
+        "print(json.dumps(lc.get(sys.argv[1]).example(0).prompt))"
+    )
+    outs = set()
+    for seed in ("1", "9"):
+        proc = subprocess.run([sys.executable, "-c", script, lesson_id],
+                              capture_output=True, text=True,
+                              env={**os.environ, "PYTHONHASHSEED": seed})
+        assert proc.returncode == 0, proc.stderr[-400:]
+        outs.add(json.loads(proc.stdout))
+    assert len(outs) == 1, f"{lesson_id} differs between processes"

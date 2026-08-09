@@ -456,6 +456,22 @@ def compile_query(term: Term) -> Node:
     from .syntax import alt_question, wh_question, yn_question
 
     if term.type not in ("pred", "rel", "node"):
+        # A bare name is still a query head, and two of them have their own
+        # analysis: asked as `balanced` the question is whether the string is,
+        # not what "the balanced" is. Reaching that table only from the
+        # predicate branch left English asking "What is the balanced?".
+        name = str(term.value) if term.type == "ident" else ""
+        if name in _QUERY_BODY:
+            body = _QUERY_BODY[name]([])
+            return (yn_question(body) if name in _POLAR
+                    else wh_question(_WH.get(name, "what"), body))
+        # Everything else keeps the shape it had. Sending a bare name through
+        # the label path instead would spell out every identifier the lessons
+        # ask about -- "the next rule of a shortest proof" for
+        # `next_rule_of_a_shortest_proof` -- which reads better and is a
+        # different decision from this one, taken across a hundred and
+        # seventy-nine lessons on no evidence that the identifier is not
+        # wanted as an identifier.
         return wh_question("what", compile_term(term))
     head, *rest = term.value
     head = str(head)
@@ -515,6 +531,25 @@ def _string_np(term: Term) -> Node:
     return labelled(_the("string"), compile_term(term))
 
 
+#: Interrogative words a query head may begin with. The question construction
+#: supplies one of its own, so a head that carries another asks twice.
+_WH_PREFIX = ("which", "what", "who", "where", "when", "why", "how")
+
+
+def _undoubled(head: str) -> str:
+    """The head without the interrogative it starts with.
+
+    ``which_color`` labelled a row "which colour", and the question then put a
+    wh-word in front of that: English asked "What is the which colour rwzt?",
+    German "Was welcher Farbe rwzt?", Russian "Како́й кото́рый цвет rwzt?".
+    One interrogative is the most a question needs.
+    """
+    first, sep, rest = head.partition("_")
+    if sep and first in _WH_PREFIX and rest:
+        return rest
+    return head
+
+
 def _query_body(head: str, args: list[Term]) -> Node:
     """What the question is *about*, before it is made interrogative.
 
@@ -524,7 +559,7 @@ def _query_body(head: str, args: list[Term]) -> Node:
     have. A labelled row is duller and always says the right thing.
     """
     if not args:
-        return _label(head)
+        return _label(_undoubled(head))
     special = _QUERY_BODY.get(head)
     if special is not None:
         try:
@@ -532,7 +567,7 @@ def _query_body(head: str, args: list[Term]) -> Node:
         except (IndexError, AttributeError):            # pragma: no cover
             pass
     compiled = [compile_term(a) for a in args]
-    words = _label(head)
+    words = _label(_undoubled(head))
     return labelled(words, compiled[0]) if len(compiled) == 1 \
         else enumerated(words, compiled)
 

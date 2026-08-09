@@ -42,8 +42,13 @@ def gen_contradiction_tolerance(rng: random.Random):
         all_base = list(pos)
         safe = _closure(safe_base, rules)
         loose = _closure(all_base, rules)
-        supported = [a for a in safe if a != contested]
-        only_loose = [a for a in loose if a not in safe]
+        # Filtered from `atoms`, which is a list, and not from the closures,
+        # which are sets. Iterating a set of strings orders them by hash, and
+        # Python salts string hashing per process -- so `rng.choice` over the
+        # result picked a different atom in every run and the same seed gave a
+        # different episode each time the file was regenerated.
+        supported = [a for a in atoms if a in safe and a != contested]
+        only_loose = [a for a in atoms if a in loose and a not in safe]
         never = [a for a in atoms if a not in loose]
         if not supported or not only_loose or not never:
             continue
