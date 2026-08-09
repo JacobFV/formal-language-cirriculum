@@ -47,8 +47,8 @@ from .linearize import (
 )
 from .store import LanguageDB
 from .typology import (
-    SPACE_BEFORE_PUNCT, articles_for, classifier_for, copula_for,
-    field_intros_for, instructions_for, sandhi_for,
+    SCRIPT_PUNCTUATION, SPACE_BEFORE_PUNCT, articles_for, classifier_for,
+    copula_for, field_intros_for, instructions_for, sandhi_for,
 )
 
 __all__ = ["DerivedGrammar", "CLOSED_CLASS_KEYS"]
@@ -298,6 +298,8 @@ class DerivedGrammar(Grammar):
             rtl=bool(p.get("rtl", False)),
             label_separator=":" if not p.get("word_joiner", " ") else "",
             space_before=SPACE_BEFORE_PUNCT.get(self.code, ""),
+            **SCRIPT_PUNCTUATION.get(
+                (self.db.language(self.code) or {"script": ""})["script"], {}),
         )
         self.sandhi = sandhi_for(self.code)
         self.instructions = instructions_for(self.code)

@@ -76,6 +76,17 @@ RTL_SCRIPTS = frozenset({"Arab", "Hebr", "Syrc", "Thaa", "Nkoo", "Adlm", "Samr"}
 #: but they are not written down here without checking.
 SPACE_BEFORE_PUNCT = {"fra": ":;?!"}
 
+#: Marks a script writes differently. The Arabic script has its own question
+#: mark, comma and semicolon, and the Latin ones are simply not its
+#: punctuation -- Arabic, Persian, Urdu, Pashto and Sorani were all ending a
+#: question with "?" where "؟" belongs. Hebrew is deliberately absent: it is
+#: written right to left and uses the Latin marks, which is why the flag that
+#: matters here is the *script* and not the direction.
+SCRIPT_PUNCTUATION = {
+    "Arab": {"question_mark": "\u061f", "list_separator": "\u060c ",
+             "clause_separator": "\u061b "},
+}
+
 #: scripts written without spaces between words
 NO_SPACE_SCRIPTS = frozenset({"Hani", "Hans", "Hant", "Jpan", "Thai", "Laoo",
                               "Mymr", "Khmr", "Tibt"})

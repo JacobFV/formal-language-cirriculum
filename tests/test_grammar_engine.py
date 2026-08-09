@@ -2955,3 +2955,48 @@ def test_the_languages_left_out_are_left_out_on_purpose():
     from langcurriculum.grammar.typology import classifier_for
     for code in ("jpn", "kor", "ben"):
         assert not classifier_for(code)
+
+
+# ======================================================================
+# a script that has its own punctuation
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code", ["arb", "pes", "urd", "ckb", "pbu"])
+def test_an_arabic_script_language_uses_arabic_punctuation(code):
+    """All five ended a question with "?" where "؟" belongs.
+
+    The Arabic script has its own question mark, comma and semicolon, and the
+    Latin ones are simply not its punctuation. The engine knew the script all
+    along -- it is in the database and on the profile -- and used it only to
+    set a right-to-left flag that nothing reads.
+    """
+    from langcurriculum.registry import get
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    text = get("symbol_grounding").example(0, language=code).observation
+    assert "؟" in text and "?" not in text
+    assert "؛" in text and ";" not in text
+
+
+@needs_db
+def test_hebrew_keeps_the_latin_marks():
+    """Written right to left and using "?" and "," — which is why the thing
+    that matters is the script and not the direction."""
+    from langcurriculum.registry import get
+    db = LanguageDB()
+    if db.language("heb") is None:
+        pytest.skip("heb absent")
+    text = get("symbol_grounding").example(0, language="heb").observation
+    assert "?" in text and "؟" not in text
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["deu", "rus", "ell", "hin"])
+def test_no_other_script_gains_arabic_marks(code):
+    from langcurriculum.registry import get
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    text = get("symbol_grounding").example(0, language=code).observation
+    assert not (set(text) & set("؟؛،"))
