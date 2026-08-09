@@ -751,7 +751,21 @@ class DerivedGrammar(Grammar):
                    or self._articles.get((kind, gender, False)))
             if hit:
                 return hit
-        return self.cw("the" if kind == "def" else "a")
+        # No class recorded for this noun -- four in a hundred and ten of
+        # German's, and a sixth of Portuguese's. The paradigm still has the
+        # right word: Dutch *een* is the same for every class, and giving up
+        # here left "o3 is paarse dennenappel" with no article beside
+        # "o1 is een paarse bol" with one. Masculine is the conventional
+        # default where the classes do differ, and it beats the closed class,
+        # which holds the numeral: Spanish would say *uno cono*.
+        fallback = (self._articles.get((kind, "m", plural))
+                    or self._articles.get((kind, "m", False))
+                    or next((form for (slot, _, pl), form
+                             in self._articles.items()
+                             if slot == kind and pl == plural), "")
+                    or next((form for (slot, _, _pl), form
+                             in self._articles.items() if slot == kind), ""))
+        return fallback or self.cw("the" if kind == "def" else "a")
 
 
     def copula(self, kind: str, feats: FS) -> str:

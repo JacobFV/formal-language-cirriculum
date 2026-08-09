@@ -326,8 +326,26 @@ def test_the_copula_is_identified_without_a_per_language_table(code, expected):
     """
     if DB.language(code) is None:
         pytest.skip(f"{code} absent")
-    from langcurriculum.grammar.features import EMPTY
-    assert DerivedGrammar(DB, code).copula("attr", EMPTY) == expected
+    assert _derived_copula(code) == expected
+
+
+def _derived_copula(code: str) -> str:
+    """The copula the derivation finds, ignoring any written-down override.
+
+    These two tests are about the derivation: that three frequency signals
+    identify the copula with no per-language list, and that choosing the
+    annotation scheme per lemma keeps *есть* visible. Some of the languages
+    they name now also have a written entry -- Russian and Hungarian drop the
+    third-person present copula, so what is *rendered* is nothing -- and
+    asserting on the rendering would stop testing the mechanism.
+    """
+    from langcurriculum.grammar.category import NUM, V
+    from langcurriculum.grammar.features import FS
+    grammar = DerivedGrammar(DB, code)
+    lemma = grammar._copula_lemma()
+    morph = grammar.morphology.get(V.name)
+    want = FS({"pers": "3", NUM: "sg", "tense": "pres", "mood": "ind"})
+    return (morph._attested(lemma, want) if morph else "") or lemma
 
 
 @needs_db
@@ -801,8 +819,7 @@ def test_the_scheme_is_chosen_per_lemma_not_per_language(code, expected):
     """
     if DB.language(code) is None:
         pytest.skip(f"{code} absent")
-    from langcurriculum.grammar.features import EMPTY
-    assert DerivedGrammar(DB, code).copula("attr", EMPTY) == expected
+    assert _derived_copula(code) == expected
 
 
 # ======================================================================

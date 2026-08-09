@@ -1807,3 +1807,75 @@ def test_no_scene_inflects_an_invariable_colour(code):
         surface = grammar.word(word, "A")
         if surface and surface != word and not db.paradigm(code, surface):
             assert surface in scene, f"{code}: {surface!r} was altered"
+
+
+# ======================================================================
+# a noun with no recorded class still needs an article
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code,kind,expected", [
+    ("nld", "indef", "een"), ("deu", "indef", "ein"), ("spa", "indef", "un"),
+    ("fra", "indef", "un"), ("por", "indef", "um"), ("ita", "indef", "un"),
+    ("nld", "def", "de"), ("spa", "def", "el"), ("ell", "def", "ο"),
+])
+def test_an_unclassed_noun_still_gets_an_article(code, kind, expected):
+    """Dutch wrote "o1 is een paarse bol" and "o3 is paarse dennenappel".
+
+    Four in a hundred and ten of German's nouns carry no gender in the
+    dictionary and a sixth of Portuguese's, and giving up on those left the
+    article out altogether. Dutch *een* is the same for every class, so there
+    was never any doubt about which word to write.
+    """
+    from langcurriculum.grammar.features import EMPTY
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    assert DerivedGrammar(db, code).determiner(kind, None, EMPTY) == expected
+
+
+@needs_db
+def test_the_fallback_is_the_article_and_not_the_numeral():
+    """The closed class holds *uno*, which is the numeral. *un cono* is right."""
+    from langcurriculum.grammar.features import EMPTY
+    db = LanguageDB()
+    grammar = DerivedGrammar(db, "spa")
+    assert grammar.cw("a") == "uno"          # the numeral, as the table has it
+    assert grammar.determiner("indef", None, EMPTY) == "un"
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["hun", "rus"])
+def test_a_language_that_drops_its_copula_drops_it(code):
+    """Hungarian wrote "o1 van bíbor gömb" and Russian "o0 есть жёлтый куб".
+
+    Both drop the third-person present copula before a predicate nominal, and
+    neither line is how the language is written. They join Arabic, Turkish and
+    Tamil, where writing nothing is the correct present tense.
+    """
+    from langcurriculum.grammar.features import EMPTY
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    assert DerivedGrammar(db, code).copula("attr", EMPTY) == ""
+
+
+@needs_db
+@pytest.mark.parametrize("code,expected", [("rus", "есть"), ("hun", "van")])
+def test_the_derivation_can_still_find_the_copula_it_no_longer_writes(code, expected):
+    """Dropping it in the prose must not mean losing the ability to find it.
+
+    *есть* is the form the second harvest exists to supply, and the test that
+    UniMorph alone would miss it is only meaningful if the derivation is still
+    asked. It is asked here directly rather than through the rendering.
+    """
+    from langcurriculum.grammar.category import NUM, V
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    morph = grammar.morphology.get(V.name)
+    want = FS({"pers": "3", NUM: "sg", "tense": "pres", "mood": "ind"})
+    lemma = grammar._copula_lemma()
+    # Hungarian *van* is itself the third singular, so there is no separate
+    # cell to find; Russian *быть* has one and it is *есть*.
+    assert (morph._attested(lemma, want) or lemma) == expected
