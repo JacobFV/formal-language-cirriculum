@@ -495,3 +495,56 @@ def test_importing_gaps_roughly_doubles_what_turkish_can_say():
     total = sum(1 for k in keys if grammar.word(k) != k)
     assert curated < 130, "the curated pack grew; update the comparison"
     assert total >= 220, f"only {total} keys covered, was expecting the import"
+
+
+# ======================================================================
+# the seed space, not just the seeds the other tests happen to use
+# ======================================================================
+def test_generation_holds_up_well_outside_the_seeds_the_suite_uses():
+    """Almost every test here uses seeds 0-3. Callers export with n=1000.
+
+    A generator branch that only fires on an unusual seed has never been
+    rendered by anything, and the first person to meet it would be someone
+    building a training set. Sampling widely and cheaply is the difference
+    between "the paths we look at are fine" and "the paths are fine".
+
+    Deliberately a smoke test: crashes, empty prompts, answers that are not
+    among the options, and internal representation reaching the page. Anything
+    subtler belongs in a test that names the property.
+    """
+    import re
+    leaked = re.compile(r"\(\s*'|\[\s*'|\{'|\bNone\b|object at 0x|\?[a-z]+#\d+|FS\(")
+    seeds = range(500, 520)          # far from anything else the suite touches
+    problems = []
+    for lesson in IMPLEMENTED[::5]:
+        for seed in seeds:
+            example = lesson.example(seed, language="english")
+            if not example.observation.strip():
+                problems.append(f"{lesson.id} s{seed}: empty")
+            if example.answer not in example.choices:
+                problems.append(f"{lesson.id} s{seed}: answer not an option")
+            if len(set(example.choices)) != len(example.choices):
+                problems.append(f"{lesson.id} s{seed}: duplicate options")
+            hit = leaked.search(example.observation)
+            if hit:
+                problems.append(f"{lesson.id} s{seed}: leaked {hit.group(0)!r}")
+    assert not problems, problems[:6]
+
+
+@pytest.mark.parametrize("code", ["turkish", "swahili"])
+def test_a_grammar_holds_up_outside_those_seeds_too(code):
+    """The same, through a grammar with real morphology.
+
+    Higher risk than English: an unusual seed coins a lemma the inducer has
+    never seen, and the analogical path runs on it.
+    """
+    import re
+    leaked = re.compile(r"\(\s*'|\[\s*'|\{'|\bNone\b|object at 0x|\?[a-z]+#\d+|FS\(")
+    for lesson in IMPLEMENTED[::9]:
+        for seed in range(500, 510):
+            example = lesson.example(seed, language=code)
+            assert example.observation.strip(), f"{code}/{lesson.id} s{seed}: empty"
+            assert example.answer in example.choices, \
+                f"{code}/{lesson.id} s{seed}: answer not an option"
+            hit = leaked.search(example.observation)
+            assert hit is None, f"{code}/{lesson.id} s{seed}: leaked {hit.group(0)!r}"
