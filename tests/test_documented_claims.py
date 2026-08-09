@@ -238,3 +238,63 @@ def test_the_readme_counts_the_languages_it_has():
     derived = int(re.search(r"\*\*(\d+) more\*\* assembled", readme).group(1))
     assert abs(derived - len(REGISTRY.available)) <= 5, \
         f"README says {derived} derived, the registry offers {len(REGISTRY.available)}"
+
+
+def test_the_package_has_no_runtime_dependencies():
+    """The headline architectural claim, and nothing was checking it.
+
+    "Zero runtime dependencies" appears four times in the README and once in
+    ``pyproject.toml``, which declares an empty ``dependencies`` list — and an
+    import added anywhere under ``langcurriculum/`` would contradict all five
+    without failing anything. The database is SQLite for this reason and the
+    vocabularies are JSON for this reason; it is worth a test.
+    """
+    import ast
+    import pathlib
+    import sys
+
+    stdlib = set(sys.stdlib_module_names)
+    root = pathlib.Path(__file__).resolve().parent.parent
+    external: dict[str, str] = {}
+    for path in (root / "langcurriculum").rglob("*.py"):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            names: list[str] = []
+            if isinstance(node, ast.Import):
+                names = [a.name.split(".")[0] for a in node.names]
+            elif isinstance(node, ast.ImportFrom) and node.level == 0 and node.module:
+                names = [node.module.split(".")[0]]
+            for name in names:
+                if name and name not in stdlib and name != "langcurriculum":
+                    external.setdefault(name, str(path.relative_to(root)))
+    assert not external, f"the package imports {external}"
+
+
+def test_every_module_parses_as_the_oldest_python_claimed():
+    """``requires-python = ">=3.10"``, checked rather than hoped.
+
+    Running the suite on a newer interpreter cannot see syntax that a 3.10
+    user would trip over on import — a match statement is fine, PEP 695 type
+    parameters are not, and neither shows up until someone on the claimed
+    minimum tries it.
+    """
+    import ast
+    import pathlib
+    import re
+
+    root = pathlib.Path(__file__).resolve().parent.parent
+    claimed = re.search(r'requires-python\s*=\s*">=(\d+)\.(\d+)"',
+                        (root / "pyproject.toml").read_text(encoding="utf-8"))
+    assert claimed, "pyproject no longer states a minimum Python"
+    version = (int(claimed.group(1)), int(claimed.group(2)))
+
+    broken = []
+    for base in ("langcurriculum", "scripts"):
+        for path in (root / base).rglob("*.py"):
+            try:
+                ast.parse(path.read_text(encoding="utf-8"),
+                          feature_version=version)
+            except SyntaxError as err:
+                broken.append(f"{path.relative_to(root)}:{err.lineno} {err.msg}")
+    assert not broken, (f"these need Python newer than "
+                        f"{version[0]}.{version[1]}: {broken[:4]}")
