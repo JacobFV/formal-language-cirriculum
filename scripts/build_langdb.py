@@ -92,7 +92,7 @@ def fetch_all(raw: Path) -> None:
     for name in ("languages", "values", "parameters"):
         get(f"{GRAMBANK_BASE}/{name}.csv", raw / "typology" / f"grambank-{name}.csv")
     get(KAIKKI_EN, raw / "kaikki-en.jsonl.gz")
-    print("  UniMorph: use scripts/fetch_unimorph.sh (190 repositories)",
+    print("  UniMorph: run scripts/fetch_unimorph.py --raw <dir> (170 repositories)",
           file=sys.stderr)
 
 

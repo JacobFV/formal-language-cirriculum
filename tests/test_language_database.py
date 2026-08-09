@@ -992,3 +992,39 @@ def test_the_build_follows_a_symlink_rather_than_replacing_it():
         plain = root / "plain.db"
         plain.write_text("x")
         assert _real_target(plain) == plain
+
+
+def test_the_documented_way_to_fetch_unimorph_exists():
+    """It said to run ``scripts/fetch_unimorph.sh`` and that file never existed.
+
+    Fifty-six of the fifty-seven million word forms come from UniMorph, and
+    the build skips it silently when the directory is absent — so following
+    the documented steps produced a database that worked, had Wiktionary-only
+    morphology, and said nothing about it. A quieter failure than a crash and
+    a worse one.
+    """
+    import pathlib
+    scripts = pathlib.Path(__file__).resolve().parent.parent / "scripts"
+    build = (scripts / "build_langdb.py").read_text(encoding="utf-8")
+    named = [w.strip('",') for w in build.split() if "fetch_unimorph" in w]
+    assert named, "the build no longer says how to fetch UniMorph"
+    for name in named:
+        assert (scripts / pathlib.Path(name).name).exists(), name
+
+
+def test_the_fetcher_knows_the_languages_the_database_carries():
+    """The list is the one the shipped database was built from, written down
+    so a rebuild reproduces it rather than whatever the organisation holds
+    today."""
+    import pathlib
+    import sys
+    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent
+                           / "scripts"))
+    from fetch_unimorph import LANGUAGES
+
+    assert len(LANGUAGES) == len(set(LANGUAGES)) == 170
+    assert all(len(c) == 3 and c.isascii() for c in LANGUAGES)
+    if DB.exists():
+        carried = {r[0] for r in DB.conn.execute(
+            "SELECT DISTINCT code FROM wordform WHERE source='unimorph'")}
+        assert carried <= set(LANGUAGES), sorted(carried - set(LANGUAGES))[:6]
