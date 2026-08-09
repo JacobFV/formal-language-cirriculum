@@ -33,7 +33,9 @@ assert that a grammar's declared tier matches what its data actually supports.
 
 from __future__ import annotations
 
+import json
 from functools import lru_cache
+from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 from .category import A, ADV, CLS, N, NUM, V
@@ -49,6 +51,32 @@ from .typology import sandhi_for
 __all__ = ["DerivedGrammar", "CLOSED_CLASS_KEYS"]
 
 _ALIGNMENTS = {"NOM_ACC": NOM_ACC, "ERG_ABS": ERG_ABS, "NO_CASE": NO_CASE}
+
+
+#: Tag requirements for the cells the lessons need. ``_NOUN_SG`` is a marker:
+#: the singular is the headword and is never listed as a cell of its own.
+_OBLIQUE = frozenset({"GEN", "DAT", "ACC", "ABL", "LOC", "INS", "VOC", "ESS",
+                      "PRT", "INE", "ILL", "ADE", "ALL", "ABE", "TRANS", "COM"})
+_NOUN_SG = object()
+_NOUN_PL = (frozenset({"N", "PL"}), (_OBLIQUE - {"ACC"}) | {"DEF"})
+_NOT_FINITE = frozenset({"SBJV", "COND", "IMP", "PASS", "NFIN", "V.PTCP", "V.CVB"})
+_V3SG = (frozenset({"V", "PRS", "3", "SG"}), _NOT_FINITE)
+_V3PL = (frozenset({"V", "PRS", "3", "PL"}), _NOT_FINITE)
+_VPAST = (frozenset({"V", "PST"}), _NOT_FINITE | {"1", "2", "PL", "FEM", "NEUT"})
+
+#: The people the episodes are about. Their names are not words of any
+#: language and their genders are a fact about them, so every pack shares one
+#: table rather than inventing its own.
+_NAME_GENDER = {"alice": "f", "bob": "m", "carol": "f",
+                "dave": "m", "erin": "f", "frank": "m"}
+
+_SEED_DATA = Path(__file__).resolve().parent / "data" / "paradigm_seeds.json"
+
+
+@lru_cache(maxsize=1)
+def _paradigm_seeds() -> Mapping[str, Any]:
+    raw = json.loads(_SEED_DATA.read_text(encoding="utf-8"))
+    return {k: v for k, v in raw.items() if not k.startswith("_")}
 
 
 @lru_cache(maxsize=1)
@@ -169,6 +197,7 @@ class DerivedGrammar(Grammar):
         self._build_articles()
         for category, pos in ((N, "N"), (A, "A"), (V, "V")):
             self.morphology[category.name] = DataMorphology(db, code, pos)
+        self.paradigms = self._build_paradigms()
         self.notes = self._notes()
 
     # ---- parameters ------------------------------------------------------
@@ -332,6 +361,115 @@ class DerivedGrammar(Grammar):
         if lemma in self._ambiguous:
             return PREDICATE_GLOSS.get(lemma, "")
         return super()._spell_out(lemma, pos)
+
+    # ---- material for the lessons that are about morphology --------------
+    def _build_paradigms(self) -> dict[str, Any]:
+        """Inflected material for the seven lessons that are *about* inflection.
+
+        Those lessons build their sentences out of real inflected words rather
+        than translating at render time, so a language that supplies none of
+        this is presented in English however good its grammar is.
+
+        All or nothing across the whole set, not per table. A pack supplying
+        its own nouns but falling back for its verbs would put half a sentence
+        in each language, and the learner could not tell which half the
+        question was about.
+
+        Cells are taken from what UniMorph attests, selected by tag. Asking the
+        morphology to inflect instead returns a near-miss when the exact cell
+        is missing: Greek answered a request for the third plural with the
+        first singular, and Romanian answered a plural with a genitive. Both
+        are attested forms, and both would be the wrong word.
+        """
+        seeds = _paradigm_seeds()
+        tables: dict[str, Any] = {}
+
+        nouns = self._collect(seeds["noun_forms"], "N", _NOUN_SG, _NOUN_PL, 6)
+        agree = self._collect(seeds["agreement_forms"], "V", _V3SG, _V3PL, 6)
+        if not nouns or not agree:
+            return {}
+        tables["noun_forms"] = nouns
+        tables["agreement_forms"] = agree
+
+        for field, need in (("verbs", 6), ("intransitive_verbs", 6)):
+            forms = self._single(seeds[field], "V", _VPAST, need)
+            if not forms:
+                return {}
+            tables[field] = forms
+        # "Adv" and "P" are the tags this lexicon uses. Asking untyped took the
+        # first sense listed, and for *on* that is the switched-on adjective:
+        # Spanish offered *encendido* and Czech *zapnuto* among its prepositions.
+        for field, pos, need in (("adverbs", "Adv", 4), ("preposition_words", "P", 5)):
+            forms = self._words(seeds[field], pos, need)
+            if not forms:
+                return {}
+            tables[field] = forms
+
+        pronouns = {k: self.word(v) for k, v in seeds["pronouns"].items()}
+        if len(set(pronouns.values())) != len(pronouns) or \
+                any(w == seeds["pronouns"][k] for k, w in pronouns.items()):
+            return {}
+        tables["pronouns"] = pronouns
+        # Names are the people the episode is about, not words of the language.
+        tables["name_gender"] = dict(_NAME_GENDER)
+        return tables
+
+    def _cells(self, lemma: str) -> list[tuple[frozenset[str], str]]:
+        return [(frozenset(f.split(";")), surface)
+                for f, surface in self.db.paradigm(self.code, lemma)]
+
+    @staticmethod
+    def _cell(cells, need: frozenset[str], ban: frozenset[str]) -> str:
+        for tags, surface in cells:
+            if need <= tags and not (tags & ban) and " " not in surface:
+                return surface
+        return ""
+
+    def _collect(self, pool: Sequence[str], pos: str, first, second,
+                 need: int) -> list[tuple[str, str]]:
+        """Pairs of contrasting cells, taking the first ``need`` that work."""
+        out: list[tuple[str, str]] = []
+        for english in pool:
+            lemma = self.word(english, pos)
+            if not lemma or " " in lemma or lemma == english:
+                continue
+            cells = self._cells(lemma)
+            a = lemma if first is _NOUN_SG else self._cell(cells, *first)
+            b = self._cell(cells, *second)
+            # Identical members teach nothing: a head noun whose number cannot
+            # be seen leaves the agreement question with no evidence in it.
+            if a and b and a != b and (a, b) not in out:
+                out.append((a, b))
+            if len(out) == need:
+                return out
+        return []
+
+    def _single(self, pool: Sequence[str], pos: str, spec,
+                need: int) -> list[str]:
+        out: list[str] = []
+        for english in pool:
+            lemma = self.word(english, pos)
+            if not lemma or " " in lemma or lemma == english:
+                continue
+            form = self._cell(self._cells(lemma), *spec)
+            if form and form not in out:
+                out.append(form)
+            if len(out) == need:
+                return out
+        return []
+
+    def _words(self, pool: Sequence[str], pos: str, need: int) -> list[str]:
+        """Uninflected material — an adverb, an adposition — straight from the
+        lexicon, which is where a language without a paradigm for them keeps
+        them."""
+        out: list[str] = []
+        for english in pool:
+            form = self.lookup(english, pos) or self.cw(english)
+            if form and form != english and " " not in form and form not in out:
+                out.append(form)
+            if len(out) == need:
+                return out
+        return []
 
     def _curriculum_coverage(self) -> int:
         """How many curriculum words this language has, in one query.

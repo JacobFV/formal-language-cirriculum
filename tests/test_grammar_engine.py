@@ -1033,3 +1033,113 @@ def test_a_full_pack_is_not_reported_as_partial():
         assert not get_language(code).partial_vocabulary
     for code in ("turkish", "swahili"):
         assert get_language(code).partial_vocabulary
+
+
+# ======================================================================
+# inflected material for the lessons that are about inflection
+# ======================================================================
+_SUPPLYING = ["deu", "fra", "spa", "ita", "por", "pol", "ces", "ell", "ron", "cat"]
+
+
+@needs_db
+@pytest.mark.parametrize("code", _SUPPLYING)
+def test_a_derived_grammar_builds_its_own_agreement_material(code):
+    """Otherwise the lesson is presented in English however good the grammar is.
+
+    These seven lessons build their sentences out of inflected words rather
+    than translating at render time, so a language with no tables of its own
+    gets English ones — an agreement lesson in English wearing a Greek hat.
+    """
+    from langcurriculum._support.extra import PARALLEL_FIELDS
+    tables = DerivedGrammar(LanguageDB(), code).paradigms
+    assert tables, f"{code} built nothing"
+    for field, count in PARALLEL_FIELDS.items():
+        assert len(tables[field]) == count, f"{code}.{field}"
+
+
+@needs_db
+@pytest.mark.parametrize("code", _SUPPLYING)
+def test_the_two_members_of_a_pair_are_never_the_same_word(code):
+    """A head noun whose number cannot be seen leaves the question no evidence.
+
+    German *Schlüssel* is its own plural. Offered as the head of an agreement
+    episode it makes the episode unanswerable, so a pair that does not contrast
+    is skipped and the next candidate tried.
+    """
+    tables = DerivedGrammar(LanguageDB(), code).paradigms
+    for field in ("noun_forms", "agreement_forms"):
+        for one, other in tables[field]:
+            assert one != other, f"{code}.{field}: {one!r} twice"
+        assert len({p[0] for p in tables[field]}) == len(tables[field])
+
+
+@needs_db
+@pytest.mark.parametrize("code", _SUPPLYING)
+def test_every_cell_is_one_the_language_actually_attests(code):
+    """Asking the morphology to inflect returns a near-miss when the exact cell
+    is missing, and a near-miss is the wrong word.
+
+    Greek answered a request for the third person plural with the first person
+    singular, and Romanian answered a plural with a genitive. Both forms are
+    attested; neither is the cell that was asked for. Cells are therefore
+    selected by tag from what UniMorph records, not generated.
+    """
+    db = LanguageDB()
+    grammar = DerivedGrammar(db, code)
+    for singular, plural in grammar.paradigms["noun_forms"]:
+        attested = {s for _, s in db.paradigm(code, singular)}
+        assert plural in attested, f"{code}: {plural!r} not attested for {singular!r}"
+
+
+@needs_db
+def test_a_language_supplies_the_whole_set_or_none_of_it():
+    """Half a table would put half a sentence in each language.
+
+    Finnish and Hungarian have excellent nouns and verbs here and no
+    prepositions at all, because they mark those relations with cases. They
+    fall back whole rather than lending their nouns to an English sentence.
+    """
+    db = LanguageDB()
+    from langcurriculum._support.extra import PARALLEL_FIELDS
+    for code in ("fin", "hun", "tur", "dan", "rus"):
+        tables = DerivedGrammar(db, code).paradigms
+        assert tables == {} or set(tables) == set(PARALLEL_FIELDS), code
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["deu", "fra", "ell"])
+def test_the_lessons_come_out_in_the_language_that_was_asked_for(code):
+    """The end of the chain: real generated text, not a table.
+
+    Only the sentence itself. The query label beside it is a field name the
+    compiler passes through untranslated in every language, which is a
+    different gap and one this change does not touch.
+    """
+    from langcurriculum.registry import get
+
+    def sentence(language: str) -> set[str]:
+        text = get("long_range_agreement").example(0, language=language).observation
+        return {line.strip("- ").strip() for line in text.splitlines()
+                if line.strip().startswith("-")} - {"__"}
+
+    shared = sentence("english") & sentence(code)
+    assert not shared, f"{code} shares {shared} with the English sentence"
+
+
+def test_a_pack_that_writes_its_article_into_its_nouns_says_so():
+    """Spanish ships *el granjero*; English ships *the* and *farmer* apart.
+
+    Guessing produced *der Buch* in German and *ο κλειδιά* in Greek, because a
+    single article cannot agree with every noun it precedes. Whether the
+    article is a token of its own is now declared by the pack.
+    """
+    from langcurriculum._support import extra
+    from langcurriculum.languages import get_language
+    assert get_language("english").lexicon.article == "the"
+    assert get_language("spanish").lexicon.article == ""
+    for code, expected in (("english", "the"), ("spanish", "")):
+        token = extra.ACTIVE_LANGUAGE.set(code)
+        try:
+            assert extra.determiner() == expected
+        finally:
+            extra.ACTIVE_LANGUAGE.reset(token)

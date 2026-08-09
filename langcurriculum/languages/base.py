@@ -99,6 +99,9 @@ class Lexicon:
     #: *then* — written into a token list by the coreference lesson, so it has
     #: to come from the pack like everything else in that sentence
     then: str = "then"
+    #: the article these lessons put in front of :attr:`noun_forms`, where the
+    #: pack keeps it as a separate token rather than inside the noun
+    article: str = ""
 
     # ---- the open-class vocabulary ------------------------------------
     vocabulary: Vocabulary = field(default_factory=Vocabulary)

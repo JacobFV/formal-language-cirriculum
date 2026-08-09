@@ -38,6 +38,12 @@ PARALLEL_FIELDS = {
     "noun_forms": 6, "agreement_forms": 6, "pronouns": 2, "name_gender": 6,
 }
 
+#: Not length-checked: a scalar, and legitimately empty. Whether the article
+#: stands as its own token is a fact about the pack, not something to guess at.
+#: English writes *the farmer* as two tokens; Spanish writes *el granjero* as
+#: one because a single article cannot agree with both *la llave* and *el
+#: libro*; a derived grammar writes none, having no reliable way to agree.
+
 
 def _material(field: str):
     """One paradigm table, from the active language if it has a full one.
@@ -108,13 +114,19 @@ def determiner() -> str:
     It belongs to the same all-or-nothing set as the nouns it stands in front
     of: a pack whose nouns fall back to English gets English's article too,
     because *farmer* preceded by *el* is not a sentence of either language.
-    Where the pack does supply its own nouns the answer may be empty, and
-    correctly so -- Russian has no definite article, and the lesson writes no
-    token rather than an English one.
+
+    A pack that does supply its own nouns has already written whatever article
+    belongs with each of them -- Spanish ships *la llave* and *el libro*,
+    because one scalar cannot agree with both -- so nothing is added here. The
+    alternative was a single article in front of every noun, which produced
+    *der Buch* in German and *ο κλειδιά* in Greek. A wrong article is worse
+    than none, and the number contrast the lesson turns on is carried by the
+    noun either way.
     """
+    lexicon = get_language(ACTIVE_LANGUAGE.get()).lexicon
     if not supplies("noun_forms"):
-        return _ENGLISH.definite
-    return get_language(ACTIVE_LANGUAGE.get()).lexicon.definite
+        return getattr(_ENGLISH, "article", "") or _ENGLISH.definite
+    return getattr(lexicon, "article", "") or ''
 
 
 def then_word() -> str:
