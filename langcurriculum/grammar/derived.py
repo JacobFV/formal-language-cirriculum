@@ -46,7 +46,7 @@ from .linearize import (
     Typography, WordOrder,
 )
 from .store import LanguageDB
-from .typology import instructions_for, sandhi_for
+from .typology import copula_for, instructions_for, sandhi_for
 
 __all__ = ["DerivedGrammar", "CLOSED_CLASS_KEYS"]
 
@@ -753,6 +753,14 @@ class DerivedGrammar(Grammar):
         cached = self._copula.get(plural)
         if cached is not None:
             return cached
+        # A written-down form wins. The paradigm data gets German *ist* and
+        # Greek *είναι* right on its own, but it has no entry at all for a
+        # suppletive Polish *jest*, and for Arabic it offers the past tense
+        # where the present has no copula to offer.
+        written = copula_for(self.code)
+        if written is not None:
+            self._copula[plural] = written["pl" if plural else "sg"]
+            return self._copula[plural]
         lemma = self._copula_lemma()
         want = FS({"pers": "3", NUM: "pl" if plural else "sg",
                    "tense": "pres", "mood": "ind"})
@@ -913,7 +921,9 @@ class DerivedGrammar(Grammar):
             out.append("the dictionary records no gender on this language's "
                        "article, so it does not agree with the noun")
         lemma = self._copula_lemma()
-        if self.order.copula_overt and not lemma:
+        if copula_for(self.code) is not None:
+            pass                       # written down; nothing to report
+        elif self.order.copula_overt and not lemma:
             out.append("the dictionary offers no single word for the copula, "
                        "so none is written")
         elif self.order.copula_overt and not self.db.paradigm(self.code, lemma):

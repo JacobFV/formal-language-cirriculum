@@ -377,6 +377,9 @@ def test_a_grammar_that_cannot_find_a_copula_paradigm_says_so():
         grammar = DerivedGrammar(DB, row["code"])
         if not grammar.order.copula_overt:
             continue
+        from langcurriculum.grammar.typology import copula_for
+        if copula_for(row["code"]) is not None:
+            continue                      # written down and checked, not guessed
         lemma = grammar._copula_lemma()
         if DB.paradigm(row["code"], lemma):
             continue                      # it has one; nothing to declare

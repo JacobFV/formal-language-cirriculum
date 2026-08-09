@@ -190,6 +190,25 @@ def instructions_for(code: str) -> Mapping[str, str]:
     return _instruction_tables().get(code, {})
 
 
+_COPULA_DATA = Path(__file__).resolve().parent / "data" / "copulas.json"
+
+
+@lru_cache(maxsize=1)
+def _copula_tables() -> Mapping[str, Mapping[str, str]]:
+    raw = json.loads(_COPULA_DATA.read_text(encoding="utf-8"))
+    return {k: v for k, v in raw.items() if not k.startswith("_")}
+
+
+def copula_for(code: str) -> Mapping[str, str] | None:
+    """The written-down copula, or ``None`` where the derivation is trusted.
+
+    ``None`` and an empty form are different answers: Arabic writes no copula
+    in the present, and that is a fact recorded here rather than a failure to
+    find one.
+    """
+    return _copula_tables().get(code)
+
+
 def derive_profile(code: str, wals: Mapping[str, str], *,
                    script: str = "Latn", grambank: Mapping[str, str] | None = None
                    ) -> Profile:

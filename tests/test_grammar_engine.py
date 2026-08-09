@@ -1578,3 +1578,68 @@ def test_the_copulas_that_were_right_are_untouched(code, expected):
     if db.language(code) is None:
         pytest.skip(f"{code} absent")
     assert DerivedGrammar(db, code)._copula_lemma() == expected
+
+
+# ======================================================================
+# a copula that is written down beats one that is guessed at
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code,singular,plural", [
+    ("pol", "jest", "są"), ("isl", "er", "eru"), ("slv", "je", "so"),
+    ("vie", "là", "là"), ("ind", "adalah", "adalah"), ("swh", "ni", "ni"),
+    ("jpn", "です", "です"), ("hin", "है", "हैं"),
+])
+def test_a_written_copula_is_used(code, singular, plural):
+    """The paradigm data has no entry for a suppletive Polish *jest*.
+
+    So the citation form was printed where a finite verb belongs — *być*,
+    *vera*, *kuwa*, and in Japanese *れる*, a passive suffix that is not a
+    copula at all.
+    """
+    from langcurriculum.grammar.category import NUM
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    assert grammar.copula("pred", FS({NUM: "sg"})) == singular
+    assert grammar.copula("pred", FS({NUM: "pl"})) == plural
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["arb", "tur", "tam"])
+def test_writing_no_copula_is_an_answer_and_not_a_gap(code):
+    """Arabic writes a nominal sentence. The dictionary offered the past tense.
+
+    An empty form here is a recorded fact, not a failure to find a word, and
+    the two must not be confused: *كَانَ* is 'was' and *olur* is 'becomes',
+    and both were standing in the present tense of every sentence.
+    """
+    from langcurriculum.grammar.category import NUM
+    from langcurriculum.grammar.typology import copula_for
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    assert copula_for(code) is not None, f"{code} should be written down"
+    assert DerivedGrammar(db, code).copula("pred", FS({NUM: "sg"})) == ""
+
+
+@needs_db
+@pytest.mark.parametrize("code,expected", [
+    ("deu", "ist"), ("fra", "est"), ("spa", "es"), ("ell", "είναι"),
+    ("fin", "on"), ("ces", "je"), ("ron", "este"), ("cmn", "是"),
+])
+def test_the_derivation_keeps_the_copulas_it_already_got_right(code, expected):
+    """Most of them. The table is for where it fails, not a replacement."""
+    from langcurriculum.grammar.category import NUM
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    from langcurriculum.grammar.typology import copula_for
+    assert copula_for(code) is None, f"{code} should still be derived"
+    assert DerivedGrammar(db, code).copula("pred", FS({NUM: "sg"})) == expected
+
+
+def test_an_unwritten_copula_and_an_empty_one_are_different_answers():
+    from langcurriculum.grammar.typology import copula_for
+    assert copula_for("arb") == {"sg": "", "pl": ""}
+    assert copula_for("deu") is None
