@@ -247,6 +247,10 @@ _CASE_TAGS = frozenset({"NOM", "ACC", "GEN", "DAT", "INS", "LOC", "PRP",
 _CASE_TAG = {"nom": "NOM", "acc": "ACC", "gen": "GEN", "dat": "DAT",
              "ins": "INS", "loc": "LOC", "voc": "VOC", "abl": "ABL"}
 
+#: The same, for noun class.
+_CLASS_TAGS = frozenset({"MASC", "FEM", "NEUT", "COM"})
+_CLASS_TAG = {"m": "MASC", "f": "FEM", "n": "NEUT", "c": "COM"}
+
 
 def _unambiguous(cells: list[tuple[str, str]]) -> list[tuple[str, str]]:
     """Drop any tag set that is recorded with more than one surface.
@@ -448,12 +452,19 @@ class DataMorphology(Morphology):
         # Swedish and French mark none, so demanding an explicit case there
         # would send every adjective back to its citation form and undo
         # agreement in exactly the four languages an earlier attempt broke.
+        # The same holds of the class, and for the same reason. Czech lists
+        # ``A;FEM;NOM;SG`` and ``A;NEUT;NOM;SG`` and no masculine, because
+        # *žlutý* is the headword — but it also lists a classless ``A;NOM``
+        # whose surface is the neuter, and that answered every masculine
+        # request: scenes read *žluté hranol* where *žlutý hranol* belongs.
         rows = self.cells(lemma)
         wanted_case = _CASE_TAG.get(wanted.get_atom(CASE) or "", "")
-        strict_case = bool(
-            self.pos == "A" and wanted_case
-            and any(t in _CASE_TAGS
-                    for bundle, _s in rows for t in bundle.split(";")))
+        wanted_class = _CLASS_TAG.get(wanted.get_atom(CLS) or "", "")
+        marks = {t for bundle, _s in rows for t in bundle.split(";")}
+        strict_case = bool(self.pos == "A" and wanted_case
+                           and marks & _CASE_TAGS)
+        strict_class = bool(self.pos == "A" and wanted_class
+                            and marks & _CLASS_TAGS)
 
         best, best_score = None, (-1, 1)
         for bundle, surface in rows:
@@ -463,7 +474,10 @@ class DataMorphology(Morphology):
                 continue
             if any(k in feats and feats.get_atom(k) != v for k, v in wanted.items()):
                 continue
-            if strict_case and wanted_case not in bundle.split(";"):
+            raw = bundle.split(";")
+            if strict_case and wanted_case not in raw:
+                continue
+            if strict_class and wanted_class not in raw:
                 continue
             matched = sum(1 for k, v in wanted.items() if feats.get_atom(k) == v)
             if not matched:

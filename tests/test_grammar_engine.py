@@ -1946,3 +1946,55 @@ def test_the_russian_scene_reads_as_russian():
     scene = get("symbol_grounding").example(0, language="rus").observation
     assert "жёлтый куб" in scene
     assert "жёлт куб" not in scene
+
+
+@needs_db
+@pytest.mark.parametrize("code,expected", [
+    ("ces", ["žlutý", "žlutá", "žluté"]),
+    ("ita", ["giallo", "gialla"]),
+    ("por", ["amarelo", "amarela"]),
+])
+def test_a_classless_cell_does_not_answer_a_class_request(code, expected):
+    """Czech scenes read *žluté hranol* — a neuter adjective on a masculine noun.
+
+    It lists ``A;FEM;NOM;SG`` and ``A;NEUT;NOM;SG`` and no masculine, because
+    *žlutý* is the headword, and it also lists a classless ``A;NOM`` whose
+    surface is the neuter. That row contradicted nothing, so it answered every
+    masculine request.
+    """
+    from langcurriculum.grammar.category import CASE, CLS, NUM, A
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    got = [grammar.inflect(A.name, "yellow", FS({CLS: c, NUM: "sg", CASE: "nom"}))
+           for c in ("m", "f", "n")[:len(expected)]]
+    assert got == expected
+
+
+@needs_db
+def test_the_czech_scene_agrees_with_each_noun():
+    from langcurriculum.registry import get
+    scene = get("symbol_grounding").example(0, language="ces").observation
+    assert "žlutá krychle" in scene       # feminine
+    assert "žlutý hranol" in scene        # masculine
+    assert "žluté hranol" not in scene
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["deu", "ell", "swe", "fra"])
+def test_the_class_rule_only_fires_where_the_paradigm_marks_class(code):
+    """A language whose adjectives carry no class tag keeps what it had.
+
+    The condition is the same one that keeps the case rule honest, and without
+    it every adjective in a caseless, classless paradigm would fall back to its
+    citation form.
+    """
+    from langcurriculum.grammar.category import CASE, CLS, NUM, A
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    forms = {grammar.inflect(A.name, "yellow", FS({CLS: c, NUM: "sg", CASE: "nom"}))
+             for c in ("m", "f", "n")}
+    assert all(f and f != "yellow" for f in forms), f"{code} lost its adjective"
