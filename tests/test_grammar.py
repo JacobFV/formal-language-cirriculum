@@ -43,12 +43,12 @@ def test_the_pack_declares_the_grammar_it_implements(code):
         # without a grammar. What it may not do is be quiet about it: the
         # coverage is asserted against a declared floor and reported by the CLI,
         # so a reader knows an untranslated word is a gap and not a bug.
-        assert lang.lexicon.vocabulary.counts()["total"] >= 60, \
+        assert lang.coverage()["total"] >= 60, \
             f"{code} ships too little vocabulary to be worth presenting"
         assert any("NOT attempted" in n for n in lang.grammar_notes), \
             f"{code} must say what it does not attempt"
     else:
-        assert lang.lexicon.vocabulary.counts()["total"] >= 300
+        assert lang.coverage()["total"] >= 300
 
 
 @pytest.mark.parametrize("code", NATURAL)

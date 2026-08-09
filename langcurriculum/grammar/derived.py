@@ -33,6 +33,7 @@ assert that a grammar's declared tier matches what its data actually supports.
 
 from __future__ import annotations
 
+from functools import lru_cache
 from typing import Any, Mapping, Sequence
 
 from .category import A, ADV, CLS, N, NUM, V
@@ -48,6 +49,13 @@ from .typology import sandhi_for
 __all__ = ["DerivedGrammar", "CLOSED_CLASS_KEYS"]
 
 _ALIGNMENTS = {"NOM_ACC": NOM_ACC, "ERG_ABS": ERG_ABS, "NO_CASE": NO_CASE}
+
+
+@lru_cache(maxsize=1)
+def _curriculum_keys() -> frozenset[str]:
+    """The words the lessons can coin. Imported late; compile imports us."""
+    from .compile import curriculum_vocabulary
+    return frozenset(curriculum_vocabulary())
 
 
 def _shared_prefix(lemma: str, form: str) -> int:
@@ -324,6 +332,23 @@ class DerivedGrammar(Grammar):
         if lemma in self._ambiguous:
             return PREDICATE_GLOSS.get(lemma, "")
         return super()._spell_out(lemma, pos)
+
+    def _curriculum_coverage(self) -> int:
+        """How many curriculum words this language has, in one query.
+
+        Counted here rather than by asking :meth:`knows` four hundred times,
+        because :meth:`gaps` runs during construction and every grammar pays
+        for it.
+        """
+        keys = sorted(_curriculum_keys())
+        marks = ",".join("?" * len(keys))
+        present = {r[0] for r in self.db.conn.execute(
+            f"SELECT DISTINCT key FROM sense WHERE code=? AND key IN ({marks})",
+            (self.code, *keys))}
+        # Subtract only what was counted. Withholding a word that has no entry
+        # in the first place is not a second loss, and taking the size of the
+        # withheld set off the total counted one of them twice.
+        return len(present - self._ambiguous)
 
     def knows(self, lemma: str) -> bool:
         """The database has a word for it, and it is one this grammar may use.
@@ -613,6 +638,16 @@ class DerivedGrammar(Grammar):
         if not p.get("has_definite") and "37A" not in (p.get("evidence") or {}):
             out.append("WALS does not code 37A for this language, so no "
                        "definite article is emitted even if it has one")
+        known = self._curriculum_coverage()
+        total = len(_curriculum_keys())
+        if known < total * 0.9:
+            out.append(f"has a word for {known} of the {total} words the "
+                       f"lessons can coin ({100 * known // total}%); the rest "
+                       f"pass through in English")
+        if self._ambiguous:
+            out.append(f"{len(self._ambiguous)} words are withheld because the "
+                       f"dictionary gives two of them the same form, and an "
+                       f"ambiguous episode is worse than an English one")
         if not self.predicate_words:
             out.append("relational predicates are composed word by word from "
                        "their English gloss (“left of” → the "

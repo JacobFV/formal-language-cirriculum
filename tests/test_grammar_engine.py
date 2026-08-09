@@ -970,3 +970,66 @@ def test_a_word_withheld_to_avoid_ambiguity_is_not_offered_as_an_option():
     assert grammar._ambiguous, "expected French to withhold something"
     for key in grammar._ambiguous:
         assert not grammar.knows(key), f"{key!r} withheld from prose but offered"
+
+
+# ======================================================================
+# what a pack reports about itself has to be measured, not assumed
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code", ["rus", "deu", "fra", "hin", "por"])
+def test_a_derived_language_reports_the_vocabulary_it_actually_has(code):
+    """It reported zero, and was classed as partial without being measured.
+
+    ``partial_vocabulary`` is documented as computed rather than declared —
+    "by arithmetic rather than by an attribute someone forgot to flip". The
+    arithmetic was ``len(lexicon.vocabulary)``, and a derived grammar leaves
+    that empty because its words are in a database. Four hundred languages
+    reported a vocabulary of nothing while covering half the curriculum.
+    """
+    from langcurriculum.languages import get_language
+    coverage = get_language(code).coverage()
+    assert coverage["total"] > 100, f"{code} reported {coverage}"
+    assert sum(v for k, v in coverage.items() if k != "total") == coverage["total"]
+
+
+def test_every_language_reports_a_coverage_it_could_have_measured():
+    from langcurriculum.languages import get_language, language_codes
+    for code in language_codes():
+        coverage = get_language(code).coverage()
+        assert coverage["total"] >= 0
+        assert set(coverage) >= {"total"}
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["fra", "rus", "deu", "hin", "por"])
+def test_the_two_ways_of_counting_coverage_agree(code):
+    """One is a query and one asks ``knows`` four hundred times.
+
+    They must be the same number. A first version subtracted the whole
+    withheld set from the query's total, including words that had no entry to
+    withhold, and came out one short — the same drift that has now twice let a
+    check pass while the thing it checked was broken.
+    """
+    from langcurriculum.grammar.compile import curriculum_vocabulary
+    grammar = DerivedGrammar(LanguageDB(), code)
+    one_query = grammar._curriculum_coverage()
+    by_asking = sum(1 for k in curriculum_vocabulary() if grammar.knows(k))
+    assert one_query == by_asking
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["fra", "rus", "hin"])
+def test_a_partial_lexicon_is_stated_as_a_gap(code):
+    """A reader should not have to measure it themselves."""
+    gaps = " ".join(DerivedGrammar(LanguageDB(), code).gaps())
+    assert "words the lessons can coin" in gaps
+    assert "withheld" in gaps
+
+
+def test_a_full_pack_is_not_reported_as_partial():
+    """The change of basis must not reclassify the hand-written packs."""
+    from langcurriculum.languages import get_language
+    for code in ("english", "spanish", "chinese"):
+        assert not get_language(code).partial_vocabulary
+    for code in ("turkish", "swahili"):
+        assert get_language(code).partial_vocabulary

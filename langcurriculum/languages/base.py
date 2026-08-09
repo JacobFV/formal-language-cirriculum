@@ -162,10 +162,21 @@ class Language:
             tail = f"{lex.options_heading}\n{listed}\n" + lex.instruction_many.format(n=len(opts))
         return f"{observation}\n\n{tail}"
 
+    def coverage(self) -> dict[str, int]:
+        """How much of the curriculum this pack actually has words for.
+
+        Reported rather than the size of a declared word list, because the two
+        are not the same question and only one of them is comparable. A pack
+        that keeps its words in a database declares nothing at all, and was
+        therefore reporting a total of zero while covering two hundred and
+        thirty-six of the four hundred and five words the lessons can coin.
+        """
+        return self.lexicon.vocabulary.counts()
+
     def info(self) -> dict[str, Any]:
         return {"code": self.code, "name": self.name, "kind": self.kind,
                 "description": self.description,
-                "vocabulary": self.lexicon.vocabulary.counts(),
+                "vocabulary": self.coverage(),
                 "grammar": list(self.grammar_notes)}
 
     def __repr__(self) -> str:
