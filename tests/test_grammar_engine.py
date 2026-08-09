@@ -1879,3 +1879,70 @@ def test_the_derivation_can_still_find_the_copula_it_no_longer_writes(code, expe
     # Hungarian *van* is itself the third singular, so there is no separate
     # cell to find; Russian *быть* has one and it is *есть*.
     assert (morph._attested(lemma, want) or lemma) == expected
+
+
+# ======================================================================
+# a case request has to be answered in the case it asked for
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code,expected", [
+    ("rus", ["жёлтый", "жёлтая", "жёлтое"]),
+    ("ell", ["κίτρινος", "κίτρινη", "κίτρινο"]),
+    ("deu", ["gelber", "gelbe", "gelbes"]),
+])
+def test_a_case_language_agrees_in_the_nominative(code, expected):
+    """Russian scenes read *жёлт куб*, which is the short form.
+
+    It tags long forms ``A;FEM;NOM`` and short forms ``A;MASC`` with no case at
+    all, so a request for the masculine nominative walked past the absent long
+    form and matched the short one. There is no ``A;MASC;NOM`` row because
+    *жёлтый* is the headword.
+    """
+    from langcurriculum.grammar.category import CASE, CLS, NUM, A
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    got = [grammar.inflect(A.name, "yellow", FS({CLS: c, NUM: "sg", CASE: "nom"}))
+           for c in ("m", "f", "n")]
+    assert got == expected
+
+
+@needs_db
+@pytest.mark.parametrize("code,expected", [
+    ("ita", ["giallo", "gialla"]), ("por", ["amarelo", "amarela"]),
+    ("fra", ["jaune", "jaune"]),
+])
+def test_a_caseless_language_still_agrees_in_class(code, expected):
+    """The restriction that keeps the rule honest.
+
+    Italian, Portuguese, Swedish and French mark no case at all, so demanding
+    an explicit case would send every adjective back to its citation form and
+    undo agreement in exactly the four languages an earlier attempt at this
+    broke. The rule fires only where the paradigm marks case.
+    """
+    from langcurriculum.grammar.category import CASE, CLS, NUM, A
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    got = [grammar.inflect(A.name, "yellow", FS({CLS: c, NUM: "sg", CASE: "nom"}))
+           for c in ("m", "f")]
+    assert got == expected
+
+
+@needs_db
+def test_the_short_form_is_not_offered_as_a_nominative():
+    """The specific wrong word, named."""
+    from langcurriculum.grammar.category import CASE, CLS, NUM, A
+    grammar = DerivedGrammar(LanguageDB(), "rus")
+    assert grammar.inflect(A.name, "yellow",
+                           FS({CLS: "m", NUM: "sg", CASE: "nom"})) != "жёлт"
+
+
+@needs_db
+def test_the_russian_scene_reads_as_russian():
+    from langcurriculum.registry import get
+    scene = get("symbol_grounding").example(0, language="rus").observation
+    assert "жёлтый куб" in scene
+    assert "жёлт куб" not in scene

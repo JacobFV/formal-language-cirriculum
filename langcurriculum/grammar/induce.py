@@ -240,6 +240,14 @@ def induce(pairs: Iterable[tuple[str, str, str]], *,
 # ======================================================================
 # the morphology object the linearizer uses
 # ======================================================================
+#: Case tags a paradigm may carry, and the UniMorph spelling of each case the
+#: engine asks for.
+_CASE_TAGS = frozenset({"NOM", "ACC", "GEN", "DAT", "INS", "LOC", "PRP",
+                        "VOC", "ABL", "ESS", "PRT", "ILL", "INE", "ADE"})
+_CASE_TAG = {"nom": "NOM", "acc": "ACC", "gen": "GEN", "dat": "DAT",
+             "ins": "INS", "loc": "LOC", "voc": "VOC", "abl": "ABL"}
+
+
 def _unambiguous(cells: list[tuple[str, str]]) -> list[tuple[str, str]]:
     """Drop any tag set that is recorded with more than one surface.
 
@@ -426,13 +434,36 @@ class DataMorphology(Morphology):
         survivors the one agreeing on most of the request wins, with the fewest
         unrequested extras breaking ties.
         """
+        # An adjective in a case-marking language must match the case it was
+        # asked for rather than merely fail to contradict it. Russian tags its
+        # long forms ``A;FEM;NOM`` and its short forms ``A;MASC`` with no case
+        # at all, so a request for the masculine nominative walked past the
+        # absent long form and took the short one: scenes read *жёлт куб* where
+        # *жёлтый куб* belongs. There is no ``A;MASC;NOM`` row because *жёлтый*
+        # is the headword, and a paradigm's silence about its own citation form
+        # is evidence rather than a gap — which is what :meth:`_analogical`
+        # says two methods down and what this was quietly getting wrong.
+        #
+        # Only where the paradigm marks case at all. Italian, Portuguese,
+        # Swedish and French mark none, so demanding an explicit case there
+        # would send every adjective back to its citation form and undo
+        # agreement in exactly the four languages an earlier attempt broke.
+        rows = self.cells(lemma)
+        wanted_case = _CASE_TAG.get(wanted.get_atom(CASE) or "", "")
+        strict_case = bool(
+            self.pos == "A" and wanted_case
+            and any(t in _CASE_TAGS
+                    for bundle, _s in rows for t in bundle.split(";")))
+
         best, best_score = None, (-1, 1)
-        for bundle, surface in self.cells(lemma):
+        for bundle, surface in rows:
             feats = parse_unimorph(bundle)
             tags = unimorph_tags(bundle)
             if feats is None or tags is None:
                 continue
             if any(k in feats and feats.get_atom(k) != v for k, v in wanted.items()):
+                continue
+            if strict_case and wanted_case not in bundle.split(";"):
                 continue
             matched = sum(1 for k, v in wanted.items() if feats.get_atom(k) == v)
             if not matched:
