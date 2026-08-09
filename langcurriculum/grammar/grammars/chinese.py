@@ -137,23 +137,7 @@ class Chinese(VocabularyGrammar):
         adjective = self.vocabulary.adjectives.get(lemma)
         return (adjective.base + "的") if adjective else self.word(lemma)
 
-    # ---- coordination -----------------------------------------------------
-    def join_list(self, items):
-        """``甲、乙和丙`` — the enumerating comma, then 和 before the last."""
-        items = [i for i in items if i]
-        if len(items) <= 1:
-            return items[0] if items else ""
-        return "、".join(items[:-1]) + self.cw("and") + items[-1]
 
-    def join_clauses(self, items):
-        """Clauses take ；, never 、.
-
-        Running whole clauses together with the enumerating comma is the single
-        most common way translated Chinese gives itself away.
-        """
-        return self.typography.clause_separator.join(i for i in items if i)
-
-    # ---- topic–comment ----------------------------------------------------
     def lin_PredAttr(self, node: Node, ctx: FS) -> str:
         """``o0是红色的`` — a predicative adjective keeps its 的."""
         subject, attribute = node.arg("agent"), node.arg("attribute")
@@ -163,26 +147,12 @@ class Chinese(VocabularyGrammar):
             else self.lin(attribute, ctx)
         return f"{self.lin(subject, ctx)}是{realized}"
 
-    def lin_Labelled(self, node: Node, ctx: FS) -> str:
-        """A single value under a label is a data row, not a sentence.
-
-        Chinese orders 类型X and X不可靠 differently, and which one a bare unary
-        predicate wants is not knowable from the structure. The labelled row is
-        right either way.
-        """
-        label, value = node.arg("label"), node.arg("value")
-        assert label is not None and value is not None
-        return (f"{self.clean_label(self.lin(label, ctx))}"
-                f"{self.typography.colon}{self.lin(value, ctx)}")
 
     def clean_label(self, label: str) -> str:
         """Drop a leading 的 and a trailing 是: both need what is not there."""
         return label.lstrip("的").rstrip("是") or label
 
-    def block_heading(self, name: str) -> str:
-        return f"{name.replace('_', ' ')}{self.typography.colon}"
 
-    # ---- questions --------------------------------------------------------
     def lin_YNQ(self, node: Node, ctx: FS) -> str:
         """``…吗`` — a particle, never inversion."""
         body = node.arg("body")
@@ -201,11 +171,3 @@ class Chinese(VocabularyGrammar):
         inner = self.lin(body, ctx) if body is not None else ""
         return f"{inner}是{'还是'.join(options)}" if options else inner
 
-    def sentence(self, text: str, end: str | None = None) -> str:
-        text = text.strip()
-        if not text:
-            return ""
-        if end == "":
-            return text
-        end = self.typography.full_stop if end is None else end
-        return text if text[-1] in "。？！.?!" else text + end

@@ -203,8 +203,3 @@ class Spanish(VocabularyGrammar):
                 return label[: -len(tail)]
         return label
 
-    def lin_Labelled(self, node: Node, ctx: FS) -> str:
-        label, value = node.arg("label"), node.arg("value")
-        assert label is not None and value is not None
-        return (f"{self.clean_label(self.lin(label, ctx))}"
-                f"{self.typography.colon} {self.lin(value, ctx)}")

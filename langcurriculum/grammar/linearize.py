@@ -577,10 +577,25 @@ class Grammar:
                 else self.join([phrase, marker]))
 
     # ---- packaging -----------------------------------------------------
+    def clean_label(self, label: str) -> str:
+        """Trim what a relational phrase leaves dangling when it labels one value.
+
+        ``predicate_words`` are authored to sit *between* a subject and an
+        object, so used as a label over a single value they can leave a particle
+        or copula with nothing to attach to — Chinese ``的类型是`` in front of
+        nothing, Spanish ``el estado de`` with no complement. The default trims
+        nothing, because most languages have nothing to trim.
+        """
+        return label
+
     def lin_Labelled(self, node: Node, ctx: FS) -> str:
         label, value = node.arg("label"), node.arg(VALUE)
         assert label is not None and value is not None
-        l, v = self.lin(label, ctx), self.lin(value, ctx)
+        # clean_label is a declared strategy that the walk never invoked, so a
+        # language only benefited from it by overriding this whole method —
+        # which Spanish and Chinese both did, for nothing but that call.
+        l = self.clean_label(self.lin(label, ctx))
+        v = self.lin(value, ctx)
         l += self.typography.label_separator
         return self.join([l, v]) if self.order.label == "LV" else self.join([v, l])
 

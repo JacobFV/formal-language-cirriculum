@@ -8,28 +8,35 @@ than remembered:
 ======================  ==========  ===========================================
 grammar                 overrides   what they are
 ======================  ==========  ===========================================
-:mod:`.spanish`         5           gendered articles with the el-agua
-                                    exception, y/e and o/u, ser vs estar, a
-                                    label's trailing preposition
+:mod:`.swahili`         1           class concord prefixes
 :mod:`.english`         4           a/an phonology, and negation, polar
                                     questions and wh-questions all attaching to
                                     a finite auxiliary
+:mod:`.spanish`         5           gendered articles with the el-agua
+                                    exception, y/e and o/u, ser vs estar, a
+                                    label's trailing preposition
 :mod:`.turkish`         6           the mI clitic, evidentiality, double-marked
                                     possession, locative case, differential
                                     object marking
-:mod:`.swahili`         3           class concord prefixes, the class-pair
-                                    plural, the nasal allomorph
-:mod:`.chinese`         11          measure words, per-adjective 的,
-                                    topic-comment framing, 吗 and 还是
-                                    questions, and its own typography
+:mod:`.chinese`         7           measure words, per-adjective 的,
+                                    topic-comment framing, 吗 and 还是 questions
 ======================  ==========  ===========================================
 
-Chinese is the one worth staring at. Several of its eleven are real — a measure
-word is not a determiner and no parameter will make it one — but ``join_list``,
-``sentence`` and ``block_heading`` are there because the typography of a
-script written without spaces is still partly hard-coded in the walk rather
-than read off :class:`~langcurriculum.grammar.linearize.Typography`. That is a
-gap in the parameterization and is recorded here rather than rounded down.
+The counts came down by nine when they were last checked against the source,
+and the reason is worth keeping: most of what looked like idiosyncrasy was
+**vestigial**. Chinese carried its own ``join_list``, ``join_clauses``,
+``sentence`` and ``block_heading``, all four written before
+:class:`~langcurriculum.grammar.linearize.Typography` grew ``item_separator``
+and ``label_separator``, and all four producing exactly what the base already
+produced. Spanish and Chinese each carried a ``lin_Labelled`` whose only
+content was a call to ``clean_label`` — a strategy the base declared and then
+never invoked, so a grammar could only benefit from it by overriding the whole
+method. The base calls it now.
+
+An override that is never needed is worse than a missing parameter: it reads as
+evidence that the language is unusual when it is evidence that nobody rechecked.
+If a grammar starts needing a dozen, count them from the source before believing
+it.
 """
 
 from __future__ import annotations
