@@ -864,3 +864,62 @@ def test_a_negator_is_never_empty():
         except Exception:
             continue
         assert grammar.negator(), f"{row['code']} has no negator at all"
+
+
+# ======================================================================
+# the answer set, in every language
+# ======================================================================
+#: A spread of typologies rather than a spread of families: verb-final and
+#: verb-initial, case-marking and not, three scripts, one classifier language.
+_ANSWER_SET_LANGUAGES = ["deu", "fra", "spa", "ita", "rus", "jpn", "fin", "ell"]
+
+
+@needs_db
+@pytest.mark.parametrize("code", _ANSWER_SET_LANGUAGES)
+def test_translating_the_options_never_merges_two_of_them(code):
+    """The counterpart of the negation-collapse check, on the answer side.
+
+    An episode whose *prompt* renders two claims alike is unanswerable; so is one
+    whose *options* do. The existing guard covered only the hand-written
+    grammars, which is the half least likely to fail — a derived language
+    translates its options through a scraped dictionary, where two English words
+    landing on one target word is exactly what happens.
+    """
+    if DB.language(code) is None:
+        pytest.skip(f"{code} absent")
+    import langcurriculum as lc
+    collapsed = []
+    for lesson in [l for l in lc.all_lessons().values()
+                   if l.status == "implemented"][::2]:
+        example = lesson.example(0, language=code)
+        if len(set(example.choices)) != len(example.choices):
+            collapsed.append(lesson.id)
+        elif example.answer not in example.choices:
+            collapsed.append(f"{lesson.id} (answer not among options)")
+    assert not collapsed, f"{code}: {collapsed[:5]}"
+
+
+@needs_db
+@pytest.mark.parametrize("code", _ANSWER_SET_LANGUAGES)
+def test_the_same_option_is_correct_in_every_language(code):
+    """The curriculum's central cross-language invariant, stated positionally.
+
+    A language changes the words and never the answer. Checking the *text* of
+    the answer cannot show this, because the text is supposed to differ; what
+    must hold is that the correct option occupies the same position, so a score
+    obtained in one language is comparable with a score obtained in another.
+    """
+    if DB.language(code) is None:
+        pytest.skip(f"{code} absent")
+    import langcurriculum as lc
+    for lesson in [l for l in lc.all_lessons().values()
+                   if l.status == "implemented"][::2]:
+        base = lesson.example(0, language="english")
+        if base.answer not in base.choices:
+            continue
+        index = base.choices.index(base.answer)
+        other = lesson.example(0, language=code)
+        assert len(other.choices) == len(base.choices), \
+            f"{code}/{lesson.id}: {len(other.choices)} options vs {len(base.choices)}"
+        assert other.choices[index] == other.answer, \
+            f"{code}/{lesson.id}: the correct option moved from position {index}"
