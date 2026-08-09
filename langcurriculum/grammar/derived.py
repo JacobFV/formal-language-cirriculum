@@ -47,7 +47,8 @@ from .linearize import (
 )
 from .store import LanguageDB
 from .typology import (
-    articles_for, copula_for, instructions_for, sandhi_for,
+    articles_for, copula_for, field_intros_for, instructions_for,
+    sandhi_for,
 )
 
 __all__ = ["DerivedGrammar", "CLOSED_CLASS_KEYS"]
@@ -299,6 +300,11 @@ class DerivedGrammar(Grammar):
         )
         self.sandhi = sandhi_for(self.code)
         self.instructions = instructions_for(self.code)
+        # A section a speaker would introduce, introduced. Everything not
+        # written down keeps the translated noun that `block_heading` builds,
+        # which is what English does for the two hundred field names it does
+        # not write an intro for either.
+        self.field_intros = dict(field_intros_for(self.code))
 
     def _lexicon_records_gender(self, p: Mapping[str, Any]) -> bool:
         """Whether the dictionary says this language has gender when WALS did not.
@@ -1118,6 +1124,9 @@ class DerivedGrammar(Grammar):
             out.append("section headings are the bare translated noun "
                        "(\u201cSzene:\u201d), not an idiomatic lead-in "
                        "(\u201cIn der Szene:\u201d)")
+        else:
+            out.append(f"{len(self.field_intros)} sections have an idiomatic "
+                       f"lead-in; the rest are the bare translated noun")
         row = self.db.language(self.code)
         if row is not None and not row["n_forms"]:
             out.append("no UniMorph data; nouns are not inflected")

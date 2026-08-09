@@ -2659,3 +2659,68 @@ def test_the_inline_and_listed_instructions_are_different_strings():
     from langcurriculum.grammar.typology import _instruction_tables
     for code, told in _instruction_tables().items():
         assert told["instruction"] != told["instruction_many"], code
+
+
+# ======================================================================
+# a section a speaker would introduce
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code,expected", [
+    ("deu", "In der Szene:"), ("fra", "Dans la scène:"),
+    ("ita", "Nella scena:"), ("nld", "In de scène:"),
+    ("rus", "На сцене:"), ("pol", "Na scenie:"),
+])
+def test_a_written_lead_in_is_used(code, expected):
+    """*Szene:* is a label; *In der Szene:* is how a speaker says it."""
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    assert grammar.field_intros.get("scene") == expected
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["deu", "fra", "rus", "nld", "pol", "ita", "por"])
+def test_a_field_without_a_lead_in_keeps_its_heading(code):
+    """Partial on purpose, and partial the way English is.
+
+    The English pack writes fifty of the two hundred and forty-seven field
+    names the lessons use and lets the rest appear as bare headings, so mixing
+    the two is the existing design rather than something introduced here.
+    """
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    assert "calculus" not in grammar.field_intros
+    assert grammar.block_heading("calculus").endswith(":")
+
+
+@needs_db
+def test_the_lead_ins_are_a_third_of_what_a_reader_meets():
+    """Fourteen fields, chosen by how often a block actually carries them."""
+    import random
+    from collections import Counter
+    from langcurriculum.registry import all_lessons, get
+
+    freq: Counter = Counter()
+    for lesson_id in list(all_lessons()):
+        for seed in range(3):
+            try:
+                term, *_ = get(lesson_id).generate(random.Random(seed))
+            except Exception:
+                continue
+            if term.type == "record":
+                for name, _v in term.value:
+                    if name not in ("query", "utterance"):
+                        freq[name] += 1
+    written = set(DerivedGrammar(LanguageDB(), "deu").field_intros)
+    covered = sum(n for f, n in freq.items() if f in written)
+    assert covered / sum(freq.values()) > 0.28
+
+
+@needs_db
+def test_a_language_with_no_lead_ins_still_says_so():
+    grammar = DerivedGrammar(LanguageDB(), "fin")
+    assert not grammar.field_intros
+    assert any("bare translated noun" in g for g in grammar.gaps())

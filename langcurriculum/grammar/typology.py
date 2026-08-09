@@ -223,6 +223,20 @@ def articles_for(code: str) -> Mapping[str, Mapping[str, str]] | None:
     return _article_tables().get(code)
 
 
+_INTRO_DATA = Path(__file__).resolve().parent / "data" / "field_intros.json"
+
+
+@lru_cache(maxsize=1)
+def _intro_tables() -> Mapping[str, Mapping[str, str]]:
+    raw = json.loads(_INTRO_DATA.read_text(encoding="utf-8"))
+    return {k: v for k, v in raw.items() if not k.startswith("_")}
+
+
+def field_intros_for(code: str) -> Mapping[str, str]:
+    """Idiomatic lead-ins for this language's sections. Empty for most."""
+    return _intro_tables().get(code, {})
+
+
 def derive_profile(code: str, wals: Mapping[str, str], *,
                    script: str = "Latn", grambank: Mapping[str, str] | None = None
                    ) -> Profile:
