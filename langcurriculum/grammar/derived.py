@@ -38,7 +38,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from .category import A, ADV, CLS, N, NUM, V
+from .category import A, ADV, CASE, CLS, N, NUM, V
 from .features import EMPTY, FS
 from .induce import DataMorphology
 from .linearize import (
@@ -1079,14 +1079,30 @@ class DerivedGrammar(Grammar):
         return self._heading_word(words) + self.typography.colon
 
     def _heading_word(self, words: str) -> str:
-        """One heading word, trying its singular where the plural is unlisted."""
+        """One heading word, in the number the English field name is in.
+
+        A dictionary lists the singular, so a plural field was labelled with
+        one: German headed a list of rules *Regel*, French *règle*, Italian
+        *regola*. The singular is what has to be looked up and not what should
+        be printed — the language's own plural is a step away, through the
+        same morphology that inflects everything else.
+        """
         translated = self.word(words, pos="N")
         if translated != words:
             return translated
         for singular in _singulars(words):
             attempt = self.word(singular, pos="N")
-            if attempt != singular:
-                return attempt
+            if attempt == singular:
+                continue
+            # Only a noun is pluralised. A field name ending in -s need not be
+            # a plural at all: `knows` is a verb, and putting it through a
+            # noun paradigm gave Russian *зна́ем*, "we know".
+            entry = self._entry(singular, "N")
+            if entry is not None and entry.pos == "N":
+                plural = self.inflect(N.name, singular,
+                                      FS({NUM: "pl", CASE: "nom"}))
+                return plural or attempt
+            return attempt
         return words
 
     # ---- honesty ---------------------------------------------------------

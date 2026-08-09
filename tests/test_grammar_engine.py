@@ -2177,9 +2177,9 @@ def test_a_supplied_language_is_unaffected_by_the_change():
 # ======================================================================
 @needs_db
 @pytest.mark.parametrize("code,name,expected", [
-    ("deu", "entities", "Wesen"), ("fra", "entities", "entité"),
-    ("spa", "entities", "entidad"), ("deu", "boxes", "Kasten"),
-    ("fra", "boxes", "boîte"), ("deu", "classes", "Klasse"),
+    ("deu", "entities", "Wesen"), ("fra", "entities", "entités"),
+    ("spa", "entities", "entidades"), ("deu", "boxes", "Kästen"),
+    ("fra", "boxes", "boîtes"), ("deu", "classes", "Klassen"),
 ])
 def test_a_plural_heading_finds_its_singular(code, name, expected):
     """*entities* came out "entitie" in every language.
@@ -2249,8 +2249,17 @@ def test_no_heading_is_a_truncated_english_word(code):
     from langcurriculum.grammar.derived import _singulars
 
     def came_from(source: str, rendered: str) -> bool:
-        return any(grammar.word(candidate, pos="N") == rendered
-                   for candidate in (source, *_singulars(source)))
+        from langcurriculum.grammar.category import CASE, NUM, N
+        from langcurriculum.grammar.features import FS
+        for candidate in (source, *_singulars(source)):
+            if grammar.word(candidate, pos="N") == rendered:
+                return True
+            # a plural field is put back into the plural after being looked up
+            # under its singular, so that form counts as having come from it
+            if grammar.inflect(N.name, candidate,
+                               FS({NUM: "pl", CASE: "nom"})) == rendered:
+                return True
+        return False
 
     for name in names:
         words = name.replace("_", " ")
@@ -2274,9 +2283,9 @@ def test_no_heading_is_a_truncated_english_word(code):
 
 @needs_db
 @pytest.mark.parametrize("code,name,expected", [
-    ("deu", "candidate_rules", "Kandidat Regel"),
+    ("deu", "candidate_rules", "Kandidat Regeln"),
     ("rus", "candidate_rules", "кандида́т пра́вило"),
-    ("fra", "candidate_rules", "candidat règle"),
+    ("fra", "candidate_rules", "candidat règles"),
 ])
 def test_a_compound_heading_is_translated_word_by_word(code, name, expected):
     """A third of them read half in each language: "Antwort options".
@@ -2526,3 +2535,61 @@ def test_the_colour_options_are_colours(code):
     choices = get("symbol_equivalence").example(0, language=code).choices
     assert not any(c in ("oranger", "Apfelsinenbaum", "апельси́новое де́рево")
                    for c in choices), choices
+
+
+# ======================================================================
+# a list of rules is headed "rules"
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code,expected", [
+    ("deu", ["Regeln", "Kandidaten", "Beispiele", "Tatsachen"]),
+    ("fra", ["règles", "candidats", "exemples", "faits"]),
+    ("spa", ["reglas", "candidatos", "ejemplos", "hechos"]),
+    ("ita", ["regole", "candidati", "esempi", "fatti"]),
+    ("ell", ["κανόνες", "υποψήφιοι", "παραδείγματα", "γεγονότα"]),
+])
+def test_a_plural_field_is_headed_in_the_plural(code, expected):
+    """A dictionary lists the singular, so the heading was one.
+
+    German headed a list of rules *Regel*, French *règle*, Italian *regola*.
+    The singular is what has to be looked up and not what should be printed;
+    the language's own plural is one step away through the same morphology
+    that inflects everything else.
+    """
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    got = [grammar.block_heading(f).rstrip(":")
+           for f in ("rules", "candidates", "examples", "facts")]
+    assert got == expected
+
+
+@needs_db
+@pytest.mark.parametrize("code,expected", [
+    ("rus", "знать"), ("deu", "wissen"), ("fra", "savoir"),
+])
+def test_a_field_name_ending_in_s_is_not_always_a_plural(code, expected):
+    """`knows` is a verb, and a noun paradigm made *зна́ем* of it — "we know".
+
+    The singular is offered to the lookup whatever the word is, which costs
+    nothing; putting the answer back into the plural is only right where the
+    answer is a noun.
+    """
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    assert DerivedGrammar(db, code).block_heading("knows").rstrip(":") == expected
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["deu", "fra", "spa"])
+def test_a_singular_field_is_left_singular(code):
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    for field in ("scene", "program", "corpus"):
+        heading = grammar.block_heading(field).rstrip(":")
+        assert heading, field
+        assert heading == grammar.word(field, "N") or heading == field
