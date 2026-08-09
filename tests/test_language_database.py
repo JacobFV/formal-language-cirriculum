@@ -33,10 +33,7 @@ from langcurriculum.grammar.features import FS
 from langcurriculum.grammar.store import LanguageDB
 from langcurriculum.grammar.syntax import adj, mk_cn, mk_np, noun, pred_attr
 
-DB = LanguageDB()
-needs_db = pytest.mark.skipif(
-    not DB.exists(),
-    reason="language database absent; build with scripts/build_langdb.py --fetch")
+from conftest import DB, needs_db
 
 
 def np(key, *adjectives, **kw):

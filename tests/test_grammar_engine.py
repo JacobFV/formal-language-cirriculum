@@ -34,6 +34,8 @@ from langcurriculum.grammar.syntax import (
 )
 from langcurriculum.languages import get_language
 
+from conftest import needs_db
+
 ENGINE_LANGUAGES = ["turkish", "swahili"]
 IMPLEMENTED = [l for l in lc.all_lessons().values() if l.status == "implemented"]
 
@@ -427,6 +429,7 @@ def test_an_unknown_word_passes_through_every_grammar(code):
 # ======================================================================
 # importing lexical gaps from the database
 # ======================================================================
+@needs_db
 @pytest.mark.parametrize("code", ["turkish", "swahili", "spanish", "chinese"])
 def test_a_curated_entry_is_never_overridden_by_an_imported_one(code):
     """Curated wins, and the database only fills the gaps.
@@ -441,6 +444,7 @@ def test_a_curated_entry_is_never_overridden_by_an_imported_one(code):
             f"{code}: imported {key!r} shadows a curated entry"
 
 
+@needs_db
 @pytest.mark.parametrize("code", ["turkish", "swahili", "spanish", "chinese"])
 def test_no_two_keys_import_the_same_word(code):
     """A dictionary gives one word for two concepts and the episode breaks.
@@ -459,6 +463,7 @@ def test_no_two_keys_import_the_same_word(code):
     assert not (set(forms) & curated), f"{code}: an import collides with curated"
 
 
+@needs_db
 @pytest.mark.parametrize("code", ["turkish", "swahili", "spanish", "chinese"])
 def test_a_coined_identifier_is_never_looked_up_in_the_database(code):
     """The import is restricted to vocabulary the curriculum actually coins.
@@ -474,6 +479,7 @@ def test_a_coined_identifier_is_never_looked_up_in_the_database(code):
         assert nonce not in grammar._imported, f"{code} imported the nonce {nonce!r}"
 
 
+@needs_db
 def test_importing_gaps_roughly_doubles_what_turkish_can_say():
     """The point of the exercise, as a number.
 
