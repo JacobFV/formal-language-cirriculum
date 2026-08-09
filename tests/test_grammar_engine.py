@@ -2803,3 +2803,41 @@ def test_every_table_is_keyed_by_iso_and_every_pack_by_its_name():
             continue                      # keyed by English word, not language
         assert keys and all(len(k) == 3 for k in keys), \
             f"{path.name} is not keyed by ISO 639-3: {keys[:5]}"
+
+
+# ======================================================================
+# a Han entry is written one way, not both
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code,expected", [("cmn", "词典"), ("yue", "詞典")])
+def test_a_chinese_entry_is_written_in_its_own_script(code, expected):
+    """Wiktionary writes a Han headword as "Traditional /Simplified".
+
+    Sixty-two thousand rows across Mandarin, Cantonese, Hakka, Wu and Min. Put
+    on the page whole they are a word in neither: a derived Mandarin scene
+    read "o0是黃 /黄立方體 /立方体". Which side to take is a fact the database
+    already records as the language's script.
+    """
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    assert DerivedGrammar(db, code)._variant("詞典 /词典") == expected
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["cmn", "yue", "hak", "wuu"])
+def test_no_han_language_prints_both_writings(code):
+    from langcurriculum.grammar.compile import curriculum_vocabulary
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    for key in sorted(curriculum_vocabulary()):
+        assert " /" not in grammar.word(key), key
+
+
+@needs_db
+def test_a_word_with_no_variant_is_untouched():
+    grammar = DerivedGrammar(LanguageDB(), "cmn")
+    assert grammar._variant("立方体") == "立方体"
+    assert grammar._variant("") == ""

@@ -397,11 +397,13 @@ class DerivedGrammar(Grammar):
             for entry_pos, form in listed:
                 if pos and entry_pos and entry_pos != pos:
                     continue
+                form = self._variant(form)
                 if self._speakable(form, key):
                     return form
             if not pos:
                 return ""
             for _entry_pos, form in listed:
+                form = self._variant(form)
                 if self._speakable(form, key):
                     return form
             return ""
@@ -675,6 +677,24 @@ class DerivedGrammar(Grammar):
         return self._best_form(lemma, pos)
 
     # ---- choosing among what the dictionary offers ------------------------
+    def _variant(self, form: str) -> str:
+        """One writing of a Chinese entry, not both at once.
+
+        Wiktionary gives a Han-script headword as "Traditional /Simplified" --
+        *詞典 /词典* for dictionary -- and there are sixty-two thousand such
+        rows across Mandarin, Cantonese, Hakka, Wu and Min. Printed whole they
+        are not a word in any of them: a derived Mandarin scene read
+        "o0是黃 /黄立方體 /立方体".
+
+        Which side depends on how the language is written, which the database
+        already records.
+        """
+        if " /" not in form:
+            return form
+        left, _, right = form.partition(" /")
+        script = (self.db.language(self.code) or {"script": ""})["script"]
+        return left if script == "Hant" else right
+
     @staticmethod
     def _speakable(form: str, lemma: str) -> bool:
         """Whether a dictionary answer is a word this engine can print.
@@ -738,8 +758,9 @@ class DerivedGrammar(Grammar):
             for entry in rows:
                 if typed and pos and entry.pos and entry.pos != pos:
                     continue
-                if self._speakable(entry.form, lemma):
-                    return entry.form
+                form = self._variant(entry.form)
+                if self._speakable(form, lemma):
+                    return form
             return ""
 
         best = first(own, True) or first(own, False)
