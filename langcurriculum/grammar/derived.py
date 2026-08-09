@@ -862,6 +862,18 @@ class DerivedGrammar(Grammar):
         inflected = super().inflect(cat, lemma, feats)
         if inflected == surface:
             return inflected
+        # A translation the paradigm data has never seen is not a stem to
+        # reason from. Analogy invented *bla* for Italian *blu*, which is
+        # invariable, and *átlátszatlanig* for Hungarian -- a case suffix
+        # meaning "until" on an adjective. Every unattested adjective it
+        # touched came out wrong, and most of the nouns.
+        #
+        # A word that passes through untranslated is the opposite case and is
+        # deliberately left alone here: a coined nonce form has no dictionary
+        # entry by definition, analogy is the only thing that can inflect it,
+        # and inflecting it is what a morphology lesson is for.
+        if surface != lemma and not self.db.paradigm(self.code, surface):
+            return surface
         # An affix-shaped result is the same wreckage in the right alphabet:
         # Arabic reduced *كَعْبَة* to *كَ-*, which the script test happily
         # accepted because a prefix of an Arabic word is still Arabic.

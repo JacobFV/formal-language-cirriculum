@@ -1732,3 +1732,78 @@ def test_dropping_ambiguous_rows_did_not_cost_a_verb_its_copula(code, expected):
     if db.language(code) is None:
         pytest.skip(f"{code} absent")
     assert DerivedGrammar(db, code).copula("attr", EMPTY) == expected
+
+
+# ======================================================================
+# analogy needs a stem to reason from
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code,word,expected", [
+    ("ita", "blue", "blu"), ("ell", "blue", "μπλε"),
+    ("hun", "opaque", "átlátszatlan"),
+])
+def test_an_unattested_translation_is_left_uninflected(code, word, expected):
+    """Italian *blu* is invariable and analogy made it *bla*.
+
+    Every unattested adjective the inducer touched came out wrong: *bla* and
+    *bli* for Italian, and for Hungarian *átlátszatlanig* — a case suffix
+    meaning "until", stuck on an adjective.
+    """
+    from langcurriculum.grammar.category import CLS, NUM, A
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    for feats in (FS({NUM: "sg"}), FS({NUM: "pl"}), FS({CLS: "f", NUM: "sg"})):
+        assert grammar.inflect(A.name, word, feats) == expected
+
+
+@needs_db
+@pytest.mark.parametrize("code,word,expected", [
+    ("ita", "yellow", "gialla"), ("fra", "green", "verte"),
+    ("ell", "red", "κόκκινη"),
+])
+def test_an_attested_translation_still_inflects(code, word, expected):
+    """The restriction must not switch agreement off where it works."""
+    from langcurriculum.grammar.category import CLS, NUM, A
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    assert DerivedGrammar(db, code).inflect(
+        A.name, word, FS({CLS: "f", NUM: "sg"})) == expected
+
+
+@needs_db
+def test_a_coined_word_is_still_the_inducers_business():
+    """The opposite case, and the reason the rule tests for a *translation*.
+
+    A nonce form has no dictionary entry by definition, so attestation cannot
+    be the test for it — analogy is the only thing that can inflect it, and
+    inflecting it is what a morphology lesson is about. The rule fires only
+    where a word was translated and the paradigm data has never seen the
+    translation.
+    """
+    from langcurriculum.grammar.category import NUM, N
+    from langcurriculum.grammar.linearize import Grammar
+    grammar = DerivedGrammar(LanguageDB(), "tur")
+    for coined in ("kirn", "zolt", "bex"):
+        assert grammar.word(coined, "N") == coined
+        assert grammar.inflect(N.name, coined, FS({NUM: "pl"})) == \
+            Grammar.inflect(grammar, N.name, coined, FS({NUM: "pl"}))
+    assert grammar.inflect(N.name, "cube", FS({NUM: "pl"})) == "küpler"
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["ita", "ell", "fra", "hun", "nld"])
+def test_no_scene_inflects_an_invariable_colour(code):
+    """On rendered text: Italian read "sfera bla", Greek "μπη σφαίρα"."""
+    from langcurriculum.registry import get
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    scene = get("set_operations").example(0, language=code).observation
+    for word in ("blue", "purple"):
+        surface = grammar.word(word, "A")
+        if surface and surface != word and not db.paradigm(code, surface):
+            assert surface in scene, f"{code}: {surface!r} was altered"
