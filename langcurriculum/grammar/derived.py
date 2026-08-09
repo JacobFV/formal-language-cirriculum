@@ -39,8 +39,8 @@ from .category import A, ADV, CLS, N, NUM, V
 from .features import EMPTY, FS
 from .induce import DataMorphology
 from .linearize import (
-    ERG_ABS, NOM_ACC, NO_CASE, Alignment, Concord, Grammar, Typography,
-    WordOrder,
+    ERG_ABS, NOM_ACC, NO_CASE, PREDICATE_GLOSS, Alignment, Concord, Grammar,
+    Typography, WordOrder,
 )
 from .store import LanguageDB
 from .typology import sandhi_for
@@ -157,6 +157,7 @@ class DerivedGrammar(Grammar):
         self._word_cache: dict[tuple[str, str], str] = {}
         self._copula: dict[bool, str] = {}
         self._warm_closed_class()
+        self._ambiguous = self._find_collisions()
         self._build_articles()
         for category, pos in ((N, "N"), (A, "A"), (V, "V")):
             self.morphology[category.name] = DataMorphology(db, code, pos)
@@ -235,6 +236,61 @@ class DerivedGrammar(Grammar):
             self.closed["is"] = self.closed["are"] = ""
 
     # ---- lexicon ---------------------------------------------------------
+    def _find_collisions(self) -> frozenset[str]:
+        """Curriculum words whose translations would be indistinguishable.
+
+        French offers *donner* for both *give* and *hand*, and the taxonomy
+        lesson lists both as separate rungs — so it printed the same premise
+        twice and the distinction the episode turns on was gone. Turkish *para*
+        is both *money* and *coin*; Swahili *sanduku* is both *crate* and *box*.
+
+        The hand-written grammars have refused this since the import was
+        written: where two keys would share a form, both are dropped and the
+        English shows through, because a visibly untranslated word is a much
+        smaller problem than an ambiguous one. Only the derived half was
+        exempt, for no better reason than that it reads the database directly.
+
+        Both sides go, not the loser of some tie-break. Keeping one would still
+        leave a reader unable to tell whether *donner* was the word for *give*
+        or the untranslated survivor of *hand*.
+        """
+        from .compile import curriculum_vocabulary
+
+        keys = sorted(curriculum_vocabulary())
+        marks = ",".join("?" * len(keys))
+        # Mirror LanguageDB.lookup exactly, including its fallback: asking for a
+        # part of speech the language has no row for returns the untyped best
+        # row instead. A detector that skipped that fallback disagreed with the
+        # renderer and passed while Dutch still merged *behind* and *back*.
+        best_any: dict[str, str] = {}
+        for row in self.db.conn.execute(
+                f"SELECT key, form, MIN(rank) FROM sense "
+                f"WHERE code=? AND key IN ({marks}) GROUP BY key",
+                (self.code, *keys)):
+            if row["form"]:
+                best_any[row["key"]] = row["form"]
+        best_pos: dict[tuple[str, str], str] = {}
+        for row in self.db.conn.execute(
+                f"SELECT key, pos, form, MIN(rank) FROM sense "
+                f"WHERE code=? AND key IN ({marks}) AND pos<>'' "
+                f"GROUP BY key, pos", (self.code, *keys)):
+            if row["form"]:
+                best_pos[(row["key"], row["pos"])] = row["form"]
+
+        # Every part of speech the linearizer asks for, plus the untyped call.
+        ambiguous: set[str] = set()
+        for pos in ("", "N", "A", "V"):
+            forms: dict[str, list[str]] = {}
+            for key in keys:
+                form = best_pos.get((key, pos)) if pos else None
+                form = form or best_any.get(key)
+                if form:
+                    forms.setdefault(form.lower(), []).append(key)
+            for sharers in forms.values():
+                if len(sharers) > 1:
+                    ambiguous.update(sharers)
+        return frozenset(ambiguous)
+
     def lookup(self, lemma: str, pos: str = "") -> str:
         """One word from the language database, screened for junk.
 
@@ -245,6 +301,17 @@ class DerivedGrammar(Grammar):
         private near-copy of ``phrase`` that joined with a literal space and so
         put spaces into languages written without them.
         """
+        if lemma in self._ambiguous:
+            return ""                      # see _find_collisions
+        # A predicate head whose gloss differs from its own spelling is an
+        # abbreviation or an inflected form, not a word of English being used
+        # as itself -- and a dictionary keyed on spelling answers anyway.
+        # German gave *U-Boot* for `sub`, Spanish *submarino* and *zas* for
+        # `pow`, and every language offered a small demon for `imp`. The gloss
+        # is what the head means; the spelling is a coincidence.
+        gloss = PREDICATE_GLOSS.get(lemma)
+        if gloss is not None and gloss != lemma:
+            return ""
         entry = self.db.lookup(self.code, lemma, pos)
         form = entry.form if entry is not None else ""
         # A translation table sometimes answers with a gloss rather than a word

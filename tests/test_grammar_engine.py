@@ -759,3 +759,117 @@ def test_a_derived_grammar_renders_comparisons_in_its_own_language(code):
     for rel in COMPARISONS:
         rendered = grammar.cw(rel) or grammar.word(rel, "V")
         assert rendered != rel, f"{code} renders {rel!r} as itself"
+
+
+# ======================================================================
+# a translation that merges two concepts is worse than none
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code", ["fra", "por", "deu", "rus", "nld", "ita"])
+def test_a_derived_grammar_never_gives_two_concepts_the_same_word(code):
+    """French offers *donner* for both *give* and *hand*.
+
+    The taxonomy lesson lists both as separate rungs, so French printed the
+    identical premise twice and the distinction the episode turns on was gone.
+    The hand-written grammars have refused this since the import was written;
+    only the derived half was exempt, because it reads the database directly.
+    """
+    from langcurriculum.grammar.compile import curriculum_vocabulary
+
+    grammar = DerivedGrammar(LanguageDB(), code)
+    rendered: dict[str, str] = {}
+    for key in sorted(curriculum_vocabulary()):
+        for pos in ("N", "A", "V"):
+            form = grammar.lookup(key, pos)
+            if not form:
+                continue
+            clash = rendered.get((form.lower(), pos))
+            assert clash is None, \
+                f"{code}: {key!r} and {clash!r} both render as {form!r} ({pos})"
+            rendered[(form.lower(), pos)] = key
+
+
+@needs_db
+def test_the_collision_that_prompted_this_is_gone():
+    """*give* and *hand* must not both come out as *donner*."""
+    grammar = DerivedGrammar(LanguageDB(), "fra")
+    assert grammar.word("give", "V") != grammar.word("hand", "V")
+
+
+def test_two_distinct_identifiers_stay_distinct_through_a_whole_episode():
+    """The property that actually matters, checked on real generated text.
+
+    A lesson names things and then asks about them. If two of those names
+    collapse into one word the episode is not merely clumsy, it is
+    unanswerable, so this walks the terms rather than the lexicon.
+    """
+    import collections
+    import random
+
+    from langcurriculum._structure import Ident, walk
+    from langcurriculum.languages import get_language
+    from langcurriculum.registry import all_lessons, get
+
+    for code in ("fra", "rus", "deu", "spanish", "chinese"):
+        language = get_language(code)
+        for lesson_id in list(all_lessons())[::7]:
+            lesson = get(lesson_id)
+            for seed in range(2):
+                try:
+                    term, *_ = lesson.generate(random.Random(seed))
+                except Exception:
+                    continue
+                names = sorted({t.value for t in walk(term)
+                                if t.type == "ident" and isinstance(t.value, str)})
+                seen = collections.defaultdict(list)
+                for name in names:
+                    seen[language.render(Ident(name))].append(name)
+                for surface, sources in seen.items():
+                    assert len(sources) == 1, (
+                        f"{code}/{lesson_id} s{seed}: {sources} all render "
+                        f"as {surface!r}")
+
+
+# ======================================================================
+# an abbreviation is not the English word it happens to be spelled like
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code", ["deu", "spa", "fra", "nld", "rus"])
+def test_an_abbreviated_head_is_not_looked_up_as_an_english_word(code):
+    """German rendered ``sub`` as *U-Boot*. Spanish rendered ``pow`` as *zas*.
+
+    A head whose gloss differs from its own spelling is an abbreviation or an
+    inflected form, not a word being used as itself — but a dictionary keyed on
+    spelling answers anyway, and every language had a small demon waiting for
+    ``imp``.
+    """
+    from langcurriculum.grammar.linearize import PREDICATE_GLOSS
+
+    grammar = DerivedGrammar(LanguageDB(), code)
+    for head, gloss in PREDICATE_GLOSS.items():
+        if gloss == head:
+            continue
+        assert not grammar.lookup(head, "V"), \
+            f"{code}: {head!r} was looked up as an English word"
+
+
+@needs_db
+def test_the_wrong_senses_that_prompted_this_are_gone():
+    db = LanguageDB()
+    german, spanish = DerivedGrammar(db, "deu"), DerivedGrammar(db, "spa")
+    assert german.word("sub", "V") != "U-Boot"
+    assert spanish.word("sub", "V") != "submarino"
+    assert spanish.word("pow", "V") != "zas"
+    for code in ("deu", "spa", "fra", "nld"):
+        assert "imp" not in DerivedGrammar(db, code).lookup("imp", "V")
+
+
+def test_iff_keeps_the_abbreviation_its_language_actually_uses():
+    """The exception, and why it is one.
+
+    Unlike the other abbreviations, ``iff`` has a conventional equivalent that
+    dictionaries record — *ssi*, *gdw.*, *sii*. Composing it from *if and only
+    if* produced *si et unique si*, so this one head keeps the lookup.
+    """
+    from langcurriculum.grammar.linearize import PREDICATE_GLOSS
+    assert "iff" not in PREDICATE_GLOSS
