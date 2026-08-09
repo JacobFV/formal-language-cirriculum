@@ -24,7 +24,7 @@ WALS feature     what it codes                               engine parameter
 30A              number of genders                           ``Concord``
 37A / 38A        definite and indefinite articles            whether determiners exist
 55A              numeral classifiers                         classifier strategy
-51A              position of case affixes                    morphology direction
+51A              position of case affixes                    *recorded, not read*
 ===============  ==========================================  ==========================
 
 What this does and does not give you
@@ -136,7 +136,16 @@ class Profile:
     classifiers: str = "absent"
     #: number of noun classes per 30A; 0 means none
     n_classes: int = 0
-    #: whether case is marked by suffix, prefix, or not at all, per 51A
+    #: Whether case is marked by suffix, prefix, or not at all, per 51A.
+    #:
+    #: Recorded and not read, which is deliberate rather than an oversight.
+    #: It was meant to tell the morphology which end of the stem to work on,
+    #: and the inducer settles that from the data instead: :func:`induce._learn`
+    #: compares the lemma with each attested form and takes whichever end they
+    #: share, so it recovers Bantu prefixes and Turkish suffixes without being
+    #: told, and gets it right for a language WALS never coded. Kept because
+    #: it is a fact about the language that a reader of a profile may want,
+    #: and because tiering reads the count of coded features.
     case_affix: str = "none"
 
     def to_json(self) -> dict[str, Any]:

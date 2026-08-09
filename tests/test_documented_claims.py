@@ -298,3 +298,45 @@ def test_every_module_parses_as_the_oldest_python_claimed():
                 broken.append(f"{path.relative_to(root)}:{err.lineno} {err.msg}")
     assert not broken, (f"these need Python newer than "
                         f"{version[0]}.{version[1]}: {broken[:4]}")
+
+
+def test_every_typology_parameter_is_read_or_says_it_is_not():
+    """A parameter the engine stores and never consults is a claim it does not
+    keep.
+
+    Two were found this way. ``classifiers`` was read from WALS, put on the
+    profile and announced in a grammar's notes, and nothing wrote a measure
+    word. ``rtl`` was set from the script, stored, given a column in the
+    database, and read by nothing — while five Arabic-script languages ended
+    their questions with a Latin "?".
+
+    ``case_affix`` is the third and stays unread on purpose: the inducer
+    recovers affix direction from the data. Its docstring says so, and this
+    test requires any future addition to do the same.
+    """
+    import pathlib
+    import re
+    from dataclasses import fields
+
+    from langcurriculum.grammar.typology import Profile
+
+    root = pathlib.Path(__file__).resolve().parent.parent / "langcurriculum"
+    source = "\n".join(p.read_text(encoding="utf-8")
+                       for p in (root / "grammar").rglob("*.py")
+                       if p.name not in ("typology.py",))
+    doc = (root / "grammar" / "typology.py").read_text(encoding="utf-8")
+
+    unread = []
+    for field in fields(Profile):
+        name = field.name
+        if name in ("code", "order", "alignment", "concord", "typography",
+                    "sandhi", "evidence"):
+            continue
+        if re.search(rf'["\']{name}["\']', source):
+            continue
+        # unread: the profile must admit it
+        if "not read" not in doc.split(f"{name}: str")[0][-600:] and \
+           "not read" not in doc.split(f"{name}: ")[0][-600:]:
+            unread.append(name)
+    assert not unread, (f"stored and never read, and not documented as such: "
+                        f"{unread}")
