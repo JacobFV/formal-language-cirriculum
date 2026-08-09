@@ -23,6 +23,7 @@ import random
 import re
 
 import pytest
+from dataclasses import replace
 
 import langcurriculum as lc
 from langcurriculum.grammar.derived import DerivedGrammar
@@ -2191,7 +2192,7 @@ def test_a_plural_heading_finds_its_singular(code, name, expected):
     db = LanguageDB()
     if db.language(code) is None:
         pytest.skip(f"{code} absent")
-    assert DerivedGrammar(db, code).block_heading(name).rstrip(":") == expected
+    assert DerivedGrammar(db, code).block_heading(name).rstrip(":").rstrip("\u00a0") == expected
 
 
 @needs_db
@@ -2207,7 +2208,7 @@ def test_a_word_that_is_not_a_plural_is_left_alone(code):
         pytest.skip(f"{code} absent")
     grammar = DerivedGrammar(db, code)
     for name in ("corpus", "calculus", "status"):
-        heading = grammar.block_heading(name).rstrip(":")
+        heading = grammar.block_heading(name).rstrip(":").rstrip("\u00a0")
         assert not (name.startswith(heading) and len(heading) == len(name) - 1), \
             f"{code}: {name!r} truncated to {heading!r}"
 
@@ -2263,7 +2264,7 @@ def test_no_heading_is_a_truncated_english_word(code):
 
     for name in names:
         words = name.replace("_", " ")
-        heading = grammar.block_heading(name).rstrip(":")
+        heading = grammar.block_heading(name).rstrip(":").rstrip("\u00a0")
         if heading == words:
             continue                              # untranslated, and honest
         tokens = words.split()
@@ -2298,7 +2299,7 @@ def test_a_compound_heading_is_translated_word_by_word(code, name, expected):
     db = LanguageDB()
     if db.language(code) is None:
         pytest.skip(f"{code} absent")
-    assert DerivedGrammar(db, code).block_heading(name).rstrip(":") == expected
+    assert DerivedGrammar(db, code).block_heading(name).rstrip(":").rstrip("\u00a0") == expected
 
 
 @needs_db
@@ -2324,7 +2325,7 @@ def test_a_compound_heading_is_whole_or_english(code):
                 names |= {n for n, _v in term.value if "_" in n}
     for name in names:
         words = name.replace("_", " ")
-        heading = grammar.block_heading(name).rstrip(":")
+        heading = grammar.block_heading(name).rstrip(":").rstrip("\u00a0")
         if heading == words:
             continue                       # left in English, which is honest
         survivors = [t for t in words.split() if t in heading.split()]
@@ -2560,7 +2561,7 @@ def test_a_plural_field_is_headed_in_the_plural(code, expected):
     if db.language(code) is None:
         pytest.skip(f"{code} absent")
     grammar = DerivedGrammar(db, code)
-    got = [grammar.block_heading(f).rstrip(":")
+    got = [grammar.block_heading(f).rstrip(":").rstrip("\u00a0")
            for f in ("rules", "candidates", "examples", "facts")]
     assert got == expected
 
@@ -2579,7 +2580,7 @@ def test_a_field_name_ending_in_s_is_not_always_a_plural(code, expected):
     db = LanguageDB()
     if db.language(code) is None:
         pytest.skip(f"{code} absent")
-    assert DerivedGrammar(db, code).block_heading("knows").rstrip(":") == expected
+    assert DerivedGrammar(db, code).block_heading("knows").rstrip(":").rstrip("\u00a0") == expected
 
 
 @needs_db
@@ -2590,7 +2591,7 @@ def test_a_singular_field_is_left_singular(code):
         pytest.skip(f"{code} absent")
     grammar = DerivedGrammar(db, code)
     for field in ("scene", "program", "corpus"):
-        heading = grammar.block_heading(field).rstrip(":")
+        heading = grammar.block_heading(field).rstrip(":").rstrip("\u00a0")
         assert heading, field
         assert heading == grammar.word(field, "N") or heading == field
 
@@ -2724,3 +2725,37 @@ def test_a_language_with_no_lead_ins_still_says_so():
     grammar = DerivedGrammar(LanguageDB(), "fin")
     assert not grammar.field_intros
     assert any("bare translated noun" in g for g in grammar.gaps())
+
+
+@needs_db
+def test_french_sets_off_the_marks_it_spaces():
+    """French writes "Dans la scène :" and "rwzt ?"; the engine wrote neither.
+
+    The cleanup that removes a stray space before punctuation is right in
+    every other language and wrong here, so the language names the marks it
+    spaces rather than the rule guessing. A no-break space, because the mark
+    must not begin a line on its own.
+    """
+    from langcurriculum.registry import get
+    text = get("symbol_grounding").example(0, language="fra").observation
+    assert " :" in text and " ?" in text
+    assert " :" not in text.replace(" ", "")
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["deu", "spa", "ita", "rus", "english"])
+def test_no_other_language_gains_a_space_before_its_marks(code):
+    from langcurriculum.registry import get
+    text = get("symbol_grounding").example(0, language=code).observation
+    assert " " not in text
+
+
+def test_the_spacing_does_not_depend_on_what_the_caller_left_behind():
+    """Normalise first, then set off — so a stray space cannot double up."""
+    grammar = get_grammar("english")
+    grammar.typography = replace(grammar.typography, space_before=":?")
+    try:
+        assert grammar.punctuate("a:b") == "a :b"
+        assert grammar.punctuate("a :b") == "a :b"
+    finally:
+        grammar.typography = replace(grammar.typography, space_before="")

@@ -47,8 +47,8 @@ from .linearize import (
 )
 from .store import LanguageDB
 from .typology import (
-    articles_for, copula_for, field_intros_for, instructions_for,
-    sandhi_for,
+    SPACE_BEFORE_PUNCT, articles_for, copula_for, field_intros_for,
+    instructions_for, sandhi_for,
 )
 
 __all__ = ["DerivedGrammar", "CLOSED_CLASS_KEYS"]
@@ -297,6 +297,7 @@ class DerivedGrammar(Grammar):
             capitalizes=bool(p.get("capitalizes", True)),
             rtl=bool(p.get("rtl", False)),
             label_separator=":" if not p.get("word_joiner", " ") else "",
+            space_before=SPACE_BEFORE_PUNCT.get(self.code, ""),
         )
         self.sandhi = sandhi_for(self.code)
         self.instructions = instructions_for(self.code)
@@ -1080,9 +1081,9 @@ class DerivedGrammar(Grammar):
             # and not just to the compound as a whole.
             parts = [self._heading_word(t) for t in tokens]
             if all(part != token for part, token in zip(parts, tokens)):
-                return self.join(parts) + self.typography.colon
-            return words + self.typography.colon
-        return self._heading_word(words) + self.typography.colon
+                return self.punctuate(self.join(parts) + self.typography.colon)
+            return self.punctuate(words + self.typography.colon)
+        return self.punctuate(self._heading_word(words) + self.typography.colon)
 
     def _heading_word(self, words: str) -> str:
         """One heading word, in the number the English field name is in.

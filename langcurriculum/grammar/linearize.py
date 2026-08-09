@@ -148,6 +148,14 @@ class Typography:
     arg_separator: str = ", "
     #: right-to-left scripts need the marks, not a reversed string
     rtl: bool = False
+    #: marks this language sets off with a space *before* them. French writes
+    #: "Dans la scène :" and "rwzt ?"; the cleanup that removes a stray space
+    #: before punctuation is right everywhere else and wrong here, so the
+    #: language says which marks it spaces rather than the rule guessing.
+    space_before: str = ""
+    #: what to put there. A no-break space, because the mark must not begin a
+    #: line on its own.
+    space_before_char: str = "\u00a0"
 
 
 @dataclass(frozen=True)
@@ -480,6 +488,24 @@ class Grammar:
                 return text[:i] + ch.upper() + text[i + 1:]
         return text
 
+    def punctuate(self, text: str) -> str:
+        """Set off the marks this language spaces, after the general cleanup.
+
+        Run second on purpose. The cleanup normalises away any space before a
+        mark, wherever it came from, and this puts back the one the language
+        actually wants -- so the result does not depend on whether the caller
+        happened to leave a space there.
+        """
+        marks = self.typography.space_before
+        if not marks:
+            return text
+        out = []
+        for i, ch in enumerate(text):
+            if ch in marks and i and text[i - 1] not in " \u00a0\n":
+                out.append(self.typography.space_before_char)
+            out.append(ch)
+        return "".join(out)
+
     def sentence(self, text: str, end: str | None = None) -> str:
         typ = self.typography
         text = " ".join(text.split()) if typ.word_joiner else text.strip()
@@ -487,10 +513,11 @@ class Grammar:
         if not text:
             return ""
         text = self.capitalize(text)
-        if end == "":
-            return text
-        end = typ.full_stop if end is None else end
-        return text if _SENTENCE_END.search(text) else text + end
+        if end != "":
+            end = typ.full_stop if end is None else end
+            if not _SENTENCE_END.search(text):
+                text = text + end
+        return self.punctuate(text)
 
     # ==================================================================
     # the walk

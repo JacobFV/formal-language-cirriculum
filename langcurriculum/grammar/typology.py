@@ -71,6 +71,11 @@ WALS_FEATURES = ("81A", "87A", "85A", "86A", "88A", "89A", "92A", "93A",
 #: scripts written right to left
 RTL_SCRIPTS = frozenset({"Arab", "Hebr", "Syrc", "Thaa", "Nkoo", "Adlm", "Samr"})
 
+#: Languages that set a mark off with a space before it. French is the one
+#: the curriculum meets; the convention is shared by a few of its neighbours
+#: but they are not written down here without checking.
+SPACE_BEFORE_PUNCT = {"fra": ":;?!"}
+
 #: scripts written without spaces between words
 NO_SPACE_SCRIPTS = frozenset({"Hani", "Hans", "Hant", "Jpan", "Thai", "Laoo",
                               "Mymr", "Khmr", "Tibt"})
