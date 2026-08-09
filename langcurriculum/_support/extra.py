@@ -130,7 +130,15 @@ def determiner() -> str:
 
 
 def then_word() -> str:
-    """*then*, the discourse connective the coreference lesson sequences with."""
+    """*then*, the discourse connective the coreference lesson sequences with.
+
+    Gated like the rest. It was not, so a Russian episode read "carol -
+    avoided - dave - again - зате́м - he - waited": one Russian word in an
+    English sentence, which is the half-and-half the all-or-nothing rule
+    exists to prevent.
+    """
+    if not supplies("verbs"):
+        return _ENGLISH.then
     lexicon = get_language(ACTIVE_LANGUAGE.get()).lexicon
     return lexicon.then or _ENGLISH.then
 

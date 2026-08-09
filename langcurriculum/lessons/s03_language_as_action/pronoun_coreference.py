@@ -11,14 +11,36 @@ from ..._structure import Ident, Lst, Pred, Rec, Tok
 from ...lesson import Lesson
 from ..._support.base import NAMES
 from ..._support.extra import (
-    _shuffled, adverbs, gender, intransitive, pronoun, then_word, verbs,
+    ACTIVE_LANGUAGE, DEFAULT_LANGUAGE, _shuffled, adverbs, gender, intransitive,
+    pronoun, supplies, then_word, verbs,
 )
+
+
+def _in_english(rng: random.Random):
+    """The same episode, built from English material throughout.
+
+    This lesson turns on the pronoun distinguishing its two antecedents, so a
+    language with one genderless third person -- Finnish *hän*, Turkish *o*,
+    Hungarian *ő* -- cannot present it at all. Those languages do supply the
+    rest of the sentence, and taking that while falling back for the pronoun
+    alone would put the question in English inside a Finnish clause.
+    """
+    token = ACTIVE_LANGUAGE.set(DEFAULT_LANGUAGE)
+    try:
+        return gen_pronoun_coreference(rng)
+    finally:
+        ACTIVE_LANGUAGE.reset(token)
 
 
 def gen_pronoun_coreference(rng: random.Random):
     """Two entities, one pronoun, exactly one grammatically valid antecedent —
     the other entity is ruled out by gender, so the episode has a single correct
     reading. Filler material varies the distance to the antecedent."""
+    # Before any draw, so the fallback sees the same random stream and picks
+    # the same people: checking later re-ran the generator mid-stream and the
+    # English version came out about a different pair.
+    if not supplies("pronouns"):
+        return _in_english(rng)
     genders = gender()
     fem = [n for n in NAMES if genders[n] == "f"]
     masc = [n for n in NAMES if genders[n] == "m"]

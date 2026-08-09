@@ -487,13 +487,19 @@ class DerivedGrammar(Grammar):
                 return {}
             tables[field] = forms
 
+        # The pronouns are a separate question from the sentence material, and
+        # conflating them cost Finnish, Turkish and Hungarian everything. All
+        # three have complete tables and a single genderless third person --
+        # hän, o, ő -- so requiring two distinct pronouns discarded six good
+        # paradigms to protect one lesson. Their absence is recorded instead,
+        # and the lesson that needs them declines on its own account.
         pronouns = {k: self.word(v) for k, v in seeds["pronouns"].items()}
-        if len(set(pronouns.values())) != len(pronouns) or \
-                any(w == seeds["pronouns"][k] for k, w in pronouns.items()):
-            return {}
-        tables["pronouns"] = pronouns
-        # Names are the people the episode is about, not words of the language.
-        tables["name_gender"] = dict(_NAME_GENDER)
+        if len(set(pronouns.values())) == len(pronouns) and \
+                not any(w == seeds["pronouns"][k] for k, w in pronouns.items()):
+            tables["pronouns"] = pronouns
+            # Names are the people the episode is about, not words of the
+            # language, so every pack shares one table.
+            tables["name_gender"] = dict(_NAME_GENDER)
         return tables
 
     def _cells(self, lemma: str) -> list[tuple[frozenset[str], str]]:
@@ -503,7 +509,11 @@ class DerivedGrammar(Grammar):
     @staticmethod
     def _cell(cells, need: frozenset[str], ban: frozenset[str]) -> str:
         for tags, surface in cells:
-            if need <= tags and not (tags & ban) and " " not in surface:
+            # A dash is how the source writes "no form here", and one reached a
+            # Czech sentence as a word: "carol - sledoval - dave - zase - pak -
+            # on - -".
+            if (need <= tags and not (tags & ban) and " " not in surface
+                    and surface and not _is_affix(surface)):
                 return surface
         return ""
 

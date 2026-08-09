@@ -1097,18 +1097,63 @@ def test_every_cell_is_one_the_language_actually_attests(code):
 
 
 @needs_db
-def test_a_language_supplies_the_whole_set_or_none_of_it():
+def test_the_sentence_material_is_supplied_whole_or_not_at_all():
     """Half a table would put half a sentence in each language.
 
-    Finnish and Hungarian have excellent nouns and verbs here and no
-    prepositions at all, because they mark those relations with cases. They
-    fall back whole rather than lending their nouns to an English sentence.
+    The pronouns are a separate question and were once part of this one.
+    Finnish, Turkish and Hungarian have a single genderless third person --
+    hän, o, ő -- so requiring two distinct pronouns discarded six complete
+    paradigms apiece to protect the one lesson that needs them.
     """
     db = LanguageDB()
-    from langcurriculum._support.extra import PARALLEL_FIELDS
-    for code in ("fin", "hun", "tur", "dan", "rus"):
-        tables = DerivedGrammar(db, code).paradigms
-        assert tables == {} or set(tables) == set(PARALLEL_FIELDS), code
+    sentence = {"verbs", "intransitive_verbs", "adverbs", "preposition_words",
+                "noun_forms", "agreement_forms"}
+    for code in ("fin", "hun", "dan", "rus", "pol", "ces", "deu"):
+        tables = set(DerivedGrammar(db, code).paradigms)
+        assert not (tables & sentence) or sentence <= tables, code
+        # and the pronoun pair travels together or not at all
+        assert len(tables & {"pronouns", "name_gender"}) != 1, code
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["fin", "hun"])
+def test_a_genderless_pronoun_costs_only_the_lesson_that_needs_one(code):
+    """It used to cost the language every morphology lesson it had."""
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    tables = DerivedGrammar(db, code).paradigms
+    assert tables.get("noun_forms"), f"{code} should supply its nouns"
+    assert "pronouns" not in tables, f"{code} has no gendered pronoun to supply"
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["fin", "hun", "rus"])
+def test_the_coreference_lesson_falls_back_before_it_draws(code):
+    """Taking a Finnish sentence and an English pronoun would be worse.
+
+    The lesson turns on the pronoun distinguishing its antecedents, so where
+    there is no gendered pronoun the episode cannot be presented at all. It
+    declines before touching the random stream: checking later re-ran the
+    generator mid-stream and the fallback came out about a different pair of
+    people, which would have moved the answer.
+
+    What is asserted is the material the lesson *chose*. The renderer still
+    translates individual tokens it recognises, so a word or two of the
+    English fallback comes back in the target language — that is a separate
+    defect, recorded in the commit and not fixed here.
+    """
+    from langcurriculum.registry import get
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    english = get("pronoun_coreference").example(0, language="english")
+    other = get("pronoun_coreference").example(0, language=code)
+    assert other.metadata["hidden"]["referent"] == \
+        english.metadata["hidden"]["referent"]
+    assert other.metadata["hidden"]["distractor"] == \
+        english.metadata["hidden"]["distractor"]
+    assert len(other.choices) == len(english.choices)
 
 
 @needs_db
