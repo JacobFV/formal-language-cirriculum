@@ -28,6 +28,8 @@ that lacks the word renders it as the bare lemma. If English does not know
 
 from __future__ import annotations
 
+import random
+
 from functools import lru_cache
 from typing import Any, Sequence
 
@@ -60,6 +62,46 @@ def curriculum_vocabulary() -> set[str]:
     keys = set(vocab.nouns) | set(vocab.adjectives) | set(vocab.verbs)
     keys |= set(vocab.names) | set(vocab.words)
     keys |= {k.split("/")[0] for k in FRAMES}
+    return {k for k in keys if k and k.isascii()}
+
+
+def rendered_vocabulary() -> set[str]:
+    """Every English word the curriculum puts on a page, coined or not.
+
+    The coined vocabulary plus the *field names*, which are rendered as
+    section headings and were never asked for. Two hundred and twenty-five of
+    the two hundred and forty-seven words the lessons head their blocks with
+    were absent from the harvest, so ``entities``, ``agents`` and ``rules``
+    have a translation in no language at all and a third of headings come out
+    in English.
+
+    Kept apart from :func:`curriculum_vocabulary`, which answers a different
+    question -- what a *generator* can coin -- and is what the collision rule
+    and the coverage figures are about. This one is what a *harvest* has to
+    fetch, and only the build script wants it.
+
+    Singulars are offered as well as the name itself, because a dictionary
+    lists *rule* and the lessons head a block ``rules``.
+    """
+    from ..registry import all_lessons, get
+    from .derived import _singulars
+
+    keys = set(curriculum_vocabulary())
+    for lesson_id in list(all_lessons()):
+        for seed in range(3):
+            try:
+                term, *_ = get(lesson_id).generate(random.Random(seed))
+            except Exception:
+                continue
+            if term.type != "record":
+                continue
+            for name, _value in term.value:
+                if name in ("query", "utterance"):
+                    continue
+                words = name.replace("_", " ")
+                keys.update(words.split())
+                for singular in _singulars(words):
+                    keys.update(singular.split())
     return {k for k in keys if k and k.isascii()}
 
 

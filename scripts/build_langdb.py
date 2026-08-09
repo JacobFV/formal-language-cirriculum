@@ -453,14 +453,16 @@ def main() -> int:
 
 
 def _curriculum_keys() -> set[str]:
-    """Every English word the curriculum's generators can actually coin.
+    """Every English word the curriculum puts on a page.
 
-    Used when ``--all-words`` is off. The full harvest is the honest default for
-    a general resource; this is the fast path for a build that only has to serve
-    the lessons.
+    Used when ``--all-words`` is off. The full harvest is the honest default
+    for a general resource; this is the fast path for a build that only has to
+    serve the lessons -- and it has to serve the section headings too, which
+    an earlier version left out, so two hundred and twenty-five of the words
+    the lessons head their blocks with were never fetched.
     """
-    from langcurriculum.grammar.compile import curriculum_vocabulary
-    return curriculum_vocabulary()
+    from langcurriculum.grammar.compile import rendered_vocabulary
+    return rendered_vocabulary()
 
 
 if __name__ == "__main__":

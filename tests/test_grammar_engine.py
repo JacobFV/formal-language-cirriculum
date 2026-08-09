@@ -2841,3 +2841,57 @@ def test_a_word_with_no_variant_is_untouched():
     grammar = DerivedGrammar(LanguageDB(), "cmn")
     assert grammar._variant("立方体") == "立方体"
     assert grammar._variant("") == ""
+
+
+# ======================================================================
+# the harvest has to fetch what the page will show
+# ======================================================================
+def test_the_harvest_asks_for_the_words_the_headings_use():
+    """Two hundred and twenty-five of them were never fetched.
+
+    The harvest set was "every word a generator can coin", and a section
+    heading is not coined -- it is the name of a record field. So ``entities``,
+    ``agents`` and ``rules`` have a translation in no language at all, and a
+    third of the headings across two hundred and sixty-three languages come
+    out in English for want of ever having been asked for.
+    """
+    import random
+
+    from langcurriculum.grammar.compile import rendered_vocabulary
+    from langcurriculum.registry import all_lessons, get
+
+    rendered = rendered_vocabulary()
+    missing = set()
+    for lesson_id in list(all_lessons())[::4]:
+        term, *_ = get(lesson_id).generate(random.Random(0))
+        if term.type != "record":
+            continue
+        for name, _value in term.value:
+            if name in ("query", "utterance"):
+                continue
+            missing |= {w for w in name.replace("_", " ").split()
+                        if w.isascii() and w not in rendered}
+    assert not missing, f"headings the harvest would not fetch: {sorted(missing)[:8]}"
+
+
+def test_the_harvest_set_and_the_coined_set_are_different_questions():
+    """One is what a generator invents, the other what a reader sees.
+
+    The collision rule and the coverage figures are about the coined set and
+    must not move because the harvest grew.
+    """
+    from langcurriculum.grammar.compile import (curriculum_vocabulary,
+                                                rendered_vocabulary)
+    coined, rendered = curriculum_vocabulary(), rendered_vocabulary()
+    assert coined < rendered
+    assert len(coined) == 405, "the coined set moved; coverage numbers will too"
+    assert "rule" in rendered and "entity" in rendered
+
+
+def test_the_singular_of_a_heading_is_asked_for_too():
+    """A dictionary lists *rule*; the lessons head a block ``rules``."""
+    from langcurriculum.grammar.compile import rendered_vocabulary
+    rendered = rendered_vocabulary()
+    for plural, singular in (("rules", "rule"), ("entities", "entity"),
+                             ("boxes", "box")):
+        assert singular in rendered, singular
