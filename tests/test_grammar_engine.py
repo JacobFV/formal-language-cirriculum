@@ -2626,3 +2626,36 @@ def test_a_full_width_mark_is_not_left_with_a_space_in_front_of_it():
 def test_a_clause_is_stripped_before_its_separator_is_written():
     grammar = get_grammar("chinese")
     assert grammar.join_clauses(["甲 ", " 乙"]) == "甲；乙"
+
+
+# ======================================================================
+# the long answer set, which no lesson reaches and callers can ask for
+# ======================================================================
+@pytest.mark.parametrize("code", ["english", "spanish", "chinese", "turkish",
+                                  "deu", "rus", "fin"])
+def test_a_long_answer_set_is_listed_and_counted_in_the_language(code):
+    """Sixteen languages have a translation for this and nothing exercised it.
+
+    ``prompt`` lists the options instead of running them inline once there are
+    more than ``max_inline`` of them. The largest answer set the curriculum
+    produces is thirteen, so the branch is unreachable through a lesson — but
+    ``max_inline`` is a parameter a caller can lower, and the instruction it
+    uses is a different string from the inline one, with a different
+    placeholder. An untested branch with sixteen translations behind it is
+    exactly where a placeholder goes missing unnoticed.
+    """
+    from langcurriculum.languages import get_language
+    language = get_language(code)
+    options = [f"o{i}" for i in range(6)]
+    prompt = language.prompt("scene", options, max_inline=3)
+    for option in options:
+        assert f"{language.lexicon.bullet}{option}" in prompt, option
+    assert "6" in prompt.splitlines()[-2], "the count is not written out"
+    assert prompt.splitlines()[2].endswith((":", "：")), "no options heading"
+
+
+def test_the_inline_and_listed_instructions_are_different_strings():
+    """They ask for different things and take different placeholders."""
+    from langcurriculum.grammar.typology import _instruction_tables
+    for code, told in _instruction_tables().items():
+        assert told["instruction"] != told["instruction_many"], code
