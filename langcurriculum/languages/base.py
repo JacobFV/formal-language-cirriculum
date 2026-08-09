@@ -96,6 +96,9 @@ class Lexicon:
     pronouns: Mapping[str, str] = field(default_factory=dict)
     name_gender: Mapping[str, str] = field(default_factory=dict)
     preposition_words: Sequence[str] = ()
+    #: *then* — written into a token list by the coreference lesson, so it has
+    #: to come from the pack like everything else in that sentence
+    then: str = "then"
 
     # ---- the open-class vocabulary ------------------------------------
     vocabulary: Vocabulary = field(default_factory=Vocabulary)

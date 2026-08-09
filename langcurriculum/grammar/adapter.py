@@ -95,6 +95,7 @@ class GrammarLanguage(Language):
             definite=g.cw("the"), indefinite=g.cw("a"),
             copula_sg=g.cw("is"), copula_pl=g.cw("are"),
             negation=g.cw("not"), conjunction=g.cw("and"),
+            then=g.cw("then") or "then",
             disjunction=g.cw("or"), of=g.cw("of"),
             yes=g.word("yes"), no=g.word("no"),
             word_joiner=typ.word_joiner, capitalizes=typ.capitalizes,

@@ -25,6 +25,7 @@ from dataclasses import dataclass, field
 from typing import Any, Callable, ClassVar, Iterator, Mapping, Sequence
 
 from ._structure import Term, sexpr, to_json
+from ._support.extra import ACTIVE_LANGUAGE
 from .languages import DEFAULT_LANGUAGE, Language, get_language
 
 __all__ = ["Lesson", "Example", "AXES", "CORE_AXES", "EXTENDED_AXES",
@@ -147,7 +148,15 @@ class Lesson:
         lang = get_language(language)
         if self.status != "implemented":
             raise LessonNotImplemented(f"{self.id}: {self.note}")
-        obs, choices, answer, hidden = type(self).generate(random.Random(seed))
+        # The morphology lessons draw their inflected material from the pack
+        # the episode will be read in, so the generator has to know which that
+        # is. It was read once at import from the default language, which is
+        # why an agreement lesson asked for in Russian came out in English.
+        token = ACTIVE_LANGUAGE.set(lang.code)
+        try:
+            obs, choices, answer, hidden = type(self).generate(random.Random(seed))
+        finally:
+            ACTIVE_LANGUAGE.reset(token)
         raw_opts = tuple(as_text(c) for c in choices)
         opts, answer, collapsed = _translate_options(lang, raw_opts, as_text(answer))
         observation = lang.render(obs)

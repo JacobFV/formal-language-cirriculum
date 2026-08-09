@@ -7,6 +7,7 @@ called by at least one generator in :mod:`langcurriculum.lessons`.
 from __future__ import annotations
 
 import random
+from contextvars import ContextVar
 from typing import Any, Mapping, Sequence
 
 from .._structure import Ident, Lst, Num, Pred, Term
@@ -14,39 +15,112 @@ from ..languages import DEFAULT_LANGUAGE, get_language
 from .base import COLORS, SHAPES
 
 
-def _active_lexicon():
-    """The lexicon the morphology lessons draw their inflected material from."""
-    return get_language(DEFAULT_LANGUAGE).lexicon
+#: The language an episode is being generated for. Set by ``Lesson.example``
+#: around the call to a generator, because these lessons are *about*
+#: morphology and their material has to be the material of the language the
+#: episode will be read in.
+ACTIVE_LANGUAGE: ContextVar[str] = ContextVar("ACTIVE_LANGUAGE",
+                                              default=DEFAULT_LANGUAGE)
 
-# The syntax lessons in this section are *about* morphology — agreement across a
-# long dependency, pronoun resolution, center embedding — so they need real
-# inflected material rather than nonce words. It comes from the active language
-# pack, which is what makes those lessons portable: a pack for another language
-# supplies its own verbs, noun forms and pronouns and the lessons keep working.
-_LEXICON = _active_lexicon()
+#: The English material, and the shape every other language has to match.
+#: Read once because English is a fixed pack, and used as the fallback.
+_ENGLISH = get_language(DEFAULT_LANGUAGE).lexicon
 
-VERBS = list(_LEXICON.verbs)
-
-
-INTRANSITIVE = list(_LEXICON.intransitive_verbs)
-
-
-ADVERBS = list(_LEXICON.adverbs)
-
-
-PREPOSITIONS = list(_LEXICON.preposition_words)
-
-
-NOUN_FORMS = [tuple(x) for x in _LEXICON.noun_forms]
+#: Which lexicon fields are drawn on here, and how many entries each must have.
+#: The count is not a style rule. ``rng.choice`` consumes a variable number of
+#: bits depending on the length of what it is choosing from, so a pack offering
+#: five nouns where English offers six would shift the whole random stream and
+#: with it the position of the correct option -- and the curriculum's central
+#: cross-language invariant is that the correct option does not move. Parallel
+#: tables of equal length keep the stream identical and change only the words.
+PARALLEL_FIELDS = {
+    "verbs": 6, "intransitive_verbs": 6, "adverbs": 4, "preposition_words": 5,
+    "noun_forms": 6, "agreement_forms": 6, "pronouns": 2, "name_gender": 6,
+}
 
 
-AGREE_FORMS = [tuple(x) for x in _LEXICON.agreement_forms]
+def _material(field: str):
+    """One paradigm table, from the active language if it has a full one.
+
+    All or nothing, and per field. A half-supplied table is worse than none:
+    the lesson would present a sentence half in one language and half in
+    another, and the learner could not tell which half the question was about.
+
+    This used to be read once at import from the default language and bound to
+    module constants, so the portability the docstring above promises never
+    happened -- ``example(language="rus")`` got English verbs and English
+    nouns, and the whole sentence of an agreement lesson came out in English
+    with only its heading translated.
+    """
+    lexicon = get_language(ACTIVE_LANGUAGE.get()).lexicon
+    supplied = getattr(lexicon, field, None) or ()
+    if len(supplied) == PARALLEL_FIELDS[field]:
+        return supplied
+    return getattr(_ENGLISH, field)
 
 
-GENDER = dict(_LEXICON.name_gender)
+def verbs() -> list[str]:
+    return list(_material("verbs"))
 
 
-PRONOUN = dict(_LEXICON.pronouns)
+def intransitive() -> list[str]:
+    return list(_material("intransitive_verbs"))
+
+
+def adverbs() -> list[str]:
+    return list(_material("adverbs"))
+
+
+def prepositions() -> list[str]:
+    return list(_material("preposition_words"))
+
+
+def noun_forms() -> list[tuple[str, str]]:
+    """``(singular, plural)`` pairs."""
+    return [tuple(x) for x in _material("noun_forms")]
+
+
+def agree_forms() -> list[tuple[str, str]]:
+    """``(third singular, plural)`` verb pairs."""
+    return [tuple(x) for x in _material("agreement_forms")]
+
+
+def gender() -> dict[str, str]:
+    return dict(_material("name_gender"))
+
+
+def pronoun() -> dict[str, str]:
+    return dict(_material("pronouns"))
+
+
+def supplies(field: str) -> bool:
+    """Whether the active pack has a full table of its own for ``field``."""
+    lexicon = get_language(ACTIVE_LANGUAGE.get()).lexicon
+    return len(getattr(lexicon, field, None) or ()) == PARALLEL_FIELDS[field]
+
+
+def determiner() -> str:
+    """The definite article that goes with :func:`noun_forms`.
+
+    Spelled ``"the"`` into the lessons, so even a pack that supplied every
+    paradigm would have produced *the granjero por the llaves*.
+
+    It belongs to the same all-or-nothing set as the nouns it stands in front
+    of: a pack whose nouns fall back to English gets English's article too,
+    because *farmer* preceded by *el* is not a sentence of either language.
+    Where the pack does supply its own nouns the answer may be empty, and
+    correctly so -- Russian has no definite article, and the lesson writes no
+    token rather than an English one.
+    """
+    if not supplies("noun_forms"):
+        return _ENGLISH.definite
+    return get_language(ACTIVE_LANGUAGE.get()).lexicon.definite
+
+
+def then_word() -> str:
+    """*then*, the discourse connective the coreference lesson sequences with."""
+    lexicon = get_language(ACTIVE_LANGUAGE.get()).lexicon
+    return lexicon.then or _ENGLISH.then
 
 
 SIZES = ["small", "big"]

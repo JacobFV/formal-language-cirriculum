@@ -144,11 +144,6 @@ class Spanish(VocabularyGrammar):
                           for k, v in (self.raw.get("articles") or {}).items()}
         self._el_agua = frozenset(self.raw.get("el_agua") or ())
         self._trailing = tuple(self.raw.get("trailing_prepositions") or ())
-        self.paradigms = {
-            "pronouns": {"f": "ella", "m": "él"},
-            "name_gender": {"alice": "f", "bob": "m", "carol": "f",
-                            "dave": "m", "erin": "f", "frank": "m"},
-        }
         self.morphology[N.name] = SpanishNoun(self.vocabulary)
         self.morphology[A.name] = SpanishAdjective(self.vocabulary)
 

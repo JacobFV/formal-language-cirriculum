@@ -10,21 +10,31 @@ import random
 from ..._structure import Ident, Lst, Pred, Rec, Tok
 from ...lesson import Lesson
 from ..._support.base import NAMES
-from ..._support.extra import ADVERBS, GENDER, INTRANSITIVE, VERBS, _shuffled
+from ..._support.extra import (
+    _shuffled, adverbs, gender, intransitive, pronoun, then_word, verbs,
+)
 
 
 def gen_pronoun_coreference(rng: random.Random):
     """Two entities, one pronoun, exactly one grammatically valid antecedent —
     the other entity is ruled out by gender, so the episode has a single correct
     reading. Filler material varies the distance to the antecedent."""
-    fem = [n for n in NAMES if GENDER[n] == "f"]
-    masc = [n for n in NAMES if GENDER[n] == "m"]
+    genders = gender()
+    fem = [n for n in NAMES if genders[n] == "f"]
+    masc = [n for n in NAMES if genders[n] == "m"]
     she_ref, he_ref = rng.choice(fem), rng.choice(masc)
     first, second = (she_ref, he_ref) if rng.random() < 0.5 else (he_ref, she_ref)
-    pron = rng.choice(["she", "he"])
-    referent = she_ref if pron == "she" else he_ref
-    filler = [rng.choice(ADVERBS) for _ in range(rng.randint(0, 2))]
-    toks = [first, rng.choice(VERBS), second] + filler + ["then", pron, rng.choice(INTRANSITIVE)]
+    # The pronoun is the thing the lesson is about, so it has to be the
+    # pronoun of the language the episode is read in. Choosing on the gender
+    # keeps the random draw identical across languages and only the word
+    # different, which is what the cross-language invariant requires.
+    pronouns = pronoun()
+    sex = rng.choice(["f", "m"])
+    pron = pronouns[sex]
+    referent = she_ref if sex == "f" else he_ref
+    filler = [rng.choice(adverbs()) for _ in range(rng.randint(0, 2))]
+    toks = ([first, rng.choice(verbs()), second] + filler
+            + [then_word(), pron, rng.choice(intransitive())])
     obs = Rec(discourse=Lst([Tok(w) for w in toks]), query=Pred("refers_to", Ident(pron)))
     return (obs, _shuffled(rng, [she_ref, he_ref]), referent,
             {"pronoun": pron, "referent": referent,

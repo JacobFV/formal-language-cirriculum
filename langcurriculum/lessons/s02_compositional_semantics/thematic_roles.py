@@ -10,7 +10,7 @@ import random
 from ..._structure import Ident, Lst, Pred, Rec, Tok
 from ...lesson import Lesson
 from ..._support.base import NAMES
-from ..._support.extra import VERBS, _shuffled
+from ..._support.extra import _shuffled, verbs
 
 
 def gen_thematic_roles(rng: random.Random):
@@ -18,7 +18,7 @@ def gen_thematic_roles(rng: random.Random):
     first-mentioned is the agent exactly half the time: surface position is
     uninformative and only the voice marking decides."""
     agent, patient = rng.sample(NAMES, 2)
-    verb = rng.choice(VERBS)
+    verb = rng.choice(verbs())
     passive = rng.random() < 0.5
     toks = [patient, "was", verb, "by", agent] if passive else [agent, verb, patient]
     role = rng.choice(["agent", "patient"])

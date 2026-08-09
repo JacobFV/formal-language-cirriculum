@@ -10,7 +10,7 @@ import random
 from ..._structure import Ident, Lst, Pred, Rec, Tok
 from ...lesson import Lesson
 from ..._support.base import NAMES
-from ..._support.extra import ADVERBS, VERBS, _shuffled
+from ..._support.extra import _shuffled, adverbs, verbs
 
 
 def gen_center_embedding(rng: random.Random):
@@ -19,13 +19,13 @@ def gen_center_embedding(rng: random.Random):
     the whole nesting. Depth varies and is recorded."""
     depth = rng.randint(2, 4)
     subs = rng.sample(NAMES, depth)
-    verbs = rng.sample(VERBS, depth)
-    toks = list(subs) + list(reversed(verbs))
+    chosen = rng.sample(verbs(), depth)
+    toks = list(subs) + list(reversed(chosen))
     if rng.random() < 0.5:                       # a trailing adverb, so "last token" fails
-        toks.append(rng.choice(ADVERBS))
+        toks.append(rng.choice(adverbs()))
     obs = Rec(sentence=Lst([Tok(w) for w in toks]), query=Pred("verb_of", Ident(subs[0])))
-    return (obs, _shuffled(rng, verbs), verbs[0],
-            {"depth": depth, "pairs": dict(zip(subs, verbs)), "length": len(toks)})
+    return (obs, _shuffled(rng, chosen), chosen[0],
+            {"depth": depth, "pairs": dict(zip(subs, chosen)), "length": len(toks)})
 
 
 class CenterEmbedding(Lesson):

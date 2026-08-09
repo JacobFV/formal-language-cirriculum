@@ -9,7 +9,9 @@ import random
 
 from ..._structure import Ident, Lst, Rec, Tok
 from ...lesson import Lesson
-from ..._support.extra import AGREE_FORMS, NOUN_FORMS, PREPOSITIONS, _shuffled
+from ..._support.extra import (
+    _shuffled, agree_forms, determiner, noun_forms, prepositions,
+)
 
 
 def gen_long_range_agreement(rng: random.Random):
@@ -17,20 +19,22 @@ def gen_long_range_agreement(rng: random.Random):
     length: the classic diagnostic for whether a learner tracks the *head* of a
     phrase or merely the nearest noun. Attractor number is drawn independently,
     so the nearest-noun heuristic is wrong about half the time."""
+    nouns, the = noun_forms(), determiner()
     n_att = rng.randint(1, 4)
     head_plural = rng.random() < 0.5
-    head_sg, head_pl = rng.choice(NOUN_FORMS)
-    toks = ["the", head_pl if head_plural else head_sg]
+    head_sg, head_pl = rng.choice(nouns)
+    toks = [the, head_pl if head_plural else head_sg]
     attractors = []
     for _ in range(n_att):
-        sg, pl = rng.choice(NOUN_FORMS)
+        sg, pl = rng.choice(nouns)
         att_plural = rng.random() < 0.5
         attractors.append((pl if att_plural else sg, att_plural))
-        toks += [rng.choice(PREPOSITIONS), "the", pl if att_plural else sg]
+        toks += [rng.choice(prepositions()), the, pl if att_plural else sg]
     toks.append("__")
-    sg_form, pl_form = rng.choice(AGREE_FORMS)
+    sg_form, pl_form = rng.choice(agree_forms())
     answer = pl_form if head_plural else sg_form
-    obs = Rec(sentence=Lst([Tok(w) for w in toks]), query=Ident("main_verb_form"))
+    obs = Rec(sentence=Lst([Tok(w) for w in toks if w]),
+              query=Ident("main_verb_form"))
     return (obs, _shuffled(rng, [sg_form, pl_form]), answer,
             {"attractors": n_att, "distance": len(toks) - 2, "head_plural": head_plural,
              "attractor_numbers": [bool(p) for _, p in attractors]})

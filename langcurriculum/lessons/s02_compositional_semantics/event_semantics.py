@@ -10,7 +10,7 @@ import random
 from ..._structure import Ident, Lst, Num, Pred, Rec
 from ...lesson import Lesson
 from ..._support.base import NAMES
-from ..._support.extra import VERBS, _shuffled
+from ..._support.extra import _shuffled, verbs
 
 
 def gen_event_semantics(rng: random.Random):
@@ -21,9 +21,9 @@ def gen_event_semantics(rng: random.Random):
     n = rng.randint(2, 3)
     actors = rng.sample(NAMES, n)
     themes = rng.sample([x for x in NAMES if x not in actors], n)
-    verbs = rng.sample(VERBS, n)
+    chosen = rng.sample(verbs(), n)
     times = rng.sample(range(1, 12), n)
-    events = [{"id": f"e{i}", "verb": verbs[i], "actor": actors[i],
+    events = [{"id": f"e{i}", "verb": chosen[i], "actor": actors[i],
                "theme": themes[i], "time": times[i]} for i in range(n)]
     shown = _shuffled(rng, events)
     facts = Lst([Pred("event", Ident(e["id"]), Ident(e["verb"]), Ident(e["actor"]),

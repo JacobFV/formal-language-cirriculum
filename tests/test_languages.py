@@ -184,12 +184,62 @@ def test_the_lexicon_supplies_the_agreement_material_the_syntax_lessons_use():
     from langcurriculum._support import extra
 
     lex = get_language("english").lexicon
-    assert extra.VERBS == list(lex.verbs)
-    assert extra.NOUN_FORMS == [tuple(x) for x in lex.noun_forms]
-    assert extra.AGREE_FORMS == [tuple(x) for x in lex.agreement_forms]
-    assert extra.PRONOUN == dict(lex.pronouns)
-    assert extra.GENDER == dict(lex.name_gender)
+    assert extra.verbs() == list(lex.verbs)
+    assert extra.noun_forms() == [tuple(x) for x in lex.noun_forms]
+    assert extra.agree_forms() == [tuple(x) for x in lex.agreement_forms]
+    assert extra.pronoun() == dict(lex.pronouns)
+    assert extra.gender() == dict(lex.name_gender)
     assert lex.verbs and lex.noun_forms and lex.pronouns
+
+
+def test_the_agreement_material_follows_the_language_it_is_asked_for():
+    """It was read once at import, so it never followed anything.
+
+    These lessons are *about* morphology and their sentences are built from
+    inflected words rather than translated at render time. Bound to the
+    default language at import, an agreement lesson asked for in Spanish came
+    out entirely in English with only its heading translated.
+    """
+    from langcurriculum._support import extra
+
+    token = extra.ACTIVE_LANGUAGE.set("spanish")
+    try:
+        assert extra.supplies("noun_forms"), "Spanish should supply its own"
+        assert extra.verbs() == list(get_language("spanish").lexicon.verbs)
+        assert extra.pronoun()["m"] == "él"
+    finally:
+        extra.ACTIVE_LANGUAGE.reset(token)
+    assert extra.pronoun()["m"] == "he"
+
+
+def test_a_pack_that_supplies_nothing_falls_back_whole():
+    """Half a table would put half a sentence in the wrong language."""
+    from langcurriculum._support import extra
+
+    token = extra.ACTIVE_LANGUAGE.set("rus")
+    try:
+        assert not extra.supplies("noun_forms")
+        assert extra.noun_forms() == extra.gender.__globals__["_ENGLISH"].noun_forms
+        # and its article too, since English nouns want an English article
+        assert extra.determiner() == "the"
+    finally:
+        extra.ACTIVE_LANGUAGE.reset(token)
+
+
+@pytest.mark.parametrize("field,count", sorted(
+    __import__("langcurriculum._support.extra", fromlist=["x"]).PARALLEL_FIELDS.items()))
+def test_a_parallel_table_has_the_same_length_in_every_pack(field, count):
+    """Not a style rule — the cross-language invariant depends on it.
+
+    ``rng.choice`` consumes a variable number of bits depending on how long the
+    sequence is, so a pack offering five nouns where English offers six shifts
+    the whole random stream and moves the correct option. Equal lengths keep
+    the stream identical and change only the words.
+    """
+    for code in ("english", "spanish"):
+        supplied = getattr(get_language(code).lexicon, field, None) or ()
+        if supplied:
+            assert len(supplied) == count, f"{code}.{field} has {len(supplied)}"
 
 
 def test_the_lexicon_exposes_the_closed_class_a_new_pack_must_supply():
