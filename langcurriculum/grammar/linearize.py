@@ -1,0 +1,754 @@
+"""The linearizer: one walk over the abstract tree, parameterized by typology.
+
+This is the module that has to earn the whole design. The claim is that word
+order, agreement, case marking and question formation vary along a small number
+of parameters, and that a single walk reading those parameters can produce
+English, Turkish, Chinese and Swahili without any of them being a special case.
+Where that claim fails, a grammar overrides a method — but the overrides should
+be *few*, and each one should correspond to something genuinely idiosyncratic
+about the language rather than to a gap in the parameterization.
+
+The parameters
+--------------
+
+:class:`WordOrder` collects the ones that are pure ordering: whether the object
+precedes or follows the verb, the adjective its noun, the possessor its
+possessum, the adposition its complement. These are not eighteen independent
+choices — Greenberg's correlations mean a verb-final language is usually
+postpositional and genitive-initial — but they are recorded independently
+because the correlations are tendencies and a grammar should be able to state
+what its language actually does.
+
+:class:`Alignment` is the one that is not about order at all: how a language
+decides which argument gets which case. Nominative–accusative marks the agent of
+a transitive clause the same as the sole argument of an intransitive one;
+ergative–absolutive marks the *patient* the same as the sole argument. Both are
+expressed here as a function from role and transitivity to case, so Basque and
+Hindi need no new mechanism.
+
+:class:`Concord` says which features a modifier must copy from its head. Spanish
+copies class and number; Swahili copies class alone, from an inventory of
+eighteen; Turkish copies nothing. The mechanism is the same unification in all
+three, which is the point made at length in :mod:`~langcurriculum.grammar.features`.
+
+What a grammar still has to write
+---------------------------------
+
+Vocabulary, closed-class words, the morphology object, and the handful of
+overrides where the parameters genuinely do not reach — Chinese measure words,
+Spanish ``ser``/``estar``, Turkish's question clitic. That is the bounded job
+adding a language is supposed to be.
+"""
+
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass, field, replace
+from typing import Any, Callable, Mapping, Sequence
+
+from .category import (
+    AGENT, ATTRIBUTE, CASE, CLS, DEF, GOAL, INDEX, LOCATION, NUM, PATIENT, PL,
+    RECIPIENT, SG, SOURCE, THEME, VALUE,
+)
+from .features import EMPTY, FS, Var, unify
+from .morphology import IsolatingMorphology, Morphology
+from .syntax import Node
+
+__all__ = ["WordOrder", "Typography", "Alignment", "Concord", "Grammar",
+           "NOM_ACC", "ERG_ABS", "NO_CASE"]
+
+
+# ======================================================================
+# parameters
+# ======================================================================
+@dataclass(frozen=True)
+class WordOrder:
+    """Where each dependent sits relative to its head."""
+
+    #: one of SVO SOV VSO VOS OSV OVS
+    clause: str = "SVO"
+    #: ``AN`` adjective before noun, ``NA`` after
+    adj: str = "AN"
+    #: ``DN`` determiner before noun, ``ND`` after
+    det: str = "DN"
+    #: ``NumN`` numeral before noun, ``NNum`` after
+    numeral: str = "NumN"
+    #: ``pre`` prepositions, ``post`` postpositions
+    adposition: str = "pre"
+    #: ``GN`` possessor before possessum (Turkish, English -'s), ``NG`` after
+    #: (English "of", Spanish "de")
+    possessive: str = "GN"
+    #: ``LV`` label before value ("weight: 3"), ``VL`` after
+    label: str = "LV"
+    #: ``CA`` consequent first ("a if b"), ``AC`` antecedent first ("if b, a")
+    conditional: str = "CA"
+    #: whether a content question fronts its wh-word, or leaves it in situ
+    wh_fronting: bool = True
+    #: whether the copula is pronounced at all in the present tense
+    #: (Russian and Arabic drop it; Chinese uses one only for identity)
+    copula_overt: bool = True
+    #: whether a noun counted by a numeral goes plural. English and Spanish say
+    #: yes; Turkish, Chinese, Japanese and Hungarian say no — *üç kitap*, not
+    #: *üç kitaplar* — because the numeral has already expressed the plurality.
+    numeral_forces_plural: bool = True
+    #: where the negator sits relative to the predicate. ``pre`` for Chinese
+    #: *不*, Spanish *no*; ``post`` for Turkish *değil* and Japanese *-nai*.
+    #: English is neither and overrides, because its negator attaches to a
+    #: finite auxiliary rather than to the clause.
+    negation: str = "pre"
+
+    @property
+    def verb_final(self) -> bool:
+        return self.clause in ("SOV", "OSV")
+
+    def order_clause(self, subject: str, verb: str, obj: str) -> list[str]:
+        """Arrange the three constituents according to ``clause``."""
+        slot = {"S": subject, "V": verb, "O": obj}
+        return [slot[c] for c in self.clause]
+
+
+@dataclass(frozen=True)
+class Typography:
+    """How the script is written. Everything here is orthography, not grammar."""
+
+    word_joiner: str = " "
+    capitalizes: bool = True
+    full_stop: str = "."
+    question_mark: str = "?"
+    #: an opening mark, for languages that bracket the interrogative clause
+    question_open: str = ""
+    list_separator: str = ", "
+    clause_separator: str = "; "
+    #: the enumerating separator, where it differs from the list separator
+    item_separator: str = ""
+    colon: str = ":"
+    #: what separates a label from its value in a data row. English writes
+    #: "weight 3" with nothing; Chinese and Turkish want the colon.
+    label_separator: str = ""
+    bullet: str = "  - "
+    #: a Latin function call keeps half-width punctuation in any script
+    arg_separator: str = ", "
+    #: right-to-left scripts need the marks, not a reversed string
+    rtl: bool = False
+
+
+#: role -> case, given whether the clause is transitive
+CaseRule = Callable[[str, bool], str]
+
+
+def NOM_ACC(role: str, transitive: bool) -> str:
+    """Nominative–accusative: the agent is unmarked, the patient is marked."""
+    return {AGENT: "nom", PATIENT: "acc", THEME: "acc",
+            RECIPIENT: "dat", LOCATION: "loc"}.get(role, "nom")
+
+
+def ERG_ABS(role: str, transitive: bool) -> str:
+    """Ergative–absolutive: the *patient* patterns with the intransitive subject."""
+    if role == AGENT:
+        return "erg" if transitive else "abs"
+    return {PATIENT: "abs", THEME: "abs",
+            RECIPIENT: "dat", LOCATION: "loc"}.get(role, "abs")
+
+
+def NO_CASE(role: str, transitive: bool) -> str:
+    """For languages that do not case-mark at all."""
+    return ""
+
+
+@dataclass(frozen=True)
+class Alignment:
+    """How arguments are case-marked, and whether the verb agrees with them."""
+
+    case_of: CaseRule = NO_CASE
+    #: which arguments the verb agrees with — Swahili agrees with two
+    verb_agrees_with: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
+class Concord:
+    """Which features a dependent copies from its head."""
+
+    #: features an attributive adjective shares with its noun
+    adjective: tuple[str, ...] = ()
+    #: features a determiner shares with its noun
+    determiner: tuple[str, ...] = ()
+    #: features a predicative adjective shares with its subject
+    predicative: tuple[str, ...] = ()
+
+    def share(self, features: Sequence[str], head: FS) -> FS:
+        return FS({f: head[f] for f in features if f in head})
+
+
+# ======================================================================
+# the grammar
+# ======================================================================
+_SENTENCE_END = re.compile(r"[.!?。？！]$")
+_SPACE_BEFORE_PUNCT = re.compile(r"\s+([?.!,;:])")
+
+
+class Grammar:
+    """A concrete grammar: parameters, a lexicon, a morphology, and the walk.
+
+    Subclasses set the class attributes and override only what the parameters
+    cannot express. The walk itself is here and is not meant to be replaced.
+    """
+
+    code: str = ""
+    name: str = ""
+    order: WordOrder = WordOrder()
+    typography: Typography = Typography()
+    alignment: Alignment = Alignment()
+    concord: Concord = Concord()
+
+    #: what the grammar claims to implement, and what it does not attempt
+    notes: tuple[str, ...] = ()
+
+    def __init__(self) -> None:
+        #: per-category morphology; a category with no entry is not inflected
+        self.morphology: dict[str, Morphology] = {}
+        #: closed-class words, keyed by an English-ish label
+        self.closed: dict[str, str] = {}
+        #: predicate head -> the words realizing it between two arguments
+        self.predicate_words: dict[str, str] = {}
+        #: section name -> the lead-in that introduces it
+        self.field_intros: dict[str, str] = {}
+        #: lemma -> inherent features (noun class, classifier, animacy)
+        self.inherent: dict[str, FS] = {}
+        self._word_cache: dict[tuple[str, str], str] = {}
+        #: Inflectional material the morphology lessons *are about*, rather than
+        #: merely use: verb paradigms, singular/plural pairs, agreement pairs,
+        #: pronouns. A lesson on long-range agreement has to draw its own
+        #: minimal pairs from the language it is presented in, so this is
+        #: grammar data and belongs on the grammar.
+        self.paradigms: dict[str, Any] = {}
+
+    # ==================================================================
+    # lexical access — overridden by a grammar that has a vocabulary
+    # ==================================================================
+    def word(self, lemma: str, pos: str = "") -> str:
+        """The citation form of an open-class word, or the lemma untouched.
+
+        A template method: subclasses supply :meth:`lookup`, which knows where
+        their data lives, and this composes around it. The composition — falling
+        back to a token-by-token rendering of a multi-word label — used to live
+        in one subclass, which meant the five hand-written grammars silently
+        kept every phrase in English while the derived ones translated them.
+
+        ``pos`` matters more than it looks. A dictionary keyed only on spelling
+        answers "red" with whichever sense it happened to list first, and for a
+        great many languages that is the *noun* — German ``Rot``, Spanish
+        ``tinto``, Korean ``적포도주`` "red wine". Passing the category the
+        linearizer already knows turns a coin-flip into a lookup.
+
+        Passing an unknown word through is a requirement, not a fallback: most
+        of what this curriculum names is coined per episode, and translating a
+        nonce form would destroy the lesson that turns on it.
+        """
+        cached = self._word_cache.get((lemma, pos))
+        if cached is not None:
+            return cached
+        form = self.lookup(lemma, pos)
+        if not form and " " in lemma:
+            form = self.phrase(lemma, pos)
+        out = form or lemma
+        self._word_cache[(lemma, pos)] = out
+        return out
+
+    def lookup(self, lemma: str, pos: str) -> str:
+        """One word from wherever this grammar keeps its lexicon. ``""`` if absent."""
+        return ""
+
+    def phrase(self, lemma: str, pos: str) -> str:
+        """Render a multi-word label a token at a time.
+
+        Labels like *value of* and sequences like *green blue green* are built
+        from several ordinary words, and no dictionary has an entry for the
+        whole. Each token does. A literal rendering in the right language beats
+        a fluent one in the wrong language.
+
+        Returns nothing unless a token actually translated, so a phrase made of
+        words the language does not know stays intact rather than being half
+        converted — which matters most for the coined sequences a few-shot
+        lesson turns on.
+        """
+        out, translated = [], False
+        for token in lemma.split():
+            hit = self.cw(token) or self.word(token)
+            if hit and hit != token:
+                translated = True
+            out.append(hit or token)
+        # the language's own joiner, not a literal space: a script written
+        # without spaces must not acquire them by way of a composed label
+        return self.join(out) if translated else ""
+
+    def features_of(self, lemma: str) -> FS:
+        """A word's inherent features — its class, its classifier, its animacy."""
+        return self.inherent.get(lemma, EMPTY)
+
+    def inflect(self, cat: str, lemma: str, feats: FS) -> str:
+        morph = self.morphology.get(cat)
+        surface = self.word(lemma, pos=cat)
+        return morph.inflect(surface, feats) if morph else surface
+
+    def cw(self, key: str, default: str = "") -> str:
+        """A closed-class word."""
+        return self.closed.get(key, default)
+
+    # ==================================================================
+    # assembly
+    # ==================================================================
+    def join(self, parts: Sequence[str]) -> str:
+        return self.typography.word_joiner.join(p for p in parts if p)
+
+    def join_list(self, items: Sequence[str]) -> str:
+        """Coordinate a list of noun-like items."""
+        typ = self.typography
+        items = [i for i in items if i]
+        if len(items) <= 1:
+            return items[0] if items else ""
+        sep = typ.item_separator or typ.list_separator
+        return self.join([sep.join(items[:-1]), self.cw("and"), items[-1]])
+
+    def join_clauses(self, items: Sequence[str]) -> str:
+        items = [i for i in items if i]
+        return self.typography.clause_separator.join(items)
+
+    def capitalize(self, text: str) -> str:
+        if not self.typography.capitalizes:
+            return text
+        for i, ch in enumerate(text):
+            if ch.isalpha():
+                return text[:i] + ch.upper() + text[i + 1:]
+        return text
+
+    def sentence(self, text: str, end: str | None = None) -> str:
+        typ = self.typography
+        text = " ".join(text.split()) if typ.word_joiner else text.strip()
+        text = _SPACE_BEFORE_PUNCT.sub(r"\1", text).strip()
+        if not text:
+            return ""
+        text = self.capitalize(text)
+        if end == "":
+            return text
+        end = typ.full_stop if end is None else end
+        return text if _SENTENCE_END.search(text) else text + end
+
+    # ==================================================================
+    # the walk
+    # ==================================================================
+    def lin(self, node: Node, ctx: FS = EMPTY) -> str:
+        """Linearize a node. ``ctx`` carries features inherited from above."""
+        handler = getattr(self, f"lin_{node.fn}", None)
+        if handler is None:
+            raise NotImplementedError(
+                f"{self.code}: no linearization for construction {node.fn!r}")
+        merged = unify(node.feats, ctx)
+        return handler(node, merged[0] if merged else node.feats)
+
+    # ---- leaves --------------------------------------------------------
+    def lin_Sym(self, node: Node, ctx: FS) -> str:
+        return node.text
+
+    def lin_Lex(self, node: Node, ctx: FS) -> str:
+        feats = unify(node.feats, ctx)
+        feats = feats[0] if feats else node.feats
+        # Only a **noun** carries an inherent class. An adjective does not have
+        # a gender, it agrees with one, and the gender a dictionary records
+        # against it is an artefact of which form happened to be tagged. Taking
+        # it as inherent gave the Italian adjective a masculine of its own,
+        # which then matched the masculine *plural* cell: *cubo gialli*.
+        inherent = (self.features_of(node.lemma)
+                    if node.cat.name == "N" else EMPTY)
+        merged = unify(inherent, feats)
+        return self.inflect(node.cat.name, node.lemma, merged[0] if merged else feats)
+
+    # ---- phrases -------------------------------------------------------
+    def lin_CN(self, node: Node, ctx: FS) -> str:
+        """Noun plus adjectives, ordered and agreed per the parameters."""
+        head = node.arg("head")
+        assert head is not None
+        head_feats = self._np_features(head, ctx)
+        noun = self.lin(head, head_feats)
+        shared = self.concord.share(self.concord.adjective, head_feats)
+        if self.concord.adjective and CASE in head_feats:
+            # An attributive adjective agrees in case wherever case exists —
+            # near enough a universal that it is not worth a parameter. Without
+            # it the request is ambiguous between the nominative and genitive
+            # cells and German *gelbes Haus* came out *gelber Haus*.
+            shared = shared.but(**{CASE: head_feats[CASE]})
+        mods = [self.lin(m, shared) for m in node.all_args("mod")]
+        if not mods:
+            return noun
+        return (self.join([*mods, noun]) if self.order.adj == "AN"
+                else self.join([noun, *mods]))
+
+    def _np_features(self, head: Node, ctx: FS) -> FS:
+        """Combine a noun's inherent features with what the context imposes.
+
+        Number defaults to singular where nothing has said otherwise. Leaving it
+        absent is not neutrality: a paradigm lookup rejects a cell only where it
+        *disagrees*, so an unspecified number does not disagree with a plural
+        cell and Spanish *amarillo* came back as ``amarillos``. Singular is the
+        unmarked value in every language here, and saying so is what makes the
+        rejection work.
+        """
+        if NUM not in ctx:
+            ctx = ctx.but(**{NUM: SG})
+        if CASE not in ctx:
+            # Nominative for the same reason as singular: an absent case does
+            # not disagree with a genitive cell, so German *Haus* came back as
+            # *Hauses* and Greek *κύβος* as *κύβου*. Naming the unmarked value
+            # is what lets the lookup reject the marked ones.
+            ctx = ctx.but(**{CASE: "nom"})
+        base = self.features_of(head.lemma) if head.lemma else EMPTY
+        for candidate in (unify(base, head.feats), None):
+            if candidate:
+                base = candidate[0]
+                break
+        merged = unify(base, ctx)
+        return merged[0] if merged else base
+
+    def lin_NP(self, node: Node, ctx: FS) -> str:
+        """Determiner and numeral scoped over a common noun."""
+        cn = node.arg("head")
+        assert cn is not None
+        head_lex = self._head_lemma(cn)
+        count = node.arg("count")
+        if count is not None and self.order.numeral_forces_plural:
+            ctx = ctx.but(**{NUM: PL})
+        feats = self._np_features(head_lex, ctx) if head_lex else ctx
+        inner = self.lin(cn, feats)
+        pieces = [inner]
+
+        if count is not None:
+            numeral = self.numeral_phrase(self.lin(count, ctx), head_lex, feats)
+            pieces = ([numeral, inner] if self.order.numeral == "NumN"
+                      else [inner, numeral])
+        else:
+            det = self.determiner(node.feats.get_atom("det", "bare"), head_lex, feats)
+            if det:
+                pieces = ([det, inner] if self.order.det == "DN"
+                          else [inner, det])
+        return self.join(pieces)
+
+    def _head_lemma(self, node: Node | None) -> Node | None:
+        """Dig down to the lexical head through however many phrase layers.
+
+        A predicative adjective has to agree with the *noun* inside the subject
+        noun phrase, which is two layers down — NP over CN over N. Stopping at
+        the first layer is how a grammar silently loses concord on exactly the
+        constructions where a reader would notice it most.
+        """
+        seen = 0
+        while node is not None and not node.lemma and seen < 8:
+            node = node.arg("head")
+            seen += 1
+        return node if node is not None and node.lemma else None
+
+    def determiner(self, kind: str, head: Node | None, feats: FS) -> str:
+        """The article. Languages without articles return the empty string."""
+        if kind == "def":
+            return self.cw("the")
+        if kind == "indef":
+            return self.cw("a")
+        return ""
+
+    def numeral_phrase(self, count: str, head: Node | None, feats: FS) -> str:
+        """A numeral as it attaches to a noun. Classifier languages override."""
+        return count
+
+    def lin_AP(self, node: Node, ctx: FS) -> str:
+        head = node.arg("head")
+        assert head is not None
+        return self.lin(head, ctx)
+
+    # ---- predication ---------------------------------------------------
+    def copula(self, kind: str, feats: FS) -> str:
+        """``kind`` is ``attr``, ``ident`` or ``loc``.
+
+        Kept as one hook with three kinds because the languages that split the
+        copula do not all split it the same way: Spanish contrasts ``ser`` with
+        ``estar`` on permanence, Chinese uses ``是`` for identity and nothing at
+        all for a bare adjective, Russian drops it in the present throughout.
+        """
+        if not self.order.copula_overt:
+            return ""
+        plural = feats.get_atom(NUM) == PL
+        return self.cw("are" if plural else "is")
+
+    def _predicate(self, subject: str, verb: str, obj: str) -> str:
+        return self.join(self.order.order_clause(subject, verb, obj))
+
+    def _arg(self, node: Node, role: str, ctx: FS, *, transitive: bool) -> str:
+        """Realize one argument, case-marked for the role it fills."""
+        case = self.alignment.case_of(role, transitive)
+        feats = ctx.but(**({"case": case} if case else {}))
+        return self.lin(node, feats.but(role=role))
+
+    def lin_PredAttr(self, node: Node, ctx: FS) -> str:
+        subj, attr = node.arg(AGENT), node.arg(ATTRIBUTE)
+        assert subj is not None and attr is not None
+        s = self._arg(subj, AGENT, ctx, transitive=False)
+        subj_feats = self.subject_features(subj, ctx)
+        shared = self.concord.share(self.concord.predicative, subj_feats)
+        return self._predicate(s, self.copula("attr", subj_feats),
+                               self.lin(attr, shared))
+
+    def subject_features(self, subject: Node, ctx: FS) -> FS:
+        """Everything an agreeing predicate needs to know about the subject.
+
+        The features live in two places and both matter: the *lexical head*
+        supplies inherent ones like noun class, and the *phrase* supplies
+        imposed ones like number. Reading only the head loses the plural; reading
+        only the phrase loses the class. Merging them is what makes ``vitabu ni
+        vikubwa`` come out with both prefixes agreeing.
+        """
+        head = self._head_lemma(subject)
+        merged = unify(subject.feats, ctx)
+        return self._np_features(head or subject, merged[0] if merged else ctx)
+
+    def lin_PredIdent(self, node: Node, ctx: FS) -> str:
+        subj, val = node.arg(AGENT), node.arg(VALUE)
+        assert subj is not None and val is not None
+        s = self._arg(subj, AGENT, ctx, transitive=False)
+        return self.with_adjunct(s, self.copula("ident", ctx),
+                                 self.lin(val, ctx), node, ctx)
+
+    def with_adjunct(self, subject: str, verb: str, complement: str,
+                     node: Node, ctx: FS) -> str:
+        """Assemble a copular clause that may carry a locative adjunct.
+
+        ``o0 is a yellow cube at (4, 8)`` is one clause with a place adjunct, not
+        two clauses. Where the adjunct goes is not a free choice: a verb-final
+        language puts it *after the subject and before the predicate* — Turkish
+        ``o0 (4, 8)'de bir sarı küp`` — so appending it to a finished clause, as
+        a head-initial language can, produces the wrong string.
+        """
+        place = node.arg(LOCATION)
+        if place is None:
+            return self._predicate(subject, verb, complement)
+        marked = self.oblique(self.lin(place, ctx.but(case="loc")), LOCATION)
+        if self.order.verb_final:
+            return self.join([subject, marked, complement, verb])
+        return self.join([self._predicate(subject, verb, complement), marked])
+
+    def lin_PredLoc(self, node: Node, ctx: FS) -> str:
+        subj, loc = node.arg(AGENT), node.arg(LOCATION)
+        assert subj is not None and loc is not None
+        s = self._arg(subj, AGENT, ctx, transitive=False)
+        place = self.oblique(self._arg(loc, LOCATION, ctx, transitive=False), LOCATION)
+        return self._predicate(s, self.copula("loc", ctx), place)
+
+    def lin_PredRel(self, node: Node, ctx: FS) -> str:
+        subj, rel, obj = node.arg(AGENT), node.arg("rel"), node.arg(PATIENT)
+        assert subj is not None and rel is not None and obj is not None
+        s = self._arg(subj, AGENT, ctx, transitive=True)
+        o = self._arg(obj, PATIENT, ctx, transitive=True)
+        return self._predicate(s, self.lin(rel, ctx), o)
+
+    def lin_PredRel3(self, node: Node, ctx: FS) -> str:
+        subj, rel = node.arg(AGENT), node.arg("rel")
+        theme = node.arg(THEME)
+        third = node.arg(RECIPIENT) or node.arg(GOAL) or node.arg(SOURCE)
+        assert subj is not None and rel is not None and theme is not None
+        s = self._arg(subj, AGENT, ctx, transitive=True)
+        t = self._arg(theme, THEME, ctx, transitive=True)
+        parts = [self.lin(rel, ctx), t]
+        if third is not None:
+            marked = self._arg(third, RECIPIENT, ctx, transitive=True)
+            parts.append(self.oblique(marked, RECIPIENT))
+        core = self.join(parts if not self.order.verb_final
+                         else [*parts[1:], parts[0]])
+        return self.join([s, core] if not self.order.verb_final else [s, core])
+
+    def oblique(self, phrase: str, role: str) -> str:
+        """Wrap an oblique argument in its adposition, on the correct side.
+
+        A language that marks the role with a case suffix instead — Turkish
+        locative ``-DA``, Finnish inessive ``-ssA`` — leaves the closed-class
+        entry empty and the phrase comes back untouched, already inflected.
+        """
+        marker = self.cw({RECIPIENT: "to", LOCATION: "at"}.get(role, role), "")
+        if not marker:
+            return phrase
+        return (self.join([marker, phrase]) if self.order.adposition == "pre"
+                else self.join([phrase, marker]))
+
+    # ---- packaging -----------------------------------------------------
+    def lin_Labelled(self, node: Node, ctx: FS) -> str:
+        label, value = node.arg("label"), node.arg(VALUE)
+        assert label is not None and value is not None
+        l, v = self.lin(label, ctx), self.lin(value, ctx)
+        l += self.typography.label_separator
+        return self.join([l, v]) if self.order.label == "LV" else self.join([v, l])
+
+    def lin_Enumerated(self, node: Node, ctx: FS) -> str:
+        label = node.arg("label")
+        values = self.join_list([self.lin(v, ctx) for v in node.all_args(VALUE)])
+        # an empty label contributes nothing, not a bare colon
+        rendered = self.lin(label, ctx).strip() if label is not None else ""
+        l = (rendered + self.typography.colon) if rendered else ""
+        return self.join([l, values]) if self.order.label == "LV" else self.join([values, l])
+
+    def lin_Indexed(self, node: Node, ctx: FS) -> str:
+        idx, body = node.arg(INDEX), node.arg("body")
+        assert idx is not None and body is not None
+        kind = node.feats.get_atom("kind", "step")
+        head = self.join([self.cw(kind, kind), self.lin(idx, ctx)])
+        # the joiner, not a literal space: a script written without spaces must
+        # not acquire one here of all places
+        return self.join([head + self.typography.colon, self.lin(body, ctx)])
+
+    def lin_Mapping(self, node: Node, ctx: FS) -> str:
+        src, goal = node.arg(SOURCE), node.arg(GOAL)
+        assert src is not None and goal is not None
+        return f"{self.lin(src, ctx)} → {self.lin(goal, ctx)}"
+
+    def lin_FnApp(self, node: Node, ctx: FS) -> str:
+        """Notation stays notation, in every script."""
+        inner = self.typography.arg_separator.join(
+            self.lin(a, ctx) for a in node.children)
+        return f"{node.lemma}({inner})"
+
+    # ---- combination ---------------------------------------------------
+    def lin_Coord(self, node: Node, ctx: FS) -> str:
+        items = [self.lin(i, ctx) for i in node.all_args("item")]
+        conj = node.feats.get_atom("conj", "and")
+        if conj == "or":
+            return self.disjoin(items)
+        return self.join_list(items)
+
+    def disjoin(self, items: Sequence[str]) -> str:
+        items = [i for i in items if i]
+        if len(items) <= 1:
+            return items[0] if items else ""
+        sep = self.typography.item_separator or self.typography.list_separator
+        return self.join([sep.join(items[:-1]), self.cw("or"), items[-1]])
+
+    def lin_Neg(self, node: Node, ctx: FS) -> str:
+        inner = node.arg("inner")
+        assert inner is not None
+        text = self.lin(inner, ctx)
+        neg = self.cw("not")
+        return (self.join([text, neg]) if self.order.negation == "post"
+                else self.join([neg, text]))
+
+    def lin_Cond(self, node: Node, ctx: FS) -> str:
+        cons, ante = node.arg("consequent"), node.arg("antecedent")
+        assert cons is not None and ante is not None
+        c, a = self.lin(cons, ctx), self.lin(ante, ctx)
+        if self.order.conditional == "CA":
+            return self.join([c, self.cw("if"), a])
+        return self.join([self.cw("if"), a, self.cw("then"), c])
+
+    def lin_Compare(self, node: Node, ctx: FS) -> str:
+        left, right = node.arg(AGENT), node.arg(PATIENT)
+        assert left is not None and right is not None
+        rel = node.feats.get_atom("rel", "gt")
+        return self._predicate(self.lin(left, ctx), self.cw(rel, rel),
+                               self.lin(right, ctx))
+
+    def lin_Possess(self, node: Node, ctx: FS) -> str:
+        er, ed = node.arg("possessor"), node.arg("possessed")
+        assert er is not None and ed is not None
+        possessor = self.lin(er, ctx.but(case="gen"))
+        possessed = self.lin(ed, ctx)
+        if self.order.possessive == "GN":
+            return self.join([possessor, possessed])
+        return self.join([possessed, self.cw("of"), possessor])
+
+    def lin_Quant(self, node: Node, ctx: FS) -> str:
+        restriction, scope = node.arg("restriction"), node.arg("scope")
+        q = node.feats.get_atom("q", "all")
+        parts = [self.cw(q, q)]
+        if restriction is not None:
+            parts += [self.cw("of"), self.lin(restriction, ctx.but(**{NUM: PL}))]
+        if scope is not None:
+            parts += [self.copula("attr", FS({NUM: PL})), self.lin(scope, ctx)]
+        return self.join(parts)
+
+    # ---- questions -----------------------------------------------------
+    #: wh-words that are determiners rather than arguments. These sit in the
+    #: determiner slot of the phrase they question — *which book*, *hangi kitap*,
+    #: *哪本书* — even in languages that otherwise leave wh in situ, because it is
+    #: the noun phrase that is questioned, not the clause.
+    WH_DETERMINERS = frozenset({"which", "how_many", "whose"})
+
+    def lin_WhQ(self, node: Node, ctx: FS) -> str:
+        """A content question. Fronted, in situ, or determiner-attached."""
+        body = node.arg("body")
+        assert body is not None
+        key = node.feats.get_atom("wh", "what")
+        wh = self.cw(key, "what")
+        inner = self.lin(body, ctx)
+        if key in self.WH_DETERMINERS and body.fn in ("NP", "CN"):
+            return self.wh_identity(wh, body, ctx)
+        return self.join([wh, inner]) if self.order.wh_fronting \
+            else self.join([inner, wh])
+
+    def wh_identity(self, wh: str, body: Node, ctx: FS) -> str:
+        """``which object is the green disc?`` — asking which thing matches.
+
+        The wh-word is a determiner and cannot simply be stacked on top of one
+        the noun phrase already has: *which the green disc* and *哪个这个绿色的圆盘*
+        are both ungrammatical for the same reason. So the wh takes the
+        determiner slot of its own head — the generic word for a *thing*, which
+        every language in the curriculum's vocabulary has — and the described
+        phrase becomes the complement of a copula.
+
+        This is one construction serving four typologies: the copula is silent
+        in Turkish, the head follows its determiner in Spanish and precedes it
+        in Swahili, and none of that needs saying here.
+        """
+        thing = self.word("object", pos="N")
+        head = (self.join([wh, thing]) if self.order.det == "DN"
+                else self.join([thing, wh]))
+        return self._predicate(head, self.copula("ident", ctx),
+                               self.lin(body, ctx))
+
+    def lin_YNQ(self, node: Node, ctx: FS) -> str:
+        """A polar question. The default is a clause-final particle, which is
+        both the commonest strategy across languages and the one that degrades
+        most gracefully; inverting grammars override."""
+        body = node.arg("body")
+        assert body is not None
+        return self.join([self.lin(body, ctx), self.cw("q_particle")])
+
+    def lin_AltQ(self, node: Node, ctx: FS) -> str:
+        body = node.arg("body")
+        options = self.disjoin([self.lin(o, ctx) for o in node.all_args("option")])
+        inner = self.lin(body, ctx) if body is not None else ""
+        return self.join([inner, options])
+
+    def question(self, node: Node, ctx: FS = EMPTY) -> str:
+        typ = self.typography
+        text = self.lin(node, ctx)
+        if typ.question_open:
+            text = typ.question_open + text
+        return self.sentence(text, end=typ.question_mark)
+
+    # ---- blocks --------------------------------------------------------
+    def lin_Block(self, node: Node, ctx: FS) -> str:
+        """A named section of an episode, with its lead-in."""
+        typ = self.typography
+        name = node.feats.get_atom("name", "")
+        items = [self.lin(i, ctx) for i in node.all_args("item")]
+        intro = self.field_intros.get(name) or self.block_heading(name)
+        if not items:
+            return self.sentence(self.join([intro, self.cw("empty", "—")]))
+        if len(items) > 4 or any(len(i) > 64 for i in items):
+            head = intro if intro.rstrip().endswith(typ.colon) else intro.rstrip() + typ.colon
+            return (self.capitalize(head) + "\n"
+                    + "\n".join(f"{typ.bullet}{i}" for i in items))
+        joined = self.join_clauses(items) if len(items) > 1 else items[0]
+        return self.sentence(self.join([intro, joined]))
+
+    def block_heading(self, name: str) -> str:
+        return name.replace("_", " ") + self.typography.colon
+
+    # ==================================================================
+    def info(self) -> dict[str, Any]:
+        return {"code": self.code, "name": self.name,
+                "order": self.order.clause, "adjective": self.order.adj,
+                "alignment": self.alignment.case_of.__name__,
+                "notes": list(self.notes)}

@@ -40,7 +40,7 @@ from .registry import (REGISTRY, SECTION_TITLES, all_lessons, by_capability, by_
                        get, lesson_ids, numbered, resolve, sections, supplementary)
 from .scoring import extract_choice, normalize, score
 from .languages import (DEFAULT_LANGUAGE, LANGUAGES, Language, Lexicon,
-                        NaturalLanguage, get_language, language_codes, languages,
+                        get_language, language_codes, languages,
                         register_language)
 from .verify import verify_all, verify_lesson
 
@@ -56,7 +56,7 @@ __all__ = [
     # lessons
     "Lesson", "Example", "AXES", "CORE_AXES", "EXTENDED_AXES", "LessonNotImplemented",
     # languages
-    "DEFAULT_LANGUAGE", "LANGUAGES", "Language", "Lexicon", "NaturalLanguage",
+    "DEFAULT_LANGUAGE", "LANGUAGES", "Language", "Lexicon",
     "get_language", "language_codes", "languages", "register_language",
     # registry
     "REGISTRY", "SECTION_TITLES", "all_lessons", "get", "lesson_ids", "sections",

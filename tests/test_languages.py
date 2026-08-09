@@ -8,7 +8,7 @@ import pytest
 
 import langcurriculum as lc
 from langcurriculum.languages import (DEFAULT_LANGUAGE, LANGUAGE_ALIASES, Lexicon,
-                                      NaturalLanguage, get_language, language_codes,
+                                      get_language, language_codes,
                                       languages, register_language)
 
 IMPLEMENTED = [l for l in lc.all_lessons().values() if l.status == "implemented"]
@@ -50,10 +50,15 @@ def test_english_carries_enough_to_decide_the_answer(lesson):
 
 # ---------------------------------------------------------------- registry
 def test_the_shipped_packs_declare_what_they_are():
+    # The eagerly-registered core. Grammar-backed languages are built on demand
+    # from the language database and cached into the same registry, so an exact
+    # set assertion would depend on what a prior test happened to ask for.
     codes = set(language_codes())
-    assert codes == {"english", "english_synonym", "spanish", "chinese", "symbols"}
+    assert {"english", "english_synonym", "spanish", "chinese", "symbols",
+            "turkish", "swahili"} <= codes
     kinds = {l["code"]: l["kind"] for l in languages()}
     assert kinds["english"] == kinds["spanish"] == kinds["chinese"] == "natural"
+    assert kinds["turkish"] == kinds["swahili"] == "natural"
     assert kinds["symbols"] == "formal"
     assert all(l["description"] for l in languages())
 
@@ -74,7 +79,18 @@ def test_a_non_english_pack_translates_rather_than_substituting(code):
     obs = lc.get("symbol_grounding").example(0, language=code).observation
     assert "In the scene" not in obs and " is a " not in obs
     assert lang.lexicon.field_intros, "the pack must frame its own sections"
-    assert len(lang.lexicon.query_templates) > 100
+    # It is the *grammar* that makes this more than word substitution: the
+    # parameters that decide order, agreement and question formation have to
+    # differ from English, not just the vocabulary.
+    g = lang.grammar
+    english = get_language("english").grammar
+    differs = [k for k in ("adj", "wh_fronting", "copula_overt", "conditional",
+                           "numeral_forces_plural", "det")
+               if getattr(g.order, k) != getattr(english.order, k)]
+    assert differs or g.concord.adjective, \
+        f"{code} has the same parameters as English in every dimension"
+    assert len(lang.lexicon.predicate_words) > 100, \
+        "the relational lexicon must be the pack's own"
 
 
 def test_the_notation_is_reachable_under_its_aliases():
@@ -123,31 +139,45 @@ def test_the_notation_stays_available_and_is_shorter():
 
 
 # ---------------------------------------------------------------- the seam
-def test_a_new_language_needs_only_words():
-    """The point of the pack: register one, and everything picks it up."""
-    pig = Lexicon(
-        copula_sg="isay", copula_pl="areay", conjunction="anday",
-        field_intros={"scene": "Inway ethay ecenesay:"},
-        query_templates={"which": "ichwhay objectway isay ethay {0} {1}?"},
-        predicate_templates={"obj/5": "{0} isay away {1} {2} atway ({3}, {4})"},
-    )
-    register_language(NaturalLanguage(code="_pig", name="Pig Latin (test)",
-                                      lexicon=pig, description="a test pack"))
+def test_a_new_language_needs_only_parameters_and_words():
+    """The seam, exercised: declare a grammar, register it, everything picks it up.
+
+    Deliberately a *typologically* odd toy — verb-final, postpositional, no
+    articles, adjective after the noun — because a test that registers another
+    SVO language proves only that the registry works, not that the engine is
+    parameterized.
+    """
+    from langcurriculum.grammar.adapter import GrammarLanguage
+    from langcurriculum.grammar.linearize import Grammar, Typography, WordOrder
+
+    class Toy(Grammar):
+        code = "_toy"
+        name = "Toy (test)"
+        order = WordOrder(clause="SOV", adj="NA", det="ND", adposition="post",
+                          wh_fronting=False, copula_overt=False)
+        typography = Typography(full_stop=" .")
+        notes = ("verb-final, postpositional, no articles",
+                 "NOT attempted: anything at all — it is a test fixture")
+
+        def __init__(self):
+            super().__init__()
+            self.closed = {"and": "ond", "not": "nay", "the": "", "a": ""}
+            self.field_intros = {"scene": "Inway ethay ecenesay:"}
+
+    register_language(GrammarLanguage(Toy()))
     try:
-        ex = lc.get("symbol_grounding").example(0, language="_pig")
-        assert ex.language == "_pig"
+        ex = lc.get("symbol_grounding").example(0, language="_toy")
+        assert ex.language == "_toy"
         assert "Inway ethay ecenesay:" in ex.observation
-        assert "isay away" in ex.observation
         assert ex.answer == lc.get("symbol_grounding").example(0).answer, \
             "a language changes the words, never the answer"
         report = lc.evaluate(lc.constant_agent("o0"), "symbol_grounding",
-                             n=3, language="_pig")
-        assert report.language == "_pig"
-        rec = next(lc.iter_records("symbol_grounding", n=1, language="_pig"))
-        assert rec["language"] == "_pig"
+                             n=3, language="_toy")
+        assert report.language == "_toy"
+        rec = next(lc.iter_records("symbol_grounding", n=1, language="_toy"))
+        assert rec["language"] == "_toy"
     finally:
-        lc.LANGUAGES.pop("_pig", None)
-
+        lc.LANGUAGES.pop("_toy", None)
 
 def test_the_lexicon_supplies_the_agreement_material_the_syntax_lessons_use():
     """Those lessons are about morphology, so their words come from the pack."""
@@ -167,10 +197,10 @@ def test_the_lexicon_exposes_the_closed_class_a_new_pack_must_supply():
     for attr in ("definite", "indefinite", "copula_sg", "copula_pl", "negation",
                  "conjunction", "disjunction", "yes", "no", "question_mark"):
         assert getattr(lex, attr), attr
-    assert lex.operators and lex.prepositions and lex.quantifiers
-    assert lex.field_intros and lex.predicate_templates and lex.query_templates
-    assert get_language("english").join_list(["a", "b", "c"]) == "a, b and c"
-    assert lex.word_for("left_of") == "to the left of"
+    assert lex.quantifiers and lex.field_intros and lex.predicate_words
+    g = get_language("english").grammar
+    assert g.join_list(["a", "b", "c"]) == "a, b and c"
+    assert g.word("left_of") == "to the left of"
 
 
 def test_invented_vocabulary_survives_translation_into_english():

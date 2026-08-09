@@ -35,14 +35,11 @@ so a new pack overrides word order and morphology rather than the walk itself.
 
 from __future__ import annotations
 
-from .base import FormalLanguage, Language, Lexicon, NaturalLanguage
-from .chinese import Chinese
-from .english import ENGLISH, English, EnglishSynonym
+from .base import FormalLanguage, Language, Lexicon
 from .lexicon import Adjective, Noun, Verb, Vocabulary
-from .spanish import Spanish
 from .symbols import Symbols
 
-__all__ = ["Language", "Lexicon", "NaturalLanguage", "FormalLanguage", "ENGLISH",
+__all__ = ["Language", "Lexicon", "FormalLanguage",
            "Vocabulary", "Noun", "Adjective", "Verb",
            "LANGUAGES", "LANGUAGE_ALIASES", "DEFAULT_LANGUAGE",
            "get_language", "register_language", "language_codes", "languages"]
@@ -71,15 +68,53 @@ def register_language(language: Language, *, aliases: tuple[str, ...] = ()) -> L
 
 
 def get_language(code: str | Language | None = None) -> Language:
-    """The pack for a code, resolving aliases. ``None`` gives the default."""
+    """The pack for a code, resolving aliases. ``None`` gives the default.
+
+    Falls through to the grammar registry, which can build a language for any
+    of the thousand-odd codes the language database covers. Those are
+    constructed on demand and cached: instantiating them all at import time to
+    serve a caller who wants one would be indefensible, and most callers want
+    one.
+    """
     if isinstance(code, Language):
         return code
     name = (code or DEFAULT_LANGUAGE).strip().lower()
     name = LANGUAGE_ALIASES.get(name, name)
-    if name not in LANGUAGES:
-        raise ValueError(f"unknown language {code!r}; have "
-                         f"{sorted(LANGUAGES)} (aliases: {sorted(LANGUAGE_ALIASES)})")
-    return LANGUAGES[name]
+    if name in LANGUAGES:
+        return LANGUAGES[name]
+    derived = _derived_language(name)
+    if derived is not None:
+        return derived
+    raise ValueError(
+        f"unknown language {code!r}; {len(LANGUAGES)} are registered eagerly "
+        f"({sorted(LANGUAGES)}) and the language database covers "
+        f"{_n_derived()} more by ISO 639-3 code")
+
+
+def _derived_language(code: str) -> Language | None:
+    """Build a grammar-backed language from the database, once, and cache it."""
+    from ..grammar.adapter import GrammarLanguage
+    from ..grammar.registry import REGISTRY
+
+    if code not in REGISTRY.available:
+        return None
+    language = GrammarLanguage(REGISTRY.get(code))
+    LANGUAGES[code] = language
+    return language
+
+
+def _n_derived() -> int:
+    from ..grammar.registry import REGISTRY
+    try:
+        return len(REGISTRY.available)
+    except Exception:                                   # pragma: no cover
+        return 0
+
+
+def derived_codes() -> list[str]:
+    """Every ISO 639-3 code the language database can build a grammar for."""
+    from ..grammar.registry import REGISTRY
+    return sorted(REGISTRY.available)
 
 
 def language_codes() -> list[str]:
@@ -98,8 +133,23 @@ def languages() -> list[dict[str, str]]:
     return [LANGUAGES[c].info() for c in language_codes()]
 
 
-register_language(English())
-register_language(Spanish())
-register_language(Chinese())
-register_language(EnglishSynonym())
+def _register_grammar_languages() -> None:
+    """Register every hand-written grammar as a language.
+
+    All five go through the grammar engine. There is no template realizer left
+    to fall back to and no code path that treats English differently from
+    Swahili — which was the point of the rewrite, and is the only way to know
+    the engine really carries the languages it claims to.
+    """
+    from ..grammar.adapter import GrammarLanguage
+    from ..grammar.grammars import GRAMMARS
+
+    for code in ("english", "spanish", "chinese", "turkish", "swahili",
+                 "english_synonym"):
+        grammar = GRAMMARS.get(code)
+        if grammar is not None:
+            register_language(GrammarLanguage(grammar))
+
+
+_register_grammar_languages()
 register_language(Symbols())
