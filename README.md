@@ -356,18 +356,27 @@ grammars, a language is *assembled from data*:
 |---|---|---|---|
 | [WALS](https://wals.info) (Dryer & Haspelmath 2013) | CC-BY 4.0 | word order, alignment, articles, concord, classifiers | 2,442 languages coded |
 | [Grambank](https://grambank.clld.org) (Skirgård et al. 2023) | CC-BY 4.0 | denser coding where WALS has gaps | — |
-| [UniMorph 4.0](https://unimorph.github.io) (Batsuren et al.) | CC-BY-SA | inflected forms with feature bundles | **13,019,355 forms**, 171 languages |
+| [UniMorph 4.0](https://unimorph.github.io) (Batsuren et al.) | CC-BY-SA | inflected forms with feature bundles | **14,426,912 forms**, 171 languages |
 | [Wiktextract](https://kaikki.org) (Ylonen 2022) | CC-BY-SA | translation tables | **3,086,943 senses**, 155k English entries |
 | Wiktextract, per-language | CC-BY-SA | inflection tables — the paradigms UniMorph omits | **43,701,065 forms**, 30 languages |
 
 ```bash
-python scripts/build_langdb.py --raw <dir> --fetch --all-words
+python scripts/fetch_unimorph.py --raw <dir>
+python scripts/build_langdb.py  --raw <dir> --fetch --all-words
+python scripts/load_wiktionary_forms.py --raw <dir> --db <database>
 ```
+
+Three commands, not one. The first fetches the paradigms — the build tells you
+to and cannot do it itself. The last adds the per-language inflection tables in
+the fourth row above: forty-three of the fifty-seven million forms, and without
+it the build finishes, works, and has UniMorph-only morphology. Running only the
+middle command produces a two-gigabyte database rather than an eight-gigabyte
+one, which is the sort of difference that is easy not to notice.
 
 Builds an 8 GB SQLite database — stdlib `sqlite3`, so **still zero runtime
 dependencies**, indexed so a lookup is a B-tree descent, and lazy so a process
 rendering Turkish reads no Finnish. It is *not* committed: it is reproducible
-from the cited sources, and a 2 GB binary does not belong in git.
+from the cited sources, and eight gigabytes of binary does not belong in git.
 
 **A hand-written grammar draws on the database for the words it lacks.** Curated
 entries win and the database only fills gaps, under two rules that exist to keep an

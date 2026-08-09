@@ -129,14 +129,23 @@ def harvest(path: Path, code: str, conn: sqlite3.Connection, *,
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("--raw", required=True, help="directory of <iso>.jsonl.gz files")
+    ap.add_argument("--raw", required=True,
+                    help="the same directory build_langdb.py reads; the "
+                         "extracts are taken from its wikt/ subdirectory")
     ap.add_argument("--db", required=True, help="the language database to add to")
     args = ap.parse_args()
 
     conn = sqlite3.connect(args.db)
     conn.execute("PRAGMA synchronous = OFF")
     totals: Counter = Counter()
-    for path in sorted(Path(args.raw).glob("*.jsonl.gz")):
+    # `--raw` means the same thing here as it does to build_langdb.py: the
+    # directory holding every source. It used to mean the subdirectory with the
+    # extracts in it, so passing the same path to both scripts -- which is what
+    # the README tells you to do -- silently loaded nothing and printed
+    # "total: 0 forms across 0 languages" at the end of a long build.
+    raw = Path(args.raw)
+    source = raw / "wikt" if (raw / "wikt").is_dir() else raw
+    for path in sorted(source.glob("*.jsonl.gz")):
         code = path.name.split(".")[0]
         if len(code) != 3:
             continue

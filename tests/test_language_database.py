@@ -1028,3 +1028,34 @@ def test_the_fetcher_knows_the_languages_the_database_carries():
         carried = {r[0] for r in DB.conn.execute(
             "SELECT DISTINCT code FROM wordform WHERE source='unimorph'")}
         assert carried <= set(LANGUAGES), sorted(carried - set(LANGUAGES))[:6]
+
+
+def test_the_two_build_scripts_agree_what_raw_means():
+    """They did not, and the README told you to pass the same path to both.
+
+    ``build_langdb.py --raw`` wants the directory holding every source;
+    ``load_wiktionary_forms.py --raw`` wanted the ``wikt`` subdirectory inside
+    it. Passing what the README says loaded nothing and printed "total: 0
+    forms across 0 languages" after a long build — forty-three of the
+    fifty-seven million forms quietly absent.
+    """
+    import pathlib
+    source = (pathlib.Path(__file__).resolve().parent.parent / "scripts"
+              / "load_wiktionary_forms.py").read_text(encoding="utf-8")
+    assert 'raw / "wikt" if (raw / "wikt").is_dir() else raw' in source
+
+
+def test_the_readme_gives_every_command_the_rebuild_needs():
+    """One command was shown and three are required.
+
+    Verified by rebuilding: the shown command alone reproduces 89,829 senses
+    and 14.4 million forms; all three reproduce 3,086,943 senses and 58
+    million, which is the shipped database.
+    """
+    import pathlib
+    readme = (pathlib.Path(__file__).resolve().parent.parent
+              / "README.md").read_text(encoding="utf-8")
+    for command in ("scripts/fetch_unimorph.py", "scripts/build_langdb.py",
+                    "scripts/load_wiktionary_forms.py"):
+        assert command in readme, command
+    assert "a 2 GB binary" not in readme, "the size contradicts itself again"
