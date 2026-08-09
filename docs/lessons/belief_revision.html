@@ -32,14 +32,14 @@
 <h2>Difficulty axes</h2>
 <div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
 <tbody><tr><td>compositional_depth</td><td class='num'>3</td></tr><tr><td>reasoning_depth</td><td class='num'>5</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
-<h2>The same episode, in each language</h2><h3>english</h3><pre>The beliefs:
+<h2>The same episode, in each language</h2><h3>english</h3><pre>Beliefs:
   - b0 believes s implies t
-  - b1 believes not s or p and s
+  - b1 believes does not s or p and s
   - b2 believes t implies t and r and p
-  - b3 believes not s implies q
+  - b3 believes does not s implies q
   - b4 believes r
-The incoming is s and not t.
-What is the minimal retraction restoring consistency?
+Incoming: s and does not t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b1 | b2 | b0 | b3
 Reply with the answer only.</pre><h3>spanish</h3><pre>Las creencias son:
@@ -49,27 +49,47 @@ Reply with the answer only.</pre><h3>spanish</h3><pre>Las creencias son:
   - b3 cree que no s implica q
   - b4 cree que r
 Lo que llega: s y no t.
-¿Cuál es la retractación mínima que restaura la consistencia?
+¿Qué minimal_retraction_restoring_consistency?
 
 Responde exactamente con una de estas opciones: b4 | b1 | b2 | b0 | b3
-Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>信念如下：
-  - b0相信s蕴涵t
-  - b1相信并非s或者p并且s
-  - b2相信t蕴涵t并且r并且p
-  - b3相信并非s蕴涵q
+Responde solo con la respuesta.</pre><h3>chinese</h3><pre>信念如下：
+  - b0相信s蕴含t
+  - b1相信不s或p和s
+  - b2相信t蕴含t和r和p
+  - b3相信不s蕴含q
   - b4相信r
-传入的信息如下：s并且并非t。
-恢复一致性的最小撤回是哪一项？
+传入的信息如下：s和不t。
+minimal_retraction_restoring_consistency什么？
 
-请从以下选项中选出恰好一个作答：b4 | b1 | b2 | b0 | b3
-只回答答案本身。</pre><h3>english_synonym</h3><pre>The beliefs:
-  - b0 believes s implies t
-  - b1 believes not s or p and s
-  - b2 believes t implies t and r and p
-  - b3 believes not s implies q
+请从以下选项中选择一个作答：b4 | b1 | b2 | b0 | b3
+只回答答案本身。</pre><h3>turkish</h3><pre>Beliefs:
+  - b0 s t gerektirir believes
+  - b1 s değil veya p ve s believes
+  - b2 t t gerektirir ve r ve p believes
+  - b3 s q gerektirir değil believes
+  - b4 r believes
+Incoming: s ve t değil.
+Minimal_retraction_restoring_consistency ne?
+
+Tam olarak şu seçeneklerden biriyle yanıtla: b4 | b1 | b2 | b0 | b3
+Sadece yanıtı yaz.</pre><h3>swahili</h3><pre>Beliefs:
+  - b0 believes s imply t
+  - b1 believes si s au p na s
+  - b2 believes t imply t na r na p
+  - b3 believes si s imply q
   - b4 believes r
-The incoming is s and not t.
-What is the minimal retraction restoring consistency?
+Incoming: s na si t.
+Minimal_retraction_restoring_consistency nini?
+
+Jibu kwa kuchagua moja tu kati ya haya: b4 | b1 | b2 | b0 | b3
+Andika jibu pekee.</pre><h3>english_synonym</h3><pre>Beliefs:
+  - b0 believes s implies t
+  - b1 believes does not s or p and s
+  - b2 believes t implies t and r and p
+  - b3 believes does not s implies q
+  - b4 believes r
+Incoming: s and does not t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b1 | b2 | b0 | b3
 Reply with the answer only.</pre><h3>symbols</h3><pre>{beliefs: [(believes b0 (imp s t)) (believes b1 (or (not s) (and p s))) (believes b2 (and (imp t t) (and r p))) (believes b3 (not (imp s q))) (believes b4 r)], incoming: (and s (not t)), query: minimal_retraction_restoring_consistency}
@@ -77,19 +97,19 @@ Reply with the answer only.</pre><h3>symbols</h3><pre>{beliefs: [(believes b0 (i
 Answer with exactly one of: b4 | b1 | b2 | b0 | b3
 Reply with the answer only.</pre>
 <h2>Samples</h2>
-<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/belief_revision.jsonl</code> &middot; <code>data/samples/spanish/belief_revision.jsonl</code> &middot; <code>data/samples/chinese/belief_revision.jsonl</code> &middot; <code>data/samples/english_synonym/belief_revision.jsonl</code> &middot; <code>data/samples/symbols/belief_revision.jsonl</code></p>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/belief_revision.jsonl</code> &middot; <code>data/samples/spanish/belief_revision.jsonl</code> &middot; <code>data/samples/chinese/belief_revision.jsonl</code> &middot; <code>data/samples/turkish/belief_revision.jsonl</code> &middot; <code>data/samples/swahili/belief_revision.jsonl</code> &middot; <code>data/samples/english_synonym/belief_revision.jsonl</code> &middot; <code>data/samples/symbols/belief_revision.jsonl</code></p>
 <details class="sample">
 <summary><span class="seed">seed 0</span>
 <span>answer</span> <span class="ans">b0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes s implies t
-  - b1 believes not s or p and s
+  - b1 believes does not s or p and s
   - b2 believes t implies t and r and p
-  - b3 believes not s implies q
+  - b3 believes does not s implies q
   - b4 believes r
-The incoming is s and not t.
-What is the minimal retraction restoring consistency?
+Incoming: s and does not t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b1 | b2 | b0 | b3
 Reply with the answer only.</pre>
@@ -102,14 +122,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 1</span>
 <span>answer</span> <span class="ans">b4</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes s
-  - b1 believes not t and s or q implies s
-  - b2 believes not r
-  - b3 believes not t
-  - b4 believes q and not p
-The incoming is q implies p.
-What is the minimal retraction restoring consistency?
+  - b1 believes does not t and s or q implies s
+  - b2 believes does not r
+  - b3 believes does not t
+  - b4 believes q and does not p
+Incoming: q implies p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b4 | b0 | b2 | b1
 Reply with the answer only.</pre>
@@ -122,14 +142,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 2</span>
 <span>answer</span> <span class="ans">b0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes p implies t
-  - b1 believes r implies not t or not s
-  - b2 believes not q implies not not t
-  - b3 believes t implies q or not t
-  - b4 believes not not t implies p
-The incoming is p and not t.
-What is the minimal retraction restoring consistency?
+  - b1 believes r implies does not t or does not s
+  - b2 believes does not q implies does not does not t
+  - b3 believes t implies q or does not t
+  - b4 believes does not does not t implies p
+Incoming: p and does not t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b2 | b1 | b4 | b3
 Reply with the answer only.</pre>
@@ -142,14 +162,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 3</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes r and s and not t
-  - b1 believes not p
-  - b2 believes q and not t
+<p>prompt</p><pre>Beliefs:
+  - b0 believes r and s and does not t
+  - b1 believes does not p
+  - b2 believes q and does not t
   - b3 believes s
-  - b4 believes not not t and not s
-The incoming is q implies t.
-What is the minimal retraction restoring consistency?
+  - b4 believes does not does not t and does not s
+Incoming: q implies t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b4 | b0 | b3 | b1
 Reply with the answer only.</pre>
@@ -162,14 +182,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 4</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not not p
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not does not p
   - b1 believes q implies r
-  - b2 believes not q implies not not r
-  - b3 believes not r or p implies t
-  - b4 believes s implies not q or not p and r
-The incoming is q and not r.
-What is the minimal retraction restoring consistency?
+  - b2 believes does not q implies does not does not r
+  - b3 believes does not r or p implies t
+  - b4 believes s implies does not q or does not p and r
+Incoming: q and does not r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b1 | b4 | b3 | b0 | b2
 Reply with the answer only.</pre>
@@ -182,14 +202,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 5</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes p or p and not not t
-  - b1 believes not s
-  - b2 believes t and not r
-  - b3 believes not not q or q and q
+<p>prompt</p><pre>Beliefs:
+  - b0 believes p or p and does not does not t
+  - b1 believes does not s
+  - b2 believes t and does not r
+  - b3 believes does not does not q or q and q
   - b4 believes q
-The incoming is t implies r.
-What is the minimal retraction restoring consistency?
+Incoming: t implies r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b2 | b3 | b4 | b1
 Reply with the answer only.</pre>
@@ -202,14 +222,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 6</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not r
-  - b1 believes not t and not p
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not r
+  - b1 believes does not t and does not p
   - b2 believes s
-  - b3 believes q and not r implies q
-  - b4 believes not t or t
-The incoming is t or p.
-What is the minimal retraction restoring consistency?
+  - b3 believes q and does not r implies q
+  - b4 believes does not t or t
+Incoming: t or p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b3 | b4 | b1 | b0
 Reply with the answer only.</pre>
@@ -222,14 +242,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 7</span>
 <span>answer</span> <span class="ans">b0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not r and not q
-  - b1 believes t and p or not q
-  - b2 believes not s
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not r and does not q
+  - b1 believes t and p or does not q
+  - b2 believes does not s
   - b3 believes p
-  - b4 believes t or not t and q
-The incoming is r or q.
-What is the minimal retraction restoring consistency?
+  - b4 believes t or does not t and q
+Incoming: r or q.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b2 | b1 | b3 | b4
 Reply with the answer only.</pre>
@@ -242,14 +262,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 8</span>
 <span>answer</span> <span class="ans">b0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not q and not r
-  - b1 believes not q
-  - b2 believes not p
-  - b3 believes not not s
-  - b4 believes not t
-The incoming is q or r.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not q and does not r
+  - b1 believes does not q
+  - b2 believes does not p
+  - b3 believes does not does not s
+  - b4 believes does not t
+Incoming: q or r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b1 | b3 | b4 | b2 | b0
 Reply with the answer only.</pre>
@@ -262,14 +282,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 9</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes s or p and q
-  - b1 believes not s or not p and not p
-  - b2 believes s and not r
-  - b3 believes not p and q
-  - b4 believes not p
-The incoming is s implies r.
-What is the minimal retraction restoring consistency?
+  - b1 believes does not s or does not p and does not p
+  - b2 believes s and does not r
+  - b3 believes does not p and q
+  - b4 believes does not p
+Incoming: s implies r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b3 | b2 | b0 | b1
 Reply with the answer only.</pre>
@@ -282,14 +302,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 10</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes q implies r implies r
   - b1 believes q
-  - b2 believes not t and not p
-  - b3 believes s and p or not r
-  - b4 believes not t
-The incoming is t or p.
-What is the minimal retraction restoring consistency?
+  - b2 believes does not t and does not p
+  - b3 believes s and p or does not r
+  - b4 believes does not t
+Incoming: t or p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b4 | b3 | b0 | b1
 Reply with the answer only.</pre>
@@ -302,14 +322,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 11</span>
 <span>answer</span> <span class="ans">b4</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not t or r implies not r
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not t or r implies does not r
   - b1 believes q
-  - b2 believes t or p or not q
-  - b3 believes not r implies s implies q
-  - b4 believes not s and not t
-The incoming is s or t.
-What is the minimal retraction restoring consistency?
+  - b2 believes t or p or does not q
+  - b3 believes does not r implies s implies q
+  - b4 believes does not s and does not t
+Incoming: s or t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b0 | b3 | b4 | b1
 Reply with the answer only.</pre>
@@ -322,14 +342,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 12</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes p or not q or s implies not p
-  - b1 believes s and not r
-  - b2 believes not not t or not t
+<p>prompt</p><pre>Beliefs:
+  - b0 believes p or does not q or s implies does not p
+  - b1 believes s and does not r
+  - b2 believes does not does not t or does not t
   - b3 believes p
-  - b4 believes not s and not t
-The incoming is s implies r.
-What is the minimal retraction restoring consistency?
+  - b4 believes does not s and does not t
+Incoming: s implies r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b0 | b2 | b1 | b4
 Reply with the answer only.</pre>
@@ -342,14 +362,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 13</span>
 <span>answer</span> <span class="ans">b0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes r
   - b1 believes s or s implies t or r
   - b2 believes p or r and r or q
-  - b3 believes not not not t
-  - b4 believes not q or q or q
-The incoming is not r.
-What is the minimal retraction restoring consistency?
+  - b3 believes does not does not does not t
+  - b4 believes does not q or q or q
+Incoming: does not r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b2 | b4 | b0 | b1
 Reply with the answer only.</pre>
@@ -362,14 +382,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 14</span>
 <span>answer</span> <span class="ans">b4</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes s
-  - b1 believes r implies not t implies not q implies not p
-  - b2 believes not r implies not not p
-  - b3 believes p and not p implies q
-  - b4 believes p and not q
-The incoming is p implies q.
-What is the minimal retraction restoring consistency?
+  - b1 believes r implies does not t implies does not q implies does not p
+  - b2 believes does not r implies does not does not p
+  - b3 believes p and does not p implies q
+  - b4 believes p and does not q
+Incoming: p implies q.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b2 | b4 | b3 | b1
 Reply with the answer only.</pre>
@@ -382,14 +402,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 15</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not q or not p
-  - b1 believes not not s
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not q or does not p
+  - b1 believes does not does not s
   - b2 believes q implies p
-  - b3 believes not q implies s or not r implies q
-  - b4 believes not t
-The incoming is q and not p.
-What is the minimal retraction restoring consistency?
+  - b3 believes does not q implies s or does not r implies q
+  - b4 believes does not t
+Incoming: q and does not p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b2 | b3 | b1 | b0
 Reply with the answer only.</pre>
@@ -402,14 +422,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 16</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not q implies not not p
-  - b1 believes p implies not t or s and r
-  - b2 believes not not r or not r
-  - b3 believes not r and not s
-  - b4 believes r and t implies not t implies p
-The incoming is r or s.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not q implies does not does not p
+  - b1 believes p implies does not t or s and r
+  - b2 believes does not does not r or does not r
+  - b3 believes does not r and does not s
+  - b4 believes r and t implies does not t implies p
+Incoming: r or s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b1 | b4 | b2 | b3 | b0
 Reply with the answer only.</pre>
@@ -422,14 +442,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 17</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes q
-  - b1 believes s implies not not q
-  - b2 believes t implies not p
-  - b3 believes t and not s
-  - b4 believes t or r or not p
-The incoming is t implies s.
-What is the minimal retraction restoring consistency?
+  - b1 believes s implies does not does not q
+  - b2 believes t implies does not p
+  - b3 believes t and does not s
+  - b4 believes t or r or does not p
+Incoming: t implies s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b0 | b4 | b1 | b2
 Reply with the answer only.</pre>
@@ -442,14 +462,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 18</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not q or not q implies not p
-  - b1 believes not q and not p
-  - b2 believes not q or r or not s
-  - b3 believes not q and t implies r
-  - b4 believes s implies not t implies not q or not s
-The incoming is q or p.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not q or does not q implies does not p
+  - b1 believes does not q and does not p
+  - b2 believes does not q or r or does not s
+  - b3 believes does not q and t implies r
+  - b4 believes s implies does not t implies does not q or does not s
+Incoming: q or p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b4 | b3 | b2 | b1
 Reply with the answer only.</pre>
@@ -462,14 +482,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 19</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not q or q and not q
-  - b1 believes not p implies r implies not r implies not t
-  - b2 believes not q
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not q or q and does not q
+  - b1 believes does not p implies r implies does not r implies does not t
+  - b2 believes does not q
   - b3 believes p
-  - b4 believes not s
-The incoming is not p.
-What is the minimal retraction restoring consistency?
+  - b4 believes does not s
+Incoming: does not p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b2 | b1 | b3 | b4
 Reply with the answer only.</pre>
@@ -482,14 +502,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 20</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes t implies not q or q and t
-  - b1 believes not t or not p implies q
-  - b2 believes not r
+<p>prompt</p><pre>Beliefs:
+  - b0 believes t implies does not q or q and t
+  - b1 believes does not t or does not p implies q
+  - b2 believes does not r
   - b3 believes q implies r
   - b4 believes s or r
-The incoming is q and not r.
-What is the minimal retraction restoring consistency?
+Incoming: q and does not r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b0 | b3 | b1 | b4
 Reply with the answer only.</pre>
@@ -502,14 +522,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 21</span>
 <span>answer</span> <span class="ans">b4</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not s
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not s
   - b1 believes p
-  - b2 believes not r
-  - b3 believes not not not t
-  - b4 believes not q and not s
-The incoming is q or s.
-What is the minimal retraction restoring consistency?
+  - b2 believes does not r
+  - b3 believes does not does not does not t
+  - b4 believes does not q and does not s
+Incoming: q or s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b1 | b2 | b3 | b0 | b4
 Reply with the answer only.</pre>
@@ -522,14 +542,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 22</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not r
-  - b1 believes not r implies not s and r or q
-  - b2 believes not p
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not r
+  - b1 believes does not r implies does not s and r or q
+  - b2 believes does not p
   - b3 believes q implies t
-  - b4 believes not p and not p
-The incoming is q and not t.
-What is the minimal retraction restoring consistency?
+  - b4 believes does not p and does not p
+Incoming: q and does not t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b1 | b3 | b2 | b4
 Reply with the answer only.</pre>
@@ -542,14 +562,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 23</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes r implies not s implies not not q
+<p>prompt</p><pre>Beliefs:
+  - b0 believes r implies does not s implies does not does not q
   - b1 believes r implies p
   - b2 believes q
-  - b3 believes not q and t
+  - b3 believes does not q and t
   - b4 believes s
-The incoming is r and not p.
-What is the minimal retraction restoring consistency?
+Incoming: r and does not p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b1 | b2 | b3 | b0 | b4
 Reply with the answer only.</pre>
@@ -562,14 +582,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 24</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes r and q implies t and p
   - b1 believes s
-  - b2 believes t or s and not q implies s
-  - b3 believes p or p implies not p
-  - b4 believes s or t implies p or not r
-The incoming is not s.
-What is the minimal retraction restoring consistency?
+  - b2 believes t or s and does not q implies s
+  - b3 believes p or p implies does not p
+  - b4 believes s or t implies p or does not r
+Incoming: does not s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b1 | b0 | b3 | b2
 Reply with the answer only.</pre>
@@ -582,14 +602,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 25</span>
 <span>answer</span> <span class="ans">b0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes s
-  - b1 believes not not p
+  - b1 believes does not does not p
   - b2 believes t or s implies t and s
-  - b3 believes not not not r
-  - b4 believes not r and t implies t and q
-The incoming is not s.
-What is the minimal retraction restoring consistency?
+  - b3 believes does not does not does not r
+  - b4 believes does not r and t implies t and q
+Incoming: does not s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b2 | b4 | b1 | b0
 Reply with the answer only.</pre>
@@ -602,14 +622,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 26</span>
 <span>answer</span> <span class="ans">b4</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes t or not not r
-  - b1 believes not s implies not r
+<p>prompt</p><pre>Beliefs:
+  - b0 believes t or does not does not r
+  - b1 believes does not s implies does not r
   - b2 believes p
-  - b3 believes not not p or q
-  - b4 believes not q and not t
-The incoming is q or t.
-What is the minimal retraction restoring consistency?
+  - b3 believes does not does not p or q
+  - b4 believes does not q and does not t
+Incoming: q or t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b1 | b4 | b0 | b2
 Reply with the answer only.</pre>
@@ -622,14 +642,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 27</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes s
-  - b1 believes not p
-  - b2 believes s and not r
-  - b3 believes not not q implies p
-  - b4 believes not t or s implies not t and s
-The incoming is s implies r.
-What is the minimal retraction restoring consistency?
+  - b1 believes does not p
+  - b2 believes s and does not r
+  - b3 believes does not does not q implies p
+  - b4 believes does not t or s implies does not t and s
+Incoming: s implies r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b4 | b0 | b2 | b1
 Reply with the answer only.</pre>
@@ -642,14 +662,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 28</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes p or not p or not q implies t
+<p>prompt</p><pre>Beliefs:
+  - b0 believes p or does not p or does not q implies t
   - b1 believes s
-  - b2 believes not not q implies not r implies t
+  - b2 believes does not does not q implies does not r implies t
   - b3 believes p
   - b4 believes q
-The incoming is not p.
-What is the minimal retraction restoring consistency?
+Incoming: does not p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b0 | b3 | b4 | b1
 Reply with the answer only.</pre>
@@ -662,14 +682,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 29</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not not r or not s
-  - b1 believes r implies not p
-  - b2 believes not s implies r and not r
-  - b3 believes t and not p
-  - b4 believes not s and t or s or q
-The incoming is t implies p.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not does not r or does not s
+  - b1 believes r implies does not p
+  - b2 believes does not s implies r and does not r
+  - b3 believes t and does not p
+  - b4 believes does not s and t or s or q
+Incoming: t implies p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b4 | b2 | b3 | b1
 Reply with the answer only.</pre>
@@ -682,14 +702,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 30</span>
 <span>answer</span> <span class="ans">b0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes t implies r
   - b1 believes t implies r or p
-  - b2 believes s and q or not p or q
-  - b3 believes not t implies not s
+  - b2 believes s and q or does not p or q
+  - b3 believes does not t implies does not s
   - b4 believes r and p implies r or r
-The incoming is t and not r.
-What is the minimal retraction restoring consistency?
+Incoming: t and does not r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b1 | b0 | b3 | b2 | b4
 Reply with the answer only.</pre>
@@ -702,14 +722,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 31</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not s
-  - b1 believes not t or p
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not s
+  - b1 believes does not t or p
   - b2 believes p implies s
-  - b3 believes p or not q or not q and s
-  - b4 believes not t
-The incoming is p and not s.
-What is the minimal retraction restoring consistency?
+  - b3 believes p or does not q or does not q and s
+  - b4 believes does not t
+Incoming: p and does not s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b1 | b4 | b0 | b3
 Reply with the answer only.</pre>
@@ -722,14 +742,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 32</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not p and r or not r
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not p and r or does not r
   - b1 believes p
-  - b2 believes p and not q implies s
-  - b3 believes not p or q or not s
-  - b4 believes not q or not s or not p
-The incoming is not p.
-What is the minimal retraction restoring consistency?
+  - b2 believes p and does not q implies s
+  - b3 believes does not p or q or does not s
+  - b4 believes does not q or does not s or does not p
+Incoming: does not p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b1 | b4 | b0 | b3
 Reply with the answer only.</pre>
@@ -742,14 +762,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 33</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes t or r implies not r
+<p>prompt</p><pre>Beliefs:
+  - b0 believes t or r implies does not r
   - b1 believes t implies t implies p
-  - b2 believes not p or p or p
+  - b2 believes does not p or p or p
   - b3 believes t
-  - b4 believes not p implies not r
-The incoming is not t.
-What is the minimal retraction restoring consistency?
+  - b4 believes does not p implies does not r
+Incoming: does not t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b3 | b1 | b4 | b0
 Reply with the answer only.</pre>
@@ -762,14 +782,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 34</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not not t and q
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not does not t and q
   - b1 believes t implies r
-  - b2 believes p implies not r and not p or not t
-  - b3 believes t or not r and s or not t
-  - b4 believes not p
-The incoming is t and not r.
-What is the minimal retraction restoring consistency?
+  - b2 believes p implies does not r and does not p or does not t
+  - b3 believes t or does not r and s or does not t
+  - b4 believes does not p
+Incoming: t and does not r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b2 | b1 | b3 | b4
 Reply with the answer only.</pre>
@@ -782,14 +802,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 35</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes s
   - b1 believes t
-  - b2 believes not r
-  - b3 believes not t implies t or r implies t
+  - b2 believes does not r
+  - b3 believes does not t implies t or r implies t
   - b4 believes p
-The incoming is not t.
-What is the minimal retraction restoring consistency?
+Incoming: does not t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b1 | b0 | b2 | b3
 Reply with the answer only.</pre>
@@ -802,14 +822,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 36</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes p or s implies s or q
-  - b1 believes t and not q implies not t implies p
+  - b1 believes t and does not q implies does not t implies p
   - b2 believes s
   - b3 believes r implies p
-  - b4 believes not not q
-The incoming is r and not p.
-What is the minimal retraction restoring consistency?
+  - b4 believes does not does not q
+Incoming: r and does not p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b0 | b1 | b2 | b4
 Reply with the answer only.</pre>
@@ -822,14 +842,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 37</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes t or not p and p implies not q
+<p>prompt</p><pre>Beliefs:
+  - b0 believes t or does not p and p implies does not q
   - b1 believes p and q or t or r
-  - b2 believes r or p or not p
+  - b2 believes r or p or does not p
   - b3 believes t implies p
-  - b4 believes s and r implies not not s
-The incoming is t and not p.
-What is the minimal retraction restoring consistency?
+  - b4 believes s and r implies does not does not s
+Incoming: t and does not p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b1 | b3 | b0 | b4 | b2
 Reply with the answer only.</pre>
@@ -842,14 +862,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 38</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes r implies t or not q
+<p>prompt</p><pre>Beliefs:
+  - b0 believes r implies t or does not q
   - b1 believes s implies t
-  - b2 believes s implies not s implies not r
+  - b2 believes s implies does not s implies does not r
   - b3 believes s
-  - b4 believes not r
-The incoming is s and not t.
-What is the minimal retraction restoring consistency?
+  - b4 believes does not r
+Incoming: s and does not t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b4 | b0 | b3 | b1
 Reply with the answer only.</pre>
@@ -862,14 +882,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 39</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes s and s or not not p
-  - b1 believes not t
-  - b2 believes p or q or not q or p
-  - b3 believes not q and not r
-  - b4 believes t or not t implies not r implies not p
-The incoming is q or r.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes s and s or does not does not p
+  - b1 believes does not t
+  - b2 believes p or q or does not q or p
+  - b3 believes does not q and does not r
+  - b4 believes t or does not t implies does not r implies does not p
+Incoming: q or r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b1 | b3 | b4 | b0
 Reply with the answer only.</pre>
@@ -882,14 +902,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 40</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes t implies s and r
   - b1 believes s
-  - b2 believes not t
+  - b2 believes does not t
   - b3 believes r implies q or s
-  - b4 believes not r or t and not q
-The incoming is not s.
-What is the minimal retraction restoring consistency?
+  - b4 believes does not r or t and does not q
+Incoming: does not s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b1 | b2 | b3 | b0
 Reply with the answer only.</pre>
@@ -902,14 +922,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 41</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes q
   - b1 believes s
-  - b2 believes p and p implies p or not s
+  - b2 believes p and p implies p or does not s
   - b3 believes p
-  - b4 believes q and not r and not t
-The incoming is not s.
-What is the minimal retraction restoring consistency?
+  - b4 believes q and does not r and does not t
+Incoming: does not s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b1 | b4 | b0 | b3 | b2
 Reply with the answer only.</pre>
@@ -922,14 +942,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 42</span>
 <span>answer</span> <span class="ans">b0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes p and not t
-  - b1 believes not r
-  - b2 believes p and r implies not s and not r
+<p>prompt</p><pre>Beliefs:
+  - b0 believes p and does not t
+  - b1 believes does not r
+  - b2 believes p and r implies does not s and does not r
   - b3 believes q
-  - b4 believes not r implies not r or r implies p
-The incoming is p implies t.
-What is the minimal retraction restoring consistency?
+  - b4 believes does not r implies does not r or r implies p
+Incoming: p implies t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b4 | b2 | b1 | b0
 Reply with the answer only.</pre>
@@ -942,14 +962,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 43</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not s and not t implies not p
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not s and does not t implies does not p
   - b1 believes p
-  - b2 believes s and not t implies t implies t
-  - b3 believes not t implies t and r
-  - b4 believes s and t implies q and not r
-The incoming is not p.
-What is the minimal retraction restoring consistency?
+  - b2 believes s and does not t implies t implies t
+  - b3 believes does not t implies t and r
+  - b4 believes s and t implies q and does not r
+Incoming: does not p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b2 | b3 | b0 | b1
 Reply with the answer only.</pre>
@@ -962,14 +982,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 44</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes p
   - b1 believes s
   - b2 believes p implies t
-  - b3 believes not not r implies r
-  - b4 believes t implies not p or p
-The incoming is not s.
-What is the minimal retraction restoring consistency?
+  - b3 believes does not does not r implies r
+  - b4 believes t implies does not p or p
+Incoming: does not s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b2 | b1 | b0 | b3
 Reply with the answer only.</pre>
@@ -982,14 +1002,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 45</span>
 <span>answer</span> <span class="ans">b0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not r and not s
-  - b1 believes not p or p
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not r and does not s
+  - b1 believes does not p or p
   - b2 believes s and q implies q and t
-  - b3 believes not p implies not t
-  - b4 believes not s and r implies not t and r
-The incoming is r or s.
-What is the minimal retraction restoring consistency?
+  - b3 believes does not p implies does not t
+  - b4 believes does not s and r implies does not t and r
+Incoming: r or s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b0 | b2 | b3 | b1
 Reply with the answer only.</pre>
@@ -1002,14 +1022,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 46</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes t or not p or not p and r
-  - b1 believes p or not r or q
-  - b2 believes not q implies r implies not not s
+<p>prompt</p><pre>Beliefs:
+  - b0 believes t or does not p or does not p and r
+  - b1 believes p or does not r or q
+  - b2 believes does not q implies r implies does not does not s
   - b3 believes p implies s
-  - b4 believes t or not r or r and r
-The incoming is p and not s.
-What is the minimal retraction restoring consistency?
+  - b4 believes t or does not r or r and r
+Incoming: p and does not s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b0 | b3 | b4 | b1
 Reply with the answer only.</pre>
@@ -1022,14 +1042,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 47</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes t
-  - b1 believes not r and not p
-  - b2 believes not s implies not p and s
-  - b3 believes r or t implies not q
+  - b1 believes does not r and does not p
+  - b2 believes does not s implies does not p and s
+  - b3 believes r or t implies does not q
   - b4 believes s and r or r implies p
-The incoming is r or p.
-What is the minimal retraction restoring consistency?
+Incoming: r or p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b1 | b3 | b2 | b0 | b4
 Reply with the answer only.</pre>
@@ -1042,14 +1062,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 48</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not q implies q implies not s
-  - b1 believes not s or p implies t
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not q implies q implies does not s
+  - b1 believes does not s or p implies t
   - b2 believes t
-  - b3 believes not p
+  - b3 believes does not p
   - b4 believes q
-The incoming is not t.
-What is the minimal retraction restoring consistency?
+Incoming: does not t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b1 | b3 | b2 | b0
 Reply with the answer only.</pre>
@@ -1062,14 +1082,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 49</span>
 <span>answer</span> <span class="ans">b4</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes p and not r implies not t or r
+<p>prompt</p><pre>Beliefs:
+  - b0 believes p and does not r implies does not t or r
   - b1 believes s implies t implies p or t
-  - b2 believes not t and not p
-  - b3 believes not q
-  - b4 believes not p and not r
-The incoming is p or r.
-What is the minimal retraction restoring consistency?
+  - b2 believes does not t and does not p
+  - b3 believes does not q
+  - b4 believes does not p and does not r
+Incoming: p or r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b4 | b1 | b0 | b2
 Reply with the answer only.</pre>
@@ -1082,14 +1102,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 50</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not r
-  - b1 believes p implies q or not q
-  - b2 believes s and not r
-  - b3 believes not t and not s
-  - b4 believes not q and r
-The incoming is s implies r.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not r
+  - b1 believes p implies q or does not q
+  - b2 believes s and does not r
+  - b3 believes does not t and does not s
+  - b4 believes does not q and r
+Incoming: s implies r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b0 | b2 | b1 | b4
 Reply with the answer only.</pre>
@@ -1102,14 +1122,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 51</span>
 <span>answer</span> <span class="ans">b0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes q
   - b1 believes s implies s or t implies s
-  - b2 believes not t
-  - b3 believes not t and s and not t implies s
-  - b4 believes not not p
-The incoming is not q.
-What is the minimal retraction restoring consistency?
+  - b2 believes does not t
+  - b3 believes does not t and s and does not t implies s
+  - b4 believes does not does not p
+Incoming: does not q.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b4 | b3 | b2 | b1
 Reply with the answer only.</pre>
@@ -1122,14 +1142,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 52</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes q implies s or not not t
-  - b1 believes not r and not p
-  - b2 believes not p and not t implies s
+<p>prompt</p><pre>Beliefs:
+  - b0 believes q implies s or does not does not t
+  - b1 believes does not r and does not p
+  - b2 believes does not p and does not t implies s
   - b3 believes t
-  - b4 believes q or s implies not not p
-The incoming is r or p.
-What is the minimal retraction restoring consistency?
+  - b4 believes q or s implies does not does not p
+Incoming: r or p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b2 | b3 | b0 | b1
 Reply with the answer only.</pre>
@@ -1142,14 +1162,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 53</span>
 <span>answer</span> <span class="ans">b4</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes p or not s or not q or p
-  - b1 believes not p implies not r implies not q
-  - b2 believes not s implies p
-  - b3 believes not not p implies t
-  - b4 believes not t and not q
-The incoming is t or q.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes p or does not s or does not q or p
+  - b1 believes does not p implies does not r implies does not q
+  - b2 believes does not s implies p
+  - b3 believes does not does not p implies t
+  - b4 believes does not t and does not q
+Incoming: t or q.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b3 | b0 | b1 | b2
 Reply with the answer only.</pre>
@@ -1162,14 +1182,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 54</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not p
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not p
   - b1 believes s and t or r
-  - b2 believes q and not s
+  - b2 believes q and does not s
   - b3 believes r and s implies p
-  - b4 believes not not r
-The incoming is q implies s.
-What is the minimal retraction restoring consistency?
+  - b4 believes does not does not r
+Incoming: q implies s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b0 | b4 | b3 | b1
 Reply with the answer only.</pre>
@@ -1182,14 +1202,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 55</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not t
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not t
   - b1 believes p
   - b2 believes q
-  - b3 believes not not q or not s and r
-  - b4 believes not r or s implies not r
-The incoming is not p.
-What is the minimal retraction restoring consistency?
+  - b3 believes does not does not q or does not s and r
+  - b4 believes does not r or s implies does not r
+Incoming: does not p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b1 | b0 | b2 | b4 | b3
 Reply with the answer only.</pre>
@@ -1202,14 +1222,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 56</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not q
-  - b1 believes not not s
-  - b2 believes not t and not p
-  - b3 believes not not q implies r implies not q
-  - b4 believes not r and not t
-The incoming is t or p.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not q
+  - b1 believes does not does not s
+  - b2 believes does not t and does not p
+  - b3 believes does not does not q implies r implies does not q
+  - b4 believes does not r and does not t
+Incoming: t or p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b3 | b4 | b1 | b2
 Reply with the answer only.</pre>
@@ -1222,14 +1242,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 57</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes t
-  - b1 believes not not p
+  - b1 believes does not does not p
   - b2 believes p implies r
-  - b3 believes t implies not q or s implies s
-  - b4 believes not not t and not t or s
-The incoming is p and not r.
-What is the minimal retraction restoring consistency?
+  - b3 believes t implies does not q or s implies s
+  - b4 believes does not does not t and does not t or s
+Incoming: p and does not r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b4 | b1 | b2 | b0
 Reply with the answer only.</pre>
@@ -1242,14 +1262,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 58</span>
 <span>answer</span> <span class="ans">b4</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not q and not q or not p or r
-  - b1 believes s or s implies not s
-  - b2 believes not p and not p implies not q
-  - b3 believes not r
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not q and does not q or does not p or r
+  - b1 believes s or s implies does not s
+  - b2 believes does not p and does not p implies does not q
+  - b3 believes does not r
   - b4 believes t
-The incoming is not t.
-What is the minimal retraction restoring consistency?
+Incoming: does not t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b1 | b3 | b2 | b4
 Reply with the answer only.</pre>
@@ -1262,14 +1282,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 59</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not s and q implies r
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not s and q implies r
   - b1 believes t
-  - b2 believes not q and not p
+  - b2 believes does not q and does not p
   - b3 believes r
-  - b4 believes not s or p and r or s
-The incoming is q or p.
-What is the minimal retraction restoring consistency?
+  - b4 believes does not s or p and r or s
+Incoming: q or p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b1 | b2 | b3 | b4
 Reply with the answer only.</pre>
@@ -1282,14 +1302,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 60</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes s implies t or not s and not t
+<p>prompt</p><pre>Beliefs:
+  - b0 believes s implies t or does not s and does not t
   - b1 believes r
-  - b2 believes not t or not q or q or p
-  - b3 believes not p and not p implies t implies s
-  - b4 believes not s
-The incoming is not r.
-What is the minimal retraction restoring consistency?
+  - b2 believes does not t or does not q or q or p
+  - b3 believes does not p and does not p implies t implies s
+  - b4 believes does not s
+Incoming: does not r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b1 | b0 | b3 | b4
 Reply with the answer only.</pre>
@@ -1302,14 +1322,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 61</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not q implies r implies r
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not q implies r implies r
   - b1 believes r
   - b2 believes s
   - b3 believes s and p implies r or t
-  - b4 believes s implies not q or not p
-The incoming is not s.
-What is the minimal retraction restoring consistency?
+  - b4 believes s implies does not q or does not p
+Incoming: does not s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b3 | b1 | b0 | b2
 Reply with the answer only.</pre>
@@ -1322,14 +1342,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 62</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not r implies not q or not p or s
-  - b1 believes q or r implies not r
-  - b2 believes not q and not r
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not r implies does not q or does not p or s
+  - b1 believes q or r implies does not r
+  - b2 believes does not q and does not r
   - b3 believes t implies q
-  - b4 believes not t or not p
-The incoming is t and not q.
-What is the minimal retraction restoring consistency?
+  - b4 believes does not t or does not p
+Incoming: t and does not q.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b1 | b4 | b2 | b0 | b3
 Reply with the answer only.</pre>
@@ -1342,14 +1362,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 63</span>
 <span>answer</span> <span class="ans">b4</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes r
-  - b1 believes s and p implies not t implies not q
-  - b2 believes q and not not s
-  - b3 believes q or t and not not q
-  - b4 believes s and not t
-The incoming is s implies t.
-What is the minimal retraction restoring consistency?
+  - b1 believes s and p implies does not t implies does not q
+  - b2 believes q and does not does not s
+  - b3 believes q or t and does not does not q
+  - b4 believes s and does not t
+Incoming: s implies t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b4 | b1 | b0 | b3
 Reply with the answer only.</pre>
@@ -1362,14 +1382,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 64</span>
 <span>answer</span> <span class="ans">b0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not s and not p
-  - b1 believes q implies not p or not t
-  - b2 believes t or not t or not not t
-  - b3 believes not p and not t and not t or p
-  - b4 believes r and not q or s
-The incoming is s or p.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not s and does not p
+  - b1 believes q implies does not p or does not t
+  - b2 believes t or does not t or does not does not t
+  - b3 believes does not p and does not t and does not t or p
+  - b4 believes r and does not q or s
+Incoming: s or p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b1 | b0 | b4 | b3
 Reply with the answer only.</pre>
@@ -1382,14 +1402,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 65</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes s implies not p
-  - b1 believes s and not r
-  - b2 believes not t or not not q
-  - b3 believes q and r or q or not s
-  - b4 believes not p implies not s implies q and q
-The incoming is s implies r.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes s implies does not p
+  - b1 believes s and does not r
+  - b2 believes does not t or does not does not q
+  - b3 believes q and r or q or does not s
+  - b4 believes does not p implies does not s implies q and q
+Incoming: s implies r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b1 | b2 | b3 | b4
 Reply with the answer only.</pre>
@@ -1402,14 +1422,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 66</span>
 <span>answer</span> <span class="ans">b4</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes t and s and not q or r
-  - b1 believes not p
-  - b2 believes not not s and not t
-  - b3 believes p implies r or not r
-  - b4 believes not p and not r
-The incoming is p or r.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes t and s and does not q or r
+  - b1 believes does not p
+  - b2 believes does not does not s and does not t
+  - b3 believes p implies r or does not r
+  - b4 believes does not p and does not r
+Incoming: p or r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b0 | b1 | b3 | b4
 Reply with the answer only.</pre>
@@ -1422,14 +1442,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 67</span>
 <span>answer</span> <span class="ans">b4</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not r or not s or not not r
-  - b1 believes not q
-  - b2 believes not not s
-  - b3 believes q or not t and s or not r
-  - b4 believes not p and not t
-The incoming is p or t.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not r or does not s or does not does not r
+  - b1 believes does not q
+  - b2 believes does not does not s
+  - b3 believes q or does not t and s or does not r
+  - b4 believes does not p and does not t
+Incoming: p or t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b2 | b1 | b0 | b3
 Reply with the answer only.</pre>
@@ -1442,14 +1462,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 68</span>
 <span>answer</span> <span class="ans">b0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes s
-  - b1 believes s implies not s implies not p
+  - b1 believes s implies does not s implies does not p
   - b2 believes t and t or t
-  - b3 believes q or p and not not t
-  - b4 believes s implies not r implies p and not s
-The incoming is not s.
-What is the minimal retraction restoring consistency?
+  - b3 believes q or p and does not does not t
+  - b4 believes s implies does not r implies p and does not s
+Incoming: does not s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b1 | b3 | b4 | b0
 Reply with the answer only.</pre>
@@ -1462,14 +1482,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 69</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not r
-  - b1 believes not not s
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not r
+  - b1 believes does not does not s
   - b2 believes p
-  - b3 believes not r or not p or t
-  - b4 believes not not t
-The incoming is not p.
-What is the minimal retraction restoring consistency?
+  - b3 believes does not r or does not p or t
+  - b4 believes does not does not t
+Incoming: does not p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b2 | b4 | b1 | b0
 Reply with the answer only.</pre>
@@ -1482,14 +1502,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 70</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes r and p implies q and not t
-  - b1 believes not p and not r
-  - b2 believes not s
-  - b3 believes not t or s implies p
-  - b4 believes not not not p
-The incoming is p or r.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes r and p implies q and does not t
+  - b1 believes does not p and does not r
+  - b2 believes does not s
+  - b3 believes does not t or s implies p
+  - b4 believes does not does not does not p
+Incoming: p or r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b1 | b3 | b0 | b4 | b2
 Reply with the answer only.</pre>
@@ -1502,14 +1522,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 71</span>
 <span>answer</span> <span class="ans">b0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes r and not p
-  - b1 believes not t
-  - b2 believes not t or q or s implies r
-  - b3 believes r and not s implies not p
-  - b4 believes s implies p or not t or q
-The incoming is r implies p.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes r and does not p
+  - b1 believes does not t
+  - b2 believes does not t or q or s implies r
+  - b3 believes r and does not s implies does not p
+  - b4 believes s implies p or does not t or q
+Incoming: r implies p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b1 | b3 | b0 | b2
 Reply with the answer only.</pre>
@@ -1522,14 +1542,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 72</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not not r implies s implies r
-  - b1 believes not t
-  - b2 believes p and not q
-  - b3 believes not r or q implies s or not s
-  - b4 believes q implies not q implies not s and not q
-The incoming is p implies q.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not does not r implies s implies r
+  - b1 believes does not t
+  - b2 believes p and does not q
+  - b3 believes does not r or q implies s or does not s
+  - b4 believes q implies does not q implies does not s and does not q
+Incoming: p implies q.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b2 | b1 | b0 | b4
 Reply with the answer only.</pre>
@@ -1542,14 +1562,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 73</span>
 <span>answer</span> <span class="ans">b4</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not not s
-  - b1 believes not r or not q
-  - b2 believes not s and not t
-  - b3 believes not not p or q or s
-  - b4 believes not r and not p
-The incoming is r or p.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not does not s
+  - b1 believes does not r or does not q
+  - b2 believes does not s and does not t
+  - b3 believes does not does not p or q or s
+  - b4 believes does not r and does not p
+Incoming: r or p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b4 | b1 | b2 | b0
 Reply with the answer only.</pre>
@@ -1562,14 +1582,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 74</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes q
-  - b1 believes not s or t or not p
-  - b2 believes t and not p
-  - b3 believes not s or not r or not t
-  - b4 believes not r
-The incoming is t implies p.
-What is the minimal retraction restoring consistency?
+  - b1 believes does not s or t or does not p
+  - b2 believes t and does not p
+  - b3 believes does not s or does not r or does not t
+  - b4 believes does not r
+Incoming: t implies p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b2 | b1 | b4 | b0
 Reply with the answer only.</pre>
@@ -1582,14 +1602,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 75</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not p implies r
-  - b1 believes not s and not t
-  - b2 believes not s or t implies not r
-  - b3 believes not s
-  - b4 believes t implies r implies not not q
-The incoming is s or t.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not p implies r
+  - b1 believes does not s and does not t
+  - b2 believes does not s or t implies does not r
+  - b3 believes does not s
+  - b4 believes t implies r implies does not does not q
+Incoming: s or t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b0 | b1 | b2 | b3
 Reply with the answer only.</pre>
@@ -1602,14 +1622,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 76</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not not s implies not q implies not t
-  - b1 believes not t implies p
-  - b2 believes not r and not s
-  - b3 believes not r
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not does not s implies does not q implies does not t
+  - b1 believes does not t implies p
+  - b2 believes does not r and does not s
+  - b3 believes does not r
   - b4 believes s implies t or q and t
-The incoming is r or s.
-What is the minimal retraction restoring consistency?
+Incoming: r or s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b1 | b0 | b2 | b4 | b3
 Reply with the answer only.</pre>
@@ -1622,14 +1642,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 77</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not p
-  - b1 believes not t or not q
-  - b2 believes t implies not q and q
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not p
+  - b1 believes does not t or does not q
+  - b2 believes t implies does not q and q
   - b3 believes r
-  - b4 believes not s
-The incoming is not r.
-What is the minimal retraction restoring consistency?
+  - b4 believes does not s
+Incoming: does not r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b1 | b3 | b0 | b2
 Reply with the answer only.</pre>
@@ -1642,14 +1662,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 78</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not s implies s or r
-  - b1 believes q implies s or not t and s
-  - b2 believes q and not p
-  - b3 believes not p
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not s implies s or r
+  - b1 believes q implies s or does not t and s
+  - b2 believes q and does not p
+  - b3 believes does not p
   - b4 believes q and s implies s
-The incoming is q implies p.
-What is the minimal retraction restoring consistency?
+Incoming: q implies p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b0 | b2 | b1 | b3
 Reply with the answer only.</pre>
@@ -1662,14 +1682,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 79</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes q or q or t
-  - b1 believes q and not s
-  - b2 believes not r or not r implies t and q
-  - b3 believes not s or p or s
+  - b1 believes q and does not s
+  - b2 believes does not r or does not r implies t and q
+  - b3 believes does not s or p or s
   - b4 believes r implies p
-The incoming is q implies s.
-What is the minimal retraction restoring consistency?
+Incoming: q implies s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b0 | b2 | b3 | b1
 Reply with the answer only.</pre>
@@ -1682,14 +1702,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 80</span>
 <span>answer</span> <span class="ans">b4</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes q and t and not not q
-  - b1 believes not not q
-  - b2 believes not not t implies r implies not p
-  - b3 believes p implies not r
-  - b4 believes not r and not s
-The incoming is r or s.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes q and t and does not does not q
+  - b1 believes does not does not q
+  - b2 believes does not does not t implies r implies does not p
+  - b3 believes p implies does not r
+  - b4 believes does not r and does not s
+Incoming: r or s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b1 | b3 | b4 | b2
 Reply with the answer only.</pre>
@@ -1702,14 +1722,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 81</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not r implies not p
-  - b1 believes t and not s
-  - b2 believes not not q and not t
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not r implies does not p
+  - b1 believes t and does not s
+  - b2 believes does not does not q and does not t
   - b3 believes q implies r
-  - b4 believes q implies q or not p
-The incoming is t implies s.
-What is the minimal retraction restoring consistency?
+  - b4 believes q implies q or does not p
+Incoming: t implies s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b2 | b0 | b3 | b1
 Reply with the answer only.</pre>
@@ -1722,14 +1742,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 82</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not r implies not r or p
-  - b1 believes not t implies r
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not r implies does not r or p
+  - b1 believes does not t implies r
   - b2 believes r
-  - b3 believes q and not s
-  - b4 believes q implies p or not q and not q
-The incoming is q implies s.
-What is the minimal retraction restoring consistency?
+  - b3 believes q and does not s
+  - b4 believes q implies p or does not q and does not q
+Incoming: q implies s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b1 | b4 | b0 | b3
 Reply with the answer only.</pre>
@@ -1742,14 +1762,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 83</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes p or q
-  - b1 believes s or p or not s
+  - b1 believes s or p or does not s
   - b2 believes s implies t
-  - b3 believes not p
-  - b4 believes s implies t or s or not t
-The incoming is s and not t.
-What is the minimal retraction restoring consistency?
+  - b3 believes does not p
+  - b4 believes s implies t or s or does not t
+Incoming: s and does not t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b4 | b2 | b1 | b3
 Reply with the answer only.</pre>
@@ -1762,14 +1782,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 84</span>
 <span>answer</span> <span class="ans">b4</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes t or not q and not s
-  - b1 believes t implies r implies not s
-  - b2 believes p implies q and not s
-  - b3 believes not q or r or s or t
-  - b4 believes not r and not p
-The incoming is r or p.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes t or does not q and does not s
+  - b1 believes t implies r implies does not s
+  - b2 believes p implies q and does not s
+  - b3 believes does not q or r or s or t
+  - b4 believes does not r and does not p
+Incoming: r or p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b3 | b0 | b2 | b1
 Reply with the answer only.</pre>
@@ -1782,14 +1802,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 85</span>
 <span>answer</span> <span class="ans">b4</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes r or t or s
-  - b1 believes not not q
+  - b1 believes does not does not q
   - b2 believes s
-  - b3 believes not t
-  - b4 believes q and not p
-The incoming is q implies p.
-What is the minimal retraction restoring consistency?
+  - b3 believes does not t
+  - b4 believes q and does not p
+Incoming: q implies p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b0 | b2 | b1 | b3
 Reply with the answer only.</pre>
@@ -1802,14 +1822,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 86</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not q and not s
-  - b1 believes not p implies not not s
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not q and does not s
+  - b1 believes does not p implies does not does not s
   - b2 believes p implies r
-  - b3 believes p or not r
-  - b4 believes not s and t or not t
-The incoming is p and not r.
-What is the minimal retraction restoring consistency?
+  - b3 believes p or does not r
+  - b4 believes does not s and t or does not t
+Incoming: p and does not r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b2 | b0 | b1 | b3 | b4
 Reply with the answer only.</pre>
@@ -1822,14 +1842,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 87</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not r
-  - b1 believes p implies not p implies not t
-  - b2 believes not p implies not p
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not r
+  - b1 believes p implies does not p implies does not t
+  - b2 believes does not p implies does not p
   - b3 believes q implies t
-  - b4 believes t or not r or not r
-The incoming is q and not t.
-What is the minimal retraction restoring consistency?
+  - b4 believes t or does not r or does not r
+Incoming: q and does not t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b1 | b2 | b4 | b0 | b3
 Reply with the answer only.</pre>
@@ -1842,14 +1862,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 88</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes r and not q and not t or not s
-  - b1 believes s and not q
-  - b2 believes not not p
-  - b3 believes s implies q or not q
-  - b4 believes not not t or not t
-The incoming is s implies q.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes r and does not q and does not t or does not s
+  - b1 believes s and does not q
+  - b2 believes does not does not p
+  - b3 believes s implies q or does not q
+  - b4 believes does not does not t or does not t
+Incoming: s implies q.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b4 | b3 | b2 | b0 | b1
 Reply with the answer only.</pre>
@@ -1862,14 +1882,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 89</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not t
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not t
   - b1 believes p
-  - b2 believes t implies r or not not s
-  - b3 believes not s and not q implies q
-  - b4 believes not s and not r
-The incoming is not p.
-What is the minimal retraction restoring consistency?
+  - b2 believes t implies r or does not does not s
+  - b3 believes does not s and does not q implies q
+  - b4 believes does not s and does not r
+Incoming: does not p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b2 | b4 | b1 | b3
 Reply with the answer only.</pre>
@@ -1882,14 +1902,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 90</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not q and not t
-  - b1 believes not p
-  - b2 believes not q and not p
-  - b3 believes s implies not r implies t and p
-  - b4 believes not q implies t or not t
-The incoming is q or p.
-What is the minimal retraction restoring consistency?
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not q and does not t
+  - b1 believes does not p
+  - b2 believes does not q and does not p
+  - b3 believes s implies does not r implies t and p
+  - b4 believes does not q implies t or does not t
+Incoming: q or p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b3 | b2 | b4 | b1
 Reply with the answer only.</pre>
@@ -1902,14 +1922,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 91</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes s implies t implies not r
-  - b1 believes not not s
+<p>prompt</p><pre>Beliefs:
+  - b0 believes s implies t implies does not r
+  - b1 believes does not does not s
   - b2 believes p
   - b3 believes t and p or p or s
-  - b4 believes not s implies q or p
-The incoming is not p.
-What is the minimal retraction restoring consistency?
+  - b4 believes does not s implies q or p
+Incoming: does not p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b1 | b0 | b4 | b3 | b2
 Reply with the answer only.</pre>
@@ -1922,14 +1942,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 92</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not s or r or not q or q
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not s or r or does not q or q
   - b1 believes p and s implies q implies q
   - b2 believes s implies r
-  - b3 believes not p
-  - b4 believes s and not r or t and r
-The incoming is s and not r.
-What is the minimal retraction restoring consistency?
+  - b3 believes does not p
+  - b4 believes s and does not r or t and r
+Incoming: s and does not r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b1 | b2 | b3 | b4 | b0
 Reply with the answer only.</pre>
@@ -1942,14 +1962,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 93</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not not p and p
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not does not p and p
   - b1 believes s
-  - b2 believes not q
+  - b2 believes does not q
   - b3 believes s implies r
-  - b4 believes not t or t and r implies not t
-The incoming is s and not r.
-What is the minimal retraction restoring consistency?
+  - b4 believes does not t or t and r implies does not t
+Incoming: s and does not r.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b1 | b2 | b4 | b3 | b0
 Reply with the answer only.</pre>
@@ -1962,14 +1982,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 94</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not not r and r and not q
-  - b1 believes q and s or not s
-  - b2 believes s and not q implies r
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not does not r and r and does not q
+  - b1 believes q and s or does not s
+  - b2 believes s and does not q implies r
   - b3 believes t implies q
-  - b4 believes s and r implies not s and s
-The incoming is t and not q.
-What is the minimal retraction restoring consistency?
+  - b4 believes s and r implies does not s and s
+Incoming: t and does not q.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b4 | b2 | b1 | b0
 Reply with the answer only.</pre>
@@ -1982,14 +2002,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 95</span>
 <span>answer</span> <span class="ans">b1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
+<p>prompt</p><pre>Beliefs:
   - b0 believes p
-  - b1 believes not t and not q
-  - b2 believes not not s or s and q
+  - b1 believes does not t and does not q
+  - b2 believes does not does not s or s and q
   - b3 believes s
-  - b4 believes t or not r and s
-The incoming is t or q.
-What is the minimal retraction restoring consistency?
+  - b4 believes t or does not r and s
+Incoming: t or q.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b4 | b0 | b1 | b2
 Reply with the answer only.</pre>
@@ -2002,14 +2022,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 96</span>
 <span>answer</span> <span class="ans">b4</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes s or not t implies t implies not s
+<p>prompt</p><pre>Beliefs:
+  - b0 believes s or does not t implies t implies does not s
   - b1 believes q implies t
   - b2 believes p
-  - b3 believes not q implies not r or not s implies not q
-  - b4 believes not r and not t
-The incoming is r or t.
-What is the minimal retraction restoring consistency?
+  - b3 believes does not q implies does not r or does not s implies does not q
+  - b4 believes does not r and does not t
+Incoming: r or t.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b3 | b4 | b2 | b1 | b0
 Reply with the answer only.</pre>
@@ -2022,14 +2042,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 97</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not r
-  - b1 believes not t
-  - b2 believes q and not s
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not r
+  - b1 believes does not t
+  - b2 believes q and does not s
   - b3 believes q
   - b4 believes p or p
-The incoming is q implies s.
-What is the minimal retraction restoring consistency?
+Incoming: q implies s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b1 | b2 | b3 | b4
 Reply with the answer only.</pre>
@@ -2042,14 +2062,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 98</span>
 <span>answer</span> <span class="ans">b3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not s and not s
-  - b1 believes r or not q or s
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not s and does not s
+  - b1 believes r or does not q or s
   - b2 believes r or q or p or s
-  - b3 believes r and not p
-  - b4 believes p implies p implies not s
-The incoming is r implies p.
-What is the minimal retraction restoring consistency?
+  - b3 believes r and does not p
+  - b4 believes p implies p implies does not s
+Incoming: r implies p.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b2 | b3 | b1 | b4
 Reply with the answer only.</pre>
@@ -2062,14 +2082,14 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 99</span>
 <span>answer</span> <span class="ans">b2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The beliefs:
-  - b0 believes not r
-  - b1 believes q or q implies not s and not p
+<p>prompt</p><pre>Beliefs:
+  - b0 believes does not r
+  - b1 believes q or q implies does not s and does not p
   - b2 believes s
-  - b3 believes not p or t and s
-  - b4 believes not p or q or s and not q
-The incoming is not s.
-What is the minimal retraction restoring consistency?
+  - b3 believes does not p or t and s
+  - b4 believes does not p or q or s and does not q
+Incoming: does not s.
+What is the minimal_retraction_restoring_consistency?
 
 Answer with exactly one of: b0 | b1 | b4 | b2 | b3
 Reply with the answer only.</pre>

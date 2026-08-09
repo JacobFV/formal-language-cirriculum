@@ -32,31 +32,31 @@
 <h2>Difficulty axes</h2>
 <div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
 <tbody><tr><td>ambiguity</td><td class='num'>5</td></tr><tr><td>grammar_complexity</td><td class='num'>5</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>recursion_depth</td><td class='num'>4</td></tr></tbody></table></div>
-<h2>The same episode, in each language</h2><h3>english</h3><pre>The grammar:
+<h2>The same episode, in each language</h2><h3>english</h3><pre>Grammar:
   - S lex dd
   - rule S: S if B
   - B lex kg
   - A lex dd
   - S lex kg
   - rule S: A if S
-The start is S.
-The string is: dd, dd and kg.
-What is the parse count?
+Start: S.
+The string is dd; dd; kg.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 1 | 3 | 2 | 0
 Reply with the answer only.</pre><h3>spanish</h3><pre>La gramática es:
   - S el léxico dd
   - regla S: S si B
   - B el léxico kg
-  - A el léxico dd
+  - Al léxico dd
   - S el léxico kg
   - regla S: A si S
 El inicio es S.
-La cadena es: dd, dd y kg.
-¿Cuántos análisis sintácticos hay?
+La cadena es dd; dd; kg.
+¿Qué parse_count?
 
 Responde exactamente con una de estas opciones: 4 | 1 | 3 | 2 | 0
-Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>文法如下：
+Responde solo con la respuesta.</pre><h3>chinese</h3><pre>文法如下：
   - S的词条是dd
   - 规则S：若B则S
   - B的词条是kg
@@ -64,20 +64,44 @@ Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>文法如下：
   - S的词条是kg
   - 规则S：若S则A
 起点是S。
-字符串是：dd、dd和kg。
-有多少种句法分析？
+字符串是dd；dd；kg。
+parse_count什么？
 
-请从以下选项中选出恰好一个作答：4 | 1 | 3 | 2 | 0
-只回答答案本身。</pre><h3>english_synonym</h3><pre>The grammar:
+请从以下选项中选择一个作答：4 | 1 | 3 | 2 | 0
+只回答答案本身。</pre><h3>turkish</h3><pre>Grammar:
+  - S dd lex
+  - kural S: eğer B ise S
+  - B kg lex
+  - A dd lex
+  - S kg lex
+  - kural S: eğer S ise A
+Start: S.
+Dizge dd; dd; kg.
+Parse_count ne?
+
+Tam olarak şu seçeneklerden biriyle yanıtla: 4 | 1 | 3 | 2 | 0
+Sadece yanıtı yaz.</pre><h3>swahili</h3><pre>Grammar:
+  - S lex dd
+  - kanuni S: kama B basi S
+  - B lex kg
+  - A lex dd
+  - S lex kg
+  - kanuni S: kama S basi A
+Start: S.
+String: dd; dd; kg.
+Parse_count nini?
+
+Jibu kwa kuchagua moja tu kati ya haya: 4 | 1 | 3 | 2 | 0
+Andika jibu pekee.</pre><h3>english_synonym</h3><pre>Grammar:
   - S lex dd
   - rule S: S if B
   - B lex kg
   - A lex dd
   - S lex kg
   - rule S: A if S
-The start is S.
-The string is: dd, dd and kg.
-What is the parse count?
+Start: S.
+The string is dd; dd; kg.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 1 | 3 | 2 | 0
 Reply with the answer only.</pre><h3>symbols</h3><pre>{grammar: [(lex S dd) (rule S S B) (lex B kg) (lex A dd) (lex S kg) (rule S A S)], query: parse_count, start: S, string: [dd dd kg]}
@@ -85,21 +109,21 @@ Reply with the answer only.</pre><h3>symbols</h3><pre>{grammar: [(lex S dd) (rul
 Answer with exactly one of: 4 | 1 | 3 | 2 | 0
 Reply with the answer only.</pre>
 <h2>Samples</h2>
-<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/metalinguistic_reasoning.jsonl</code> &middot; <code>data/samples/spanish/metalinguistic_reasoning.jsonl</code> &middot; <code>data/samples/chinese/metalinguistic_reasoning.jsonl</code> &middot; <code>data/samples/english_synonym/metalinguistic_reasoning.jsonl</code> &middot; <code>data/samples/symbols/metalinguistic_reasoning.jsonl</code></p>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/metalinguistic_reasoning.jsonl</code> &middot; <code>data/samples/spanish/metalinguistic_reasoning.jsonl</code> &middot; <code>data/samples/chinese/metalinguistic_reasoning.jsonl</code> &middot; <code>data/samples/turkish/metalinguistic_reasoning.jsonl</code> &middot; <code>data/samples/swahili/metalinguistic_reasoning.jsonl</code> &middot; <code>data/samples/english_synonym/metalinguistic_reasoning.jsonl</code> &middot; <code>data/samples/symbols/metalinguistic_reasoning.jsonl</code></p>
 <details class="sample">
 <summary><span class="seed">seed 0</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - S lex dd
   - rule S: S if B
   - B lex kg
   - A lex dd
   - S lex kg
   - rule S: A if S
-The start is S.
-The string is: dd, dd and kg.
-What is the parse count?
+Start: S.
+The string is dd; dd; kg.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 1 | 3 | 2 | 0
 Reply with the answer only.</pre>
@@ -113,7 +137,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 1</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex sg
   - rule S: A if S
   - B lex sg
@@ -121,9 +145,9 @@ Reply with the answer only.</pre>
   - rule A: A if B
   - rule S: B if B
   - B lex ml
-The start is S.
-The string is: sg, ml and ml.
-What is the parse count?
+Start: S.
+The string is sg; ml; ml.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 1 | 0 | 2 | 3
 Reply with the answer only.</pre>
@@ -137,17 +161,17 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 2</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
-  - B lex lt
+<p>prompt</p><pre>Grammar:
+  - B lex less than
   - A lex mm
   - rule S: S if B
   - rule S: B if A
   - rule A: A if B
   - S lex mm
   - rule S: A if B
-The start is S.
-The string is: lt, lt, lt and lt.
-What is the parse count?
+Start: S.
+The string is less than; less than; less than; less than.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 0 | 2 | 1 | 3
 Reply with the answer only.</pre>
@@ -161,15 +185,15 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 3</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex gr
   - rule S: S if B
   - rule S: B if A
   - B lex tl
   - rule S: B if B
-The start is S.
-The string is: tl, tl and tl.
-What is the parse count?
+Start: S.
+The string is tl; tl; tl.
+What is the parse_count?
 
 Answer with exactly one of: 1 | 0 | 2 | 3 | 4
 Reply with the answer only.</pre>
@@ -183,10 +207,10 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 4</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar: rule S: B if B; B lex rz; A lex km; rule S: A if S.
-The start is S.
-The string is: km, km, rz and rz.
-What is the parse count?
+<p>prompt</p><pre>Grammar: rule S: B if B; B lex rz; A lex km; rule S: A if S.
+Start: S.
+The string is km; km; rz; rz.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 2 | 0 | 3 | 1
 Reply with the answer only.</pre>
@@ -200,7 +224,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 5</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule A: A if B
   - rule S: A if S
   - rule S: S if S
@@ -209,14 +233,14 @@ Reply with the answer only.</pre>
   - rule B: B if A
   - A lex tk
   - B lex tk
-The start is S.
+Start: S.
 The string is:
   - tk
   - zv
   - zv
   - zv
   - tk
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 4 | 2 | 3 | 1 | 0
 Reply with the answer only.</pre>
@@ -230,16 +254,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 6</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: S if S
   - rule S: A if B
   - A lex vz
   - rule S: A if S
   - A lex kk
   - B lex kk
-The start is S.
-The string is: kk, vz and vz.
-What is the parse count?
+Start: S.
+The string is kk; vz; vz.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 1 | 0 | 2 | 3
 Reply with the answer only.</pre>
@@ -253,7 +277,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 7</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: B if B
   - A lex dk
   - rule B: B if A
@@ -263,9 +287,9 @@ Reply with the answer only.</pre>
   - S lex tp
   - rule S: A if B
   - rule S: A if S
-The start is S.
-The string is: tp, tp, tp and dk.
-What is the parse count?
+Start: S.
+The string is tp; tp; tp; dk.
+What is the parse_count?
 
 Answer with exactly one of: 3 | 2 | 4 | 1 | 0
 Reply with the answer only.</pre>
@@ -279,7 +303,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 8</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: A if S
   - rule S: B if A
   - B lex pg
@@ -287,9 +311,9 @@ Reply with the answer only.</pre>
   - rule B: B if A
   - A lex pg
   - rule S: S if B
-The start is S.
-The string is: pg, pm and pg.
-What is the parse count?
+Start: S.
+The string is pg; pm; pg.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 2 | 0 | 1 | 3
 Reply with the answer only.</pre>
@@ -303,7 +327,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 9</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule B: B if A
   - A lex zs
   - B lex zs
@@ -312,9 +336,9 @@ Reply with the answer only.</pre>
   - rule S: A if B
   - B lex pz
   - rule S: A if S
-The start is S.
-The string is: zs, zs and pz.
-What is the parse count?
+Start: S.
+The string is zs; zs; pz.
+What is the parse_count?
 
 Answer with exactly one of: 1 | 2 | 3 | 4 | 0
 Reply with the answer only.</pre>
@@ -328,15 +352,15 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 10</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex pv
   - rule S: S if B
   - A lex gk
   - B lex gk
   - rule S: A if B
-The start is S.
-The string is: gk, pv, pv and gk.
-What is the parse count?
+Start: S.
+The string is gk; pv; pv; gk.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 2 | 1 | 4 | 3
 Reply with the answer only.</pre>
@@ -350,16 +374,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 11</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: A if B
   - rule A: A if B
   - A lex vz
   - rule S: S if B
   - rule B: B if A
   - B lex ks
-The start is S.
-The string is: vz, ks, vz and ks.
-What is the parse count?
+Start: S.
+The string is vz; ks; vz; ks.
+What is the parse_count?
 
 Answer with exactly one of: 3 | 4 | 2 | 0 | 1
 Reply with the answer only.</pre>
@@ -373,7 +397,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 12</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: S if B
   - B lex zv
   - rule S: A if S
@@ -382,9 +406,9 @@ Reply with the answer only.</pre>
   - S lex rt
   - rule S: S if S
   - A lex zv
-The start is S.
-The string is: rt, zv and rt.
-What is the parse count?
+Start: S.
+The string is rt; zv; rt.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 2 | 1 | 4 | 3
 Reply with the answer only.</pre>
@@ -398,15 +422,15 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 13</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - B lex vg
   - A lex lv
   - S lex lv
   - rule S: A if B
   - rule S: S if S
-The start is S.
-The string is: lv, lv and lv.
-What is the parse count?
+Start: S.
+The string is lv; lv; lv.
+What is the parse_count?
 
 Answer with exactly one of: 3 | 4 | 1 | 2 | 0
 Reply with the answer only.</pre>
@@ -420,16 +444,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 14</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: B if A
   - B lex sp
   - A lex mz
   - rule S: S if B
   - rule S: S if S
   - rule B: B if A
-The start is S.
-The string is: mz, sp and mz.
-What is the parse count?
+Start: S.
+The string is mz; sp; mz.
+What is the parse_count?
 
 Answer with exactly one of: 1 | 3 | 0 | 2 | 4
 Reply with the answer only.</pre>
@@ -443,16 +467,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 15</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex pk
   - rule S: S if B
   - B lex pk
   - B lex zm
   - A lex zm
   - rule S: B if B
-The start is S.
-The string is: zm, pk, pk and zm.
-What is the parse count?
+Start: S.
+The string is zm; pk; pk; zm.
+What is the parse_count?
 
 Answer with exactly one of: 1 | 3 | 4 | 0 | 2
 Reply with the answer only.</pre>
@@ -466,7 +490,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 16</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: S if B
   - rule S: B if B
   - A lex gm
@@ -475,14 +499,14 @@ Reply with the answer only.</pre>
   - S lex gm
   - rule S: A if B
   - A lex vd
-The start is S.
+Start: S.
 The string is:
   - vd
   - vd
   - vd
   - gm
   - gm
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 1 | 2 | 4 | 0 | 3
 Reply with the answer only.</pre>
@@ -496,7 +520,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 17</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule A: A if B
   - B lex zg
   - rule S: A if B
@@ -506,9 +530,9 @@ Reply with the answer only.</pre>
   - S lex zg
   - A lex zg
   - rule S: S if B
-The start is S.
-The string is: vv, vv and vv.
-What is the parse count?
+Start: S.
+The string is vv; vv; vv.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 0 | 3 | 1 | 2
 Reply with the answer only.</pre>
@@ -522,7 +546,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 18</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: B if B
   - A lex tz
   - rule S: A if S
@@ -530,9 +554,9 @@ Reply with the answer only.</pre>
   - rule B: B if A
   - rule S: A if B
   - B lex ss
-The start is S.
-The string is: tz, tz, ss and ss.
-What is the parse count?
+Start: S.
+The string is tz; tz; ss; ss.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 1 | 4 | 2 | 3
 Reply with the answer only.</pre>
@@ -546,7 +570,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 19</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: B if A
   - S lex kg
   - A lex kg
@@ -554,9 +578,9 @@ Reply with the answer only.</pre>
   - rule S: A if B
   - B lex gs
   - rule S: A if S
-The start is S.
-The string is: kg, gs and gs.
-What is the parse count?
+Start: S.
+The string is kg; gs; gs.
+What is the parse_count?
 
 Answer with exactly one of: 2 | 4 | 3 | 0 | 1
 Reply with the answer only.</pre>
@@ -570,7 +594,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 20</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: B if B
   - B lex dl
   - rule S: A if S
@@ -578,14 +602,14 @@ Reply with the answer only.</pre>
   - S lex zt
   - A lex zt
   - rule B: B if A
-The start is S.
+Start: S.
 The string is:
   - zt
   - zt
   - dl
   - dl
   - zt
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 2 | 4 | 3 | 0 | 1
 Reply with the answer only.</pre>
@@ -599,7 +623,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 21</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex mg
   - A lex ls
   - S lex ls
@@ -607,9 +631,9 @@ Reply with the answer only.</pre>
   - rule A: A if B
   - rule S: B if A
   - B lex ls
-The start is S.
-The string is: mg, ls, ls and ls.
-What is the parse count?
+Start: S.
+The string is mg; ls; ls; ls.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 2 | 3 | 1 | 0
 Reply with the answer only.</pre>
@@ -623,16 +647,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 22</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - S lex zm
   - A lex zm
   - rule S: B if B
   - B lex zm
   - rule B: B if A
   - B lex gr
-The start is S.
-The string is: gr, gr and zm.
-What is the parse count?
+Start: S.
+The string is gr; gr; zm.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 2 | 3 | 1 | 0
 Reply with the answer only.</pre>
@@ -646,7 +670,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 23</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule B: B if A
   - rule S: S if B
   - rule S: B if B
@@ -655,14 +679,14 @@ Reply with the answer only.</pre>
   - B lex gr
   - A lex gr
   - rule S: B if A
-The start is S.
+Start: S.
 The string is:
   - gr
   - gr
   - sd
   - sd
   - sd
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 2 | 4 | 1 | 0 | 3
 Reply with the answer only.</pre>
@@ -676,7 +700,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 24</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - B lex dt
   - A lex lm
   - B lex lm
@@ -685,9 +709,9 @@ Reply with the answer only.</pre>
   - S lex dt
   - rule S: S if B
   - A lex dt
-The start is S.
-The string is: dt, dt and lm.
-What is the parse count?
+Start: S.
+The string is dt; dt; lm.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 1 | 2 | 3 | 4
 Reply with the answer only.</pre>
@@ -701,7 +725,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 25</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - S lex rz
   - B lex kt
   - rule S: S if S
@@ -709,9 +733,9 @@ Reply with the answer only.</pre>
   - rule B: B if A
   - S lex kt
   - rule S: A if B
-The start is S.
-The string is: kt, rz and kt.
-What is the parse count?
+Start: S.
+The string is kt; rz; kt.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 3 | 4 | 2 | 1
 Reply with the answer only.</pre>
@@ -725,16 +749,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 26</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: S if B
   - rule B: B if A
   - B lex mt
   - rule S: B if A
   - A lex km
   - S lex km
-The start is S.
-The string is: km, mt, km and mt.
-What is the parse count?
+Start: S.
+The string is km; mt; km; mt.
+What is the parse_count?
 
 Answer with exactly one of: 3 | 2 | 4 | 1 | 0
 Reply with the answer only.</pre>
@@ -748,7 +772,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 27</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex kv
   - rule S: S if S
   - rule S: A if B
@@ -757,9 +781,9 @@ Reply with the answer only.</pre>
   - B lex kv
   - rule A: A if B
   - S lex zd
-The start is S.
-The string is: kv, zd and zd.
-What is the parse count?
+Start: S.
+The string is kv; zd; zd.
+What is the parse_count?
 
 Answer with exactly one of: 3 | 4 | 2 | 1 | 0
 Reply with the answer only.</pre>
@@ -773,16 +797,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 28</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex tr
-  - A lex gt
-  - S lex gt
+  - A lex more than
+  - S lex more than
   - rule B: B if A
   - rule S: B if A
-  - B lex gt
-The start is S.
-The string is: tr, tr and tr.
-What is the parse count?
+  - B lex more than
+Start: S.
+The string is tr; tr; tr.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 3 | 0 | 1 | 2
 Reply with the answer only.</pre>
@@ -796,7 +820,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 29</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule B: B if A
   - rule S: B if A
   - S lex gz
@@ -804,9 +828,9 @@ Reply with the answer only.</pre>
   - S lex lg
   - A lex gz
   - A lex lg
-The start is S.
-The string is: lg, gz, lg and gz.
-What is the parse count?
+Start: S.
+The string is lg; gz; lg; gz.
+What is the parse_count?
 
 Answer with exactly one of: 2 | 4 | 0 | 1 | 3
 Reply with the answer only.</pre>
@@ -820,7 +844,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 30</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - B lex vl
   - S lex vl
   - rule S: B if A
@@ -830,9 +854,9 @@ Reply with the answer only.</pre>
   - A lex vl
   - rule S: A if B
   - B lex zd
-The start is S.
-The string is: vl, zd and vl.
-What is the parse count?
+Start: S.
+The string is vl; zd; vl.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 3 | 1 | 2 | 4
 Reply with the answer only.</pre>
@@ -846,15 +870,15 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 31</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: S if S
   - S lex gd
   - A lex sp
   - B lex gd
   - rule B: B if A
-The start is S.
-The string is: sp, sp, gd and sp.
-What is the parse count?
+Start: S.
+The string is sp; sp; gd; sp.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 0 | 3 | 2 | 1
 Reply with the answer only.</pre>
@@ -868,20 +892,20 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 32</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - S lex st
   - rule S: B if B
   - B lex zs
   - rule S: S if S
   - A lex st
-The start is S.
+Start: S.
 The string is:
   - st
   - st
   - st
   - zs
   - st
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 1 | 4 | 3 | 0 | 2
 Reply with the answer only.</pre>
@@ -895,7 +919,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 33</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: S if B
   - S lex zs
   - B lex ml
@@ -904,14 +928,14 @@ Reply with the answer only.</pre>
   - B lex zs
   - A lex zs
   - rule A: A if B
-The start is S.
+Start: S.
 The string is:
   - ml
   - ml
   - ml
   - zs
   - zs
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 2 | 3 | 1 | 4 | 0
 Reply with the answer only.</pre>
@@ -925,16 +949,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 34</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - B lex tz
   - A lex ts
   - rule S: B if A
   - rule S: A if S
   - rule B: B if A
   - A lex tz
-The start is S.
-The string is: tz, tz, ts and ts.
-What is the parse count?
+Start: S.
+The string is tz; tz; ts; ts.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 3 | 2 | 4 | 1
 Reply with the answer only.</pre>
@@ -948,7 +972,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 35</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: A if S
   - B lex vm
   - A lex gd
@@ -956,14 +980,14 @@ Reply with the answer only.</pre>
   - A lex vm
   - rule S: A if B
   - rule S: B if A
-The start is S.
+Start: S.
 The string is:
   - vm
   - gd
   - gd
   - vm
   - gd
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 1 | 0 | 4 | 2 | 3
 Reply with the answer only.</pre>
@@ -977,7 +1001,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 36</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - S lex dt
   - B lex dt
   - B lex pm
@@ -985,9 +1009,9 @@ Reply with the answer only.</pre>
   - rule S: B if A
   - rule S: S if B
   - A lex pm
-The start is S.
-The string is: pm, pm, dt and pm.
-What is the parse count?
+Start: S.
+The string is pm; pm; dt; pm.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 3 | 4 | 2 | 1
 Reply with the answer only.</pre>
@@ -1001,7 +1025,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 37</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - B lex dr
   - A lex dr
   - rule S: S if B
@@ -1009,14 +1033,14 @@ Reply with the answer only.</pre>
   - A lex gd
   - rule S: B if B
   - rule S: A if S
-The start is S.
+Start: S.
 The string is:
   - dr
   - dr
   - gd
   - gd
   - gd
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 1 | 0 | 3 | 2 | 4
 Reply with the answer only.</pre>
@@ -1030,7 +1054,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 38</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: B if B
   - rule S: S if S
   - B lex pm
@@ -1038,9 +1062,9 @@ Reply with the answer only.</pre>
   - S lex ml
   - rule A: A if B
   - B lex ml
-The start is S.
-The string is: ml, ml, ml and pm.
-What is the parse count?
+Start: S.
+The string is ml; ml; ml; pm.
+What is the parse_count?
 
 Answer with exactly one of: 2 | 3 | 0 | 1 | 4
 Reply with the answer only.</pre>
@@ -1054,7 +1078,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 39</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - B lex kd
   - rule B: B if A
   - rule S: B if B
@@ -1062,9 +1086,9 @@ Reply with the answer only.</pre>
   - S lex kd
   - rule S: A if B
   - rule A: A if B
-The start is S.
-The string is: kd, tr and kd.
-What is the parse count?
+Start: S.
+The string is kd; tr; kd.
+What is the parse_count?
 
 Answer with exactly one of: 3 | 2 | 4 | 1 | 0
 Reply with the answer only.</pre>
@@ -1078,7 +1102,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 40</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule B: B if A
   - A lex gg
   - A lex tt
@@ -1088,9 +1112,9 @@ Reply with the answer only.</pre>
   - rule S: A if B
   - S lex gg
   - S lex tt
-The start is S.
-The string is: tt, gg, tt and tt.
-What is the parse count?
+Start: S.
+The string is tt; gg; tt; tt.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 1 | 4 | 3 | 2
 Reply with the answer only.</pre>
@@ -1104,7 +1128,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 41</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex vg
   - rule S: B if A
   - S lex sr
@@ -1113,14 +1137,14 @@ Reply with the answer only.</pre>
   - B lex vg
   - B lex sr
   - rule S: A if B
-The start is S.
+Start: S.
 The string is:
   - vg
   - vg
   - vg
   - sr
   - vg
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 3 | 1 | 0 | 4 | 2
 Reply with the answer only.</pre>
@@ -1134,15 +1158,15 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 42</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex dr
   - rule S: S if S
   - B lex dr
   - B lex ps
   - rule B: B if A
-The start is S.
-The string is: dr, dr, ps and dr.
-What is the parse count?
+Start: S.
+The string is dr; dr; ps; dr.
+What is the parse_count?
 
 Answer with exactly one of: 3 | 1 | 0 | 4 | 2
 Reply with the answer only.</pre>
@@ -1156,10 +1180,10 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 43</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar: A lex zt; rule S: S if B; B lex vl; rule B: B if A.
-The start is S.
-The string is: vl, vl, zt and zt.
-What is the parse count?
+<p>prompt</p><pre>Grammar: A lex zt; rule S: S if B; B lex vl; rule B: B if A.
+Start: S.
+The string is vl; vl; zt; zt.
+What is the parse_count?
 
 Answer with exactly one of: 2 | 4 | 3 | 0 | 1
 Reply with the answer only.</pre>
@@ -1173,7 +1197,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 44</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex mg
   - S lex mg
   - rule S: A if S
@@ -1183,9 +1207,9 @@ Reply with the answer only.</pre>
   - rule S: A if B
   - B lex rp
   - B lex mg
-The start is S.
-The string is: mg, mg, mg and rp.
-What is the parse count?
+Start: S.
+The string is mg; mg; mg; rp.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 1 | 3 | 2 | 4
 Reply with the answer only.</pre>
@@ -1199,7 +1223,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 45</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - B lex tp
   - rule B: B if A
   - B lex mm
@@ -1207,9 +1231,9 @@ Reply with the answer only.</pre>
   - A lex mm
   - rule S: A if S
   - rule S: B if B
-The start is S.
-The string is: tp, tp, mm and mm.
-What is the parse count?
+Start: S.
+The string is tp; tp; mm; mm.
+What is the parse_count?
 
 Answer with exactly one of: 1 | 0 | 4 | 3 | 2
 Reply with the answer only.</pre>
@@ -1223,15 +1247,15 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 46</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: B if B
   - rule S: A if B
   - B lex gg
   - A lex pk
   - B lex pk
-The start is S.
-The string is: pk, pk, pk and gg.
-What is the parse count?
+Start: S.
+The string is pk; pk; pk; gg.
+What is the parse_count?
 
 Answer with exactly one of: 2 | 0 | 1 | 4 | 3
 Reply with the answer only.</pre>
@@ -1245,7 +1269,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 47</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: A if B
   - B lex zl
   - S lex sr
@@ -1253,14 +1277,14 @@ Reply with the answer only.</pre>
   - rule S: S if B
   - rule S: A if S
   - A lex sr
-The start is S.
+Start: S.
 The string is:
   - sr
   - zl
   - zl
   - zl
   - sr
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 0 | 2 | 1 | 3 | 4
 Reply with the answer only.</pre>
@@ -1274,7 +1298,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 48</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: B if B
   - B lex pd
   - rule S: A if B
@@ -1282,9 +1306,9 @@ Reply with the answer only.</pre>
   - rule S: A if S
   - B lex dz
   - rule S: S if S
-The start is S.
-The string is: dz, pd, pd and dz.
-What is the parse count?
+Start: S.
+The string is dz; pd; pd; dz.
+What is the parse_count?
 
 Answer with exactly one of: 1 | 3 | 4 | 0 | 2
 Reply with the answer only.</pre>
@@ -1298,7 +1322,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 49</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex lp
   - S lex lp
   - rule S: A if S
@@ -1307,14 +1331,14 @@ Reply with the answer only.</pre>
   - rule S: B if A
   - B lex ml
   - rule S: A if B
-The start is S.
+Start: S.
 The string is:
   - lp
   - ml
   - ml
   - ml
   - lp
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 0 | 3 | 1 | 4 | 2
 Reply with the answer only.</pre>
@@ -1328,7 +1352,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 50</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - B lex lg
   - rule S: B if A
   - rule S: B if B
@@ -1337,9 +1361,9 @@ Reply with the answer only.</pre>
   - rule S: A if B
   - rule S: S if B
   - A lex lg
-The start is S.
-The string is: gk, lg, lg and lg.
-What is the parse count?
+Start: S.
+The string is gk; lg; lg; lg.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 2 | 1 | 3 | 4
 Reply with the answer only.</pre>
@@ -1353,7 +1377,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 51</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: A if S
   - A lex kk
   - rule S: B if A
@@ -1361,9 +1385,9 @@ Reply with the answer only.</pre>
   - rule B: B if A
   - A lex mg
   - rule S: S if S
-The start is S.
-The string is: mg, kk and mg.
-What is the parse count?
+Start: S.
+The string is mg; kk; mg.
+What is the parse_count?
 
 Answer with exactly one of: 2 | 4 | 1 | 0 | 3
 Reply with the answer only.</pre>
@@ -1377,7 +1401,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 52</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex mp
   - B lex kt
   - rule S: A if S
@@ -1385,9 +1409,9 @@ Reply with the answer only.</pre>
   - B lex mp
   - rule S: A if B
   - rule S: B if A
-The start is S.
-The string is: mp, mp and mp.
-What is the parse count?
+Start: S.
+The string is mp; mp; mp.
+What is the parse_count?
 
 Answer with exactly one of: 1 | 3 | 0 | 4 | 2
 Reply with the answer only.</pre>
@@ -1401,15 +1425,15 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 53</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - B lex gv
   - B lex ss
   - A lex ss
   - rule S: S if S
   - rule S: B if B
-The start is S.
-The string is: gv, gv, ss and ss.
-What is the parse count?
+Start: S.
+The string is gv; gv; ss; ss.
+What is the parse_count?
 
 Answer with exactly one of: 3 | 1 | 0 | 4 | 2
 Reply with the answer only.</pre>
@@ -1423,7 +1447,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 54</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: B if A
   - rule B: B if A
   - S lex vr
@@ -1432,9 +1456,9 @@ Reply with the answer only.</pre>
   - rule A: A if B
   - A lex vr
   - B lex zv
-The start is S.
-The string is: zv, zv and vr.
-What is the parse count?
+Start: S.
+The string is zv; zv; vr.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 3 | 1 | 2 | 0
 Reply with the answer only.</pre>
@@ -1448,7 +1472,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 55</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - B lex rk
   - rule B: B if A
   - S lex rk
@@ -1457,9 +1481,9 @@ Reply with the answer only.</pre>
   - rule A: A if B
   - S lex ks
   - rule S: B if A
-The start is S.
-The string is: ks, rk, rk and ks.
-What is the parse count?
+Start: S.
+The string is ks; rk; rk; ks.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 2 | 0 | 3 | 1
 Reply with the answer only.</pre>
@@ -1473,16 +1497,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 56</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule A: A if B
   - rule S: B if A
   - A lex vd
   - rule S: S if S
   - S lex rz
   - B lex rz
-The start is S.
-The string is: vd, vd, vd and vd.
-What is the parse count?
+Start: S.
+The string is vd; vd; vd; vd.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 2 | 0 | 3 | 1
 Reply with the answer only.</pre>
@@ -1496,7 +1520,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 57</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - S lex gr
   - rule S: A if B
   - A lex rs
@@ -1504,9 +1528,9 @@ Reply with the answer only.</pre>
   - A lex gr
   - rule A: A if B
   - B lex rs
-The start is S.
-The string is: rs, gr, rs and gr.
-What is the parse count?
+Start: S.
+The string is rs; gr; rs; gr.
+What is the parse_count?
 
 Answer with exactly one of: 2 | 3 | 1 | 0 | 4
 Reply with the answer only.</pre>
@@ -1520,16 +1544,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 58</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - B lex sk
   - rule S: S if B
   - A lex sk
   - rule S: B if B
   - A lex sd
   - rule B: B if A
-The start is S.
-The string is: sk, sd, sd and sk.
-What is the parse count?
+Start: S.
+The string is sk; sd; sd; sk.
+What is the parse_count?
 
 Answer with exactly one of: 1 | 4 | 3 | 0 | 2
 Reply with the answer only.</pre>
@@ -1543,7 +1567,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 59</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: B if B
   - rule S: B if A
   - rule S: S if B
@@ -1551,9 +1575,9 @@ Reply with the answer only.</pre>
   - rule A: A if B
   - B lex mv
   - B lex zr
-The start is S.
-The string is: zr, zr and zr.
-What is the parse count?
+Start: S.
+The string is zr; zr; zr.
+What is the parse_count?
 
 Answer with exactly one of: 2 | 4 | 0 | 1 | 3
 Reply with the answer only.</pre>
@@ -1567,21 +1591,21 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 60</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: B if B
   - rule S: S if S
   - B lex kt
   - A lex tg
   - S lex kt
   - B lex tg
-The start is S.
+Start: S.
 The string is:
   - tg
   - kt
   - kt
   - tg
   - tg
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 0 | 1 | 4 | 3 | 2
 Reply with the answer only.</pre>
@@ -1595,7 +1619,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 61</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex ps
   - B lex mg
   - S lex mg
@@ -1604,9 +1628,9 @@ Reply with the answer only.</pre>
   - rule S: A if B
   - rule S: A if S
   - B lex ps
-The start is S.
-The string is: mg, ps, mg and mg.
-What is the parse count?
+Start: S.
+The string is mg; ps; mg; mg.
+What is the parse_count?
 
 Answer with exactly one of: 1 | 2 | 4 | 0 | 3
 Reply with the answer only.</pre>
@@ -1620,7 +1644,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 62</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex zg
   - rule S: A if S
   - rule A: A if B
@@ -1629,9 +1653,9 @@ Reply with the answer only.</pre>
   - rule S: A if B
   - rule S: B if A
   - S lex zg
-The start is S.
-The string is: zg, ps and ps.
-What is the parse count?
+Start: S.
+The string is zg; ps; ps.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 2 | 1 | 4 | 3
 Reply with the answer only.</pre>
@@ -1645,7 +1669,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 63</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: B if B
   - S lex sp
   - B lex sp
@@ -1653,9 +1677,9 @@ Reply with the answer only.</pre>
   - rule S: S if S
   - rule B: B if A
   - A lex sp
-The start is S.
-The string is: sp, ld and sp.
-What is the parse count?
+Start: S.
+The string is sp; ld; sp.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 1 | 4 | 2 | 3
 Reply with the answer only.</pre>
@@ -1669,7 +1693,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 64</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: S if B
   - B lex sv
   - rule S: A if S
@@ -1679,14 +1703,14 @@ Reply with the answer only.</pre>
   - S lex sv
   - rule S: B if A
   - S lex dm
-The start is S.
+Start: S.
 The string is:
   - sv
   - dm
   - dm
   - dm
   - sv
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 0 | 4 | 3 | 1 | 2
 Reply with the answer only.</pre>
@@ -1700,7 +1724,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 65</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - S lex kl
   - B lex kl
   - rule B: B if A
@@ -1710,9 +1734,9 @@ Reply with the answer only.</pre>
   - A lex kt
   - rule S: S if S
   - A lex kl
-The start is S.
-The string is: kt, kt and kl.
-What is the parse count?
+Start: S.
+The string is kt; kt; kl.
+What is the parse_count?
 
 Answer with exactly one of: 3 | 1 | 0 | 2 | 4
 Reply with the answer only.</pre>
@@ -1726,7 +1750,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 66</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: A if S
   - B lex sv
   - rule S: S if B
@@ -1734,9 +1758,9 @@ Reply with the answer only.</pre>
   - S lex sv
   - A lex sv
   - A lex zp
-The start is S.
-The string is: zp, sv and zp.
-What is the parse count?
+Start: S.
+The string is zp; sv; zp.
+What is the parse_count?
 
 Answer with exactly one of: 2 | 0 | 4 | 1 | 3
 Reply with the answer only.</pre>
@@ -1750,16 +1774,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 67</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex vp
   - S lex vp
   - A lex mp
   - rule S: A if B
   - rule A: A if B
   - B lex vp
-The start is S.
-The string is: vp, mp and mp.
-What is the parse count?
+Start: S.
+The string is vp; mp; mp.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 1 | 0 | 2 | 3
 Reply with the answer only.</pre>
@@ -1773,7 +1797,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 68</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: B if A
   - A lex tm
   - A lex tp
@@ -1782,9 +1806,9 @@ Reply with the answer only.</pre>
   - S lex tp
   - rule S: A if S
   - rule S: B if B
-The start is S.
-The string is: tm, tm and tp.
-What is the parse count?
+Start: S.
+The string is tm; tm; tp.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 0 | 2 | 3 | 1
 Reply with the answer only.</pre>
@@ -1798,7 +1822,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 69</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - S lex ms
   - rule S: B if B
   - A lex kt
@@ -1806,9 +1830,9 @@ Reply with the answer only.</pre>
   - A lex ms
   - rule A: A if B
   - B lex ms
-The start is S.
-The string is: kt, ms, kt and ms.
-What is the parse count?
+Start: S.
+The string is kt; ms; kt; ms.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 4 | 2 | 3 | 1
 Reply with the answer only.</pre>
@@ -1822,7 +1846,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 70</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: A if B
   - S lex vm
   - A lex vm
@@ -1831,9 +1855,9 @@ Reply with the answer only.</pre>
   - rule S: B if B
   - S lex zp
   - rule B: B if A
-The start is S.
-The string is: zp, zp, vm and zp.
-What is the parse count?
+Start: S.
+The string is zp; zp; vm; zp.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 3 | 0 | 2 | 1
 Reply with the answer only.</pre>
@@ -1847,7 +1871,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 71</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex tv
   - rule B: B if A
   - B lex dv
@@ -1855,9 +1879,9 @@ Reply with the answer only.</pre>
   - rule A: A if B
   - rule S: B if B
   - rule S: B if A
-The start is S.
-The string is: dv, tv and dv.
-What is the parse count?
+Start: S.
+The string is dv; tv; dv.
+What is the parse_count?
 
 Answer with exactly one of: 1 | 4 | 2 | 3 | 0
 Reply with the answer only.</pre>
@@ -1871,7 +1895,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 72</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: S if B
   - S lex kv
   - B lex kv
@@ -1880,9 +1904,9 @@ Reply with the answer only.</pre>
   - A lex kv
   - B lex mz
   - A lex mz
-The start is S.
-The string is: mz, mz and kv.
-What is the parse count?
+Start: S.
+The string is mz; mz; kv.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 2 | 0 | 3 | 1
 Reply with the answer only.</pre>
@@ -1896,7 +1920,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 73</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex lz
   - rule S: A if S
   - B lex pt
@@ -1904,9 +1928,9 @@ Reply with the answer only.</pre>
   - B lex lz
   - rule B: B if A
   - S lex pt
-The start is S.
-The string is: lz, lz and lz.
-What is the parse count?
+Start: S.
+The string is lz; lz; lz.
+What is the parse_count?
 
 Answer with exactly one of: 3 | 4 | 1 | 0 | 2
 Reply with the answer only.</pre>
@@ -1920,16 +1944,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 74</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: S if B
   - B lex zt
   - rule S: B if A
   - S lex lm
   - A lex lm
   - rule S: A if S
-The start is S.
-The string is: zt, lm, lm and lm.
-What is the parse count?
+Start: S.
+The string is zt; lm; lm; lm.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 3 | 4 | 2 | 1
 Reply with the answer only.</pre>
@@ -1943,18 +1967,18 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 75</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex vk
-  - A lex gt
+  - A lex more than
   - rule S: A if S
   - rule S: A if B
   - B lex vk
-  - S lex gt
+  - S lex more than
   - rule B: B if A
   - S lex vk
-The start is S.
-The string is: gt, vk, vk and gt.
-What is the parse count?
+Start: S.
+The string is more than; vk; vk; more than.
+What is the parse_count?
 
 Answer with exactly one of: 3 | 2 | 1 | 4 | 0
 Reply with the answer only.</pre>
@@ -1968,7 +1992,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 76</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: A if S
   - rule S: S if S
   - S lex kz
@@ -1976,14 +2000,14 @@ Reply with the answer only.</pre>
   - B lex kz
   - B lex pd
   - rule S: B if B
-The start is S.
+Start: S.
 The string is:
   - pd
   - kz
   - pd
   - pd
   - kz
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 2 | 3 | 0 | 1 | 4
 Reply with the answer only.</pre>
@@ -1997,7 +2021,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 77</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: S if B
   - B lex ss
   - rule S: A if S
@@ -2005,9 +2029,9 @@ Reply with the answer only.</pre>
   - A lex ls
   - B lex ls
   - rule S: B if A
-The start is S.
-The string is: ss, ls and ss.
-What is the parse count?
+Start: S.
+The string is ss; ls; ss.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 1 | 3 | 0 | 2
 Reply with the answer only.</pre>
@@ -2021,7 +2045,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 78</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: A if S
   - rule S: B if B
   - B lex km
@@ -2029,9 +2053,9 @@ Reply with the answer only.</pre>
   - S lex tk
   - A lex tk
   - S lex km
-The start is S.
-The string is: tk, tk, tk and tk.
-What is the parse count?
+Start: S.
+The string is tk; tk; tk; tk.
+What is the parse_count?
 
 Answer with exactly one of: 3 | 4 | 2 | 1 | 0
 Reply with the answer only.</pre>
@@ -2045,16 +2069,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 79</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - B lex kr
   - A lex zl
   - rule A: A if B
   - rule B: B if A
   - rule S: S if B
   - rule S: A if B
-The start is S.
-The string is: zl, kr, zl and zl.
-What is the parse count?
+Start: S.
+The string is zl; kr; zl; zl.
+What is the parse_count?
 
 Answer with exactly one of: 2 | 4 | 0 | 1 | 3
 Reply with the answer only.</pre>
@@ -2068,17 +2092,17 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 80</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
-  - A lex gt
+<p>prompt</p><pre>Grammar:
+  - A lex more than
   - S lex tg
   - rule A: A if B
   - rule S: A if B
   - B lex tg
   - rule S: B if B
   - rule S: S if B
-The start is S.
-The string is: gt, tg and tg.
-What is the parse count?
+Start: S.
+The string is more than; tg; tg.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 0 | 3 | 2 | 1
 Reply with the answer only.</pre>
@@ -2092,7 +2116,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 81</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: A if B
   - rule S: B if B
   - rule B: B if A
@@ -2102,9 +2126,9 @@ Reply with the answer only.</pre>
   - A lex lr
   - A lex td
   - S lex td
-The start is S.
-The string is: lr, lr and lr.
-What is the parse count?
+Start: S.
+The string is lr; lr; lr.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 2 | 3 | 1 | 4
 Reply with the answer only.</pre>
@@ -2118,15 +2142,15 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 82</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex pt
   - B lex ms
   - rule S: S if S
   - rule S: S if B
   - rule S: B if B
-The start is S.
-The string is: ms, ms and ms.
-What is the parse count?
+Start: S.
+The string is ms; ms; ms.
+What is the parse_count?
 
 Answer with exactly one of: 3 | 0 | 4 | 2 | 1
 Reply with the answer only.</pre>
@@ -2140,16 +2164,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 83</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - S lex kl
   - rule S: S if S
   - rule S: S if B
   - A lex kl
   - B lex kd
   - rule B: B if A
-The start is S.
-The string is: kl, kl, kd and kd.
-What is the parse count?
+Start: S.
+The string is kl; kl; kd; kd.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 3 | 1 | 4 | 2
 Reply with the answer only.</pre>
@@ -2163,7 +2187,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 84</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: S if S
   - A lex gv
   - S lex mp
@@ -2172,9 +2196,9 @@ Reply with the answer only.</pre>
   - S lex gv
   - B lex mp
   - A lex mp
-The start is S.
-The string is: mp, gv and gv.
-What is the parse count?
+Start: S.
+The string is mp; gv; gv.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 4 | 1 | 2 | 3
 Reply with the answer only.</pre>
@@ -2188,16 +2212,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 85</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex pg
   - rule A: A if B
   - B lex tr
   - rule S: B if A
   - S lex pg
   - rule B: B if A
-The start is S.
-The string is: tr, pg and tr.
-What is the parse count?
+Start: S.
+The string is tr; pg; tr.
+What is the parse_count?
 
 Answer with exactly one of: 2 | 0 | 3 | 4 | 1
 Reply with the answer only.</pre>
@@ -2211,16 +2235,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 86</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: S if B
   - rule S: B if A
   - A lex rl
   - S lex rl
   - rule B: B if A
   - B lex km
-The start is S.
-The string is: km, km and rl.
-What is the parse count?
+Start: S.
+The string is km; km; rl.
+What is the parse_count?
 
 Answer with exactly one of: 2 | 0 | 4 | 3 | 1
 Reply with the answer only.</pre>
@@ -2234,7 +2258,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 87</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: B if A
   - A lex sd
   - B lex sd
@@ -2242,9 +2266,9 @@ Reply with the answer only.</pre>
   - rule S: S if B
   - S lex sd
   - B lex ls
-The start is S.
-The string is: ls, sd, ls and sd.
-What is the parse count?
+Start: S.
+The string is ls; sd; ls; sd.
+What is the parse_count?
 
 Answer with exactly one of: 3 | 4 | 0 | 1 | 2
 Reply with the answer only.</pre>
@@ -2258,7 +2282,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 88</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex kz
   - B lex kz
   - rule A: A if B
@@ -2267,9 +2291,9 @@ Reply with the answer only.</pre>
   - S lex pt
   - B lex pt
   - rule S: A if B
-The start is S.
-The string is: pt, kz and kz.
-What is the parse count?
+Start: S.
+The string is pt; kz; kz.
+What is the parse_count?
 
 Answer with exactly one of: 3 | 1 | 2 | 4 | 0
 Reply with the answer only.</pre>
@@ -2283,16 +2307,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 89</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: S if B
   - B lex gz
   - rule A: A if B
   - A lex gz
   - B lex tl
   - rule S: A if B
-The start is S.
-The string is: tl, gz and gz.
-What is the parse count?
+Start: S.
+The string is tl; gz; gz.
+What is the parse_count?
 
 Answer with exactly one of: 3 | 2 | 1 | 4 | 0
 Reply with the answer only.</pre>
@@ -2306,15 +2330,15 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 90</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - S lex zl
   - rule S: B if B
   - B lex rv
   - A lex zl
   - rule S: A if S
-The start is S.
-The string is: zl, zl, rv and rv.
-What is the parse count?
+Start: S.
+The string is zl; zl; rv; rv.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 3 | 2 | 0 | 1
 Reply with the answer only.</pre>
@@ -2328,16 +2352,16 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 91</span>
 <span>answer</span> <span class="ans">0</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - B lex dd
   - rule S: S if S
   - rule S: B if B
-  - A lex gt
+  - A lex more than
   - A lex dd
   - rule B: B if A
-The start is S.
-The string is: gt, dd and dd.
-What is the parse count?
+Start: S.
+The string is more than; dd; dd.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 4 | 1 | 2 | 3
 Reply with the answer only.</pre>
@@ -2351,7 +2375,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 92</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex tr
   - A lex mp
   - B lex mp
@@ -2360,9 +2384,9 @@ Reply with the answer only.</pre>
   - rule S: B if B
   - S lex tr
   - B lex tr
-The start is S.
-The string is: mp, mp, tr and tr.
-What is the parse count?
+Start: S.
+The string is mp; mp; tr; tr.
+What is the parse_count?
 
 Answer with exactly one of: 1 | 2 | 0 | 3 | 4
 Reply with the answer only.</pre>
@@ -2376,7 +2400,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 93</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: A if S
   - rule B: B if A
   - rule S: B if B
@@ -2384,14 +2408,14 @@ Reply with the answer only.</pre>
   - S lex dr
   - B lex dr
   - A lex zl
-The start is S.
+Start: S.
 The string is:
   - dr
   - zl
   - dr
   - zl
   - dr
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 3 | 2 | 4 | 1 | 0
 Reply with the answer only.</pre>
@@ -2405,20 +2429,20 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 94</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex pz
   - rule S: B if B
   - A lex dt
   - B lex dt
   - rule S: A if S
-The start is S.
+Start: S.
 The string is:
   - pz
   - dt
   - pz
   - dt
   - dt
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 4 | 2 | 1 | 3 | 0
 Reply with the answer only.</pre>
@@ -2432,7 +2456,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 95</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule B: B if A
   - rule S: B if B
   - rule S: B if A
@@ -2441,14 +2465,14 @@ Reply with the answer only.</pre>
   - B lex lr
   - B lex kk
   - S lex lr
-The start is S.
+Start: S.
 The string is:
   - kk
   - kk
   - kk
   - lr
   - kk
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 4 | 0 | 2 | 1 | 3
 Reply with the answer only.</pre>
@@ -2462,21 +2486,21 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 96</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - A lex zd
   - rule S: B if B
   - A lex kv
   - rule S: A if S
   - B lex kv
   - rule S: B if A
-The start is S.
+Start: S.
 The string is:
   - zd
   - zd
   - zd
   - kv
   - kv
-What is the parse count?
+What is the parse_count?
 
 Answer with exactly one of: 4 | 1 | 3 | 0 | 2
 Reply with the answer only.</pre>
@@ -2490,15 +2514,15 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 97</span>
 <span>answer</span> <span class="ans">1</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - B lex kp
   - rule S: S if S
   - rule S: B if B
   - A lex kp
   - B lex dv
-The start is S.
-The string is: kp, dv, dv and dv.
-What is the parse count?
+Start: S.
+The string is kp; dv; dv; dv.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 3 | 2 | 1 | 4
 Reply with the answer only.</pre>
@@ -2512,7 +2536,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 98</span>
 <span>answer</span> <span class="ans">2</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - rule S: B if B
   - B lex mp
   - rule A: A if B
@@ -2521,9 +2545,9 @@ Reply with the answer only.</pre>
   - A lex mp
   - S lex mp
   - rule S: S if S
-The start is S.
-The string is: mp, mp and zm.
-What is the parse count?
+Start: S.
+The string is mp; mp; zm.
+What is the parse_count?
 
 Answer with exactly one of: 4 | 1 | 0 | 3 | 2
 Reply with the answer only.</pre>
@@ -2537,7 +2561,7 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 99</span>
 <span>answer</span> <span class="ans">3</span></summary>
 <div class="body">
-<p>prompt</p><pre>The grammar:
+<p>prompt</p><pre>Grammar:
   - B lex mr
   - S lex sv
   - B lex sv
@@ -2546,9 +2570,9 @@ Reply with the answer only.</pre>
   - A lex mr
   - rule S: S if B
   - rule A: A if B
-The start is S.
-The string is: mr, sv, sv and sv.
-What is the parse count?
+Start: S.
+The string is mr; sv; sv; sv.
+What is the parse_count?
 
 Answer with exactly one of: 0 | 3 | 4 | 1 | 2
 Reply with the answer only.</pre>

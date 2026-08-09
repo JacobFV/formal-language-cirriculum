@@ -32,8 +32,8 @@
 <h2>Difficulty axes</h2>
 <div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
 <tbody><tr><td>compositional_depth</td><td class='num'>4</td></tr><tr><td>lexical_novelty</td><td class='num'>4</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
-<h2>The same episode, in each language</h2><h3>english</h3><pre>The candidates are: define: p_vim, X head Y and (X links Y, Y feeds X); define: p_dun, X head Y and (X feeds Y, X holds of Y); define: p_kor, X head Y and (X next to Y, Y feeds X); define: p_sel, X head Y and (X holds of Y, Y next to X).
-The corpus:
+<h2>The same episode, in each language</h2><h3>english</h3><pre>The candidates are: define: p_vim, X head Y and X links Y and Y feeds X; define: p_dun, X head Y and X feeds Y and X holds of Y; define: p_kor, X head Y and X next to Y and Y feeds X; define: p_sel, X head Y and X holds of Y and Y next to X.
+Corpus:
   - x6 next to x8
   - x2 next to x7
   - x0 feeds x8
@@ -54,68 +54,120 @@ The corpus:
   - x3 holds of x2
   - x3 holds of x6
   - x6 next to x3
-Costs: 1 on atom costs plus_one_per_argument and baseline 60.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 60.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_vim | p_kor | p_sel
 Reply with the answer only.</pre><h3>spanish</h3><pre>Los candidatos son:
-  - define: p_vim, X la cabeza Y y (X enlaza con Y, Y alimenta X)
-  - define: p_dun, X la cabeza Y y (X alimenta Y, X se cumple para Y)
-  - define: p_kor, X la cabeza Y y (X está cerca de Y, Y alimenta X)
-  - define: p_sel, X la cabeza Y y (X se cumple para Y, Y está cerca de X)
+  - define: p_vim, X la cabeza Y y X enlaza con Y y Y alimenta a X
+  - define: p_dun, X la cabeza Y y X alimenta a Y y X se cumple para Y
+  - define: p_kor, X la cabeza Y y X cerca de Y y Y alimenta a X
+  - define: p_sel, X la cabeza Y y X se cumple para Y y Y cerca de X
 El corpus es:
-  - x6 está cerca de x8
-  - x2 está cerca de x7
-  - x0 alimenta x8
-  - x8 está cerca de x0
-  - x3 alimenta x6
-  - x8 alimenta x6
-  - x7 alimenta x2
+  - x6 cerca de x8
+  - x2 cerca de x7
+  - x0 alimenta a x8
+  - x8 cerca de x0
+  - x3 alimenta a x6
+  - x8 alimenta a x6
+  - x7 alimenta a x2
   - x6 se cumple para x0
   - x3 enlaza con x6
-  - x2 alimenta x7
+  - x2 alimenta a x7
   - x2 se cumple para x0
   - x3 enlaza con x7
   - x3 enlaza con x2
   - x8 enlaza con x6
-  - x7 está cerca de x2
+  - x7 cerca de x2
   - x3 se cumple para x7
   - x8 enlaza con x0
   - x3 se cumple para x2
   - x3 se cumple para x6
-  - x6 está cerca de x3
-Costes: el coste: atom, 1 y plus_one_per_argument; la referencia: 60.
-¿Qué predicado comprime más?
+  - x6 cerca de x3
+Costes: el coste de: atom, 1 y plus_one_per_argument; la referencia: 60.
+¿Qué most_compressive_predicate?
 
 Responde exactamente con una de estas opciones: p_dun | p_vim | p_kor | p_sel
-Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>候选项如下：定义为：普维姆、X的中心词是Y和(X连接到Y，Y输送给X)；定义为：普敦、X的中心词是Y和(X输送给Y，X成立于Y)；定义为：普科尔、X的中心词是Y和(X靠近Y，Y输送给X)；定义为：普塞尔、X的中心词是Y和(X成立于Y，Y靠近X)。
+Responde solo con la respuesta.</pre><h3>chinese</h3><pre>候选项如下：定义为：普维姆、X的中心词是Y和X连接到Y和Y供给X；定义为：普敦、X的中心词是Y和X供给Y和X对其成立Y；定义为：普科尔、X的中心词是Y和X的附近Y和Y供给X；定义为：普塞尔、X的中心词是Y和X对其成立Y和Y的附近X。
 语料如下：
-  - x6靠近x8
-  - x2靠近x7
-  - x0输送给x8
-  - x8靠近x0
-  - x3输送给x6
-  - x8输送给x6
-  - x7输送给x2
-  - x6成立于x0
+  - x6的附近x8
+  - x2的附近x7
+  - x0供给x8
+  - x8的附近x0
+  - x3供给x6
+  - x8供给x6
+  - x7供给x2
+  - x6对其成立x0
   - x3连接到x6
-  - x2输送给x7
-  - x2成立于x0
+  - x2供给x7
+  - x2对其成立x0
   - x3连接到x7
   - x3连接到x2
   - x8连接到x6
-  - x7靠近x2
-  - x3成立于x7
+  - x7的附近x2
+  - x3对其成立x7
   - x8连接到x0
-  - x3成立于x2
-  - x3成立于x6
-  - x6靠近x3
-代价模型如下：成本：atom、1和plus_one_per_argument；基线：60。
-压缩效果最好的谓词是哪一个？
+  - x3对其成立x2
+  - x3对其成立x6
+  - x6的附近x3
+代价模型如下：的成本是：atom、1和plus_one_per_argument；基线：60。
+most_compressive_predicate什么？
 
-请从以下选项中选出恰好一个作答：普敦 | 普维姆 | 普科尔 | 普塞尔
-只回答答案本身。</pre><h3>english_synonym</h3><pre>The candidates are: define: p_vim, X head Y and (X links Y, Y feeds X); define: p_dun, X head Y and (X feeds Y, X holds of Y); define: p_kor, X head Y and (X next to Y, Y feeds X); define: p_sel, X head Y and (X holds of Y, Y next to X).
-The corpus:
+请从以下选项中选择一个作答：普敦 | 普维姆 | 普科尔 | 普塞尔
+只回答答案本身。</pre><h3>turkish</h3><pre>Adaylar: define: p_vim, X Y head ve X Y links ve Y X besler; define: p_dun, X Y head ve X Y besler ve X Y geçerlidir; define: p_kor, X Y head ve X Y yakınında ve Y X besler; define: p_sel, X Y head ve X Y geçerlidir ve Y X yakınında.
+Corpus:
+  - x6 x8 yakınında
+  - x2 x7 yakınında
+  - x0 x8 besler
+  - x8 x0 yakınında
+  - x3 x6 besler
+  - x8 x6 besler
+  - x7 x2 besler
+  - x6 x0 geçerlidir
+  - x3 x6 links
+  - x2 x7 besler
+  - x2 x0 geçerlidir
+  - x3 x7 links
+  - x3 x2 links
+  - x8 x6 links
+  - x7 x2 yakınında
+  - x3 x7 geçerlidir
+  - x8 x0 links
+  - x3 x2 geçerlidir
+  - x3 x6 geçerlidir
+  - x6 x3 yakınında
+Cost model: maliyet: atom, 1 ve plus_one_per_argument; baseline: 60.
+Most_compressive_predicate ne?
+
+Tam olarak şu seçeneklerden biriyle yanıtla: p_dun | p_vim | p_kor | p_sel
+Sadece yanıtı yaz.</pre><h3>swahili</h3><pre>Wagombea ni: define: p_vim, X head Y na X links Y na Y feed X; define: p_dun, X head Y na X feed Y na X hold Y; define: p_kor, X head Y na X near Y na Y feed X; define: p_sel, X head Y na X hold Y na Y near X.
+Corpus:
+  - x6 near x8
+  - x2 near x7
+  - x0 feed x8
+  - x8 near x0
+  - x3 feed x6
+  - x8 feed x6
+  - x7 feed x2
+  - x6 hold x0
+  - x3 links x6
+  - x2 feed x7
+  - x2 hold x0
+  - x3 links x7
+  - x3 links x2
+  - x8 links x6
+  - x7 near x2
+  - x3 hold x7
+  - x8 links x0
+  - x3 hold x2
+  - x3 hold x6
+  - x6 near x3
+Cost model: gharimu: atom, 1 na plus_one_per_argument; baseline: 60.
+Most_compressive_predicate nini?
+
+Jibu kwa kuchagua moja tu kati ya haya: p_dun | p_vim | p_kor | p_sel
+Andika jibu pekee.</pre><h3>english_synonym</h3><pre>The candidates are: define: p_vim, X head Y and X links Y and Y feeds X; define: p_dun, X head Y and X feeds Y and X holds of Y; define: p_kor, X head Y and X next to Y and Y feeds X; define: p_sel, X head Y and X holds of Y and Y next to X.
+Corpus:
   - x6 next to x8
   - x2 next to x7
   - x0 feeds x8
@@ -136,8 +188,8 @@ The corpus:
   - x3 holds of x2
   - x3 holds of x6
   - x6 next to x3
-Costs: 1 on atom costs plus_one_per_argument and baseline 60.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 60.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_vim | p_kor | p_sel
 Reply with the answer only.</pre><h3>symbols</h3><pre>{candidates: [(define p_vim (head X Y) [(links X Y) (feeds Y X)]) (define p_dun (head X Y) [(feeds X Y) (holds X Y)]) (define p_kor (head X Y) [(near X Y) (feeds Y X)]) (define p_sel (head X Y) [(holds X Y) (near Y X)])], corpus: [(near x6 x8) (near x2 x7) (feeds x0 x8) (near x8 x0) (feeds x3 x6) (feeds x8 x6) (feeds x7 x2) (holds x6 x0) (links x3 x6) (feeds x2 x7) (holds x2 x0) (links x3 x7) (links x3 x2) (links x8 x6) (near x7 x2) (holds x3 x7) (links x8 x0) (holds x3 x2) (holds x3 x6) (near x6 x3)], cost_model: [(cost atom 1 plus_one_per_argument) (baseline 60)], query: most_compressive_predicate}
@@ -145,13 +197,13 @@ Reply with the answer only.</pre><h3>symbols</h3><pre>{candidates: [(define p_vi
 Answer with exactly one of: p_dun | p_vim | p_kor | p_sel
 Reply with the answer only.</pre>
 <h2>Samples</h2>
-<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/representation_invention.jsonl</code> &middot; <code>data/samples/spanish/representation_invention.jsonl</code> &middot; <code>data/samples/chinese/representation_invention.jsonl</code> &middot; <code>data/samples/english_synonym/representation_invention.jsonl</code> &middot; <code>data/samples/symbols/representation_invention.jsonl</code></p>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/representation_invention.jsonl</code> &middot; <code>data/samples/spanish/representation_invention.jsonl</code> &middot; <code>data/samples/chinese/representation_invention.jsonl</code> &middot; <code>data/samples/turkish/representation_invention.jsonl</code> &middot; <code>data/samples/swahili/representation_invention.jsonl</code> &middot; <code>data/samples/english_synonym/representation_invention.jsonl</code> &middot; <code>data/samples/symbols/representation_invention.jsonl</code></p>
 <details class="sample">
 <summary><span class="seed">seed 0</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X links Y, Y feeds X); define: p_dun, X head Y and (X feeds Y, X holds of Y); define: p_kor, X head Y and (X next to Y, Y feeds X); define: p_sel, X head Y and (X holds of Y, Y next to X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X links Y and Y feeds X; define: p_dun, X head Y and X feeds Y and X holds of Y; define: p_kor, X head Y and X next to Y and Y feeds X; define: p_sel, X head Y and X holds of Y and Y next to X.
+Corpus:
   - x6 next to x8
   - x2 next to x7
   - x0 feeds x8
@@ -172,8 +224,8 @@ The corpus:
   - x3 holds of x2
   - x3 holds of x6
   - x6 next to x3
-Costs: 1 on atom costs plus_one_per_argument and baseline 60.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 60.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_vim | p_kor | p_sel
 Reply with the answer only.</pre>
@@ -198,8 +250,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 1</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X next to Y, Y links X); define: p_sel, X head Y and (X binds Y, Y next to X); define: p_kor, X head Y and (X binds Y, Y feeds X); define: p_dun, X head Y and (X next to Y, X binds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X next to Y and Y links X; define: p_sel, X head Y and X binds Y and Y next to X; define: p_kor, X head Y and X binds Y and Y feeds X; define: p_dun, X head Y and X next to Y and X binds Y.
+Corpus:
   - x6 links x5
   - x6 feeds x5
   - x2 binds x1
@@ -232,8 +284,8 @@ The corpus:
   - x0 next to x5
   - x5 feeds x6
   - x0 binds x2
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_sel | p_vim | p_kor
 Reply with the answer only.</pre>
@@ -258,8 +310,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 2</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X holds of Y, Y next to X); define: p_sel, X head Y and (X binds Y, Y next to X); define: p_dun, X head Y and (X binds Y, X links Y); define: p_vim, X head Y and (X binds Y, Y holds of X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X holds of Y and Y next to X; define: p_sel, X head Y and X binds Y and Y next to X; define: p_dun, X head Y and X binds Y and X links Y; define: p_vim, X head Y and X binds Y and Y holds of X.
+Corpus:
   - x8 binds x5
   - x0 binds x5
   - x1 binds x0
@@ -288,8 +340,8 @@ The corpus:
   - x7 next to x2
   - x2 links x1
   - x1 links x0
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_vim | p_sel | p_kor
 Reply with the answer only.</pre>
@@ -314,8 +366,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 3</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X links Y, X next to Y); define: p_vim, X head Y and (X next to Y, X holds of Y); define: p_kor, X head Y and (X next to Y, Y binds X); define: p_sel, X head Y and (X links Y, X holds of Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X links Y and X next to Y; define: p_vim, X head Y and X next to Y and X holds of Y; define: p_kor, X head Y and X next to Y and Y binds X; define: p_sel, X head Y and X links Y and X holds of Y.
+Corpus:
   - x2 binds x3
   - x2 next to x0
   - x0 next to x4
@@ -344,8 +396,8 @@ The corpus:
   - x4 links x0
   - x8 holds of x0
   - x7 links x4
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_sel | p_dun | p_vim
 Reply with the answer only.</pre>
@@ -370,8 +422,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 4</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X feeds Y, X holds of Y); define: p_kor, X head Y and (X feeds Y, X next to Y); define: p_sel, X head Y and (X holds of Y, Y links X); define: p_vim, X head Y and (X links Y, Y feeds X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X feeds Y and X holds of Y; define: p_kor, X head Y and X feeds Y and X next to Y; define: p_sel, X head Y and X holds of Y and Y links X; define: p_vim, X head Y and X links Y and Y feeds X.
+Corpus:
   - x5 holds of x4
   - x0 next to x3
   - x7 feeds x0
@@ -404,8 +456,8 @@ The corpus:
   - x0 holds of x8
   - x7 links x3
   - x4 next to x7
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_vim | p_sel | p_dun
 Reply with the answer only.</pre>
@@ -430,8 +482,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 5</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X holds of Y, Y feeds X); define: p_vim, X head Y and (X feeds Y, X links Y); define: p_kor, X head Y and (X next to Y, Y feeds X); define: p_sel, X head Y and (X next to Y, X holds of Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X holds of Y and Y feeds X; define: p_vim, X head Y and X feeds Y and X links Y; define: p_kor, X head Y and X next to Y and Y feeds X; define: p_sel, X head Y and X next to Y and X holds of Y.
+Corpus:
   - x6 links x7
   - x6 next to x5
   - x4 next to x7
@@ -464,8 +516,8 @@ The corpus:
   - x4 holds of x0
   - x0 feeds x7
   - x8 links x4
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_dun | p_kor | p_vim
 Reply with the answer only.</pre>
@@ -490,8 +542,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 6</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X holds of Y, Y binds X); define: p_dun, X head Y and (X binds Y, Y holds of X); define: p_vim, X head Y and (X holds of Y, Y feeds X); define: p_sel, X head Y and (X links Y, Y holds of X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X holds of Y and Y binds X; define: p_dun, X head Y and X binds Y and Y holds of X; define: p_vim, X head Y and X holds of Y and Y feeds X; define: p_sel, X head Y and X links Y and Y holds of X.
+Corpus:
   - x0 links x6
   - x1 binds x2
   - x0 holds of x1
@@ -520,8 +572,8 @@ The corpus:
   - x7 binds x6
   - x1 links x0
   - x2 feeds x7
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_dun | p_sel | p_vim
 Reply with the answer only.</pre>
@@ -546,8 +598,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 7</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X next to Y, Y binds X); define: p_sel, X head Y and (X feeds Y, X next to Y); define: p_dun, X head Y and (X binds Y, X holds of Y); define: p_kor, X head Y and (X next to Y, X binds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X next to Y and Y binds X; define: p_sel, X head Y and X feeds Y and X next to Y; define: p_dun, X head Y and X binds Y and X holds of Y; define: p_kor, X head Y and X next to Y and X binds Y.
+Corpus:
   - x8 holds of x4
   - x8 next to x0
   - x8 holds of x3
@@ -584,8 +636,8 @@ The corpus:
   - x8 next to x3
   - x3 feeds x0
   - x8 feeds x0
-Costs: 1 on atom costs plus_one_per_argument and baseline 108.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 108.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_kor | p_vim | p_dun
 Reply with the answer only.</pre>
@@ -610,8 +662,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 8</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X holds of Y, X binds Y); define: p_sel, X head Y and (X links Y, Y holds of X); define: p_dun, X head Y and (X binds Y, Y links X); define: p_vim, X head Y and (X feeds Y, X holds of Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X holds of Y and X binds Y; define: p_sel, X head Y and X links Y and Y holds of X; define: p_dun, X head Y and X binds Y and Y links X; define: p_vim, X head Y and X feeds Y and X holds of Y.
+Corpus:
   - x0 holds of x8
   - x4 binds x8
   - x4 feeds x8
@@ -648,8 +700,8 @@ The corpus:
   - x3 holds of x4
   - x5 holds of x1
   - x0 binds x1
-Costs: 1 on atom costs plus_one_per_argument and baseline 108.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 108.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_vim | p_kor | p_dun
 Reply with the answer only.</pre>
@@ -674,8 +726,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 9</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X next to Y, X links Y); define: p_kor, X head Y and (X feeds Y, X links Y); define: p_sel, X head Y and (X next to Y, Y links X); define: p_dun, X head Y and (X binds Y, X next to Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X next to Y and X links Y; define: p_kor, X head Y and X feeds Y and X links Y; define: p_sel, X head Y and X next to Y and Y links X; define: p_dun, X head Y and X binds Y and X next to Y.
+Corpus:
   - x0 next to x7
   - x1 links x0
   - x0 links x8
@@ -708,8 +760,8 @@ The corpus:
   - x8 binds x2
   - x0 binds x1
   - x0 feeds x1
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_dun | p_kor | p_vim
 Reply with the answer only.</pre>
@@ -734,8 +786,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 10</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X holds of Y, X binds Y); define: p_sel, X head Y and (X feeds Y, X holds of Y); define: p_vim, X head Y and (X binds Y, Y feeds X); define: p_kor, X head Y and (X next to Y, X feeds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X holds of Y and X binds Y; define: p_sel, X head Y and X feeds Y and X holds of Y; define: p_vim, X head Y and X binds Y and Y feeds X; define: p_kor, X head Y and X next to Y and X feeds Y.
+Corpus:
   - x7 next to x8
   - x0 feeds x3
   - x7 holds of x3
@@ -760,8 +812,8 @@ The corpus:
   - x3 feeds x8
   - x3 binds x0
   - x3 feeds x0
-Costs: 1 on atom costs plus_one_per_argument and baseline 72.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 72.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_dun | p_sel | p_kor
 Reply with the answer only.</pre>
@@ -786,8 +838,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 11</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and (X holds of Y, X links Y); define: p_dun, X head Y and (X holds of Y, Y feeds X); define: p_vim, X head Y and (X feeds Y, X holds of Y); define: p_kor, X head Y and (X next to Y, X feeds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and X holds of Y and X links Y; define: p_dun, X head Y and X holds of Y and Y feeds X; define: p_vim, X head Y and X feeds Y and X holds of Y; define: p_kor, X head Y and X next to Y and X feeds Y.
+Corpus:
   - x1 feeds x4
   - x4 links x7
   - x5 holds of x1
@@ -812,8 +864,8 @@ The corpus:
   - x1 next to x5
   - x1 feeds x5
   - x1 feeds x3
-Costs: 1 on atom costs plus_one_per_argument and baseline 72.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 72.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_dun | p_vim | p_kor
 Reply with the answer only.</pre>
@@ -838,8 +890,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 12</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X holds of Y, Y links X); define: p_sel, X head Y and (X next to Y, X links Y); define: p_kor, X head Y and (X next to Y, X holds of Y); define: p_dun, X head Y and (X next to Y, Y links X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X holds of Y and Y links X; define: p_sel, X head Y and X next to Y and X links Y; define: p_kor, X head Y and X next to Y and X holds of Y; define: p_dun, X head Y and X next to Y and Y links X.
+Corpus:
   - x5 holds of x8
   - x5 feeds x2
   - x2 next to x4
@@ -860,8 +912,8 @@ The corpus:
   - x1 holds of x4
   - x5 next to x8
   - x1 feeds x4
-Costs: 1 on atom costs plus_one_per_argument and baseline 60.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 60.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_kor | p_vim | p_dun
 Reply with the answer only.</pre>
@@ -886,8 +938,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 13</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X binds Y, X holds of Y); define: p_dun, X head Y and (X links Y, Y holds of X); define: p_kor, X head Y and (X binds Y, X links Y); define: p_sel, X head Y and (X links Y, X holds of Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X binds Y and X holds of Y; define: p_dun, X head Y and X links Y and Y holds of X; define: p_kor, X head Y and X binds Y and X links Y; define: p_sel, X head Y and X links Y and X holds of Y.
+Corpus:
   - x5 holds of x8
   - x6 holds of x7
   - x7 links x5
@@ -916,8 +968,8 @@ The corpus:
   - x5 holds of x7
   - x7 holds of x4
   - x1 links x6
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_dun | p_vim | p_kor
 Reply with the answer only.</pre>
@@ -942,8 +994,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 14</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X links Y, X feeds Y); define: p_dun, X head Y and (X holds of Y, Y feeds X); define: p_sel, X head Y and (X holds of Y, Y next to X); define: p_vim, X head Y and (X feeds Y, Y next to X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X links Y and X feeds Y; define: p_dun, X head Y and X holds of Y and Y feeds X; define: p_sel, X head Y and X holds of Y and Y next to X; define: p_vim, X head Y and X feeds Y and Y next to X.
+Corpus:
   - x6 holds of x5
   - x5 holds of x3
   - x1 links x6
@@ -968,8 +1020,8 @@ The corpus:
   - x2 links x5
   - x1 holds of x5
   - x2 next to x3
-Costs: 1 on atom costs plus_one_per_argument and baseline 72.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 72.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_kor | p_dun | p_vim
 Reply with the answer only.</pre>
@@ -994,8 +1046,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 15</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X feeds Y, X next to Y); define: p_sel, X head Y and (X feeds Y, Y next to X); define: p_vim, X head Y and (X feeds Y, X holds of Y); define: p_dun, X head Y and (X feeds Y, Y links X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X feeds Y and X next to Y; define: p_sel, X head Y and X feeds Y and Y next to X; define: p_vim, X head Y and X feeds Y and X holds of Y; define: p_dun, X head Y and X feeds Y and Y links X.
+Corpus:
   - x1 feeds x3
   - x4 links x5
   - x0 holds of x4
@@ -1020,8 +1072,8 @@ The corpus:
   - x3 feeds x5
   - x0 links x1
   - x4 feeds x1
-Costs: 1 on atom costs plus_one_per_argument and baseline 72.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 72.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_kor | p_vim | p_dun
 Reply with the answer only.</pre>
@@ -1046,8 +1098,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 16</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X holds of Y, X links Y); define: p_sel, X head Y and (X next to Y, X holds of Y); define: p_dun, X head Y and (X holds of Y, X feeds Y); define: p_vim, X head Y and (X feeds Y, Y next to X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X holds of Y and X links Y; define: p_sel, X head Y and X next to Y and X holds of Y; define: p_dun, X head Y and X holds of Y and X feeds Y; define: p_vim, X head Y and X feeds Y and Y next to X.
+Corpus:
   - x2 holds of x1
   - x1 holds of x5
   - x2 feeds x7
@@ -1080,8 +1132,8 @@ The corpus:
   - x6 holds of x5
   - x3 holds of x1
   - x3 links x6
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_dun | p_kor | p_sel
 Reply with the answer only.</pre>
@@ -1106,8 +1158,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 17</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X next to Y, Y feeds X); define: p_kor, X head Y and (X feeds Y, X holds of Y); define: p_sel, X head Y and (X links Y, Y feeds X); define: p_vim, X head Y and (X links Y, X holds of Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X next to Y and Y feeds X; define: p_kor, X head Y and X feeds Y and X holds of Y; define: p_sel, X head Y and X links Y and Y feeds X; define: p_vim, X head Y and X links Y and X holds of Y.
+Corpus:
   - x7 holds of x6
   - x8 feeds x2
   - x7 holds of x5
@@ -1144,8 +1196,8 @@ The corpus:
   - x7 feeds x5
   - x8 holds of x2
   - x7 feeds x2
-Costs: 1 on atom costs plus_one_per_argument and baseline 108.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 108.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_kor | p_dun | p_vim
 Reply with the answer only.</pre>
@@ -1170,8 +1222,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 18</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X binds Y, X feeds Y); define: p_dun, X head Y and (X links Y, X binds Y); define: p_vim, X head Y and (X feeds Y, X holds of Y); define: p_sel, X head Y and (X feeds Y, Y binds X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X binds Y and X feeds Y; define: p_dun, X head Y and X links Y and X binds Y; define: p_vim, X head Y and X feeds Y and X holds of Y; define: p_sel, X head Y and X feeds Y and Y binds X.
+Corpus:
   - x3 feeds x1
   - x3 holds of x1
   - x3 holds of x7
@@ -1204,8 +1256,8 @@ The corpus:
   - x3 holds of x8
   - x7 binds x5
   - x7 feeds x2
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_dun | p_kor | p_vim
 Reply with the answer only.</pre>
@@ -1230,8 +1282,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 19</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X holds of Y, Y next to X); define: p_kor, X head Y and (X feeds Y, Y next to X); define: p_dun, X head Y and (X links Y, Y feeds X); define: p_sel, X head Y and (X holds of Y, Y feeds X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X holds of Y and Y next to X; define: p_kor, X head Y and X feeds Y and Y next to X; define: p_dun, X head Y and X links Y and Y feeds X; define: p_sel, X head Y and X holds of Y and Y feeds X.
+Corpus:
   - x3 holds of x0
   - x8 links x0
   - x6 holds of x8
@@ -1260,8 +1312,8 @@ The corpus:
   - x6 feeds x5
   - x8 next to x0
   - x6 feeds x3
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_vim | p_dun | p_kor
 Reply with the answer only.</pre>
@@ -1286,8 +1338,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 20</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X feeds Y, X holds of Y); define: p_dun, X head Y and (X feeds Y, X binds Y); define: p_vim, X head Y and (X holds of Y, Y feeds X); define: p_sel, X head Y and (X next to Y, X holds of Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X feeds Y and X holds of Y; define: p_dun, X head Y and X feeds Y and X binds Y; define: p_vim, X head Y and X holds of Y and Y feeds X; define: p_sel, X head Y and X next to Y and X holds of Y.
+Corpus:
   - x2 feeds x6
   - x2 binds x6
   - x8 next to x2
@@ -1320,8 +1372,8 @@ The corpus:
   - x4 binds x6
   - x4 next to x8
   - x4 next to x2
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_sel | p_dun | p_vim
 Reply with the answer only.</pre>
@@ -1346,8 +1398,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 21</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X feeds Y, X holds of Y); define: p_vim, X head Y and (X feeds Y, X links Y); define: p_kor, X head Y and (X holds of Y, X next to Y); define: p_sel, X head Y and (X links Y, Y next to X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X feeds Y and X holds of Y; define: p_vim, X head Y and X feeds Y and X links Y; define: p_kor, X head Y and X holds of Y and X next to Y; define: p_sel, X head Y and X links Y and Y next to X.
+Corpus:
   - x2 feeds x6
   - x5 links x6
   - x2 feeds x5
@@ -1376,8 +1428,8 @@ The corpus:
   - x7 next to x5
   - x2 next to x5
   - x5 feeds x7
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_vim | p_sel | p_dun
 Reply with the answer only.</pre>
@@ -1402,8 +1454,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 22</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and (X binds Y, Y links X); define: p_dun, X head Y and (X binds Y, Y next to X); define: p_vim, X head Y and (X next to Y, X binds Y); define: p_kor, X head Y and (X links Y, Y binds X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and X binds Y and Y links X; define: p_dun, X head Y and X binds Y and Y next to X; define: p_vim, X head Y and X next to Y and X binds Y; define: p_kor, X head Y and X links Y and Y binds X.
+Corpus:
   - x4 binds x7
   - x0 feeds x7
   - x3 next to x2
@@ -1440,8 +1492,8 @@ The corpus:
   - x4 next to x7
   - x7 next to x0
   - x0 links x4
-Costs: 1 on atom costs plus_one_per_argument and baseline 108.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 108.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_vim | p_sel | p_dun
 Reply with the answer only.</pre>
@@ -1466,8 +1518,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 23</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and (X feeds Y, X binds Y); define: p_kor, X head Y and (X links Y, Y next to X); define: p_vim, X head Y and (X binds Y, X links Y); define: p_dun, X head Y and (X next to Y, X links Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and X feeds Y and X binds Y; define: p_kor, X head Y and X links Y and Y next to X; define: p_vim, X head Y and X binds Y and X links Y; define: p_dun, X head Y and X next to Y and X links Y.
+Corpus:
   - x8 links x2
   - x3 links x4
   - x3 next to x4
@@ -1504,8 +1556,8 @@ The corpus:
   - x0 next to x1
   - x8 binds x0
   - x3 binds x4
-Costs: 1 on atom costs plus_one_per_argument and baseline 108.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 108.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_sel | p_dun | p_vim
 Reply with the answer only.</pre>
@@ -1530,8 +1582,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 24</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and (X links Y, X holds of Y); define: p_kor, X head Y and (X next to Y, Y holds of X); define: p_dun, X head Y and (X next to Y, X feeds Y); define: p_vim, X head Y and (X feeds Y, Y links X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and X links Y and X holds of Y; define: p_kor, X head Y and X next to Y and Y holds of X; define: p_dun, X head Y and X next to Y and X feeds Y; define: p_vim, X head Y and X feeds Y and Y links X.
+Corpus:
   - x5 next to x6
   - x1 feeds x2
   - x1 next to x6
@@ -1560,8 +1612,8 @@ The corpus:
   - x5 links x2
   - x4 feeds x2
   - x8 feeds x6
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_vim | p_dun | p_sel
 Reply with the answer only.</pre>
@@ -1586,8 +1638,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 25</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X links Y, X holds of Y); define: p_vim, X head Y and (X next to Y, Y holds of X); define: p_sel, X head Y and (X binds Y, X holds of Y); define: p_dun, X head Y and (X links Y, Y holds of X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X links Y and X holds of Y; define: p_vim, X head Y and X next to Y and Y holds of X; define: p_sel, X head Y and X binds Y and X holds of Y; define: p_dun, X head Y and X links Y and Y holds of X.
+Corpus:
   - x0 binds x6
   - x0 links x6
   - x7 next to x6
@@ -1620,8 +1672,8 @@ The corpus:
   - x7 binds x1
   - x6 holds of x2
   - x0 binds x7
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_sel | p_vim | p_dun
 Reply with the answer only.</pre>
@@ -1646,8 +1698,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 26</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X feeds Y, Y next to X); define: p_kor, X head Y and (X feeds Y, X next to Y); define: p_vim, X head Y and (X links Y, Y holds of X); define: p_sel, X head Y and (X feeds Y, X holds of Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X feeds Y and Y next to X; define: p_kor, X head Y and X feeds Y and X next to Y; define: p_vim, X head Y and X links Y and Y holds of X; define: p_sel, X head Y and X feeds Y and X holds of Y.
+Corpus:
   - x7 feeds x5
   - x4 next to x7
   - x0 holds of x8
@@ -1668,8 +1720,8 @@ The corpus:
   - x4 holds of x5
   - x7 holds of x4
   - x4 feeds x7
-Costs: 1 on atom costs plus_one_per_argument and baseline 60.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 60.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_sel | p_kor | p_vim
 Reply with the answer only.</pre>
@@ -1694,8 +1746,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 27</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X feeds Y, X holds of Y); define: p_sel, X head Y and (X feeds Y, X links Y); define: p_vim, X head Y and (X binds Y, X feeds Y); define: p_kor, X head Y and (X links Y, Y holds of X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X feeds Y and X holds of Y; define: p_sel, X head Y and X feeds Y and X links Y; define: p_vim, X head Y and X binds Y and X feeds Y; define: p_kor, X head Y and X links Y and Y holds of X.
+Corpus:
   - x7 links x8
   - x1 feeds x7
   - x2 binds x8
@@ -1728,8 +1780,8 @@ The corpus:
   - x0 feeds x8
   - x1 binds x4
   - x1 links x7
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_dun | p_vim | p_kor
 Reply with the answer only.</pre>
@@ -1754,8 +1806,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 28</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X holds of Y, Y feeds X); define: p_sel, X head Y and (X binds Y, Y feeds X); define: p_vim, X head Y and (X holds of Y, X feeds Y); define: p_kor, X head Y and (X links Y, X binds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X holds of Y and Y feeds X; define: p_sel, X head Y and X binds Y and Y feeds X; define: p_vim, X head Y and X holds of Y and X feeds Y; define: p_kor, X head Y and X links Y and X binds Y.
+Corpus:
   - x0 binds x1
   - x3 links x6
   - x3 binds x0
@@ -1780,8 +1832,8 @@ The corpus:
   - x0 feeds x1
   - x3 binds x6
   - x1 binds x0
-Costs: 1 on atom costs plus_one_per_argument and baseline 72.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 72.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_dun | p_vim | p_sel
 Reply with the answer only.</pre>
@@ -1806,8 +1858,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 29</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and (X holds of Y, Y next to X); define: p_vim, X head Y and (X feeds Y, X holds of Y); define: p_dun, X head Y and (X next to Y, X feeds Y); define: p_kor, X head Y and (X holds of Y, Y feeds X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and X holds of Y and Y next to X; define: p_vim, X head Y and X feeds Y and X holds of Y; define: p_dun, X head Y and X next to Y and X feeds Y; define: p_kor, X head Y and X holds of Y and Y feeds X.
+Corpus:
   - x1 feeds x6
   - x6 links x1
   - x5 holds of x2
@@ -1836,8 +1888,8 @@ The corpus:
   - x4 holds of x1
   - x6 feeds x2
   - x6 next to x8
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_sel | p_kor | p_dun
 Reply with the answer only.</pre>
@@ -1862,8 +1914,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 30</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X next to Y, Y links X); define: p_sel, X head Y and (X links Y, X binds Y); define: p_dun, X head Y and (X binds Y, Y holds of X); define: p_vim, X head Y and (X links Y, X holds of Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X next to Y and Y links X; define: p_sel, X head Y and X links Y and X binds Y; define: p_dun, X head Y and X binds Y and Y holds of X; define: p_vim, X head Y and X links Y and X holds of Y.
+Corpus:
   - x4 next to x0
   - x0 links x4
   - x0 holds of x4
@@ -1896,8 +1948,8 @@ The corpus:
   - x6 links x0
   - x0 links x1
   - x4 holds of x1
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_vim | p_sel | p_dun
 Reply with the answer only.</pre>
@@ -1922,8 +1974,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 31</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X feeds Y, Y links X); define: p_vim, X head Y and (X next to Y, X links Y); define: p_sel, X head Y and (X next to Y, X holds of Y); define: p_dun, X head Y and (X holds of Y, X feeds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X feeds Y and Y links X; define: p_vim, X head Y and X next to Y and X links Y; define: p_sel, X head Y and X next to Y and X holds of Y; define: p_dun, X head Y and X holds of Y and X feeds Y.
+Corpus:
   - x6 links x3
   - x7 links x3
   - x0 feeds x3
@@ -1948,8 +2000,8 @@ The corpus:
   - x0 holds of x6
   - x8 holds of x7
   - x8 next to x7
-Costs: 1 on atom costs plus_one_per_argument and baseline 72.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 72.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_dun | p_kor | p_sel
 Reply with the answer only.</pre>
@@ -1974,8 +2026,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 32</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X binds Y, X feeds Y); define: p_dun, X head Y and (X holds of Y, X feeds Y); define: p_kor, X head Y and (X feeds Y, Y next to X); define: p_sel, X head Y and (X feeds Y, X holds of Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X binds Y and X feeds Y; define: p_dun, X head Y and X holds of Y and X feeds Y; define: p_kor, X head Y and X feeds Y and Y next to X; define: p_sel, X head Y and X feeds Y and X holds of Y.
+Corpus:
   - x3 holds of x2
   - x7 next to x6
   - x8 next to x1
@@ -2008,8 +2060,8 @@ The corpus:
   - x8 feeds x1
   - x2 next to x6
   - x6 binds x2
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_sel | p_vim | p_dun
 Reply with the answer only.</pre>
@@ -2034,8 +2086,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 33</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X feeds Y, X links Y); define: p_dun, X head Y and (X holds of Y, Y binds X); define: p_sel, X head Y and (X feeds Y, Y links X); define: p_vim, X head Y and (X holds of Y, X links Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X feeds Y and X links Y; define: p_dun, X head Y and X holds of Y and Y binds X; define: p_sel, X head Y and X feeds Y and Y links X; define: p_vim, X head Y and X holds of Y and X links Y.
+Corpus:
   - x7 holds of x8
   - x2 links x8
   - x2 links x7
@@ -2060,8 +2112,8 @@ The corpus:
   - x6 feeds x3
   - x3 binds x6
   - x3 binds x2
-Costs: 1 on atom costs plus_one_per_argument and baseline 72.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 72.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_vim | p_sel | p_kor
 Reply with the answer only.</pre>
@@ -2086,8 +2138,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 34</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X binds Y, X feeds Y); define: p_dun, X head Y and (X feeds Y, Y links X); define: p_sel, X head Y and (X holds of Y, Y binds X); define: p_vim, X head Y and (X holds of Y, X binds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X binds Y and X feeds Y; define: p_dun, X head Y and X feeds Y and Y links X; define: p_sel, X head Y and X holds of Y and Y binds X; define: p_vim, X head Y and X holds of Y and X binds Y.
+Corpus:
   - x7 binds x2
   - x0 binds x6
   - x2 holds of x7
@@ -2124,8 +2176,8 @@ The corpus:
   - x8 feeds x3
   - x7 links x2
   - x8 binds x3
-Costs: 1 on atom costs plus_one_per_argument and baseline 108.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 108.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_dun | p_vim | p_kor
 Reply with the answer only.</pre>
@@ -2150,8 +2202,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 35</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X links Y, X feeds Y); define: p_kor, X head Y and (X links Y, Y next to X); define: p_dun, X head Y and (X holds of Y, X next to Y); define: p_sel, X head Y and (X holds of Y, Y next to X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X links Y and X feeds Y; define: p_kor, X head Y and X links Y and Y next to X; define: p_dun, X head Y and X holds of Y and X next to Y; define: p_sel, X head Y and X holds of Y and Y next to X.
+Corpus:
   - x6 feeds x8
   - x6 holds of x8
   - x7 links x2
@@ -2180,8 +2232,8 @@ The corpus:
   - x8 next to x6
   - x8 links x1
   - x5 next to x8
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_vim | p_dun | p_sel
 Reply with the answer only.</pre>
@@ -2206,8 +2258,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 36</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X holds of Y, Y binds X); define: p_vim, X head Y and (X binds Y, Y next to X); define: p_sel, X head Y and (X feeds Y, Y holds of X); define: p_dun, X head Y and (X feeds Y, Y binds X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X holds of Y and Y binds X; define: p_vim, X head Y and X binds Y and Y next to X; define: p_sel, X head Y and X feeds Y and Y holds of X; define: p_dun, X head Y and X feeds Y and Y binds X.
+Corpus:
   - x5 binds x0
   - x7 binds x0
   - x2 binds x4
@@ -2244,8 +2296,8 @@ The corpus:
   - x2 feeds x6
   - x2 feeds x5
   - x4 feeds x2
-Costs: 1 on atom costs plus_one_per_argument and baseline 108.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 108.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_kor | p_vim | p_sel
 Reply with the answer only.</pre>
@@ -2270,8 +2322,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 37</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X feeds Y, X links Y); define: p_sel, X head Y and (X holds of Y, X binds Y); define: p_dun, X head Y and (X holds of Y, Y links X); define: p_vim, X head Y and (X binds Y, X feeds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X feeds Y and X links Y; define: p_sel, X head Y and X holds of Y and X binds Y; define: p_dun, X head Y and X holds of Y and Y links X; define: p_vim, X head Y and X binds Y and X feeds Y.
+Corpus:
   - x0 links x5
   - x3 feeds x1
   - x7 links x0
@@ -2312,8 +2364,8 @@ The corpus:
   - x3 binds x1
   - x7 links x3
   - x3 holds of x5
-Costs: 1 on atom costs plus_one_per_argument and baseline 120.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 120.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_sel | p_vim | p_kor
 Reply with the answer only.</pre>
@@ -2338,8 +2390,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 38</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X links Y, X holds of Y); define: p_dun, X head Y and (X holds of Y, Y feeds X); define: p_sel, X head Y and (X feeds Y, Y binds X); define: p_vim, X head Y and (X binds Y, Y links X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X links Y and X holds of Y; define: p_dun, X head Y and X holds of Y and Y feeds X; define: p_sel, X head Y and X feeds Y and Y binds X; define: p_vim, X head Y and X binds Y and Y links X.
+Corpus:
   - x7 binds x3
   - x0 binds x4
   - x6 links x7
@@ -2368,8 +2420,8 @@ The corpus:
   - x0 binds x7
   - x6 links x0
   - x6 feeds x0
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_kor | p_dun | p_sel
 Reply with the answer only.</pre>
@@ -2394,8 +2446,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 39</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X binds Y, Y feeds X); define: p_vim, X head Y and (X links Y, X feeds Y); define: p_sel, X head Y and (X holds of Y, Y feeds X); define: p_dun, X head Y and (X holds of Y, X links Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X binds Y and Y feeds X; define: p_vim, X head Y and X links Y and X feeds Y; define: p_sel, X head Y and X holds of Y and Y feeds X; define: p_dun, X head Y and X holds of Y and X links Y.
+Corpus:
   - x3 links x5
   - x0 binds x3
   - x4 holds of x0
@@ -2428,8 +2480,8 @@ The corpus:
   - x0 links x4
   - x3 links x1
   - x4 feeds x3
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_sel | p_kor | p_vim
 Reply with the answer only.</pre>
@@ -2454,8 +2506,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 40</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X next to Y, Y feeds X); define: p_vim, X head Y and (X holds of Y, X binds Y); define: p_sel, X head Y and (X binds Y, Y feeds X); define: p_dun, X head Y and (X binds Y, X feeds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X next to Y and Y feeds X; define: p_vim, X head Y and X holds of Y and X binds Y; define: p_sel, X head Y and X binds Y and Y feeds X; define: p_dun, X head Y and X binds Y and X feeds Y.
+Corpus:
   - x7 binds x1
   - x2 next to x8
   - x8 binds x7
@@ -2488,8 +2540,8 @@ The corpus:
   - x5 feeds x7
   - x5 feeds x2
   - x2 holds of x4
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_sel | p_dun | p_kor
 Reply with the answer only.</pre>
@@ -2514,8 +2566,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 41</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and (X next to Y, X binds Y); define: p_kor, X head Y and (X binds Y, X next to Y); define: p_vim, X head Y and (X holds of Y, Y binds X); define: p_dun, X head Y and (X links Y, X holds of Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and X next to Y and X binds Y; define: p_kor, X head Y and X binds Y and X next to Y; define: p_vim, X head Y and X holds of Y and Y binds X; define: p_dun, X head Y and X links Y and X holds of Y.
+Corpus:
   - x1 links x5
   - x3 holds of x8
   - x6 holds of x2
@@ -2544,8 +2596,8 @@ The corpus:
   - x1 next to x3
   - x5 binds x6
   - x5 binds x8
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_kor | p_vim | p_dun
 Reply with the answer only.</pre>
@@ -2570,8 +2622,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 42</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X feeds Y, Y links X); define: p_dun, X head Y and (X next to Y, Y links X); define: p_kor, X head Y and (X links Y, X feeds Y); define: p_sel, X head Y and (X binds Y, Y next to X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X feeds Y and Y links X; define: p_dun, X head Y and X next to Y and Y links X; define: p_kor, X head Y and X links Y and X feeds Y; define: p_sel, X head Y and X binds Y and Y next to X.
+Corpus:
   - x1 next to x3
   - x1 links x6
   - x3 feeds x8
@@ -2604,8 +2656,8 @@ The corpus:
   - x6 links x8
   - x8 binds x5
   - x0 feeds x5
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_vim | p_dun | p_kor
 Reply with the answer only.</pre>
@@ -2630,8 +2682,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 43</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X next to Y, Y links X); define: p_dun, X head Y and (X next to Y, Y holds of X); define: p_sel, X head Y and (X holds of Y, X next to Y); define: p_vim, X head Y and (X links Y, Y holds of X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X next to Y and Y links X; define: p_dun, X head Y and X next to Y and Y holds of X; define: p_sel, X head Y and X holds of Y and X next to Y; define: p_vim, X head Y and X links Y and Y holds of X.
+Corpus:
   - x4 next to x0
   - x2 holds of x5
   - x2 links x4
@@ -2664,8 +2716,8 @@ The corpus:
   - x5 next to x1
   - x0 links x1
   - x2 links x5
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_vim | p_sel | p_kor
 Reply with the answer only.</pre>
@@ -2690,8 +2742,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 44</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X links Y, Y binds X); define: p_sel, X head Y and (X binds Y, X holds of Y); define: p_dun, X head Y and (X next to Y, X binds Y); define: p_vim, X head Y and (X next to Y, Y links X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X links Y and Y binds X; define: p_sel, X head Y and X binds Y and X holds of Y; define: p_dun, X head Y and X next to Y and X binds Y; define: p_vim, X head Y and X next to Y and Y links X.
+Corpus:
   - x3 binds x6
   - x6 next to x7
   - x8 holds of x2
@@ -2724,8 +2776,8 @@ The corpus:
   - x8 next to x7
   - x8 holds of x7
   - x8 holds of x6
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_kor | p_sel | p_vim
 Reply with the answer only.</pre>
@@ -2750,8 +2802,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 45</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X next to Y, Y links X); define: p_dun, X head Y and (X links Y, Y holds of X); define: p_vim, X head Y and (X links Y, X next to Y); define: p_sel, X head Y and (X links Y, Y feeds X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X next to Y and Y links X; define: p_dun, X head Y and X links Y and Y holds of X; define: p_vim, X head Y and X links Y and X next to Y; define: p_sel, X head Y and X links Y and Y feeds X.
+Corpus:
   - x0 holds of x3
   - x4 links x6
   - x5 feeds x4
@@ -2784,8 +2836,8 @@ The corpus:
   - x3 holds of x0
   - x0 next to x6
   - x0 next to x2
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_dun | p_vim | p_kor
 Reply with the answer only.</pre>
@@ -2810,8 +2862,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 46</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and (X links Y, Y next to X); define: p_kor, X head Y and (X binds Y, Y holds of X); define: p_vim, X head Y and (X binds Y, Y next to X); define: p_dun, X head Y and (X binds Y, X next to Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and X links Y and Y next to X; define: p_kor, X head Y and X binds Y and Y holds of X; define: p_vim, X head Y and X binds Y and Y next to X; define: p_dun, X head Y and X binds Y and X next to Y.
+Corpus:
   - x4 holds of x8
   - x5 binds x0
   - x1 holds of x5
@@ -2844,8 +2896,8 @@ The corpus:
   - x0 next to x4
   - x1 binds x8
   - x5 links x8
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_dun | p_kor | p_vim
 Reply with the answer only.</pre>
@@ -2870,8 +2922,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 47</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X links Y, Y next to X); define: p_kor, X head Y and (X holds of Y, Y next to X); define: p_dun, X head Y and (X next to Y, X holds of Y); define: p_sel, X head Y and (X feeds Y, Y links X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X links Y and Y next to X; define: p_kor, X head Y and X holds of Y and Y next to X; define: p_dun, X head Y and X next to Y and X holds of Y; define: p_sel, X head Y and X feeds Y and Y links X.
+Corpus:
   - x2 feeds x5
   - x1 feeds x6
   - x3 links x4
@@ -2900,8 +2952,8 @@ The corpus:
   - x3 next to x5
   - x4 feeds x6
   - x3 next to x1
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_vim | p_sel | p_dun
 Reply with the answer only.</pre>
@@ -2926,8 +2978,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 48</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X feeds Y, X binds Y); define: p_kor, X head Y and (X holds of Y, X binds Y); define: p_sel, X head Y and (X feeds Y, X links Y); define: p_dun, X head Y and (X holds of Y, X links Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X feeds Y and X binds Y; define: p_kor, X head Y and X holds of Y and X binds Y; define: p_sel, X head Y and X feeds Y and X links Y; define: p_dun, X head Y and X holds of Y and X links Y.
+Corpus:
   - x8 holds of x2
   - x5 binds x8
   - x7 binds x5
@@ -2948,8 +3000,8 @@ The corpus:
   - x5 holds of x8
   - x4 feeds x7
   - x2 feeds x4
-Costs: 1 on atom costs plus_one_per_argument and baseline 60.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 60.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_dun | p_sel | p_kor
 Reply with the answer only.</pre>
@@ -2974,8 +3026,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 49</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X links Y, Y next to X); define: p_vim, X head Y and (X next to Y, X binds Y); define: p_sel, X head Y and (X binds Y, Y holds of X); define: p_dun, X head Y and (X holds of Y, X next to Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X links Y and Y next to X; define: p_vim, X head Y and X next to Y and X binds Y; define: p_sel, X head Y and X binds Y and Y holds of X; define: p_dun, X head Y and X holds of Y and X next to Y.
+Corpus:
   - x3 next to x1
   - x0 links x7
   - x5 next to x2
@@ -3012,8 +3064,8 @@ The corpus:
   - x1 binds x7
   - x2 binds x1
   - x0 links x2
-Costs: 1 on atom costs plus_one_per_argument and baseline 108.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 108.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_sel | p_kor | p_vim
 Reply with the answer only.</pre>
@@ -3038,8 +3090,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 50</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X links Y, X next to Y); define: p_kor, X head Y and (X links Y, Y binds X); define: p_dun, X head Y and (X binds Y, Y holds of X); define: p_sel, X head Y and (X next to Y, X holds of Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X links Y and X next to Y; define: p_kor, X head Y and X links Y and Y binds X; define: p_dun, X head Y and X binds Y and Y holds of X; define: p_sel, X head Y and X next to Y and X holds of Y.
+Corpus:
   - x5 holds of x8
   - x5 holds of x2
   - x2 links x6
@@ -3072,8 +3124,8 @@ The corpus:
   - x3 holds of x4
   - x3 binds x5
   - x3 binds x2
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_dun | p_kor | p_sel
 Reply with the answer only.</pre>
@@ -3098,8 +3150,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 51</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X holds of Y, X links Y); define: p_kor, X head Y and (X links Y, Y binds X); define: p_sel, X head Y and (X feeds Y, Y holds of X); define: p_vim, X head Y and (X feeds Y, X binds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X holds of Y and X links Y; define: p_kor, X head Y and X links Y and Y binds X; define: p_sel, X head Y and X feeds Y and Y holds of X; define: p_vim, X head Y and X feeds Y and X binds Y.
+Corpus:
   - x4 links x7
   - x4 holds of x3
   - x4 binds x7
@@ -3128,8 +3180,8 @@ The corpus:
   - x7 feeds x4
   - x1 links x7
   - x1 binds x7
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_kor | p_dun | p_sel
 Reply with the answer only.</pre>
@@ -3154,8 +3206,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 52</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X links Y, X feeds Y); define: p_vim, X head Y and (X holds of Y, X feeds Y); define: p_sel, X head Y and (X holds of Y, X links Y); define: p_dun, X head Y and (X links Y, X next to Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X links Y and X feeds Y; define: p_vim, X head Y and X holds of Y and X feeds Y; define: p_sel, X head Y and X holds of Y and X links Y; define: p_dun, X head Y and X links Y and X next to Y.
+Corpus:
   - x5 holds of x0
   - x8 next to x1
   - x8 holds of x4
@@ -3188,8 +3240,8 @@ The corpus:
   - x4 feeds x5
   - x3 next to x0
   - x3 holds of x4
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_kor | p_vim | p_dun
 Reply with the answer only.</pre>
@@ -3214,8 +3266,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 53</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X holds of Y, Y links X); define: p_vim, X head Y and (X binds Y, Y links X); define: p_sel, X head Y and (X links Y, Y holds of X); define: p_dun, X head Y and (X holds of Y, Y next to X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X holds of Y and Y links X; define: p_vim, X head Y and X binds Y and Y links X; define: p_sel, X head Y and X links Y and Y holds of X; define: p_dun, X head Y and X holds of Y and Y next to X.
+Corpus:
   - x3 holds of x4
   - x1 holds of x3
   - x8 binds x4
@@ -3248,8 +3300,8 @@ The corpus:
   - x0 links x4
   - x3 holds of x7
   - x0 holds of x8
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_kor | p_dun | p_sel
 Reply with the answer only.</pre>
@@ -3274,8 +3326,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 54</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X links Y, X feeds Y); define: p_kor, X head Y and (X binds Y, Y holds of X); define: p_vim, X head Y and (X feeds Y, Y holds of X); define: p_sel, X head Y and (X feeds Y, Y binds X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X links Y and X feeds Y; define: p_kor, X head Y and X binds Y and Y holds of X; define: p_vim, X head Y and X feeds Y and Y holds of X; define: p_sel, X head Y and X feeds Y and Y binds X.
+Corpus:
   - x7 holds of x3
   - x4 binds x6
   - x4 links x6
@@ -3304,8 +3356,8 @@ The corpus:
   - x6 feeds x3
   - x2 feeds x4
   - x4 holds of x8
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_vim | p_kor | p_dun
 Reply with the answer only.</pre>
@@ -3330,8 +3382,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 55</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X next to Y, X feeds Y); define: p_sel, X head Y and (X feeds Y, Y links X); define: p_dun, X head Y and (X feeds Y, Y holds of X); define: p_kor, X head Y and (X next to Y, X links Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X next to Y and X feeds Y; define: p_sel, X head Y and X feeds Y and Y links X; define: p_dun, X head Y and X feeds Y and Y holds of X; define: p_kor, X head Y and X next to Y and X links Y.
+Corpus:
   - x7 next to x3
   - x3 holds of x1
   - x8 feeds x3
@@ -3356,8 +3408,8 @@ The corpus:
   - x1 feeds x4
   - x7 next to x2
   - x8 links x7
-Costs: 1 on atom costs plus_one_per_argument and baseline 72.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 72.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_vim | p_dun | p_kor
 Reply with the answer only.</pre>
@@ -3382,8 +3434,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 56</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X next to Y, X links Y); define: p_vim, X head Y and (X feeds Y, Y binds X); define: p_kor, X head Y and (X feeds Y, Y links X); define: p_sel, X head Y and (X feeds Y, X binds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X next to Y and X links Y; define: p_vim, X head Y and X feeds Y and Y binds X; define: p_kor, X head Y and X feeds Y and Y links X; define: p_sel, X head Y and X feeds Y and X binds Y.
+Corpus:
   - x6 next to x0
   - x5 binds x0
   - x8 next to x2
@@ -3412,8 +3464,8 @@ The corpus:
   - x8 links x2
   - x2 links x0
   - x2 links x8
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_vim | p_kor | p_dun
 Reply with the answer only.</pre>
@@ -3438,8 +3490,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 57</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X holds of Y, Y links X); define: p_vim, X head Y and (X binds Y, X holds of Y); define: p_dun, X head Y and (X feeds Y, Y holds of X); define: p_sel, X head Y and (X binds Y, Y holds of X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X holds of Y and Y links X; define: p_vim, X head Y and X binds Y and X holds of Y; define: p_dun, X head Y and X feeds Y and Y holds of X; define: p_sel, X head Y and X binds Y and Y holds of X.
+Corpus:
   - x8 binds x0
   - x4 feeds x6
   - x4 feeds x5
@@ -3480,8 +3532,8 @@ The corpus:
   - x1 binds x8
   - x6 binds x1
   - x0 feeds x1
-Costs: 1 on atom costs plus_one_per_argument and baseline 120.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 120.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_dun | p_kor | p_vim
 Reply with the answer only.</pre>
@@ -3506,8 +3558,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 58</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X links Y, Y holds of X); define: p_sel, X head Y and (X binds Y, Y feeds X); define: p_vim, X head Y and (X links Y, X feeds Y); define: p_kor, X head Y and (X holds of Y, X feeds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X links Y and Y holds of X; define: p_sel, X head Y and X binds Y and Y feeds X; define: p_vim, X head Y and X links Y and X feeds Y; define: p_kor, X head Y and X holds of Y and X feeds Y.
+Corpus:
   - x8 links x1
   - x0 holds of x8
   - x0 links x8
@@ -3548,8 +3600,8 @@ The corpus:
   - x8 holds of x6
   - x3 feeds x0
   - x5 feeds x3
-Costs: 1 on atom costs plus_one_per_argument and baseline 120.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 120.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_dun | p_sel | p_kor
 Reply with the answer only.</pre>
@@ -3574,8 +3626,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 59</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X feeds Y, Y next to X); define: p_dun, X head Y and (X links Y, X next to Y); define: p_sel, X head Y and (X next to Y, X binds Y); define: p_vim, X head Y and (X binds Y, Y links X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X feeds Y and Y next to X; define: p_dun, X head Y and X links Y and X next to Y; define: p_sel, X head Y and X next to Y and X binds Y; define: p_vim, X head Y and X binds Y and Y links X.
+Corpus:
   - x1 binds x8
   - x0 feeds x8
   - x1 feeds x5
@@ -3600,8 +3652,8 @@ The corpus:
   - x8 binds x1
   - x8 next to x0
   - x0 next to x8
-Costs: 1 on atom costs plus_one_per_argument and baseline 72.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 72.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_dun | p_sel | p_vim
 Reply with the answer only.</pre>
@@ -3626,8 +3678,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 60</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and (X binds Y, X holds of Y); define: p_kor, X head Y and (X binds Y, X next to Y); define: p_dun, X head Y and (X feeds Y, X holds of Y); define: p_vim, X head Y and (X next to Y, X holds of Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and X binds Y and X holds of Y; define: p_kor, X head Y and X binds Y and X next to Y; define: p_dun, X head Y and X feeds Y and X holds of Y; define: p_vim, X head Y and X next to Y and X holds of Y.
+Corpus:
   - x1 next to x5
   - x2 next to x7
   - x1 feeds x2
@@ -3656,8 +3708,8 @@ The corpus:
   - x5 binds x4
   - x5 holds of x4
   - x4 holds of x5
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_sel | p_kor | p_dun
 Reply with the answer only.</pre>
@@ -3682,8 +3734,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 61</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and (X holds of Y, Y links X); define: p_vim, X head Y and (X links Y, X holds of Y); define: p_kor, X head Y and (X holds of Y, X binds Y); define: p_dun, X head Y and (X binds Y, X next to Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and X holds of Y and Y links X; define: p_vim, X head Y and X links Y and X holds of Y; define: p_kor, X head Y and X holds of Y and X binds Y; define: p_dun, X head Y and X binds Y and X next to Y.
+Corpus:
   - x4 holds of x8
   - x1 links x8
   - x2 binds x1
@@ -3712,8 +3764,8 @@ The corpus:
   - x4 binds x7
   - x1 next to x7
   - x7 holds of x6
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_vim | p_kor | p_dun
 Reply with the answer only.</pre>
@@ -3738,8 +3790,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 62</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X next to Y, X holds of Y); define: p_sel, X head Y and (X holds of Y, X links Y); define: p_dun, X head Y and (X holds of Y, Y links X); define: p_vim, X head Y and (X binds Y, X next to Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X next to Y and X holds of Y; define: p_sel, X head Y and X holds of Y and X links Y; define: p_dun, X head Y and X holds of Y and Y links X; define: p_vim, X head Y and X binds Y and X next to Y.
+Corpus:
   - x2 binds x1
   - x2 next to x1
   - x6 links x7
@@ -3772,8 +3824,8 @@ The corpus:
   - x6 next to x7
   - x7 holds of x8
   - x8 links x7
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_sel | p_dun | p_kor
 Reply with the answer only.</pre>
@@ -3798,8 +3850,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 63</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X links Y, Y binds X); define: p_sel, X head Y and (X feeds Y, X links Y); define: p_vim, X head Y and (X binds Y, Y feeds X); define: p_dun, X head Y and (X next to Y, Y binds X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X links Y and Y binds X; define: p_sel, X head Y and X feeds Y and X links Y; define: p_vim, X head Y and X binds Y and Y feeds X; define: p_dun, X head Y and X next to Y and Y binds X.
+Corpus:
   - x6 feeds x0
   - x7 next to x2
   - x0 binds x6
@@ -3824,8 +3876,8 @@ The corpus:
   - x6 next to x0
   - x0 links x3
   - x2 next to x0
-Costs: 1 on atom costs plus_one_per_argument and baseline 72.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 72.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_dun | p_vim | p_sel
 Reply with the answer only.</pre>
@@ -3850,8 +3902,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 64</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X links Y, Y holds of X); define: p_kor, X head Y and (X holds of Y, X links Y); define: p_sel, X head Y and (X holds of Y, X next to Y); define: p_dun, X head Y and (X next to Y, X holds of Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X links Y and Y holds of X; define: p_kor, X head Y and X holds of Y and X links Y; define: p_sel, X head Y and X holds of Y and X next to Y; define: p_dun, X head Y and X next to Y and X holds of Y.
+Corpus:
   - x4 holds of x7
   - x1 links x5
   - x1 next to x5
@@ -3884,8 +3936,8 @@ The corpus:
   - x1 next to x4
   - x7 links x4
   - x3 feeds x4
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_vim | p_dun | p_sel
 Reply with the answer only.</pre>
@@ -3910,8 +3962,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 65</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X links Y, X feeds Y); define: p_sel, X head Y and (X holds of Y, X binds Y); define: p_dun, X head Y and (X holds of Y, X links Y); define: p_vim, X head Y and (X holds of Y, X feeds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X links Y and X feeds Y; define: p_sel, X head Y and X holds of Y and X binds Y; define: p_dun, X head Y and X holds of Y and X links Y; define: p_vim, X head Y and X holds of Y and X feeds Y.
+Corpus:
   - x2 holds of x4
   - x6 feeds x3
   - x6 holds of x3
@@ -3948,8 +4000,8 @@ The corpus:
   - x7 links x3
   - x1 links x7
   - x7 links x2
-Costs: 1 on atom costs plus_one_per_argument and baseline 108.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 108.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_kor | p_vim | p_sel
 Reply with the answer only.</pre>
@@ -3974,8 +4026,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 66</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X next to Y, X holds of Y); define: p_kor, X head Y and (X links Y, X binds Y); define: p_vim, X head Y and (X next to Y, Y holds of X); define: p_sel, X head Y and (X links Y, Y binds X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X next to Y and X holds of Y; define: p_kor, X head Y and X links Y and X binds Y; define: p_vim, X head Y and X next to Y and Y holds of X; define: p_sel, X head Y and X links Y and Y binds X.
+Corpus:
   - x2 holds of x8
   - x1 holds of x4
   - x4 next to x3
@@ -4004,8 +4056,8 @@ The corpus:
   - x1 binds x8
   - x8 holds of x2
   - x6 links x2
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_sel | p_dun | p_vim
 Reply with the answer only.</pre>
@@ -4030,8 +4082,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 67</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X feeds Y, X binds Y); define: p_vim, X head Y and (X links Y, X holds of Y); define: p_sel, X head Y and (X feeds Y, X holds of Y); define: p_dun, X head Y and (X binds Y, X feeds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X feeds Y and X binds Y; define: p_vim, X head Y and X links Y and X holds of Y; define: p_sel, X head Y and X feeds Y and X holds of Y; define: p_dun, X head Y and X binds Y and X feeds Y.
+Corpus:
   - x5 feeds x1
   - x8 holds of x1
   - x4 binds x1
@@ -4060,8 +4112,8 @@ The corpus:
   - x6 holds of x3
   - x5 binds x3
   - x1 binds x8
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_dun | p_vim | p_kor
 Reply with the answer only.</pre>
@@ -4086,8 +4138,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 68</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X feeds Y, Y binds X); define: p_kor, X head Y and (X links Y, X binds Y); define: p_dun, X head Y and (X holds of Y, Y binds X); define: p_sel, X head Y and (X feeds Y, X links Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X feeds Y and Y binds X; define: p_kor, X head Y and X links Y and X binds Y; define: p_dun, X head Y and X holds of Y and Y binds X; define: p_sel, X head Y and X feeds Y and X links Y.
+Corpus:
   - x4 links x8
   - x3 binds x8
   - x6 feeds x7
@@ -4116,8 +4168,8 @@ The corpus:
   - x1 binds x7
   - x6 links x8
   - x1 links x3
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_vim | p_sel | p_kor
 Reply with the answer only.</pre>
@@ -4142,8 +4194,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 69</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and (X binds Y, Y holds of X); define: p_vim, X head Y and (X binds Y, Y links X); define: p_kor, X head Y and (X holds of Y, X links Y); define: p_dun, X head Y and (X feeds Y, X binds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and X binds Y and Y holds of X; define: p_vim, X head Y and X binds Y and Y links X; define: p_kor, X head Y and X holds of Y and X links Y; define: p_dun, X head Y and X feeds Y and X binds Y.
+Corpus:
   - x2 feeds x0
   - x1 binds x6
   - x0 binds x7
@@ -4180,8 +4232,8 @@ The corpus:
   - x1 holds of x8
   - x7 binds x2
   - x2 binds x6
-Costs: 1 on atom costs plus_one_per_argument and baseline 108.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 108.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_dun | p_sel | p_vim
 Reply with the answer only.</pre>
@@ -4206,8 +4258,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 70</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X feeds Y, Y next to X); define: p_vim, X head Y and (X binds Y, X feeds Y); define: p_sel, X head Y and (X binds Y, X links Y); define: p_dun, X head Y and (X binds Y, X next to Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X feeds Y and Y next to X; define: p_vim, X head Y and X binds Y and X feeds Y; define: p_sel, X head Y and X binds Y and X links Y; define: p_dun, X head Y and X binds Y and X next to Y.
+Corpus:
   - x6 feeds x3
   - x4 next to x6
   - x1 feeds x5
@@ -4236,8 +4288,8 @@ The corpus:
   - x6 binds x8
   - x8 binds x4
   - x5 binds x8
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_kor | p_sel | p_dun
 Reply with the answer only.</pre>
@@ -4262,8 +4314,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 71</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X holds of Y, Y next to X); define: p_kor, X head Y and (X next to Y, Y holds of X); define: p_sel, X head Y and (X feeds Y, X holds of Y); define: p_dun, X head Y and (X binds Y, Y holds of X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X holds of Y and Y next to X; define: p_kor, X head Y and X next to Y and Y holds of X; define: p_sel, X head Y and X feeds Y and X holds of Y; define: p_dun, X head Y and X binds Y and Y holds of X.
+Corpus:
   - x8 feeds x3
   - x6 holds of x3
   - x3 feeds x4
@@ -4300,8 +4352,8 @@ The corpus:
   - x8 holds of x3
   - x4 next to x3
   - x5 next to x7
-Costs: 1 on atom costs plus_one_per_argument and baseline 108.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 108.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_kor | p_dun | p_sel
 Reply with the answer only.</pre>
@@ -4326,8 +4378,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 72</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X links Y, X binds Y); define: p_dun, X head Y and (X links Y, X holds of Y); define: p_kor, X head Y and (X holds of Y, X feeds Y); define: p_sel, X head Y and (X feeds Y, Y links X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X links Y and X binds Y; define: p_dun, X head Y and X links Y and X holds of Y; define: p_kor, X head Y and X holds of Y and X feeds Y; define: p_sel, X head Y and X feeds Y and Y links X.
+Corpus:
   - x6 holds of x4
   - x1 holds of x6
   - x6 holds of x7
@@ -4360,8 +4412,8 @@ The corpus:
   - x1 links x7
   - x2 binds x6
   - x7 feeds x2
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_sel | p_vim | p_kor
 Reply with the answer only.</pre>
@@ -4386,8 +4438,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 73</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X next to Y, Y links X); define: p_sel, X head Y and (X next to Y, X feeds Y); define: p_kor, X head Y and (X binds Y, X links Y); define: p_vim, X head Y and (X next to Y, X links Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X next to Y and Y links X; define: p_sel, X head Y and X next to Y and X feeds Y; define: p_kor, X head Y and X binds Y and X links Y; define: p_vim, X head Y and X next to Y and X links Y.
+Corpus:
   - x7 next to x6
   - x1 feeds x3
   - x3 next to x6
@@ -4420,8 +4472,8 @@ The corpus:
   - x7 binds x6
   - x6 links x8
   - x7 binds x4
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_kor | p_sel | p_dun
 Reply with the answer only.</pre>
@@ -4446,8 +4498,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 74</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and (X binds Y, Y holds of X); define: p_vim, X head Y and (X next to Y, X binds Y); define: p_kor, X head Y and (X binds Y, Y next to X); define: p_dun, X head Y and (X holds of Y, X binds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and X binds Y and Y holds of X; define: p_vim, X head Y and X next to Y and X binds Y; define: p_kor, X head Y and X binds Y and Y next to X; define: p_dun, X head Y and X holds of Y and X binds Y.
+Corpus:
   - x6 links x2
   - x2 links x0
   - x0 links x8
@@ -4480,8 +4532,8 @@ The corpus:
   - x1 binds x6
   - x1 links x8
   - x0 next to x1
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_kor | p_sel | p_vim
 Reply with the answer only.</pre>
@@ -4506,8 +4558,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 75</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and (X links Y, Y next to X); define: p_vim, X head Y and (X next to Y, X links Y); define: p_kor, X head Y and (X holds of Y, Y binds X); define: p_dun, X head Y and (X holds of Y, Y next to X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and X links Y and Y next to X; define: p_vim, X head Y and X next to Y and X links Y; define: p_kor, X head Y and X holds of Y and Y binds X; define: p_dun, X head Y and X holds of Y and Y next to X.
+Corpus:
   - x6 links x4
   - x6 links x7
   - x6 next to x8
@@ -4540,8 +4592,8 @@ The corpus:
   - x0 holds of x8
   - x8 next to x3
   - x3 binds x4
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_kor | p_sel | p_dun
 Reply with the answer only.</pre>
@@ -4566,8 +4618,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 76</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X holds of Y, Y binds X); define: p_sel, X head Y and (X binds Y, Y feeds X); define: p_kor, X head Y and (X links Y, Y binds X); define: p_vim, X head Y and (X links Y, X binds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X holds of Y and Y binds X; define: p_sel, X head Y and X binds Y and Y feeds X; define: p_kor, X head Y and X links Y and Y binds X; define: p_vim, X head Y and X links Y and X binds Y.
+Corpus:
   - x8 feeds x7
   - x7 feeds x1
   - x6 feeds x0
@@ -4604,8 +4656,8 @@ The corpus:
   - x1 holds of x6
   - x0 links x2
   - x7 binds x1
-Costs: 1 on atom costs plus_one_per_argument and baseline 108.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 108.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_sel | p_dun | p_kor
 Reply with the answer only.</pre>
@@ -4630,8 +4682,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 77</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X next to Y, Y holds of X); define: p_sel, X head Y and (X feeds Y, X holds of Y); define: p_kor, X head Y and (X feeds Y, X links Y); define: p_dun, X head Y and (X links Y, X next to Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X next to Y and Y holds of X; define: p_sel, X head Y and X feeds Y and X holds of Y; define: p_kor, X head Y and X feeds Y and X links Y; define: p_dun, X head Y and X links Y and X next to Y.
+Corpus:
   - x1 links x4
   - x5 feeds x7
   - x3 holds of x7
@@ -4660,8 +4712,8 @@ The corpus:
   - x1 holds of x5
   - x0 feeds x1
   - x4 next to x0
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_kor | p_sel | p_vim
 Reply with the answer only.</pre>
@@ -4686,8 +4738,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 78</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X holds of Y, Y links X); define: p_dun, X head Y and (X next to Y, Y links X); define: p_sel, X head Y and (X links Y, X holds of Y); define: p_vim, X head Y and (X next to Y, Y holds of X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X holds of Y and Y links X; define: p_dun, X head Y and X next to Y and Y links X; define: p_sel, X head Y and X links Y and X holds of Y; define: p_vim, X head Y and X next to Y and Y holds of X.
+Corpus:
   - x7 holds of x3
   - x6 holds of x7
   - x8 next to x6
@@ -4724,8 +4776,8 @@ The corpus:
   - x7 holds of x6
   - x1 binds x0
   - x0 links x8
-Costs: 1 on atom costs plus_one_per_argument and baseline 108.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 108.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_dun | p_sel | p_kor
 Reply with the answer only.</pre>
@@ -4750,8 +4802,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 79</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and (X links Y, Y next to X); define: p_vim, X head Y and (X feeds Y, Y links X); define: p_dun, X head Y and (X links Y, X feeds Y); define: p_kor, X head Y and (X links Y, Y binds X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and X links Y and Y next to X; define: p_vim, X head Y and X feeds Y and Y links X; define: p_dun, X head Y and X links Y and X feeds Y; define: p_kor, X head Y and X links Y and Y binds X.
+Corpus:
   - x0 next to x3
   - x8 next to x0
   - x2 binds x3
@@ -4788,8 +4840,8 @@ The corpus:
   - x3 feeds x0
   - x2 next to x4
   - x1 links x3
-Costs: 1 on atom costs plus_one_per_argument and baseline 108.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 108.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_dun | p_sel | p_vim
 Reply with the answer only.</pre>
@@ -4814,8 +4866,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 80</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X next to Y, X links Y); define: p_vim, X head Y and (X feeds Y, X links Y); define: p_sel, X head Y and (X holds of Y, X feeds Y); define: p_dun, X head Y and (X links Y, Y next to X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X next to Y and X links Y; define: p_vim, X head Y and X feeds Y and X links Y; define: p_sel, X head Y and X holds of Y and X feeds Y; define: p_dun, X head Y and X links Y and Y next to X.
+Corpus:
   - x4 holds of x8
   - x4 feeds x6
   - x8 next to x4
@@ -4844,8 +4896,8 @@ The corpus:
   - x3 feeds x4
   - x3 next to x5
   - x3 next to x6
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_vim | p_kor | p_dun
 Reply with the answer only.</pre>
@@ -4870,8 +4922,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 81</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X binds Y, Y next to X); define: p_vim, X head Y and (X next to Y, X links Y); define: p_kor, X head Y and (X feeds Y, Y links X); define: p_sel, X head Y and (X links Y, X binds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X binds Y and Y next to X; define: p_vim, X head Y and X next to Y and X links Y; define: p_kor, X head Y and X feeds Y and Y links X; define: p_sel, X head Y and X links Y and X binds Y.
+Corpus:
   - x7 binds x8
   - x8 feeds x2
   - x7 next to x8
@@ -4916,8 +4968,8 @@ The corpus:
   - x2 links x7
   - x5 binds x4
   - x5 binds x8
-Costs: 1 on atom costs plus_one_per_argument and baseline 132.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 132.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_sel | p_kor | p_dun
 Reply with the answer only.</pre>
@@ -4942,8 +4994,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 82</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X links Y, X holds of Y); define: p_sel, X head Y and (X feeds Y, X next to Y); define: p_vim, X head Y and (X holds of Y, X feeds Y); define: p_dun, X head Y and (X next to Y, Y holds of X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X links Y and X holds of Y; define: p_sel, X head Y and X feeds Y and X next to Y; define: p_vim, X head Y and X holds of Y and X feeds Y; define: p_dun, X head Y and X next to Y and Y holds of X.
+Corpus:
   - x2 next to x7
   - x7 links x4
   - x4 holds of x7
@@ -4972,8 +5024,8 @@ The corpus:
   - x4 next to x8
   - x6 links x2
   - x2 holds of x8
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_vim | p_dun | p_sel
 Reply with the answer only.</pre>
@@ -4998,8 +5050,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 83</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X binds Y, X next to Y); define: p_vim, X head Y and (X binds Y, X links Y); define: p_sel, X head Y and (X links Y, Y next to X); define: p_kor, X head Y and (X links Y, X binds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X binds Y and X next to Y; define: p_vim, X head Y and X binds Y and X links Y; define: p_sel, X head Y and X links Y and Y next to X; define: p_kor, X head Y and X links Y and X binds Y.
+Corpus:
   - x3 holds of x0
   - x1 holds of x8
   - x3 holds of x7
@@ -5024,8 +5076,8 @@ The corpus:
   - x6 links x3
   - x3 next to x6
   - x0 holds of x3
-Costs: 1 on atom costs plus_one_per_argument and baseline 72.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 72.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_dun | p_sel | p_kor
 Reply with the answer only.</pre>
@@ -5050,8 +5102,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 84</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X binds Y, X next to Y); define: p_sel, X head Y and (X links Y, Y next to X); define: p_kor, X head Y and (X holds of Y, X binds Y); define: p_vim, X head Y and (X binds Y, Y holds of X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X binds Y and X next to Y; define: p_sel, X head Y and X links Y and Y next to X; define: p_kor, X head Y and X holds of Y and X binds Y; define: p_vim, X head Y and X binds Y and Y holds of X.
+Corpus:
   - x2 binds x6
   - x7 binds x1
   - x7 binds x2
@@ -5080,8 +5132,8 @@ The corpus:
   - x3 holds of x6
   - x4 next to x1
   - x2 next to x6
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_kor | p_vim | p_sel
 Reply with the answer only.</pre>
@@ -5106,8 +5158,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 85</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X holds of Y, Y binds X); define: p_sel, X head Y and (X feeds Y, X holds of Y); define: p_kor, X head Y and (X links Y, Y holds of X); define: p_vim, X head Y and (X feeds Y, X links Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X holds of Y and Y binds X; define: p_sel, X head Y and X feeds Y and X holds of Y; define: p_kor, X head Y and X links Y and Y holds of X; define: p_vim, X head Y and X feeds Y and X links Y.
+Corpus:
   - x8 binds x7
   - x1 links x5
   - x2 links x1
@@ -5140,8 +5192,8 @@ The corpus:
   - x5 binds x3
   - x2 binds x5
   - x3 links x5
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_dun | p_vim | p_sel
 Reply with the answer only.</pre>
@@ -5166,8 +5218,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 86</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X feeds Y, Y binds X); define: p_sel, X head Y and (X binds Y, X next to Y); define: p_dun, X head Y and (X links Y, Y feeds X); define: p_kor, X head Y and (X next to Y, Y feeds X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X feeds Y and Y binds X; define: p_sel, X head Y and X binds Y and X next to Y; define: p_dun, X head Y and X links Y and Y feeds X; define: p_kor, X head Y and X next to Y and Y feeds X.
+Corpus:
   - x5 feeds x6
   - x2 feeds x6
   - x2 links x0
@@ -5200,8 +5252,8 @@ The corpus:
   - x0 binds x2
   - x8 links x5
   - x8 binds x0
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_sel | p_dun | p_vim
 Reply with the answer only.</pre>
@@ -5226,8 +5278,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 87</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X next to Y, Y links X); define: p_vim, X head Y and (X feeds Y, X links Y); define: p_kor, X head Y and (X feeds Y, Y links X); define: p_sel, X head Y and (X links Y, X feeds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X next to Y and Y links X; define: p_vim, X head Y and X feeds Y and X links Y; define: p_kor, X head Y and X feeds Y and Y links X; define: p_sel, X head Y and X links Y and X feeds Y.
+Corpus:
   - x2 next to x0
   - x6 feeds x0
   - x4 binds x0
@@ -5268,8 +5320,8 @@ The corpus:
   - x4 next to x6
   - x0 binds x3
   - x8 feeds x0
-Costs: 1 on atom costs plus_one_per_argument and baseline 120.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 120.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_sel | p_vim | p_kor
 Reply with the answer only.</pre>
@@ -5294,8 +5346,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 88</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X holds of Y, X links Y); define: p_vim, X head Y and (X links Y, X binds Y); define: p_kor, X head Y and (X holds of Y, Y binds X); define: p_sel, X head Y and (X feeds Y, X links Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X holds of Y and X links Y; define: p_vim, X head Y and X links Y and X binds Y; define: p_kor, X head Y and X holds of Y and Y binds X; define: p_sel, X head Y and X feeds Y and X links Y.
+Corpus:
   - x1 feeds x3
   - x3 holds of x8
   - x3 holds of x1
@@ -5336,8 +5388,8 @@ The corpus:
   - x7 binds x8
   - x0 links x1
   - x6 holds of x7
-Costs: 1 on atom costs plus_one_per_argument and baseline 120.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 120.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_sel | p_kor | p_vim
 Reply with the answer only.</pre>
@@ -5362,8 +5414,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 89</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and (X links Y, Y feeds X); define: p_sel, X head Y and (X feeds Y, Y next to X); define: p_vim, X head Y and (X next to Y, X feeds Y); define: p_kor, X head Y and (X holds of Y, X next to Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_dun, X head Y and X links Y and Y feeds X; define: p_sel, X head Y and X feeds Y and Y next to X; define: p_vim, X head Y and X next to Y and X feeds Y; define: p_kor, X head Y and X holds of Y and X next to Y.
+Corpus:
   - x8 links x4
   - x0 feeds x2
   - x2 next to x1
@@ -5400,8 +5452,8 @@ The corpus:
   - x0 links x8
   - x4 next to x0
   - x8 next to x2
-Costs: 1 on atom costs plus_one_per_argument and baseline 108.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 108.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_dun | p_vim | p_sel
 Reply with the answer only.</pre>
@@ -5426,8 +5478,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 90</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and (X binds Y, X feeds Y); define: p_kor, X head Y and (X binds Y, Y feeds X); define: p_dun, X head Y and (X links Y, Y binds X); define: p_vim, X head Y and (X binds Y, X links Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and X binds Y and X feeds Y; define: p_kor, X head Y and X binds Y and Y feeds X; define: p_dun, X head Y and X links Y and Y binds X; define: p_vim, X head Y and X binds Y and X links Y.
+Corpus:
   - x4 links x3
   - x5 feeds x3
   - x4 binds x2
@@ -5460,8 +5512,8 @@ The corpus:
   - x5 links x1
   - x4 holds of x2
   - x3 feeds x1
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_sel | p_dun | p_vim
 Reply with the answer only.</pre>
@@ -5486,8 +5538,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 91</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X holds of Y, X binds Y); define: p_sel, X head Y and (X binds Y, X links Y); define: p_dun, X head Y and (X holds of Y, X feeds Y); define: p_kor, X head Y and (X feeds Y, Y holds of X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X holds of Y and X binds Y; define: p_sel, X head Y and X binds Y and X links Y; define: p_dun, X head Y and X holds of Y and X feeds Y; define: p_kor, X head Y and X feeds Y and Y holds of X.
+Corpus:
   - x3 binds x8
   - x8 feeds x3
   - x5 links x6
@@ -5520,8 +5572,8 @@ The corpus:
   - x8 holds of x6
   - x5 holds of x2
   - x3 links x5
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_dun | p_kor | p_sel
 Reply with the answer only.</pre>
@@ -5546,8 +5598,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 92</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X next to Y, Y links X); define: p_sel, X head Y and (X next to Y, X links Y); define: p_kor, X head Y and (X binds Y, X links Y); define: p_dun, X head Y and (X holds of Y, X binds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X next to Y and Y links X; define: p_sel, X head Y and X next to Y and X links Y; define: p_kor, X head Y and X binds Y and X links Y; define: p_dun, X head Y and X holds of Y and X binds Y.
+Corpus:
   - x3 links x5
   - x4 links x3
   - x3 binds x4
@@ -5576,8 +5628,8 @@ The corpus:
   - x5 next to x6
   - x6 links x0
   - x8 binds x0
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_dun | p_vim | p_kor
 Reply with the answer only.</pre>
@@ -5602,8 +5654,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 93</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and (X links Y, X holds of Y); define: p_kor, X head Y and (X holds of Y, X next to Y); define: p_dun, X head Y and (X feeds Y, Y next to X); define: p_vim, X head Y and (X next to Y, X feeds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and X links Y and X holds of Y; define: p_kor, X head Y and X holds of Y and X next to Y; define: p_dun, X head Y and X feeds Y and Y next to X; define: p_vim, X head Y and X next to Y and X feeds Y.
+Corpus:
   - x6 holds of x7
   - x6 feeds x0
   - x2 next to x1
@@ -5632,8 +5684,8 @@ The corpus:
   - x2 links x6
   - x5 feeds x7
   - x7 links x1
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_vim | p_kor | p_dun
 Reply with the answer only.</pre>
@@ -5658,8 +5710,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 94</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and (X links Y, Y feeds X); define: p_dun, X head Y and (X next to Y, X feeds Y); define: p_kor, X head Y and (X links Y, Y holds of X); define: p_vim, X head Y and (X holds of Y, X next to Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_sel, X head Y and X links Y and Y feeds X; define: p_dun, X head Y and X next to Y and X feeds Y; define: p_kor, X head Y and X links Y and Y holds of X; define: p_vim, X head Y and X holds of Y and X next to Y.
+Corpus:
   - x5 next to x2
   - x5 holds of x2
   - x2 holds of x5
@@ -5688,8 +5740,8 @@ The corpus:
   - x2 links x5
   - x7 feeds x8
   - x8 links x0
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_kor | p_dun | p_vim | p_sel
 Reply with the answer only.</pre>
@@ -5714,8 +5766,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 95</span>
 <span>answer</span> <span class="ans">p_vim</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X binds Y, Y next to X); define: p_vim, X head Y and (X next to Y, X binds Y); define: p_dun, X head Y and (X next to Y, Y binds X); define: p_sel, X head Y and (X holds of Y, X next to Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X binds Y and Y next to X; define: p_vim, X head Y and X next to Y and X binds Y; define: p_dun, X head Y and X next to Y and Y binds X; define: p_sel, X head Y and X holds of Y and X next to Y.
+Corpus:
   - x2 holds of x5
   - x0 holds of x2
   - x2 holds of x0
@@ -5756,8 +5808,8 @@ The corpus:
   - x8 binds x2
   - x8 links x1
   - x5 links x0
-Costs: 1 on atom costs plus_one_per_argument and baseline 120.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 120.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_kor | p_sel | p_vim
 Reply with the answer only.</pre>
@@ -5782,8 +5834,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 96</span>
 <span>answer</span> <span class="ans">p_kor</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X links Y, Y binds X); define: p_dun, X head Y and (X binds Y, X next to Y); define: p_sel, X head Y and (X links Y, Y next to X); define: p_kor, X head Y and (X next to Y, Y feeds X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X links Y and Y binds X; define: p_dun, X head Y and X binds Y and X next to Y; define: p_sel, X head Y and X links Y and Y next to X; define: p_kor, X head Y and X next to Y and Y feeds X.
+Corpus:
   - x8 binds x1
   - x7 next to x8
   - x5 binds x8
@@ -5816,8 +5868,8 @@ The corpus:
   - x3 next to x8
   - x1 feeds x8
   - x1 binds x5
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_dun | p_vim | p_kor
 Reply with the answer only.</pre>
@@ -5842,8 +5894,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 97</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X next to Y, Y holds of X); define: p_kor, X head Y and (X holds of Y, X next to Y); define: p_sel, X head Y and (X feeds Y, Y binds X); define: p_dun, X head Y and (X feeds Y, X binds Y).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X next to Y and Y holds of X; define: p_kor, X head Y and X holds of Y and X next to Y; define: p_sel, X head Y and X feeds Y and Y binds X; define: p_dun, X head Y and X feeds Y and X binds Y.
+Corpus:
   - x4 binds x0
   - x6 holds of x2
   - x3 feeds x2
@@ -5876,8 +5928,8 @@ The corpus:
   - x0 binds x2
   - x6 feeds x2
   - x2 feeds x0
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_vim | p_dun | p_kor | p_sel
 Reply with the answer only.</pre>
@@ -5902,8 +5954,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 98</span>
 <span>answer</span> <span class="ans">p_dun</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and (X feeds Y, Y holds of X); define: p_kor, X head Y and (X binds Y, X feeds Y); define: p_sel, X head Y and (X feeds Y, X binds Y); define: p_dun, X head Y and (X binds Y, Y feeds X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_vim, X head Y and X feeds Y and Y holds of X; define: p_kor, X head Y and X binds Y and X feeds Y; define: p_sel, X head Y and X feeds Y and X binds Y; define: p_dun, X head Y and X binds Y and Y feeds X.
+Corpus:
   - x1 holds of x6
   - x1 feeds x6
   - x1 links x6
@@ -5936,8 +5988,8 @@ The corpus:
   - x0 feeds x1
   - x6 binds x0
   - x0 holds of x7
-Costs: 1 on atom costs plus_one_per_argument and baseline 96.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 96.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_dun | p_vim | p_sel | p_kor
 Reply with the answer only.</pre>
@@ -5962,8 +6014,8 @@ Reply with the answer only.</pre>
 <summary><span class="seed">seed 99</span>
 <span>answer</span> <span class="ans">p_sel</span></summary>
 <div class="body">
-<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and (X binds Y, Y holds of X); define: p_vim, X head Y and (X binds Y, Y feeds X); define: p_sel, X head Y and (X feeds Y, X next to Y); define: p_dun, X head Y and (X feeds Y, Y holds of X).
-The corpus:
+<p>prompt</p><pre>The candidates are: define: p_kor, X head Y and X binds Y and Y holds of X; define: p_vim, X head Y and X binds Y and Y feeds X; define: p_sel, X head Y and X feeds Y and X next to Y; define: p_dun, X head Y and X feeds Y and Y holds of X.
+Corpus:
   - x7 feeds x8
   - x6 feeds x1
   - x1 holds of x7
@@ -5992,8 +6044,8 @@ The corpus:
   - x4 binds x6
   - x4 next to x8
   - x8 binds x1
-Costs: 1 on atom costs plus_one_per_argument and baseline 84.
-What is the most compressive predicate?
+Costs: cost: atom, 1 and plus_one_per_argument; baseline 84.
+What is the most_compressive_predicate?
 
 Answer with exactly one of: p_sel | p_vim | p_dun | p_kor
 Reply with the answer only.</pre>

@@ -34,14 +34,14 @@
 <div class="scroll"><table><thead><tr><th>axis</th><th class="num">level</th></tr></thead>
 <tbody><tr><td>compositional_depth</td><td class='num'>2</td></tr><tr><td>reasoning_depth</td><td class='num'>4</td></tr><tr><td>world_complexity</td><td class='num'>3</td></tr></tbody></table></div>
 <h2>The same episode, in each language</h2><h3>english</h3><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph:
   - i3 edge i5
   - i0 edge i2
   - i1 edge i6
@@ -56,7 +56,7 @@ The sequence is:
   - i5
   - i1
   - i6
-The set:
+Set:
   - i3
   - i5
   - i2
@@ -64,24 +64,24 @@ The set:
   - i1
   - i0
   - i4
-The table:
+Table:
   - i0 row i2
   - i3 row i5
   - i5 row i1
   - i4 row i3
   - i2 row i4
   - i1 row i6
-What is the cheapest encoding for i5 1?
+What is the cheapest encoding: i5 and 1?
 
 Answer with exactly one of: graph | set | sequence | table
 Reply with the answer only.</pre><h3>spanish</h3><pre>Costes:
-  - el coste: secuencia, scan_per_item y 2
-  - el coste: secuencia, per_step y 1
-  - el coste: grafo, scan_per_edge y 2
-  - el coste: conjunto, lookup y 3
-  - el coste: conjunto, per_step y unsupported
-  - el coste: mesa, index_per_row y 1
-  - el coste: mesa, lookup y 3
+  - el coste de: secuencia, scan_per_item y 2
+  - el coste de: secuencia, per_step y 1
+  - el coste de: grafo, scan_per_edge y 2
+  - el coste de: conjunto, lookup y 3
+  - el coste de: conjunto, per_step y unsupported
+  - el coste de: mesa, index_per_row y 1
+  - el coste de: mesa, lookup y 3
 El grafo es:
   - i3 la arista i5
   - i0 la arista i2
@@ -112,17 +112,17 @@ La tabla es:
   - i4 la fila i3
   - i2 la fila i4
   - i1 la fila i6
-¿Cuál es la codificación más barata para i5 1?
+¿Qué cheapest la codificación: i5 y 1?
 
 Responde exactamente con una de estas opciones: grafo | conjunto | secuencia | mesa
-Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>代价模型如下：
-  - 成本：序列、scan_per_item和2
-  - 成本：序列、per_step和1
-  - 成本：图、scan_per_edge和2
-  - 成本：集合、lookup和3
-  - 成本：集合、per_step和unsupported
-  - 成本：桌子、index_per_row和1
-  - 成本：桌子、lookup和3
+Responde solo con la respuesta.</pre><h3>chinese</h3><pre>代价模型如下：
+  - 的成本是：序列、scan_per_item和2
+  - 的成本是：序列、per_step和1
+  - 的成本是：图、scan_per_edge和2
+  - 的成本是：集合、lookup和3
+  - 的成本是：集合、per_step和unsupported
+  - 的成本是：桌子、index_per_row和1
+  - 的成本是：桌子、lookup和3
 图如下：
   - i3有边连到i5
   - i0有边连到i2
@@ -153,18 +153,100 @@ Responde sólo con la respuesta.</pre><h3>chinese</h3><pre>代价模型如下：
   - i4的行是i3
   - i2的行是i4
   - i1的行是i6
-i51的最省的编码是什么？
+cheapest的编码是：i5和1什么？
 
-请从以下选项中选出恰好一个作答：图 | 集合 | 序列 | 桌子
-只回答答案本身。</pre><h3>english_synonym</h3><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph:
+请从以下选项中选择一个作答：图 | 集合 | 序列 | 桌子
+只回答答案本身。</pre><h3>turkish</h3><pre>Cost model:
+  - maliyet: dizi, scan_per_item ve 2
+  - maliyet: dizi, per_step ve 1
+  - maliyet: grafik, scan_per_edge ve 2
+  - maliyet: koymak, lookup ve 3
+  - maliyet: koymak, per_step ve unsupported
+  - maliyet: masa, index_per_row ve 1
+  - maliyet: masa, lookup ve 3
+Graph:
+  - i3 i5 edge
+  - i0 i2 edge
+  - i1 i6 edge
+  - i2 i4 edge
+  - i5 i1 edge
+  - i4 i3 edge
+Dizi:
+  - i0
+  - i2
+  - i4
+  - i3
+  - i5
+  - i1
+  - i6
+Set:
+  - i3
+  - i5
+  - i2
+  - i6
+  - i1
+  - i0
+  - i4
+Table:
+  - i0 i2 row
+  - i3 i5 row
+  - i5 i1 row
+  - i4 i3 row
+  - i2 i4 row
+  - i1 i6 row
+Cheapest encoding: i5 ve 1 ne?
+
+Tam olarak şu seçeneklerden biriyle yanıtla: grafik | koymak | dizi | masa
+Sadece yanıtı yaz.</pre><h3>swahili</h3><pre>Cost model:
+  - gharimu: sequence, scan_per_item na 2
+  - gharimu: sequence, per_step na 1
+  - gharimu: jedwali, scan_per_edge na 2
+  - gharimu: seti, lookup na 3
+  - gharimu: seti, per_step na unsupported
+  - gharimu: meza, index_per_row na 1
+  - gharimu: meza, lookup na 3
+Graph:
+  - i3 edge i5
+  - i0 edge i2
+  - i1 edge i6
+  - i2 edge i4
+  - i5 edge i1
+  - i4 edge i3
+Sequence:
+  - i0
+  - i2
+  - i4
+  - i3
+  - i5
+  - i1
+  - i6
+Set:
+  - i3
+  - i5
+  - i2
+  - i6
+  - i1
+  - i0
+  - i4
+Table:
+  - i0 row i2
+  - i3 row i5
+  - i5 row i1
+  - i4 row i3
+  - i2 row i4
+  - i1 row i6
+Cheapest encoding: i5 na 1 nini?
+
+Jibu kwa kuchagua moja tu kati ya haya: graph | set | sequence | table
+Andika jibu pekee.</pre><h3>english_synonym</h3><pre>Costs:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph:
   - i3 edge i5
   - i0 edge i2
   - i1 edge i6
@@ -179,7 +261,7 @@ The sequence is:
   - i5
   - i1
   - i6
-The set:
+Set:
   - i3
   - i5
   - i2
@@ -187,14 +269,14 @@ The set:
   - i1
   - i0
   - i4
-The table:
+Table:
   - i0 row i2
   - i3 row i5
   - i5 row i1
   - i4 row i3
   - i2 row i4
   - i1 row i6
-What is the cheapest encoding for i5 1?
+What is the cheapest encoding: i5 and 1?
 
 Answer with exactly one of: graph | set | sequence | table
 Reply with the answer only.</pre><h3>symbols</h3><pre>{cost_model: [(cost sequence scan_per_item 2) (cost sequence per_step 1) (cost graph scan_per_edge 2) (cost set lookup 3) (cost set per_step unsupported) (cost table index_per_row 1) (cost table lookup 3)], graph: [(edge i3 i5) (edge i0 i2) (edge i1 i6) (edge i2 i4) (edge i5 i1) (edge i4 i3)], query: (cheapest_encoding i5 1), sequence: [i0 i2 i4 i3 i5 i1 i6], set: [i3 i5 i2 i6 i1 i0 i4], table: [(row i0 i2) (row i3 i5) (row i5 i1) (row i4 i3) (row i2 i4) (row i1 i6)]}
@@ -202,20 +284,20 @@ Reply with the answer only.</pre><h3>symbols</h3><pre>{cost_model: [(cost sequen
 Answer with exactly one of: graph | set | sequence | table
 Reply with the answer only.</pre>
 <h2>Samples</h2>
-<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/representation_selection.jsonl</code> &middot; <code>data/samples/spanish/representation_selection.jsonl</code> &middot; <code>data/samples/chinese/representation_selection.jsonl</code> &middot; <code>data/samples/english_synonym/representation_selection.jsonl</code> &middot; <code>data/samples/symbols/representation_selection.jsonl</code></p>
+<p>The same 100 episodes are committed as JSONL in the repository, one file per language: <code>data/samples/english/representation_selection.jsonl</code> &middot; <code>data/samples/spanish/representation_selection.jsonl</code> &middot; <code>data/samples/chinese/representation_selection.jsonl</code> &middot; <code>data/samples/turkish/representation_selection.jsonl</code> &middot; <code>data/samples/swahili/representation_selection.jsonl</code> &middot; <code>data/samples/english_synonym/representation_selection.jsonl</code> &middot; <code>data/samples/symbols/representation_selection.jsonl</code></p>
 <details class="sample">
 <summary><span class="seed">seed 0</span>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph:
   - i3 edge i5
   - i0 edge i2
   - i1 edge i6
@@ -230,7 +312,7 @@ The sequence is:
   - i5
   - i1
   - i6
-The set:
+Set:
   - i3
   - i5
   - i2
@@ -238,14 +320,14 @@ The set:
   - i1
   - i0
   - i4
-The table:
+Table:
   - i0 row i2
   - i3 row i5
   - i5 row i1
   - i4 row i3
   - i2 row i4
   - i1 row i6
-What is the cheapest encoding for i5 1?
+What is the cheapest encoding: i5 and 1?
 
 Answer with exactly one of: graph | set | sequence | table
 Reply with the answer only.</pre>
@@ -272,18 +354,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 1
-The graph: i4 edge i0, i3 edge i5 and i0 edge i3.
-The sequence is: i4, i0, i3 and i5.
-The set: i5, i0, i3 and i4.
-The table: i0 row i3, i4 row i0 and i3 row i5.
-What is the cheapest encoding for i0 2?
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 1
+Graph: i4 edge i0; i3 edge i5; i0 edge i3.
+The sequence is i4; i0; i3; i5.
+Set: i5; i0; i3; i4.
+Table: i0 row i3; i4 row i0; i3 row i5.
+What is the cheapest encoding: i0 and 2?
 
 Answer with exactly one of: set | table | sequence | graph
 Reply with the answer only.</pre>
@@ -310,18 +392,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 2
-The graph: i7 edge i6, i1 edge i2 and i2 edge i7.
-The sequence is: i1, i2, i7 and i6.
-The set: i1, i2, i7 and i6.
-The table: i1 row i2, i2 row i7 and i7 row i6.
-What is the cheapest encoding for i7 1?
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 2
+Graph: i7 edge i6; i1 edge i2; i2 edge i7.
+The sequence is i1; i2; i7; i6.
+Set: i1; i2; i7; i6.
+Table: i1 row i2; i2 row i7; i7 row i6.
+What is the cheapest encoding: i7 and 1?
 
 Answer with exactly one of: graph | table | sequence | set
 Reply with the answer only.</pre>
@@ -348,14 +430,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 3
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 3
+Graph:
   - i5 edge i4
   - i7 edge i0
   - i4 edge i7
@@ -370,7 +452,7 @@ The sequence is:
   - i7
   - i0
   - i1
-The set:
+Set:
   - i6
   - i3
   - i0
@@ -378,14 +460,14 @@ The set:
   - i7
   - i4
   - i1
-The table:
+Table:
   - i6 row i3
   - i5 row i4
   - i3 row i5
   - i4 row i7
   - i7 row i0
   - i0 row i1
-What is the cheapest encoding for i4 3?
+What is the cheapest encoding: i4 and 3?
 
 Answer with exactly one of: sequence | graph | table | set
 Reply with the answer only.</pre>
@@ -412,14 +494,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 2
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 2
+Graph:
   - i6 edge i7
   - i3 edge i6
   - i5 edge i3
@@ -432,20 +514,20 @@ The sequence is:
   - i6
   - i7
   - i0
-The set:
+Set:
   - i6
   - i7
   - i0
   - i3
   - i1
   - i5
-The table:
+Table:
   - i6 row i7
   - i7 row i0
   - i1 row i5
   - i5 row i3
   - i3 row i6
-What is the cheapest encoding for i1 2?
+What is the cheapest encoding: i1 and 2?
 
 Answer with exactly one of: table | sequence | set | graph
 Reply with the answer only.</pre>
@@ -472,14 +554,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph:
   - i1 edge i7
   - i7 edge i5
   - i6 edge i3
@@ -492,20 +574,20 @@ The sequence is:
   - i1
   - i7
   - i5
-The set:
+Set:
   - i3
   - i5
   - i7
   - i1
   - i6
   - i0
-The table:
+Table:
   - i0 row i6
   - i6 row i3
   - i1 row i7
   - i7 row i5
   - i3 row i1
-What is the cheapest encoding for i6 0?
+What is the cheapest encoding: i6 and 0?
 
 Answer with exactly one of: sequence | set | graph | table
 Reply with the answer only.</pre>
@@ -532,18 +614,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 1
-The graph: i5 edge i2, i3 edge i6 and i6 edge i5.
-The sequence is: i3, i6, i5 and i2.
-The set: i6, i5, i2 and i3.
-The table: i6 row i5, i3 row i6 and i5 row i2.
-What is the cheapest encoding for i6 2?
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 1
+Graph: i5 edge i2; i3 edge i6; i6 edge i5.
+The sequence is i3; i6; i5; i2.
+Set: i6; i5; i2; i3.
+Table: i6 row i5; i3 row i6; i5 row i2.
+What is the cheapest encoding: i6 and 2?
 
 Answer with exactly one of: sequence | graph | table | set
 Reply with the answer only.</pre>
@@ -570,28 +652,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 2
-The graph: i5 edge i0, i6 edge i5, i7 edge i4 and i0 edge i7.
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 2
+Graph: i5 edge i0; i6 edge i5; i7 edge i4; i0 edge i7.
 The sequence is:
   - i6
   - i5
   - i0
   - i7
   - i4
-The set:
+Set:
   - i0
   - i7
   - i4
   - i5
   - i6
-The table: i6 row i5, i0 row i7, i7 row i4 and i5 row i0.
-What is the cheapest encoding for i7 0?
+Table: i6 row i5; i0 row i7; i7 row i4; i5 row i0.
+What is the cheapest encoding: i7 and 0?
 
 Answer with exactly one of: table | graph | set | sequence
 Reply with the answer only.</pre>
@@ -618,14 +700,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 2
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 2
+Graph:
   - i7 edge i0
   - i6 edge i1
   - i0 edge i4
@@ -638,20 +720,20 @@ The sequence is:
   - i0
   - i4
   - i3
-The set:
+Set:
   - i7
   - i4
   - i3
   - i1
   - i0
   - i6
-The table:
+Table:
   - i7 row i0
   - i0 row i4
   - i6 row i1
   - i4 row i3
   - i1 row i7
-What is the cheapest encoding for i1 2?
+What is the cheapest encoding: i1 and 2?
 
 Answer with exactly one of: table | sequence | set | graph
 Reply with the answer only.</pre>
@@ -678,14 +760,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph:
   - i7 edge i6
   - i6 edge i0
   - i2 edge i5
@@ -700,7 +782,7 @@ The sequence is:
   - i6
   - i0
   - i1
-The set:
+Set:
   - i7
   - i1
   - i2
@@ -708,14 +790,14 @@ The set:
   - i5
   - i6
   - i4
-The table:
+Table:
   - i6 row i0
   - i4 row i7
   - i0 row i1
   - i2 row i5
   - i7 row i6
   - i5 row i4
-What is the cheapest encoding for i0 1?
+What is the cheapest encoding: i0 and 1?
 
 Answer with exactly one of: table | set | graph | sequence
 Reply with the answer only.</pre>
@@ -742,28 +824,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 1
-The graph: i6 edge i2, i3 edge i6, i5 edge i3 and i2 edge i4.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 1
+Graph: i6 edge i2; i3 edge i6; i5 edge i3; i2 edge i4.
 The sequence is:
   - i5
   - i3
   - i6
   - i2
   - i4
-The set:
+Set:
   - i3
   - i6
   - i2
   - i5
   - i4
-The table: i6 row i2, i5 row i3, i2 row i4 and i3 row i6.
-What is the cheapest encoding for i2 1?
+Table: i6 row i2; i5 row i3; i2 row i4; i3 row i6.
+What is the cheapest encoding: i2 and 1?
 
 Answer with exactly one of: graph | set | table | sequence
 Reply with the answer only.</pre>
@@ -790,14 +872,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph:
   - i6 edge i1
   - i1 edge i5
   - i7 edge i4
@@ -812,7 +894,7 @@ The sequence is:
   - i5
   - i2
   - i3
-The set:
+Set:
   - i3
   - i7
   - i6
@@ -820,14 +902,14 @@ The set:
   - i2
   - i1
   - i5
-The table:
+Table:
   - i1 row i5
   - i7 row i4
   - i4 row i6
   - i2 row i3
   - i6 row i1
   - i5 row i2
-What is the cheapest encoding for i2 1?
+What is the cheapest encoding: i2 and 1?
 
 Answer with exactly one of: table | graph | set | sequence
 Reply with the answer only.</pre>
@@ -854,14 +936,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph:
   - i7 edge i5
   - i3 edge i2
   - i6 edge i7
@@ -876,7 +958,7 @@ The sequence is:
   - i7
   - i5
   - i0
-The set:
+Set:
   - i5
   - i0
   - i6
@@ -884,14 +966,14 @@ The set:
   - i4
   - i2
   - i7
-The table:
+Table:
   - i5 row i0
   - i6 row i7
   - i2 row i6
   - i4 row i3
   - i7 row i5
   - i3 row i2
-What is the cheapest encoding for i7 2?
+What is the cheapest encoding: i7 and 2?
 
 Answer with exactly one of: sequence | set | table | graph
 Reply with the answer only.</pre>
@@ -918,14 +1000,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 1
+Graph:
   - i6 edge i4
   - i1 edge i6
   - i2 edge i5
@@ -938,20 +1020,20 @@ The sequence is:
   - i6
   - i4
   - i7
-The set:
+Set:
   - i5
   - i6
   - i7
   - i1
   - i2
   - i4
-The table:
+Table:
   - i6 row i4
   - i1 row i6
   - i5 row i1
   - i4 row i7
   - i2 row i5
-What is the cheapest encoding for i7 0?
+What is the cheapest encoding: i7 and 0?
 
 Answer with exactly one of: graph | set | table | sequence
 Reply with the answer only.</pre>
@@ -978,14 +1060,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 2
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 2
+Graph:
   - i6 edge i5
   - i0 edge i6
   - i5 edge i2
@@ -998,20 +1080,20 @@ The sequence is:
   - i5
   - i2
   - i1
-The set:
+Set:
   - i4
   - i2
   - i0
   - i6
   - i1
   - i5
-The table:
+Table:
   - i0 row i6
   - i6 row i5
   - i5 row i2
   - i4 row i0
   - i2 row i1
-What is the cheapest encoding for i0 3?
+What is the cheapest encoding: i0 and 3?
 
 Answer with exactly one of: graph | table | sequence | set
 Reply with the answer only.</pre>
@@ -1038,14 +1120,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 2
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 2
+Graph:
   - i6 edge i3
   - i0 edge i6
   - i7 edge i2
@@ -1058,20 +1140,20 @@ The sequence is:
   - i5
   - i7
   - i2
-The set:
+Set:
   - i0
   - i5
   - i2
   - i3
   - i7
   - i6
-The table:
+Table:
   - i0 row i6
   - i3 row i5
   - i5 row i7
   - i7 row i2
   - i6 row i3
-What is the cheapest encoding for i3 2?
+What is the cheapest encoding: i3 and 2?
 
 Answer with exactly one of: sequence | table | graph | set
 Reply with the answer only.</pre>
@@ -1098,14 +1180,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 2
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 2
+Graph:
   - i1 edge i5
   - i7 edge i2
   - i5 edge i0
@@ -1120,7 +1202,7 @@ The sequence is:
   - i5
   - i0
   - i4
-The set:
+Set:
   - i4
   - i1
   - i7
@@ -1128,14 +1210,14 @@ The set:
   - i5
   - i0
   - i2
-The table:
+Table:
   - i7 row i2
   - i0 row i4
   - i2 row i3
   - i1 row i5
   - i5 row i0
   - i3 row i1
-What is the cheapest encoding for i0 0?
+What is the cheapest encoding: i0 and 0?
 
 Answer with exactly one of: graph | set | sequence | table
 Reply with the answer only.</pre>
@@ -1162,14 +1244,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph:
   - i7 edge i6
   - i3 edge i4
   - i5 edge i0
@@ -1184,7 +1266,7 @@ The sequence is:
   - i5
   - i0
   - i1
-The set:
+Set:
   - i6
   - i1
   - i0
@@ -1192,14 +1274,14 @@ The set:
   - i5
   - i7
   - i3
-The table:
+Table:
   - i3 row i4
   - i6 row i5
   - i7 row i6
   - i4 row i7
   - i5 row i0
   - i0 row i1
-What is the cheapest encoding for i5 2?
+What is the cheapest encoding: i5 and 2?
 
 Answer with exactly one of: graph | table | sequence | set
 Reply with the answer only.</pre>
@@ -1226,28 +1308,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 3
-The graph: i5 edge i7, i0 edge i4, i6 edge i0 and i4 edge i5.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 3
+Graph: i5 edge i7; i0 edge i4; i6 edge i0; i4 edge i5.
 The sequence is:
   - i6
   - i0
   - i4
   - i5
   - i7
-The set:
+Set:
   - i6
   - i5
   - i7
   - i0
   - i4
-The table: i5 row i7, i0 row i4, i4 row i5 and i6 row i0.
-What is the cheapest encoding for i4 2?
+Table: i5 row i7; i0 row i4; i4 row i5; i6 row i0.
+What is the cheapest encoding: i4 and 2?
 
 Answer with exactly one of: table | graph | set | sequence
 Reply with the answer only.</pre>
@@ -1274,18 +1356,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph: i2 edge i0, i5 edge i2 and i0 edge i4.
-The sequence is: i5, i2, i0 and i4.
-The set: i0, i4, i2 and i5.
-The table: i0 row i4, i5 row i2 and i2 row i0.
-What is the cheapest encoding for i0 1?
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph: i2 edge i0; i5 edge i2; i0 edge i4.
+The sequence is i5; i2; i0; i4.
+Set: i0; i4; i2; i5.
+Table: i0 row i4; i5 row i2; i2 row i0.
+What is the cheapest encoding: i0 and 1?
 
 Answer with exactly one of: graph | set | sequence | table
 Reply with the answer only.</pre>
@@ -1312,18 +1394,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 3
-The graph: i6 edge i3, i5 edge i7 and i7 edge i6.
-The sequence is: i5, i7, i6 and i3.
-The set: i6, i7, i3 and i5.
-The table: i7 row i6, i6 row i3 and i5 row i7.
-What is the cheapest encoding for i5 0?
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 3
+Graph: i6 edge i3; i5 edge i7; i7 edge i6.
+The sequence is i5; i7; i6; i3.
+Set: i6; i7; i3; i5.
+Table: i7 row i6; i6 row i3; i5 row i7.
+What is the cheapest encoding: i5 and 0?
 
 Answer with exactly one of: sequence | graph | table | set
 Reply with the answer only.</pre>
@@ -1350,14 +1432,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 3
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 3
+Graph:
   - i7 edge i6
   - i2 edge i3
   - i0 edge i2
@@ -1370,20 +1452,20 @@ The sequence is:
   - i0
   - i2
   - i3
-The set:
+Set:
   - i6
   - i0
   - i3
   - i1
   - i7
   - i2
-The table:
+Table:
   - i6 row i0
   - i2 row i3
   - i7 row i6
   - i0 row i2
   - i1 row i7
-What is the cheapest encoding for i1 0?
+What is the cheapest encoding: i1 and 0?
 
 Answer with exactly one of: set | table | graph | sequence
 Reply with the answer only.</pre>
@@ -1410,14 +1492,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 2
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 2
+Graph:
   - i1 edge i3
   - i3 edge i0
   - i7 edge i6
@@ -1430,20 +1512,20 @@ The sequence is:
   - i1
   - i3
   - i0
-The set:
+Set:
   - i7
   - i2
   - i0
   - i1
   - i6
   - i3
-The table:
+Table:
   - i1 row i3
   - i3 row i0
   - i6 row i1
   - i2 row i7
   - i7 row i6
-What is the cheapest encoding for i7 2?
+What is the cheapest encoding: i7 and 2?
 
 Answer with exactly one of: set | sequence | table | graph
 Reply with the answer only.</pre>
@@ -1470,18 +1552,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph: i4 edge i7, i7 edge i0 and i3 edge i4.
-The sequence is: i3, i4, i7 and i0.
-The set: i4, i0, i3 and i7.
-The table: i3 row i4, i7 row i0 and i4 row i7.
-What is the cheapest encoding for i0 0?
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph: i4 edge i7; i7 edge i0; i3 edge i4.
+The sequence is i3; i4; i7; i0.
+Set: i4; i0; i3; i7.
+Table: i3 row i4; i7 row i0; i4 row i7.
+What is the cheapest encoding: i0 and 0?
 
 Answer with exactly one of: table | graph | set | sequence
 Reply with the answer only.</pre>
@@ -1508,28 +1590,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph: i4 edge i1, i1 edge i0, i3 edge i6 and i6 edge i4.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph: i4 edge i1; i1 edge i0; i3 edge i6; i6 edge i4.
 The sequence is:
   - i3
   - i6
   - i4
   - i1
   - i0
-The set:
+Set:
   - i0
   - i1
   - i6
   - i4
   - i3
-The table: i4 row i1, i3 row i6, i1 row i0 and i6 row i4.
-What is the cheapest encoding for i3 2?
+Table: i4 row i1; i3 row i6; i1 row i0; i6 row i4.
+What is the cheapest encoding: i3 and 2?
 
 Answer with exactly one of: set | table | graph | sequence
 Reply with the answer only.</pre>
@@ -1556,28 +1638,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph: i2 edge i1, i3 edge i6, i7 edge i2 and i6 edge i7.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph: i2 edge i1; i3 edge i6; i7 edge i2; i6 edge i7.
 The sequence is:
   - i3
   - i6
   - i7
   - i2
   - i1
-The set:
+Set:
   - i1
   - i6
   - i2
   - i3
   - i7
-The table: i7 row i2, i2 row i1, i3 row i6 and i6 row i7.
-What is the cheapest encoding for i6 3?
+Table: i7 row i2; i2 row i1; i3 row i6; i6 row i7.
+What is the cheapest encoding: i6 and 3?
 
 Answer with exactly one of: graph | sequence | set | table
 Reply with the answer only.</pre>
@@ -1604,28 +1686,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 3
-The graph: i4 edge i7, i7 edge i0, i6 edge i4 and i0 edge i1.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 3
+Graph: i4 edge i7; i7 edge i0; i6 edge i4; i0 edge i1.
 The sequence is:
   - i6
   - i4
   - i7
   - i0
   - i1
-The set:
+Set:
   - i0
   - i7
   - i6
   - i1
   - i4
-The table: i4 row i7, i6 row i4, i7 row i0 and i0 row i1.
-What is the cheapest encoding for i6 3?
+Table: i4 row i7; i6 row i4; i7 row i0; i0 row i1.
+What is the cheapest encoding: i6 and 3?
 
 Answer with exactly one of: table | graph | set | sequence
 Reply with the answer only.</pre>
@@ -1652,14 +1734,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph:
   - i3 edge i2
   - i4 edge i0
   - i7 edge i3
@@ -1674,7 +1756,7 @@ The sequence is:
   - i4
   - i0
   - i5
-The set:
+Set:
   - i3
   - i7
   - i0
@@ -1682,14 +1764,14 @@ The set:
   - i2
   - i5
   - i4
-The table:
+Table:
   - i0 row i5
   - i1 row i7
   - i7 row i3
   - i3 row i2
   - i4 row i0
   - i2 row i4
-What is the cheapest encoding for i1 3?
+What is the cheapest encoding: i1 and 3?
 
 Answer with exactly one of: table | graph | sequence | set
 Reply with the answer only.</pre>
@@ -1716,14 +1798,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 2
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 2
+Graph:
   - i6 edge i2
   - i0 edge i5
   - i1 edge i4
@@ -1736,20 +1818,20 @@ The sequence is:
   - i2
   - i0
   - i5
-The set:
+Set:
   - i0
   - i5
   - i1
   - i4
   - i2
   - i6
-The table:
+Table:
   - i6 row i2
   - i4 row i6
   - i2 row i0
   - i0 row i5
   - i1 row i4
-What is the cheapest encoding for i2 0?
+What is the cheapest encoding: i2 and 0?
 
 Answer with exactly one of: sequence | set | table | graph
 Reply with the answer only.</pre>
@@ -1776,28 +1858,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph: i6 edge i3, i4 edge i0, i3 edge i7 and i0 edge i6.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph: i6 edge i3; i4 edge i0; i3 edge i7; i0 edge i6.
 The sequence is:
   - i4
   - i0
   - i6
   - i3
   - i7
-The set:
+Set:
   - i0
   - i3
   - i6
   - i7
   - i4
-The table: i4 row i0, i0 row i6, i3 row i7 and i6 row i3.
-What is the cheapest encoding for i6 0?
+Table: i4 row i0; i0 row i6; i3 row i7; i6 row i3.
+What is the cheapest encoding: i6 and 0?
 
 Answer with exactly one of: set | table | graph | sequence
 Reply with the answer only.</pre>
@@ -1824,18 +1906,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph: i1 edge i7, i4 edge i5 and i7 edge i4.
-The sequence is: i1, i7, i4 and i5.
-The set: i7, i1, i4 and i5.
-The table: i1 row i7, i4 row i5 and i7 row i4.
-What is the cheapest encoding for i4 0?
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph: i1 edge i7; i4 edge i5; i7 edge i4.
+The sequence is i1; i7; i4; i5.
+Set: i7; i1; i4; i5.
+Table: i1 row i7; i4 row i5; i7 row i4.
+What is the cheapest encoding: i4 and 0?
 
 Answer with exactly one of: table | sequence | set | graph
 Reply with the answer only.</pre>
@@ -1862,28 +1944,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph: i6 edge i3, i3 edge i2, i1 edge i0 and i0 edge i6.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph: i6 edge i3; i3 edge i2; i1 edge i0; i0 edge i6.
 The sequence is:
   - i1
   - i0
   - i6
   - i3
   - i2
-The set:
+Set:
   - i6
   - i2
   - i3
   - i0
   - i1
-The table: i1 row i0, i0 row i6, i6 row i3 and i3 row i2.
-What is the cheapest encoding for i3 1?
+Table: i1 row i0; i0 row i6; i6 row i3; i3 row i2.
+What is the cheapest encoding: i3 and 1?
 
 Answer with exactly one of: set | sequence | table | graph
 Reply with the answer only.</pre>
@@ -1910,28 +1992,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 1
-The graph: i7 edge i5, i1 edge i3, i5 edge i1 and i2 edge i7.
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 1
+Graph: i7 edge i5; i1 edge i3; i5 edge i1; i2 edge i7.
 The sequence is:
   - i2
   - i7
   - i5
   - i1
   - i3
-The set:
+Set:
   - i7
   - i1
   - i5
   - i2
   - i3
-The table: i5 row i1, i2 row i7, i1 row i3 and i7 row i5.
-What is the cheapest encoding for i1 1?
+Table: i5 row i1; i2 row i7; i1 row i3; i7 row i5.
+What is the cheapest encoding: i1 and 1?
 
 Answer with exactly one of: table | sequence | graph | set
 Reply with the answer only.</pre>
@@ -1958,14 +2040,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 2
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 2
+Graph:
   - i0 edge i7
   - i3 edge i2
   - i4 edge i6
@@ -1978,20 +2060,20 @@ The sequence is:
   - i2
   - i4
   - i6
-The set:
+Set:
   - i7
   - i4
   - i0
   - i3
   - i6
   - i2
-The table:
+Table:
   - i7 row i3
   - i3 row i2
   - i4 row i6
   - i2 row i4
   - i0 row i7
-What is the cheapest encoding for i0 2?
+What is the cheapest encoding: i0 and 2?
 
 Answer with exactly one of: graph | set | table | sequence
 Reply with the answer only.</pre>
@@ -2018,18 +2100,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph: i7 edge i2, i0 edge i7 and i3 edge i0.
-The sequence is: i3, i0, i7 and i2.
-The set: i2, i7, i0 and i3.
-The table: i0 row i7, i7 row i2 and i3 row i0.
-What is the cheapest encoding for i0 0?
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph: i7 edge i2; i0 edge i7; i3 edge i0.
+The sequence is i3; i0; i7; i2.
+Set: i2; i7; i0; i3.
+Table: i0 row i7; i7 row i2; i3 row i0.
+What is the cheapest encoding: i0 and 0?
 
 Answer with exactly one of: table | graph | set | sequence
 Reply with the answer only.</pre>
@@ -2056,28 +2138,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 3
-The graph: i6 edge i1, i5 edge i6, i2 edge i3 and i1 edge i2.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 3
+Graph: i6 edge i1; i5 edge i6; i2 edge i3; i1 edge i2.
 The sequence is:
   - i5
   - i6
   - i1
   - i2
   - i3
-The set:
+Set:
   - i6
   - i2
   - i3
   - i1
   - i5
-The table: i1 row i2, i5 row i6, i2 row i3 and i6 row i1.
-What is the cheapest encoding for i3 0?
+Table: i1 row i2; i5 row i6; i2 row i3; i6 row i1.
+What is the cheapest encoding: i3 and 0?
 
 Answer with exactly one of: sequence | graph | table | set
 Reply with the answer only.</pre>
@@ -2104,18 +2186,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph: i6 edge i7, i3 edge i5 and i7 edge i3.
-The sequence is: i6, i7, i3 and i5.
-The set: i6, i5, i3 and i7.
-The table: i7 row i3, i3 row i5 and i6 row i7.
-What is the cheapest encoding for i5 0?
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph: i6 edge i7; i3 edge i5; i7 edge i3.
+The sequence is i6; i7; i3; i5.
+Set: i6; i5; i3; i7.
+Table: i7 row i3; i3 row i5; i6 row i7.
+What is the cheapest encoding: i5 and 0?
 
 Answer with exactly one of: sequence | graph | table | set
 Reply with the answer only.</pre>
@@ -2142,18 +2224,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph: i6 edge i0, i4 edge i2 and i0 edge i4.
-The sequence is: i6, i0, i4 and i2.
-The set: i0, i4, i2 and i6.
-The table: i6 row i0, i4 row i2 and i0 row i4.
-What is the cheapest encoding for i4 1?
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph: i6 edge i0; i4 edge i2; i0 edge i4.
+The sequence is i6; i0; i4; i2.
+Set: i0; i4; i2; i6.
+Table: i6 row i0; i4 row i2; i0 row i4.
+What is the cheapest encoding: i4 and 1?
 
 Answer with exactly one of: sequence | table | set | graph
 Reply with the answer only.</pre>
@@ -2180,28 +2262,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph: i2 edge i5, i5 edge i1, i1 edge i7 and i6 edge i2.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph: i2 edge i5; i5 edge i1; i1 edge i7; i6 edge i2.
 The sequence is:
   - i6
   - i2
   - i5
   - i1
   - i7
-The set:
+Set:
   - i7
   - i2
   - i1
   - i6
   - i5
-The table: i1 row i7, i5 row i1, i6 row i2 and i2 row i5.
-What is the cheapest encoding for i1 1?
+Table: i1 row i7; i5 row i1; i6 row i2; i2 row i5.
+What is the cheapest encoding: i1 and 1?
 
 Answer with exactly one of: graph | table | set | sequence
 Reply with the answer only.</pre>
@@ -2228,14 +2310,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 3
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 3
+Graph:
   - i5 edge i6
   - i0 edge i7
   - i7 edge i3
@@ -2248,20 +2330,20 @@ The sequence is:
   - i2
   - i5
   - i6
-The set:
+Set:
   - i5
   - i2
   - i3
   - i7
   - i0
   - i6
-The table:
+Table:
   - i5 row i6
   - i7 row i3
   - i0 row i7
   - i3 row i2
   - i2 row i5
-What is the cheapest encoding for i0 0?
+What is the cheapest encoding: i0 and 0?
 
 Answer with exactly one of: graph | sequence | set | table
 Reply with the answer only.</pre>
@@ -2288,14 +2370,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 2
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 2
+Graph:
   - i6 edge i0
   - i5 edge i3
   - i0 edge i4
@@ -2308,20 +2390,20 @@ The sequence is:
   - i5
   - i3
   - i2
-The set:
+Set:
   - i2
   - i3
   - i6
   - i5
   - i4
   - i0
-The table:
+Table:
   - i5 row i3
   - i6 row i0
   - i3 row i2
   - i4 row i5
   - i0 row i4
-What is the cheapest encoding for i4 3?
+What is the cheapest encoding: i4 and 3?
 
 Answer with exactly one of: set | sequence | table | graph
 Reply with the answer only.</pre>
@@ -2348,28 +2430,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph: i4 edge i2, i6 edge i4, i2 edge i7 and i1 edge i6.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph: i4 edge i2; i6 edge i4; i2 edge i7; i1 edge i6.
 The sequence is:
   - i1
   - i6
   - i4
   - i2
   - i7
-The set:
+Set:
   - i4
   - i2
   - i6
   - i7
   - i1
-The table: i1 row i6, i6 row i4, i4 row i2 and i2 row i7.
-What is the cheapest encoding for i6 3?
+Table: i1 row i6; i6 row i4; i4 row i2; i2 row i7.
+What is the cheapest encoding: i6 and 3?
 
 Answer with exactly one of: table | graph | set | sequence
 Reply with the answer only.</pre>
@@ -2396,28 +2478,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 2
-The graph: i0 edge i4, i1 edge i6, i6 edge i3 and i4 edge i1.
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 2
+Graph: i0 edge i4; i1 edge i6; i6 edge i3; i4 edge i1.
 The sequence is:
   - i0
   - i4
   - i1
   - i6
   - i3
-The set:
+Set:
   - i3
   - i4
   - i6
   - i0
   - i1
-The table: i4 row i1, i6 row i3, i1 row i6 and i0 row i4.
-What is the cheapest encoding for i4 0?
+Table: i4 row i1; i6 row i3; i1 row i6; i0 row i4.
+What is the cheapest encoding: i4 and 0?
 
 Answer with exactly one of: table | sequence | graph | set
 Reply with the answer only.</pre>
@@ -2444,18 +2526,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph: i0 edge i1, i7 edge i6 and i1 edge i7.
-The sequence is: i0, i1, i7 and i6.
-The set: i6, i1, i7 and i0.
-The table: i0 row i1, i7 row i6 and i1 row i7.
-What is the cheapest encoding for i7 1?
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph: i0 edge i1; i7 edge i6; i1 edge i7.
+The sequence is i0; i1; i7; i6.
+Set: i6; i1; i7; i0.
+Table: i0 row i1; i7 row i6; i1 row i7.
+What is the cheapest encoding: i7 and 1?
 
 Answer with exactly one of: graph | sequence | table | set
 Reply with the answer only.</pre>
@@ -2482,14 +2564,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph:
   - i1 edge i7
   - i3 edge i0
   - i0 edge i5
@@ -2502,20 +2584,20 @@ The sequence is:
   - i1
   - i7
   - i6
-The set:
+Set:
   - i1
   - i6
   - i0
   - i7
   - i5
   - i3
-The table:
+Table:
   - i5 row i1
   - i0 row i5
   - i3 row i0
   - i7 row i6
   - i1 row i7
-What is the cheapest encoding for i5 3?
+What is the cheapest encoding: i5 and 3?
 
 Answer with exactly one of: graph | sequence | set | table
 Reply with the answer only.</pre>
@@ -2542,28 +2624,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph: i5 edge i1, i6 edge i5, i4 edge i6 and i1 edge i7.
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph: i5 edge i1; i6 edge i5; i4 edge i6; i1 edge i7.
 The sequence is:
   - i4
   - i6
   - i5
   - i1
   - i7
-The set:
+Set:
   - i4
   - i1
   - i6
   - i7
   - i5
-The table: i4 row i6, i1 row i7, i6 row i5 and i5 row i1.
-What is the cheapest encoding for i6 0?
+Table: i4 row i6; i1 row i7; i6 row i5; i5 row i1.
+What is the cheapest encoding: i6 and 0?
 
 Answer with exactly one of: table | set | sequence | graph
 Reply with the answer only.</pre>
@@ -2590,14 +2672,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 3
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 3
+Graph:
   - i4 edge i6
   - i5 edge i2
   - i1 edge i5
@@ -2612,7 +2694,7 @@ The sequence is:
   - i5
   - i2
   - i7
-The set:
+Set:
   - i6
   - i2
   - i4
@@ -2620,14 +2702,14 @@ The set:
   - i1
   - i0
   - i7
-The table:
+Table:
   - i1 row i5
   - i2 row i7
   - i5 row i2
   - i4 row i6
   - i0 row i4
   - i6 row i1
-What is the cheapest encoding for i2 0?
+What is the cheapest encoding: i2 and 0?
 
 Answer with exactly one of: set | sequence | graph | table
 Reply with the answer only.</pre>
@@ -2654,14 +2736,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph:
   - i2 edge i3
   - i0 edge i2
   - i7 edge i5
@@ -2674,20 +2756,20 @@ The sequence is:
   - i3
   - i7
   - i5
-The set:
+Set:
   - i2
   - i0
   - i6
   - i3
   - i7
   - i5
-The table:
+Table:
   - i0 row i2
   - i2 row i3
   - i7 row i5
   - i3 row i7
   - i6 row i0
-What is the cheapest encoding for i0 0?
+What is the cheapest encoding: i0 and 0?
 
 Answer with exactly one of: sequence | set | table | graph
 Reply with the answer only.</pre>
@@ -2714,28 +2796,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph: i1 edge i3, i7 edge i1, i4 edge i6 and i6 edge i7.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph: i1 edge i3; i7 edge i1; i4 edge i6; i6 edge i7.
 The sequence is:
   - i4
   - i6
   - i7
   - i1
   - i3
-The set:
+Set:
   - i7
   - i4
   - i1
   - i6
   - i3
-The table: i4 row i6, i7 row i1, i6 row i7 and i1 row i3.
-What is the cheapest encoding for i3 0?
+Table: i4 row i6; i7 row i1; i6 row i7; i1 row i3.
+What is the cheapest encoding: i3 and 0?
 
 Answer with exactly one of: set | sequence | table | graph
 Reply with the answer only.</pre>
@@ -2762,14 +2844,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph:
   - i4 edge i7
   - i0 edge i2
   - i7 edge i5
@@ -2782,20 +2864,20 @@ The sequence is:
   - i4
   - i7
   - i5
-The set:
+Set:
   - i5
   - i7
   - i2
   - i0
   - i6
   - i4
-The table:
+Table:
   - i6 row i0
   - i0 row i2
   - i7 row i5
   - i2 row i4
   - i4 row i7
-What is the cheapest encoding for i2 0?
+What is the cheapest encoding: i2 and 0?
 
 Answer with exactly one of: graph | table | sequence | set
 Reply with the answer only.</pre>
@@ -2822,14 +2904,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 2
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 2
+Graph:
   - i2 edge i4
   - i5 edge i7
   - i3 edge i2
@@ -2844,7 +2926,7 @@ The sequence is:
   - i3
   - i2
   - i4
-The set:
+Set:
   - i2
   - i3
   - i0
@@ -2852,14 +2934,14 @@ The set:
   - i5
   - i6
   - i7
-The table:
+Table:
   - i5 row i7
   - i6 row i0
   - i0 row i5
   - i7 row i3
   - i3 row i2
   - i2 row i4
-What is the cheapest encoding for i7 3?
+What is the cheapest encoding: i7 and 3?
 
 Answer with exactly one of: table | sequence | graph | set
 Reply with the answer only.</pre>
@@ -2886,14 +2968,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 2
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 2
+Graph:
   - i5 edge i4
   - i6 edge i1
   - i1 edge i2
@@ -2908,7 +2990,7 @@ The sequence is:
   - i3
   - i5
   - i4
-The set:
+Set:
   - i0
   - i1
   - i2
@@ -2916,14 +2998,14 @@ The set:
   - i4
   - i5
   - i3
-The table:
+Table:
   - i3 row i5
   - i1 row i2
   - i6 row i1
   - i5 row i4
   - i0 row i3
   - i2 row i0
-What is the cheapest encoding for i6 2?
+What is the cheapest encoding: i6 and 2?
 
 Answer with exactly one of: table | sequence | set | graph
 Reply with the answer only.</pre>
@@ -2950,14 +3032,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph:
   - i3 edge i5
   - i6 edge i3
   - i7 edge i6
@@ -2970,20 +3052,20 @@ The sequence is:
   - i5
   - i0
   - i4
-The set:
+Set:
   - i3
   - i7
   - i5
   - i6
   - i4
   - i0
-The table:
+Table:
   - i3 row i5
   - i5 row i0
   - i0 row i4
   - i6 row i3
   - i7 row i6
-What is the cheapest encoding for i5 0?
+What is the cheapest encoding: i5 and 0?
 
 Answer with exactly one of: sequence | graph | set | table
 Reply with the answer only.</pre>
@@ -3010,28 +3092,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph: i3 edge i5, i0 edge i3, i6 edge i1 and i5 edge i6.
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph: i3 edge i5; i0 edge i3; i6 edge i1; i5 edge i6.
 The sequence is:
   - i0
   - i3
   - i5
   - i6
   - i1
-The set:
+Set:
   - i0
   - i3
   - i5
   - i1
   - i6
-The table: i0 row i3, i5 row i6, i3 row i5 and i6 row i1.
-What is the cheapest encoding for i0 0?
+Table: i0 row i3; i5 row i6; i3 row i5; i6 row i1.
+What is the cheapest encoding: i0 and 0?
 
 Answer with exactly one of: set | graph | sequence | table
 Reply with the answer only.</pre>
@@ -3058,14 +3140,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph:
   - i0 edge i4
   - i5 edge i1
   - i3 edge i7
@@ -3078,20 +3160,20 @@ The sequence is:
   - i1
   - i3
   - i7
-The set:
+Set:
   - i7
   - i4
   - i1
   - i3
   - i0
   - i5
-The table:
+Table:
   - i1 row i3
   - i5 row i1
   - i3 row i7
   - i4 row i5
   - i0 row i4
-What is the cheapest encoding for i4 2?
+What is the cheapest encoding: i4 and 2?
 
 Answer with exactly one of: set | table | sequence | graph
 Reply with the answer only.</pre>
@@ -3118,28 +3200,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 2
-The graph: i0 edge i1, i5 edge i7, i2 edge i5 and i7 edge i0.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 2
+Graph: i0 edge i1; i5 edge i7; i2 edge i5; i7 edge i0.
 The sequence is:
   - i2
   - i5
   - i7
   - i0
   - i1
-The set:
+Set:
   - i0
   - i5
   - i7
   - i2
   - i1
-The table: i5 row i7, i2 row i5, i7 row i0 and i0 row i1.
-What is the cheapest encoding for i7 2?
+Table: i5 row i7; i2 row i5; i7 row i0; i0 row i1.
+What is the cheapest encoding: i7 and 2?
 
 Answer with exactly one of: sequence | set | graph | table
 Reply with the answer only.</pre>
@@ -3166,28 +3248,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph: i7 edge i0, i4 edge i3, i3 edge i7 and i2 edge i4.
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph: i7 edge i0; i4 edge i3; i3 edge i7; i2 edge i4.
 The sequence is:
   - i2
   - i4
   - i3
   - i7
   - i0
-The set:
+Set:
   - i0
   - i2
   - i4
   - i7
   - i3
-The table: i7 row i0, i4 row i3, i3 row i7 and i2 row i4.
-What is the cheapest encoding for i7 1?
+Table: i7 row i0; i4 row i3; i3 row i7; i2 row i4.
+What is the cheapest encoding: i7 and 1?
 
 Answer with exactly one of: sequence | table | set | graph
 Reply with the answer only.</pre>
@@ -3214,14 +3296,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 1
+Graph:
   - i1 edge i4
   - i4 edge i2
   - i0 edge i1
@@ -3234,20 +3316,20 @@ The sequence is:
   - i2
   - i3
   - i6
-The set:
+Set:
   - i2
   - i0
   - i6
   - i1
   - i4
   - i3
-The table:
+Table:
   - i2 row i3
   - i1 row i4
   - i0 row i1
   - i3 row i6
   - i4 row i2
-What is the cheapest encoding for i3 1?
+What is the cheapest encoding: i3 and 1?
 
 Answer with exactly one of: sequence | graph | set | table
 Reply with the answer only.</pre>
@@ -3274,18 +3356,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 2
-The graph: i1 edge i3, i3 edge i6 and i2 edge i1.
-The sequence is: i2, i1, i3 and i6.
-The set: i2, i1, i6 and i3.
-The table: i1 row i3, i3 row i6 and i2 row i1.
-What is the cheapest encoding for i2 2?
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 2
+Graph: i1 edge i3; i3 edge i6; i2 edge i1.
+The sequence is i2; i1; i3; i6.
+Set: i2; i1; i6; i3.
+Table: i1 row i3; i3 row i6; i2 row i1.
+What is the cheapest encoding: i2 and 2?
 
 Answer with exactly one of: graph | set | table | sequence
 Reply with the answer only.</pre>
@@ -3312,18 +3394,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph: i2 edge i0, i4 edge i2 and i0 edge i7.
-The sequence is: i4, i2, i0 and i7.
-The set: i0, i4, i2 and i7.
-The table: i2 row i0, i0 row i7 and i4 row i2.
-What is the cheapest encoding for i4 0?
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph: i2 edge i0; i4 edge i2; i0 edge i7.
+The sequence is i4; i2; i0; i7.
+Set: i0; i4; i2; i7.
+Table: i2 row i0; i0 row i7; i4 row i2.
+What is the cheapest encoding: i4 and 0?
 
 Answer with exactly one of: sequence | graph | table | set
 Reply with the answer only.</pre>
@@ -3350,14 +3432,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph:
   - i7 edge i1
   - i3 edge i4
   - i1 edge i3
@@ -3370,20 +3452,20 @@ The sequence is:
   - i3
   - i4
   - i5
-The set:
+Set:
   - i1
   - i4
   - i5
   - i7
   - i3
   - i2
-The table:
+Table:
   - i4 row i5
   - i7 row i1
   - i1 row i3
   - i3 row i4
   - i2 row i7
-What is the cheapest encoding for i5 0?
+What is the cheapest encoding: i5 and 0?
 
 Answer with exactly one of: set | table | sequence | graph
 Reply with the answer only.</pre>
@@ -3410,18 +3492,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph: i4 edge i6, i6 edge i3 and i3 edge i0.
-The sequence is: i4, i6, i3 and i0.
-The set: i4, i6, i0 and i3.
-The table: i6 row i3, i4 row i6 and i3 row i0.
-What is the cheapest encoding for i3 1?
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph: i4 edge i6; i6 edge i3; i3 edge i0.
+The sequence is i4; i6; i3; i0.
+Set: i4; i6; i0; i3.
+Table: i6 row i3; i4 row i6; i3 row i0.
+What is the cheapest encoding: i3 and 1?
 
 Answer with exactly one of: table | set | graph | sequence
 Reply with the answer only.</pre>
@@ -3448,18 +3530,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 3
-The graph: i7 edge i2, i2 edge i5 and i3 edge i7.
-The sequence is: i3, i7, i2 and i5.
-The set: i5, i2, i7 and i3.
-The table: i2 row i5, i7 row i2 and i3 row i7.
-What is the cheapest encoding for i3 0?
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 3
+Graph: i7 edge i2; i2 edge i5; i3 edge i7.
+The sequence is i3; i7; i2; i5.
+Set: i5; i2; i7; i3.
+Table: i2 row i5; i7 row i2; i3 row i7.
+What is the cheapest encoding: i3 and 0?
 
 Answer with exactly one of: sequence | graph | table | set
 Reply with the answer only.</pre>
@@ -3486,14 +3568,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph:
   - i5 edge i6
   - i1 edge i2
   - i2 edge i4
@@ -3508,7 +3590,7 @@ The sequence is:
   - i7
   - i5
   - i6
-The set:
+Set:
   - i4
   - i6
   - i7
@@ -3516,14 +3598,14 @@ The set:
   - i5
   - i2
   - i1
-The table:
+Table:
   - i4 row i7
   - i5 row i6
   - i0 row i1
   - i7 row i5
   - i1 row i2
   - i2 row i4
-What is the cheapest encoding for i4 2?
+What is the cheapest encoding: i4 and 2?
 
 Answer with exactly one of: table | graph | sequence | set
 Reply with the answer only.</pre>
@@ -3550,14 +3632,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph:
   - i2 edge i3
   - i4 edge i6
   - i1 edge i2
@@ -3572,7 +3654,7 @@ The sequence is:
   - i2
   - i3
   - i7
-The set:
+Set:
   - i2
   - i4
   - i3
@@ -3580,14 +3662,14 @@ The set:
   - i5
   - i7
   - i1
-The table:
+Table:
   - i2 row i3
   - i6 row i1
   - i5 row i4
   - i3 row i7
   - i1 row i2
   - i4 row i6
-What is the cheapest encoding for i4 3?
+What is the cheapest encoding: i4 and 3?
 
 Answer with exactly one of: set | table | sequence | graph
 Reply with the answer only.</pre>
@@ -3614,18 +3696,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph: i1 edge i5, i2 edge i1 and i7 edge i2.
-The sequence is: i7, i2, i1 and i5.
-The set: i5, i7, i2 and i1.
-The table: i1 row i5, i7 row i2 and i2 row i1.
-What is the cheapest encoding for i7 2?
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph: i1 edge i5; i2 edge i1; i7 edge i2.
+The sequence is i7; i2; i1; i5.
+Set: i5; i7; i2; i1.
+Table: i1 row i5; i7 row i2; i2 row i1.
+What is the cheapest encoding: i7 and 2?
 
 Answer with exactly one of: table | sequence | set | graph
 Reply with the answer only.</pre>
@@ -3652,28 +3734,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 3
-The graph: i6 edge i5, i0 edge i3, i5 edge i0 and i2 edge i6.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 3
+Graph: i6 edge i5; i0 edge i3; i5 edge i0; i2 edge i6.
 The sequence is:
   - i2
   - i6
   - i5
   - i0
   - i3
-The set:
+Set:
   - i6
   - i3
   - i5
   - i0
   - i2
-The table: i6 row i5, i2 row i6, i5 row i0 and i0 row i3.
-What is the cheapest encoding for i6 1?
+Table: i6 row i5; i2 row i6; i5 row i0; i0 row i3.
+What is the cheapest encoding: i6 and 1?
 
 Answer with exactly one of: sequence | table | graph | set
 Reply with the answer only.</pre>
@@ -3700,18 +3782,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 1
-The graph: i6 edge i3, i3 edge i7 and i7 edge i2.
-The sequence is: i6, i3, i7 and i2.
-The set: i3, i2, i6 and i7.
-The table: i7 row i2, i6 row i3 and i3 row i7.
-What is the cheapest encoding for i7 1?
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 1
+Graph: i6 edge i3; i3 edge i7; i7 edge i2.
+The sequence is i6; i3; i7; i2.
+Set: i3; i2; i6; i7.
+Table: i7 row i2; i6 row i3; i3 row i7.
+What is the cheapest encoding: i7 and 1?
 
 Answer with exactly one of: sequence | table | set | graph
 Reply with the answer only.</pre>
@@ -3738,14 +3820,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph:
   - i2 edge i3
   - i3 edge i0
   - i6 edge i2
@@ -3758,20 +3840,20 @@ The sequence is:
   - i2
   - i3
   - i0
-The set:
+Set:
   - i7
   - i4
   - i2
   - i0
   - i6
   - i3
-The table:
+Table:
   - i2 row i3
   - i6 row i2
   - i4 row i7
   - i7 row i6
   - i3 row i0
-What is the cheapest encoding for i6 2?
+What is the cheapest encoding: i6 and 2?
 
 Answer with exactly one of: sequence | table | graph | set
 Reply with the answer only.</pre>
@@ -3798,14 +3880,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 2
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 2
+Graph:
   - i7 edge i6
   - i3 edge i5
   - i2 edge i3
@@ -3818,20 +3900,20 @@ The sequence is:
   - i0
   - i7
   - i6
-The set:
+Set:
   - i2
   - i7
   - i6
   - i0
   - i3
   - i5
-The table:
+Table:
   - i5 row i0
   - i7 row i6
   - i0 row i7
   - i2 row i3
   - i3 row i5
-What is the cheapest encoding for i6 0?
+What is the cheapest encoding: i6 and 0?
 
 Answer with exactly one of: set | sequence | graph | table
 Reply with the answer only.</pre>
@@ -3858,14 +3940,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 1
+Graph:
   - i4 edge i5
   - i6 edge i7
   - i7 edge i3
@@ -3878,20 +3960,20 @@ The sequence is:
   - i0
   - i4
   - i5
-The set:
+Set:
   - i0
   - i6
   - i5
   - i7
   - i4
   - i3
-The table:
+Table:
   - i7 row i3
   - i6 row i7
   - i0 row i4
   - i3 row i0
   - i4 row i5
-What is the cheapest encoding for i6 1?
+What is the cheapest encoding: i6 and 1?
 
 Answer with exactly one of: graph | table | set | sequence
 Reply with the answer only.</pre>
@@ -3918,28 +4000,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 3
-The graph: i7 edge i5, i5 edge i1, i0 edge i7 and i6 edge i0.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 3
+Graph: i7 edge i5; i5 edge i1; i0 edge i7; i6 edge i0.
 The sequence is:
   - i6
   - i0
   - i7
   - i5
   - i1
-The set:
+Set:
   - i0
   - i5
   - i6
   - i1
   - i7
-The table: i5 row i1, i7 row i5, i6 row i0 and i0 row i7.
-What is the cheapest encoding for i1 0?
+Table: i5 row i1; i7 row i5; i6 row i0; i0 row i7.
+What is the cheapest encoding: i1 and 0?
 
 Answer with exactly one of: graph | table | set | sequence
 Reply with the answer only.</pre>
@@ -3966,18 +4048,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 2
-The graph: i7 edge i0, i0 edge i2 and i2 edge i6.
-The sequence is: i7, i0, i2 and i6.
-The set: i6, i7, i0 and i2.
-The table: i7 row i0, i2 row i6 and i0 row i2.
-What is the cheapest encoding for i0 0?
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 2
+Graph: i7 edge i0; i0 edge i2; i2 edge i6.
+The sequence is i7; i0; i2; i6.
+Set: i6; i7; i0; i2.
+Table: i7 row i0; i2 row i6; i0 row i2.
+What is the cheapest encoding: i0 and 0?
 
 Answer with exactly one of: graph | set | table | sequence
 Reply with the answer only.</pre>
@@ -4004,18 +4086,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 1
-The graph: i4 edge i3, i0 edge i6 and i3 edge i0.
-The sequence is: i4, i3, i0 and i6.
-The set: i3, i4, i6 and i0.
-The table: i0 row i6, i4 row i3 and i3 row i0.
-What is the cheapest encoding for i4 0?
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 1
+Graph: i4 edge i3; i0 edge i6; i3 edge i0.
+The sequence is i4; i3; i0; i6.
+Set: i3; i4; i6; i0.
+Table: i0 row i6; i4 row i3; i3 row i0.
+What is the cheapest encoding: i4 and 0?
 
 Answer with exactly one of: graph | sequence | set | table
 Reply with the answer only.</pre>
@@ -4042,18 +4124,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 3
-The graph: i1 edge i3, i6 edge i1 and i2 edge i6.
-The sequence is: i2, i6, i1 and i3.
-The set: i3, i2, i1 and i6.
-The table: i6 row i1, i1 row i3 and i2 row i6.
-What is the cheapest encoding for i2 3?
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 3
+Graph: i1 edge i3; i6 edge i1; i2 edge i6.
+The sequence is i2; i6; i1; i3.
+Set: i3; i2; i1; i6.
+Table: i6 row i1; i1 row i3; i2 row i6.
+What is the cheapest encoding: i2 and 3?
 
 Answer with exactly one of: graph | table | set | sequence
 Reply with the answer only.</pre>
@@ -4080,14 +4162,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph:
   - i0 edge i6
   - i6 edge i4
   - i1 edge i3
@@ -4100,20 +4182,20 @@ The sequence is:
   - i4
   - i1
   - i3
-The set:
+Set:
   - i1
   - i5
   - i4
   - i0
   - i3
   - i6
-The table:
+Table:
   - i5 row i0
   - i4 row i1
   - i6 row i4
   - i0 row i6
   - i1 row i3
-What is the cheapest encoding for i6 3?
+What is the cheapest encoding: i6 and 3?
 
 Answer with exactly one of: sequence | set | graph | table
 Reply with the answer only.</pre>
@@ -4140,14 +4222,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 2
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 2
+Graph:
   - i1 edge i2
   - i4 edge i7
   - i6 edge i1
@@ -4162,7 +4244,7 @@ The sequence is:
   - i3
   - i4
   - i7
-The set:
+Set:
   - i7
   - i1
   - i2
@@ -4170,14 +4252,14 @@ The set:
   - i4
   - i6
   - i3
-The table:
+Table:
   - i1 row i2
   - i0 row i3
   - i3 row i4
   - i6 row i1
   - i4 row i7
   - i2 row i0
-What is the cheapest encoding for i7 0?
+What is the cheapest encoding: i7 and 0?
 
 Answer with exactly one of: set | sequence | table | graph
 Reply with the answer only.</pre>
@@ -4204,14 +4286,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 1
+Graph:
   - i0 edge i2
   - i6 edge i0
   - i3 edge i1
@@ -4224,20 +4306,20 @@ The sequence is:
   - i0
   - i2
   - i5
-The set:
+Set:
   - i3
   - i6
   - i5
   - i1
   - i0
   - i2
-The table:
+Table:
   - i1 row i6
   - i6 row i0
   - i3 row i1
   - i2 row i5
   - i0 row i2
-What is the cheapest encoding for i1 0?
+What is the cheapest encoding: i1 and 0?
 
 Answer with exactly one of: sequence | set | graph | table
 Reply with the answer only.</pre>
@@ -4264,14 +4346,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 2
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 2
+Graph:
   - i7 edge i3
   - i6 edge i0
   - i0 edge i5
@@ -4284,20 +4366,20 @@ The sequence is:
   - i0
   - i5
   - i2
-The set:
+Set:
   - i7
   - i2
   - i3
   - i6
   - i0
   - i5
-The table:
+Table:
   - i7 row i3
   - i0 row i5
   - i3 row i6
   - i6 row i0
   - i5 row i2
-What is the cheapest encoding for i6 2?
+What is the cheapest encoding: i6 and 2?
 
 Answer with exactly one of: graph | sequence | set | table
 Reply with the answer only.</pre>
@@ -4324,14 +4406,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 2
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 2
+Graph:
   - i2 edge i1
   - i6 edge i3
   - i3 edge i5
@@ -4346,7 +4428,7 @@ The sequence is:
   - i3
   - i5
   - i0
-The set:
+Set:
   - i6
   - i3
   - i1
@@ -4354,14 +4436,14 @@ The set:
   - i2
   - i5
   - i0
-The table:
+Table:
   - i6 row i3
   - i5 row i0
   - i3 row i5
   - i4 row i2
   - i1 row i6
   - i2 row i1
-What is the cheapest encoding for i4 3?
+What is the cheapest encoding: i4 and 3?
 
 Answer with exactly one of: sequence | table | set | graph
 Reply with the answer only.</pre>
@@ -4388,14 +4470,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph:
   - i1 edge i0
   - i6 edge i2
   - i7 edge i4
@@ -4410,7 +4492,7 @@ The sequence is:
   - i3
   - i1
   - i0
-The set:
+Set:
   - i3
   - i7
   - i0
@@ -4418,14 +4500,14 @@ The set:
   - i4
   - i2
   - i6
-The table:
+Table:
   - i2 row i7
   - i1 row i0
   - i4 row i3
   - i6 row i2
   - i3 row i1
   - i7 row i4
-What is the cheapest encoding for i3 0?
+What is the cheapest encoding: i3 and 0?
 
 Answer with exactly one of: table | graph | sequence | set
 Reply with the answer only.</pre>
@@ -4452,14 +4534,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph:
   - i3 edge i2
   - i1 edge i5
   - i4 edge i0
@@ -4474,7 +4556,7 @@ The sequence is:
   - i0
   - i1
   - i5
-The set:
+Set:
   - i6
   - i0
   - i4
@@ -4482,14 +4564,14 @@ The set:
   - i3
   - i1
   - i2
-The table:
+Table:
   - i6 row i4
   - i2 row i6
   - i3 row i2
   - i1 row i5
   - i4 row i0
   - i0 row i1
-What is the cheapest encoding for i0 1?
+What is the cheapest encoding: i0 and 1?
 
 Answer with exactly one of: table | graph | set | sequence
 Reply with the answer only.</pre>
@@ -4516,14 +4598,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 1
+Graph:
   - i1 edge i5
   - i6 edge i1
   - i2 edge i0
@@ -4538,7 +4620,7 @@ The sequence is:
   - i2
   - i0
   - i3
-The set:
+Set:
   - i1
   - i2
   - i0
@@ -4546,14 +4628,14 @@ The set:
   - i6
   - i5
   - i4
-The table:
+Table:
   - i4 row i6
   - i6 row i1
   - i0 row i3
   - i1 row i5
   - i2 row i0
   - i5 row i2
-What is the cheapest encoding for i1 2?
+What is the cheapest encoding: i1 and 2?
 
 Answer with exactly one of: graph | set | sequence | table
 Reply with the answer only.</pre>
@@ -4580,28 +4662,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph: i1 edge i7, i5 edge i1, i0 edge i2 and i7 edge i0.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph: i1 edge i7; i5 edge i1; i0 edge i2; i7 edge i0.
 The sequence is:
   - i5
   - i1
   - i7
   - i0
   - i2
-The set:
+Set:
   - i2
   - i5
   - i0
   - i1
   - i7
-The table: i1 row i7, i7 row i0, i5 row i1 and i0 row i2.
-What is the cheapest encoding for i0 1?
+Table: i1 row i7; i7 row i0; i5 row i1; i0 row i2.
+What is the cheapest encoding: i0 and 1?
 
 Answer with exactly one of: table | sequence | graph | set
 Reply with the answer only.</pre>
@@ -4628,18 +4710,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 3
-The graph: i4 edge i2, i0 edge i4 and i7 edge i0.
-The sequence is: i7, i0, i4 and i2.
-The set: i7, i0, i2 and i4.
-The table: i4 row i2, i7 row i0 and i0 row i4.
-What is the cheapest encoding for i0 0?
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 3
+Graph: i4 edge i2; i0 edge i4; i7 edge i0.
+The sequence is i7; i0; i4; i2.
+Set: i7; i0; i2; i4.
+Table: i4 row i2; i7 row i0; i0 row i4.
+What is the cheapest encoding: i0 and 0?
 
 Answer with exactly one of: set | table | graph | sequence
 Reply with the answer only.</pre>
@@ -4666,14 +4748,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 2
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 2
+Graph:
   - i5 edge i0
   - i3 edge i2
   - i2 edge i7
@@ -4686,20 +4768,20 @@ The sequence is:
   - i6
   - i5
   - i0
-The set:
+Set:
   - i3
   - i6
   - i7
   - i0
   - i5
   - i2
-The table:
+Table:
   - i3 row i2
   - i7 row i6
   - i2 row i7
   - i6 row i5
   - i5 row i0
-What is the cheapest encoding for i3 0?
+What is the cheapest encoding: i3 and 0?
 
 Answer with exactly one of: graph | table | set | sequence
 Reply with the answer only.</pre>
@@ -4726,14 +4808,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph:
   - i6 edge i7
   - i2 edge i3
   - i7 edge i4
@@ -4746,20 +4828,20 @@ The sequence is:
   - i4
   - i2
   - i3
-The set:
+Set:
   - i2
   - i3
   - i4
   - i6
   - i0
   - i7
-The table:
+Table:
   - i7 row i4
   - i4 row i2
   - i2 row i3
   - i0 row i6
   - i6 row i7
-What is the cheapest encoding for i6 1?
+What is the cheapest encoding: i6 and 1?
 
 Answer with exactly one of: table | graph | sequence | set
 Reply with the answer only.</pre>
@@ -4786,28 +4868,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 2
-The graph: i6 edge i4, i4 edge i5, i2 edge i6 and i1 edge i2.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 2
+Graph: i6 edge i4; i4 edge i5; i2 edge i6; i1 edge i2.
 The sequence is:
   - i1
   - i2
   - i6
   - i4
   - i5
-The set:
+Set:
   - i5
   - i4
   - i1
   - i6
   - i2
-The table: i1 row i2, i4 row i5, i6 row i4 and i2 row i6.
-What is the cheapest encoding for i1 3?
+Table: i1 row i2; i4 row i5; i6 row i4; i2 row i6.
+What is the cheapest encoding: i1 and 3?
 
 Answer with exactly one of: graph | sequence | set | table
 Reply with the answer only.</pre>
@@ -4834,14 +4916,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 2
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 2
+Graph:
   - i4 edge i2
   - i3 edge i4
   - i6 edge i1
@@ -4856,7 +4938,7 @@ The sequence is:
   - i6
   - i1
   - i0
-The set:
+Set:
   - i1
   - i7
   - i3
@@ -4864,14 +4946,14 @@ The set:
   - i4
   - i6
   - i2
-The table:
+Table:
   - i4 row i2
   - i2 row i6
   - i7 row i3
   - i3 row i4
   - i1 row i0
   - i6 row i1
-What is the cheapest encoding for i1 1?
+What is the cheapest encoding: i1 and 1?
 
 Answer with exactly one of: graph | set | table | sequence
 Reply with the answer only.</pre>
@@ -4898,14 +4980,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph:
   - i1 edge i5
   - i4 edge i2
   - i6 edge i1
@@ -4920,7 +5002,7 @@ The sequence is:
   - i6
   - i1
   - i5
-The set:
+Set:
   - i5
   - i6
   - i7
@@ -4928,14 +5010,14 @@ The set:
   - i0
   - i2
   - i4
-The table:
+Table:
   - i1 row i5
   - i2 row i7
   - i7 row i6
   - i4 row i2
   - i6 row i1
   - i0 row i4
-What is the cheapest encoding for i1 1?
+What is the cheapest encoding: i1 and 1?
 
 Answer with exactly one of: graph | sequence | set | table
 Reply with the answer only.</pre>
@@ -4962,28 +5044,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 2
-The graph: i6 edge i4, i1 edge i6, i3 edge i1 and i0 edge i3.
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 2
+Graph: i6 edge i4; i1 edge i6; i3 edge i1; i0 edge i3.
 The sequence is:
   - i0
   - i3
   - i1
   - i6
   - i4
-The set:
+Set:
   - i0
   - i6
   - i4
   - i1
   - i3
-The table: i1 row i6, i6 row i4, i0 row i3 and i3 row i1.
-What is the cheapest encoding for i0 0?
+Table: i1 row i6; i6 row i4; i0 row i3; i3 row i1.
+What is the cheapest encoding: i0 and 0?
 
 Answer with exactly one of: table | set | sequence | graph
 Reply with the answer only.</pre>
@@ -5010,14 +5092,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">graph</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 3
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 3
+Graph:
   - i0 edge i3
   - i6 edge i0
   - i1 edge i6
@@ -5032,7 +5114,7 @@ The sequence is:
   - i2
   - i7
   - i4
-The set:
+Set:
   - i3
   - i0
   - i6
@@ -5040,14 +5122,14 @@ The set:
   - i2
   - i1
   - i4
-The table:
+Table:
   - i1 row i6
   - i7 row i4
   - i0 row i3
   - i3 row i2
   - i2 row i7
   - i6 row i0
-What is the cheapest encoding for i6 2?
+What is the cheapest encoding: i6 and 2?
 
 Answer with exactly one of: graph | sequence | set | table
 Reply with the answer only.</pre>
@@ -5074,18 +5156,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph: i5 edge i3, i3 edge i1 and i1 edge i4.
-The sequence is: i5, i3, i1 and i4.
-The set: i1, i3, i5 and i4.
-The table: i1 row i4, i5 row i3 and i3 row i1.
-What is the cheapest encoding for i1 1?
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph: i5 edge i3; i3 edge i1; i1 edge i4.
+The sequence is i5; i3; i1; i4.
+Set: i1; i3; i5; i4.
+Table: i1 row i4; i5 row i3; i3 row i1.
+What is the cheapest encoding: i1 and 1?
 
 Answer with exactly one of: table | sequence | graph | set
 Reply with the answer only.</pre>
@@ -5112,14 +5194,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph:
   - i4 edge i0
   - i6 edge i1
   - i0 edge i7
@@ -5132,20 +5214,20 @@ The sequence is:
   - i0
   - i7
   - i2
-The set:
+Set:
   - i4
   - i0
   - i1
   - i7
   - i6
   - i2
-The table:
+Table:
   - i6 row i1
   - i0 row i7
   - i4 row i0
   - i7 row i2
   - i1 row i4
-What is the cheapest encoding for i4 2?
+What is the cheapest encoding: i4 and 2?
 
 Answer with exactly one of: graph | sequence | set | table
 Reply with the answer only.</pre>
@@ -5172,14 +5254,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 3
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 3
-The graph:
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 3
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 3
+Graph:
   - i3 edge i2
   - i6 edge i1
   - i5 edge i3
@@ -5194,7 +5276,7 @@ The sequence is:
   - i6
   - i1
   - i7
-The set:
+Set:
   - i1
   - i5
   - i6
@@ -5202,14 +5284,14 @@ The set:
   - i7
   - i0
   - i3
-The table:
+Table:
   - i5 row i3
   - i2 row i6
   - i6 row i1
   - i1 row i7
   - i0 row i5
   - i3 row i2
-What is the cheapest encoding for i2 3?
+What is the cheapest encoding: i2 and 3?
 
 Answer with exactly one of: table | set | sequence | graph
 Reply with the answer only.</pre>
@@ -5236,14 +5318,14 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 1
-  - per_step on sequence costs 2
-  - scan_per_edge on graph costs 1
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 1
-The graph:
+  - cost: sequence, scan_per_item and 1
+  - cost: sequence, per_step and 2
+  - cost: graph, scan_per_edge and 1
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 1
+Graph:
   - i7 edge i1
   - i5 edge i0
   - i6 edge i2
@@ -5258,7 +5340,7 @@ The sequence is:
   - i0
   - i6
   - i2
-The set:
+Set:
   - i4
   - i6
   - i5
@@ -5266,14 +5348,14 @@ The set:
   - i7
   - i1
   - i0
-The table:
+Table:
   - i4 row i5
   - i0 row i6
   - i5 row i0
   - i6 row i2
   - i7 row i1
   - i1 row i4
-What is the cheapest encoding for i1 3?
+What is the cheapest encoding: i1 and 3?
 
 Answer with exactly one of: sequence | set | graph | table
 Reply with the answer only.</pre>
@@ -5300,28 +5382,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 1
-The graph: i4 edge i3, i0 edge i6, i6 edge i4 and i3 edge i5.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 1
+Graph: i4 edge i3; i0 edge i6; i6 edge i4; i3 edge i5.
 The sequence is:
   - i0
   - i6
   - i4
   - i3
   - i5
-The set:
+Set:
   - i4
   - i3
   - i6
   - i5
   - i0
-The table: i0 row i6, i3 row i5, i4 row i3 and i6 row i4.
-What is the cheapest encoding for i6 0?
+Table: i0 row i6; i3 row i5; i4 row i3; i6 row i4.
+What is the cheapest encoding: i6 and 0?
 
 Answer with exactly one of: table | sequence | set | graph
 Reply with the answer only.</pre>
@@ -5348,28 +5430,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">sequence</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 2
-The graph: i3 edge i0, i4 edge i3, i7 edge i1 and i1 edge i4.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 2
+Graph: i3 edge i0; i4 edge i3; i7 edge i1; i1 edge i4.
 The sequence is:
   - i7
   - i1
   - i4
   - i3
   - i0
-The set:
+Set:
   - i4
   - i3
   - i1
   - i0
   - i7
-The table: i4 row i3, i3 row i0, i1 row i4 and i7 row i1.
-What is the cheapest encoding for i1 1?
+Table: i4 row i3; i3 row i0; i1 row i4; i7 row i1.
+What is the cheapest encoding: i1 and 1?
 
 Answer with exactly one of: set | graph | sequence | table
 Reply with the answer only.</pre>
@@ -5396,18 +5478,18 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">set</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 1
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 1
-  - per_step on set costs unsupported
-  - index_per_row on table costs 2
-  - lookup on table costs 1
-The graph: i0 edge i6, i5 edge i3 and i3 edge i0.
-The sequence is: i5, i3, i0 and i6.
-The set: i0, i3, i6 and i5.
-The table: i0 row i6, i3 row i0 and i5 row i3.
-What is the cheapest encoding for i0 0?
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 1
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 1
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 2
+  - cost: table, lookup and 1
+Graph: i0 edge i6; i5 edge i3; i3 edge i0.
+The sequence is i5; i3; i0; i6.
+Set: i0; i3; i6; i5.
+Table: i0 row i6; i3 row i0; i5 row i3.
+What is the cheapest encoding: i0 and 0?
 
 Answer with exactly one of: table | sequence | set | graph
 Reply with the answer only.</pre>
@@ -5434,28 +5516,28 @@ Reply with the answer only.</pre>
 <span>answer</span> <span class="ans">table</span></summary>
 <div class="body">
 <p>prompt</p><pre>Costs:
-  - scan_per_item on sequence costs 2
-  - per_step on sequence costs 3
-  - scan_per_edge on graph costs 2
-  - lookup on set costs 2
-  - per_step on set costs unsupported
-  - index_per_row on table costs 1
-  - lookup on table costs 2
-The graph: i6 edge i3, i3 edge i5, i0 edge i4 and i5 edge i0.
+  - cost: sequence, scan_per_item and 2
+  - cost: sequence, per_step and 3
+  - cost: graph, scan_per_edge and 2
+  - cost: set, lookup and 2
+  - cost: set, per_step and unsupported
+  - cost: table, index_per_row and 1
+  - cost: table, lookup and 2
+Graph: i6 edge i3; i3 edge i5; i0 edge i4; i5 edge i0.
 The sequence is:
   - i6
   - i3
   - i5
   - i0
   - i4
-The set:
+Set:
   - i0
   - i5
   - i3
   - i6
   - i4
-The table: i0 row i4, i3 row i5, i6 row i3 and i5 row i0.
-What is the cheapest encoding for i6 3?
+Table: i0 row i4; i3 row i5; i6 row i3; i5 row i0.
+What is the cheapest encoding: i6 and 3?
 
 Answer with exactly one of: set | sequence | graph | table
 Reply with the answer only.</pre>
