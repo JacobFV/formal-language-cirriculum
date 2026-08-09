@@ -460,11 +460,15 @@ class DataMorphology(Morphology):
         rows = self.cells(lemma)
         wanted_case = _CASE_TAG.get(wanted.get_atom(CASE) or "", "")
         wanted_class = _CLASS_TAG.get(wanted.get_atom(CLS) or "", "")
+        # The test is whether the paradigm marks the very case or class being
+        # asked for, not whether it marks any at all. Dutch *blauw* carries an
+        # ``A;PRT`` row -- a partitive adjective -- and nothing else about
+        # case, so "marks some case" was true, an explicit ``NOM`` was demanded
+        # of a table that never mentions one, and every match was rejected: a
+        # scene read "een paarse bol" and "een blauw bol" in the same breath.
         marks = {t for bundle, _s in rows for t in bundle.split(";")}
-        strict_case = bool(self.pos == "A" and wanted_case
-                           and marks & _CASE_TAGS)
-        strict_class = bool(self.pos == "A" and wanted_class
-                            and marks & _CLASS_TAGS)
+        strict_case = bool(self.pos == "A" and wanted_case in marks)
+        strict_class = bool(self.pos == "A" and wanted_class in marks)
 
         best, best_score = None, (-1, 1)
         for bundle, surface in rows:

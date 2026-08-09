@@ -691,8 +691,13 @@ class DerivedGrammar(Grammar):
         return min(real, key=lambda f: (len(f), _diacritics(f)))
 
     # ---- the article, from the dictionary's own gender tags ---------------
+    #: The dictionary writes the Scandinavian and Dutch common gender as
+    #: "common-gender", not "common", and the map had only the latter -- so
+    #: forty-six thousand rows carried a class nobody read, every Swedish noun
+    #: came out classless, and every one of them took the neuter article:
+    #: "ett gul kub" where *kub* is common and wants *en*.
     _GENDERS = {"masculine": "m", "feminine": "f", "neuter": "n",
-                "common": "c", "plural": "pl"}
+                "common": "c", "common-gender": "c", "plural": "pl"}
 
     def _build_articles(self) -> None:
         """Assemble a gendered article paradigm out of the translation table.
@@ -909,9 +914,12 @@ class DerivedGrammar(Grammar):
         entry = self._entry(lemma)
         if entry is None or not entry.gender:
             return EMPTY
-        mapped = {"masculine": "m", "feminine": "f", "neuter": "n",
-                  "common": "c"}.get(entry.gender, "")
-        return FS({CLS: mapped}) if mapped else EMPTY
+        # One table, shared with the article builder. There were two, and they
+        # had drifted: this one never learned the dictionary's spelling of the
+        # common gender, so a noun could have an article chosen for a class the
+        # noun itself was not given.
+        mapped = self._GENDERS.get(entry.gender, "")
+        return FS({CLS: mapped}) if mapped and mapped != "pl" else EMPTY
 
     def forms(self, lemma: str) -> set[str]:
         surface = self.word(lemma)

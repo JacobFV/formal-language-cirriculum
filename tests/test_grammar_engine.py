@@ -1998,3 +1998,76 @@ def test_the_class_rule_only_fires_where_the_paradigm_marks_class(code):
     forms = {grammar.inflect(A.name, "yellow", FS({CLS: c, NUM: "sg", CASE: "nom"}))
              for c in ("m", "f", "n")}
     assert all(f and f != "yellow" for f in forms), f"{code} lost its adjective"
+
+
+# ======================================================================
+# the common gender, and a tag that means two things
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code", ["swe", "dan", "nld"])
+def test_a_common_gender_noun_is_given_a_class(code):
+    """The dictionary writes it "common-gender" and the map had "common".
+
+    Forty-six thousand rows carried a class nobody read, so every Swedish noun
+    came out classless and every one of them took the neuter article: *ett gul
+    kub*, where *kub* is common and wants *en*.
+    """
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    classed = [w for w in ("cube", "disc", "sphere", "prism")
+               if grammar.features_of(w)]
+    assert classed, f"{code}: no noun carries a class"
+
+
+@needs_db
+@pytest.mark.parametrize("code,expected", [("swe", "en"), ("dan", "en")])
+def test_the_scandinavian_indefinite_agrees(code, expected):
+    """Their indefinite article is a free word even though the definite is a
+    suffix, which is why only half a paradigm is written down for them."""
+    from langcurriculum.grammar.category import CLS, NUM
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    assert grammar.determiner("indef", None, FS({CLS: "c", NUM: "sg"})) == expected
+    assert grammar.determiner("indef", None, FS({CLS: "n", NUM: "sg"})) != expected
+
+
+def test_one_gender_table_not_two():
+    """``features_of`` kept its own copy and had drifted from the shared one.
+
+    So a noun could be given an article for a class the noun itself was never
+    assigned — the article builder knew what "common-gender" meant and the
+    feature reader did not.
+    """
+    import inspect
+    from langcurriculum.grammar.derived import DerivedGrammar
+    source = inspect.getsource(DerivedGrammar.features_of)
+    assert "masculine" not in source, "features_of has its own gender map again"
+    assert "common-gender" in DerivedGrammar._GENDERS
+
+
+@needs_db
+def test_a_tag_that_means_two_things_does_not_make_a_paradigm_case_marking():
+    """Dutch ``A;PRT`` is a partitive adjective, not a partitive case.
+
+    Requiring an explicit nominative of a table that never mentions one
+    rejected every match, and a scene read "een paarse bol" and "een blauw
+    bol" in the same breath. The test is now whether the paradigm marks the
+    case actually being asked for.
+    """
+    from langcurriculum.grammar.category import CASE, CLS, NUM, A
+    grammar = DerivedGrammar(LanguageDB(), "nld")
+    feats = FS({CLS: "m", NUM: "sg", CASE: "nom"})
+    assert grammar.inflect(A.name, "blue", feats) == "blauwe"
+    assert grammar.inflect(A.name, "purple", feats) == "paarse"
+
+
+@needs_db
+def test_the_dutch_scene_inflects_every_adjective_or_none():
+    from langcurriculum.registry import get
+    scene = get("set_operations").example(0, language="nld").observation
+    assert "blauwe bol" in scene
+    assert "blauw bol" not in scene
