@@ -96,6 +96,7 @@ class GrammarLanguage(Language):
             copula_sg=g.cw("is"), copula_pl=g.cw("are"),
             negation=g.cw("not"), conjunction=g.cw("and"),
             then=g.cw("then") or "then",
+            **{k: v for k, v in g.instructions.items()},
             disjunction=g.cw("or"), of=g.cw("of"),
             yes=g.word("yes"), no=g.word("no"),
             word_joiner=typ.word_joiner, capitalizes=typ.capitalizes,
@@ -160,14 +161,15 @@ class GrammarLanguage(Language):
                max_inline: int = 40) -> str:
         g = self.grammar
         opts = [str(c) for c in choices]
-        instruction = g.cw("instruction") or (
+        told = g.instructions
+        instruction = told.get("instruction") or (
             "Answer with exactly one of: {choices}\nReply with the answer only.")
         if len(opts) <= max_inline:
             tail = instruction.format(choices=" | ".join(opts))
         else:
             listed = "\n".join(f"{g.typography.bullet}{o}" for o in opts)
-            heading = g.cw("options_heading") or "Options:"
-            many = g.cw("instruction_many") or (
+            heading = told.get("options_heading") or "Options:"
+            many = told.get("instruction_many") or (
                 "Answer with exactly one of the {n} options listed above.\n"
                 "Reply with the answer only.")
             tail = f"{heading}\n{listed}\n" + many.format(n=len(opts))

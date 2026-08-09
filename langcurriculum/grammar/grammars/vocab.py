@@ -24,6 +24,7 @@ from ...languages.lexicon import Vocabulary, load_vocabulary
 from ..category import CLF, CLS
 from ..features import FS
 from ..linearize import Grammar, Sandhi
+from ..typology import instructions_for
 
 __all__ = ["VocabularyGrammar", "load_pack"]
 
@@ -132,6 +133,8 @@ class VocabularyGrammar(Grammar):
         # A hand-written grammar keeps its boundary rules in its own pack
         # rather than in the shared ISO-keyed table: it is identified by an
         # English name, and everything else it knows already lives here.
+        self.instructions = {**instructions_for(getattr(self, "iso", "")),
+                             **(self.raw.get("instructions") or {})}
         sandhi = self.raw.get("sandhi") or {}
         if sandhi:
             self.sandhi = Sandhi(elide=sandhi.get("elide", {}),

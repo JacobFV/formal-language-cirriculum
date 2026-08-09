@@ -1143,3 +1143,72 @@ def test_a_pack_that_writes_its_article_into_its_nouns_says_so():
             assert extra.determiner() == expected
         finally:
             extra.ACTIVE_LANGUAGE.reset(token)
+
+
+# ======================================================================
+# the one sentence the learner has to act on
+# ======================================================================
+_INSTRUCTED = ["spanish", "chinese", "turkish", "swahili",
+               "deu", "rus", "fra", "ell", "jpn", "hin", "por", "ita"]
+
+
+@pytest.mark.parametrize("code", _INSTRUCTED)
+def test_the_learner_is_told_what_to_do_in_their_own_language(code):
+    """The scene translated, the options translated, and then this in English.
+
+    Every episode ends with "Answer with exactly one of:", and it was English
+    in all four hundred languages including the hand-written packs. It is the
+    one sentence a learner has to act on rather than reason about.
+    """
+    from langcurriculum.languages import get_language
+    from langcurriculum.registry import get
+
+    prompt = get("symbol_equivalence").example(0, language=code).prompt
+    assert "Answer with exactly one of" not in prompt, f"{code} still in English"
+    assert "Reply with the answer only" not in prompt
+    assert get_language(code).lexicon.instruction
+
+
+def test_every_instruction_keeps_the_placeholder_it_is_formatted_with():
+    """A template missing its placeholder formats to itself, silently.
+
+    ``instruction.format(choices=...)`` on a string with no ``{choices}`` in it
+    returns the string and drops the answer set from the prompt — an episode
+    with a question and no options and no error. Turkish already had a *label*
+    reading "instruction", and the old code read the directive out of the
+    closed class where that label lives.
+    """
+    from langcurriculum.grammar.typology import _instruction_tables
+    for code, told in _instruction_tables().items():
+        assert "{choices}" in told["instruction"], code
+        assert "{n}" in told["instruction_many"], code
+        assert told["options_heading"], code
+
+
+@pytest.mark.parametrize("code", _INSTRUCTED)
+def test_the_answer_set_survives_being_instructed(code):
+    """The failure the placeholder test is about, checked on real output."""
+    from langcurriculum.registry import get
+    example = get("symbol_equivalence").example(0, language=code)
+    for option in example.choices:
+        assert option in example.prompt, f"{code}: {option!r} missing from prompt"
+
+
+def test_a_language_with_no_written_instruction_says_so_in_english():
+    """Visible and honest. A confidently ungrammatical directive would not be.
+
+    These are written by hand and only for languages the wording could be
+    checked in, so most of the four hundred fall back.
+    """
+    from langcurriculum.registry import get
+    prompt = get("symbol_equivalence").example(0, language="fin").prompt
+    assert "Answer with exactly one of" in prompt
+
+
+def test_the_directive_is_not_kept_where_the_words_are():
+    """It is a format template, not a word, and the two must not share a key."""
+    from langcurriculum.grammar.grammars import get_grammar
+    for code in ("english", "turkish", "spanish"):
+        grammar = get_grammar(code)
+        assert not grammar.cw("instruction")
+        assert not grammar.cw("instruction_many")

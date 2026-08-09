@@ -176,6 +176,20 @@ def sandhi_for(code: str) -> Sandhi:
                   contract=entry.get("contract", {}))
 
 
+_INSTRUCTION_DATA = Path(__file__).resolve().parent / "data" / "instructions.json"
+
+
+@lru_cache(maxsize=1)
+def _instruction_tables() -> Mapping[str, Mapping[str, str]]:
+    raw = json.loads(_INSTRUCTION_DATA.read_text(encoding="utf-8"))
+    return {k: v for k, v in raw.items() if not k.startswith("_")}
+
+
+def instructions_for(code: str) -> Mapping[str, str]:
+    """What to tell the learner to do, in their language. Empty if unwritten."""
+    return _instruction_tables().get(code, {})
+
+
 def derive_profile(code: str, wals: Mapping[str, str], *,
                    script: str = "Latn", grambank: Mapping[str, str] | None = None
                    ) -> Profile:

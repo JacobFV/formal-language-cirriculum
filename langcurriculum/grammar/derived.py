@@ -46,7 +46,7 @@ from .linearize import (
     Typography, WordOrder,
 )
 from .store import LanguageDB
-from .typology import sandhi_for
+from .typology import instructions_for, sandhi_for
 
 __all__ = ["DerivedGrammar", "CLOSED_CLASS_KEYS"]
 
@@ -229,6 +229,7 @@ class DerivedGrammar(Grammar):
             label_separator=":" if not p.get("word_joiner", " ") else "",
         )
         self.sandhi = sandhi_for(self.code)
+        self.instructions = instructions_for(self.code)
 
     def _lexicon_records_gender(self, p: Mapping[str, Any]) -> bool:
         """Whether the dictionary says this language has gender when WALS did not.

@@ -293,6 +293,14 @@ class Grammar:
     #: what the grammar claims to implement, and what it does not attempt
     notes: tuple[str, ...] = ()
 
+    #: The directive an episode ends with, keyed ``instruction``,
+    #: ``instruction_many`` and ``options_heading``. Kept apart from the closed
+    #: class on purpose: these are format templates and the closed class holds
+    #: words, and Turkish already had a *label* reading "instruction" that
+    #: would have been formatted as one -- silently dropping the answer set,
+    #: because a string with no ``{choices}`` in it formats to itself.
+    instructions: Mapping[str, str] = {}
+
     def __init__(self) -> None:
         #: per-category morphology; a category with no entry is not inflected
         self.morphology: dict[str, Morphology] = {}
