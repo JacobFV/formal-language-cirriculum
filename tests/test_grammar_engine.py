@@ -775,18 +775,23 @@ def test_a_derived_grammar_never_gives_two_concepts_the_same_word(code):
     only the derived half was exempt, because it reads the database directly.
     """
     from langcurriculum.grammar.compile import curriculum_vocabulary
+    from langcurriculum.grammar.derived import probe_form
 
+    # Two *concepts*, not two spellings. ``binds`` is the third person of
+    # ``bind`` and the two are one word; requiring them to render differently
+    # would be requiring a language to invent a distinction it does not draw.
     grammar = DerivedGrammar(LanguageDB(), code)
-    rendered: dict[str, str] = {}
+    rendered: dict[tuple[str, str], str] = {}
     for key in sorted(curriculum_vocabulary()):
+        concept = probe_form(key)
         for pos in ("N", "A", "V"):
             form = grammar.lookup(key, pos)
             if not form:
                 continue
             clash = rendered.get((form.lower(), pos))
-            assert clash is None, \
-                f"{code}: {key!r} and {clash!r} both render as {form!r} ({pos})"
-            rendered[(form.lower(), pos)] = key
+            assert clash in (None, concept), \
+                f"{code}: {concept!r} and {clash!r} both render as {form!r} ({pos})"
+            rendered[(form.lower(), pos)] = concept
 
 
 @needs_db
@@ -1279,3 +1284,69 @@ def test_the_collisions_that_are_real_are_still_refused():
     assert german.word("imp", "V") == "imply"
     dutch = DerivedGrammar(db, "nld")
     assert dutch.word("min", "V") != dutch.word("sub", "V")
+
+
+# ======================================================================
+# an inflected key is not a word any dictionary lists
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code", ["deu", "fra", "rus", "spa", "por", "jpn"])
+def test_an_inflected_curriculum_word_is_looked_up_by_its_lemma(code):
+    """``glows`` had a translation in no language; ``glow`` had one in thirty-two.
+
+    Same fault as the predicate heads, one layer down and in the open class.
+    Found by reading an exported record: a German scene said *ein grüner disc*
+    beside *Kubus* and *Kegel*, which do translate — ``disc`` is not inflected,
+    it is just spelled the way this curriculum spells it, and the dictionaries
+    key on ``disk``.
+    """
+    grammar = DerivedGrammar(LanguageDB(), code)
+    for key in ("disc", "slept", "sells"):
+        assert grammar.word(key, "N" if key == "disc" else "V") != key, \
+            f"{code}: {key!r} still English"
+
+
+def test_a_word_that_names_a_symbol_is_never_given_a_lemma():
+    """Translating one would destroy the episode that turns on it.
+
+    ``min`` and ``max`` name functions the lessons define, ``obj`` and ``inst``
+    are identifiers. They look like English and are not being used as English.
+    """
+    from langcurriculum.grammar.derived import _lemmas
+    table = _lemmas()
+    for symbol in ("min", "max", "obj", "obs", "inst", "quant", "sat",
+                   "opt_a", "kb_fact", "bfs", "astar"):
+        assert symbol not in table, f"{symbol!r} must not be translated"
+
+
+@needs_db
+def test_borrowing_a_lemma_never_costs_a_word_the_language_already_had():
+    """German *Farbe* is both paint and colour, and colour is in most scenes.
+
+    A key that is looked up as itself is first class; one that borrows a
+    citation form is not. Admitting ``paints`` made ``color`` ambiguous and
+    dropped both — trading a word that appears everywhere for one that appears
+    rarely. The borrower yields instead.
+    """
+    german = DerivedGrammar(LanguageDB(), "deu")
+    assert german.word("color", "N") == "Farbe"
+    assert german.word("paints", "V") == "paints"
+
+
+@needs_db
+def test_two_borrowers_are_checked_against_each_other_too():
+    """Russian *пла́вать* is both float and swim, and neither is a key of its own.
+
+    Checking borrowers only against the first class let the two collide unseen,
+    and the episode-level sweep caught what the lexicon-level pass had missed.
+    """
+    russian = DerivedGrammar(LanguageDB(), "rus")
+    assert russian.word("floats", "V") == "floats"
+    assert russian.word("swims", "V") == "swims"
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["deu", "fra", "rus", "spa", "por"])
+def test_the_lemma_table_raises_coverage_rather_than_lowering_it(code):
+    """The point of the exercise, stated as a number."""
+    assert DerivedGrammar(LanguageDB(), code)._curriculum_coverage() >= 230

@@ -70,6 +70,25 @@ _VPAST = (frozenset({"V", "PST"}), _NOT_FINITE | {"1", "2", "PL", "FEM", "NEUT"}
 _NAME_GENDER = {"alice": "f", "bob": "m", "carol": "f",
                 "dave": "m", "erin": "f", "frank": "m"}
 
+_LEMMA_DATA = Path(__file__).resolve().parent / "data" / "lemmas.json"
+
+
+@lru_cache(maxsize=1)
+def _lemmas() -> Mapping[str, str]:
+    """Curriculum word -> the citation form a dictionary keys on."""
+    raw = json.loads(_LEMMA_DATA.read_text(encoding="utf-8"))
+    return {k: v for k, v in raw.items() if not k.startswith("_")}
+
+
+def probe_form(key: str) -> str:
+    """What to look ``key`` up as. Itself, unless it is an inflected form.
+
+    ``glows`` is not a word any dictionary lists, and it had a translation in
+    no language at all while ``glow`` had one in thirty-two.
+    """
+    return _lemmas().get(key, key)
+
+
 _SEED_DATA = Path(__file__).resolve().parent / "data" / "paradigm_seeds.json"
 
 
@@ -298,8 +317,8 @@ class DerivedGrammar(Grammar):
         # The one-word glosses too: a head is rendered by translating its
         # gloss, so *minus* is the spelling whose translation can collide, and
         # querying only curriculum keys never retrieves it.
-        probes = sorted(set(keys) | {g for g in PREDICATE_GLOSS.values()
-                                     if " " not in g})
+        probes = sorted(set(keys) | {probe_form(k) for k in keys}
+                        | {g for g in PREDICATE_GLOSS.values() if " " not in g})
         marks = ",".join("?" * len(probes))
         # Mirror LanguageDB.lookup exactly, including its fallback: asking for a
         # part of speech the language has no row for returns the untyped best
@@ -339,7 +358,19 @@ class DerivedGrammar(Grammar):
         # one. Keeping them apart made every language collide `claim` with
         # itself -- the key and the head `claims` both probe "claim" -- and
         # withhold a translation to resolve an ambiguity that did not exist.
-        concepts: dict[str, set[str]] = {k: {k} for k in keys}
+        # A key that is looked up as itself is first class. One that borrows a
+        # citation form is not: `paints` is only translatable at all because
+        # `paint` is, and in German *Farbe* is both paint and colour -- so
+        # admitting it made `color` ambiguous and cost a word that appears in
+        # most scenes to gain one that appears in few. A borrowed lemma is
+        # therefore taken only where it collides with nothing, and where it
+        # does the borrower alone is dropped.
+        concepts: dict[str, set[str]] = {k: {k} for k in keys
+                                         if probe_form(k) == k}
+        borrowers: dict[str, set[str]] = {}
+        for key in keys:
+            if probe_form(key) != key:
+                borrowers.setdefault(probe_form(key), set()).add(key)
         for head, gloss in PREDICATE_GLOSS.items():
             if " " in gloss:          # a phrase will not collide with a token
                 continue
@@ -362,6 +393,18 @@ class DerivedGrammar(Grammar):
                     for probe in sharers:
                         blocked_glosses.add(probe)
                         blocked_keys.update(m for m in concepts[probe] if m in keys)
+            # Then the borrowers -- against the slots the first class holds and
+            # against each other. Russian *пла́вать* is both float and swim, and
+            # neither is a curriculum word in its own right, so checking only
+            # against the first class let the two borrowers collide unseen.
+            claimed: dict[str, list[str]] = {}
+            for probe in borrowers:
+                claimed.setdefault(effective(probe, pos), []).append(probe)
+            for probe, members in borrowers.items():
+                form = effective(probe, pos)
+                if len(claimed[form]) > 1 or (form in forms
+                                              and forms[form] != [probe]):
+                    blocked_keys.update(members)
         return frozenset(blocked_keys), frozenset(blocked_glosses)
 
     def _spell_out(self, lemma: str, pos: str) -> str:
@@ -533,6 +576,10 @@ class DerivedGrammar(Grammar):
         if gloss is not None and gloss != lemma:
             return ""
         entry = self.db.lookup(self.code, lemma, pos)
+        if entry is None:
+            citation = probe_form(lemma)
+            if citation != lemma:
+                entry = self.db.lookup(self.code, citation, pos)
         form = entry.form if entry is not None else ""
         # A translation table sometimes answers with a gloss rather than a word
         # — English *turn* came back as "be one's turn". A multi-word answer to
