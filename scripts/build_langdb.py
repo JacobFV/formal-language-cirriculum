@@ -33,6 +33,7 @@ derived ones.
 from __future__ import annotations
 
 import argparse
+import os
 import csv
 import gzip
 import json
@@ -416,6 +417,19 @@ def assemble(conn: sqlite3.Connection, coding: dict[str, dict[str, str]]) -> Non
     print(f"  profiles: {len(profiles)} languages", file=sys.stderr)
 
 
+def _real_target(out: Path) -> Path:
+    """Where the file actually lives, following a symlink if one is in the way.
+
+    The database is large enough that people keep it outside the package and
+    link to it, and replacing the *link* with a two-gigabyte regular file
+    would quietly undo that arrangement -- and put the file somewhere they had
+    deliberately moved it away from. Following the link also keeps the
+    temporary file on the same filesystem as its destination, which is what
+    makes the final move atomic rather than a copy.
+    """
+    return out.resolve() if out.is_symlink() else out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--raw", required=True, help="directory holding the downloads")
@@ -431,23 +445,38 @@ def main() -> int:
 
     out = Path(args.out) if args.out else (
         ROOT / "langcurriculum" / "grammar" / "data" / "languages.db")
-    if out.exists():
-        out.unlink()
-    conn = open_db(out, create=True)
+    # Built beside the real one and moved over it at the end. The old code
+    # deleted the database first and spent the next several hours filling a
+    # new one, so a dropped connection, a parse error or an interrupt left the
+    # package with no lexicon at all and nothing to fall back to -- and the
+    # sources are a multi-gigabyte download, so "just run it again" is not the
+    # small thing it sounds like.
+    out = _real_target(out)
+    building = out.with_name(out.name + ".building")
+    if building.exists():
+        building.unlink()
+    conn = open_db(building, create=True)
     conn.execute("PRAGMA synchronous = OFF")
 
-    print("building language database", file=sys.stderr)
-    coding = load_typology(conn, raw)
-    load_unimorph(conn, raw)
-    load_wiktionary(conn, raw, keys=None if args.all_words else _curriculum_keys())
-    print("  indexing (this is the slow part)", file=sys.stderr)
-    conn.executescript(INDEXES)
-    conn.commit()
-    assemble(conn, coding)
-    conn.execute("VACUUM")
-    conn.close()
+    try:
+        print("building language database", file=sys.stderr)
+        coding = load_typology(conn, raw)
+        load_unimorph(conn, raw)
+        load_wiktionary(conn, raw,
+                        keys=None if args.all_words else _curriculum_keys())
+        print("  indexing (this is the slow part)", file=sys.stderr)
+        conn.executescript(INDEXES)
+        conn.commit()
+        assemble(conn, coding)
+        conn.execute("VACUUM")
+        conn.close()
+    except BaseException:
+        conn.close()
+        building.unlink(missing_ok=True)
+        raise
 
-    size = out.stat().st_size / 1e6
+    size = building.stat().st_size / 1e6
+    os.replace(building, out)          # atomic on the same filesystem
     print(f"wrote {out} ({size:,.0f} MB)", file=sys.stderr)
     return 0
 

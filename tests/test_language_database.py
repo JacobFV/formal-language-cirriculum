@@ -943,3 +943,52 @@ def test_the_same_option_is_correct_in_every_language(code):
             f"{code}/{lesson.id}: {len(other.choices)} options vs {len(base.choices)}"
         assert other.choices[index] == other.answer, \
             f"{code}/{lesson.id}: the correct option moved from position {index}"
+
+
+# ======================================================================
+# rebuilding must not cost you the database you have
+# ======================================================================
+def test_a_build_writes_beside_the_target_and_moves_it_into_place():
+    """The old script deleted the database and then spent hours refilling it.
+
+    A dropped connection, a parse error or an interrupt left the package with
+    no lexicon and nothing to fall back to — and the sources are a
+    multi-gigabyte download, so "run it again" is not the small thing it
+    sounds like.
+    """
+    import pathlib
+    source = (pathlib.Path(__file__).resolve().parent.parent
+              / "scripts" / "build_langdb.py").read_text(encoding="utf-8")
+    assert "os.replace(building, out)" in source
+    assert "out.unlink()" not in source, "the live database is deleted again"
+    assert "building.unlink(missing_ok=True)" in source
+
+
+def test_the_build_follows_a_symlink_rather_than_replacing_it():
+    """The database is large enough that people keep it elsewhere and link.
+
+    Replacing the *link* with a two-gigabyte regular file would quietly undo
+    that, and put the file in the directory they had moved it out of.
+    Following it also keeps the temporary beside its destination, which is
+    what makes the final move atomic rather than a copy.
+    """
+    import pathlib
+    import sys
+    import tempfile
+    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent
+                           / "scripts"))
+    from build_langdb import _real_target
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = pathlib.Path(tmp)
+        real = root / "store" / "languages.db"
+        real.parent.mkdir()
+        real.write_text("db")
+        link = root / "pkg" / "languages.db"
+        link.parent.mkdir()
+        link.symlink_to(real)
+        assert _real_target(link) == real.resolve()
+        assert _real_target(link).parent == real.parent
+        plain = root / "plain.db"
+        plain.write_text("x")
+        assert _real_target(plain) == plain
