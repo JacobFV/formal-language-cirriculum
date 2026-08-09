@@ -43,6 +43,7 @@ from .linearize import (
     WordOrder,
 )
 from .store import LanguageDB
+from .typology import sandhi_for
 
 __all__ = ["DerivedGrammar", "CLOSED_CLASS_KEYS"]
 
@@ -189,6 +190,7 @@ class DerivedGrammar(Grammar):
             rtl=bool(p.get("rtl", False)),
             label_separator=":" if not p.get("word_joiner", " ") else "",
         )
+        self.sandhi = sandhi_for(self.code)
 
     def _lexicon_records_gender(self, p: Mapping[str, Any]) -> bool:
         """Whether the dictionary says this language has gender when WALS did not.
@@ -233,26 +235,28 @@ class DerivedGrammar(Grammar):
             self.closed["is"] = self.closed["are"] = ""
 
     # ---- lexicon ---------------------------------------------------------
-    def word(self, lemma: str, pos: str = "") -> str:
-        key = (lemma, pos)
-        hit = self._word_cache.get(key)
-        if hit is not None:
-            return hit
+    def lookup(self, lemma: str, pos: str = "") -> str:
+        """One word from the language database, screened for junk.
+
+        Only the primitive. Composition around it — falling back to a phrase
+        rendered token by token, then to a predicate head's English gloss —
+        belongs to :meth:`Grammar.word`, which every grammar shares. This class
+        used to reimplement that template, which is how it came to have a
+        private near-copy of ``phrase`` that joined with a literal space and so
+        put spaces into languages written without them.
+        """
         entry = self.db.lookup(self.code, lemma, pos)
         form = entry.form if entry is not None else ""
         # A translation table sometimes answers with a gloss rather than a word
         # — English *turn* came back as "be one's turn". A multi-word answer to
         # a *single-word* question is an explanation, not a lexeme. The test is
-        # applied here, to what the dictionary said, and not below: a phrase
-        # composed token by token is legitimately several words, and screening
-        # it by the same rule threw away every translation it produced.
+        # applied here, to what the dictionary said, and not to what composition
+        # later builds: a phrase composed token by token is legitimately several
+        # words, and screening it by the same rule threw away every translation
+        # it produced.
         if " " not in lemma and form and (form.count(" ") > 1 or "'" in form):
-            form = ""
-        if not form and " " in lemma:
-            form = self._phrase(lemma, pos)
-        out = form or lemma
-        self._word_cache[key] = out
-        return out
+            return ""
+        return form
 
     def _first_usable(self, english: str, pos: str = "") -> str:
         """The first candidate that is a word of the language, not just the first.
@@ -347,28 +351,6 @@ class DerivedGrammar(Grammar):
                 return hit
         return self.cw("the" if kind == "def" else "a")
 
-    def _phrase(self, lemma: str, pos: str) -> str:
-        """Translate a multi-word label a token at a time.
-
-        Labels like *value of* and *symbol at position* are built by the
-        compiler from a predicate head, and no dictionary has an entry for the
-        phrase, so the whole thing passed through in English. Each token does
-        have an entry, and translating them separately is a literal rendering
-        rather than an idiomatic one — but a literal rendering in the right
-        language beats a fluent one in the wrong language.
-
-        Returns nothing unless at least one token actually translated, so a
-        phrase made of words the language does not know stays intact rather
-        than being half-converted.
-        """
-        out, translated = [], False
-        for token in lemma.split():
-            closed = self.cw(token)
-            hit = closed or self.word(token, pos=pos if token == lemma else "")
-            if hit and hit != token:
-                translated = True
-            out.append(hit or token)
-        return " ".join(out) if translated else ""
 
     def copula(self, kind: str, feats: FS) -> str:
         """The finite copula, inflected, rather than the dictionary's infinitive.
@@ -517,6 +499,14 @@ class DerivedGrammar(Grammar):
         if row is not None and row["n_senses"] < 500:
             out.append(f"small lexicon ({row['n_senses']} senses); "
                        f"unknown words pass through in English")
+        if not p.get("has_definite") and "37A" not in (p.get("evidence") or {}):
+            out.append("WALS does not code 37A for this language, so no "
+                       "definite article is emitted even if it has one")
+        if not self.predicate_words:
+            out.append("relational predicates are composed word by word from "
+                       "their English gloss (“left of” → the "
+                       "words for “left” and “of”), which "
+                       "is literal rather than idiomatic")
         return out
 
     def _notes(self) -> tuple[str, ...]:

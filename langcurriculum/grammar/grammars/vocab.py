@@ -23,7 +23,7 @@ from typing import Any, Mapping
 from ...languages.lexicon import Vocabulary, load_vocabulary
 from ..category import CLF, CLS
 from ..features import FS
-from ..linearize import Grammar
+from ..linearize import Grammar, Sandhi
 
 __all__ = ["VocabularyGrammar", "load_pack"]
 
@@ -129,6 +129,13 @@ class VocabularyGrammar(Grammar):
         self.predicate_words = dict(self.raw.get("predicate_words") or {})
         self.field_intros = dict(self.raw.get("field_intros") or {})
         self.closed = dict(self.raw.get("closed") or {})
+        # A hand-written grammar keeps its boundary rules in its own pack
+        # rather than in the shared ISO-keyed table: it is identified by an
+        # English name, and everything else it knows already lives here.
+        sandhi = self.raw.get("sandhi") or {}
+        if sandhi:
+            self.sandhi = Sandhi(elide=sandhi.get("elide", {}),
+                                 contract=sandhi.get("contract", {}))
         self.paradigms = {k: ([tuple(x) if isinstance(x, list) else x for x in v]
                               if isinstance(v, list) else v)
                           for k, v in (self.raw.get("paradigms") or {}).items()}

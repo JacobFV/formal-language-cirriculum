@@ -42,8 +42,10 @@ adding a language is supposed to be.
 
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import dataclass, field, replace
+from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
 from .category import (
@@ -55,7 +57,21 @@ from .morphology import IsolatingMorphology, Morphology
 from .syntax import Node
 
 __all__ = ["WordOrder", "Typography", "Alignment", "Concord", "Grammar",
+           "PREDICATE_GLOSS", "Sandhi",
            "NOM_ACC", "ERG_ABS", "NO_CASE"]
+
+
+_PREDICATE_DATA = Path(__file__).resolve().parent / "data" / "predicates.json"
+
+
+def _load_predicate_gloss() -> Mapping[str, str]:
+    raw = json.loads(_PREDICATE_DATA.read_text(encoding="utf-8"))
+    return {k: v for k, v in raw.items() if not k.startswith("_")}
+
+
+#: predicate head -> the English words that mean it. See the data file: this is
+#: a translation source, not any language's realization of the head.
+PREDICATE_GLOSS: Mapping[str, str] = _load_predicate_gloss()
 
 
 # ======================================================================
@@ -134,6 +150,77 @@ class Typography:
     rtl: bool = False
 
 
+@dataclass(frozen=True)
+class Sandhi:
+    """What two words do to each other at the boundary between them.
+
+    Two distinct processes, because languages have both and they interact:
+
+    **Elision** — a function word loses its final vowel before a vowel-initial
+    word. French *l'eau*, not *la eau*; Italian *l'albero*, not *il albero*.
+    The conditioning is phonological, but the membership is lexical: only a
+    listed set of words elide, and which ones differ by language.
+
+    **Contraction** — a specific pair of words is written as one, regardless of
+    what follows. Spanish *del*, not *de el*; German *im*, not *in dem*. Here
+    the conditioning is not phonological at all; it is the identity of both
+    words, so a vowel test would never find it.
+
+    Contraction is checked first because it is the more specific statement: it
+    names both words, where elision names one and a phonological class.
+
+    Spanish is the useful control for elision. It has none, so its elision
+    table is empty and vowel-initial words are left alone; *el agua* is an
+    unrelated phenomenon — a feminine noun taking the masculine article before
+    stressed /a/ — and modelling it here would wrongly catch *la avenida*.
+
+    Known limit: French distinguishes mute *h*, which elides (*l'homme*), from
+    aspirate *h*, which does not (*le héros*). The distinction is lexical, not
+    predictable from spelling, and nothing in our lexicon records it. We elide
+    before *h* because mute *h* is much the commoner class.
+    """
+
+    #: word -> what it becomes before a vowel, e.g. ``{"la": "l'"}``
+    elide: Mapping[str, str] = field(default_factory=dict)
+    #: ``"de el"`` -> ``"del"``; both words named, no phonology involved
+    contract: Mapping[str, str] = field(default_factory=dict)
+    #: what counts as vowel-initial in this orthography
+    vowels: str = "aeiouhàáâäèéêëìíîïòóôöùúûüœæ"
+
+    def __bool__(self) -> bool:
+        return bool(self.elide or self.contract)
+
+    def apply(self, left: str, right: str, joiner: str) -> str | None:
+        """The pair written as one string if the boundary changes, else ``None``.
+
+        ``left`` may already be several words — :meth:`Grammar.join` folds left
+        to right — so the test is against its final token, and likewise the
+        first token of ``right``. Whatever surrounds them is carried through
+        untouched.
+        """
+        if not left or not right or not self:
+            return None
+        tail = left.rsplit(joiner, 1)[-1] if joiner else left
+        head = right.split(joiner, 1)[0] if joiner else right
+        before, after = left[:len(left) - len(tail)], right[len(head):]
+
+        merged = self.contract.get(f"{tail.lower()} {head.lower()}")
+        if merged is not None:
+            return before + self._match_case(tail, merged) + after
+
+        form = self.elide.get(tail.lower())
+        if form is None or right[0].lower() not in self.vowels:
+            return None
+        return before + self._match_case(tail, form) + right
+
+    @staticmethod
+    def _match_case(original: str, replacement: str) -> str:
+        """Keep a sentence-initial capital that the substitution would drop."""
+        if not original[:1].isupper():
+            return replacement
+        return replacement[:1].upper() + replacement[1:]
+
+
 #: role -> case, given whether the clause is transitive
 CaseRule = Callable[[str, bool], str]
 
@@ -201,6 +288,7 @@ class Grammar:
     typography: Typography = Typography()
     alignment: Alignment = Alignment()
     concord: Concord = Concord()
+    sandhi: Sandhi = Sandhi()
 
     #: what the grammar claims to implement, and what it does not attempt
     notes: tuple[str, ...] = ()
@@ -252,9 +340,33 @@ class Grammar:
         form = self.lookup(lemma, pos)
         if not form and " " in lemma:
             form = self.phrase(lemma, pos)
+        if not form:
+            form = self._spell_out(lemma, pos)
         out = form or lemma
         self._word_cache[(lemma, pos)] = out
         return out
+
+    def _spell_out(self, lemma: str, pos: str) -> str:
+        """Render a predicate head no dictionary keys on, via its English gloss.
+
+        The heads this curriculum uses are inflected English verbs (``implies``),
+        abbreviations (``sub``, ``pow``) and identifiers (``left_of``). A
+        dictionary keys on none of them, so a grammar with no hand-written entry
+        was returning the head itself and printing an internal identifier —
+        underscore and all — as though it were a word of the language.
+
+        :data:`PREDICATE_GLOSS` says what each one *means* in citation English,
+        which :meth:`phrase` can then render a token at a time. If even that
+        fails, English words are still better than an identifier: the gloss goes
+        out unmodified, which is what the realizer this engine replaced did.
+
+        Restricted to the listed heads. A coined nonce form must pass through
+        untouched, and this is the guarantee that it does.
+        """
+        gloss = PREDICATE_GLOSS.get(lemma)
+        if gloss is None or gloss == lemma:
+            return ""
+        return self.phrase(gloss, pos) or gloss
 
     def lookup(self, lemma: str, pos: str) -> str:
         """One word from wherever this grammar keeps its lexicon. ``""`` if absent."""
@@ -300,7 +412,19 @@ class Grammar:
     # assembly
     # ==================================================================
     def join(self, parts: Sequence[str]) -> str:
-        return self.typography.word_joiner.join(p for p in parts if p)
+        joiner = self.typography.word_joiner
+        kept = [p for p in parts if p]
+        if not self.sandhi:
+            return joiner.join(kept)
+        # fold left to right so a boundary created by an earlier join is
+        # still visible to the next one
+        out = ""
+        for part in kept:
+            if not out:
+                out = part
+                continue
+            out = self.sandhi.apply(out, part, joiner) or (out + joiner + part)
+        return out
 
     def join_list(self, items: Sequence[str]) -> str:
         """Coordinate a list of noun-like items."""

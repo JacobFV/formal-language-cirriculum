@@ -47,12 +47,16 @@ for a finding.
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass, field
+from functools import lru_cache
+from pathlib import Path
 from typing import Any, Mapping
 
 from .category import CLS, NUM
 from .linearize import (
-    ERG_ABS, NOM_ACC, NO_CASE, Alignment, Concord, Typography, WordOrder,
+    ERG_ABS, NOM_ACC, NO_CASE, Alignment, Concord, Sandhi, Typography,
+    WordOrder,
 )
 
 __all__ = ["Profile", "derive_profile", "WALS_FEATURES", "RTL_SCRIPTS",
@@ -98,6 +102,8 @@ class Profile:
     alignment: Alignment
     concord: Concord
     typography: Typography
+    #: what happens where two words meet, where the language does anything
+    sandhi: Sandhi = Sandhi()
     #: the WALS/Grambank features that were actually available
     evidence: Mapping[str, str] = field(default_factory=dict)
     #: True when the dominant order was not coded and a default was used
@@ -146,6 +152,28 @@ class Profile:
     @property
     def coded(self) -> int:
         return len(self.evidence)
+
+
+_SANDHI_DATA = Path(__file__).resolve().parent / "data" / "sandhi.json"
+
+
+@lru_cache(maxsize=1)
+def _sandhi_tables() -> Mapping[str, Mapping[str, Mapping[str, str]]]:
+    """The elision table, keyed by ISO 639-3.
+
+    Not derivable from WALS: no feature codes which function words elide, or
+    what they become. It is small, closed, and language-particular, so it is
+    written down. Keys beginning with an underscore are commentary.
+    """
+    raw = json.loads(_SANDHI_DATA.read_text(encoding="utf-8"))
+    return {k: v for k, v in raw.items() if not k.startswith("_")}
+
+
+def sandhi_for(code: str) -> Sandhi:
+    """The boundary adjustments for one language. Empty for most of them."""
+    entry = _sandhi_tables().get(code, {})
+    return Sandhi(elide=entry.get("elide", {}),
+                  contract=entry.get("contract", {}))
 
 
 def derive_profile(code: str, wals: Mapping[str, str], *,
@@ -208,6 +236,7 @@ def derive_profile(code: str, wals: Mapping[str, str], *,
         concord=Concord(adjective=concord_features,
                         predicative=concord_features),
         typography=typography,
+        sandhi=sandhi_for(code),
         evidence=evidence,
         order_uncertain=not clause,
         has_definite=has_def,

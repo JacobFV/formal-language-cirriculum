@@ -25,9 +25,11 @@ import re
 import pytest
 
 import langcurriculum as lc
+from langcurriculum.grammar.derived import DerivedGrammar
 from langcurriculum.grammar.features import FS, Var, subsumes, unify
 from langcurriculum.grammar.grammars import GRAMMARS, get_grammar
 from langcurriculum.grammar.morphology import TURKISH_PHONOLOGY
+from langcurriculum.grammar.store import LanguageDB
 from langcurriculum.grammar.syntax import (
     CONSTRUCTIONS, adj, coord, mk_ap, mk_cn, mk_np, negate, noun, pred_attr,
     pred_ident, pred_loc, pred_rel, sym, yn_question,
@@ -548,3 +550,144 @@ def test_a_grammar_holds_up_outside_those_seeds_too(code):
                 f"{code}/{lesson.id} s{seed}: answer not an option"
             hit = leaked.search(example.observation)
             assert hit is None, f"{code}/{lesson.id} s{seed}: leaked {hit.group(0)!r}"
+
+
+# ======================================================================
+# what two words do to each other where they meet
+# ======================================================================
+def test_elision_writes_the_apostrophe_french_requires():
+    """*la eau* is not French. The article elides before a vowel."""
+    from langcurriculum.grammar.linearize import Sandhi
+    s = Sandhi(elide={"la": "l'", "le": "l'"})
+    assert s.apply("la", "eau", " ") == "l'eau"
+    assert s.apply("le", "arbre", " ") == "l'arbre"
+    # a consonant blocks it, which is the whole conditioning environment
+    assert s.apply("la", "maison", " ") is None
+
+
+def test_elision_sees_only_the_words_at_the_boundary():
+    """``join`` folds left to right, so the left side is often already a phrase.
+
+    Only its final token may elide, and everything before it must survive
+    untouched — otherwise composing a longer phrase would corrupt what an
+    earlier composition had already got right.
+    """
+    from langcurriculum.grammar.linearize import Sandhi
+    s = Sandhi(elide={"de": "d'"})
+    assert s.apply("à côté de", "eau", " ") == "à côté d'eau"
+    assert s.apply("le cube de", "or", " ") == "le cube d'or"
+
+
+def test_contraction_needs_both_words_named_not_a_vowel():
+    """Spanish *del* is not elision: *de el* contracts, *de agua* does not.
+
+    The distinction matters because Spanish has contraction and no elision at
+    all, so a mechanism that only knew about vowels would either miss *del* or
+    wrongly produce *d'agua*.
+    """
+    from langcurriculum.grammar.linearize import Sandhi
+    s = Sandhi(contract={"de el": "del", "a el": "al"})
+    assert s.apply("de", "el cubo", " ") == "del cubo"
+    assert s.apply("a", "el disco", " ") == "al disco"
+    assert s.apply("de", "agua", " ") is None       # no elision in Spanish
+    assert s.apply("de", "la casa", " ") is None    # not the named pair
+
+
+def test_contraction_beats_elision_when_both_could_fire():
+    """Contraction names both words, so it is the more specific statement."""
+    from langcurriculum.grammar.linearize import Sandhi
+    s = Sandhi(elide={"de": "d'"}, contract={"de els": "dels"})
+    assert s.apply("de", "els cubs", " ") == "dels cubs"
+
+
+def test_a_sentence_initial_capital_survives_the_substitution():
+    from langcurriculum.grammar.linearize import Sandhi
+    s = Sandhi(elide={"la": "l'"}, contract={"de el": "del"})
+    assert s.apply("La", "eau", " ") == "L'eau"
+    assert s.apply("De", "el cubo", " ") == "Del cubo"
+
+
+def test_spanish_writes_del_not_de_el():
+    """The defect this was built for, in the language that shipped it."""
+    grammar = get_grammar("spanish")
+    assert "del" in grammar.join(["de", "el disco"])
+    assert "de el" not in grammar.join(["de", "el disco"])
+
+
+@needs_db
+@pytest.mark.parametrize("code,expected", [
+    ("fra", "l'"), ("ita", "l'"), ("cat", "l'"),
+])
+def test_the_romance_languages_that_elide_do(code, expected):
+    grammar = DerivedGrammar(LanguageDB(), code)
+    assert grammar.sandhi, f"{code} should have a sandhi table"
+    assert grammar.join(["la", "eau"]).startswith(expected)
+
+
+@needs_db
+def test_spanish_has_contraction_but_no_elision():
+    """Not an oversight. *el agua* is a different rule and lives elsewhere.
+
+    Treating it as elision would wrongly catch *la avenida*, which keeps its
+    article: the conditioning is a stressed initial /a/, which the lexicon does
+    not record, and the pack states the affected nouns explicitly instead.
+    """
+    grammar = DerivedGrammar(LanguageDB(), "spa")
+    assert not grammar.sandhi.elide
+    assert grammar.sandhi.contract
+
+
+# ======================================================================
+# predicate heads are not words of any language
+# ======================================================================
+def test_no_grammar_prints_a_predicate_head_as_though_it_were_a_word():
+    """``left_of`` is an internal identifier and was reaching the page.
+
+    The heads this curriculum uses are inflected English verbs (*implies*),
+    abbreviations (*sub*) and identifiers with underscores in them. No
+    dictionary in any language keys on those, so every derived grammar — four
+    hundred of them — returned the head unchanged and printed it.
+    """
+    from langcurriculum.grammar.linearize import PREDICATE_GLOSS
+    assert "left_of" in PREDICATE_GLOSS
+    for name in sorted(GRAMMARS):
+        grammar = get_grammar(name)
+        for head in PREDICATE_GLOSS:
+            rendered = grammar.word(head, "V")
+            assert "_" not in rendered, f"{name} rendered {head!r} as {rendered!r}"
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["fra", "deu", "rus", "por", "nld"])
+def test_a_derived_grammar_spells_out_a_relation_it_has_no_entry_for(code):
+    grammar = DerivedGrammar(LanguageDB(), code)
+    rendered = grammar.word("left_of", "V")
+    assert "_" not in rendered
+    assert rendered != "left_of"
+
+
+def test_spelling_out_is_restricted_to_the_listed_heads():
+    """A coined nonce form must pass through untouched.
+
+    Most of what this curriculum names is invented per episode, and a lesson
+    that turns on a novel symbol is destroyed by translating it. The guarantee
+    is that only heads in the table are ever spelled out.
+    """
+    from langcurriculum.grammar.linearize import PREDICATE_GLOSS
+    grammar = get_grammar("english")
+    for coined in ("kirn_bex", "zog_flim", "o0_o1"):
+        assert coined not in PREDICATE_GLOSS
+        assert grammar.word(coined, "V") == coined
+
+
+def test_the_gloss_table_is_a_translation_source_not_a_realization():
+    """English realizes *precedes* as "comes before"; the gloss says "precede".
+
+    The distinction is the reason this table exists separately from a pack's
+    ``predicate_words``: a dictionary keys on the citation form, and handing it
+    an English idiom retrieves nothing.
+    """
+    from langcurriculum.grammar.linearize import PREDICATE_GLOSS
+    english = get_grammar("english")
+    assert PREDICATE_GLOSS["precedes"] == "precede"
+    assert english.predicate_words["precedes"] == "comes before"
