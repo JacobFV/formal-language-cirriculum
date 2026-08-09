@@ -325,6 +325,16 @@ class DerivedGrammar(Grammar):
             return PREDICATE_GLOSS.get(lemma, "")
         return super()._spell_out(lemma, pos)
 
+    def knows(self, lemma: str) -> bool:
+        """The database has a word for it, and it is one this grammar may use.
+
+        A word withheld to keep two concepts apart is not known for this
+        purpose either: offering it as an option would reintroduce exactly the
+        ambiguity dropping it prevented.
+        """
+        return (lemma not in self._ambiguous
+                and self.db.lookup(self.code, lemma) is not None)
+
     def lookup(self, lemma: str, pos: str = "") -> str:
         """One word from the language database, screened for junk.
 

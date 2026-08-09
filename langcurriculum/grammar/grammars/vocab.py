@@ -229,6 +229,16 @@ class VocabularyGrammar(Grammar):
                 self._database = db if db.exists() else None
         return self._database
 
+    def knows(self, lemma: str) -> bool:
+        """``lookup`` hides an entry that maps a word to itself; this does not.
+
+        English translates *green* as "green", and the entry exists precisely
+        so the word is recognised. Reporting it unknown would leave English
+        unable to say it knows its own vocabulary.
+        """
+        return (self.vocabulary.knows(lemma) or lemma in self._imported
+                or lemma in self.predicate_words)
+
     def lookup(self, lemma: str, pos: str = "") -> str:
         """The open-class word, then the relational lexicon, then the database.
 

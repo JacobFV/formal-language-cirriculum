@@ -140,6 +140,17 @@ class Language:
         """
         return value
 
+    def knows(self, value: str) -> bool:
+        """Whether this pack has a word of its own for ``value``.
+
+        Asked before an answer set is translated, since a set is rendered whole
+        or not at all. The default reads the declared vocabulary; a pack that
+        keeps its words somewhere else — a database, say — overrides this.
+        Putting the question to one particular kind of lexicon is how four
+        hundred languages came to answer "no" to every option they knew.
+        """
+        return self.lexicon.vocabulary.knows(value)
+
     def prompt(self, observation: str, choices: Sequence[str], *, max_inline: int = 40) -> str:
         """Assemble what an agent is handed: the episode, then the answer set."""
         lex = self.lexicon

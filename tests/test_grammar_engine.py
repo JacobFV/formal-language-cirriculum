@@ -902,3 +902,71 @@ def test_two_spellings_of_one_concept_are_not_treated_as_a_collision(code):
     grammar = DerivedGrammar(LanguageDB(), code)
     assert grammar.word("imp", "V") == grammar.word("implies", "V")
     assert grammar.word("imp", "V") != "imp"
+
+
+# ======================================================================
+# the answer set is part of the episode, not a footnote to it
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code", ["rus", "deu", "fra", "por", "pol", "tur"])
+def test_a_derived_language_offers_its_options_in_its_own_language(code):
+    """The prompt said *зелёного* and the options said *green*.
+
+    Options must be in the prompt's language or the episode quietly becomes
+    "translate, then answer". Every derived language failed this — not because
+    it could not translate a colour, but because the question "do you know this
+    word?" was put to a kind of lexicon only a hand-written pack has, so all
+    four hundred of them answered no to every option they knew perfectly well.
+    """
+    from langcurriculum.languages import get_language
+    from langcurriculum.registry import get
+
+    language = get_language(code)
+    for colour in ("red", "green", "blue", "yellow"):
+        assert language.knows(colour), f"{code} should know {colour!r}"
+    example = get("symbol_equivalence").example(0, language=code)
+    assert not any(c in ("red", "green", "blue", "yellow")
+                   for c in example.choices), \
+        f"{code} offered English colours: {example.choices}"
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["rus", "deu", "fra", "spa"])
+def test_an_option_is_looked_up_as_the_part_of_speech_it_is(code):
+    """*orange* is a colour here, and untyped lookup returns a tree.
+
+    Russian offered *апельси́новое де́рево* and German *Apfelsinenbaum* in a list
+    of colours. The category comes from the same ``classify`` the compiler uses
+    for the prose, so the option is resolved as whatever the prompt used it as.
+    """
+    from langcurriculum.languages import get_language
+    rendered = get_language(code).token("orange")
+    assert "baum" not in rendered.lower()
+    assert "де́рево" not in rendered
+    assert "oranger" != rendered.lower()
+
+
+def test_every_language_can_be_asked_whether_it_knows_a_word():
+    """``knows`` is on the interface, not on one implementation of it.
+
+    The notation pack is not a grammar and has no vocabulary object; asking it
+    the question through an attribute only some packs carry raised rather than
+    answering, and took a hundred and eighty tests with it.
+    """
+    from langcurriculum.languages import get_language, language_codes
+    for code in language_codes():
+        assert isinstance(get_language(code).knows("green"), bool)
+
+
+@needs_db
+def test_a_word_withheld_to_avoid_ambiguity_is_not_offered_as_an_option():
+    """Otherwise dropping it from the prose would have achieved nothing.
+
+    A key held back because two concepts would share its form must not come
+    back through the answer set, which would reintroduce exactly the ambiguity
+    the exclusion prevents.
+    """
+    grammar = DerivedGrammar(LanguageDB(), "fra")
+    assert grammar._ambiguous, "expected French to withhold something"
+    for key in grammar._ambiguous:
+        assert not grammar.knows(key), f"{key!r} withheld from prose but offered"

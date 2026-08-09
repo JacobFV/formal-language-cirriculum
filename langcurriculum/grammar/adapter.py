@@ -18,11 +18,15 @@ from typing import Any, Sequence
 from .._structure import Term
 from ..languages.base import Language, Lexicon
 from ..languages.lexicon import Vocabulary
-from .compile import compile_episode
+from .compile import classify, compile_episode
 from .features import EMPTY
 from .linearize import Grammar
 
 __all__ = ["GrammarLanguage"]
+
+#: what :func:`classify` calls a word -> the category the lexicon is keyed on.
+#: ``word`` and ``sym`` have no part of speech and are looked up untyped.
+_OPTION_POS = {"noun": "N", "adj": "A", "verb": "V"}
 
 
 class GrammarLanguage(Language):
@@ -101,16 +105,26 @@ class GrammarLanguage(Language):
             return str(value)
         return self.grammar.word(value)
 
+    def knows(self, value: str) -> bool:
+        """Whether the option can be offered in this language at all."""
+        return isinstance(value, str) and self.grammar.knows(value)
+
     def token(self, value: str) -> str:
         """Render one answer option in this language.
 
         Options must be in the prompt's language or the task silently becomes
         "translate, then answer". Words the grammar does not know pass through,
         which is most of them — object ids, nonce forms, numbers.
+
+        The category comes from the same :func:`classify` the compiler uses to
+        build the prompt, so an option is looked up as whatever part of speech
+        the prose used it as. Asking untyped got the first sense a dictionary
+        listed, and for *orange* that is a tree: Russian offered
+        *апельси́новое де́рево* and German *Apfelsinenbaum* in a list of colours.
         """
         if not isinstance(value, str):
             return value
-        return self.grammar.word(value)
+        return self.grammar.word(value, _OPTION_POS.get(classify(value), ""))
 
     def prompt(self, observation: str, choices: Sequence[str], *,
                max_inline: int = 40) -> str:

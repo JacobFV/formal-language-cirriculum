@@ -372,6 +372,18 @@ class Grammar:
         """One word from wherever this grammar keeps its lexicon. ``""`` if absent."""
         return ""
 
+    def knows(self, lemma: str) -> bool:
+        """Whether this grammar has a word of its own for ``lemma``.
+
+        Asked of an answer option, which must be in the prompt's language or
+        the episode quietly becomes "translate, then answer". The default is
+        the lexical primitive; the two kinds of grammar answer it differently
+        because they keep their words in different places, and a question only
+        one of them could answer is how four hundred languages came to offer
+        English options against translated evidence.
+        """
+        return bool(self.lookup(lemma, ""))
+
     def phrase(self, lemma: str, pos: str) -> str:
         """Render a multi-word label a token at a time.
 

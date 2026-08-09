@@ -219,8 +219,11 @@ def _translate_options(lang, options: Sequence[str], answer: str) -> tuple[tuple
     options are visibly in another language is a much smaller problem than a
     prompt with two identical options and one correct answer.
     """
-    vocab = lang.lexicon.vocabulary
-    known = [vocab.knows(o) for o in options]
+    # Ask the language, not one particular kind of lexicon. The old question
+    # was put to `lang.lexicon.vocabulary`, which a derived language does not
+    # have, so every one of them answered "no" to every option and offered
+    # English answers against translated evidence.
+    known = [lang.knows(o) for o in options]
     if not options or not all(known):
         return tuple(options), answer, any(known)
     translated = tuple(lang.token(o) for o in options)
