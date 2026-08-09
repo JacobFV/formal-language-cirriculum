@@ -2247,11 +2247,76 @@ def test_no_heading_is_a_truncated_english_word(code):
     # *profil* for *profiles*, *calcul* for *calculus* -- so guessing from the
     # string flags the right answers along with the wrong ones.
     from langcurriculum.grammar.derived import _singulars
+
+    def came_from(source: str, rendered: str) -> bool:
+        return any(grammar.word(candidate, pos="N") == rendered
+                   for candidate in (source, *_singulars(source)))
+
     for name in names:
         words = name.replace("_", " ")
         heading = grammar.block_heading(name).rstrip(":")
         if heading == words:
             continue                              # untranslated, and honest
-        sources = [words, *_singulars(words)]
-        assert any(grammar.word(src, pos="N") == heading for src in sources), \
+        tokens = words.split()
+        if len(tokens) > 1:
+            # Composed a word at a time, but a translation may itself be
+            # several words — French *split* is "grand écart", Russian
+            # *domain* is "о́бласть определе́ния" — so counting tokens is
+            # wrong. What must hold is that no English word survived: a
+            # compound is rendered whole or left in English, never half.
+            leftover = [t for t in tokens if t in heading.split()]
+            assert not leftover, \
+                f"{code}: {name!r} became {heading!r}, still English in {leftover}"
+            continue
+        assert came_from(words, heading), \
             f"{code}: {name!r} became {heading!r}, which nothing translated to"
+
+
+@needs_db
+@pytest.mark.parametrize("code,name,expected", [
+    ("deu", "candidate_rules", "Kandidat Regel"),
+    ("rus", "candidate_rules", "кандида́т пра́вило"),
+    ("fra", "candidate_rules", "candidat règle"),
+])
+def test_a_compound_heading_is_translated_word_by_word(code, name, expected):
+    """A third of them read half in each language: "Antwort options".
+
+    Whole, "answer options" is in no dictionary, and the generic phrase
+    composer settles for whatever it can get. In pieces both halves are there
+    — but *options* only under *option*, so the singular has to be offered per
+    word and not merely to the compound.
+    """
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    assert DerivedGrammar(db, code).block_heading(name).rstrip(":") == expected
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["deu", "rus", "fra", "spa", "ita"])
+def test_a_compound_heading_is_whole_or_english(code):
+    """Never half. French has no *dimensions*, so `base_dimensions` stays
+    English rather than reading "base dimensions" with one word translated."""
+    import random
+    from langcurriculum.registry import all_lessons, get
+
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    names: set[str] = set()
+    for lesson_id in list(all_lessons()):
+        for seed in range(2):
+            try:
+                term, *_ = get(lesson_id).generate(random.Random(seed))
+            except Exception:
+                continue
+            if term.type == "record":
+                names |= {n for n, _v in term.value if "_" in n}
+    for name in names:
+        words = name.replace("_", " ")
+        heading = grammar.block_heading(name).rstrip(":")
+        if heading == words:
+            continue                       # left in English, which is honest
+        survivors = [t for t in words.split() if t in heading.split()]
+        assert not survivors, f"{code}: {name!r} -> {heading!r}, kept {survivors}"

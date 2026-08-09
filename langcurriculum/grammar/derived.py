@@ -975,14 +975,33 @@ class DerivedGrammar(Grammar):
         :meth:`gaps` says so.
         """
         words = name.replace("_", " ")
+        tokens = words.split()
+        if len(tokens) > 1:
+            # A compound is translated a word at a time, each with its own
+            # singular offered. Whole, "answer options" is in no dictionary,
+            # and the generic phrase composer settles for whatever it can get:
+            # a third of the compound headings read "Antwort options",
+            # "отве́т options", "candidat examples". Half a heading in each
+            # language is worse than either language on its own, and in pieces
+            # both halves are in the dictionary -- *options* only under
+            # *option*, which is why the singular has to be offered per word
+            # and not just to the compound as a whole.
+            parts = [self._heading_word(t) for t in tokens]
+            if all(part != token for part, token in zip(parts, tokens)):
+                return self.join(parts) + self.typography.colon
+            return words + self.typography.colon
+        return self._heading_word(words) + self.typography.colon
+
+    def _heading_word(self, words: str) -> str:
+        """One heading word, trying its singular where the plural is unlisted."""
         translated = self.word(words, pos="N")
-        if translated == words:                       # try the bare singular
-            for singular in _singulars(words):
-                attempt = self.word(singular, pos="N")
-                if attempt != singular:
-                    translated = attempt
-                    break
-        return translated + self.typography.colon
+        if translated != words:
+            return translated
+        for singular in _singulars(words):
+            attempt = self.word(singular, pos="N")
+            if attempt != singular:
+                return attempt
+        return words
 
     # ---- honesty ---------------------------------------------------------
     def gaps(self) -> list[str]:
