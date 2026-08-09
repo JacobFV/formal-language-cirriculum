@@ -40,7 +40,7 @@ meaning, realized differently in each language but recognizably the same thing::
                       YNQ        is the string balanced?
                       AltQ       is it high or low?
 
-Eighteen. Adding a language means saying how *these* are realized, which is a
+Nineteen. Adding a language means saying how *these* are realized, which is a
 bounded job a linguist can finish, rather than translating 399 predicate heads,
 which is not.
 

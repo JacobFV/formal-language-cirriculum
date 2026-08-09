@@ -7,7 +7,7 @@ to do a hundred and seventy-four. Nobody is going to hand-write a Finnish case
 system, a Hungarian one, and a Yakut one, and if they did, nobody could check it.
 
 So for every language that is not hand-written, morphology is **induced** from
-UniMorph — 16.4 million attested (lemma, form, features) triples. Two mechanisms,
+attested (lemma, form, features) triples — 56.7 million of them. Two mechanisms,
 in order of trust:
 
 **Attested lookup.** If the database has the exact cell — this lemma, these

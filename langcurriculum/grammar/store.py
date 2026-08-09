@@ -2,8 +2,9 @@
 
 The previous design held every vocabulary in memory as a dict loaded from JSON.
 That is the right shape for 321 words and the wrong shape for what this package
-now carries: **16.4 million inflected forms across 174 languages** from UniMorph,
-plus Wiktionary's translation tables. Loading that eagerly would cost gigabytes
+now carries: **56.7 million inflected forms** — 13.0M from UniMorph across 170
+languages and 43.7M from Wiktionary's inflection tables across 30 — plus three
+million translations. Loading that eagerly would cost gigabytes
 of resident memory to answer questions about one language.
 
 So the lexicon lives in SQLite. Three properties made it the obvious choice and
