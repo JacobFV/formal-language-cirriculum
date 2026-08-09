@@ -1138,10 +1138,10 @@ def test_the_coreference_lesson_falls_back_before_it_draws(code):
     generator mid-stream and the fallback came out about a different pair of
     people, which would have moved the answer.
 
-    What is asserted is the material the lesson *chose*. The renderer still
-    translates individual tokens it recognises, so a word or two of the
-    English fallback comes back in the target language — that is a separate
-    defect, recorded in the commit and not fixed here.
+    The whole discourse is asserted, not just the material chosen: a sentence
+    the lesson assembled is now rendered as written, so the fallback comes out
+    in English throughout rather than with the two or three words the renderer
+    happened to recognise translated out from under it.
     """
     from langcurriculum.registry import get
     db = LanguageDB()
@@ -1151,9 +1151,10 @@ def test_the_coreference_lesson_falls_back_before_it_draws(code):
     other = get("pronoun_coreference").example(0, language=code)
     assert other.metadata["hidden"]["referent"] == \
         english.metadata["hidden"]["referent"]
-    assert other.metadata["hidden"]["distractor"] == \
-        english.metadata["hidden"]["distractor"]
-    assert len(other.choices) == len(english.choices)
+    body = [l for l in other.observation.splitlines() if l.strip().startswith("-")]
+    reference = [l for l in english.observation.splitlines()
+                 if l.strip().startswith("-")]
+    assert body == reference, f"{code}: half-translated discourse"
 
 
 @needs_db
@@ -2116,3 +2117,56 @@ def test_the_dutch_scene_inflects_every_adjective_or_none():
     scene = get("set_operations").example(0, language="nld").observation
     assert "blauwe bol" in scene
     assert "blauw bol" not in scene
+
+
+# ======================================================================
+# a sentence the lesson assembled is not looked up again
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code", ["deu", "ces", "fin", "hun", "pol"])
+def test_an_assembled_sentence_is_wholly_in_one_language(code):
+    """Every word of it comes from one place, or the episode is a patchwork.
+
+    These lessons are about inflection, so they build their sentences out of
+    the pack's own paradigms instead of handing concepts to the linearizer.
+    The renderer was looking those words up a second time, which only showed
+    where a pack falls back to English: two of seven words came back Russian.
+    """
+    from langcurriculum._support import extra
+    from langcurriculum.registry import get
+
+    token = extra.ACTIVE_LANGUAGE.set(code)
+    try:
+        supplied = extra.supplies("noun_forms")
+        material = {w for pair in extra.noun_forms() for w in pair}
+        material |= set(extra.prepositions())
+    finally:
+        extra.ACTIVE_LANGUAGE.reset(token)
+    if not supplied:
+        pytest.skip(f"{code} falls back; covered by the coreference test")
+    words = {l.strip("- ").strip()
+             for l in get("long_range_agreement").example(0, language=code)
+             .observation.splitlines() if l.strip().startswith("-")}
+    stray = {w for w in words if w and w != "__" and w not in material}
+    assert not stray, f"{code}: {stray} came from neither the pack nor the lesson"
+
+
+def test_only_assembled_fields_are_rendered_verbatim():
+    """The restriction, stated. A token is used for coined symbols too, and
+    making every token opaque would pull forty-four ordinary words back into
+    English across nine other lessons."""
+    from langcurriculum.grammar.compile import ASSEMBLED
+    assert ASSEMBLED == {"sentence", "discourse"}
+
+
+@needs_db
+def test_a_supplied_language_is_unaffected_by_the_change():
+    """Its words were already in the language, so looking them up was a no-op.
+
+    The change can only alter what happens on the fallback path, and this is
+    the check that it did not quietly alter anything else.
+    """
+    from langcurriculum.registry import get
+    scene = get("long_range_agreement").example(0, language="deu").observation
+    assert "Bücher" in scene or "Buch" in scene
+    assert "farmer" not in scene and "keys" not in scene

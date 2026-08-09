@@ -556,6 +556,33 @@ def compile_episode(term: Term) -> tuple[list[Node], Node | None]:
             query = compile_query(value)
             continue
         items = list(value.children) if value.type == "list" else [value]
-        blocks.append(text_block(name, [compile_term(i) for i in items],
+        compile_item = _verbatim if name in ASSEMBLED else compile_term
+        blocks.append(text_block(name, [compile_item(i) for i in items],
                                  is_list=value.type == "list"))
     return blocks, query
+
+
+#: Fields whose contents are a sentence the *lesson* assembled, word by word,
+#: out of material drawn from the language pack. Everything else in an episode
+#: is a concept for the grammar to realize; these are already words.
+ASSEMBLED = frozenset({"sentence", "discourse"})
+
+
+def _verbatim(term: Term) -> Node:
+    """One word of an assembled sentence, exactly as the lesson wrote it.
+
+    These lessons are *about* inflection, so they build their sentences from
+    the pack's own paradigms rather than handing concepts to the linearizer.
+    Looking those words up again is double handling, and it showed: where a
+    pack has no paradigms of its own the lesson falls back to English, and the
+    renderer then translated whichever of the English words it happened to
+    recognise. A Russian discourse read "carol - avoided - dave - again -
+    зате́м - he - waited" — two words translated out of seven.
+
+    Restricted to these fields rather than to tokens generally. A token is used
+    for coined symbols too, and making every token opaque would pull forty-four
+    ordinary words back into English across nine other lessons.
+    """
+    if term.type in PRIMITIVE_TYPES and not term.children:
+        return sym(term.value)
+    return compile_term(term)
