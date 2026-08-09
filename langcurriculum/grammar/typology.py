@@ -159,7 +159,7 @@ class Profile:
         return len(self.evidence)
 
 
-_SANDHI_DATA = Path(__file__).resolve().parent / "data" / "sandhi.json"
+_SANDHI_DATA = Path(__file__).resolve().parent / "data" / "tables" / "sandhi.json"
 
 
 @lru_cache(maxsize=1)
@@ -181,7 +181,7 @@ def sandhi_for(code: str) -> Sandhi:
                   contract=entry.get("contract", {}))
 
 
-_INSTRUCTION_DATA = Path(__file__).resolve().parent / "data" / "instructions.json"
+_INSTRUCTION_DATA = Path(__file__).resolve().parent / "data" / "tables" / "instructions.json"
 
 
 @lru_cache(maxsize=1)
@@ -195,7 +195,7 @@ def instructions_for(code: str) -> Mapping[str, str]:
     return _instruction_tables().get(code, {})
 
 
-_COPULA_DATA = Path(__file__).resolve().parent / "data" / "copulas.json"
+_COPULA_DATA = Path(__file__).resolve().parent / "data" / "tables" / "copulas.json"
 
 
 @lru_cache(maxsize=1)
@@ -214,7 +214,7 @@ def copula_for(code: str) -> Mapping[str, str] | None:
     return _copula_tables().get(code)
 
 
-_ARTICLE_DATA = Path(__file__).resolve().parent / "data" / "articles.json"
+_ARTICLE_DATA = Path(__file__).resolve().parent / "data" / "tables" / "articles.json"
 
 
 @lru_cache(maxsize=1)
@@ -228,7 +228,7 @@ def articles_for(code: str) -> Mapping[str, Mapping[str, str]] | None:
     return _article_tables().get(code)
 
 
-_INTRO_DATA = Path(__file__).resolve().parent / "data" / "field_intros.json"
+_INTRO_DATA = Path(__file__).resolve().parent / "data" / "tables" / "field_intros.json"
 
 
 @lru_cache(maxsize=1)

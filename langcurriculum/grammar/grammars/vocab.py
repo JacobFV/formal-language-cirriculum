@@ -29,7 +29,7 @@ from ..typology import instructions_for
 
 __all__ = ["VocabularyGrammar", "load_pack"]
 
-_LOCAL_DATA = Path(__file__).resolve().parent / "data"
+_LOCAL_DATA = (Path(__file__).resolve().parent.parent / "data" / "packs")
 
 #: distinguishes "not looked up yet" from "looked up and absent"
 _UNSET = object()
@@ -54,19 +54,15 @@ def _merge(base: dict[str, Any], overlay: dict[str, Any]) -> dict[str, Any]:
 
 
 def load_pack(code: str) -> tuple[Vocabulary, dict[str, Any]]:
-    """Load a vocabulary from ``languages/data`` or ``grammar/grammars/data``.
+    """Load a hand-written pack from ``grammar/data/packs``.
 
-    New languages ship their data beside their grammar; the three original packs
-    keep theirs where they already are, so nothing has to move.
+    One file per pack, and one place to look. There were two loaders and three
+    directories, because the original packs kept their vocabulary where it
+    started and later ones shipped beside their grammar -- so English, Spanish
+    and Chinese each had two files merged at load time and nobody reading the
+    tree could tell what was where.
     """
-    try:
-        return load_vocabulary(code)
-    except FileNotFoundError:
-        path = _LOCAL_DATA / f"{code}.json"
-        if not path.exists():
-            raise
-        raw = json.loads(path.read_text(encoding="utf-8"))
-        return _vocabulary_from(raw), raw
+    return load_vocabulary(code)
 
 
 def _vocabulary_from(raw: Mapping[str, Any]) -> Vocabulary:
@@ -117,17 +113,11 @@ class VocabularyGrammar(Grammar):
 
     #: an extra data file merged over the pack's own, for material that used to
     #: live in the template module: English's field lead-ins and synonyms
-    overlay: str = ""
 
     def __init__(self) -> None:
         super().__init__()
         self._database: Any = _UNSET
         self.vocabulary, self.raw = load_pack(self.pack or self.code)
-        if self.overlay:
-            extra_path = _LOCAL_DATA / f"{self.overlay}.json"
-            if extra_path.exists():
-                self.raw = _merge(
-                    self.raw, json.loads(extra_path.read_text(encoding="utf-8")))
         self.predicate_words = dict(self.raw.get("predicate_words") or {})
         self.field_intros = dict(self.raw.get("field_intros") or {})
         self.closed = dict(self.raw.get("closed") or {})

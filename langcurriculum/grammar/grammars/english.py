@@ -55,7 +55,6 @@ class English(VocabularyGrammar):
     code = "english"
     name = "English"
     pack = "english"
-    overlay = "english"
 
     order = WordOrder(
         clause="SVO", adj="AN", det="DN", numeral="NumN",
@@ -177,7 +176,6 @@ class EnglishSynonym(English):
     code = "english_synonym"
     name = "English (held-out synonyms)"
     pack = "english"
-    overlay = "english"
 
     notes = English.notes + (
         "the question's content words are near-synonyms held out of the body",

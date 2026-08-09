@@ -21,7 +21,8 @@ invented per episode — three-letter nonce forms, object ids, freshly-named
 predicates — and inventing a translation for a coined word would destroy the
 lesson. A nonce word is the same nonce word in every language.
 
-Vocabularies live as JSON under ``languages/data/`` and are loaded once, lazily.
+Vocabularies live as JSON under ``grammar/data/packs/`` and are loaded once,
+lazily.
 No dependency, no download, no model.
 """
 
@@ -34,7 +35,14 @@ from typing import Any, Mapping
 
 __all__ = ["Noun", "Adjective", "Verb", "Vocabulary", "load_vocabulary", "DATA_DIR"]
 
-DATA_DIR = Path(__file__).resolve().parent / "data"
+#: One directory for every hand-written pack. There were three: the original
+#: packs kept their vocabulary here, newer ones shipped beside their grammar,
+#: and English, Spanish and Chinese had a file in each that was merged at load
+#: time. Same kind of content, three places, two of them for historical
+#: reasons -- so a reader counting the files could not tell how many languages
+#: the package has.
+DATA_DIR = (Path(__file__).resolve().parent.parent
+            / "grammar" / "data" / "packs")
 
 
 @dataclass(frozen=True)

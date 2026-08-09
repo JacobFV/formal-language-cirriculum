@@ -2759,3 +2759,47 @@ def test_the_spacing_does_not_depend_on_what_the_caller_left_behind():
         assert grammar.punctuate("a :b") == "a :b"
     finally:
         grammar.typography = replace(grammar.typography, space_before="")
+
+
+# ======================================================================
+# where the data lives
+# ======================================================================
+def test_language_data_lives_in_one_place():
+    """There were three directories, two of them for historical reasons.
+
+    The original packs kept their vocabulary under ``languages/data``, later
+    ones shipped beside their grammar, and three languages had a file in each
+    that was merged at load time — so counting the files told a reader nothing
+    about how many languages the package has.
+    """
+    from pathlib import Path
+    root = Path(__file__).resolve().parent.parent / "langcurriculum"
+    assert not (root / "languages" / "data").exists()
+    assert not (root / "grammar" / "grammars" / "data").exists()
+    data = root / "grammar" / "data"
+    assert sorted(p.name for p in (data / "packs").glob("*.json")) == [
+        "chinese.json", "english.json", "spanish.json", "swahili.json",
+        "turkish.json"]
+    assert not list(data.glob("*.json")), "a table escaped into the root"
+    assert (data / "README.md").exists()
+
+
+def test_every_table_is_keyed_by_iso_and_every_pack_by_its_name():
+    """The one distinction the layout is allowed to make.
+
+    A table records a fact about a language and is keyed by ISO 639-3; a pack
+    is an implementation and is keyed by its own name, because
+    ``english_synonym`` shares English's code and is not English.
+    """
+    import json
+    from pathlib import Path
+    tables = (Path(__file__).resolve().parent.parent / "langcurriculum"
+              / "grammar" / "data" / "tables")
+    for path in sorted(tables.glob("*.json")):
+        raw = json.loads(path.read_text(encoding="utf-8"))
+        keys = [k for k in raw if not k.startswith("_")]
+        if path.name in ("lemmas.json", "predicates.json",
+                         "paradigm_seeds.json"):
+            continue                      # keyed by English word, not language
+        assert keys and all(len(k) == 3 for k in keys), \
+            f"{path.name} is not keyed by ISO 639-3: {keys[:5]}"

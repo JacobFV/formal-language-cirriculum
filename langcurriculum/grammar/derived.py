@@ -73,7 +73,7 @@ _VPAST = (frozenset({"V", "PST"}), _NOT_FINITE | {"1", "2", "PL", "FEM", "NEUT"}
 _NAME_GENDER = {"alice": "f", "bob": "m", "carol": "f",
                 "dave": "m", "erin": "f", "frank": "m"}
 
-_LEMMA_DATA = Path(__file__).resolve().parent / "data" / "lemmas.json"
+_LEMMA_DATA = Path(__file__).resolve().parent / "data" / "tables" / "lemmas.json"
 
 
 @lru_cache(maxsize=1)
@@ -92,7 +92,7 @@ def probe_form(key: str) -> str:
     return _lemmas().get(key, key)
 
 
-_SEED_DATA = Path(__file__).resolve().parent / "data" / "paradigm_seeds.json"
+_SEED_DATA = Path(__file__).resolve().parent / "data" / "tables" / "paradigm_seeds.json"
 
 
 @lru_cache(maxsize=1)

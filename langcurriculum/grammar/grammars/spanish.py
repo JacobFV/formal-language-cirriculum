@@ -108,7 +108,6 @@ class Spanish(VocabularyGrammar):
     code = "spanish"
     name = "Spanish"
     pack = "spanish"
-    overlay = "spanish"
     iso = "spa"
 
     order = WordOrder(

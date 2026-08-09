@@ -61,7 +61,7 @@ __all__ = ["WordOrder", "Typography", "Alignment", "Concord", "Grammar",
            "NOM_ACC", "ERG_ABS", "NO_CASE"]
 
 
-_PREDICATE_DATA = Path(__file__).resolve().parent / "data" / "predicates.json"
+_PREDICATE_DATA = Path(__file__).resolve().parent / "data" / "tables" / "predicates.json"
 
 
 def _load_predicate_gloss() -> Mapping[str, str]:

@@ -54,7 +54,6 @@ class Chinese(VocabularyGrammar):
     code = "chinese"
     name = "Chinese (Mandarin, Simplified)"
     pack = "chinese"
-    overlay = "chinese"
     iso = "cmn"
 
     order = WordOrder(
