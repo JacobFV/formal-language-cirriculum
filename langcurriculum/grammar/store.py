@@ -168,6 +168,7 @@ class LanguageDB:
     def __init__(self, path: str | os.PathLike[str] | None = None):
         self.path = Path(path or DB_PATH)
         self._local = threading.local()
+        self._scripts: dict[str, str] = {}
 
     @property
     def conn(self) -> sqlite3.Connection:
@@ -205,6 +206,39 @@ class LanguageDB:
             "SELECT param, value FROM typology WHERE code = ?", (code,))}
 
     # ---- lexicon --------------------------------------------------------
+    def script_of(self, code: str) -> str:
+        """The script a language is written in, cached; "" if unrecorded."""
+        if code not in self._scripts:
+            row = self.language(code)
+            self._scripts[code] = (row["script"] or "") if row is not None else ""
+        return self._scripts[code]
+
+    def _one(self, code: str, form: str) -> str:
+        """One writing of a Han-script entry, not both at once.
+
+        Wiktionary gives a Han headword as "Traditional /Simplified" --
+        *詞典 /词典* for dictionary -- and 61,798 rows are like that across
+        Mandarin, Cantonese, Hakka, Wu and Min. Printed whole it is a word in
+        neither: Mandarin read "o0是黃 /黄立方體 /立方体".
+
+        Split here rather than in one grammar. The derived grammars did it for
+        themselves and the hand-written Chinese pack did not, so a word the
+        pack happened to lack came back through the store unsplit -- 門檻 /门槛
+        for a threshold, spaces and all, in a language written without them.
+        """
+        if " /" not in form:
+            return form
+        script = self.script_of(code)
+        if script not in ("Hans", "Hant"):
+            # Hakka records both writings and is itself written in Latin.
+            # Choosing one hands a romanised language a Han character, where
+            # leaving the pair intact lets the usability screen reject it and
+            # `gaps` say there is no single word for the copula -- which is
+            # what it did before, and is true.
+            return form
+        left, _, right = form.partition(" /")
+        return left if script == "Hant" else right
+
     def lookup(self, code: str, key: str, pos: str = "") -> Entry | None:
         """The best target word for an English concept.
 
@@ -218,16 +252,18 @@ class LanguageDB:
                 "ORDER BY rank LIMIT 1",
                 (code, key, pos)).fetchone()
             if row is not None:
-                return Entry(row["form"], row["pos"] or "", row["gender"] or "",
-                             row["source"])
+                return Entry(self._one(code, row["form"]), row["pos"] or "",
+                             row["gender"] or "", row["source"])
         row = self.conn.execute(
             "SELECT * FROM sense WHERE code=? AND key=? ORDER BY rank LIMIT 1",
             (code, key)).fetchone()
         return None if row is None else Entry(
-            row["form"], row["pos"] or "", row["gender"] or "", row["source"])
+            self._one(code, row["form"]), row["pos"] or "", row["gender"] or "",
+            row["source"])
 
     def lookup_all(self, code: str, key: str) -> list[Entry]:
-        return [Entry(r["form"], r["pos"] or "", r["gender"] or "", r["source"])
+        return [Entry(self._one(code, r["form"]), r["pos"] or "", r["gender"] or "",
+                      r["source"])
                 for r in self.conn.execute(
                     "SELECT * FROM sense WHERE code=? AND key=?", (code, key))]
 

@@ -2891,7 +2891,9 @@ def test_the_harvest_set_and_the_coined_set_are_different_questions():
     # descriptions. All are words the curriculum now coins, so a language has
     # to cover them. The `desc_*` heads are not: they name constructions, and
     # the builder replaces each with the words above.
-    assert len(coined) == 417, "the coined set moved; coverage numbers will too"
+    # 423 since interactive_reference and architecture_composition stopped
+    # emitting `question` and the pipeline stage names as identifiers.
+    assert len(coined) == 423, "the coined set moved; coverage numbers will too"
     assert "rule" in rendered and "entity" in rendered
 
 
@@ -3039,3 +3041,38 @@ def test_no_two_program_descriptions_read_the_same(language):
         assert len(set(said)) == 4, (
             f"seed {seed} in {language}: two descriptions read alike:\n"
             + "\n".join(said))
+
+
+@needs_db
+def test_a_han_entry_is_one_writing_wherever_it_is_read_from():
+    """Wiktionary writes a Han headword as "Traditional /Simplified".
+
+    61,798 rows are like that, 734 of them curriculum words. The derived
+    grammars split them; the hand-written Chinese pack did not, because it
+    reads the store directly for a word it lacks -- so `threshold` came back
+    as "門檻 /门槛", spaces and all, in a language written without spaces. The
+    split belongs to the store, where every reader gets it.
+
+    Only for languages actually written in Han. Hakka records both writings
+    and is itself romanised; picking one there would hand a Latin-script
+    language a Han character, where leaving the pair intact lets the
+    usability screen reject it and the gap say so.
+    """
+    db = LanguageDB()
+    for code, expected in (("cmn", "门槛"), ("yue", "門檻")):
+        if db.language(code) is None:
+            continue
+        entry = db.lookup(code, "threshold")
+        if entry is None:
+            continue
+        assert " /" not in entry.form, f"{code}: {entry.form}"
+        assert entry.form == expected
+
+    for code in ("hak", "mww"):
+        if db.language(code) is None:
+            continue
+        assert DerivedGrammar(db, code)._copula_lemma() == ""
+
+    grammar = GRAMMARS["chinese"]
+    for key in ("threshold", "book"):
+        assert " " not in grammar.word(key, "N"), key

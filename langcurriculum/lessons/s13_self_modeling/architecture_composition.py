@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import random
 
-from ..._structure import Ident, Lst, Num, Pred, Rec
+from ..._structure import Tok, Ident, Lst, Num, Pred, Rec
 from ...lesson import Lesson
 from ..._support.selfmodel import _labels, _paths, _rules, _shuffled
 
@@ -31,12 +31,17 @@ def gen_architecture_composition(rng: random.Random):
     best = totals[0][1]
 
     ids = _labels(rng, "mod", len(spec))
-    facts = [Pred("module", Ident(ids[e]), Ident(types[u]), Ident(types[v]), Num(costs[e]))
+    # The stage names are words -- raw, parsed, logical, plan -- and as
+    # `Ident`s they stayed English while the rest of the row translated.
+    # They still match across modules, because a word translates the same
+    # way every time it appears.
+    facts = [Pred("module", Ident(ids[e]), Tok(types[u]), Tok(types[v]), Num(costs[e]))
              for e, (u, v) in enumerate(spec)]
     obs = Rec(modules=Lst(_shuffled(rng, facts)),
               rules=_rules("a_pipeline_is_a_chain_of_modules_whose_output_type_matches_the_next_input_type",
                            "pipeline_cost_is_the_sum_of_its_module_costs"),
-              query=Pred("first_module_of_cheapest_pipeline", Ident(types[0]), Ident(types[-1])))
+              query=Pred("first_module_of_cheapest_pipeline",
+                         Tok(types[0]), Tok(types[-1])))
     return (obs, _shuffled(rng, ids), ids[best[0]],
             {"cheapest": [ids[e] for e in best], "cost": totals[0][0], "margin": totals[1][0] - totals[0][0]})
 

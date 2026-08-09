@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import random
 
-from ..._structure import Ident, Lst, Num, Pred, Rec
+from ..._structure import Tok, Ident, Lst, Num, Pred, Rec
 from ...lesson import Lesson
 from ..._support.base import COLORS, SHAPES
 from ..._support.semantics import POSITIONS, SIZES, _shuffled
@@ -67,7 +67,9 @@ def gen_interactive_reference(rng: random.Random):
                          for o in ids]),
               schema=Lst([Pred("attribute", Num(i), Ident(k)) for i, k in enumerate(keys)]),
               instruction=Pred("bring_the", Ident(named), Ident(val)),
-              cost=Pred("cost", Ident("question"), Num(1)),
+              # a question is a word, not a name: as an `Ident` it printed
+              # "question" in every language that has one
+              cost=Pred("cost", Tok("question"), Num(1)),
               query=Ident("what_should_i_ask"))
     return obs, _shuffled(rng, keys + ["act_now"]), label, {"named": named, "value": val,
                                                             "candidates": cands}
