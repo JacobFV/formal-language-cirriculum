@@ -240,6 +240,35 @@ def induce(pairs: Iterable[tuple[str, str, str]], *,
 # ======================================================================
 # the morphology object the linearizer uses
 # ======================================================================
+def _unambiguous(cells: list[tuple[str, str]]) -> list[tuple[str, str]]:
+    """Drop any tag set that is recorded with more than one surface.
+
+    Such a row is not evidence. It cannot say which form the features pick out,
+    and taking either is a coin flip dressed as a paradigm.
+
+    Adjectives only, which is a restriction and not a hedge. There the
+    ambiguity is a merged *degree* -- one tag set holding the comparative and
+    the superlative -- and neither member is the plain form always wanted, so
+    dropping the row loses nothing. In a verb paradigm the same shape means two
+    lexemes merged under one headword: Swedish ``V;PRS`` holds *är* from "to
+    be" beside *varar* from "to last", and French ``faire`` beside ``être``.
+    Dropping those rows cost three languages their copula -- French said
+    "o1 fait une sphère" -- so the verb paradigms keep every row and lean on
+    the scoring in `_copula_lemma` instead.
+
+    Dutch is the clear case. Wiktionary gives *paars* the row
+    ``A;INDF;NEUT;SG`` twice, once as *paarser* and once as *paarste* -- the
+    comparative and the superlative, merged because the degree was never
+    tagged. Asking for the plain adjective returned *paarser*, so a Dutch scene
+    read "a purpler sphere". The rows that *are* tagged for degree carry one
+    surface each and survive, which leaves exactly the good half of the table.
+    """
+    seen: dict[str, set[str]] = {}
+    for feats, surface in cells:
+        seen.setdefault(feats, set()).add(surface)
+    return [(f, s) for f, s in cells if len(seen[f]) == 1]
+
+
 class DataMorphology(Morphology):
     """Attested forms first, learned rules second.
 
@@ -272,7 +301,8 @@ class DataMorphology(Morphology):
         where it is not.
         """
         preferred = self.db.paradigm(self.code, lemma, "unimorph")
-        return preferred or self.db.paradigm(self.code, lemma, "wiktionary")
+        cells = preferred or self.db.paradigm(self.code, lemma, "wiktionary")
+        return _unambiguous(cells) if self.pos == "A" else cells
 
     # ---- the learned half -------------------------------------------
     @property

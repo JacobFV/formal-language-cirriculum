@@ -46,7 +46,9 @@ from .linearize import (
     Typography, WordOrder,
 )
 from .store import LanguageDB
-from .typology import copula_for, instructions_for, sandhi_for
+from .typology import (
+    articles_for, copula_for, instructions_for, sandhi_for,
+)
 
 __all__ = ["DerivedGrammar", "CLOSED_CLASS_KEYS"]
 
@@ -702,6 +704,20 @@ class DerivedGrammar(Grammar):
         and needs reading rather than authoring.
         """
         self._articles: dict[tuple[str, str, bool], str] = {}
+        written = articles_for(self.code)
+        if written is not None:
+            # The translation table carries one entry per gender and almost
+            # never one per number, so the plural article was missing in every
+            # language but French. Where the paradigm has been written out, it
+            # is used whole rather than patched.
+            for slot, cells in written.items():
+                for spec, form in cells.items():
+                    gender, _, number = spec.partition(".")
+                    plural = number == "pl"
+                    for cls in (("m", "f", "n", "c") if gender == "-"
+                                else (gender,)):
+                        self._articles[(slot, cls, plural)] = form
+            return
         for slot, key in (("def", "the"), ("indef", "one")):
             if not self._params.get(f"has_{'definite' if slot == 'def' else 'indefinite'}"):
                 continue

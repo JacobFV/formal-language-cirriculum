@@ -1643,3 +1643,92 @@ def test_an_unwritten_copula_and_an_empty_one_are_different_answers():
     from langcurriculum.grammar.typology import copula_for
     assert copula_for("arb") == {"sg": "", "pl": ""}
     assert copula_for("deu") is None
+
+
+# ======================================================================
+# articles, and the rows that cannot say which form they mean
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code,cls,expected", [
+    ("deu", "n", "die"), ("spa", "m", "los"), ("spa", "f", "las"),
+    ("ita", "m", "i"), ("ita", "f", "le"), ("por", "m", "os"),
+    ("cat", "m", "els"), ("ell", "n", "τα"), ("fra", "f", "les"),
+])
+def test_a_plural_noun_takes_a_plural_article(code, cls, expected):
+    """The translation table carries one entry per gender and none per number.
+
+    So the plural article was missing in every language but French, and German
+    wrote *der* in front of a plural, Spanish *el*, Italian *il*.
+    """
+    from langcurriculum.grammar.category import CLS, NUM
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    assert grammar.determiner("def", None, FS({CLS: cls, NUM: "pl"})) == expected
+
+
+@needs_db
+@pytest.mark.parametrize("code,cls,expected", [
+    ("ita", "m", "un"), ("por", "f", "uma"), ("spa", "f", "una"),
+    ("deu", "f", "eine"),
+])
+def test_the_indefinite_article_is_the_article_and_not_the_numeral(code, cls, expected):
+    """It is looked up under *one*, so Italian offered *uno* and wrote
+    "uno cono"; Portuguese had no feminine and wrote "um esfera"."""
+    from langcurriculum.grammar.category import CLS, NUM
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    assert grammar.determiner("indef", None, FS({CLS: cls, NUM: "sg"})) == expected
+
+
+@needs_db
+def test_a_language_not_written_down_still_derives_its_articles():
+    """The table is for where the derivation fails, not a replacement for it."""
+    from langcurriculum.grammar.typology import articles_for
+    assert articles_for("rus") is None
+    assert articles_for("deu") is not None
+
+
+def test_an_ambiguous_paradigm_row_is_not_evidence():
+    """Two surfaces under one tag set cannot say which the features pick out.
+
+    Wiktionary gives Dutch *paars* the row ``A;INDF;NEUT;SG`` twice, as
+    *paarser* and *paarste* — comparative and superlative, merged because the
+    degree was never tagged. Asking for the plain adjective returned the
+    comparative and a scene read "a purpler sphere".
+    """
+    from langcurriculum.grammar.induce import _unambiguous
+    cells = [("A;POS;SG", "paarse"), ("A;SG", "paarser"), ("A;SG", "paarste")]
+    assert _unambiguous(cells) == [("A;POS;SG", "paarse")]
+
+
+@needs_db
+@pytest.mark.parametrize("code,word,expected", [
+    ("nld", "purple", "paarse"), ("nld", "blue", "blauwe"),
+])
+def test_the_plain_adjective_is_not_the_comparative(code, word, expected):
+    from langcurriculum.grammar.category import NUM, A
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    assert DerivedGrammar(db, code).inflect(A.name, word, FS({NUM: "sg"})) == expected
+
+
+@needs_db
+@pytest.mark.parametrize("code,expected", [("fra", "est"), ("swe", "är"),
+                                           ("dan", "er")])
+def test_dropping_ambiguous_rows_did_not_cost_a_verb_its_copula(code, expected):
+    """The restriction to adjectives, stated as the failure that forced it.
+
+    In a verb paradigm an ambiguous row means two lexemes merged under one
+    headword — Swedish ``V;PRS`` holds *är* beside *varar* — and dropping it
+    left French saying "o1 fait une sphère".
+    """
+    from langcurriculum.grammar.features import EMPTY
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    assert DerivedGrammar(db, code).copula("attr", EMPTY) == expected

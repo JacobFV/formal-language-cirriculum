@@ -209,6 +209,20 @@ def copula_for(code: str) -> Mapping[str, str] | None:
     return _copula_tables().get(code)
 
 
+_ARTICLE_DATA = Path(__file__).resolve().parent / "data" / "articles.json"
+
+
+@lru_cache(maxsize=1)
+def _article_tables() -> Mapping[str, Mapping[str, Mapping[str, str]]]:
+    raw = json.loads(_ARTICLE_DATA.read_text(encoding="utf-8"))
+    return {k: v for k, v in raw.items() if not k.startswith("_")}
+
+
+def articles_for(code: str) -> Mapping[str, Mapping[str, str]] | None:
+    """The written-down article paradigm, or ``None`` where it is derived."""
+    return _article_tables().get(code)
+
+
 def derive_profile(code: str, wals: Mapping[str, str], *,
                    script: str = "Latn", grambank: Mapping[str, str] | None = None
                    ) -> Profile:
