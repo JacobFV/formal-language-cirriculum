@@ -129,7 +129,7 @@ CLOSED_CLASS_KEYS: Mapping[str, str] = {
     # is the key that actually retrieves *ein*, *un*, *uno*, *een*, *bir*.
     "a": "one",
     "step": "step", "round": "round", "case": "case", "block": "block",
-    "trial": "trial", "turn": "turn", "stage": "stage",
+    "trial": "trial", "turn": "turn", "stage": "stage", "rule": "rule",
     "is": "be", "are": "be",
 }
 
@@ -139,7 +139,7 @@ CLOSED_CLASS_KEYS: Mapping[str, str] = {
 #: gives ``rund`` "circular" and *turn* gives a verb. Saying which part of
 #: speech is wanted is the whole fix.
 NOMINAL_SLOTS = frozenset({"step", "round", "case", "block", "trial", "turn",
-                           "stage"})
+                           "stage", "rule"})
 
 
 class DerivedGrammar(Grammar):

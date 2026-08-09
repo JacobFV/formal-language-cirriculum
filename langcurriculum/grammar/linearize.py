@@ -818,7 +818,11 @@ class Grammar:
         left, right = node.arg(AGENT), node.arg(PATIENT)
         assert left is not None and right is not None
         rel = node.feats.get_atom("rel", "gt")
-        return self._predicate(self.lin(left, ctx), self.cw(rel, rel),
+        # `gt` is an abbreviation, not a word. A pack with its own idiomatic
+        # entry wins; otherwise the gloss composes one, which is what stopped
+        # four hundred derived grammars printing "gt" between two numbers.
+        return self._predicate(self.lin(left, ctx),
+                               self.cw(rel) or self.word(rel, "V"),
                                self.lin(right, ctx))
 
     def lin_Possess(self, node: Node, ctx: FS) -> str:

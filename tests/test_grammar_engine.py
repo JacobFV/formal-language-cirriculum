@@ -691,3 +691,71 @@ def test_the_gloss_table_is_a_translation_source_not_a_realization():
     english = get_grammar("english")
     assert PREDICATE_GLOSS["precedes"] == "precede"
     assert english.predicate_words["precedes"] == "comes before"
+
+
+# ======================================================================
+# structural words the engine emits on its own account
+# ======================================================================
+#: Every comparison the linearizer can be asked to render.
+COMPARISONS = ("gt", "lt", "eq", "ne", "ge", "le")
+
+
+def _frame_kinds():
+    from langcurriculum.grammar.frames import FRAMES
+    return sorted({f.kind for f in FRAMES.values() if getattr(f, "kind", "")})
+
+
+def test_every_frame_kind_is_a_slot_some_lexicon_can_fill():
+    """``rule`` was not, and so was printed in every language including Chinese.
+
+    Six frames carry a ``kind`` that becomes a word in the output — *rule 4*,
+    *step 2*, *round 7*. Five were listed as closed-class slots and the sixth
+    was overlooked, which no test could catch because nothing asserted the two
+    sets were the same. ``rule`` is the commonest of them.
+    """
+    from langcurriculum.grammar.derived import CLOSED_CLASS_KEYS
+    missing = [k for k in _frame_kinds() if k not in CLOSED_CLASS_KEYS]
+    assert not missing, f"frame kinds with nowhere to get a word: {missing}"
+
+
+def test_every_comparison_has_somewhere_to_get_a_word():
+    """``gt`` is an abbreviation. Four hundred grammars printed it as one."""
+    from langcurriculum.grammar.derived import CLOSED_CLASS_KEYS
+    from langcurriculum.grammar.linearize import PREDICATE_GLOSS
+    for rel in COMPARISONS:
+        assert rel in CLOSED_CLASS_KEYS or rel in PREDICATE_GLOSS, \
+            f"{rel!r} would be printed as the abbreviation itself"
+
+
+@pytest.mark.parametrize("code", sorted(GRAMMARS))
+def test_a_hand_written_pack_names_every_structural_word(code):
+    """A verified grammar should not fall back to a gloss for these.
+
+    The fallback exists for the derived half, where nobody has looked. A pack
+    somebody wrote by hand has no excuse for leaving *is not equal to* to be
+    assembled out of dictionary parts — and ``ne`` was missing from all five,
+    so even English rendered it as ``ne``.
+    """
+    grammar = get_grammar(code)
+    for slot in (*_frame_kinds(), *COMPARISONS):
+        assert grammar.cw(slot), f"{code} has no word for {slot!r}"
+
+
+@pytest.mark.parametrize("code", sorted(GRAMMARS))
+def test_no_grammar_prints_a_structural_abbreviation(code):
+    """The output test, not the table test: what actually reaches the page."""
+    grammar = get_grammar(code)
+    for slot in (*_frame_kinds(), *COMPARISONS):
+        rendered = grammar.cw(slot) or grammar.word(slot, "V")
+        assert rendered != slot or code.startswith("english"), \
+            f"{code} renders {slot!r} as itself"
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["fra", "rus", "deu", "nld", "pol"])
+def test_a_derived_grammar_renders_comparisons_in_its_own_language(code):
+    """*plus que*, *бо́льше чем*, *mehr als* — not *gt*."""
+    grammar = DerivedGrammar(LanguageDB(), code)
+    for rel in COMPARISONS:
+        rendered = grammar.cw(rel) or grammar.word(rel, "V")
+        assert rendered != rel, f"{code} renders {rel!r} as itself"
