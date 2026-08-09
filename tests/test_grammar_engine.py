@@ -1350,3 +1350,69 @@ def test_two_borrowers_are_checked_against_each_other_too():
 def test_the_lemma_table_raises_coverage_rather_than_lowering_it(code):
     """The point of the exercise, stated as a number."""
     assert DerivedGrammar(LanguageDB(), code)._curriculum_coverage() >= 230
+
+
+# ======================================================================
+# one resolution, used by everything that asks the dictionary anything
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code", ["rus", "deu", "fra", "spa", "ita"])
+def test_a_borrowed_lemma_brings_its_gender_with_it(code):
+    """A word that translates and does not agree is worse than one that does not.
+
+    The lookup probed the citation form and ``features_of`` did not, so
+    ``disc`` arrived as a real noun with no class attached and Russian wrote
+    *жёлтое диск* where *диск* is masculine. Both go through one resolution now.
+    """
+    grammar = DerivedGrammar(LanguageDB(), code)
+    assert grammar.word("disc", "N") != "disc"
+    entry = grammar._entry("disc")
+    assert entry is not None
+    # where the dictionary records a gender at all, it must reach the noun
+    if entry.gender:
+        assert grammar.features_of("disc"), f"{code}: translated but classless"
+
+
+@needs_db
+def test_the_russian_agreement_that_prompted_this_is_right():
+    from langcurriculum.registry import get
+    scene = get("negation").example(0, language="rus").observation
+    assert "жёлтое диск" not in scene
+    assert "диск" in scene
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["deu", "fra", "rus", "hin", "por", "spa",
+                                  "ita", "pol", "tur", "jpn", "nld", "ell"])
+def test_coverage_still_agrees_with_asking_word_by_word(code):
+    """The guard that caught the lemma table drifting.
+
+    ``knows`` began probing citation forms and the one-query count did not, so
+    the two disagreed by twenty-five words in German. It then disagreed by one
+    in Hindi, because the lookup tries the key *before* the citation form and
+    Hindi lists ``accepted`` without listing ``accept``.
+    """
+    from langcurriculum.grammar.compile import curriculum_vocabulary
+    grammar = DerivedGrammar(LanguageDB(), code)
+    assert grammar._curriculum_coverage() == sum(
+        1 for k in curriculum_vocabulary() if grammar.knows(k))
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["deu", "fra", "por", "rus"])
+def test_the_ungendered_nouns_are_counted_as_nouns(code):
+    """The gap statement has to measure what it says it measures.
+
+    Counting over every curriculum key reported nine tenths of German
+    ungendered, because asking the lexicon for the noun reading of a verb
+    succeeds — the lookup falls back when a part of speech is missing. The
+    real figure is four in a hundred and ten.
+    """
+    from langcurriculum.grammar.compile import classify, curriculum_vocabulary
+    grammar = DerivedGrammar(LanguageDB(), code)
+    stated = [g for g in grammar.gaps() if "carry no gender" in g]
+    assert len(stated) == 1
+    nouns = [k for k in curriculum_vocabulary()
+             if classify(k) == "noun" and grammar.lookup(k, "N")]
+    bare = [k for k in nouns if not grammar.features_of(k)]
+    assert f"{len(bare)} of {len(nouns)}" in stated[0]

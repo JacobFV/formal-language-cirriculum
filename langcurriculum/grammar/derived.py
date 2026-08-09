@@ -535,14 +535,40 @@ class DerivedGrammar(Grammar):
         for it.
         """
         keys = sorted(_curriculum_keys())
-        marks = ",".join("?" * len(keys))
+        # By the word each key is looked up as, which is not always the key:
+        # `glows` is found under `glow`. Counting raw keys disagreed with
+        # `knows` the moment the lemma table landed, which is what the test
+        # pinning the two counts together is for.
+        # Both spellings: the lookup tries the key first and only then the
+        # citation form, so a key that happens to be listed itself counts even
+        # when its lemma is not. Hindi lists `accepted` and not `accept`.
+        probes = sorted(set(keys) | {probe_form(k) for k in keys})
+        marks = ",".join("?" * len(probes))
         present = {r[0] for r in self.db.conn.execute(
             f"SELECT DISTINCT key FROM sense WHERE code=? AND key IN ({marks})",
-            (self.code, *keys))}
+            (self.code, *probes))}
         # Subtract only what was counted. Withholding a word that has no entry
         # in the first place is not a second loss, and taking the size of the
         # withheld set off the total counted one of them twice.
-        return len(present - self._ambiguous)
+        return len({k for k in keys
+                    if (k in present or probe_form(k) in present)
+                    and k not in self._ambiguous})
+
+    def _entry(self, lemma: str, pos: str = ""):
+        """The dictionary row for a word, by whatever spelling it is listed as.
+
+        One resolution, used by everything that asks the dictionary anything.
+        The lookup probed the citation form and :meth:`features_of` did not, so
+        a borrowed noun arrived with a translation and no gender: German wrote
+        *ein grüner Scheibe* where *Scheibe* is feminine, and the concord
+        machinery had nothing to agree with.
+        """
+        entry = self.db.lookup(self.code, lemma, pos)
+        if entry is None:
+            citation = probe_form(lemma)
+            if citation != lemma:
+                entry = self.db.lookup(self.code, citation, pos)
+        return entry
 
     def knows(self, lemma: str) -> bool:
         """The database has a word for it, and it is one this grammar may use.
@@ -552,7 +578,7 @@ class DerivedGrammar(Grammar):
         ambiguity dropping it prevented.
         """
         return (lemma not in self._ambiguous
-                and self.db.lookup(self.code, lemma) is not None)
+                and self._entry(lemma) is not None)
 
     def lookup(self, lemma: str, pos: str = "") -> str:
         """One word from the language database, screened for junk.
@@ -575,11 +601,7 @@ class DerivedGrammar(Grammar):
         gloss = PREDICATE_GLOSS.get(lemma)
         if gloss is not None and gloss != lemma:
             return ""
-        entry = self.db.lookup(self.code, lemma, pos)
-        if entry is None:
-            citation = probe_form(lemma)
-            if citation != lemma:
-                entry = self.db.lookup(self.code, citation, pos)
+        entry = self._entry(lemma, pos)
         form = entry.form if entry is not None else ""
         # A translation table sometimes answers with a gloss rather than a word
         # — English *turn* came back as "be one's turn". A multi-word answer to
@@ -770,7 +792,7 @@ class DerivedGrammar(Grammar):
         concord machinery leaves it alone — which is the correct behaviour for a
         language without gender and an honest one for a gap in the data.
         """
-        entry = self.db.lookup(self.code, lemma)
+        entry = self._entry(lemma)
         if entry is None or not entry.gender:
             return EMPTY
         mapped = {"masculine": "m", "feminine": "f", "neuter": "n",
@@ -846,6 +868,20 @@ class DerivedGrammar(Grammar):
             out.append(f"{len(self._ambiguous)} words are withheld because the "
                        f"dictionary gives two of them the same form, and an "
                        f"ambiguous episode is worse than an English one")
+        if self.concord.adjective:
+            # Only the words that *are* nouns. Asking the lexicon for the noun
+            # reading of a verb succeeds -- the lookup falls back when a part
+            # of speech is missing -- so counting over every curriculum key
+            # reported nine tenths of German ungendered when the figure is
+            # four in a hundred and ten.
+            from .compile import classify
+            nouns = [k for k in _curriculum_keys()
+                     if classify(k) == "noun" and self.lookup(k, "N")]
+            bare = [k for k in nouns if not self.features_of(k)]
+            if bare:
+                out.append(f"{len(bare)} of {len(nouns)} translated nouns carry "
+                           f"no gender in the dictionary, so a modifier has "
+                           f"nothing to agree with and takes the default")
         if not self.predicate_words:
             out.append("relational predicates are composed word by word from "
                        "their English gloss (“left of” → the "
