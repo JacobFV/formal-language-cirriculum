@@ -356,9 +356,9 @@ grammars, a language is *assembled from data*:
 |---|---|---|---|
 | [WALS](https://wals.info) (Dryer & Haspelmath 2013) | CC-BY 4.0 | word order, alignment, articles, concord, classifiers | 2,442 languages coded |
 | [Grambank](https://grambank.clld.org) (Skirgård et al. 2023) | CC-BY 4.0 | denser coding where WALS has gaps | — |
-| [UniMorph 4.0](https://unimorph.github.io) (Batsuren et al.) | CC-BY-SA | inflected forms with feature bundles | **14,426,912 forms**, 171 languages |
+| [UniMorph 4.0](https://unimorph.github.io) (Batsuren et al.) | CC-BY-SA | inflected forms with feature bundles | **13,019,355 forms**, 170 languages |
 | [Wiktextract](https://kaikki.org) (Ylonen 2022) | CC-BY-SA | translation tables | **3,086,943 senses**, 155k English entries |
-| Wiktextract, per-language | CC-BY-SA | inflection tables — the paradigms UniMorph omits | **43,701,065 forms**, 30 languages |
+| Wiktextract, per-language | CC-BY-SA | inflection tables — the paradigms UniMorph omits | **43,701,065 forms**, 28 languages |
 
 ```bash
 python scripts/fetch_unimorph.py --raw <dir>
@@ -522,7 +522,9 @@ eight difficulty axes — `lexical_novelty`, `grammar_complexity`, `recursion_de
 
 ### Coverage, honestly
 
-- **170** numbered lessons. All 170 are in the registry, in **3 natural languages**.
+- **170** numbered lessons. All 170 are in the registry, in **5 hand-written
+  languages** — English, Spanish, Chinese, Turkish, Swahili — plus a held-out-
+  vocabulary English variant, and any of **411 more** assembled from the database.
 - **169** of them generate episodes. **1** — `#170 open_world_research_agent` — is
   `status="spec"` and deliberately raises rather than pretending. Its content is a *loop*
   (discover an ontology, theorize, design an experiment, run it, revise under criticism,

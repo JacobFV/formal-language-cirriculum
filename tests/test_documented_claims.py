@@ -171,3 +171,70 @@ def test_the_vocabulary_size_vocab_cites_is_current():
     claimed = int(re.search(r"carry (\d+) typed open-class entries", doc).group(1))
     actual = len(GRAMMARS["english"].vocabulary)
     assert claimed == actual, f"vocab.py says {claimed} entries, English has {actual}"
+
+
+@needs_db
+def test_the_readme_source_table_describes_the_shipped_database():
+    """The claims tests read docstrings, and the README was never checked.
+
+    Which is how, one commit after rebuilding to a side path, I updated the
+    UniMorph row to the count from the *candidate* — a database that is not
+    the one shipped and differs by 1.4 million forms, because UniMorph has
+    grown since. The table also said the per-language extracts covered thirty
+    languages where the database has twenty-eight.
+    """
+    import pathlib
+    import re
+
+    readme = (pathlib.Path(__file__).resolve().parent.parent
+              / "README.md").read_text(encoding="utf-8")
+    by_source = dict(DB.conn.execute(
+        "SELECT source, COUNT(*) FROM wordform GROUP BY source"))
+    langs = dict(DB.conn.execute(
+        "SELECT source, COUNT(DISTINCT code) FROM wordform GROUP BY source"))
+
+    rows = {
+        "unimorph": r"\*\*([\d,]+) forms\*\*, (\d+) languages",
+        "wiktionary": r"\*\*([\d,]+) forms\*\*, (\d+) languages",
+    }
+    found = re.findall(r"\*\*([\d,]+) forms\*\*, (\d+) languages", readme)
+    assert len(found) == 2, f"expected two form counts in the table, saw {found}"
+    for (count, n_langs), source in zip(found, ("unimorph", "wiktionary")):
+        claimed, actual = int(count.replace(",", "")), by_source.get(source, 0)
+        assert abs(claimed - actual) < max(1_000, actual * 0.1), \
+            (f"README says {claimed:,} {source} forms, the database holds "
+             f"{actual:,} — rebuild the database or correct the table")
+        assert int(n_langs) == langs.get(source, 0), \
+            f"README says {n_langs} {source} languages, found {langs.get(source, 0)}"
+
+    senses = int(re.search(r"\*\*([\d,]+) senses\*\*", readme).group(1)
+                 .replace(",", ""))
+    actual = DB.conn.execute("SELECT COUNT(*) FROM sense").fetchone()[0]
+    assert senses == actual, f"README says {senses:,} senses, found {actual:,}"
+
+
+def test_the_readme_counts_the_languages_it_has():
+    """It said three, in the section headed "Coverage, honestly".
+
+    True when it was written and not since: Turkish and Swahili were added,
+    the held-out-vocabulary variant with them, and four hundred more can be
+    assembled from the database. Understating a package's reach reads as
+    modesty and is the same defect as overstating it.
+    """
+    import pathlib
+    import re
+
+    from langcurriculum.grammar.registry import REGISTRY
+    from langcurriculum.languages import get_language, language_codes
+
+    readme = (pathlib.Path(__file__).resolve().parent.parent
+              / "README.md").read_text(encoding="utf-8")
+    hand = [c for c in language_codes()
+            if get_language(c).kind == "natural" and c != "english_synonym"]
+    claimed = int(re.search(r"\*\*(\d+) hand-written\n?\s*languages\*\*",
+                            readme).group(1))
+    assert claimed == len(hand), f"README says {claimed}, there are {len(hand)}"
+
+    derived = int(re.search(r"\*\*(\d+) more\*\* assembled", readme).group(1))
+    assert abs(derived - len(REGISTRY.available)) <= 5, \
+        f"README says {derived} derived, the registry offers {len(REGISTRY.available)}"
