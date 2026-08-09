@@ -1,0 +1,68 @@
+# Build the curriculum site and publish it to GitHub Pages.
+#
+# The generated HTML is not committed. It is rebuilt here on every push to
+# master, so the published site cannot drift from the code that produced it --
+# which it had, silently, for three commits.
+#
+# KNOWN LIMIT: this runner has no language database. `languages.db` is 8.4 GB
+# and gitignored, and without it `REGISTRY.available` falls back to the five
+# hand-written packs plus the two controls. So this workflow publishes seven
+# languages, not the 412 the engine speaks. Everything else needs either the
+# database or a reduced extract of it; until one exists, the full set is a
+# local `python scripts/serve_site.py` away.
+name: pages
+
+on:
+  push:
+    branches: [master]
+    paths-ignore: ["**.md"]
+  workflow_dispatch:
+    inputs:
+      samples:
+        description: samples per lesson per language
+        default: "50"
+      budget_mb:
+        description: stop adding languages past this many megabytes
+        default: "900"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build the site
+        run: |
+          python scripts/build_site.py \
+            --out _site \
+            --samples "${{ github.event.inputs.samples || 50 }}" \
+            --budget-mb "${{ github.event.inputs.budget_mb || 900 }}"
+      - name: Report what was published
+        run: |
+          echo "### site" >> "$GITHUB_STEP_SUMMARY"
+          echo "pages: $(find _site -name '*.html' | wc -l)" >> "$GITHUB_STEP_SUMMARY"
+          echo "size: $(du -sh _site | cut -f1)" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

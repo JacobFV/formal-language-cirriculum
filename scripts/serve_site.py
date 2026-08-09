@@ -1,0 +1,547 @@
+#!/usr/bin/env python3
+"""Browse the curriculum in any of the languages the package can speak.
+
+    python scripts/serve_site.py            # http://127.0.0.1:8765
+    python scripts/serve_site.py --port 9000 --samples 100
+
+Why this exists rather than more pages under ``docs/``: the static site is
+built from the committed sample set, which covers the five hand-written
+languages. Everything else the package speaks -- 411 grammars derived from
+WALS, Grambank, UniMorph and Wiktionary -- has no committed samples and
+cannot have any. 180 lessons x 50 samples x 411 languages is 3.7 million
+episodes, about 3.5 GB of JSON before it is turned into HTML.
+
+Generating one is 0.5 ms. So this renders on demand: any lesson, any
+language, any seed, at whatever depth is asked for. A page of 50 samples
+costs about 25 ms, and the first request for a given language pays an
+extra 10-340 ms to build its grammar.
+
+Nothing is written to disk and nothing leaves the machine.
+"""
+
+from __future__ import annotations
+
+import argparse
+import html
+import sys
+import traceback
+from functools import lru_cache
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+from urllib.parse import parse_qs, quote, urlparse
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+
+import langcurriculum as lc                                        # noqa: E402
+from langcurriculum.languages import LANGUAGES, language_codes     # noqa: E402
+from langcurriculum.registry import all_lessons, sections          # noqa: E402
+
+E = html.escape
+
+STYLE = """\
+/* Instrument panel, not a brochure: hairline rules, tabular figures, every
+   quantity labelled and in the same place on every page. */
+*, *::before, *::after { box-sizing: border-box; border-radius: 0 !important; }
+:root {
+  color-scheme: light dark;
+  --bg: #ffffff; --fg: #0a0a0a; --muted: #55555c; --faint: #8e8e96;
+  --rule: #0a0a0a; --hair: #d8d8dc; --grid: #eeeef1;
+  --accent: #0d33ff; --accent-fg: #ffffff; --flag: #c2410c;
+  --code-bg: #f7f7f8; --side: #fbfbfc; --ok: #046c4e;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto, Arial, sans-serif;
+  --side-w: 278px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #08080a; --fg: #ededf0; --muted: #9a9aa4; --faint: #63636d;
+    --rule: #ededf0; --hair: #26262c; --grid: #141418;
+    --accent: #7590ff; --accent-fg: #08080a; --flag: #fb923c;
+    --code-bg: #101014; --side: #0c0c0f; --ok: #34d399;
+  }
+}
+html, body { height: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--sans); font-size: 14px; line-height: 1.55;
+  font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+.mono, .k { font-family: var(--mono); }
+
+/* ---- frame ------------------------------------------------------------ */
+.app { display: grid; grid-template-columns: var(--side-w) 1fr; min-height: 100vh; }
+aside.side {
+  border-right: 1px solid var(--rule); background: var(--side);
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  display: flex; flex-direction: column; z-index: 20;
+}
+aside .brand {
+  padding: 13px 16px 11px; border-bottom: 1px solid var(--rule);
+  position: sticky; top: 0; background: var(--side); z-index: 1;
+}
+aside .brand b { font-family: var(--mono); font-size: 12.5px; font-weight: 700;
+                 text-transform: uppercase; letter-spacing: .13em; display: block; }
+aside .brand .readout {
+  display: flex; gap: 12px; margin-top: 7px; font-family: var(--mono);
+  font-size: 10px; letter-spacing: .05em; color: var(--faint);
+}
+aside .brand .readout b { display: inline; font-size: 10px; letter-spacing: .05em;
+                          color: var(--fg); font-weight: 600; }
+aside .sec {
+  display: flex; align-items: baseline; gap: 7px;
+  padding: 13px 16px 5px; font-family: var(--mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .14em; color: var(--faint);
+  border-top: 1px solid var(--hair); background: var(--grid);
+}
+aside .sec .s { color: var(--accent); font-weight: 700; }
+aside a.item { display: flex; gap: 10px; padding: 3px 16px; font-size: 12.5px;
+               color: var(--muted); border-left: 2px solid transparent; }
+aside a.item .n { font-family: var(--mono); font-size: 10.5px; color: var(--faint);
+                  min-width: 30px; letter-spacing: .03em; }
+aside a.item:hover { background: var(--fg); color: var(--bg); }
+aside a.item:hover .n { color: var(--bg); }
+aside a.item.on { border-left-color: var(--accent); color: var(--fg); font-weight: 650;
+                  background: var(--grid); }
+aside a.item.on .n { color: var(--accent); font-weight: 700; }
+aside .pad { flex: 1 1 auto; min-height: 30px; }
+.col { min-width: 0; display: flex; flex-direction: column; }
+
+/* ---- hamburger -------------------------------------------------------- */
+.navtoggle { position: absolute; opacity: 0; pointer-events: none; }
+label.burger {
+  display: none; align-items: center; padding: 0 15px; cursor: pointer;
+  border-right: 1px solid var(--hair); font-family: var(--mono); font-size: 15px;
+  line-height: 1; user-select: none;
+}
+label.burger:hover { background: var(--fg); color: var(--bg); }
+label.scrim { display: none; }
+
+/* ---- top bar ---------------------------------------------------------- */
+header.top {
+  position: sticky; top: 0; z-index: 10; background: var(--bg);
+  border-bottom: 1px solid var(--rule); display: flex; align-items: stretch;
+  flex-wrap: wrap;
+}
+header.top form.picker { display: flex; align-items: stretch; flex-wrap: wrap; }
+header.top .field { display: flex; align-items: center; border-right: 1px solid var(--hair); }
+header.top label.q {
+  font-family: var(--mono); font-size: 9.5px; text-transform: uppercase;
+  letter-spacing: .16em; color: var(--faint); padding: 0 9px 0 15px;
+}
+select, input[type=number] {
+  font-family: var(--mono); font-size: 12.5px; color: var(--fg);
+  background: transparent; border: 0; padding: 11px 14px 11px 0;
+  max-width: 300px; cursor: pointer;
+}
+select:focus, input:focus { outline: 2px solid var(--accent); outline-offset: -2px; }
+button {
+  font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+  letter-spacing: .14em; cursor: pointer; color: var(--bg); background: var(--fg);
+  border: 0; padding: 0 16px;
+}
+button:hover { background: var(--accent); color: var(--accent-fg); }
+header .grow { flex: 1 1 auto; }
+header .here {
+  display: flex; align-items: center; gap: 14px; padding: 0 16px; margin-left: auto;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--faint); border-left: 1px solid var(--hair);
+}
+header .here b { color: var(--fg); font-weight: 650; }
+
+/* ---- main ------------------------------------------------------------- */
+main { padding: 0 0 90px; }
+.head { padding: 24px 28px 20px; border-bottom: 1px solid var(--hair); }
+h1 { font-size: 23px; letter-spacing: -.02em; margin: 0; font-weight: 680; }
+h1 .dim { color: var(--faint); font-weight: 400; }
+h1 .sig { font-family: var(--mono); font-size: 12px; color: var(--accent);
+          letter-spacing: .08em; display: block; margin-bottom: 5px; font-weight: 600; }
+p.lede { color: var(--muted); margin: 7px 0 0; max-width: 84ch; }
+h2 { display: flex; align-items: baseline; gap: 9px;
+     font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+     letter-spacing: .16em; color: var(--faint); margin: 0; font-weight: 600;
+     padding: 9px 28px; background: var(--grid);
+     border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+h2 .s { color: var(--accent); font-weight: 700; }
+
+/* spec strip: every page states its parameters in the same shape */
+.spec { display: flex; flex-wrap: wrap; border-top: 1px solid var(--hair); }
+.spec .cell { display: flex; flex-direction: column; gap: 2px;
+              padding: 9px 20px 9px 0; margin-right: 20px;
+              border-right: 1px solid var(--hair); }
+.spec .cell:last-child { border-right: 0; }
+.spec .k { font-size: 9.5px; text-transform: uppercase; letter-spacing: .16em;
+           color: var(--faint); }
+.spec .v { font-family: var(--mono); font-size: 12.5px; font-weight: 600; }
+.spec .v.acc { color: var(--accent); }
+
+.body { padding: 0 28px; }
+.sample { border: 1px solid var(--hair); margin: 0 0 -1px; background: var(--bg); }
+.sample:first-of-type { margin-top: 20px; }
+.sample > .head {
+  display: flex; align-items: center; gap: 14px; padding: 5px 14px;
+  border: 0; border-bottom: 1px solid var(--hair); background: var(--grid);
+  font-family: var(--mono); font-size: 10px; color: var(--faint);
+  text-transform: uppercase; letter-spacing: .12em;
+}
+.sample > .head .grow { flex: 1 1 auto; }
+.sample > .head b { color: var(--fg); font-weight: 650; }
+.sample > .head a:hover { color: var(--accent); }
+.sample pre { margin: 0; padding: 15px 18px; font-family: var(--mono); font-size: 13px;
+              line-height: 1.72; white-space: pre-wrap; word-wrap: break-word; }
+.sample .answer { padding: 6px 18px; border-top: 1px solid var(--hair);
+                  background: var(--code-bg); font-family: var(--mono);
+                  font-size: 11.5px; color: var(--faint);
+                  text-transform: uppercase; letter-spacing: .1em; }
+.sample .answer b { color: var(--ok); font-weight: 700; letter-spacing: .02em;
+                    text-transform: none; font-size: 12.5px; }
+[dir=rtl] pre { text-align: right; }
+
+table.cmp { width: 100%; border-collapse: collapse; margin: 20px 0 0;
+            border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+table.cmp td { vertical-align: top; padding: 13px 18px;
+               border-top: 1px solid var(--hair); font-family: var(--mono);
+               font-size: 13px; line-height: 1.72; white-space: pre-wrap;
+               word-wrap: break-word; }
+table.cmp tr:first-child td { border-top: 0; }
+table.cmp td.lang { white-space: nowrap; width: 1%; padding-right: 26px;
+                    border-right: 1px solid var(--hair); background: var(--grid); }
+table.cmp td.lang b { display: block; font-size: 12.5px; font-weight: 700; }
+table.cmp td.lang .c { font-size: 10px; color: var(--faint); letter-spacing: .12em;
+                       text-transform: uppercase; }
+table.cmp tr:hover td { background: var(--code-bg); }
+
+.grid { display: grid; gap: 0; grid-template-columns: repeat(auto-fill, minmax(252px, 1fr));
+        border-bottom: 1px solid var(--hair); }
+.grid a { padding: 11px 16px; border-right: 1px solid var(--hair);
+          border-bottom: 1px solid var(--hair); display: block; }
+.grid a:hover { background: var(--fg); color: var(--bg); }
+.grid .r { font-family: var(--mono); font-size: 10px; color: var(--accent);
+           letter-spacing: .1em; font-weight: 650; }
+.grid a:hover .r, .grid a:hover .c { color: var(--bg); }
+.grid .t { font-weight: 620; margin: 2px 0 3px; }
+.grid .c { font-size: 12px; color: var(--muted); line-height: 1.45; }
+/* static export: one page carries every exported language, and the select
+   shows one at a time -- switching is instant and needs no second request */
+.samples[data-show] .sample { display: none; }
+.samples[data-show="*"] .sample { display: block; }
+.sample .xl { display: none; }
+.samples[data-show="*"] .sample .xl { display: inline; }
+.err { font-family: var(--mono); font-size: 12px; white-space: pre-wrap;
+       background: var(--code-bg); border: 1px solid var(--flag); padding: 14px;
+       color: var(--flag); }
+
+@media (max-width: 940px) {
+  .app { grid-template-columns: 1fr; }
+  aside.side {
+    position: fixed; top: 0; left: 0; width: min(86vw, var(--side-w)); height: 100vh;
+    transform: translateX(-101%); transition: transform .16s ease-out;
+    border-right: 1px solid var(--rule);
+  }
+  .navtoggle:checked ~ .app aside.side { transform: none; }
+  label.burger { display: flex; }
+  .navtoggle:checked ~ .app label.scrim {
+    display: block; position: fixed; inset: 0; z-index: 15;
+    background: rgba(0,0,0,.42);
+  }
+  .head, .body, h2 { padding-left: 18px; padding-right: 18px; }
+}
+"""
+
+AUTOSUBMIT = ("<script>for(const s of document.querySelectorAll('form.picker select,"
+              "form.picker input[type=number]'))s.addEventListener('change',()=>s.form.submit())"
+              "</script>")
+
+
+# ---------------------------------------------------------------- languages
+@lru_cache(maxsize=1)
+def _catalogue() -> list[tuple[str, str, bool]]:
+    """``(code, label, is_hand_written)`` for everything the package speaks."""
+    from langcurriculum.grammar.registry import REGISTRY
+    from langcurriculum.grammar.store import LanguageDB
+
+    out = [(c, LANGUAGES[c].name if c in LANGUAGES else c, True)
+           for c in language_codes()]
+    named = {}
+    try:
+        for row in LanguageDB().languages():
+            named[row["code"]] = row["name"] or row["code"]
+    except Exception:                                        # pragma: no cover
+        pass
+    hand = {c for c, _l, _h in out}
+    derived = sorted((c for c in REGISTRY.available if c not in hand),
+                     key=lambda c: named.get(c, c).lower())
+    out += [(c, f"{named.get(c, c)} ({c})", False) for c in derived]
+    return out
+
+
+@lru_cache(maxsize=1)
+def _rtl() -> frozenset[str]:
+    from langcurriculum.grammar.store import LanguageDB
+    try:
+        return frozenset(r["code"] for r in LanguageDB().languages() if r["rtl"])
+    except Exception:                                        # pragma: no cover
+        return frozenset()
+
+
+def _label(code: str) -> str:
+    for c, label, _h in _catalogue():
+        if c == code:
+            return label
+    return code
+
+
+def _select(name: str, chosen: str, *, autofocus: bool = False) -> str:
+    hand = [o for o in _catalogue() if o[2]]
+    derived = [o for o in _catalogue() if not o[2]]
+    def opts(rows):
+        return "".join(
+            f'<option value="{E(c)}"{" selected" if c == chosen else ""}>{E(label)}</option>'
+            for c, label, _h in rows)
+    return (f'<select name="{name}"{" autofocus" if autofocus else ""}>'
+            f'<optgroup label="hand-written">{opts(hand)}</optgroup>'
+            f'<optgroup label="derived from data ({len(derived)})">{opts(derived)}</optgroup>'
+            f'</select>')
+
+
+# ---------------------------------------------------------------- rendering
+def _sig(lesson_id: str) -> str:
+    """``L047`` — a stable designator, so the eye can find a lesson by number."""
+    n = getattr(lc.get(lesson_id), "number", None)
+    return f"L{n:03d}" if isinstance(n, int) else "L—"
+
+
+def _lesson_href(lesson_id: str, code: str) -> str:
+    return f"/lesson/{quote(lesson_id)}?lang={quote(code)}"
+
+
+def _sidebar(current: str, code: str, href=None, *, n_languages: int | None = None,
+             home: str = "/") -> str:
+    """The lesson index. ``href`` lets the static export supply file paths."""
+    href = href or _lesson_href
+    n_lang = len(_catalogue()) if n_languages is None else n_languages
+    out = [f'<aside class="side"><div class="brand"><a href="{home}"><b>langcurriculum</b></a>'
+           f'<div class="readout"><span>lessons <b>{len(all_lessons())}</b></span>'
+           f'<span>languages <b>{n_lang}</b></span></div></div>']
+    for sec in sections():
+        out.append(f'<div class="sec"><span class="s">&sect;{E(sec["section"])}</span>'
+                   f'<span>{E(sec["title"])}</span></div>')
+        for lid in sec["lessons"]:
+            on = " on" if lid == current else ""
+            out.append(f'<a class="item{on}" href="{href(lid, code)}">'
+                       f'<span class="n">{_sig(lid)}</span>'
+                       f'<span>{E(lid.replace("_", " "))}</span></a>')
+    out.append('<div class="pad"></div></aside>')
+    return "".join(out)
+
+
+def _topbar(action: str, code: str, *, n: int | None = None, extra: str = "",
+            readout: str = "") -> str:
+    fields = (f'<span class="field"><label class="q">language</label>'
+              f'{_select("lang", code)}</span>')
+    if n is not None:
+        fields += (f'<span class="field"><label class="q">samples</label>'
+                   f'<input type="number" name="n" min="1" max="500" value="{n}"'
+                   f' style="width:72px"></span>')
+    return (f'<header class="top"><label class="burger" for="navtoggle"'
+            f' title="lessons">&#9776;</label>'
+            f'<form class="picker" method="get" action="{action}">'
+            f'{extra}{fields}<noscript><button type="submit">go</button></noscript>'
+            f'</form><span class="grow"></span>'
+            f'<span class="here">{readout}</span></header>')
+
+
+def _page(title: str, sidebar: str, topbar: str, body: str, *,
+          style: str = "/style.css", script: str = AUTOSUBMIT) -> bytes:
+    return (f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{E(title)}</title><link rel="stylesheet" href="{style}">
+</head><body>
+<input type="checkbox" id="navtoggle" class="navtoggle">
+<div class="app">{sidebar}<label class="scrim" for="navtoggle"></label>
+<div class="col">{topbar}<main>{body}</main></div></div>
+{script}</body></html>""").encode("utf-8")
+
+
+def _spec(*cells: tuple[str, str, bool]) -> str:
+    return ('<div class="spec">' + "".join(
+        f'<span class="cell"><span class="k">{E(k)}</span>'
+        f'<span class="v{" acc" if acc else ""}">{E(v)}</span></span>'
+        for k, v, acc in cells) + "</div>")
+
+
+def _episode(lesson, seed: int, code: str) -> tuple[str, str]:
+    ex = lesson.example(seed, language=code)
+    return ex.observation, str(ex.answer)
+
+
+def _sample_block(lesson, seed: int, code: str, *, lesson_id: str) -> str:
+    dirattr = ' dir="rtl"' if code in _rtl() else ""
+    try:
+        prompt, answer = _episode(lesson, seed, code)
+    except Exception as exc:                                 # pragma: no cover
+        return (f'<div class="sample"><div class="head">seed <b>{seed:03d}</b></div>'
+                f'<pre class="err">{E(type(exc).__name__)}: {E(str(exc))}</pre></div>')
+    return (f'<div class="sample"><div class="head">seed <b>{seed:03d}</b>'
+            f'<span class="grow"></span><span>{E(code)}</span>'
+            f'<a href="/compare/{quote(lesson_id)}/{seed}?from={quote(code)}">'
+            f'compare &rarr;</a></div>'
+            f'<pre{dirattr}>{E(prompt)}</pre>'
+            f'<div class="answer">answer <b>{E(answer)}</b></div></div>')
+
+
+def index_page(code: str) -> bytes:
+    head = (f'<div class="head"><h1><span class="sig">CURRICULUM</span>'
+            f'180 lessons <span class="dim">in {E(_label(code))}</span></h1>'
+            f'<p class="lede">Generated, not written. Choose a lesson at left; any sample '
+            f'opens beside the same episode in any of the {len(_catalogue())} languages '
+            f'this package speaks.</p>'
+            + _spec(("lessons", str(len(all_lessons())), False),
+                    ("languages", str(len(_catalogue())), True),
+                    ("hand-written", str(len(language_codes())), False),
+                    ("derived from data", str(len(_catalogue()) - len(language_codes())), False))
+            + "</div>")
+    body = []
+    for sec in sections():
+        body.append(f'<h2><span class="s">&sect;{E(sec["section"])}</span>'
+                    f'<span>{E(sec["title"])}</span></h2><div class="grid">')
+        for lid in sec["lessons"]:
+            teaches = (getattr(lc.get(lid), "teaches", "") or "")
+            body.append(f'<a href="/lesson/{quote(lid)}?lang={quote(code)}">'
+                        f'<div class="r">{_sig(lid)}</div>'
+                        f'<div class="t">{E(lid.replace("_", " "))}</div>'
+                        f'<div class="c">{E(teaches[:70])}</div></a>')
+        body.append("</div>")
+    return _page("langcurriculum", _sidebar("", code),
+                 _topbar("/", code, readout=f"<b>{len(all_lessons())}</b> lessons"),
+                 head + "".join(body))
+
+
+def lesson_page(lesson_id: str, code: str, n: int) -> bytes:
+    lesson = lc.get(lesson_id)
+    axes = getattr(lesson, "axes", {}) or {}
+    head = (f'<div class="head"><h1><span class="sig">{_sig(lesson_id)}</span>'
+            f'{E(lesson_id.replace("_", " "))}</h1>'
+            f'<p class="lede">{E(getattr(lesson, "teaches", "") or "")}</p>'
+            + _spec(("language", _label(code), True),
+                    ("samples", str(n), False),
+                    ("section", getattr(lesson, "section", "") or "—", False),
+                    *[(k.replace("_", " "), str(v), False) for k, v in sorted(axes.items())],
+                    ("capabilities",
+                     ", ".join(getattr(lesson, "capabilities", ())) or "—", False))
+            + "</div>")
+    blocks = "".join(_sample_block(lesson, s, code, lesson_id=lesson_id) for s in range(n))
+    return _page(f"{_sig(lesson_id)} {lesson_id} - langcurriculum",
+                 _sidebar(lesson_id, code),
+                 _topbar(f"/lesson/{quote(lesson_id)}", code, n=n,
+                         readout=f"{_sig(lesson_id)} &middot; <b>{n}</b> samples"),
+                 head + f'<div class="body">{blocks}</div>')
+
+
+def compare_page(lesson_id: str, seed: int, codes: list[str]) -> bytes:
+    lesson = lc.get(lesson_id)
+    rows = []
+    for code in codes:
+        dirattr = ' dir="rtl"' if code in _rtl() else ""
+        try:
+            prompt, answer = _episode(lesson, seed, code)
+            cell = f"{E(prompt)}\n\nanswer: {E(answer)}"
+        except Exception as exc:                             # pragma: no cover
+            cell = f"{E(type(exc).__name__)}: {E(str(exc))}"
+        rows.append(f'<tr><td class="lang"><b>{E(_label(code))}</b>'
+                    f'<span class="c">{E(code)}</span></td>'
+                    f'<td{dirattr}>{cell}</td></tr>')
+    keep = "".join(f'<input type="hidden" name="langs" value="{E(c)}">' for c in codes)
+    top = (f'<header class="top"><label class="burger" for="navtoggle">&#9776;</label>'
+           f'<form class="picker" method="get" '
+           f'action="/compare/{quote(lesson_id)}/{seed}">{keep}'
+           f'<span class="field"><label class="q">add language</label>'
+           f'{_select("langs", "")}</span><button type="submit">add</button>'
+           f'</form><span class="grow"></span>'
+           f'<span class="here">seed <b>{seed:03d}</b> &middot; '
+           f'<b>{len(codes)}</b> languages</span></header>')
+    head = (f'<div class="head"><h1><span class="sig">{_sig(lesson_id)} &middot; '
+            f'SEED {seed:03d}</span>{E(lesson_id.replace("_", " "))}</h1>'
+            f'<p class="lede">One episode. One seed. Held constant while the language '
+            f'varies &mdash; the only thing that differs below is who is speaking.</p>'
+            + _spec(("seed", f"{seed:03d}", False),
+                    ("languages", str(len(codes)), True),
+                    ("lesson", lesson_id, False))
+            + "</div>")
+    return _page(f"{_sig(lesson_id)} seed {seed} - langcurriculum",
+                 _sidebar(lesson_id, codes[0]), top,
+                 head + f'<div class="body"><table class="cmp"><tbody>'
+                 + "".join(rows) + "</tbody></table></div>")
+
+
+# ---------------------------------------------------------------- transport
+DEFAULT_COMPARE = ["english", "spanish", "chinese", "turkish", "swahili"]
+
+
+class Handler(BaseHTTPRequestHandler):
+    server_version = "langcurriculum"
+
+    def log_message(self, fmt, *args):                       # quieter
+        pass
+
+    def _send(self, body: bytes, kind: str = "text/html; charset=utf-8",
+              status: int = 200) -> None:
+        self.send_response(status)
+        self.send_header("Content-Type", kind)
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def do_GET(self) -> None:                                # noqa: N802
+        url = urlparse(self.path)
+        q = parse_qs(url.query)
+        parts = [p for p in url.path.split("/") if p]
+        try:
+            if url.path == "/style.css":
+                return self._send(STYLE.encode("utf-8"), "text/css; charset=utf-8")
+            code = (q.get("lang") or ["english"])[0]
+            if not parts:
+                return self._send(index_page(code))
+            if parts[0] == "lesson" and len(parts) == 2:
+                n = max(1, min(500, int((q.get("n") or [self.server.samples])[0])))
+                return self._send(lesson_page(parts[1], code, n))
+            if parts[0] == "compare" and len(parts) == 3:
+                codes = [c for c in q.get("langs", []) if c]
+                if not codes:
+                    first = (q.get("from") or ["english"])[0]
+                    codes = [first] + [c for c in DEFAULT_COMPARE if c != first]
+                seen, ordered = set(), []
+                for c in codes:
+                    if c not in seen:
+                        seen.add(c)
+                        ordered.append(c)
+                return self._send(compare_page(parts[1], int(parts[2]), ordered))
+            self._send(_page("not found", "<h1>404</h1>"), status=404)
+        except Exception:                                    # pragma: no cover
+            self._send(_page("error", f'<h1>500</h1><pre class="err">'
+                                      f'{E(traceback.format_exc())}</pre>'), status=500)
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--port", type=int, default=8765)
+    ap.add_argument("--host", default="127.0.0.1")
+    ap.add_argument("--samples", type=int, default=50,
+                    help="samples per lesson page (default 50)")
+    args = ap.parse_args()
+    httpd = ThreadingHTTPServer((args.host, args.port), Handler)
+    httpd.samples = args.samples
+    n = len(_catalogue())
+    print(f"langcurriculum: {len(all_lessons())} lessons in {n} languages, "
+          f"{args.samples} samples a page")
+    print(f"  http://{args.host}:{args.port}")
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print()
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
