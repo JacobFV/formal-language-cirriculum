@@ -72,43 +72,30 @@ from ..morphology import (
 from ..syntax import Node
 from .vocab import VocabularyGrammar
 
-__all__ = ["Turkish", "TURKISH_NOUN"]
+__all__ = ["Turkish"]
 
 
 # ======================================================================
 # nominal morphology: stem - plural - possessive - case
 # ======================================================================
-#: The slots stack outward from the stem in exactly this order, which is not a
-#: convention but a fact about the language: *ev-ler-im-de* is well-formed and
-#: no permutation of those suffixes is.
-TURKISH_NOUN = ConcatenativeMorphology(
-    phonology=TURKISH_PHONOLOGY,
-    slots=[
-        Slot("number", order=1, affixes=(
-            Affix("", FS({NUM: SG})),
-            Affix("lAr", FS({NUM: PL})),
-        )),
-        Slot("possessive", order=2, affixes=(
-            Affix(""),
-            Affix("Im", FS(poss="1sg"), priority=1),
-            Affix("In", FS(poss="2sg"), priority=1),
-            Affix("(s)I", FS(poss="3sg"), priority=1),
-            Affix("ImIz", FS(poss="1pl"), priority=1),
-            Affix("InIz", FS(poss="2pl"), priority=1),
-            Affix("lArI", FS(poss="3pl"), priority=1),
-        )),
-        Slot("case", order=3, affixes=(
-            Affix(""),                                   # nominative: unmarked
-            Affix("", FS({CASE: "nom"})),
-            Affix("(y)I", FS({CASE: "acc"}), priority=1),
-            Affix("(y)A", FS({CASE: "dat"}), priority=1),
-            Affix("DA", FS({CASE: "loc"}), priority=1),
-            Affix("DAn", FS({CASE: "abl"}), priority=1),
-            Affix("(n)In", FS({CASE: "gen"}), priority=1),
-            Affix("(y)lA", FS({CASE: "ins"}), priority=1),
-        )),
-    ],
-)
+def _nominal_morphology(spec: dict) -> ConcatenativeMorphology:
+    """Build the noun's affix slots from the data file.
+
+    The *inventory* is data — ``lAr``, ``(y)I``, ``DA`` are a list of morphemes
+    somebody looked up — while the *phonology* that resolves them stays in
+    :mod:`~langcurriculum.grammar.morphology`, because harmony is an algorithm.
+    Slots stack outward from the stem in the order the file gives, which is not
+    a convention but a fact about the language: *ev-ler-im-de* is well formed
+    and no permutation of those suffixes is.
+    """
+    return ConcatenativeMorphology(
+        phonology=TURKISH_PHONOLOGY,
+        slots=[Slot(name=slot["name"], order=slot["order"],
+                    prefix=bool(slot.get("prefix")),
+                    affixes=tuple(Affix(a["form"], FS(a.get("when") or {}),
+                                        a.get("priority", 0))
+                                  for a in slot["affixes"]))
+               for slot in spec.get("slots", ())])
 
 
 class Turkish(VocabularyGrammar):
@@ -155,7 +142,8 @@ class Turkish(VocabularyGrammar):
 
     def __init__(self) -> None:
         super().__init__()
-        self.morphology[N.name] = TURKISH_NOUN
+        self.morphology[N.name] = _nominal_morphology(
+            self.raw.get("morphology") or {})
 
     # ---- differential object marking -------------------------------------
     def case_for_object(self, definite: bool) -> str:

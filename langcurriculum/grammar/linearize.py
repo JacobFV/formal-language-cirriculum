@@ -658,14 +658,41 @@ class Grammar:
         return self.join([possessed, self.cw("of"), possessor])
 
     def lin_Quant(self, node: Node, ctx: FS) -> str:
+        """``every prism is yellow``, ``no prism is yellow``, ``some prism is not yellow``.
+
+        A quantifier over a restriction, predicated of a scope. With no
+        restriction — the form a yes/no question about a scene takes — it falls
+        back to quantifying the objects themselves.
+        """
         restriction, scope = node.arg("restriction"), node.arg("scope")
-        q = node.feats.get_atom("q", "all")
-        parts = [self.cw(q, q)]
-        if restriction is not None:
-            parts += [self.cw("of"), self.lin(restriction, ctx.but(**{NUM: PL}))]
-        if scope is not None:
-            parts += [self.copula("attr", FS({NUM: PL})), self.lin(scope, ctx)]
-        return self.join(parts)
+        quantifier = node.feats.get_atom("q", "all")
+        negated = node.feats.get_atom("pol") == "neg"
+        # "no P is Q" is how English negates a universal; a language whose
+        # closed class has no such word negates the scope instead
+        if negated and quantifier == "all" and self.cw("no_quant"):
+            word, inner_negation = self.cw("no_quant"), False
+        else:
+            # a universal claim is distributive — *every prism*, not *all prism*
+            word = (self.cw("every") if quantifier == "all" and self.cw("every")
+                    else self.cw(quantifier, quantifier))
+            inner_negation = negated
+
+        if restriction is None:
+            parts = [word, self.cw("of"),
+                     self.lin(scope, ctx) if scope is not None else ""]
+            return self.join(parts)
+        subject = self.join([word, self.lin(restriction, ctx)])
+        if scope is None:
+            # a quantified noun phrase, not a clause: *every agent*. Running it
+            # through the copula gave "every agent is" with nothing after it.
+            return subject
+        complement = self.lin(scope, ctx)
+        if inner_negation:
+            negator = self.cw("not")
+            complement = (self.join([complement, negator])
+                          if self.order.negation == "post"
+                          else self.join([negator, complement]))
+        return self._predicate(subject, self.copula("attr", ctx), complement)
 
     # ---- questions -----------------------------------------------------
     #: wh-words that are determiners rather than arguments. These sit in the

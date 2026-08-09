@@ -181,6 +181,13 @@ FRAMES: Mapping[str, Frame] = {
 
     # ---- quantification and comparison ----------------------------------
     "quant/2": _f("Quant", "q", ATTRIBUTE),
+    #: a quantified claim with all four of its parts: quantifier, polarity,
+    #: restriction and scope. Generators used to render this to an English
+    #: string themselves, which no other language could then translate.
+    "nl_claim/4": _f("NLClaim", "q", "pol", "restriction", "scope"),
+    #: a quantified *transitive* clause — "every agent read a book" — whose two
+    #: quantifiers are the whole point of the lesson that uses it
+    "nl_transitive/5": _f("NLTransitive", "q", AGENT, "rel", "q2", PATIENT),
     "lt/2": _f("Compare", AGENT, PATIENT, lemma="lt"),
     "gt/2": _f("Compare", AGENT, PATIENT, lemma="gt"),
     "le/2": _f("Compare", AGENT, PATIENT, lemma="le"),

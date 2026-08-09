@@ -33,6 +33,24 @@ _LOCAL_DATA = Path(__file__).resolve().parent / "data"
 _UNSET = object()
 
 
+def _merge(base: dict[str, Any], overlay: dict[str, Any]) -> dict[str, Any]:
+    """Overlay a data file onto a pack, merging tables rather than replacing them.
+
+    A plain ``{**base, **overlay}`` replaces whole keys, and the packs keep large
+    tables under exactly the keys an overlay wants to extend: Spanish ships 475
+    relational phrasings and the overlay adds 35, so replacing dropped 440 of
+    them silently. Dictionaries merge with the overlay winning per key;
+    everything else is replaced, which is what a scalar or a list should do.
+    """
+    out = dict(base)
+    for key, value in overlay.items():
+        if isinstance(value, dict) and isinstance(out.get(key), dict):
+            out[key] = {**out[key], **value}
+        else:
+            out[key] = value
+    return out
+
+
 def load_pack(code: str) -> tuple[Vocabulary, dict[str, Any]]:
     """Load a vocabulary from ``languages/data`` or ``grammar/grammars/data``.
 
@@ -106,11 +124,14 @@ class VocabularyGrammar(Grammar):
         if self.overlay:
             extra_path = _LOCAL_DATA / f"{self.overlay}.json"
             if extra_path.exists():
-                self.raw = {**self.raw,
-                            **json.loads(extra_path.read_text(encoding="utf-8"))}
+                self.raw = _merge(
+                    self.raw, json.loads(extra_path.read_text(encoding="utf-8")))
         self.predicate_words = dict(self.raw.get("predicate_words") or {})
         self.field_intros = dict(self.raw.get("field_intros") or {})
         self.closed = dict(self.raw.get("closed") or {})
+        self.paradigms = {k: ([tuple(x) if isinstance(x, list) else x for x in v]
+                              if isinstance(v, list) else v)
+                          for k, v in (self.raw.get("paradigms") or {}).items()}
         self._build_inherent()
         self._import_gaps()
 

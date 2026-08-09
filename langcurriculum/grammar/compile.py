@@ -367,6 +367,34 @@ def _build_quant(head: str, frame: Frame, args: list[Term]) -> Node:
     return quant(_str(args[0]), None, mk_ap(adj(_str(args[1]))))
 
 
+def _build_nl_claim(head: str, frame: Frame, args: list[Term]) -> Node:
+    """``(nl_claim all neg prism yellow)`` — *no prism is yellow*.
+
+    The four parts a quantified claim is made of, kept apart so that each
+    language can assemble them its own way. The generator used to do the
+    assembling itself and hand over a finished English string, which is exactly
+    the shape nothing downstream can translate.
+    """
+    quantifier, polarity, restriction, scope = (_str(a) for a in args[:4])
+    node = quant(quantifier,
+                 _as_np(restriction, det="bare"),
+                 mk_ap(adj(scope)))
+    return node.but(pol=polarity)
+
+
+def _build_nl_transitive(head: str, frame: Frame, args: list[Term]) -> Node:
+    """``(nl_transitive all agent read some book)`` — *every agent read a book*.
+
+    Two quantifiers, and their relative scope is exactly what the lesson asks
+    about, so they have to survive into the sentence as separate constituents
+    rather than being flattened into a string by the generator.
+    """
+    q1, subject, relation, q2, obj = (_str(a) for a in args[:5])
+    return pred_rel(quant(q1, _as_np(subject, det="bare"), None),
+                    lex(V, relation),
+                    quant(q2, _as_np(obj, det="bare"), None))
+
+
 _BUILDERS = {
     "Bare": _build_bare,
     "Labelled": _build_labelled,
@@ -387,6 +415,8 @@ _BUILDERS = {
     "Neg": _build_neg,
     "Compare": _build_compare,
     "Quant": _build_quant,
+    "NLClaim": _build_nl_claim,
+    "NLTransitive": _build_nl_transitive,
 }
 
 

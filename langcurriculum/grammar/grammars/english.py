@@ -1,111 +1,52 @@
 """English, as a set of parameters rather than a set of format strings.
 
-The interesting thing about this file is how little is in it. English is SVO,
-adjectives precede nouns, determiners precede adjectives, it is prepositional,
-it fronts wh-words, and it has essentially no case on nouns and no agreement
-worth the name. All of that is nine lines of :class:`WordOrder` and an
-:class:`Alignment` that marks nothing.
+The interesting thing about this file is how little is in it, and what little
+there is. English is SVO, adjectives precede nouns, determiners precede
+adjectives, it is prepositional, it fronts wh-words, and it has essentially no
+case on nouns and no agreement worth the name. All of that is nine lines of
+:class:`WordOrder` and an :class:`Alignment` that marks nothing.
 
-What is left over is genuinely English: the phonological ``a``/``an``
-alternation, and the fact that English forms polar questions by moving an
-auxiliary to the front, which is typologically unusual enough that the
-linearizer's default — a clause-final particle — is wrong for it and has to be
-overridden. Two overrides. That is the target every other grammar in this
-package should be measured against.
+Everything that is a *list* — the closed class, the relational lexicon, the
+irregular plurals, the minimal pairs the morphology lessons build from — lives
+in ``data/english.json`` beside the vocabulary. A table of words is data whoever
+wrote it, and keeping it in Python meant that adding a language involved editing
+code rather than supplying a file.
+
+What remains here is what is genuinely a *rule*: the phonological ``a``/``an``
+alternation, the pluralization patterns, and the fact that English forms polar
+questions and negation by moving or attaching to a finite auxiliary. That last
+is typologically unusual enough that the linearizer's defaults — a clause-final
+particle, a clause-edge negator — are wrong for it. Three overrides. That is the
+target every other grammar here should be measured against.
 """
 
 from __future__ import annotations
 
 import re
 
-from ..category import N, NUM, PL, SG
-from ..features import EMPTY, FS
-from ..linearize import (
-    NO_CASE, Alignment, Concord, Grammar, Typography, WordOrder,
-)
+from ..category import N, NUM, PL
+from ..features import FS
+from ..linearize import NO_CASE, Alignment, Concord, Typography, WordOrder
 from ..morphology import StoredMorphology
 from ..syntax import Node
 from .vocab import VocabularyGrammar
 
-__all__ = ["English"]
+__all__ = ["English", "EnglishSynonym"]
 
 #: article selection is phonological, so it is fixed after the words are chosen
 _A_BEFORE_VOWEL = re.compile(r"\ba (?=[aeiou])")
 
-_CLOSED = {
-    "the": "the", "a": "a", "is": "is", "are": "are", "not": "not",
-    "and": "and", "or": "or", "of": "of", "if": "if", "then": "then",
-    "to": "to", "at": "at", "empty": "nothing", "q_particle": "",
-    "what": "what", "which": "which", "who": "who", "where": "where",
-    "when": "when", "why": "why", "how": "how", "how_many": "how many",
-    "all": "all", "some": "some", "none": "no", "most": "most", "few": "few",
-    "exactly_two": "exactly two",
-    "gt": "is greater than", "lt": "is less than",
-    "ge": "is at least", "le": "is at most",
-    "eq": "equals", "neq": "does not equal",
-    "step": "step", "round": "round", "trial": "trial", "turn": "turn",
-    "case": "case", "block": "block", "stage": "stage",
-}
+#: Regular pluralization: a pattern, how many characters it replaces, and what
+#: it appends. These are rules and stay here; the irregulars are a *list* and
+#: live in the data file.
+_PLURAL_RULES: tuple[tuple[str, int, str], ...] = (
+    (r"(s|x|z|ch|sh)$", 0, "es"),
+    (r"[^aeiou]y$", 1, "ies"),
+    (r"[^f]f$", 1, "ves"),
+)
 
-#: the relational lexicon: a predicate head and the words that realize it
-#: between two arguments. Kept here rather than in the data file only because
-#: that is where the English pack has always had it.
-_RELATIONS = {
-    "imp": "implies", "implies": "implies", "iff": "if and only if",
-    "entails": "entails", "supports": "supports", "attacks": "attacks",
-    "contradicts": "contradicts", "isa": "is a", "is_a": "is a",
-    "requires": "requires", "provides": "provides", "feeds": "feeds",
-    "causes": "causes", "precedes": "comes before", "after": "after",
-    "means": "means", "says": "says", "claims": "claims that",
-    "has": "has", "holds": "holds of", "observed": "was observed to be",
-    "predicts": "predicts", "add": "plus", "sub": "minus", "mul": "times",
-    "div": "divided by", "mod": "modulo", "pow": "to the power",
-    "left_of": "to the left of", "right_of": "to the right of",
-    "above": "above", "below": "below", "near": "next to", "inside": "inside",
-    "front_of": "in front of", "behind": "behind", "on": "on",
-}
-
-#: The minimal pairs the morphology lessons build from. These are not part of
-#: the curriculum's *content* vocabulary — they are the raw material a lesson on
-#: subject-verb agreement or centre-embedding needs in order to construct a
-#: contrast, and they have to come from the language being presented.
-_PARADIGMS = {
-    "verbs": ("chased", "praised", "watched", "avoided", "greeted", "followed"),
-    "intransitive_verbs": ("left", "smiled", "waited", "returned", "slept",
-                           "laughed"),
-    "adverbs": ("yesterday", "quietly", "again", "twice"),
-    "noun_forms": (("key", "keys"), ("dog", "dogs"), ("author", "authors"),
-                   ("farmer", "farmers"), ("book", "books"), ("pilot", "pilots")),
-    "agreement_forms": (("opens", "open"), ("arrives", "arrive"),
-                        ("works", "work"), ("fails", "fail"),
-                        ("moves", "move"), ("waits", "wait")),
-    "pronouns": {"f": "she", "m": "he"},
-    "name_gender": {"alice": "f", "bob": "m", "carol": "f",
-                    "dave": "m", "erin": "f", "frank": "m"},
-    "preposition_words": ("near", "beside", "under", "behind", "by"),
-}
-
-_IRREGULAR = {
-    "child": "children", "person": "people", "mouse": "mice", "foot": "feet",
-    "tooth": "teeth", "goose": "geese", "man": "men", "woman": "women",
-    "die": "dice", "index": "indices", "matrix": "matrices",
-    "analysis": "analyses", "hypothesis": "hypotheses", "datum": "data",
-}
-
-
-def _plural(lemma: str, feats: FS) -> str:
-    """Regular English pluralization, applied only when the features ask for it."""
-    if feats.get_atom(NUM) != PL:
-        return lemma
-    if lemma in _IRREGULAR:
-        return _IRREGULAR[lemma]
-    if re.search(r"(s|x|z|ch|sh)$", lemma):
-        return lemma + "es"
-    if re.search(r"[^aeiou]y$", lemma):
-        return lemma[:-1] + "ies"
-    if re.search(r"[^f]f$", lemma):
-        return lemma[:-1] + "ves"
-    return lemma + "s"
+#: English attaches negation and question formation to a finite auxiliary
+_AUXILIARIES = (" is ", " are ", " was ", " were ", " has ", " have ")
 
 
 class English(VocabularyGrammar):
@@ -130,25 +71,39 @@ class English(VocabularyGrammar):
     notes = (
         "SVO, determiner then adjective then noun, prepositional",
         "no case on nouns, no adjective agreement",
-        "polar questions by auxiliary fronting — the one typological oddity",
+        "polar questions and negation attach to a finite auxiliary — the one "
+        "typological oddity, and the reason for two of the three overrides",
         "indefinite article by phonology (a/an)",
-        "regular -s/-es/-ies plural with stored irregulars",
+        "regular -s/-es/-ies plural, with the irregulars supplied as data",
     )
 
     def __init__(self) -> None:
         super().__init__()
-        self.closed = {**_CLOSED, **self.closed}
-        # the relational lexicon lives in code for English and in JSON for the
-        # other packs; the engine reads it the same way either way
-        self.predicate_words = {**_RELATIONS, **self.predicate_words}
-        # only nouns inflect; adjectives and verbs are handled by the vocabulary
-        self.morphology[N.name] = StoredMorphology(rule=_plural)
-        self.paradigms = dict(_PARADIGMS)
+        self._irregular = dict(self.raw.get("irregular_plurals") or {})
+        self.morphology[N.name] = StoredMorphology(rule=self.pluralize)
 
-    # ---- the two genuinely English things -------------------------------
+    def pluralize(self, lemma: str, feats: FS) -> str:
+        """Regular English pluralization, applied only when a plural is asked for."""
+        if feats.get_atom(NUM) != PL:
+            return lemma
+        if lemma in self._irregular:
+            return self._irregular[lemma]
+        for pattern, cut, ending in _PLURAL_RULES:
+            if re.search(pattern, lemma):
+                return (lemma[:-cut] if cut else lemma) + ending
+        return lemma + "s"
+
+    # ---- the three genuinely English things -----------------------------
     def sentence(self, text: str, end: str | None = None) -> str:
         """Fix ``a`` before a vowel once, after the words have been chosen."""
         return _A_BEFORE_VOWEL.sub("an ", super().sentence(text, end))
+
+    def _split_auxiliary(self, text: str) -> tuple[str, str, str] | None:
+        for aux in _AUXILIARIES:
+            if aux in text:
+                head, _, rest = text.partition(aux)
+                return head, aux.strip(), rest
+        return None
 
     def lin_Neg(self, node: Node, ctx: FS) -> str:
         """English negation attaches to a finite auxiliary, not to the clause.
@@ -156,30 +111,30 @@ class English(VocabularyGrammar):
         Neither ``pre`` nor ``post`` describes *the cube is not red*: the negator
         goes inside the predicate, after the copula. Languages that put it at one
         edge or the other are the common case and the parameter covers them;
-        English is the outlier and pays for it with this override.
+        English is the outlier and pays for it here.
         """
         inner = node.arg("inner")
         assert inner is not None
         text = self.lin(inner, ctx)
-        for aux in (" is ", " are ", " was ", " were ", " has ", " have "):
-            if aux in text:
-                head, _, rest = text.partition(aux)
-                return f"{head}{aux.rstrip()} not {rest}"
-        return self.join(["does not", text])
+        split = self._split_auxiliary(text)
+        if split is None:
+            return self.join(["does not", text])
+        head, aux, rest = split
+        return f"{head} {aux} not {rest}"
 
     def lin_WhQ(self, node: Node, ctx: FS) -> str:
         """``what is the X of Y?`` — English asks for a value with a copula.
 
         Fronting the wh-word is only half of it: English also needs a copula and
-        a determiner that the abstract tree does not supply, because most
-        languages do not need them. A head that already reads as a clause keeps
-        its own shape.
+        a determiner the abstract tree does not supply, because most languages
+        do not need them. A determiner-wh over a noun phrase is the shared
+        construction and goes to the base.
         """
         body = node.arg("body")
         assert body is not None
         key = node.feats.get_atom("wh", "what")
         if key in self.WH_DETERMINERS and body.fn in ("NP", "CN"):
-            return super().lin_WhQ(node, ctx)      # "which object is the …"
+            return super().lin_WhQ(node, ctx)
         wh = self.cw(key, "what")
         inner = self.lin(body, ctx)
         if body.fn in ("PredAttr", "PredIdent", "PredRel", "PredLoc"):
@@ -198,12 +153,11 @@ class English(VocabularyGrammar):
         body = node.arg("body")
         assert body is not None
         inner = self.lin(body, ctx)
-        # "the string is balanced" -> "is the string balanced"
-        for aux in (" is ", " are ", " was ", " were ", " has ", " have "):
-            if aux in inner:
-                subject, _, rest = inner.partition(aux)
-                return self.join([aux.strip(), subject, rest])
-        return self.join(["does", inner])
+        split = self._split_auxiliary(inner)
+        if split is None:
+            return self.join(["does", inner])
+        head, aux, rest = split
+        return self.join([aux, head, rest])
 
 
 class EnglishSynonym(English):

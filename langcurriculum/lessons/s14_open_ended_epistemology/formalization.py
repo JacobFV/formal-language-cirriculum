@@ -9,7 +9,8 @@ import random
 
 from ..._structure import Ident, Lst, Pred, Rec, Str
 from ...lesson import Lesson
-from ..._support.selfmodel import _claim_pool, _formal_claim, _labels, _render_claim, _rules, _shuffled
+from ..._support.selfmodel import (_claim_pool, _claim_term, _formal_claim, _labels,
+                                   _render_claim, _rules, _shuffled)
 
 
 def gen_formalization(rng: random.Random):
@@ -26,7 +27,7 @@ def gen_formalization(rng: random.Random):
     sentence = _render_claim(*true)
     ids = _labels(rng, "form", 4)
     facts = [Pred("candidate", Ident(ids[i]), _formal_claim(*cands[i])) for i in range(4)]
-    obs = Rec(statement=Str(sentence),
+    obs = Rec(statement=_claim_term(*true),
               candidates=Lst(_shuffled(rng, facts)),
               rules=_rules("forall_x_implies_p_x_q_x_says_every_p_is_q",
                            "forall_x_implies_p_x_not_q_x_says_no_p_is_q",

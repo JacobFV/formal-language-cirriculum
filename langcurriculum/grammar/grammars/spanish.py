@@ -43,56 +43,12 @@ from ..morphology import Morphology
 from ..syntax import Node
 from .vocab import VocabularyGrammar
 
-__all__ = ["Spanish", "EL_AGUA"]
+__all__ = ["Spanish"]
 
-#: Feminine nouns beginning with a stressed /a/. They take *el* in the singular
-#: and *las* in the plural, and their adjectives are feminine throughout.
-EL_AGUA = frozenset({
-    "agua", "área", "arma", "aula", "alma", "hambre", "águila", "ala",
-    "acta", "hacha", "ancla", "aria", "asa", "hada", "ave", "haba", "alba",
-})
 
 _I_INITIAL = re.compile(r"^[iíhH]?[ií]", re.IGNORECASE)
 _O_INITIAL = re.compile(r"^(h?o)", re.IGNORECASE)
 
-_ARTICLES = {
-    ("def", "m", False): "el", ("def", "f", False): "la",
-    ("def", "m", True): "los", ("def", "f", True): "las",
-    ("indef", "m", False): "un", ("indef", "f", False): "una",
-    ("indef", "m", True): "unos", ("indef", "f", True): "unas",
-}
-
-_CLOSED = {
-    "and": "y", "or": "o", "not": "no", "of": "de", "if": "si",
-    "then": "entonces", "to": "a", "at": "en", "empty": "nada",
-    "what": "qué", "which": "cuál", "who": "quién", "where": "dónde",
-    "when": "cuándo", "why": "por qué", "how": "cómo",
-    "how_many": "cuántos",
-    "all": "todos", "some": "algunos", "none": "ninguno",
-    "most": "la mayoría", "few": "pocos", "exactly_two": "exactamente dos",
-    "gt": "es mayor que", "lt": "es menor que",
-    "ge": "es al menos", "le": "es como máximo",
-    "eq": "es igual a", "neq": "no es igual a",
-    "step": "paso", "round": "ronda", "trial": "ensayo", "turn": "turno",
-    "case": "caso", "block": "bloque", "stage": "etapa",
-    "is": "es", "are": "son",
-}
-
-_RELATIONS = {
-    "imp": "implica", "implies": "implica", "iff": "si y sólo si",
-    "entails": "implica", "supports": "apoya a", "attacks": "ataca a",
-    "contradicts": "contradice a", "isa": "es un", "is_a": "es un",
-    "requires": "requiere", "provides": "proporciona", "feeds": "alimenta a",
-    "causes": "causa", "precedes": "precede a", "after": "después de",
-    "means": "significa", "says": "dice", "claims": "afirma que",
-    "has": "tiene", "holds": "se cumple para",
-    "add": "más", "sub": "menos", "mul": "por", "div": "dividido por",
-    "mod": "módulo", "pow": "elevado a",
-    "left_of": "a la izquierda de", "right_of": "a la derecha de",
-    "above": "encima de", "below": "debajo de", "near": "cerca de",
-    "inside": "dentro de", "front_of": "delante de", "behind": "detrás de",
-    "on": "sobre",
-}
 
 
 def _pluralize(word: str) -> str:
@@ -152,6 +108,7 @@ class Spanish(VocabularyGrammar):
     code = "spanish"
     name = "Spanish"
     pack = "spanish"
+    overlay = "spanish"
     iso = "spa"
 
     order = WordOrder(
@@ -181,8 +138,12 @@ class Spanish(VocabularyGrammar):
 
     def __init__(self) -> None:
         super().__init__()
-        self.closed = {**_CLOSED, **self.closed}
-        self.predicate_words = {**_RELATIONS, **self.predicate_words}
+        # the article paradigm, the stressed-/a/ list and the prepositions a
+        # label may trail are all *lists*, and live in data/spanish.json
+        self._articles = {tuple(k.split("|")): v
+                          for k, v in (self.raw.get("articles") or {}).items()}
+        self._el_agua = frozenset(self.raw.get("el_agua") or ())
+        self._trailing = tuple(self.raw.get("trailing_prepositions") or ())
         self.paradigms = {
             "pronouns": {"f": "ella", "m": "él"},
             "name_gender": {"alice": "f", "bob": "m", "carol": "f",
@@ -205,10 +166,9 @@ class Spanish(VocabularyGrammar):
         gender = feats.get_atom(CLS, "m") or "m"
         plural = feats.get_atom(NUM) == PL
         if gender == "f" and not plural and head is not None:
-            surface = self.word(head.lemma, pos="N")
-            if surface.lower() in EL_AGUA:
+            if self.word(head.lemma, pos="N").lower() in self._el_agua:
                 gender = "m"
-        return _ARTICLES.get((kind, gender, plural), "")
+        return self._articles.get((kind, gender, "pl" if plural else "sg"), "")
 
     # ---- coordination -----------------------------------------------------
     def join_list(self, items):
@@ -236,11 +196,9 @@ class Spanish(VocabularyGrammar):
         return "son" if plural else "es"
 
     # ---- labels -----------------------------------------------------------
-    _TRAILING = (" de", " a", " para", " en", " con", " que")
-
     def clean_label(self, label: str) -> str:
         """Drop a trailing preposition: it needs a complement that is not there."""
-        for tail in self._TRAILING:
+        for tail in self._trailing:
             if label.endswith(tail):
                 return label[: -len(tail)]
         return label

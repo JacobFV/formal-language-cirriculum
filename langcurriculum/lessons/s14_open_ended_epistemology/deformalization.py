@@ -9,7 +9,8 @@ import random
 
 from ..._structure import Ident, Lst, Pred, Rec, Str
 from ...lesson import Lesson
-from ..._support.selfmodel import _claim_pool, _formal_claim, _labels, _render_claim, _rules, _shuffled
+from ..._support.selfmodel import (_claim_pool, _claim_term, _formal_claim, _labels,
+                                   _render_claim, _rules, _shuffled)
 
 
 def gen_deformalization(rng: random.Random):
@@ -22,7 +23,7 @@ def gen_deformalization(rng: random.Random):
     true, picks = _claim_pool(rng)
     cands = [true] + picks
     ids = _labels(rng, "gloss", 4)
-    facts = [Pred("candidate", Ident(ids[i]), Str(_render_claim(*cands[i]))) for i in range(4)]
+    facts = [Pred("candidate", Ident(ids[i]), _claim_term(*cands[i])) for i in range(4)]
     obs = Rec(theory=_formal_claim(*true),
               candidates=Lst(_shuffled(rng, facts)),
               rules=_rules("forall_x_implies_p_x_q_x_says_every_p_is_q",

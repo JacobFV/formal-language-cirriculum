@@ -138,7 +138,6 @@ def test_translation_never_merges_two_identifiers_in_one_episode(code):
 # Spanish — asserted against the grammar, which is where the behaviour lives
 # ======================================================================
 from langcurriculum.grammar.grammars import get_grammar          # noqa: E402
-from langcurriculum.grammar.grammars.spanish import EL_AGUA      # noqa: E402
 from langcurriculum.grammar.syntax import (                      # noqa: E402
     adj, mk_cn, mk_np, noun, pred_loc, sym,
 )
@@ -199,7 +198,7 @@ def test_every_spanish_noun_agrees_with_every_spanish_adjective():
                 assert head_form in phrase, f"{nkey}: {phrase}"
                 if not plural:
                     article = "un" if n.gender == "m" else "una"
-                    if n.lemma.lower() in EL_AGUA:
+                    if n.lemma.lower() in ES._el_agua:
                         article = "un"
                     assert phrase.startswith(article + " "), f"{nkey}+{akey}: {phrase}"
 
@@ -235,6 +234,7 @@ def test_spanish_takes_el_before_a_stressed_initial_a():
     the one place a concord system that propagates a single feature to both is
     wrong by construction.
     """
+    assert ES._el_agua, "the stressed-/a/ list must load from the data file"
     assert ES.lin(np("water", det="def")) == "el agua"
     assert ES.lin(np("water", "red", det="def")) == "el agua roja"
     assert ES.lin(np("water", det="def", plural=True)).startswith("las ")

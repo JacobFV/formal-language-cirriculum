@@ -58,7 +58,10 @@ def gen_scope_ambiguity(rng: random.Random):
     obs = Rec(agents=Lst([Ident(a) for a in agents]),
               books=Lst([Ident(b) for b in books]),
               world=Lst([Pred("reads", Ident(a), Ident(b)) for a, b in edges]),
-              sentence=Str("every agent read a book"),
+              # kept as parts, not as a finished English string: the two
+              # quantifiers are what the lesson is about
+              sentence=Pred("nl_transitive", Ident("all"), Ident("agent"),
+                            Ident("read"), Ident("some"), Ident("book")),
               readings=Lst([Pred("reading", Ident("r1"), Str("forall a exists b reads(a,b)")),
                             Pred("reading", Ident("r2"), Str("exists b forall a reads(a,b)"))]),
               query=Ident("which_readings_hold"))

@@ -118,6 +118,7 @@ CLOSED_CLASS_KEYS: Mapping[str, str] = {
     "what": "what", "which": "which", "who": "who", "where": "where",
     "when": "when", "why": "why", "how": "how",
     "all": "all", "some": "some", "none": "none", "most": "most",
+    "every": "every", "no_quant": "no",
     "few": "few", "empty": "empty",
     "yes": "yes", "no": "no",
     # NOT "a". English "a" is, to a dictionary, the letter A and the musical

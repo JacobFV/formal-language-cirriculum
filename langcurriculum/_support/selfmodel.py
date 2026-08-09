@@ -143,6 +143,20 @@ def _render_claim(quant: str, neg: bool, subj: str, pred: str) -> str:
     return f"some {subj} is not {pred}" if neg else f"some {subj} is {pred}"
 
 
+def _claim_term(quant: str, neg: bool, subj: str, pred: str) -> Term:
+    """The claim as **structure**, not as a finished English sentence.
+
+    ``_render_claim`` builds the English directly, which is the right thing for
+    a resource with one language and the wrong thing for one with four hundred:
+    a finished string carries no parts, so nothing downstream can say it in
+    anything else. Handing over the quantifier, the polarity, the restriction
+    and the scope lets each grammar assemble them the way its language does —
+    *no prism is yellow*, *kein Prisma ist gelb*, *bütün prizma sarı değil*.
+    """
+    return Pred("nl_claim", Ident(quant), Ident("neg" if neg else "pos"),
+                Ident(subj), Ident(pred))
+
+
 def _formal_claim(quant: str, neg: bool, subj: str, pred: str) -> Term:
     x = Ident("x")
     body = Pred("not", Pred(pred, x)) if neg else Pred(pred, x)

@@ -50,6 +50,7 @@ things the English episode does not.
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Any
 
 from ..category import CLS, N, NUM, PL, SG
@@ -61,60 +62,73 @@ from ..morphology import Morphology
 from ..syntax import Node
 from .vocab import VocabularyGrammar
 
-__all__ = ["Swahili", "CLASS_PAIRS", "NOUN_PREFIX", "ADJ_CONCORD", "SUBJECT_PREFIX"]
+__all__ = ["Swahili", "Concordance"]
 
 
 # ======================================================================
-# the concord tables — data, not code
+# the rules. The tables they read are in data/swahili.json
 # ======================================================================
-#: singular class -> its plural class. The Bantu plural is a class change.
-CLASS_PAIRS = {"1": "2", "3": "4", "5": "6", "7": "8", "9": "10", "11": "10",
-               "14": "14", "15": "15", "16": "16"}
-
-#: the prefix the noun itself carries, by class
-NOUN_PREFIX = {"1": "m", "2": "wa", "3": "m", "4": "mi", "5": "", "6": "ma",
-               "7": "ki", "8": "vi", "9": "", "10": "", "11": "u", "14": "u",
-               "15": "ku", "16": "pa"}
-
-#: the prefix an agreeing adjective carries: (before consonant, before vowel)
-ADJ_CONCORD = {
-    "1": ("m", "mw"), "2": ("wa", "w"), "3": ("m", "mw"), "4": ("mi", "my"),
-    "5": ("", "j"), "6": ("ma", "m"), "7": ("ki", "ch"), "8": ("vi", "vy"),
-    "9": ("N", "ny"), "10": ("N", "ny"), "11": ("m", "mw"), "14": ("m", "mw"),
-    "15": ("ku", "kw"), "16": ("pa", "p"),
-}
-
-#: Classes 9 and 10 take a **nasal** prefix that assimilates to, or deletes
-#: before, the stem's first consonant — which is why their entry above is the
-#: archiphoneme ``N`` rather than a literal. *nyumba kubwa* but *nyumba ndogo*
-#: and *nyumba nzuri*: the same prefix, three outcomes. Storing the results
-#: instead of the rule is what makes an adjective inventory unextendable.
-_N_CLASS: dict[str, str] = {
-    "b": "m", "v": "m",                      # nb, nv -> mb, mv
-    "d": "n", "g": "n", "j": "n", "z": "n",  # stays before a voiced stop
-    "r": "nd",                               # -refu -> ndefu, with r > d
-    "l": "nd",
-}
-
-
-def _nasal_concord(stem: str) -> str:
-    """Resolve the class 9/10 nasal against the consonant that follows it.
-
-    Before a voiceless consonant the nasal simply does not surface, which is why
-    *kubwa* and *kitabu kikubwa* look as though class 9 had no concord at all.
-    It has; it is null in that environment and audible in others.
-    """
-    first = stem[:1]
-    if first == "r" or first == "l":
-        return "nd"
-    return _N_CLASS.get(first, "")
-
-#: the subject marker a verb carries, by the class of its subject
-SUBJECT_PREFIX = {"1": "a", "2": "wa", "3": "u", "4": "i", "5": "li", "6": "ya",
-                  "7": "ki", "8": "vi", "9": "i", "10": "zi", "11": "u",
-                  "14": "u", "15": "ku", "16": "pa"}
-
 _VOWELS = "aeiou"
+
+
+@dataclass(frozen=True)
+class Concordance:
+    """Swahili's class system, as data: pairings, prefixes, allomorphs.
+
+    Eighteen classes' worth of prefixes is a *table* — somebody looked each one
+    up — and it belongs in the data file with the vocabulary. What stays in code
+    is the handful of things that are rules over that table: which allomorph a
+    nasal takes before a given consonant, and when class 5 shows its ``ji-``.
+    """
+
+    class_pairs: dict
+    noun_prefix: dict
+    adjective_prefix: dict
+    subject_prefix: dict
+    nasal_class: dict
+
+    @classmethod
+    def from_data(cls, raw: dict) -> "Concordance":
+        spec = raw.get("concord") or {}
+        return cls(class_pairs=dict(spec.get("class_pairs") or {}),
+                   noun_prefix=dict(spec.get("noun_prefix") or {}),
+                   adjective_prefix={k: tuple(v) for k, v in
+                                     (spec.get("adjective_prefix") or {}).items()},
+                   subject_prefix=dict(spec.get("subject_prefix") or {}),
+                   nasal_class=dict(spec.get("nasal_class") or {}))
+
+    def plural_of(self, cls_: str) -> str:
+        return self.class_pairs.get(cls_, cls_)
+
+    def nasal(self, stem: str) -> str:
+        """Resolve the class 9/10 nasal against the consonant that follows it.
+
+        Before a voiceless consonant the nasal simply does not surface, which is
+        why *kubwa* and *kitabu kikubwa* look as though class 9 had no concord at
+        all. It has; it is null in that environment and audible in others.
+        """
+        first = stem[:1]
+        if first in "rl":
+            return "nd"
+        return self.nasal_class.get(first, "")
+
+    def noun(self, cls_: str, stem: str) -> str:
+        """The noun's own class prefix, with the one class that varies.
+
+        Class 5 takes ``ji-`` before a monosyllabic stem and nothing otherwise:
+        *ji-we* "stone" and *ji-cho* "eye", but *neno* "word". Storing both forms
+        per noun would hide a rule that applies to every class-5 noun the
+        vocabulary will ever gain.
+        """
+        if cls_ == "5":
+            return "ji" if _syllables(stem) <= 1 else ""
+        return self.noun_prefix.get(cls_, "")
+
+    def adjective(self, cls_: str, stem: str) -> str:
+        consonantal, prevocalic = self.adjective_prefix.get(cls_, ("", ""))
+        if stem[:1] in _VOWELS:
+            return prevocalic
+        return self.nasal(stem) if consonantal == "N" else consonantal
 
 
 def _syllables(stem: str) -> int:
@@ -143,7 +157,9 @@ class SwahiliNoun(Morphology):
     Nothing here is stored: the stem and the class are, and the forms follow.
     """
 
-    def __init__(self, stems: dict[str, tuple[str, str]]):
+    def __init__(self, stems: dict[str, tuple[str, str]],
+                 concord: "Concordance"):
+        self.concord = concord
         #: keyed by the **surface** singular, because that is what the
         #: linearizer has resolved the vocabulary key to by the time inflection
         #: is asked for
@@ -154,8 +170,8 @@ class SwahiliNoun(Morphology):
         if entry is None:
             return lemma
         stem, cls = entry
-        target = CLASS_PAIRS.get(cls, cls) if feats.get_atom(NUM) == PL else cls
-        return _class_prefix(target, stem) + stem
+        target = self.concord.plural_of(cls) if feats.get_atom(NUM) == PL else cls
+        return self.concord.noun(target, stem) + stem
 
     def forms(self, lemma: str) -> set[str]:
         return {lemma, self.inflect(lemma), self.inflect(lemma, FS({NUM: PL}))}
@@ -202,10 +218,11 @@ class Swahili(VocabularyGrammar):
 
     def __init__(self) -> None:
         super().__init__()
+        self.concord_tables = Concordance.from_data(self.raw)
         raw_nouns = self.raw.get("nouns") or {}
         self.morphology[N.name] = SwahiliNoun(
             {v["lemma"]: (v.get("stem", v["lemma"]), str(v.get("class", "9")))
-             for v in raw_nouns.values()})
+             for v in raw_nouns.values()}, self.concord_tables)
         #: which adjectives agree at all
         self._agreeing = {k for k, v in (self.raw.get("adjectives") or {}).items()
                           if v.get("concord")}
@@ -221,11 +238,8 @@ class Swahili(VocabularyGrammar):
     # ---- the one genuinely Bantu thing ----------------------------------
     def concord_prefix(self, cls: str, plural: bool, stem: str) -> str:
         """The agreement prefix for a class, choosing the right allomorph."""
-        target = CLASS_PAIRS.get(cls, cls) if plural else cls
-        cons, vowel = ADJ_CONCORD.get(target, ("", ""))
-        if stem[:1] in _VOWELS:
-            return vowel
-        return _nasal_concord(stem) if cons == "N" else cons
+        target = self.concord_tables.plural_of(cls) if plural else cls
+        return self.concord_tables.adjective(target, stem)
 
     def stem_after_concord(self, prefix: str, stem: str) -> str:
         """``-refu`` surfaces as ``ndefu``: the nasal prefix changes the stem's r."""
@@ -254,5 +268,5 @@ class Swahili(VocabularyGrammar):
         to prefix. Exposed because it is the same table, and because the moment
         the abstract syntax carries verb stems this is what it needs.
         """
-        target = CLASS_PAIRS.get(cls, cls) if plural else cls
-        return SUBJECT_PREFIX.get(target, "")
+        target = self.concord_tables.plural_of(cls) if plural else cls
+        return self.concord_tables.subject_prefix.get(target, "")
