@@ -2320,3 +2320,74 @@ def test_a_compound_heading_is_whole_or_english(code):
             continue                       # left in English, which is honest
         survivors = [t for t in words.split() if t in heading.split()]
         assert not survivors, f"{code}: {name!r} -> {heading!r}, kept {survivors}"
+
+
+# ======================================================================
+# a wrong-class word beats no word at all
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code,expected", [
+    ("ell", "στρογγυλός"), ("hin", "गोलाकार"), ("deu", "Kreis"),
+])
+def test_a_slot_is_filled_from_any_class_rather_than_left_empty(code, expected):
+    """Greek tags *στρογγυλός* an adjective, so `round` had no noun to find.
+
+    The closed class insisted on the part of speech it asked for while the
+    ordinary lookup has always fallen back, so a good word sat in the table
+    and the English one was printed instead — a hundred times in a three-seed
+    sweep of Greek, and again in Hindi.
+    """
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    assert DerivedGrammar(db, code).cw("round") == expected
+
+
+@needs_db
+def test_the_part_of_speech_is_still_preferred_where_there_is_a_choice():
+    """The fallback decides between a wrong-class word and none, nothing else.
+
+    German *round* is *rund* as an adjective — "circular" — and *Kreis* as the
+    noun the heading wants. Both are in the table, and the noun must still win.
+    """
+    grammar = DerivedGrammar(LanguageDB(), "deu")
+    assert grammar.cw("round") == "Kreis"
+    assert grammar._first_usable("round", "N") == "Kreis"
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["ell", "hin", "deu", "rus", "tur"])
+def test_a_slot_with_no_translation_at_all_stays_empty(code):
+    """The fallback must not invent one. An empty slot is a stated gap."""
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    from langcurriculum.grammar.derived import CLOSED_CLASS_KEYS
+    for key, english in CLOSED_CLASS_KEYS.items():
+        filled = grammar.cw(key)
+        if filled:
+            assert filled != english, f"{code}: {key!r} filled with the English"
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["ell", "hin"])
+def test_the_english_round_is_gone_from_the_output(code):
+    """The end of the chain, where the hundred occurrences were."""
+    import random
+    import re
+    from langcurriculum.registry import all_lessons, get
+    from langcurriculum.languages import get_language
+
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    language = get_language(code)
+    pattern = re.compile(r"(?<![\w-])round(?![\w-])")
+    for lesson_id in list(all_lessons())[::5]:
+        try:
+            term, *_ = get(lesson_id).generate(random.Random(0))
+        except Exception:
+            continue
+        assert not pattern.search(language.render(term)), \
+            f"{code}/{lesson_id}: still says 'round'"

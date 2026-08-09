@@ -691,9 +691,24 @@ class DerivedGrammar(Grammar):
         identically. An episode whose two candidate glosses collapse is not
         clumsy, it is unanswerable.
         """
-        for entry in self.db.lookup_all(self.code, english):
+        candidates = self.db.lookup_all(self.code, english)
+        for entry in candidates:
             if pos and entry.pos and entry.pos != pos:
                 continue
+            if _usable_word(entry.form, english):
+                return entry.form
+        # Then without the part of speech, which is what the ordinary lookup
+        # has always done when a language has no row of the kind asked for.
+        # Insisting here left the slot empty while a good word sat in the
+        # table: Greek tags *στρογγυλός* an adjective, so `round` had no noun
+        # to be found and the English word was printed a hundred times in a
+        # three-seed sweep. Hindi lost its article and its genitive the same
+        # way. Preferring the part of speech is still right -- German *round*
+        # as an adjective is *rund*, "circular", where the noun is *Kreis* --
+        # and this only decides between a wrong-class word and none at all.
+        if not pos:
+            return ""
+        for entry in candidates:
             if _usable_word(entry.form, english):
                 return entry.form
         return ""
