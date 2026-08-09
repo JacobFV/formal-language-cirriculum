@@ -169,6 +169,11 @@ FRAMES: Mapping[str, Frame] = {
     "leaf/1": _f("Labelled", VALUE),
 
     # ---- indexed rows ---------------------------------------------------
+    # An unlabelled step -- the program display in program_explanation, and
+    # every description step. Without it the binary inference read `step` as a
+    # relational predication and rendered its head as a verb: Polish
+    # "0 kroczyć ylittää 2", the verb *to walk*.
+    "step/2": _f("Indexed", INDEX, VALUE, kind="step"),
     "step/3": _f("Indexed", INDEX, AGENT, VALUE, kind="step"),
     "step/4": _f("Indexed", INDEX, AGENT, "rel", VALUE, kind="step"),
     "round/1": _f("Labelled", INDEX, kind="round"),
@@ -196,6 +201,18 @@ FRAMES: Mapping[str, Frame] = {
     "neq/2": _f("Compare", AGENT, PATIENT, lemma="neq"),
 
     # ---- logical --------------------------------------------------------
+    # The eight list operations, described rather than named. A description
+    # was an English sentence inside a `Str` and reached every language
+    # unchanged; as a construction the grammar builds it, so Finnish and
+    # Turkish put the verb last and German agrees its plural.
+    "desc_take/1": _f("Operation"),
+    "desc_drop_first/1": _f("Operation"),
+    "desc_keep_greater/1": _f("Operation"),
+    "desc_keep_even/1": _f("Operation"),
+    "desc_sort/1": _f("Operation"),
+    "desc_reverse/1": _f("Operation"),
+    "desc_add/1": _f("Operation"),
+    "desc_mul/1": _f("Operation"),
     "and": _f("Coord", lemma="and"),
     "or": _f("Coord", lemma="or"),
     "not/1": _f("Neg", "inner"),

@@ -7,9 +7,10 @@ from __future__ import annotations
 
 import random
 
-from ..._structure import Ident, Lst, Pred, Rec, Str
+from ..._structure import Ident, Lst, Pred, Rec
 from ...lesson import Lesson
-from ..._support.causal import _dsl_lists, _dsl_mutate, _dsl_program, _dsl_run, _dsl_symbol, _dsl_text, _labels, _options
+from ..._support.causal import (_dsl_desc, _dsl_lists, _dsl_mutate, _dsl_program,
+                                _dsl_run, _dsl_symbol, _dsl_text, _labels, _options)
 
 
 def gen_program_explanation(rng: random.Random):
@@ -41,7 +42,7 @@ def gen_program_explanation(rng: random.Random):
         opts, correct = _options(rng, list(prog), wrong)
         labels = _labels("d", len(opts))
         obs = Rec(program=Lst(_dsl_symbol(prog)),
-                  descriptions=Lst([Pred("description", Ident(lab), Str(_dsl_text(p)))
+                  descriptions=Lst([Pred("description", Ident(lab), _dsl_desc(p))
                                     for lab, p in zip(labels, opts)]),
                   query=Ident("which_description_matches_the_program"))
         hidden = {"program": [list(op) for op in prog], "description": _dsl_text(prog),

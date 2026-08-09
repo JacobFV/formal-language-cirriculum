@@ -305,8 +305,26 @@ def _dsl_symbol(prog: Sequence[tuple[str, int]], label: str | None = None) -> li
 
 
 def _dsl_text(prog: Sequence[tuple[str, int]]) -> str:
+    """The English description, kept for the answer key and for telling two
+    descriptions apart. What the reader sees is :func:`_dsl_desc`."""
     parts = [_DSL_TEXT[op].format(k=k) for op, k in prog]
     return "first " + ", then ".join(parts)
+
+
+def _dsl_desc(prog: Sequence[tuple[str, int]]) -> Term:
+    """The description as structure, so the grammar can say it.
+
+    It was `Str("first keep only the elements greater than 2, then ...")`, and
+    a `Str` is a literal: the whole lesson reached Polish, Finnish and four
+    hundred others in English. Each step is now a construction the grammar
+    builds -- "zachować liczby > 4", "luvut järjestää", "düzen aksi" -- with
+    the verb where the language puts verbs.
+
+    Numbered, because a program is ordered and a plain list joined with *and*
+    would not say so.
+    """
+    return Lst([Pred("step", Num(i), Pred(f"desc_{op}", Num(k)))
+                for i, (op, k) in enumerate(prog)])
 
 
 def _dsl_lists(rng: random.Random, n: int) -> list[list[int]]:

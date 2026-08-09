@@ -1,6 +1,6 @@
 """Wiring the existing typed vocabularies into the grammar engine.
 
-The hand-written packs carry 346 typed open-class entries each, loaded
+The hand-written packs carry 354 typed open-class entries each, loaded
 from JSON, with the gender, plural, classifier and agreement forms their
 languages need. None of that work is invalidated by moving to a grammar — it is
 exactly the lexicon a grammar wants — so this module adapts it rather than

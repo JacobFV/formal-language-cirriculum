@@ -2884,11 +2884,14 @@ def test_the_harvest_set_and_the_coined_set_are_different_questions():
                                                 rendered_vocabulary)
     coined, rendered = curriculum_vocabulary(), rendered_vocabulary()
     assert coined < rendered
-    # 405 before paradigm_shift and procedural_language stopped describing
-    # their conditions in English prose: `difference`, `limit`, `modulus` and
-    # `previous` are words the curriculum now coins, so they belong to the set
-    # a language has to cover.
-    assert len(coined) == 409, "the coined set moved; coverage numbers will too"
+    # 405 before three lessons stopped describing themselves in English prose.
+    # `difference`, `limit`, `modulus`, `previous` came with the conditions in
+    # paradigm_shift and procedural_language; `number`, `order`, `even
+    # number`, `first`, `keep`, `arrange`, `remove`, `exceed` with the program
+    # descriptions. All are words the curriculum now coins, so a language has
+    # to cover them. The `desc_*` heads are not: they name constructions, and
+    # the builder replaces each with the words above.
+    assert len(coined) == 417, "the coined set moved; coverage numbers will too"
     assert "rule" in rendered and "entity" in rendered
 
 
@@ -3004,3 +3007,35 @@ def test_no_other_script_gains_arabic_marks(code):
         pytest.skip(f"{code} absent")
     text = get("symbol_grounding").example(0, language=code).observation
     assert not (set(text) & set("؟؛،"))
+
+
+@pytest.mark.parametrize("language", ["english", "spanish", "pol", "fin", "tur"])
+def test_no_two_program_descriptions_read_the_same(language):
+    """The descriptions are built by the grammar now, not written out.
+
+    They used to be one English sentence per program, and two could coincide
+    only if the sentences did, which the generator already checks. Built from
+    a verb and a noun phrase they can coincide some other way -- a language
+    with no word for one of the eight operations, or a bound dropped on the
+    way to the page -- and an episode whose options collapse is unanswerable
+    rather than merely clumsy.
+    """
+    import random
+
+    from langcurriculum._support.causal import _dsl_desc
+    from langcurriculum.grammar.compile import compile_term
+    from langcurriculum.grammar.features import EMPTY
+    from langcurriculum.lessons.s04_analogy_causality_and_programs.program_explanation import (
+        gen_program_explanation)
+
+    grammar = (GRAMMARS[language] if language in GRAMMARS
+               else DerivedGrammar(LanguageDB(), language))
+    for seed in range(12):
+        obs, _labels, _answer, _hidden = gen_program_explanation(random.Random(seed))
+        descriptions = obs.field("descriptions")
+        said = [grammar.lin(compile_term(d.children[-1]), EMPTY)
+                for d in descriptions.children]
+        assert len(said) == 4, f"seed {seed}: {len(said)} descriptions"
+        assert len(set(said)) == 4, (
+            f"seed {seed} in {language}: two descriptions read alike:\n"
+            + "\n".join(said))

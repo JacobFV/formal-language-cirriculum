@@ -62,7 +62,12 @@ def curriculum_vocabulary() -> set[str]:
     vocab = _english()
     keys = set(vocab.nouns) | set(vocab.adjectives) | set(vocab.verbs)
     keys |= set(vocab.names) | set(vocab.words)
-    keys |= {k.split("/")[0] for k in FRAMES}
+    # An Operation head is the name of a construction, not a word: nothing
+    # ever prints "desc_keep_greater", because the builder replaces it with
+    # a verb and a noun phrase. The words it does print are ordinary
+    # vocabulary and are counted as such, from the pack.
+    keys |= {k.split("/")[0] for k, f in FRAMES.items()
+             if f.construction != "Operation"}
     return {k for k in keys if k and k.isascii()}
 
 
@@ -446,7 +451,51 @@ def _build_nl_transitive(head: str, frame: Frame, args: list[Term]) -> Node:
                     quant(q2, _as_np(obj, det="bare"), None))
 
 
+def _numbers(count=None, *modifiers: Node) -> Node:
+    """*the 3 first numbers* / *the numbers* — the list the operation acts on."""
+    feats = {"count": count} if count is not None else {"num": "pl"}
+    return mk_np(mk_cn(noun("number"), *modifiers), det="def", **feats)
+
+
+def _build_operation(head: str, frame: Frame, args: list[Term]) -> Node:
+    """One step of a list program, said rather than named.
+
+    `keep_greater` as a name is an identifier; as a description it is *keep
+    the numbers > 4*, and that is a verb and an object, which every grammar
+    in the package already knows how to order. Finnish and Turkish put the
+    verb last without being asked.
+
+    The bound and the operand of the arithmetic operations stay as symbols.
+    A comparison rendered through the copula came out "keep the numbers is
+    greater than 4", and ">" is read the same in every language this
+    curriculum targets.
+    """
+    k = int(args[0].value) if args and isinstance(args[0].value, (int, float)) else 0
+    op = head[len("desc_"):]
+    if op == "take":
+        return modified(verb("keep"), _numbers(k, adj("first")))
+    if op == "drop_first":
+        return modified(verb("remove"), _numbers(k, adj("first")))
+    if op == "keep_greater":
+        return modified(verb("keep"), _numbers(), sym(f"> {k}"))
+    if op == "keep_even":
+        return modified(verb("keep"),
+                        mk_np(mk_cn(noun("even number")), det="def", num="pl"))
+    if op == "sort":
+        return modified(verb("arrange"), _numbers())
+    if op == "reverse":
+        return modified(verb("reverse"), mk_np(mk_cn(noun("order")), det="def"))
+    # As a modifier the symbol led the noun wherever adjectives lead it, and
+    # Finnish read "+ 3 luvut". Arithmetic on each element is notation, and
+    # notation is what the curriculum already uses for the theory forms it
+    # sets beside these -- "y = p1 * x + p2".
+    if op == "add":
+        return sym(f"x + {k}")
+    return sym(f"x \u00d7 {k}")
+
+
 _BUILDERS = {
+    "Operation": _build_operation,
     "Bare": _build_bare,
     "Labelled": _build_labelled,
     "Enumerated": _build_enumerated,
