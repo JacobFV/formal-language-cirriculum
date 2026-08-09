@@ -75,9 +75,6 @@ def _english():
     return load_vocabulary("english")[0]
 
 
-_ADJ_LIKE = frozenset({"color", "shape", "size", "material"})
-
-
 def classify(value: str) -> str:
     """``noun``, ``adj``, ``verb``, ``word`` or ``sym`` — decided once, against English.
 

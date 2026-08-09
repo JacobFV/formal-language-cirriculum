@@ -1,21 +1,35 @@
 """The concrete grammars, and the registry that finds them.
 
 Each module here is one language expressed as parameters plus the overrides its
-typology genuinely needs. The count of overrides is the honest measure of
-whether the engine is doing its job, so it is worth stating:
+typology genuinely needs, and the count of overrides is the honest measure of
+whether the parameterization is doing its job. Counted from the source rather
+than remembered:
 
 ======================  ==========  ===========================================
 grammar                 overrides   what they are
 ======================  ==========  ===========================================
-:mod:`.english`         2           a/an phonology; auxiliary fronting
-:mod:`.turkish`         4           mI clitic; possession; locative case; DOM
-:mod:`.swahili`         3           class concord prefixes; verb agreement;
-                                    the class-pair plural
+:mod:`.spanish`         5           gendered articles with the el-agua
+                                    exception, y/e and o/u, ser vs estar, a
+                                    label's trailing preposition
+:mod:`.english`         4           a/an phonology, and negation, polar
+                                    questions and wh-questions all attaching to
+                                    a finite auxiliary
+:mod:`.turkish`         6           the mI clitic, evidentiality, double-marked
+                                    possession, locative case, differential
+                                    object marking
+:mod:`.swahili`         3           class concord prefixes, the class-pair
+                                    plural, the nasal allomorph
+:mod:`.chinese`         11          measure words, per-adjective 的,
+                                    topic-comment framing, 吗 and 还是
+                                    questions, and its own typography
 ======================  ==========  ===========================================
 
-If a grammar starts needing a dozen overrides, that is evidence the
-parameterization in :mod:`~langcurriculum.grammar.linearize` is missing an axis,
-not that the language is unusual.
+Chinese is the one worth staring at. Several of its eleven are real — a measure
+word is not a determiner and no parameter will make it one — but ``join_list``,
+``sentence`` and ``block_heading`` are there because the typography of a
+script written without spaces is still partly hard-coded in the walk rather
+than read off :class:`~langcurriculum.grammar.linearize.Typography`. That is a
+gap in the parameterization and is recorded here rather than rounded down.
 """
 
 from __future__ import annotations

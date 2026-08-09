@@ -400,8 +400,8 @@ test suite verifies the claim against row counts:
 | tier | backed by | count | verified by a speaker? |
 |---|---|---|---|
 | 1 | hand-written grammar, curated lexicon, real phonology | 6 | yes |
-| 2 | derived grammar, imported lexicon **and** morphology | 90 | **no** |
-| 3 | derived grammar, imported lexicon, no morphology | 314 | **no** |
+| 2 | derived grammar, imported lexicon **and** morphology | 88 | **no** |
+| 3 | derived grammar, imported lexicon, no morphology | 312 | **no** |
 | 4 | typology only — no lexicon | 4,722 | not registered |
 
 **Two morphology sources, never mixed.** UniMorph is a paradigm resource with a fixed
@@ -436,16 +436,29 @@ harmony. Accuracy is measured on held-out paradigm cells, not spot-checked.
 **Articles and the copula are also derived, not authored.** Wiktionary tags *der*
 masculine and *das* neuter, so the paradigm that tells `das Buch` from `der Buch` is
 already in the data — no per-language article table is written anywhere. The copula is
-picked from the candidates Wiktionary lists under *be* by **attested paradigm size**,
-since the copula is the most-inflected verb in almost any language that has one; that
-recovers Greek `είμαι` over `ίσον` and Spanish `es` over the dictionary's first guess.
+picked from the candidates Wiktionary lists under *be* — German *werden* beside *sein*,
+Italian *venire* beside *essere* — by three signals, all facts about frequency rather
+than about any particular language: it has the **shortest** finite form (Zipf), it is
+the most **suppletive** (sharing almost nothing with its own infinitive, as *být*/*je*
+does and *mít*/*má* does not), and where those tie the dictionary's **primary sense**
+decides. Seventeen of twenty languages checked come out exactly right — `ist`, `è`,
+`есть`, `είναι`, `är`, `je`, `van`, `on`, `yra`.
 
-**What derived grammars still get wrong.** Section headings stay in English, because
-nothing has been harvested for them. Where UniMorph has no copula paradigm — Russian,
-German `sein` — the citation form stands. French gets `la eau` rather than `l'eau`,
-because elision is a phonological rule nobody has written for it. Each gap is listed by
-`DerivedGrammar.gaps()`, none is hidden behind a plausible default, and a test asserts
-that a grammar which cannot find its copula says so.
+**No language may silently lose a distinction.** `deformalization` hands a learner four
+quantified glosses and asks which matches a formula; if two render alike the episode is
+not clumsy but **unanswerable**, and it fails invisibly, because a missing negator looks
+like a positive sentence rather than an error. French did exactly that — its dictionary
+lists the discontinuous *ne … pas* first, no single slot could hold it, and *every prism
+is yellow* and *no prism is yellow* came out identical. A negator is now never empty
+(the dedicated word, else the negative determiner, else the English word), and a test
+asserts that all **411 registered languages** keep the four claims apart.
+
+**What derived grammars still get wrong.** Section headings are the translated noun
+rather than an idiomatic lead-in — `Szene:`, not `In der Szene:`. French gets `la eau`
+rather than `l'eau`, because elision is a phonological rule nobody has written for it.
+Polish and Ukrainian copulas stay as infinitives, their Wiktionary entries carrying no
+conjugation table. Each gap is listed by `DerivedGrammar.gaps()` and none is hidden
+behind a plausible default.
 
 ### Why `english_synonym` exists
 

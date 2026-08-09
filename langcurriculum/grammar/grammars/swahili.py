@@ -136,19 +136,6 @@ def _syllables(stem: str) -> int:
     return sum(1 for ch in stem if ch in _VOWELS)
 
 
-def _class_prefix(cls: str, stem: str) -> str:
-    """The noun's own class prefix, with the one class that varies.
-
-    Class 5 takes ``ji-`` before a monosyllabic stem and nothing otherwise:
-    *ji-we* "stone" and *ji-cho* "eye", but *neno* "word" and *swali* "question".
-    Storing both forms per noun would hide a rule that applies to every class-5
-    noun the vocabulary will ever gain.
-    """
-    if cls == "5":
-        return "ji" if _syllables(stem) <= 1 else ""
-    return NOUN_PREFIX.get(cls, "")
-
-
 class SwahiliNoun(Morphology):
     """The plural is a prefix substitution driven by the class pairing.
 

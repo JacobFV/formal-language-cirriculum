@@ -111,12 +111,6 @@ def _n_derived() -> int:
         return 0
 
 
-def derived_codes() -> list[str]:
-    """Every ISO 639-3 code the language database can build a grammar for."""
-    from ..grammar.registry import REGISTRY
-    return sorted(REGISTRY.available)
-
-
 def language_codes() -> list[str]:
     """Every registered code, in registration order with the default first.
 
