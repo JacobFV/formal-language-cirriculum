@@ -583,6 +583,14 @@ def _leakage(code: str, n_lessons: int = 30) -> tuple[float, list[str]]:
     known = {r["key"] for r in DB.conn.execute(
         f"SELECT DISTINCT key FROM sense WHERE key IN ({marks})", keys)}
     known -= set(_english().names)
+    # A key whose translation *is* the key is not evidence of anything. German
+    # capitalizes its nouns, so *agent* renders as ``Agent`` and a
+    # case-insensitive scan counted the correct output as a leak; several
+    # technical terms are likewise borrowed unchanged. Comparing against what
+    # the language actually renders removes a false positive that was worth
+    # roughly a point of apparent leakage in every language.
+    grammar = DerivedGrammar(DB, code)
+    known = {k for k in known if grammar.word(k).lower() != k.lower()}
 
     import langcurriculum as lc
     lessons = [l for l in lc.all_lessons().values()

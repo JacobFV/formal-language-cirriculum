@@ -28,6 +28,7 @@ that lacks the word renders it as the bare lemma. If English does not know
 
 from __future__ import annotations
 
+from functools import lru_cache
 from typing import Any, Sequence
 
 from .._structure import PRIMITIVE_TYPES, Term
@@ -100,7 +101,21 @@ def classify(value: str) -> str:
         return "verb"
     if value in vocab.words:
         return "word"
+    if value in _curriculum_keys():
+        # The curriculum's own key set is the last word on what counts as
+        # vocabulary. ``leaf``, ``read``, ``book`` and ``left`` reach the page
+        # from predicate heads and are absent from the reference vocabulary's
+        # four tables, so they were symbols and stayed English — though every
+        # language in the database translates them. A coined token is never in
+        # this set, which is what makes consulting it safe.
+        return "word"
     return "sym"
+
+
+@lru_cache(maxsize=1)
+def _curriculum_keys() -> frozenset[str]:
+    """Curriculum keys that are not proper names, cached for the hot path."""
+    return frozenset(curriculum_vocabulary() - set(_english().names))
 
 
 def _leaf(value: Any) -> Node:
