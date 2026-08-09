@@ -49,6 +49,14 @@ DEFAULT_LANGUAGE = "english"
 
 LANGUAGES: dict[str, Language] = {}
 
+#: Languages built on demand from the database. Kept apart from
+#: :data:`LANGUAGES` on purpose: that dict is what the package *declares* it
+#: has, and a cache must not change a declaration. Caching into it made
+#: ``language_codes()`` grow with whatever a caller happened to ask for, so
+#: the CLI and the site listed a different set depending on what had been
+#: touched first, and a test iterating it covered a different set each run.
+_DERIVED: dict[str, Language] = {}
+
 #: other names the same pack answers to
 LANGUAGE_ALIASES: dict[str, str] = {
     # the notation is where per-episode invented vocabulary is seen unadorned
@@ -82,6 +90,8 @@ def get_language(code: str | Language | None = None) -> Language:
     name = LANGUAGE_ALIASES.get(name, name)
     if name in LANGUAGES:
         return LANGUAGES[name]
+    if name in _DERIVED:
+        return _DERIVED[name]
     derived = _derived_language(name)
     if derived is not None:
         return derived
@@ -99,7 +109,7 @@ def _derived_language(code: str) -> Language | None:
     if code not in REGISTRY.available:
         return None
     language = GrammarLanguage(REGISTRY.get(code))
-    LANGUAGES[code] = language
+    _DERIVED[code] = language
     return language
 
 

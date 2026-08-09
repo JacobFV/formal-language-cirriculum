@@ -83,7 +83,7 @@ def test_every_language_picks_out_the_same_option(lesson):
 
 def test_no_public_value_is_ever_an_internal_term():
     """The API promise: plain text and plain data, never the internal nodes."""
-    for lesson in IMPLEMENTED[:60]:
+    for lesson in IMPLEMENTED:
         ex = lesson.example(1)
         payload = ex.to_dict()
         assert not _contains_term(payload), lesson.id
@@ -111,3 +111,33 @@ def test_the_spec_lesson_refuses_rather_than_pretending():
 def test_an_unknown_language_is_rejected():
     with pytest.raises(ValueError):
         lc.get("unification").example(0, language="klingon")
+
+
+def test_the_declared_languages_do_not_change_as_others_are_used():
+    """A cache must not change what the package says it has.
+
+    Languages built from the database were cached into the same dict the
+    registry reports, so ``language_codes()`` grew with whatever a caller had
+    happened to ask for. The CLI and the site listed a different set depending
+    on what ran first, and a test iterating it covered a different set each
+    run — this one, which began failing on four lessons purely because the
+    database tests had run before it and left ``spa`` behind.
+    """
+    from langcurriculum.languages import get_language, language_codes
+    before = list(language_codes())
+    for code in ("deu", "rus", "fin", "spa"):
+        try:
+            get_language(code)
+        except ValueError:
+            continue
+    assert list(language_codes()) == before
+
+
+def test_a_language_built_on_demand_is_still_cached():
+    """Separating the two must not make it build twice."""
+    from langcurriculum.languages import get_language
+    try:
+        first = get_language("deu")
+    except ValueError:
+        pytest.skip("no language database")
+    assert get_language("deu") is first

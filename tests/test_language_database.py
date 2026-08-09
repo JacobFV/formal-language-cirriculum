@@ -500,7 +500,7 @@ def test_no_closed_class_slot_holds_an_affix_or_an_english_leak():
     English word are all things a translation table will hand back, and none of
     them is a word of the language.
     """
-    for row in DB.languages(min_tier=2)[:30]:
+    for row in DB.languages(min_tier=2):
         grammar = DerivedGrammar(DB, row["code"])
         for slot, form in grammar.closed.items():
             if not form:
@@ -878,7 +878,7 @@ def test_a_negator_is_never_empty():
     and where that is absent too the English word does. A visibly foreign
     negator is a small problem; a vanished one changes what the episode says.
     """
-    for row in DB.languages(min_tier=3)[:60]:
+    for row in DB.languages(min_tier=3):
         try:
             grammar = DerivedGrammar(DB, row["code"])
         except Exception:
