@@ -86,12 +86,19 @@ def choose(budget_mb: float, samples: int) -> list[str]:
         by_family[family].append(code)
     families = sorted(by_family, key=lambda f: -len(by_family[f]))
     rank = 0
-    while len(chosen) < room and any(by_family.values()):
+    # Stop when a whole pass adds nothing. Testing `any(by_family.values())`
+    # instead spun forever the moment the budget allowed more languages than
+    # exist -- the lists are indexed, never emptied, so they stay truthy.
+    while len(chosen) < room:
+        added = 0
         for family in families:
             if len(chosen) >= room:
                 break
             if rank < len(by_family[family]):
                 chosen.append(by_family[family][rank])
+                added += 1
+        if not added:
+            break
         rank += 1
     return chosen[:room]
 

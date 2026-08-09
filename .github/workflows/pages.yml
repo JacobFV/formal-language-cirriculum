@@ -4,12 +4,16 @@
 # master, so the published site cannot drift from the code that produced it --
 # which it had, silently, for three commits.
 #
-# KNOWN LIMIT: this runner has no language database. `languages.db` is 8.4 GB
-# and gitignored, and without it `REGISTRY.available` falls back to the five
-# hand-written packs plus the two controls. So this workflow publishes seven
-# languages, not the 412 the engine speaks. Everything else needs either the
-# database or a reduced extract of it; until one exists, the full set is a
-# local `python scripts/serve_site.py` away.
+# The runner cannot have the real language database: it is 8.4 GB and
+# gitignored, and without it the registry falls back to the seven hand-written
+# packs. So the repository carries an extract -- the languages the site
+# exports, and only the rows the renderer asks for -- which is 17 MB
+# compressed and renders byte-identically to the full database
+# (scripts/build_site_db.py --verify).
+#
+# The extract is a subset, not a sample: everything outside it still lives in
+# the full database, and the complete set of 412 languages is a local
+# `python scripts/serve_site.py` away.
 name: pages
 
 on:
@@ -42,7 +46,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Unpack the site database
+        run: |
+          gunzip -c langcurriculum/grammar/data/site-languages.db.gz \
+            > "${RUNNER_TEMP}/site-languages.db"
+          ls -la "${RUNNER_TEMP}/site-languages.db"
       - name: Build the site
+        env:
+          LANGCURRICULUM_DB: ${{ runner.temp }}/site-languages.db
         run: |
           python scripts/build_site.py \
             --out _site \
