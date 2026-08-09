@@ -1,6 +1,6 @@
 """Wiring the existing typed vocabularies into the grammar engine.
 
-The three original packs already carry 342 typed open-class entries each, loaded
+The hand-written packs carry 342 typed open-class entries each, loaded
 from JSON, with the gender, plural, classifier and agreement forms their
 languages need. None of that work is invalidated by moving to a grammar — it is
 exactly the lexicon a grammar wants — so this module adapts it rather than
@@ -29,28 +29,8 @@ from ..typology import instructions_for
 
 __all__ = ["VocabularyGrammar", "load_pack"]
 
-_LOCAL_DATA = (Path(__file__).resolve().parent.parent / "data" / "packs")
-
 #: distinguishes "not looked up yet" from "looked up and absent"
 _UNSET = object()
-
-
-def _merge(base: dict[str, Any], overlay: dict[str, Any]) -> dict[str, Any]:
-    """Overlay a data file onto a pack, merging tables rather than replacing them.
-
-    A plain ``{**base, **overlay}`` replaces whole keys, and the packs keep large
-    tables under exactly the keys an overlay wants to extend: Spanish ships 475
-    relational phrasings and the overlay adds 35, so replacing dropped 440 of
-    them silently. Dictionaries merge with the overlay winning per key;
-    everything else is replaced, which is what a scalar or a list should do.
-    """
-    out = dict(base)
-    for key, value in overlay.items():
-        if isinstance(value, dict) and isinstance(out.get(key), dict):
-            out[key] = {**out[key], **value}
-        else:
-            out[key] = value
-    return out
 
 
 def load_pack(code: str) -> tuple[Vocabulary, dict[str, Any]]:
@@ -63,33 +43,6 @@ def load_pack(code: str) -> tuple[Vocabulary, dict[str, Any]]:
     tree could tell what was where.
     """
     return load_vocabulary(code)
-
-
-def _vocabulary_from(raw: Mapping[str, Any]) -> Vocabulary:
-    """Build a :class:`Vocabulary` from a raw JSON pack.
-
-    Deliberately the same shape as the loader in ``languages/lexicon.py``, minus
-    the caching, so a new language's data file looks like an old one's and a
-    reader comparing them finds no surprises.
-    """
-    from ...languages.lexicon import Adjective, Noun, Verb
-    return Vocabulary(
-        nouns={k: Noun(lemma=v["lemma"], gender=v.get("gender", ""),
-                       plural=v.get("plural", ""), classifier=v.get("classifier", ""))
-               for k, v in (raw.get("nouns") or {}).items()},
-        adjectives={k: Adjective(base=v.get("base") or v.get("ms") or v.get("form", ""),
-                                 ms=v.get("ms", ""), fs=v.get("fs", ""),
-                                 mp=v.get("mp", ""), fp=v.get("fp", ""),
-                                 linker=bool(v.get("attributive_de", False)))
-                    for k, v in (raw.get("adjectives") or {}).items()},
-        verbs={k: Verb(base=v.get("base") or v.get("form") or v.get("inf") or v.get("s3", ""),
-                       infinitive=v.get("inf", ""), s3=v.get("s3", ""),
-                       p3=v.get("p3", ""), past3=v.get("past3", ""),
-                       aspect=v.get("aspect", ""))
-               for k, v in (raw.get("verbs") or {}).items()},
-        names=dict(raw.get("names") or {}),
-        words=dict(raw.get("words") or {}),
-    )
 
 
 class VocabularyGrammar(Grammar):
