@@ -54,7 +54,10 @@ def gen_semantic_compression(rng: random.Random):
               semantics=Lst([Pred("form", Ident("linear"), Str("y = p1 * x + p2")),
                              Pred("form", Ident("square"), Str("y = x * x + p2")),
                              Pred("form", Ident("constant"), Str("y = p2")),
-                             Pred("form", Ident("table"), Str("y is read off the listed entries"))]),
+                             # its three siblings are formulas, which need no translating;
+                             # this one was an English sentence, so it is a
+                             # formula too
+                             Pred("form", Ident("table"), Str("y = entry(x)"))]),
               rules=_rules("a_theory_is_lossless_iff_it_predicts_every_observation_exactly",
                            "choose_the_lossless_theory_of_least_size"),
               query=Ident("smallest_lossless_theory"))

@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import random
 
-from ..._structure import Ident, Lst, Num, Pred, Rec, Str
+from ..._structure import Ident, Lst, Num, Pred, Rec, Tok
 from ...lesson import Lesson
 from ..._support.causal import _PROC_MOD, _nonce_names, _proc_body, _proc_exec, _proc_simple, _proc_symbol
 
@@ -30,7 +30,9 @@ def gen_procedural_language(rng: random.Random):
     final = _proc_exec(prog, init)
     target = rng.choice(vs)
     obs = Rec(modulus=Num(_PROC_MOD),
-              note=Str("every assignment is taken mod m"),
+              # was Str("every assignment is taken mod m"), which is a literal
+              # and went out in English whatever the language
+              note=Pred("mod", Tok("value"), Tok("modulus")),
               init=Lst([Pred("init", Ident(v), Num(init[v])) for v in vs]),
               program=Lst([_proc_symbol(s) for s in prog]),
               query=Pred("final_value", Ident(target)))

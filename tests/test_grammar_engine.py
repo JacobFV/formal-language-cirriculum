@@ -2884,7 +2884,11 @@ def test_the_harvest_set_and_the_coined_set_are_different_questions():
                                                 rendered_vocabulary)
     coined, rendered = curriculum_vocabulary(), rendered_vocabulary()
     assert coined < rendered
-    assert len(coined) == 405, "the coined set moved; coverage numbers will too"
+    # 405 before paradigm_shift and procedural_language stopped describing
+    # their conditions in English prose: `difference`, `limit`, `modulus` and
+    # `previous` are words the curriculum now coins, so they belong to the set
+    # a language has to cover.
+    assert len(coined) == 409, "the coined set moved; coverage numbers will too"
     assert "rule" in rendered and "entity" in rendered
 
 

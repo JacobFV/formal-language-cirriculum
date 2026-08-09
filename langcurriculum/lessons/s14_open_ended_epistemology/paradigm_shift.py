@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import random
 
-from ..._structure import Ident, Lst, Num, Pred, Rec, Str
+from ..._structure import Ident, Lst, Num, Pred, Rec, Tok
 from ...lesson import Lesson
 from ..._support.selfmodel import ASSUMPTIONS, _assumption_status, _rules, _shuffled
 
@@ -56,11 +56,20 @@ def gen_paradigm_shift(rng: random.Random):
         if broken == [target]:
             break
 
-    obs = Rec(framework=Lst([Pred("assumes", Ident("positivity"), Str("every value is positive")),
-                             Pred("assumes", Ident("monotonicity"), Str("every value exceeds the previous one")),
-                             Pred("assumes", Ident("boundedness"), Str("every value is below the bound")),
-                             Pred("assumes", Ident("small_steps"), Str("consecutive values differ by at most the step"))]),
-              constants=Lst([Pred("bound", Num(bound)), Pred("step", Num(step))]),
+    # The four assumptions were English sentences inside `Str`, and a `Str` is
+    # a literal: every language read "every value exceeds the previous one".
+    # They are conditions the code already computes exactly, so they are
+    # written as the comparisons they are and the grammar says them in its own
+    # language -- Polish "wartość więcej niż 0", Finnish "arvo enemmän kuin 0".
+    obs = Rec(framework=Lst([Pred("assumes", Ident("positivity"),
+                                  Pred("gt", Tok("value"), Num(0))),
+                             Pred("assumes", Ident("monotonicity"),
+                                  Pred("gt", Tok("value"), Tok("previous"))),
+                             Pred("assumes", Ident("boundedness"),
+                                  Pred("lt", Tok("value"), Tok("limit"))),
+                             Pred("assumes", Ident("small_steps"),
+                                  Pred("le", Tok("difference"), Tok("step")))]),
+              constants=Lst([Pred("limit", Num(bound)), Pred("step", Num(step))]),
               old_regime=Lst([Pred("reading", Num(i), Num(v)) for i, v in enumerate(old)]),
               new_regime=Lst([Pred("reading", Num(i), Num(v)) for i, v in enumerate(new)]),
               rules=_rules("the_framework_holds_in_a_regime_iff_all_four_assumptions_hold_of_its_readings",
