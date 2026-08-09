@@ -39,6 +39,7 @@ from .category import (
     THEME, V, VALUE,
 )
 from .features import EMPTY, FS
+from .linearize import PREDICATE_GLOSS
 from .frames import REPORTING, SPATIAL_FRAME, Frame, frame_for
 from .syntax import (
     Arg, Node, adj, coord, cond, compare, enumerated, fn_app, indexed,
@@ -276,8 +277,16 @@ def _label(head: str) -> Node:
     word still passes it through, so making them lexical costs nothing and
     recovers the ones that are ordinary vocabulary.
     """
-    words = head.replace("_", " ")
+    # An underscored head is the one case where the gloss has to be consulted
+    # here. Expanding it to words destroys the key -- `keep_greater` becomes
+    # "keep greater", which no dictionary holds, so it is composed a word at a
+    # time and Polish read "zachować greater". A head with no underscore is
+    # left alone and glossed later by `word`, per language: English keeps
+    # "claims that" while Polish still gets the lemma it can look up.
+    words = (PREDICATE_GLOSS.get(head) if "_" in head else None) \
+        or head.replace("_", " ")
     return lex(ADV, words)
+
 
 
 def _build_default(head: str, frame: Frame, args: list[Term]) -> Node:

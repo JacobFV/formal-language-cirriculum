@@ -204,7 +204,11 @@ def _proc_symbol(stmt: tuple) -> Term:
                 Lst([_proc_symbol(s) for s in stmt[4]]))
 
 
-_DSL_OPS = ("add", "mul", "reverse", "sort", "take", "drop", "keep_greater", "keep_even")
+# `drop_first` rather than `drop`: the gloss table is keyed by head and read
+# by every lesson at once, and `drop` is already a robot action meaning *put
+# down* in conceptual_chunking. Glossing it "remove" for this DSL rewrote that
+# lesson's action sequence too. The list operation gets its own name.
+_DSL_OPS = ("add", "mul", "reverse", "sort", "take", "drop_first", "keep_greater", "keep_even")
 
 
 _DSL_TEXT = {
@@ -213,13 +217,13 @@ _DSL_TEXT = {
     "reverse": "reverse the list",
     "sort": "sort the list into increasing order",
     "take": "keep only the first {k} elements",
-    "drop": "remove the first {k} elements",
+    "drop_first": "remove the first {k} elements",
     "keep_greater": "keep only the elements greater than {k}",
     "keep_even": "keep only the even elements",
 }
 
 
-_DSL_ARG = {"add": (1, 4), "mul": (2, 3), "take": (2, 3), "drop": (1, 2), "keep_greater": (2, 6)}
+_DSL_ARG = {"add": (1, 4), "mul": (2, 3), "take": (2, 3), "drop_first": (1, 2), "keep_greater": (2, 6)}
 
 
 def _dsl_apply(op: tuple[str, int], xs: Sequence[int]) -> list[int]:
@@ -234,7 +238,7 @@ def _dsl_apply(op: tuple[str, int], xs: Sequence[int]) -> list[int]:
         return sorted(xs)
     if name == "take":
         return list(xs)[:k]
-    if name == "drop":
+    if name == "drop_first":
         return list(xs)[k:]
     if name == "keep_greater":
         return [x for x in xs if x > k]
@@ -279,9 +283,25 @@ def _dsl_mutate(rng: random.Random, prog: Sequence[tuple[str, int]]) -> list[tup
 
 
 def _dsl_symbol(prog: Sequence[tuple[str, int]], label: str | None = None) -> list[Term]:
+    """The program as symbols, one term per step.
+
+    The operation is the head of its own term rather than an ``Ident``
+    argument, because that is what it is: a step applies an operation to a
+    number. Written as an identifier it went out as one -- Polish read
+    "krok p0: 0, keep_greater i 2", underscore and all -- since an ``Ident``
+    is a name and names must pass through untouched or the nonce words this
+    curriculum invents would be translated away.
+
+    As a head it goes through the gloss table, which also fixes the sense.
+    A head is looked up as a verb, and the verb is the reading these ops
+    want: `keep` as a noun is a castle keep, and Spanish said *torreón*
+    where it means *guardar*; `sort` as a noun is a kind or a type, and four
+    languages said so.
+    """
     if label is None:
-        return [Pred("step", Num(i), Ident(op), Num(k)) for i, (op, k) in enumerate(prog)]
-    return [Pred("step", Ident(label), Num(i), Ident(op), Num(k)) for i, (op, k) in enumerate(prog)]
+        return [Pred("step", Num(i), Pred(op, Num(k))) for i, (op, k) in enumerate(prog)]
+    return [Pred("step", Ident(label), Num(i), Pred(op, Num(k)))
+            for i, (op, k) in enumerate(prog)]
 
 
 def _dsl_text(prog: Sequence[tuple[str, int]]) -> str:
