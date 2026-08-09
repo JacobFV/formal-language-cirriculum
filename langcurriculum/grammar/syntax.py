@@ -30,6 +30,7 @@ meaning, realized differently in each language but recognizably the same thing::
                       Indexed    step 4: …
                       Mapping    aba → 1
                       FnApp      t(a, b)
+                      Modified   the object left of the prism
     combination       Coord      a and b
                       Neg        not a
                       Cond       a if b
@@ -40,7 +41,7 @@ meaning, realized differently in each language but recognizably the same thing::
                       YNQ        is the string balanced?
                       AltQ       is it high or low?
 
-Nineteen. Adding a language means saying how *these* are realized, which is a
+Twenty. Adding a language means saying how *these* are realized, which is a
 bounded job a linguist can finish, rather than translating 399 predicate heads,
 which is not.
 
@@ -72,7 +73,7 @@ __all__ = [
     "Node", "Arg", "sym", "lex", "noun", "adj", "verb",
     "mk_cn", "mk_np", "mk_ap",
     "pred_attr", "pred_ident", "pred_loc", "pred_rel", "pred_rel3",
-    "labelled", "enumerated", "indexed", "mapping", "fn_app",
+    "labelled", "enumerated", "indexed", "mapping", "fn_app", "modified",
     "coord", "negate", "cond", "compare", "possess", "quant",
     "wh_question", "yn_question", "alt_question",
     "text_block", "walk_nodes", "CONSTRUCTIONS",
@@ -259,6 +260,19 @@ def mapping(lhs: Node, rhs: Node, **feats: Any) -> Node:
     return _n("Mapping", CL, [Arg(SOURCE, lhs), Arg(GOAL, rhs)], **feats)
 
 
+def modified(head: Node, *modifiers: Node, **feats: Any) -> Node:
+    """``the purple object to the left of the prism`` — a head and a modifier phrase.
+
+    Distinct from :func:`labelled`, which was standing in for it and is wrong:
+    a label takes a separator — *weight: 3*, *重量：3* — and a modifier does
+    not, so Spanish came out as *el objeto morado: a la izquierda: el prisma*.
+    Distinct from :func:`mk_cn` too, whose modifiers are adjectives that agree;
+    this one is a phrase that attaches whole.
+    """
+    return _n("Modified", NP, [Arg("head", head)]
+              + [Arg("mod", m) for m in modifiers], **feats)
+
+
 def fn_app(head: str, args: Sequence[Node], **feats: Any) -> Node:
     """``t(a, b)`` — notation, kept as notation.
 
@@ -351,7 +365,7 @@ def text_block(name: str, items: Sequence[Node], *, is_list: bool = False,
 CONSTRUCTIONS = frozenset({
     "Sym", "Lex", "CN", "NP", "AP",
     "PredAttr", "PredIdent", "PredLoc", "PredRel", "PredRel3",
-    "Labelled", "Enumerated", "Indexed", "Mapping", "FnApp",
+    "Labelled", "Enumerated", "Indexed", "Mapping", "FnApp", "Modified",
     "Coord", "Neg", "Cond", "Compare", "Possess", "Quant",
     "WhQ", "YNQ", "AltQ", "Block",
 })

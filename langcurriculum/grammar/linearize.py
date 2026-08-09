@@ -621,6 +621,25 @@ class Grammar:
         assert src is not None and goal is not None
         return f"{self.lin(src, ctx)} → {self.lin(goal, ctx)}"
 
+    def lin_Modified(self, node: Node, ctx: FS) -> str:
+        """A head with a phrase attached. No separator — it is not a label.
+
+        The modifier follows its head in nearly every language that has the
+        construction at all, including the ones that put *adjectives* first:
+        German says *das Buch auf dem Tisch*, not the reverse. It is the same
+        asymmetry that puts a relative clause after its noun, so it follows the
+        adposition parameter rather than the adjective one.
+        """
+        head = node.arg("head")
+        assert head is not None
+        modifiers = [self.lin(m, ctx) for m in node.all_args("mod")]
+        rendered = self.lin(head, ctx)
+        if not modifiers:
+            return rendered
+        parts = [rendered, *modifiers]
+        return self.join(parts if self.order.adposition == "pre"
+                         else [*modifiers, rendered])
+
     def lin_FnApp(self, node: Node, ctx: FS) -> str:
         """Notation stays notation, in every script."""
         inner = self.typography.arg_separator.join(

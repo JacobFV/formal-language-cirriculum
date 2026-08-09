@@ -40,7 +40,7 @@ from .features import EMPTY, FS
 from .frames import REPORTING, SPATIAL_FRAME, Frame, frame_for
 from .syntax import (
     Arg, Node, adj, coord, cond, compare, enumerated, fn_app, indexed,
-    labelled, lex, mapping, mk_ap, mk_cn, mk_np, negate, noun, pred_attr,
+    labelled, lex, mapping, mk_ap, mk_cn, mk_np, modified, negate, noun, pred_attr,
     pred_ident, pred_rel, pred_rel3, quant, sym, text_block, verb,
 )
 
@@ -329,7 +329,10 @@ def _build_spatial(head: str, frame: Frame, args: list[Term]) -> Node:
     """A relation used as a modifier: *to the left of the red cube*."""
     target = _as_np(args[1].value, det="def", adjectives=[_str(args[0])]) \
         if len(args) > 1 else sym("—")
-    return labelled(lex(V, frame.lemma or head), target)
+    # a relation and the thing it relates to, not a label and a value: as a
+    # Labelled it acquired the data-row separator and Spanish read
+    # "a la izquierda: el prisma"
+    return modified(lex(V, frame.lemma or head), target)
 
 
 def _build_indexed(head: str, frame: Frame, args: list[Term]) -> Node:
@@ -476,7 +479,7 @@ _QUERY_BODY = {
     "which": lambda a: _as_np(a[1].value, det="def", adjectives=[_str(a[0])]),
     "which_object": lambda a: _as_np(a[0].value, det="def"),
     "find": lambda a: _as_np(a[0].value, det="def"),
-    "the": lambda a: _as_np(a[-1].value, det="def", adjectives=[_str(a[0])]),
+    "the": lambda a: _described(a),
     "accept": lambda a: pred_attr(_string_np(a[0]), adj("accepted")),
     "balanced": lambda a: pred_attr(_the("string"), adj("balanced")),
     "palindrome": lambda a: pred_attr(_the("string"), adj("palindrome")),
@@ -484,6 +487,18 @@ _QUERY_BODY = {
     "at": lambda a: labelled(_label("symbol at position"), compile_term(a[0])),
     "refers_to": lambda a: labelled(_label("referent of"), compile_term(a[0])),
 }
+
+
+def _described(args: list[Term]) -> Node:
+    """``(the purple (left_of purple prism))`` — a thing picked out by a relation.
+
+    The last argument is a *modifier clause*, not a noun. Reading ``.value`` off
+    a composite term hands back the raw tuple, and ``('left_of', purple, prism)``
+    was reaching the page in every language.
+    """
+    head = _as_np("object", det="def", adjectives=[_str(args[0])])
+    modifiers = [compile_term(a) for a in args[1:]]
+    return modified(head, *modifiers) if modifiers else head
 
 
 def _the(lemma: str) -> Node:

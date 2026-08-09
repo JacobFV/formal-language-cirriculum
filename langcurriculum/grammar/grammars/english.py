@@ -140,7 +140,9 @@ class English(VocabularyGrammar):
         inner = self.lin(body, ctx)
         if body.fn in ("PredAttr", "PredIdent", "PredRel", "PredLoc"):
             return self.join([wh, inner])
-        return self.join([wh, "is the", inner])
+        # the body may already carry its own determiner
+        article = "" if inner.split(" ", 1)[0].lower() == "the" else "the"
+        return self.join([wh, "is", article, inner])
 
     def lin_YNQ(self, node: Node, ctx: FS) -> str:
         """English fronts an auxiliary rather than appending a particle.

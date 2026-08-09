@@ -191,7 +191,11 @@ class VocabularyGrammar(Grammar):
             form = entry.form
             # the screen the derived grammars apply: a table sometimes answers a
             # one-word question with an explanation rather than a word
-            if form.count(" ") > 1 or "'" in form or form == key:
+            # the same screen the closed class applies. An affix is not a word:
+            # Turkish has a locative case rather than a preposition and offers
+            # "-da" for *at*, which was printed as its own token.
+            if (form.count(" ") > 1 or "'" in form or form == key
+                    or form.startswith("-") or form.endswith("-")):
                 continue
             candidates[key] = form
 
