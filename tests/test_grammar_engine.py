@@ -2391,3 +2391,68 @@ def test_the_english_round_is_gone_from_the_output(code):
             continue
         assert not pattern.search(language.render(term)), \
             f"{code}/{lesson_id}: still says 'round'"
+
+
+# ======================================================================
+# the first row is not the first usable row
+# ======================================================================
+@needs_db
+@pytest.mark.parametrize("code,word,pos", [
+    ("fra", "step", "V"), ("deu", "act", "V"), ("rus", "act", "V"),
+    ("nld", "act", "V"), ("ita", "add", "V"),
+])
+def test_a_rejected_first_row_does_not_end_the_lookup(code, word, pos):
+    """French lists "faire un pas" first for *step* as a verb.
+
+    Three words, an explanation rather than a lexeme, so the screen rejects it
+    — and the lookup then returned nothing while *marcher* and *pas* sat in
+    the same table untried. Sixty-five word-and-part-of-speech pairs went that
+    way in French alone. The closed class has chosen the first *usable* row
+    since French put "ne … pas" ahead of *pas*; the open class read one row.
+    """
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    assert grammar._best_form(word, pos), f"{code}: {word!r} has a usable row"
+
+
+@needs_db
+@pytest.mark.parametrize("code", ["fra", "deu", "rus", "spa", "nld", "hin"])
+def test_the_collision_detector_picks_the_row_the_renderer_will(code):
+    """Both choose the first usable row, or they disagree about the output.
+
+    A detector that reads a different row than the renderer agrees with itself
+    and misses the collision a reader sees. The two counts of coverage are the
+    standing check on that, and this is the one that would have caught the
+    change to the lookup on its own.
+    """
+    from langcurriculum.grammar.compile import curriculum_vocabulary
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    assert grammar._curriculum_coverage() == sum(
+        1 for k in curriculum_vocabulary() if grammar.knows(k))
+
+
+@needs_db
+def test_a_newly_visible_collision_is_refused_like_any_other():
+    """French *pas* is both the negator and a step.
+
+    The two could not collide while the negator's first row was "ne … pas",
+    which the detector took at face value and the renderer rejected. Screening
+    both the same way makes the ambiguity visible for the first time, and it
+    is a real one: a scene saying *pas* would leave a reader unable to tell
+    negation from a footstep.
+
+    The negator keeps the word — it is a closed-class slot, chosen before any
+    of this and not by lookup — and the noun falls back to English, so the two
+    stay distinguishable, which is the whole object.
+    """
+    grammar = DerivedGrammar(LanguageDB(), "fra")
+    assert grammar._best_form("not", "") == "pas"
+    assert grammar._best_form("step", "N") == "pas"
+    assert "step" in grammar._ambiguous
+    assert grammar.cw("not") == "pas", "the negator must keep its word"
+    assert grammar.word("step", "N") == "step"

@@ -374,29 +374,33 @@ class DerivedGrammar(Grammar):
         # part of speech the language has no row for returns the untyped best
         # row instead. A detector that skipped that fallback disagreed with the
         # renderer and passed while Dutch still merged *behind* and *back*.
-        best_any: dict[str, str] = {}
+        # Exactly what `_best_form` will choose, computed once for the whole
+        # probe set. Mirroring the lookup is the point: a detector that picks a
+        # different row than the renderer agrees with itself and misses the
+        # collision the reader sees.
+        rows: dict[str, list] = {}
         for row in self.db.conn.execute(
-                f"SELECT key, form, MIN(rank) FROM sense "
-                f"WHERE code=? AND key IN ({marks}) GROUP BY key",
+                f"SELECT key, pos, form FROM sense "
+                f"WHERE code=? AND key IN ({marks}) ORDER BY rank",
                 (self.code, *probes)):
-            if row["form"]:
-                best_any[row["key"]] = row["form"]
-        best_pos: dict[tuple[str, str], str] = {}
-        for row in self.db.conn.execute(
-                f"SELECT key, pos, form, MIN(rank) FROM sense "
-                f"WHERE code=? AND key IN ({marks}) AND pos<>'' "
-                f"GROUP BY key, pos", (self.code, *probes)):
-            if row["form"]:
-                best_pos[(row["key"], row["pos"])] = row["form"]
+            rows.setdefault(row["key"], []).append((row["pos"] or "", row["form"]))
 
-        # What the reader actually sees, which is the translation if there is
-        # one and the English spelling if there is not. Comparing translations
-        # only to each other missed the case that a translation can collide
-        # with a word that passes through: Dutch for *minus* is "min", and
-        # `min` is itself a function a lesson names, so both printed as "min".
+        def best(key: str, pos: str) -> str:
+            listed = rows.get(key) or rows.get(probe_form(key)) or []
+            for entry_pos, form in listed:
+                if pos and entry_pos and entry_pos != pos:
+                    continue
+                if self._speakable(form, key):
+                    return form
+            if not pos:
+                return ""
+            for _entry_pos, form in listed:
+                if self._speakable(form, key):
+                    return form
+            return ""
+
         def effective(key: str, pos: str) -> str:
-            form = best_pos.get((key, pos)) if pos else None
-            return (form or best_any.get(key) or key).lower()
+            return (best(key, pos) or key).lower()
 
         # Predicate heads reach the page through their gloss, so they are
         # invisible to a pass over lexicon keys. Group them BY gloss: `imp` and
@@ -661,23 +665,61 @@ class DerivedGrammar(Grammar):
         gloss = PREDICATE_GLOSS.get(lemma)
         if gloss is not None and gloss != lemma:
             return ""
-        entry = self._entry(lemma, pos)
-        form = entry.form if entry is not None else ""
-        # A translation table sometimes answers with a gloss rather than a word
-        # — English *turn* came back as "be one's turn". A multi-word answer to
-        # a *single-word* question is an explanation, not a lexeme. The test is
-        # applied here, to what the dictionary said, and not to what composition
-        # later builds: a phrase composed token by token is legitimately several
-        # words, and screening it by the same rule threw away every translation
-        # it produced.
-        if " " not in lemma and form and (form.count(" ") > 1 or "'" in form):
+        return self._best_form(lemma, pos)
+
+    # ---- choosing among what the dictionary offers ------------------------
+    @staticmethod
+    def _speakable(form: str, lemma: str) -> bool:
+        """Whether a dictionary answer is a word this engine can print.
+
+        Three ways it is not, each of which produced a visible defect. A
+        **gloss** rather than a word: English *turn* came back "be one's turn",
+        and a multi-word answer to a single-word question is an explanation.
+        An **affix**: Finnish offered "-lla" for *at* and it was printed as its
+        own token. And **nothing at all**.
+
+        Applied to what the dictionary said, never to what composition later
+        builds: a phrase assembled token by token is legitimately several
+        words, and screening it by this rule threw away every translation it
+        produced.
+        """
+        if not form or _is_affix(form):
+            return False
+        return not (" " not in lemma and (form.count(" ") > 1 or "'" in form))
+
+    def _candidates(self, lemma: str) -> list:
+        """Every row the dictionary has, in the order it ranked them."""
+        rows = self.db.lookup_all(self.code, lemma)
+        if rows:
+            return rows
+        citation = probe_form(lemma)
+        return self.db.lookup_all(self.code, citation) if citation != lemma else []
+
+    def _best_form(self, lemma: str, pos: str) -> str:
+        """The first usable row, preferring the part of speech asked for.
+
+        The first *row* is not the first usable one, and taking it and giving
+        up is how French lost a word it has. Its top row for *step* as a verb
+        is "faire un pas" -- three words, an explanation rather than a lexeme,
+        so the screen rejected it and the lookup returned nothing, while
+        *marcher* and *pas* sat in the same table untried. Sixty-five word and
+        part-of-speech pairs went that way in French alone.
+
+        The closed class has chosen this way since French put *ne ... pas*
+        ahead of *pas* for `not`; the open class read one row.
+        """
+        rows = self._candidates(lemma)
+        for entry in rows:
+            if pos and entry.pos and entry.pos != pos:
+                continue
+            if self._speakable(entry.form, lemma):
+                return entry.form
+        if not pos:
             return ""
-        # An affix is not a word. The closed class and the import have refused
-        # these since Finnish offered "-lla" for *at* and it was printed as its
-        # own token; the open class never applied the same rule, so Arabic put
-        # a bare *كَ-* in a scene and Korean a bare *-기다*.
-        if _is_affix(form):
-            return ""
+        for entry in rows:
+            if self._speakable(entry.form, lemma):
+                return entry.form
+        return ""
         return form
 
     def _first_usable(self, english: str, pos: str = "") -> str:
