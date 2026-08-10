@@ -49,6 +49,18 @@ _PLURAL_RULES: tuple[tuple[str, int, str], ...] = (
 _AUXILIARIES = (" is ", " are ", " was ", " were ", " has ", " have ")
 
 
+#: Words that make what follows a clause rather than a noun phrase. English
+#: only, and a heuristic: the tree cannot say, because a query head spelled
+#: out is one lexical item however many words it holds.
+_FINITE = frozenset({"is", "are", "was", "were", "has", "have", "had",
+                     "should", "can", "must", "will", "would", "do", "does"})
+
+
+def _is_clause(text: str) -> bool:
+    words = text.lower().split()
+    return bool(words) and (words[0] in _FINITE or any(w in _FINITE for w in words[1:]))
+
+
 class English(VocabularyGrammar):
     """English prose. The reference grammar and the regression baseline."""
 
@@ -138,6 +150,14 @@ class English(VocabularyGrammar):
         wh = self.cw(key, "what")
         inner = self.lin(body, ctx)
         if body.fn in ("PredAttr", "PredIdent", "PredRel", "PredLoc"):
+            return self.join([wh, inner])
+        if _is_clause(inner):
+            # A label spelled out from a query head is a `Lex` whatever its
+            # words say, so the shape of the tree does not tell a phrase from
+            # a clause and the words have to. "which_claim_is_causal" asks
+            # "which claim is causal", and putting a copula in front of it
+            # gave "which is the claim is causal" -- two verbs and an article
+            # nothing needs.
             return self.join([wh, inner])
         # the body may already carry its own determiner
         article = "" if inner.split(" ", 1)[0].lower() == "the" else "the"
