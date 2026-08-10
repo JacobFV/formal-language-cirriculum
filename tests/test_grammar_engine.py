@@ -3156,3 +3156,31 @@ def test_a_noun_asked_for_without_a_case_comes_back_unmarked(code, lemma, expect
     plain = grammar.inflect("N", lemma, FS({NUM: "pl"}))
     assert plain == expected
     assert plain == grammar.inflect("N", lemma, FS({NUM: "pl", CASE: "nom"}))
+
+
+@needs_db
+@pytest.mark.parametrize("code,lemma,expected", [
+    ("est", "arv", "arvad"), ("lav", "koks", "koki"),
+])
+def test_an_analogical_plural_is_the_nominative_one(code, lemma, expected):
+    """These lemmas have no paradigm at all, so a learned rule answers.
+
+    A rule learned from nominative cells records CASE:nom, and a request that
+    named no case rejected it for saying more than was asked -- while a rule
+    learned from datives survived whenever its case tag failed to parse and
+    left the cell looking like a plain plural. Latvian answered "kokiem",
+    Estonian invented "arvateni".
+
+    So a request with no case admits the nominative rule and prefers it, and
+    still refuses every other case. Sixteen of eighty-eight words were wrong
+    this way; one is.
+    """
+    from langcurriculum.grammar.category import CASE, NUM
+
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    assert not db.paradigm(code, lemma), "the point of this test is that it has none"
+    assert grammar.inflect("N", lemma, FS({NUM: "pl"})) == expected
+    assert grammar.inflect("N", lemma, FS({NUM: "pl", CASE: "nom"})) == expected

@@ -358,20 +358,40 @@ class DataMorphology(Morphology):
         only number — and falls back to the latter when the language does not
         distinguish them.
         """
-        best, best_matched, best_extra = None, -1, 10 ** 6
+        # A request that names no case still means the unmarked one, and a
+        # rule learned from nominative cells records `CASE:nom` -- so it was
+        # rejected for saying something the request did not, while a rule
+        # learned from datives survived whenever its case tag failed to parse
+        # and left the cell looking like a plain plural. Latvian answered
+        # "kokiem", Estonian invented "arvateni". The nominative is admitted
+        # here and preferred below; every other case still needs asking for.
+        wants_case = feats.get_atom(CASE)
+        best, best_key = None, (-1, -1, -(10 ** 6))
         for tags, paradigm in self.rules.items():
             cell = paradigm.cell
             if not cell:
                 continue
-            if any(feats.get_atom(k) != v for k, v in cell.items()):
+            unmarked = 0
+            mismatch = False
+            for k, v in cell.items():
+                if k is CASE and wants_case is None:
+                    if v != "nom":
+                        mismatch = True
+                    else:
+                        unmarked = 1
+                    continue
+                if feats.get_atom(k) != v:
+                    mismatch = True
+            if mismatch:
                 continue
             matched = len(cell)
             # extra tags are dimensions the request said nothing about — a
             # possessive, an evidential, a definiteness the caller did not ask
             # for. Fewer of them means a cell closer to what was actually asked.
             extra = len(tags) - matched
-            if (matched, -extra) > (best_matched, -best_extra):
-                best, best_matched, best_extra = paradigm, matched, extra
+            key = (matched, unmarked, -extra)
+            if key > best_key:
+                best, best_key = paradigm, key
         return best
 
     # ---- the interface ------------------------------------------------
