@@ -54,7 +54,7 @@ def gen_dsl_invention(rng: random.Random):
     obs = Rec(primitives=Lst([Ident(p) for p in prims]),
               tasks=Lst([Lst([Tok(t) for t in seq]) for seq in tasks]),
               dsls=Lst(_shuffled(rng, dsls)),
-              cost_rule=Pred("cost", Ident("one_per_written_token")),
+              cost_rule=Pred("cost", Pred("one_per_written_token")),
               query=Ident("fewest_tokens_for_all_tasks"))
     return obs, _shuffled(rng, ids), answer, {"costs": costs, "n_tasks": len(tasks)}
 

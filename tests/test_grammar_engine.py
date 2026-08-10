@@ -3087,3 +3087,38 @@ def test_a_han_entry_is_one_writing_wherever_it_is_read_from():
     grammar = GRAMMARS["chinese"]
     for key in ("threshold", "book"):
         assert " " not in grammar.word(key, "N"), key
+
+
+def test_a_rule_is_stated_as_a_sentence_not_named_as_one():
+    """A rule the observation states has to be readable, in any language.
+
+    They were `Ident`s, and an `Ident` is a name that passes through
+    untouched, so the page carried
+    "a_theory_is_lossless_iff_it_predicts_every_observation_exactly" -- not a
+    sentence in English either, and verbatim English in the other four
+    hundred languages. Written as a headed term with no arguments they take
+    the label path and are rendered a word at a time.
+
+    Coined symbols are exempt and must stay exempt: the nonce triggers of
+    predicate_logic and the option labels every lesson matches its answer
+    against are identifiers on purpose, and spelling `opt_a` out as "opt a"
+    would break grading, not just reading.
+    """
+    import re
+
+    import langcurriculum as lc
+
+    prose = re.compile(r"\b[a-z]+(?:_[a-z]+){3,}\b")
+    offenders: dict[str, list[str]] = {}
+    for lesson_id in lc.lesson_ids():
+        try:
+            text = lc.get(lesson_id).example(0).observation
+        except Exception:
+            continue
+        for line in text.splitlines():
+            if "rule" not in line.lower():
+                continue
+            found = prose.findall(line)
+            if found:
+                offenders.setdefault(lesson_id, []).extend(found[:2])
+    assert not offenders, f"rules stated as identifiers: {offenders}"

@@ -39,7 +39,7 @@ def gen_strategy_discovery(rng: random.Random):
     vocab = [f"take_{m}" for m in moves] + ["none"]
 
     obs = Rec(rules=Lst([Pred("may_remove", Num(m)) for m in moves]
-                        + [Pred("outcome", Ident("player_taking_last_token_wins"))]),
+                        + [Pred("outcome", Pred("player_taking_last_token_wins"))]),
               solved_instances=Lst(_shuffled(rng, [Pred("instance", Num(k), Ident(a))
                                                    for k, a in shown])),
               query=Pred("winning_move_at", Num(q)))

@@ -83,10 +83,10 @@ def gen_question_generation(rng: random.Random):
         rng.shuffle(facts)
         obs = Rec(
             facts=Lst(facts),
-            rules=Lst([Pred("rule", Ident("each_person_is_in_exactly_one_room")),
-                       Pred("rule", Ident("no_two_people_share_a_room")),
-                       Pred("rule", Ident("each_room_contains_exactly_one_box")),
-                       Pred("rule", Ident("no_box_is_in_two_rooms"))]),
+            rules=Lst([Pred("rule", Pred("each_person_is_in_exactly_one_room")),
+                       Pred("rule", Pred("no_two_people_share_a_room")),
+                       Pred("rule", Pred("each_room_contains_exactly_one_box")),
+                       Pred("rule", Pred("no_box_is_in_two_rooms"))]),
             goal=Pred("colour_of_box_in_room_of", Ident(target)),
             questions=Lst([Pred("question", Ident(lab), Ident(q[0]), Ident(q[1]))
                            for lab, q in zip(labels, opts)]),

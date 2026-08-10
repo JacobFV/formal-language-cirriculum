@@ -44,9 +44,9 @@ def gen_belief_state(rng: random.Random):
                          for i in range(1, n_moves + 1)]),
               witnesses=Lst(_shuffled(rng, [Pred("witnessed_upto", Ident(g), Num(h))
                                             for g, h in horizon.items()])),
-              rules=Lst([Pred("rule", Ident("believes"), Ident("last_move_witnessed")),
+              rules=Lst([Pred("rule", Ident("believes"), Pred("last_move_witnessed")),
                          Pred("rule", Ident("believes_that_believes"),
-                              Ident("min_of_both_horizons"))]),
+                              Pred("min_of_both_horizons"))]),
               query=query)
     return obs, _shuffled(rng, locs), answer, {"kind": kind, "sequence": seq,
                                                "horizons": {k: v for k, v in horizon.items()},
