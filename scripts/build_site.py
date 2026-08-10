@@ -228,7 +228,7 @@ def lesson_page(lesson_id: str, codes: list[str], n: int, depth: int,
                         '<span class="v acc" data-lang-label>english</span>')
     top = (f'<header class="top">'
            f'<label class="burger" for="navtoggle" title="lessons">&#9776;</label>'
-           f'<span class="field"><label class="q" for="langsel">language</label>'
+           f'<span class="field wide"><label class="q" for="langsel">language</label>'
            f'{_select(codes, codes[0])}</span>'
            f'<span class="grow"></span>'
            f'<span class="here">'

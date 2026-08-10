@@ -259,3 +259,31 @@ def test_the_graph_is_reachable_by_clicking_rather_than_by_typing_a_url(site):
         assert f'href="graph/{name}.html"' in index, name
     lesson = (site / "lessons" / "analogy.html").read_text(encoding="utf-8")
     assert 'href="../graph/' in lesson
+
+
+def test_the_burger_is_a_real_touch_target_on_a_narrow_screen(site):
+    """It was 15px tall and flat against the top edge.
+
+    The top bar wraps on a narrow screen, and a stretched flex item alone on a
+    row is only as tall as its glyph, so the burger collapsed to its font size.
+    """
+    css = (site / "style.css").read_text(encoding="utf-8")
+    burger = css.split("label.burger {", 1)[1].split("}", 1)[0]
+    assert "min-height" in burger, "the burger has no height of its own"
+    assert int(burger.split("min-height:")[1].split("px")[0].strip()) >= 44
+
+
+def test_the_language_control_can_use_the_width_the_page_has(site):
+    css = (site / "style.css").read_text(encoding="utf-8")
+    assert "header.top .field.wide" in css
+    assert "max-width: 300px" not in css, "the select was pinned to a fixed width"
+    page = (site / "lessons" / "analogy.html").read_text(encoding="utf-8")
+    assert 'class="field wide"' in page
+
+
+def test_the_sidebar_scrolls_with_the_sites_own_scrollbar(site):
+    """An OS scrollbar through a page of hairlines reads as a seam."""
+    css = (site / "style.css").read_text(encoding="utf-8")
+    assert "scrollbar-width: thin" in css                     # Firefox
+    assert "aside.side::-webkit-scrollbar" in css             # WebKit
+    assert ".dagwrap::-webkit-scrollbar" in css               # and the graph canvas

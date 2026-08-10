@@ -83,6 +83,27 @@ aside.side {
   position: sticky; top: 0; height: 100vh; overflow-y: auto;
   display: flex; flex-direction: column; z-index: 20;
 }
+/* A square hairline scrollbar rather than the platform's rounded one: the rest
+   of the page is hairlines and right angles, and an OS scrollbar through the
+   middle of it reads as a seam. Firefox takes the two-property form and WebKit
+   the pseudo-elements, so both are given and neither falls back. */
+aside.side, .dagwrap {
+  scrollbar-width: thin; scrollbar-color: var(--hair) transparent;
+}
+aside.side::-webkit-scrollbar, .dagwrap::-webkit-scrollbar { width: 10px; height: 10px; }
+aside.side::-webkit-scrollbar-track { background: var(--side); }
+.dagwrap::-webkit-scrollbar-track { background: transparent; }
+aside.side::-webkit-scrollbar-thumb {
+  background: var(--hair); border: 3px solid var(--side); border-radius: 0 !important;
+}
+.dagwrap::-webkit-scrollbar-thumb {
+  background: var(--hair); border: 3px solid var(--bg); border-radius: 0 !important;
+}
+aside.side:hover::-webkit-scrollbar-thumb,
+.dagwrap:hover::-webkit-scrollbar-thumb { background: var(--faint); }
+aside.side::-webkit-scrollbar-corner, .dagwrap::-webkit-scrollbar-corner {
+  background: transparent;
+}
 aside .brand {
   padding: 13px 16px 11px; border-bottom: 1px solid var(--rule);
   position: sticky; top: 0; background: var(--side); z-index: 1;
@@ -117,9 +138,14 @@ aside .pad { flex: 1 1 auto; min-height: 30px; }
 /* ---- hamburger -------------------------------------------------------- */
 .navtoggle { position: absolute; opacity: 0; pointer-events: none; }
 label.burger {
-  display: none; align-items: center; padding: 0 15px; cursor: pointer;
+  display: none; align-items: center; justify-content: center;
+  padding: 0 15px; cursor: pointer;
   border-right: 1px solid var(--hair); font-family: var(--mono); font-size: 15px;
   line-height: 1; user-select: none;
+  /* Its own height, not the header's. The top bar wraps on a narrow screen, and
+     a stretched item alone on a row is only as tall as its glyph -- which put
+     the burger flat against the top edge and made it a 15px touch target. */
+  min-height: 46px; flex: 0 0 auto;
 }
 label.burger:hover { background: var(--fg); color: var(--bg); }
 label.scrim { display: none; }
@@ -130,8 +156,13 @@ header.top {
   border-bottom: 1px solid var(--rule); display: flex; align-items: stretch;
   flex-wrap: wrap;
 }
-header.top form.picker { display: flex; align-items: stretch; flex-wrap: wrap; }
-header.top .field { display: flex; align-items: center; border-right: 1px solid var(--hair); }
+header.top form.picker { display: flex; align-items: stretch; flex-wrap: wrap;
+                        flex: 1 1 auto; min-width: 0; }
+header.top .field { display: flex; align-items: center; min-height: 46px;
+                    border-right: 1px solid var(--hair); min-width: 0; flex: 0 1 auto; }
+/* the language list holds the longest names, so it gets the slack */
+header.top .field.wide { flex: 1 1 240px; }
+header.top .field select { flex: 1 1 auto; min-width: 0; }
 header.top label.q {
   font-family: var(--mono); font-size: 9.5px; text-transform: uppercase;
   letter-spacing: .16em; color: var(--faint); padding: 0 9px 0 15px;
@@ -139,7 +170,7 @@ header.top label.q {
 select, input[type=number] {
   font-family: var(--mono); font-size: 12.5px; color: var(--fg);
   background: transparent; border: 0; padding: 11px 14px 11px 0;
-  max-width: 300px; cursor: pointer;
+  max-width: 100%; min-width: 0; cursor: pointer; text-overflow: ellipsis;
 }
 select:focus, input:focus { outline: 2px solid var(--accent); outline-offset: -2px; }
 button {
@@ -247,6 +278,11 @@ table.cmp tr:hover td { background: var(--code-bg); }
   }
   .navtoggle:checked ~ .app aside.side { transform: none; }
   label.burger { display: flex; }
+  header.top { min-height: 46px; }
+  /* the readout wraps to its own full-width row rather than squeezing the
+     controls it sits beside */
+  header .here { border-left: 0; width: 100%; margin-left: 0; padding: 7px 18px;
+                 border-top: 1px solid var(--hair); }
   .navtoggle:checked ~ .app label.scrim {
     display: block; position: fixed; inset: 0; z-index: 15;
     background: rgba(0,0,0,.42);
@@ -393,7 +429,7 @@ def _plain_select(name: str, chosen: str, options) -> str:
 def _topbar(action: str, code: str, *, n: int | None = None, extra: str = "",
             readout: str = "", cur: str = DEFAULT_CURRICULUM,
             fmt: str = "", surface: str = "") -> str:
-    fields = (f'<span class="field"><label class="q">language</label>'
+    fields = (f'<span class="field wide"><label class="q">language</label>'
               f'{_select("lang", code)}</span>'
               f'<span class="field"><label class="q">curriculum</label>'
               f'{_plain_select("cur", cur, curriculum_ids())}</span>')
@@ -714,7 +750,7 @@ def _graph_svg(cur: str, href=None) -> str:
 
 
 GRAPH_STYLE = """
-.dagwrap { overflow: auto; border: 1px solid var(--rule); border-radius: 8px;
+.dagwrap { overflow: auto; border: 1px solid var(--rule);
   background: var(--panel); padding: 4px; }
 svg.dag { display: block; }
 .dag-edge { fill: none; stroke: var(--faint); stroke-width: 1; opacity: .4; }
