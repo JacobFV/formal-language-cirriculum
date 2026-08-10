@@ -1,6 +1,6 @@
 # langcurriculum
 
-**A language curriculum for text agents: 170 lessons, procedurally generated, exactly graded.**
+**A formal language curriculum: 180 lessons, procedurally generated, exactly graded — a generator of unbounded synthetic data for developing and evaluating symbolic AI.**
 
 "Language ability" is not one number obtained by predicting tokens. It is a profile over
 capabilities that build on each other — reference, equivalence, discrimination, sequence
@@ -9,7 +9,7 @@ quantification, compositional reference — and upward from there through causal
 construction, scientific induction, proof, argument, institution design, self-modeling and
 value inference.
 
-This package is that profile, as 170 numbered lessons you can run anything against.
+This package is that profile, as 180 lessons you can run anything against — and, more to the point, an unbounded generator you can draw training data from. What it is *for* is stated in [INTENT.md](INTENT.md); the short version is that the question being asked is always whether a system has internalized the **structure** of a problem or only the **surface** it was shown in.
 
 Every lesson is a **generator, not a dataset**. An episode is a pure function of a seed:
 the vocabulary is invented per episode, the grammar or ontology or proof calculus is
@@ -22,9 +22,12 @@ anyone. Two things follow, and they are the reason the resource exists:
   knowing nothing get?" is computable per lesson — and an accuracy is never reported
   without it.
 
-Episodes are **English prose by default**. The language an episode is read in is a
-parameter of the resource, not a formatting option, and everything crossing the API is
-plain text or plain data. Point it at anything that maps a string to a string.
+Episodes are **English prose by default**. How an episode is presented — the language, the
+answer format, the modality — is a parameter of the resource, not a formatting option.
+Lessons themselves are **flat**: they carry no number and no section, because ordering is
+the business of a `Curriculum`, of which there are several, overlapping and disagreeing.
+Everything crossing the API is plain text or plain data. Point it at anything that maps a
+string to a string.
 
 Browsable curriculum, with 100 sample episodes per lesson:
 **[jacobfv.github.io/language-curriculum](https://jacobfv.github.io/language-curriculum/)**
@@ -135,13 +138,21 @@ the one field you must not feed to a model you then intend to evaluate.
 ## On the command line
 
 ```bash
-langcurriculum ls                                # every lesson
-langcurriculum ls --sections                     # the 18 sections
+langcurriculum ls                                # every lesson, flat
+langcurriculum ls -c progressive                 # ... in a curriculum's order
+langcurriculum curricula                         # the curricula that ship
+langcurriculum curricula progressive             # one, with several flattenings
 langcurriculum languages                         # the languages that ship
+langcurriculum surfaces                          # the modalities, and what each guarantees
 langcurriculum show unification -n 3             # a lesson and some episodes
 langcurriculum show quantification -L symbols    # ... in another language
+langcurriculum show analogy -F labelled_label    # ... with lettered options
+langcurriculum show analogy -S spoken            # ... as it would be read aloud
+langcurriculum structure unification             # the episode's tree, not its rendering
+langcurriculum splits -c progressive             # compositional train/eval splits
 langcurriculum export train.jsonl -n 500         # a dataset
 langcurriculum verify                            # re-measure every lesson's floor
+langcurriculum verify -S spoken                  # ... and whether dictation keeps it answerable
 langcurriculum eval mypkg.agents:answer -n 20    # evaluate module:function
 langcurriculum eval random -n 25                 # evaluate the floor itself
 ```
@@ -491,41 +502,37 @@ between episodes except the ability.
 
 ## What is in it
 
-170 numbered lessons across 17 sections, plus 10 supplementary syntax and semantics
-lessons outside the numbering:
+180 lessons, flat. They used to be 170 numbered ones across 17 sections plus 10
+supplementary; that ordering still exists, but as a *curriculum* rather than as a property
+of the lessons:
 
-| | section | lessons |
-|---|---|---|
-| i | symbols, grounding, and elementary language | 11 |
-| ii | compositional semantics and logical language | 8 |
-| iii | language as action | 21 |
-| iv | analogy, causality, planning, and programs | 20 |
-| v | ontology and representation | 7 |
-| vi | scientific induction and model discovery | 13 |
-| vii | mathematics and formal reasoning | 13 |
-| viii | epistemics, argument, and teaching | 9 |
-| ix | problem formulation and hierarchical agency | 12 |
-| x | reflective computation and language design | 6 |
-| xi | protocols, institutions, and distributed intelligence | 10 |
-| xii | history, narrative, perspective, and identity | 4 |
-| xiii | self-modeling and architecture adaptation | 11 |
-| xiv | open-ended epistemology | 11 |
-| xv | values and goal cognition | 6 |
-| xvi | civilization-scale symbolic learning | 4 |
-| xvii | ultimate transfer and open-world capstones | 4 |
-| — | supplementary syntax and semantics | 10 |
+| curriculum | nodes | edges | what it claims |
+|---|---|---|---|
+| `canonical` | 180 | 0 | every lesson in the order the package used to declare them |
+| `core170` | 170 | 0 | the original numbered sequence, exactly |
+| `supplementary` | 10 | 0 | the lessons that sat outside that sequence |
+| `everything` | 180 | 0 | alphabetical — the null opinion |
+| `progressive` | 180 | 249 | edges **derived** from the declared difficulty axes |
+| `tag:<name>` | — | 0 | built on demand from what lessons declare |
+| `capability:<name>` | — | 0 | built on demand from what lessons declare |
 
-Every lesson declares its level, its section, its capability tags, and its position on
+Only `progressive` has edges, and they are derived rather than authored: `X → Y` when Y is
+at least as demanding as X on every declared axis and strictly more on one, and the two
+share a tag or capability. Hand-writing 169 prerequisites would have been inventing
+structure nobody measured. A derived relation is auditable, and wrong in ways someone can
+point at.
+
+Every lesson declares its level, its tags, its capability tags, and its position on
 eight difficulty axes — `lexical_novelty`, `grammar_complexity`, `recursion_depth`,
 `compositional_depth`, `discourse_horizon`, `world_complexity`, `ambiguity`,
 `reasoning_depth` — so a result is a profile rather than a single score.
 
 ### Coverage, honestly
 
-- **170** numbered lessons. All 170 are in the registry, in **5 hand-written
+- **170** lessons in `core170`. All 170 are in the registry, in **5 hand-written
   languages** — English, Spanish, Chinese, Turkish, Swahili — plus a held-out-
   vocabulary English variant, and any of **411 more** assembled from the database.
-- **169** of them generate episodes. **1** — `#170 open_world_research_agent` — is
+- **169** of them generate episodes. **1** — `open_world_research_agent` — is
   `status="spec"` and deliberately raises rather than pretending. Its content is a *loop*
   (discover an ontology, theorize, design an experiment, run it, revise under criticism,
   report with provenance) whose score is a trajectory functional, not a function of one
@@ -545,27 +552,35 @@ eight difficulty axes — `lexical_novelty`, `grammar_complexity`, `recursion_de
 ```
 langcurriculum/
   lesson.py         Lesson, Example — what a lesson is and what an episode looks like
-  registry.py       lesson id -> class, plus section / capability / number views
+  registry.py       lesson id -> class, plus tag / capability views. No ordering.
+  context.py        what a generator is told: language, difficulty
+  presentation.py   language x answer format x surface — how an episode is shown
+  address.py        (lesson, seed, difficulty, presentation) -> bytes, and batch sampling
+  curricula/
+    graph.py        Curriculum, Node, linearize, layers, frontier, train_eval_split
+    core170.py      the orderings the package used to have, preserved exactly
+  surfaces/         the modalities an episode's text can be carried in
+    content.py      Content, Asset, Fidelity
+    font.py         a 5x7 bitmap font, so rasterizing needs nothing installed
+    raster.py       text -> PNG, deterministic, zero dependencies
+    spoken.py       text -> the transcript a dictation is read from
+    video.py        text -> a sequence of frames
   languages/        the registry, the shared realizer, and one module per pack
     base.py         Lexicon + the strategies a pack overrides
     lexicon.py      typed Vocabulary (gender, plural, classifier, agreement forms)
-    english.py  spanish.py  chinese.py  symbols.py
-    data/*.json     the shipped vocabularies
+    symbols.py      the s-expression notation
+  grammar/          the unification grammar engine and the language database
   evaluate.py       evaluate(), Report, LessonResult, floors and reference agents
-  dataset.py        JSONL export, seed splits
+  dataset.py        JSONL export, seed / presentation / compositional splits
   scoring.py        text reply -> score, without a second model to grade the first
-  verify.py         the admission test a lesson has to pass
-  cli.py            langcurriculum ls | show | export | verify | eval
+  verify.py         the admission test a lesson has to pass, per lesson and per surface
+  cli.py            langcurriculum ls | curricula | show | structure | export | verify | eval
   _structure.py     the internal representation (private; never crosses the API)
-  _support/         shared generator machinery, one module per section
-  lessons/
-    s01_symbols_and_grounding/
-      symbol_grounding.py         -> class SymbolGrounding
-      symbol_equivalence.py       -> class SymbolEquivalence
-      ...
-    s02_compositional_semantics/
+  generators/       shared generator machinery, grouped by the worlds it builds
+  lessons/          180 modules, flat
+    symbol_grounding.py           -> class SymbolGrounding
+    symbol_equivalence.py         -> class SymbolEquivalence
     ...
-    s18_supplementary/
 ```
 
 Each lesson module holds its generator and one class:
@@ -575,9 +590,8 @@ class Unification(Lesson):
     """Structural symbolic matching."""
 
     id = "unification"
-    number = 11
     level = 11
-    section = "i"
+    tags = ("symbols", "grounding", "elementary-language")
     teaches = "structural symbolic matching"
     capabilities = ()
     axes = {"compositional_depth": 3, "reasoning_depth": 3}
@@ -585,9 +599,85 @@ class Unification(Lesson):
     generate = staticmethod(gen_unification)
 ```
 
+There is no `number` and no `section`. A lesson that declared its own position would be a
+second source of truth about ordering, and it would eventually disagree with the first;
+a test asserts that none of them do.
+
 The registry is explicit — every class is imported by name — so what is in the curriculum
 is a fact you can read off the source tree, not the result of a directory scan that might
-quietly skip a file that failed to import.
+quietly skip a file that failed to import. A test checks the declared list against the
+directory, so a module can be neither silently skipped nor silently unlisted.
+
+## Curricula
+
+```python
+>>> import langcurriculum as lc
+>>> c = lc.curriculum("progressive")
+>>> c
+<Curriculum progressive: 180 nodes, 249 edges>
+>>> [n.lesson for n in c.linearize()][:3]
+['ambiguity_preservation', 'analogy', 'anytime_reasoning']
+>>> len({tuple(n.key for n in o) for o in c.linearizations(6)})   # many valid orders
+6
+>>> train, ev = c.train_eval_split("unification")   # everything upstream trains
+```
+
+A curriculum is a DAG over lessons. Several may draw on the same lessons and order them
+differently, which is the point — there was never one true order, and writing one onto the
+material made that impossible to say. Two things follow that a list cannot give you:
+
+- **Many flattenings.** `linearize()` returns a canonical one (the site and the samples
+  have to be reproducible); `linearizations()` enumerates alternatives, and every one of
+  them respects every edge.
+- **Compositional splits.** For any node, everything upstream is a training set and the
+  node itself is held out. The graph *is* a generator of compositional-generalization
+  tests — `lc.dataset.compositional_splits("progressive")`.
+
+## Presentation, and other modalities
+
+```python
+>>> lc.get("analogy").example(0, presentation="english/labelled_label").target
+'C'
+>>> lc.get("analogy").example(0, presentation="spanish/labelled_label").target
+'C'
+>>> from langcurriculum.surfaces import transcode_example
+>>> transcode_example(lc.get("analogy").example(0), "raster")
+<Content raster 300 chars, 1 assets, 1556B>
+```
+
+Replies are **open-form text**. Lessons that were multiple-choice write their options into
+the prompt body, and the answer format decides whether the expected reply reads `B`,
+`B: the red cube`, or `the red cube`. The answer set is still retained, because it is what
+makes the floor computable.
+
+The other surfaces are **transcodes**: a rasterized episode is a picture *of the sentence*,
+not a picture of the scene the sentence describes, and a dictated one is that same sentence
+read aloud. This is deliberate. Because the surface provably carries the same string, a
+system that answers correctly through one and not another has learned the surface — which
+is the measurement. Everything is procedural and rule-based; there is no model anywhere in
+the pipeline.
+
+| surface | what it produces | reproducibility |
+|---|---|---|
+| `text` | the string | exact, given the language database version |
+| `raster` | 8-bit greyscale PNG, bundled 5x7 font | exact, given `raster_v1` and the font |
+| `spoken` | the transcript a dictation is read from | exact; rule-based, no synthesis model |
+| `video` | a sequence of PNG frames | exact for the frames; containers are packaging |
+
+Transcoding does not change the answer set, so a lesson's floor carries over untouched.
+What a transcode *can* do is destroy the evidence — draw a glyph the font lacks, or read
+two distinct options as the same sound — and `verify -S <surface>` measures exactly that,
+by rendering real episodes rather than by declaring compatibility in a table.
+
+## Difficulty
+
+Eighteen lessons with an obvious structural knob accept a difficulty in `[0, 1]`, which
+scales scene size, recursion depth, sequence length or distractor count. `ls` marks them
+with `~`, and `Lesson.supports_difficulty()` answers it honestly for the rest — a knob that
+is accepted and ignored would be worse than none.
+
+With no difficulty given, a lesson generates exactly what it always did. That is enforced:
+the retrofit was checked episode-by-episode against output captured beforehand.
 
 ## Verification
 
@@ -652,6 +742,49 @@ the question. The evaluator can read it; the agent never sees it. That is what m
 ground truth exact instead of annotated: `quantification` chooses the truth value *first*
 and builds a scene to match, because sampling a scene and reading off the truth value makes
 most quantified statements false and lets a constant "no" score 0.73.
+
+## What this is for
+
+The long answer is [INTENT.md](INTENT.md). The short one:
+
+The curriculum exists to **autonomously develop and evaluate symbolic AI** — to supply
+unbounded synthetic problems of rising compositional complexity, and to measure whether a
+system has internalized the structure of a problem or only the surface it was shown in.
+
+Four measurements follow from that, and none of them needs a judge:
+
+- **Held-out presentation.** `dataset.held_out()` partitions any presentation axis. Train
+  on text and raster, evaluate on dictation; train on three hundred languages, evaluate on
+  a hundred unseen. Disjointness is by construction, never by sampling.
+- **Compositional splits.** `Curriculum.train_eval_split(node)` — everything upstream
+  trains, the node is held out.
+- **Agreement across renderings.** Every record carries an `instance_id` shared by every
+  presentation of the same episode. Ask whether the answers agree. No gold label required;
+  a system that internalized the structure is invariant, one that learned a surface is not.
+- **The structural probe.** `Lesson.structured()` and `metadata["hidden"]` carry the
+  generator's own construction — the tree, the grammar, the graph. Compare a recovered
+  structure against it exactly. A system can be right about the answer for surface reasons;
+  it cannot produce the right *tree* for surface reasons.
+
+Standing constraints, in case a future change is tempting: no machine-learned model
+anywhere in the pipeline; the core has no runtime dependencies; the dataset is never
+enumerated — `(lesson, seed, difficulty, presentation)` is a pure function to bytes, so
+object storage is a cache and not the store of record.
+
+## Drawing data without enumerating it
+
+```python
+>>> from langcurriculum.address import Space, batch
+>>> space = Space(lessons=tuple(lc.lesson_ids()), seeds=(0, 10**6))
+>>> len(space)
+180000000
+>>> [a.key() for a in batch(space, 0, 2)]
+['...', '...']
+```
+
+An infinite set cannot be shuffled, so a batch index is mapped to an address through a
+keyed bijection — a small Feistel network with cycle-walking. Batches are reproducible from
+their index alone, and two batches that do not share indices cannot share episodes.
 
 ## License
 

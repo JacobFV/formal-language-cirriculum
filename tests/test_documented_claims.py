@@ -125,7 +125,7 @@ def test_the_generic_paths_still_carry_the_share_syntax_claims():
     """
     generic = total = 0
     for lesson in [l for l in lc.all_lessons().values() if l.status == "implemented"][::3]:
-        obs, _, _, _ = type(lesson).generate(random.Random(0))
+        obs, _, _, _ = lesson.build(0)
         for term in walk(obs):
             if term.type not in ("pred", "rel", "node"):
                 continue

@@ -22,7 +22,7 @@ def test_the_spec_lesson_is_reported_as_such_rather_than_failing():
 
 
 def test_verify_all_covers_the_selection():
-    rows = lc.verify_all("v", episodes=40)
+    rows = lc.verify_all("tag:ontology", episodes=40)
     assert len(rows) == 7
     assert all(row["ok"] for row in rows)
 

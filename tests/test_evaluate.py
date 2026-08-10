@@ -95,9 +95,9 @@ def test_an_agent_that_raises_is_scored_zero_not_crashed():
 
 # ---------------------------------------------------------------- report
 def test_the_report_exposes_the_views_worth_quoting():
-    report = lc.evaluate(oracle_all(), "i", n=8)
+    report = lc.evaluate(oracle_all(), "tag:symbols", n=8)
     assert report.accuracy == 1.0
-    assert set(report.by_section()) == {"i"}
+    assert "symbols" in report.by_tag()
     assert report["unification"].solved
     assert "macro-average" in report.table()
     d = report.to_dict()
@@ -105,11 +105,19 @@ def test_the_report_exposes_the_views_worth_quoting():
     assert d["results"][0]["floor"] <= 1.0
 
 
+def test_the_report_can_be_read_in_a_curriculums_order():
+    report = lc.evaluate(oracle_all(), "tag:symbols", n=4)
+    curve = report.by_curriculum("core170")
+    assert [l for l, _lift in curve] == [
+        n.lesson for n in lc.curriculum("core170").linearize()
+        if n.lesson in {r.lesson_id for r in report}]
+
+
 def oracle_all():
     """One oracle over several lessons, keyed by prompt."""
     table = {}
-    for lesson in lc.by_section("i"):
-        table.update({ex.prompt: ex.answer for ex in lesson.examples(8)})
+    for lesson in lc.resolve("tag:symbols"):
+        table.update({ex.prompt: ex.target for ex in lesson.examples(8)})
     return lambda prompt: table.get(prompt, "")
 
 

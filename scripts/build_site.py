@@ -42,7 +42,7 @@ _spec.loader.exec_module(site)                                     # noqa: E402
 
 import langcurriculum as lc                                        # noqa: E402
 from langcurriculum.languages import language_codes  # noqa: F401
-from langcurriculum.registry import all_lessons, sections          # noqa: E402
+from langcurriculum.registry import all_lessons                    # noqa: E402
 
 E = site.E
 
@@ -164,7 +164,9 @@ def lesson_page(lesson_id: str, codes: list[str], n: int, depth: int) -> bytes:
             f'<p class="lede">{E(getattr(lesson, "teaches", "") or "")}</p>'
             + site._spec(("language", "", True),
                          ("samples", str(n), False),
-                         ("section", getattr(lesson, "section", "") or "—", False),
+                         ("tags", ", ".join(getattr(lesson, "tags", ())) or "—", False),
+                         ("difficulty knob",
+                          "yes" if lesson.supports_difficulty() else "no", False),
                          *[(k.replace("_", " "), str(v), False)
                            for k, v in sorted(axes.items())],
                          ("capabilities",
@@ -198,7 +200,9 @@ def index_page(codes: list[str], n: int) -> bytes:
             f'<p class="lede">Every lesson is a program, not a corpus: the episodes below '
             f'are produced by a unification grammar, so the same episode can be said in any '
             f'language the engine has a grammar for. This page set carries '
-            f'{len(codes)} of them. The other '
+            f'{len(codes)} of them, ordered by the '
+            f'<b>{E(site.DEFAULT_CURRICULUM)}</b> curriculum &mdash; lessons are flat, '
+            f'and other curricula order the same lessons differently. The other '
             f'{len(site._catalogue()) - len(codes)} are a local server away &mdash; '
             f'<code>python scripts/serve_site.py</code>.</p>'
             + site._spec(("lessons", str(len(all_lessons())), False),
@@ -207,10 +211,10 @@ def index_page(codes: list[str], n: int) -> bytes:
                          ("languages in the engine", str(len(site._catalogue())), False))
             + "</div>")
     body = []
-    for sec in sections():
-        body.append(f'<h2><span class="s">&sect;{E(sec["section"])}</span>'
-                    f'<span>{E(sec["title"])}</span></h2><div class="grid">')
-        for lid in sec["lessons"]:
+    for heading, ids in site._groups(site.DEFAULT_CURRICULUM):
+        body.append(f'<h2><span class="s">{E(site.DEFAULT_CURRICULUM)}</span>'
+                    f'<span>{E(heading)}</span></h2><div class="grid">')
+        for lid in ids:
             teaches = getattr(lc.get(lid), "teaches", "") or ""
             body.append(f'<a href="lessons/{lid}.html">'
                         f'<div class="r">{site._sig(lid)}</div>'

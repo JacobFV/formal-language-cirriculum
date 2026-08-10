@@ -33,6 +33,7 @@ to compare across lessons.
 from __future__ import annotations
 
 import random
+import re
 import statistics
 from collections import Counter
 from dataclasses import dataclass, field
@@ -40,6 +41,7 @@ from typing import Any, Callable, Sequence
 
 from .languages import DEFAULT_LANGUAGE, get_language
 from .lesson import Lesson
+from .presentation import Presentation
 from .registry import get, resolve
 from .scoring import score
 
@@ -55,8 +57,7 @@ class LessonResult:
     """The outcome of one lesson, with its floors beside it."""
 
     lesson_id: str
-    number: int | None
-    section: str
+    tags: tuple[str, ...]
     level: int
     n: int
     correct: int
@@ -66,6 +67,7 @@ class LessonResult:
     mean_choices: float
     errors: int = 0
     language: str = DEFAULT_LANGUAGE
+    presentation: str = ""
     wrong: list[dict[str, str]] = field(default_factory=list)
 
     @property
@@ -88,8 +90,9 @@ class LessonResult:
 
     def to_dict(self) -> dict[str, Any]:
         d = {k: getattr(self, k) for k in
-             ("lesson_id", "number", "section", "level", "n", "correct", "accuracy",
-              "random_baseline", "majority_baseline", "mean_choices", "errors", "language")}
+             ("lesson_id", "level", "n", "correct", "accuracy", "random_baseline",
+              "majority_baseline", "mean_choices", "errors", "language", "presentation")}
+        d["tags"] = list(self.tags)
         d.update(floor=self.floor, lift=self.lift, solved=self.solved)
         if self.wrong:
             d["wrong"] = self.wrong
@@ -134,12 +137,20 @@ class Report:
     def solved(self) -> list[str]:
         return [r.lesson_id for r in self.results if r.solved]
 
-    def by_section(self) -> dict[str, float]:
-        """Mean lift per section — the profile, rather than the single number."""
+    def by_tag(self) -> dict[str, float]:
+        """Mean lift per tag — the profile, rather than the single number."""
         acc: dict[str, list[float]] = {}
         for r in self.results:
-            acc.setdefault(r.section, []).append(r.lift)
-        return {k: statistics.fmean(v) for k, v in acc.items()}
+            for t in r.tags:
+                acc.setdefault(t, []).append(r.lift)
+        return {k: statistics.fmean(v) for k, v in sorted(acc.items())}
+
+    def by_curriculum(self, curriculum: str = "progressive") -> list[tuple[str, float]]:
+        """Lift in a curriculum's own order, for reading a profile as a curve."""
+        from .curricula import get as get_curriculum
+        have = {r.lesson_id: r.lift for r in self.results}
+        return [(n.lesson, have[n.lesson])
+                for n in get_curriculum(curriculum).linearize() if n.lesson in have]
 
     def by_capability(self) -> dict[str, float]:
         """Mean lift per capability tag."""
@@ -153,14 +164,14 @@ class Report:
         return {"language": self.language, "n": self.n, "seed0": self.seed0,
                 "lessons": len(self.results), "accuracy": self.accuracy,
                 "floor": self.floor, "lift": self.lift,
-                "solved": self.solved, "by_section": self.by_section(),
+                "solved": self.solved, "by_tag": self.by_tag(),
                 "results": [r.to_dict() for r in self.results]}
 
     def table(self, *, limit: int | None = None) -> str:
         """A fixed-width summary, for printing."""
         head = f"{'lesson':<34}{'n':>5}{'acc':>8}{'floor':>8}{'lift':>8}"
         rows = [head, "-" * len(head)]
-        for r in sorted(self.results, key=lambda r: (r.number or 10_000, r.lesson_id))[:limit]:
+        for r in sorted(self.results, key=lambda r: r.lesson_id)[:limit]:
             rows.append(f"{r.lesson_id:<34}{r.n:>5}{r.accuracy:>8.3f}"
                         f"{r.floor:>8.3f}{r.lift:>8.3f}")
         rows.append("-" * len(head))
@@ -201,7 +212,12 @@ def _options_from_prompt(prompt: str) -> list[str]:
         return [o.strip() for o in tail[1].splitlines()[0].split("|") if o.strip()]
     if "Options:" in prompt:
         block = prompt.rsplit("Options:", 1)[1].splitlines()
-        return [ln.strip()[2:].strip() for ln in block if ln.strip().startswith("- ")]
+        rows = [ln.strip()[2:].strip() for ln in block if ln.strip().startswith("- ")]
+        # a lettered list asks for the letter, not the statement behind it
+        lettered = [re.match(r"^([A-Z])\s*:\s*(.+)$", r) for r in rows]
+        if rows and all(lettered):
+            return [m.group(1) for m in lettered if m]
+        return rows
     return []
 
 
@@ -209,7 +225,9 @@ def _options_from_prompt(prompt: str) -> list[str]:
 # evaluation
 # --------------------------------------------------------------------------
 def evaluate_lesson(agent: TextAgent, lesson: Lesson | str, *, n: int = 20, seed0: int = 0,
-                    language: str = DEFAULT_LANGUAGE, strict: bool = False,
+                    language: str = DEFAULT_LANGUAGE,
+                    presentation: str | Presentation | None = None,
+                    difficulty: float | None = None, strict: bool = False,
                     keep_wrong: int = 0) -> LessonResult:
     """Run one lesson's episodes past an agent and score them.
 
@@ -222,7 +240,10 @@ def evaluate_lesson(agent: TextAgent, lesson: Lesson | str, *, n: int = 20, seed
     # resolve first, so a result records the canonical pack rather than the
     # alias the caller happened to type
     language = get_language(language).code
-    examples = list(lesson.examples(n, seed0=seed0, language=language))
+    pres = Presentation.parse(presentation).with_(language=language)
+    fmt = pres.format
+    lex = get_language(language).lexicon
+    examples = list(lesson.examples(n, seed0=seed0, presentation=pres, difficulty=difficulty))
     correct = errors = 0
     wrong: list[dict[str, str]] = []
     for ex in examples:
@@ -231,31 +252,35 @@ def evaluate_lesson(agent: TextAgent, lesson: Lesson | str, *, n: int = 20, seed
         except Exception as e:                     # an agent that throws scores zero
             errors += 1
             reply = f"<agent error: {type(e).__name__}: {e}>"
-        s = score(reply, ex.answer, ex.choices, strict=strict)
+        vocab = fmt.reply_vocabulary(lex, ex.choices)
+        s = score(reply, ex.target, vocab, strict=strict)
         correct += int(s >= 1.0)
         if s < 1.0 and len(wrong) < keep_wrong:
-            wrong.append({"seed": str(ex.seed), "answer": ex.answer,
+            wrong.append({"seed": str(ex.seed), "answer": ex.target,
                           "reply": str(reply)[:400]})
     rnd = statistics.fmean(1.0 / max(1, len(ex.choices)) for ex in examples)
     counts = Counter(ex.answer for ex in examples)
     majority = counts.most_common(1)[0][1] / len(examples) if examples else 0.0
     return LessonResult(
-        lesson_id=lesson.id, number=lesson.number, section=lesson.section,
+        lesson_id=lesson.id, tags=tuple(lesson.tags),
         level=lesson.level, n=len(examples), correct=correct,
         accuracy=correct / len(examples) if examples else 0.0,
         random_baseline=rnd, majority_baseline=majority,
         mean_choices=statistics.fmean(len(ex.choices) for ex in examples) if examples else 0.0,
-        errors=errors, language=language, wrong=wrong)
+        errors=errors, language=language, presentation=pres.key(), wrong=wrong)
 
 
 def evaluate(agent: TextAgent, lessons: str | Sequence[str] | None = None, *,
              n: int = 20, seed0: int = 0, language: str = DEFAULT_LANGUAGE,
+             presentation: str | Presentation | None = None,
+             difficulty: float | None = None,
              strict: bool = False, keep_wrong: int = 0,
              progress: Callable[[str, int, int], None] | None = None) -> Report:
     """Evaluate a text agent across the curriculum.
 
-    ``lessons`` may be ``None`` (every implemented lesson), a section key such
-    as ``"vii"``, a comma-separated string of lesson ids, or a sequence of ids.
+    ``lessons`` may be ``None`` (every implemented lesson), a curriculum name
+    such as ``"core170"``, a ``tag:`` or ``capability:`` selector, a
+    comma-separated string of lesson ids, or a sequence of ids.
     """
     language = get_language(language).code
     chosen = [l for l in resolve(lessons) if l.status == "implemented"]
@@ -264,5 +289,6 @@ def evaluate(agent: TextAgent, lessons: str | Sequence[str] | None = None, *,
         if progress:
             progress(lesson.id, i, len(chosen))
         results.append(evaluate_lesson(agent, lesson, n=n, seed0=seed0, language=language,
+                                       presentation=presentation, difficulty=difficulty,
                                        strict=strict, keep_wrong=keep_wrong))
     return Report(results=results, language=language, n=n, seed0=seed0)

@@ -27,7 +27,10 @@ sys.path.insert(0, str(ROOT))
 
 from langcurriculum import __version__                        # noqa: E402
 from langcurriculum.dataset import export                     # noqa: E402
-from langcurriculum.registry import all_lessons, sections     # noqa: E402
+from langcurriculum.curricula import curriculum_ids           # noqa: E402
+from langcurriculum.curricula import get as get_curriculum     # noqa: E402
+from langcurriculum.registry import all_lessons                # noqa: E402
+from langcurriculum.surfaces import REPRODUCIBILITY, RENDERER_VERSIONS  # noqa: E402
 from langcurriculum.languages import DEFAULT_LANGUAGE, language_codes, languages  # noqa: E402
 from langcurriculum.verify import verify_lesson               # noqa: E402
 
@@ -56,7 +59,14 @@ def main() -> int:
         "languages": languages(),
         "lessons": len(lessons),
         "implemented": sum(1 for l in lessons.values() if l.status == "implemented"),
-        "sections": sections(),
+        "curricula": {
+            c.id: {"title": c.title, "nodes": len(c.nodes), "edges": len(c.edges),
+                   "order": [n.lesson for n in c.linearize()]}
+            for c in (get_curriculum(name) for name in curriculum_ids())
+        },
+        "surfaces": {name: {"renderer": RENDERER_VERSIONS[name],
+                            "reproducibility": REPRODUCIBILITY[name]}
+                     for name in RENDERER_VERSIONS},
         "lesson_info": {},
     }
     for lid, lesson in lessons.items():

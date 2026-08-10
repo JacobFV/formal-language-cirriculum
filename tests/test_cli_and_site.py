@@ -24,22 +24,24 @@ def test_ls_lists_every_lesson(capsys):
     assert "symbol_grounding" in out
 
 
-def test_ls_sections(capsys):
-    assert main(["ls", "--sections"]) == 0
-    assert capsys.readouterr().out.count("\n") == 18
+def test_ls_curricula(capsys):
+    assert main(["curricula"]) == 0
+    out = capsys.readouterr().out
+    assert out.count("\n") == len(lc.curriculum_ids())
+    assert "canonical" in out and "progressive" in out
 
 
 def test_show_prints_an_episode_and_its_answer(capsys):
     assert main(["show", "unification", "-n", "2"]) == 0
     out = capsys.readouterr().out
-    assert out.count("answer:") == 2
+    assert out.count("target:") == 2
     assert "structural symbolic matching" in out
-    assert "(english)" in out, "the default view is English"
+    assert "(english/inline_bare/text)" in out, "the default view is English text"
 
 
 def test_show_takes_a_language(capsys):
     assert main(["show", "quantification", "-L", "symbols"]) == 0
-    assert "(symbols)" in capsys.readouterr().out
+    assert "(symbols/inline_bare/text)" in capsys.readouterr().out
 
 
 def test_languages_lists_the_packs(capsys):
@@ -57,17 +59,17 @@ def test_show_json_is_parseable(capsys):
 
 def test_export_writes_a_file(tmp_path, capsys):
     out = tmp_path / "x.jsonl"
-    assert main(["export", str(out), "-l", "i", "-n", "2"]) == 0
+    assert main(["export", str(out), "-l", "tag:symbols", "-n", "2"]) == 0
     assert sum(1 for _ in out.open()) == 22
 
 
 def test_verify_exits_zero_when_the_selection_passes(capsys):
-    assert main(["verify", "-l", "i", "--episodes", "40"]) == 0
+    assert main(["verify", "-l", "tag:symbols", "--episodes", "40"]) == 0
     assert "FAIL" not in capsys.readouterr().out
 
 
 def test_eval_with_the_random_agent_runs(capsys):
-    assert main(["eval", "random", "-l", "i", "-n", "5"]) == 0
+    assert main(["eval", "random", "-l", "tag:symbols", "-n", "5"]) == 0
     assert "macro-average" in capsys.readouterr().out
 
 

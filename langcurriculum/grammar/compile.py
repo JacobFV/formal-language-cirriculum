@@ -96,7 +96,11 @@ def rendered_vocabulary() -> set[str]:
     for lesson_id in list(all_lessons()):
         for seed in range(3):
             try:
-                term, *_ = get(lesson_id).generate(random.Random(seed))
+                # Through `build`, not `generate`: a lesson with a difficulty
+                # knob takes a context, and calling the generator directly
+                # raises a TypeError that this `except` would swallow -- which
+                # silently dropped four lessons' headings out of the harvest.
+                term, *_ = get(lesson_id).build(seed)
             except Exception:
                 continue
             if term.type != "record":

@@ -4,6 +4,11 @@ The registry is deliberately explicit. Every lesson class is imported by name
 in :mod:`langcurriculum.lessons`, so what is in the curriculum is a fact you can
 read off the source tree rather than the result of a directory scan that might
 quietly skip a file that failed to import.
+
+What the registry no longer does is order anything. It is a flat mapping, and
+every question of the form "which comes first" belongs to a
+:class:`~langcurriculum.curricula.Curriculum`. The slices that survive here —
+by tag, by capability — are the ones a lesson answers about *itself*.
 """
 
 from __future__ import annotations
@@ -11,16 +16,13 @@ from __future__ import annotations
 from typing import Mapping, Sequence
 
 from .lesson import Lesson
-from .lessons import LESSON_CLASSES, SECTIONS
+from .lessons import LESSON_CLASSES
 
-__all__ = ["REGISTRY", "SECTION_TITLES", "all_lessons", "get", "lesson_ids",
-           "by_section", "by_capability", "sections", "numbered", "supplementary"]
+__all__ = ["REGISTRY", "all_lessons", "get", "lesson_ids", "by_tag", "by_capability",
+           "tags", "capabilities", "resolve"]
 
 #: lesson id -> the class implementing it
 REGISTRY: Mapping[str, type[Lesson]] = {c.id: c for c in LESSON_CLASSES}
-
-#: section key -> human-readable title, in curriculum order
-SECTION_TITLES: Mapping[str, str] = {s.SECTION: s.SECTION_TITLE for s in SECTIONS}
 
 _INSTANCES: dict[str, Lesson] = {}
 
@@ -40,8 +42,8 @@ def get(lesson_id: str) -> Lesson:
 
 
 def all_lessons(*, implemented_only: bool = False) -> dict[str, Lesson]:
-    """Every lesson, in curriculum order, id -> instance."""
-    out = {c.id: get(c.id) for c in LESSON_CLASSES}
+    """Every lesson, alphabetically, id -> instance."""
+    out = {c.id: get(c.id) for c in sorted(LESSON_CLASSES, key=lambda c: c.id)}
     if implemented_only:
         out = {k: v for k, v in out.items() if v.status == "implemented"}
     return out
@@ -51,15 +53,13 @@ def lesson_ids(*, implemented_only: bool = False) -> list[str]:
     return list(all_lessons(implemented_only=implemented_only))
 
 
-def sections() -> list[dict[str, object]]:
-    """One entry per section: key, title, and the lesson ids it contains."""
-    return [{"section": s.SECTION, "title": s.SECTION_TITLE,
-             "lessons": [c.id for c in s.LESSONS]} for s in SECTIONS]
-
-
-def by_section(section: str) -> list[Lesson]:
-    """Every lesson in a section, by its key (``"iv"``, ``"supplementary"``)."""
-    return [get(c.id) for s in SECTIONS if s.SECTION == section for c in s.LESSONS]
+def by_tag() -> dict[str, list[str]]:
+    """tag -> the lessons carrying it."""
+    out: dict[str, list[str]] = {}
+    for l in all_lessons().values():
+        for t in l.tags:
+            out.setdefault(t, []).append(l.id)
+    return out
 
 
 def by_capability() -> dict[str, list[str]]:
@@ -71,29 +71,39 @@ def by_capability() -> dict[str, list[str]]:
     return out
 
 
-def numbered() -> list[Lesson]:
-    """The 170 lessons of the numbered curriculum, in order."""
-    return sorted((l for l in all_lessons().values() if l.number is not None),
-                  key=lambda l: l.number or 0)
+def tags() -> list[str]:
+    return sorted(by_tag())
 
 
-def supplementary() -> list[Lesson]:
-    """The lessons outside the numbered sequence."""
-    return [l for l in all_lessons().values() if l.number is None]
+def capabilities() -> list[str]:
+    return sorted(by_capability())
 
 
 def resolve(spec: str | Sequence[str] | None) -> list[Lesson]:
     """Turn a selector into lessons.
 
-    ``None`` or ``"all"`` means every implemented lesson; a section key means
-    that section; otherwise a comma-separated list of lesson ids.
+    ``None`` or ``"all"`` means every implemented lesson. Otherwise:
+
+    ==========================  ===================================================
+    ``core170``, ``progressive``a curriculum by name, in its own order
+    ``curriculum:<name>``       the same, spelled out
+    ``tag:<name>``              every lesson carrying a tag
+    ``capability:<name>``       every lesson exercising a capability
+    ``a,b,c``                   lesson ids
+    ==========================  ===================================================
     """
     if spec is None or spec in ("all", ""):
         return list(all_lessons(implemented_only=True).values())
     if isinstance(spec, str):
-        if spec in SECTION_TITLES:
-            return [l for l in by_section(spec) if l.status == "implemented"]
-        names = [s.strip() for s in spec.split(",") if s.strip()]
+        name = spec.strip()
+        from .curricula import curriculum_ids, get as get_curriculum
+        if name.startswith("curriculum:"):
+            name = name[len("curriculum:"):]
+        if name in curriculum_ids() or name.startswith(("tag:", "capability:")):
+            chosen = get_curriculum(name)
+            return [get(n.lesson) for n in chosen.linearize()
+                    if get(n.lesson).status == "implemented"]
+        names = [s.strip() for s in name.split(",") if s.strip()]
     else:
         names = list(spec)
     return [get(n) for n in names]

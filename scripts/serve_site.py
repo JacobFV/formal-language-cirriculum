@@ -35,7 +35,11 @@ sys.path.insert(0, str(ROOT))
 
 import langcurriculum as lc                                        # noqa: E402
 from langcurriculum.languages import LANGUAGES, language_codes     # noqa: E402
-from langcurriculum.registry import all_lessons, sections          # noqa: E402
+from langcurriculum.curricula import curriculum_ids               # noqa: E402
+from langcurriculum.curricula import get as get_curriculum         # noqa: E402
+from langcurriculum.presentation import ANSWER_FORMATS, Presentation  # noqa: E402
+from langcurriculum.registry import all_lessons                    # noqa: E402
+from langcurriculum.surfaces import surface_names, transcode_example  # noqa: E402
 
 E = html.escape
 
@@ -305,10 +309,50 @@ def _select(name: str, chosen: str, *, autofocus: bool = False) -> str:
             f'</select>')
 
 
+# ---------------------------------------------------------------- curricula
+DEFAULT_CURRICULUM = "canonical"
+
+
+@lru_cache(maxsize=8)
+def _positions(cur: str) -> dict:
+    """lesson id -> its 1-based place in this curriculum's canonical flattening.
+
+    A lesson has no number of its own any more, so a designator is a fact about
+    the curriculum you are reading it in. Switch curriculum and the numbering
+    changes, which is the honest behaviour: there was never one true order.
+    """
+    return {n.lesson: i for i, n in enumerate(get_curriculum(cur).linearize(), 1)}
+
+
+@lru_cache(maxsize=8)
+def _groups(cur: str) -> tuple:
+    """``(heading, [lesson ids])`` for a curriculum, derived rather than declared.
+
+    A curriculum with edges groups by graph layer, which is what its structure
+    actually says. One without groups by the first tag its lessons carry, which
+    is what the lessons actually say. Neither is a section: nothing here claims
+    the lessons partition into one tree.
+    """
+    c = get_curriculum(cur)
+    order = c.linearize()
+    if c.edges:
+        depth = c.layers()
+        out: dict = {}
+        for n in order:
+            out.setdefault(f"layer {depth[n.key]}", []).append(n.lesson)
+        return tuple((k, v) for k, v in
+                     sorted(out.items(), key=lambda kv: int(kv[0].split()[1])))
+    out = {}
+    for n in order:
+        tags = lc.get(n.lesson).tags
+        out.setdefault(tags[0] if tags else "untagged", []).append(n.lesson)
+    return tuple(out.items())
+
+
 # ---------------------------------------------------------------- rendering
-def _sig(lesson_id: str) -> str:
-    """``L047`` — a stable designator, so the eye can find a lesson by number."""
-    n = getattr(lc.get(lesson_id), "number", None)
+def _sig(lesson_id: str, cur: str = DEFAULT_CURRICULUM) -> str:
+    """``L047`` — a stable designator within the curriculum being read."""
+    n = _positions(cur).get(lesson_id)
     return f"L{n:03d}" if isinstance(n, int) else "L—"
 
 
@@ -317,29 +361,46 @@ def _lesson_href(lesson_id: str, code: str) -> str:
 
 
 def _sidebar(current: str, code: str, href=None, *, n_languages: int | None = None,
-             home: str = "/") -> str:
+             home: str = "/", cur: str = DEFAULT_CURRICULUM) -> str:
     """The lesson index. ``href`` lets the static export supply file paths."""
     href = href or _lesson_href
     n_lang = len(_catalogue()) if n_languages is None else n_languages
+    groups = _groups(cur)
     out = [f'<aside class="side"><div class="brand"><a href="{home}"><b>langcurriculum</b></a>'
-           f'<div class="readout"><span>lessons <b>{len(all_lessons())}</b></span>'
+           f'<div class="readout"><span>lessons '
+           f'<b>{sum(len(v) for _k, v in groups)}</b></span>'
            f'<span>languages <b>{n_lang}</b></span></div></div>']
-    for sec in sections():
-        out.append(f'<div class="sec"><span class="s">&sect;{E(sec["section"])}</span>'
-                   f'<span>{E(sec["title"])}</span></div>')
-        for lid in sec["lessons"]:
+    for heading, ids in groups:
+        out.append(f'<div class="sec"><span class="s">{E(cur)}</span>'
+                   f'<span>{E(heading)}</span></div>')
+        for lid in ids:
             on = " on" if lid == current else ""
             out.append(f'<a class="item{on}" href="{href(lid, code)}">'
-                       f'<span class="n">{_sig(lid)}</span>'
+                       f'<span class="n">{_sig(lid, cur)}</span>'
                        f'<span>{E(lid.replace("_", " "))}</span></a>')
     out.append('<div class="pad"></div></aside>')
     return "".join(out)
 
 
+def _plain_select(name: str, chosen: str, options) -> str:
+    return (f'<select name="{name}">' + "".join(
+        f'<option value="{E(o)}"{" selected" if o == chosen else ""}>{E(o)}</option>'
+        for o in options) + "</select>")
+
+
 def _topbar(action: str, code: str, *, n: int | None = None, extra: str = "",
-            readout: str = "") -> str:
+            readout: str = "", cur: str = DEFAULT_CURRICULUM,
+            fmt: str = "", surface: str = "") -> str:
     fields = (f'<span class="field"><label class="q">language</label>'
-              f'{_select("lang", code)}</span>')
+              f'{_select("lang", code)}</span>'
+              f'<span class="field"><label class="q">curriculum</label>'
+              f'{_plain_select("cur", cur, curriculum_ids())}</span>')
+    if fmt:
+        fields += (f'<span class="field"><label class="q">answers</label>'
+                   f'{_plain_select("fmt", fmt, sorted(ANSWER_FORMATS))}</span>')
+    if surface:
+        fields += (f'<span class="field"><label class="q">surface</label>'
+                   f'{_plain_select("surface", surface, surface_names())}</span>')
     if n is not None:
         fields += (f'<span class="field"><label class="q">samples</label>'
                    f'<input type="number" name="n" min="1" max="500" value="{n}"'
@@ -371,71 +432,119 @@ def _spec(*cells: tuple[str, str, bool]) -> str:
         for k, v, acc in cells) + "</div>")
 
 
-def _episode(lesson, seed: int, code: str) -> tuple[str, str]:
-    ex = lesson.example(seed, language=code)
+def _episode(lesson, seed: int, code: str, pres=None) -> tuple[str, str]:
+    ex = lesson.example(seed, presentation=(pres or Presentation()).with_(language=code))
     return ex.observation, str(ex.answer)
 
 
-def _sample_block(lesson, seed: int, code: str, *, lesson_id: str) -> str:
+def _rendered(lesson, seed: int, code: str, pres) -> tuple[str, str, object]:
+    """The episode as its surface shows it, plus the content record."""
+    ex = lesson.example(seed, presentation=pres.with_(language=code))
+    if pres.surface == "text":
+        return ex.prompt, ex.target, None
+    content = transcode_example(ex, pres.surface, columns=64, scale=2)
+    return content.text, content.target or ex.target, content
+
+
+def _asset_html(content) -> str:
+    """Images inline as data URIs, so a page still fetches nothing from anywhere."""
+    import base64
+    if content is None or not content.assets:
+        return ""
+    shown = content.assets[:1] if content.surface == "video" else content.assets
+    out = []
+    for a in shown:
+        b64 = base64.b64encode(a.data).decode()
+        out.append(f'<img alt="the episode, rasterized" style="max-width:100%"'
+                   f' src="data:{a.mime};base64,{b64}">')
+    if content.surface == "video":
+        out.append(f'<div class="answer">frame 1 of <b>{len(content.assets)}</b></div>')
+    return "".join(out)
+
+
+def _sample_block(lesson, seed: int, code: str, *, lesson_id: str, pres=None) -> str:
     dirattr = ' dir="rtl"' if code in _rtl() else ""
+    pres = pres or Presentation()
     try:
-        prompt, answer = _episode(lesson, seed, code)
+        prompt, answer, content = _rendered(lesson, seed, code, pres)
     except Exception as exc:                                 # pragma: no cover
         return (f'<div class="sample"><div class="head">seed <b>{seed:03d}</b></div>'
                 f'<pre class="err">{E(type(exc).__name__)}: {E(str(exc))}</pre></div>')
+    if content is not None and content.assets:
+        shown = _asset_html(content)
+    else:
+        shown = f'<pre{dirattr}>{E(prompt)}</pre>'
+    warn = ""
+    if content is not None and not content.fidelity.lossless:
+        warn = (f'<div class="answer">! this surface loses something the answer '
+                f'may depend on: {E("; ".join(content.fidelity.notes))}</div>')
     return (f'<div class="sample"><div class="head">seed <b>{seed:03d}</b>'
             f'<span class="grow"></span><span>{E(code)}</span>'
             f'<a href="/compare/{quote(lesson_id)}/{seed}?from={quote(code)}">'
             f'compare &rarr;</a></div>'
-            f'<pre{dirattr}>{E(prompt)}</pre>'
-            f'<div class="answer">answer <b>{E(answer)}</b></div></div>')
+            f'{shown}{warn}'
+            f'<div class="answer">target <b>{E(answer)}</b></div></div>')
 
 
-def index_page(code: str) -> bytes:
+def index_page(code: str, cur: str = DEFAULT_CURRICULUM) -> bytes:
+    c = get_curriculum(cur)
     head = (f'<div class="head"><h1><span class="sig">CURRICULUM</span>'
-            f'180 lessons <span class="dim">in {E(_label(code))}</span></h1>'
-            f'<p class="lede">Generated, not written. Choose a lesson at left; any sample '
-            f'opens beside the same episode in any of the {len(_catalogue())} languages '
-            f'this package speaks.</p>'
+            f'{len(all_lessons())} lessons <span class="dim">in {E(_label(code))}</span></h1>'
+            f'<p class="lede">Generated, not written. Lessons are flat; the order below '
+            f'belongs to <b>{E(c.id)}</b> &mdash; {E(c.title)} &mdash; and other curricula '
+            f'order the same lessons differently. Any sample opens beside the same episode '
+            f'in any of the {len(_catalogue())} languages this package speaks.</p>'
             + _spec(("lessons", str(len(all_lessons())), False),
-                    ("languages", str(len(_catalogue())), True),
-                    ("hand-written", str(len(language_codes())), False),
-                    ("derived from data", str(len(_catalogue()) - len(language_codes())), False))
+                    ("curriculum", c.id, True),
+                    ("nodes", str(len(c.nodes)), False),
+                    ("edges", str(len(c.edges)), False),
+                    ("languages", str(len(_catalogue())), False),
+                    ("hand-written", str(len(language_codes())), False))
             + "</div>")
     body = []
-    for sec in sections():
-        body.append(f'<h2><span class="s">&sect;{E(sec["section"])}</span>'
-                    f'<span>{E(sec["title"])}</span></h2><div class="grid">')
-        for lid in sec["lessons"]:
+    for heading, ids in _groups(cur):
+        body.append(f'<h2><span class="s">{E(cur)}</span>'
+                    f'<span>{E(heading)}</span></h2><div class="grid">')
+        for lid in ids:
             teaches = (getattr(lc.get(lid), "teaches", "") or "")
-            body.append(f'<a href="/lesson/{quote(lid)}?lang={quote(code)}">'
-                        f'<div class="r">{_sig(lid)}</div>'
+            body.append(f'<a href="/lesson/{quote(lid)}?lang={quote(code)}'
+                        f'&amp;cur={quote(cur)}">'
+                        f'<div class="r">{_sig(lid, cur)}</div>'
                         f'<div class="t">{E(lid.replace("_", " "))}</div>'
                         f'<div class="c">{E(teaches[:70])}</div></a>')
         body.append("</div>")
-    return _page("langcurriculum", _sidebar("", code),
-                 _topbar("/", code, readout=f"<b>{len(all_lessons())}</b> lessons"),
+    return _page("langcurriculum", _sidebar("", code, cur=cur),
+                 _topbar("/", code, cur=cur,
+                         readout=f"<b>{len(all_lessons())}</b> lessons"),
                  head + "".join(body))
 
 
-def lesson_page(lesson_id: str, code: str, n: int) -> bytes:
+def lesson_page(lesson_id: str, code: str, n: int, cur: str = DEFAULT_CURRICULUM,
+                pres: "Presentation | None" = None) -> bytes:
     lesson = lc.get(lesson_id)
+    pres = pres or Presentation()
     axes = getattr(lesson, "axes", {}) or {}
-    head = (f'<div class="head"><h1><span class="sig">{_sig(lesson_id)}</span>'
+    head = (f'<div class="head"><h1><span class="sig">{_sig(lesson_id, cur)}</span>'
             f'{E(lesson_id.replace("_", " "))}</h1>'
             f'<p class="lede">{E(getattr(lesson, "teaches", "") or "")}</p>'
             + _spec(("language", _label(code), True),
                     ("samples", str(n), False),
-                    ("section", getattr(lesson, "section", "") or "—", False),
+                    ("surface", pres.surface, pres.surface != "text"),
+                    ("answers", pres.answer_format, False),
+                    ("difficulty knob",
+                     "yes" if lesson.supports_difficulty() else "no", False),
+                    ("tags", ", ".join(lesson.tags) or "—", False),
                     *[(k.replace("_", " "), str(v), False) for k, v in sorted(axes.items())],
                     ("capabilities",
                      ", ".join(getattr(lesson, "capabilities", ())) or "—", False))
             + "</div>")
-    blocks = "".join(_sample_block(lesson, s, code, lesson_id=lesson_id) for s in range(n))
-    return _page(f"{_sig(lesson_id)} {lesson_id} - langcurriculum",
-                 _sidebar(lesson_id, code),
-                 _topbar(f"/lesson/{quote(lesson_id)}", code, n=n,
-                         readout=f"{_sig(lesson_id)} &middot; <b>{n}</b> samples"),
+    blocks = "".join(_sample_block(lesson, s, code, lesson_id=lesson_id, pres=pres)
+                     for s in range(n))
+    return _page(f"{_sig(lesson_id, cur)} {lesson_id} - langcurriculum",
+                 _sidebar(lesson_id, code, cur=cur),
+                 _topbar(f"/lesson/{quote(lesson_id)}", code, n=n, cur=cur,
+                         fmt=pres.answer_format, surface=pres.surface,
+                         readout=f"{_sig(lesson_id, cur)} &middot; <b>{n}</b> samples"),
                  head + f'<div class="body">{blocks}</div>')
 
 
@@ -501,11 +610,21 @@ class Handler(BaseHTTPRequestHandler):
             if url.path == "/style.css":
                 return self._send(STYLE.encode("utf-8"), "text/css; charset=utf-8")
             code = (q.get("lang") or ["english"])[0]
+            cur = (q.get("cur") or [DEFAULT_CURRICULUM])[0]
+            if cur not in curriculum_ids():
+                cur = DEFAULT_CURRICULUM
             if not parts:
-                return self._send(index_page(code))
+                return self._send(index_page(code, cur))
             if parts[0] == "lesson" and len(parts) == 2:
                 n = max(1, min(500, int((q.get("n") or [self.server.samples])[0])))
-                return self._send(lesson_page(parts[1], code, n))
+                fmt = (q.get("fmt") or ["inline_bare"])[0]
+                surface = (q.get("surface") or ["text"])[0]
+                if fmt not in ANSWER_FORMATS:
+                    fmt = "inline_bare"
+                if surface not in surface_names():
+                    surface = "text"
+                pres = Presentation(language=code, answer_format=fmt, surface=surface)
+                return self._send(lesson_page(parts[1], code, n, cur, pres))
             if parts[0] == "compare" and len(parts) == 3:
                 codes = [c for c in q.get("langs", []) if c]
                 if not codes:

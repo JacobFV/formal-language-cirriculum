@@ -12,31 +12,43 @@ invents the grammar, the ontology, the causal graph or the proof calculus, and
 then decides the answer by reading its own construction. There is no labeller
 to disagree with.
 
-Each lesson carries the vocabulary of legal answers for the episode, so scoring
-is exact and a floor baseline is well defined: a uniform guesser over that
-vocabulary is what "knowing nothing" scores, and any lesson whose floor is not
-comfortably below 1.0 is not measuring anything. See :mod:`langcurriculum.verify`.
+A lesson does not know where it sits in any curriculum. It has no number and no
+section; ordering and prerequisites are properties of a
+:class:`~langcurriculum.curricula.Curriculum`, of which there may be several
+disagreeing about the same lesson. What a lesson does declare is what it
+teaches, what it exercises, and where it sits on the difficulty axes — facts
+about the lesson itself rather than about anybody's ordering of it.
+
+Replies are open-form text. The answer set is written into the prompt body by
+the :class:`~langcurriculum.presentation.Presentation` rather than handed over as
+a field, but it is still *retained*, because it is what makes a floor computable
+and a floor is what makes an accuracy number mean anything. See
+:mod:`langcurriculum.verify`.
 """
 
 from __future__ import annotations
 
+import hashlib
+import inspect
 import random
 from dataclasses import dataclass, field
 from typing import Any, Callable, ClassVar, Iterator, Mapping, Sequence
 
 from ._structure import Term, sexpr, to_json
-from ._support.extra import ACTIVE_LANGUAGE
+from .context import GenerationContext
+from .generators.extra import ACTIVE_LANGUAGE
 from .languages import DEFAULT_LANGUAGE, Language, get_language
+from .presentation import DEFAULT_PRESENTATION, OPEN_FORMAT, Presentation
 
 __all__ = ["Lesson", "Example", "AXES", "CORE_AXES", "EXTENDED_AXES",
-           "LessonNotImplemented", "as_text"]
+           "LessonNotImplemented", "as_text", "instance_id"]
 
 #: The eight core difficulty axes every lesson declares a position on, so that a
 #: result is a profile over axes rather than a single number.
 CORE_AXES = ("lexical_novelty", "grammar_complexity", "recursion_depth", "compositional_depth",
              "discourse_horizon", "world_complexity", "ambiguity", "reasoning_depth")
 
-#: Axes introduced by the later sections, where the core eight do not say what
+#: Axes introduced by the later lessons, where the core eight do not say what
 #: makes a lesson hard. ``anytime_reasoning`` is not deep or ambiguous; it is
 #: hard because the budget runs out, and that deserves its own dimension rather
 #: than being folded into ``reasoning_depth``.
@@ -65,15 +77,30 @@ def as_text(x: Any) -> str:
     return str(x)
 
 
+def instance_id(lesson_id: str, seed: int, difficulty: float | None = None) -> str:
+    """A stable id for the *problem*, independent of how it is presented.
+
+    Every rendering of one episode — English, Turkish, rasterized, dictated —
+    carries the same instance id, which is what makes agreement across surfaces
+    measurable without a gold label or a judge. A system that internalized the
+    structure answers a shared instance id the same way every time; one that
+    learned a surface does not. See ``INTENT.md``.
+    """
+    d = "-" if difficulty is None else f"{difficulty:.6f}"
+    return hashlib.blake2b(f"{lesson_id}|{seed}|{d}".encode(), digest_size=8).hexdigest()
+
+
 @dataclass(frozen=True)
 class Example:
     """One generated episode, entirely as plain data.
 
-    ``observation`` is the question as rendered text — English prose by default.
-    ``prompt`` is that plus a one-line instruction naming the legal answers,
-    which is what you hand a text agent. ``answer`` is the exact gold string,
-    and ``choices`` is the answer vocabulary for *this* episode — often invented
-    in the episode itself, so it varies from one seed to the next.
+    ``observation`` is the question as rendered text. ``prompt`` is that plus the
+    answer set, written in whatever way the presentation asks for. ``target`` is
+    the expected open-form reply, which is not always the answer itself — under a
+    lettered format it may be ``B``, or ``B: the red cube``.
+
+    ``answer`` and ``choices`` are the canonical internal pair, retained so the
+    floor stays computable and so a caller can rebuild any other format.
     """
 
     lesson_id: str
@@ -83,19 +110,31 @@ class Example:
     prompt: str
     answer: str
     choices: tuple[str, ...]
+    target: str = ""
+    instance_id: str = ""
+    presentation: str = ""
+    difficulty: float | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        return {"lesson_id": self.lesson_id, "seed": self.seed, "language": self.language,
-                "observation": self.observation, "prompt": self.prompt,
-                "answer": self.answer, "choices": list(self.choices),
-                "metadata": self.metadata}
+        d = {"lesson_id": self.lesson_id, "seed": self.seed, "language": self.language,
+             "observation": self.observation, "prompt": self.prompt,
+             "answer": self.answer, "choices": list(self.choices),
+             "target": self.target, "instance_id": self.instance_id,
+             "presentation": self.presentation, "metadata": self.metadata}
+        if self.difficulty is not None:
+            d["difficulty"] = self.difficulty
+        return d
 
     @classmethod
     def from_dict(cls, d: Mapping[str, Any]) -> "Example":
         return cls(lesson_id=d["lesson_id"], seed=int(d["seed"]), language=d["language"],
                    observation=d["observation"], prompt=d["prompt"], answer=d["answer"],
-                   choices=tuple(d["choices"]), metadata=dict(d.get("metadata") or {}))
+                   choices=tuple(d["choices"]), target=d.get("target", d["answer"]),
+                   instance_id=d.get("instance_id", ""),
+                   presentation=d.get("presentation", ""),
+                   difficulty=d.get("difficulty"),
+                   metadata=dict(d.get("metadata") or {}))
 
 
 class Lesson:
@@ -103,7 +142,10 @@ class Lesson:
 
     Subclasses set the class attributes below and provide ``generate``, a pure
     function of a :class:`random.Random` returning
-    ``(observation, choices, answer, hidden)``.
+    ``(observation, choices, answer, hidden)``. A generator that wants to know
+    the episode's language or difficulty declares a second parameter and is
+    handed a :class:`~langcurriculum.context.GenerationContext`; one that does
+    not is called with the single argument, exactly as before.
 
     ``hidden`` is the part of the world the generator knows and the agent is not
     shown — the grammar it sampled, the boundary it drew, the lexicon it
@@ -113,15 +155,12 @@ class Lesson:
 
     #: stable snake_case identifier, unique across the registry
     id: ClassVar[str] = ""
-    #: position in the curriculum's numbering, 1-170, or ``None`` for the
-    #: supplementary lessons that are not part of that sequence
-    number: ClassVar[int | None] = None
-    #: difficulty level as declared by the lesson itself
+    #: difficulty level as declared by the lesson itself. A curriculum may
+    #: override it; this is the lesson's own account of itself.
     level: ClassVar[int] = 0
-    #: section key, e.g. ``"iv"``, or ``"supplementary"``
-    section: ClassVar[str] = ""
-    #: human-readable section title
-    section_title: ClassVar[str] = ""
+    #: topical tags. Flat and many-per-lesson on purpose — the thing that used
+    #: to be a section, minus the claim that lessons partition into one tree.
+    tags: ClassVar[tuple[str, ...]] = ()
     #: one line saying what the lesson teaches
     teaches: ClassVar[str] = ""
     #: capability tags, for grouping results by ability rather than by lesson
@@ -134,68 +173,140 @@ class Lesson:
     status: ClassVar[str] = "implemented"
     #: why, when ``status`` is not ``implemented``
     note: ClassVar[str] = ""
+    #: whether the episode can be answered without being shown its answer set.
+    #: False for almost every lesson, because most invent their vocabulary per
+    #: episode; the open answer format is offered only where this is True.
+    open_answerable: ClassVar[bool] = False
 
-    generate: ClassVar[Callable[[random.Random], tuple[Term, Sequence[Any], Any, dict[str, Any]]]]
+    generate: ClassVar[Callable[..., tuple[Term, Sequence[Any], Any, dict[str, Any]]]]
+
+    #: set at class creation: whether ``generate`` accepts a context argument
+    _wants_context: ClassVar[bool] = False
+
+    def __init_subclass__(cls, **kw: Any) -> None:
+        super().__init_subclass__(**kw)
+        fn = cls.__dict__.get("generate")
+        if fn is None:
+            return
+        fn = fn.__func__ if isinstance(fn, staticmethod) else fn
+        try:
+            params = inspect.signature(fn).parameters
+        except (TypeError, ValueError):                  # pragma: no cover
+            cls._wants_context = False
+            return
+        cls._wants_context = len(params) >= 2
 
     # ---- generation -------------------------------------------------
-    def example(self, seed: int = 0, *,
-                language: str | Language = DEFAULT_LANGUAGE) -> Example:
-        """Generate one episode. The same ``seed`` always gives the same episode.
+    def invoke(self, rng: random.Random, ctx: GenerationContext | None = None):
+        """Run the generator against an existing random source.
 
-        ``language`` selects the pack the episode is read in and defaults to
-        English prose. See :mod:`langcurriculum.languages`.
+        The single seam every caller goes through, so that the
+        context-or-not calling convention is decided in one place. Reaching for
+        ``type(lesson).generate`` directly works until some lesson grows a
+        difficulty knob and then raises ``TypeError`` — which, at three call
+        sites that wrapped it in ``except Exception``, meant four lessons
+        silently vanishing from a vocabulary harvest rather than failing loudly.
+
+        The composing lessons need this rather than :meth:`build` because they
+        draw sub-episodes from a random source they already own.
         """
-        lang = get_language(language)
         if self.status != "implemented":
             raise LessonNotImplemented(f"{self.id}: {self.note}")
-        # The morphology lessons draw their inflected material from the pack
-        # the episode will be read in, so the generator has to know which that
-        # is. It was read once at import from the default language, which is
-        # why an agreement lesson asked for in Russian came out in English.
+        fn = type(self).generate
+        return fn(rng, ctx or GenerationContext()) if type(self)._wants_context else fn(rng)
+
+    def build(self, seed: int, ctx: GenerationContext | None = None):
+        """Run the generator once, from a seed."""
+        return self.invoke(random.Random(seed), ctx)
+
+    def supports_difficulty(self) -> bool:
+        """Whether this lesson has a difficulty knob at all.
+
+        A curriculum that wants a schedule rather than an ordering needs to know
+        which of its nodes can actually provide one, and an honest ``False`` is
+        far better than a knob that is accepted and ignored.
+        """
+        return type(self)._wants_context
+
+    def example(self, seed: int = 0, *,
+                language: str | Language | None = None,
+                presentation: str | Presentation | None = None,
+                difficulty: float | None = None) -> Example:
+        """Generate one episode. The same seed and settings give the same episode.
+
+        ``presentation`` carries the language, the answer format and the
+        modality together; ``language`` is accepted on its own because that is
+        what almost every caller has, and means "that language, everything else
+        default".
+        """
+        pres = _resolve_presentation(presentation, language)
+        lang = get_language(pres.language)
+        fmt = pres.format
+        if fmt.options == "hidden" and not self.open_answerable:
+            raise ValueError(
+                f"{self.id} does not declare open_answerable, so the {OPEN_FORMAT!r} "
+                f"format would hide an answer set the episode cannot be solved without")
+        ctx = GenerationContext(language=lang.code, difficulty=difficulty)
+        # The morphology lessons draw their inflected material from the pack the
+        # episode will be read in, so the generator has to know which that is. It
+        # was read once at import from the default language, which is why an
+        # agreement lesson asked for in Russian came out in English.
         token = ACTIVE_LANGUAGE.set(lang.code)
         try:
-            obs, choices, answer, hidden = type(self).generate(random.Random(seed))
+            obs, choices, answer, hidden = self.build(seed, ctx)
         finally:
             ACTIVE_LANGUAGE.reset(token)
         raw_opts = tuple(as_text(c) for c in choices)
-        opts, answer, collapsed = _translate_options(lang, raw_opts, as_text(answer))
+        opts, answer_text, collapsed = _translate_options(lang, raw_opts, as_text(answer))
         observation = lang.render(obs)
+        block = fmt.render_options(lang.lexicon, opts)
+        prompt = f"{observation}\n\n{block}" if block else observation
         return Example(
             lesson_id=self.id, seed=seed, language=lang.code,
-            observation=observation, prompt=lang.prompt(observation, opts),
-            answer=answer, choices=opts,
-            metadata={"number": self.number, "level": self.level, "section": self.section,
+            observation=observation, prompt=prompt,
+            answer=answer_text, choices=opts,
+            target=fmt.render_target(lang.lexicon, opts, answer_text),
+            instance_id=instance_id(self.id, seed, difficulty),
+            presentation=pres.key(), difficulty=difficulty,
+            metadata={"level": self.level, "tags": list(self.tags),
                       "teaches": self.teaches, "capabilities": list(self.capabilities),
                       "axes": dict(self.axes), "hidden": _plain(hidden),
                       **({"untranslated_options": True} if collapsed else {})},
         )
 
     def examples(self, n: int = 100, *, seed0: int = 0,
-                 language: str | Language = DEFAULT_LANGUAGE) -> Iterator[Example]:
+                 language: str | Language | None = None,
+                 presentation: str | Presentation | None = None,
+                 difficulty: float | None = None) -> Iterator[Example]:
         """Generate ``n`` consecutive episodes starting from ``seed0``."""
         for i in range(n):
-            yield self.example(seed0 + i, language=language)
+            yield self.example(seed0 + i, language=language,
+                               presentation=presentation, difficulty=difficulty)
 
-    def structured(self, seed: int = 0) -> dict[str, Any]:
+    def structured(self, seed: int = 0, *, difficulty: float | None = None) -> dict[str, Any]:
         """The episode as plain JSON-able data rather than as text.
 
-        For callers that would rather walk the structure than parse the
-        s-expression. Still no library types: dicts, lists, strings, numbers.
+        This is the structural probe. A system can be right about the answer for
+        surface reasons; it cannot produce the right *tree* for surface reasons,
+        so comparing a recovered structure against this one is a much stronger
+        signal than accuracy — and needs no judge, because the comparison is
+        exact. See ``INTENT.md``.
         """
-        if self.status != "implemented":
-            raise LessonNotImplemented(f"{self.id}: {self.note}")
-        obs, choices, answer, hidden = type(self).generate(random.Random(seed))
-        return {"lesson_id": self.id, "seed": seed, "observation": to_json(obs),
+        obs, choices, answer, hidden = self.build(seed, GenerationContext(difficulty=difficulty))
+        return {"lesson_id": self.id, "seed": seed,
+                "instance_id": instance_id(self.id, seed, difficulty),
+                "observation": to_json(obs),
                 "choices": [as_text(c) for c in choices], "answer": as_text(answer),
                 "hidden": _plain(hidden)}
 
     # ---- metadata ----------------------------------------------------
     def info(self) -> dict[str, Any]:
         """Everything the lesson declares about itself, as plain data."""
-        return {"id": self.id, "number": self.number, "level": self.level,
-                "section": self.section, "section_title": self.section_title,
+        return {"id": self.id, "level": self.level, "tags": list(self.tags),
                 "teaches": self.teaches, "capabilities": list(self.capabilities),
                 "axes": dict(self.axes), "status": self.status, "note": self.note,
+                "supports_difficulty": self.supports_difficulty(),
+                "open_answerable": self.open_answerable,
                 "fixed_answers": [as_text(a) for a in self.answers] if self.answers else None,
                 "description": (type(self).generate.__doc__ or "").strip()}
 
@@ -205,8 +316,18 @@ class Lesson:
         return (type(self).generate.__doc__ or "").strip()
 
     def __repr__(self) -> str:
-        n = f"#{self.number} " if self.number else ""
-        return f"<Lesson {n}{self.id}: {self.teaches}>"
+        return f"<Lesson {self.id}: {self.teaches}>"
+
+
+def _resolve_presentation(presentation: str | Presentation | None,
+                          language: str | Language | None) -> Presentation:
+    """Fold the two ways of naming a surface into one presentation."""
+    pres = Presentation.parse(presentation) if presentation is not None \
+        else DEFAULT_PRESENTATION
+    if language is not None:
+        code = language.code if isinstance(language, Language) else str(language)
+        pres = pres.with_(language=code)
+    return pres
 
 
 def _translate_options(lang, options: Sequence[str], answer: str) -> tuple[tuple[str, ...], str, bool]:

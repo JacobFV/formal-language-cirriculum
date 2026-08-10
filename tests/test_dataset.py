@@ -19,7 +19,7 @@ SAMPLES = ROOT / "data" / "samples"
 
 def test_records_round_trip_through_jsonl(tmp_path):
     out = tmp_path / "d.jsonl"
-    n = lc.export(out, "i", n=5)
+    n = lc.export(out, "tag:symbols", n=5)
     assert n == 11 * 5
     rows = read_jsonl(out)
     assert len(rows) == n
@@ -30,7 +30,7 @@ def test_records_round_trip_through_jsonl(tmp_path):
 
 
 def test_export_per_lesson_writes_one_file_each(tmp_path):
-    total = lc.export(tmp_path, "vii", n=4, per_lesson=True)
+    total = lc.export(tmp_path, "tag:mathematics", n=4, per_lesson=True)
     files = sorted(p.name for p in tmp_path.glob("*.jsonl"))
     assert len(files) == 13 and total == 13 * 4
     assert files[0].endswith(".jsonl")
@@ -48,7 +48,7 @@ def test_hidden_and_observation_can_be_dropped(tmp_path):
 
 def test_the_spec_lesson_is_skipped_by_export(tmp_path):
     out = tmp_path / "cap.jsonl"
-    lc.export(out, "xvii", n=2)
+    lc.export(out, "tag:capstone", n=2)
     ids = {r["lesson_id"] for r in read_jsonl(out)}
     assert "open_world_research_agent" not in ids
     assert len(ids) == 3
@@ -69,9 +69,10 @@ def test_write_jsonl_creates_parents(tmp_path):
 
 
 def test_iter_records_is_lazy_and_ordered():
-    it = iter_records("i", n=2)
+    it = iter_records("tag:symbols", n=2)
     first = next(it)
-    assert first["lesson_id"] == "symbol_grounding" and first["seed"] == 0
+    assert first["lesson_id"] == lc.resolve("tag:symbols")[0].id
+    assert first["seed"] == 0
 
 
 # ---------------------------------------------------- the committed samples

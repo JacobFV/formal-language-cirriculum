@@ -834,7 +834,7 @@ def test_two_distinct_identifiers_stay_distinct_through_a_whole_episode():
             lesson = get(lesson_id)
             for seed in range(2):
                 try:
-                    term, *_ = lesson.generate(random.Random(seed))
+                    term, *_ = get(lesson.id).build(seed)
                 except Exception:
                     continue
                 names = sorted({t.value for t in walk(term)
@@ -1067,7 +1067,7 @@ def test_a_derived_grammar_builds_its_own_agreement_material(code):
     than translating at render time, so a language with no tables of its own
     gets English ones — an agreement lesson in English wearing a Greek hat.
     """
-    from langcurriculum._support.extra import PARALLEL_FIELDS
+    from langcurriculum.generators.extra import PARALLEL_FIELDS
     tables = DerivedGrammar(LanguageDB(), code).paradigms
     assert tables, f"{code} built nothing"
     for field, count in PARALLEL_FIELDS.items():
@@ -1201,7 +1201,7 @@ def test_a_pack_that_writes_its_article_into_its_nouns_says_so():
     single article cannot agree with every noun it precedes. Whether the
     article is a token of its own is now declared by the pack.
     """
-    from langcurriculum._support import extra
+    from langcurriculum.generators import extra
     from langcurriculum.languages import get_language
     assert get_language("english").lexicon.article == "the"
     assert get_language("spanish").lexicon.article == ""
@@ -2149,7 +2149,7 @@ def test_an_assembled_sentence_is_wholly_in_one_language(code):
     The renderer was looking those words up a second time, which only showed
     where a pack falls back to English: two of seven words came back Russian.
     """
-    from langcurriculum._support import extra
+    from langcurriculum.generators import extra
     from langcurriculum.registry import get
 
     token = extra.ACTIVE_LANGUAGE.set(code)
@@ -2254,7 +2254,7 @@ def test_no_heading_is_a_truncated_english_word(code):
     for lesson_id in list(all_lessons()):
         for seed in range(2):
             try:
-                term, *_ = get(lesson_id).generate(random.Random(seed))
+                term, *_ = get(lesson_id).build(seed)
             except Exception:
                 continue
             if term.type == "record":
@@ -2334,7 +2334,7 @@ def test_a_compound_heading_is_whole_or_english(code):
     for lesson_id in list(all_lessons()):
         for seed in range(2):
             try:
-                term, *_ = get(lesson_id).generate(random.Random(seed))
+                term, *_ = get(lesson_id).build(seed)
             except Exception:
                 continue
             if term.type == "record":
@@ -2412,7 +2412,7 @@ def test_the_english_round_is_gone_from_the_output(code):
     pattern = re.compile(r"(?<![\w-])round(?![\w-])")
     for lesson_id in list(all_lessons())[::5]:
         try:
-            term, *_ = get(lesson_id).generate(random.Random(0))
+            term, *_ = get(lesson_id).build(0)
         except Exception:
             continue
         assert not pattern.search(language.render(term)), \
@@ -2724,7 +2724,7 @@ def test_the_lead_ins_are_a_third_of_what_a_reader_meets():
     for lesson_id in list(all_lessons()):
         for seed in range(3):
             try:
-                term, *_ = get(lesson_id).generate(random.Random(seed))
+                term, *_ = get(lesson_id).build(seed)
             except Exception:
                 continue
             if term.type == "record":
@@ -2879,7 +2879,7 @@ def test_the_harvest_asks_for_the_words_the_headings_use():
     rendered = rendered_vocabulary()
     missing = set()
     for lesson_id in list(all_lessons())[::4]:
-        term, *_ = get(lesson_id).generate(random.Random(0))
+        term, *_ = get(lesson_id).build(0)
         if term.type != "record":
             continue
         for name, _value in term.value:
@@ -3040,11 +3040,10 @@ def test_no_two_program_descriptions_read_the_same(language):
     """
     import random
 
-    from langcurriculum._support.causal import _dsl_desc
+    from langcurriculum.generators.causal import _dsl_desc
     from langcurriculum.grammar.compile import compile_term
     from langcurriculum.grammar.features import EMPTY
-    from langcurriculum.lessons.s04_analogy_causality_and_programs.program_explanation import (
-        gen_program_explanation)
+    from langcurriculum.lessons.program_explanation import gen_program_explanation
 
     grammar = (GRAMMARS[language] if language in GRAMMARS
                else DerivedGrammar(LanguageDB(), language))

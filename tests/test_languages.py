@@ -181,7 +181,7 @@ def test_a_new_language_needs_only_parameters_and_words():
 
 def test_the_lexicon_supplies_the_agreement_material_the_syntax_lessons_use():
     """Those lessons are about morphology, so their words come from the pack."""
-    from langcurriculum._support import extra
+    from langcurriculum.generators import extra
 
     lex = get_language("english").lexicon
     assert extra.verbs() == list(lex.verbs)
@@ -200,7 +200,7 @@ def test_the_agreement_material_follows_the_language_it_is_asked_for():
     default language at import, an agreement lesson asked for in Spanish came
     out entirely in English with only its heading translated.
     """
-    from langcurriculum._support import extra
+    from langcurriculum.generators import extra
 
     token = extra.ACTIVE_LANGUAGE.set("spanish")
     try:
@@ -214,7 +214,7 @@ def test_the_agreement_material_follows_the_language_it_is_asked_for():
 
 def test_a_pack_that_supplies_nothing_falls_back_whole():
     """Half a table would put half a sentence in the wrong language."""
-    from langcurriculum._support import extra
+    from langcurriculum.generators import extra
 
     # Was "rus". Russian supplies its noun forms now that the stress mark no
     # longer hides its paradigms from the morphology, so it is the wrong
@@ -230,7 +230,7 @@ def test_a_pack_that_supplies_nothing_falls_back_whole():
 
 
 @pytest.mark.parametrize("field,count", sorted(
-    __import__("langcurriculum._support.extra", fromlist=["x"]).PARALLEL_FIELDS.items()))
+    __import__("langcurriculum.generators.extra", fromlist=["x"]).PARALLEL_FIELDS.items()))
 def test_a_parallel_table_has_the_same_length_in_every_pack(field, count):
     """Not a style rule — the cross-language invariant depends on it.
 

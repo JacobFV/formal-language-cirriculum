@@ -82,7 +82,7 @@ def test_the_question_keeps_every_argument_it_was_given(code):
     lex = lang.lexicon
     for lesson in IMPLEMENTED:
         for seed in (0, 4, 11):
-            obs, _, _, _ = type(lesson).generate(random.Random(seed))
+            obs, _, _, _ = lesson.build(seed)
             if obs.type != "record":
                 continue
             query = obs.field("query")
@@ -126,7 +126,7 @@ def test_translation_never_merges_two_identifiers_in_one_episode(code):
     lang = get_language(code)
     for lesson in IMPLEMENTED:
         for seed in range(4):
-            obs, _, _, _ = type(lesson).generate(random.Random(seed))
+            obs, _, _, _ = lesson.build(seed)
             seen: dict[str, str] = {}
             for term in walk(obs):
                 if term.type not in ("ident", "token") or term.children:
