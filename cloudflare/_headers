@@ -1,0 +1,18 @@
+# Copied into the built site by `make site`; Cloudflare Pages reads it at the
+# root of the deployment and never serves it as a file.
+# Syntax: https://developers.cloudflare.com/pages/configuration/headers/
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# Lesson pages are large (a few MB each: every exported language is inlined so
+# the language select costs no request) and change only when the site is
+# rebuilt. Let a reader page around for ten minutes without refetching, and
+# keep serving the stale copy while a new one is revalidated.
+/lessons/*
+  Cache-Control: public, max-age=600, stale-while-revalidate=86400
+
+# style.css is not content-hashed, so it cannot be immutable.
+/style.css
+  Cache-Control: public, max-age=3600

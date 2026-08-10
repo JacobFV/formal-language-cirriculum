@@ -1,0 +1,19 @@
+# Cloudflare Pages (Direct Upload) config for the langcurriculum static site.
+#
+# There is no Worker and no build command here on purpose: `make site` builds
+# the site with scripts/build_site.py and `make deploy` uploads the finished
+# directory. Cloudflare never runs Python -- it only receives files.
+#
+# See DEPLOY.md for credentials and first-time setup.
+
+name = "langcurriculum"
+
+# Unused by a static deployment -- there is no Worker to be compatible with --
+# but `wrangler pages dev` refuses to start the local runtime without one, and
+# defaulting it to today's date fails whenever today is newer than the pinned
+# wrangler's runtime binary.
+compatibility_date = "2026-08-01"
+
+# The directory `wrangler pages deploy` uploads, and the one `wrangler pages
+# dev` serves. Keep this in sync with OUT in the Makefile.
+pages_build_output_dir = "_site"
