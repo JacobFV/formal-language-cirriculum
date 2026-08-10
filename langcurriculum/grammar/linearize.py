@@ -424,7 +424,20 @@ class Grammar:
         """
         out, translated = [], False
         for token in lemma.split():
-            hit = self.cw(token) or self.word(token)
+            # A closed-class entry of "" is an answer, not a miss. Russian and
+            # Turkish record `the: ""` because they have no article, and
+            # `cw(...) or word(...)` read the empty string as "not found" and
+            # asked the dictionary, which offered a demonstrative -- Polish
+            # "ten", Finnish "se", Japanese "その" -- or the English word
+            # itself. Russian rules read "правило the ценность".
+            if token in self.closed:
+                hit = self.closed[token]
+                if hit != token:
+                    translated = True
+                if hit:
+                    out.append(hit)
+                continue
+            hit = self.word(token)
             if hit and hit != token:
                 translated = True
             out.append(hit or token)

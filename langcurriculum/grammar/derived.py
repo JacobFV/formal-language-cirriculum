@@ -127,6 +127,16 @@ def _singulars(words: str) -> list[str]:
         if last.endswith(ending):
             out.append(last[:-2])
             break
+    # Greek and Latin plurals the curriculum heads blocks with. *hypotheses*
+    # reached neither rule above -- "ses" offers "hypothes" and "s" offers
+    # "hypothese", and Russian translates neither, so the heading stayed
+    # English although гипотеза was sitting in the dictionary under
+    # *hypothesis*. Offering costs nothing: a candidate is kept only if it
+    # translates.
+    if last.endswith("es") and len(last) > 4:
+        out.append(last[:-2] + "is")            # hypotheses, analyses, bases
+    if last.endswith("i") and len(last) > 3:
+        out.append(last[:-1] + "us")            # calculi, radii
     if last.endswith("s") and not last.endswith("ss"):
         out.append(last[:-1])
     return [head + o for o in out]
