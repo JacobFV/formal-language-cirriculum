@@ -169,6 +169,7 @@ class LanguageDB:
         self.path = Path(path or DB_PATH)
         self._local = threading.local()
         self._scripts: dict[str, str] = {}
+        self._stress: dict[str, bool] = {}
 
     @property
     def conn(self) -> sqlite3.Connection:
@@ -213,6 +214,34 @@ class LanguageDB:
             self._scripts[code] = (row["script"] or "") if row is not None else ""
         return self._scripts[code]
 
+    def marks_stress(self, code: str) -> bool:
+        """Whether this language's paradigms write the stress mark its
+        dictionary writes.
+
+        Russian dictionaries print число́ for the reader's benefit and UniMorph
+        keys on число, so every Russian paradigm lookup missed and every noun
+        fell back to an analogical rule: the plural of число́ came out числои,
+        which is not a word. 83% of Russian senses carry the mark and none of
+        its 2.2 million paradigm rows do; Ukrainian, Belarusian, Bulgarian and
+        Macedonian are the same.
+
+        Asked of the data rather than answered from a list, because the mark
+        is not always an aid to the reader. Navajo writes it for tone, it is
+        part of the spelling, and 790 of its paradigm rows carry it -- strip
+        it there and the word is a different word. Languages with no paradigm
+        table say nothing either way and are left alone.
+        """
+        if code not in self._stress:
+            rows = self.conn.execute(
+                "SELECT COUNT(*), SUM(lemma LIKE '%'||char(769)||'%') "
+                "FROM wordform WHERE code=?", (code,)).fetchone()
+            total, marked = rows[0] or 0, rows[1] or 0
+            self._stress[code] = not (total >= 1000 and marked == 0)
+        return self._stress[code]
+
+    def _unstressed(self, code: str, form: str) -> str:
+        return form if self.marks_stress(code) else form.replace("\u0301", "")
+
     def _one(self, code: str, form: str) -> str:
         """One writing of a Han-script entry, not both at once.
 
@@ -226,6 +255,7 @@ class LanguageDB:
         pack happened to lack came back through the store unsplit -- 門檻 /门槛
         for a threshold, spaces and all, in a language written without them.
         """
+        form = self._unstressed(code, form)
         if " /" not in form:
             return form
         script = self.script_of(code)
@@ -299,13 +329,17 @@ class LanguageDB:
         answers a request for the plain adjective and *gult* comes back
         *gulare*. Read one scheme at a time and each is internally consistent.
         """
-        if source is None:
-            return [(r["feats"], r["surface"]) for r in self.conn.execute(
-                "SELECT feats, surface FROM wordform WHERE code=? AND lemma=?",
-                (code, lemma))]
-        return [(r["feats"], r["surface"]) for r in self.conn.execute(
+        # UniMorph leaves the lemma unmarked and marks the surface -- 1.65
+        # million of Russian's 2.2 million rows carry the stress mark. Strip it
+        # here as well, or a sentence reads "число" in the singular and
+        # "чи́сла" in the plural, and neither ordinary Russian nor the
+        # dictionary writes it both ways.
+        rows = self.conn.execute(
+            "SELECT feats, surface FROM wordform WHERE code=? AND lemma=?",
+            (code, lemma)) if source is None else self.conn.execute(
             "SELECT feats, surface FROM wordform "
-            "WHERE code=? AND lemma=? AND source=?", (code, lemma, source))]
+            "WHERE code=? AND lemma=? AND source=?", (code, lemma, source))
+        return [(r["feats"], self._unstressed(code, r["surface"])) for r in rows]
 
     def has_source(self, code: str, source: str, pos: str) -> bool:
         """Whether a language has enough of one scheme to be worth preferring."""

@@ -410,7 +410,7 @@ def test_a_grammar_that_cannot_find_a_copula_paradigm_says_so():
 
 @needs_db
 @pytest.mark.parametrize("code,expected", [
-    ("deu", "Szene"), ("spa", "escena"), ("rus", "Сце́на"), ("fin", "Näyttämö"),
+    ("deu", "Szene"), ("spa", "escena"), ("rus", "Сцена"), ("fin", "Näyttämö"),
 ])
 def test_section_headings_are_in_the_language(code, expected):
     """"Scene:" in a German episode is the most visible artefact there is."""
@@ -1107,3 +1107,37 @@ def test_the_shipped_extract_covers_what_the_curriculum_coins():
                 missing[code] = gaps[:6]
         assert not missing, (
             "the extract is behind the curriculum; rebuild it: " + repr(missing))
+
+
+@needs_db
+def test_a_stress_mark_does_not_hide_a_paradigm():
+    """Russian dictionaries print число́; UniMorph keys on число.
+
+    So every Russian paradigm lookup missed, every noun fell back to an
+    analogical rule, and the plural of число́ came out числои, which is not a
+    word. 83% of Russian senses carry the mark and none of its 2.2 million
+    paradigm rows do; Ukrainian, Belarusian, Bulgarian and Macedonian are the
+    same.
+
+    Asked of the data, never from a list. Navajo writes the acute for tone --
+    it is part of the spelling, and 790 of its paradigm rows carry it -- so
+    stripping it there would make a different word. Yoruba has no paradigm
+    table to consult and is left alone for the same reason.
+    """
+    from langcurriculum.grammar.features import FS
+    from langcurriculum.grammar.category import NUM
+
+    combining = "́"
+    for code, plural in (("rus", "числа"), ("ukr", "числа"), ("bul", "числа")):
+        if DB.language(code) is None:
+            continue
+        assert not DB.marks_stress(code), code
+        grammar = DerivedGrammar(DB, code)
+        lemma = grammar.word("number", "N")
+        assert combining not in lemma, f"{code}: {lemma}"
+        assert grammar.inflect("N", lemma, FS({NUM: "pl"})) == plural
+
+    for code in ("nav", "yor"):
+        if DB.language(code) is None:
+            continue
+        assert DB.marks_stress(code), f"{code}: tone is not decoration"

@@ -216,7 +216,10 @@ def test_a_pack_that_supplies_nothing_falls_back_whole():
     """Half a table would put half a sentence in the wrong language."""
     from langcurriculum._support import extra
 
-    token = extra.ACTIVE_LANGUAGE.set("rus")
+    # Was "rus". Russian supplies its noun forms now that the stress mark no
+    # longer hides its paradigms from the morphology, so it is the wrong
+    # example for a language that supplies nothing -- 390 still do.
+    token = extra.ACTIVE_LANGUAGE.set("ace")
     try:
         assert not extra.supplies("noun_forms")
         assert extra.noun_forms() == extra.gender.__globals__["_ENGLISH"].noun_forms

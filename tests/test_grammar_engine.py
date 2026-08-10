@@ -1140,7 +1140,12 @@ def test_a_genderless_pronoun_costs_only_the_lesson_that_needs_one(code):
 
 
 @needs_db
-@pytest.mark.parametrize("code", ["fin", "hun", "rus"])
+# Russian was here because it supplied nothing, not because it lacks the
+# pronoun -- it has он and она. Its paradigms were unreachable behind the
+# stress mark; now that they are not, it renders the discourse and the
+# lesson is presentable. Finnish and Hungarian stay: hän and ő are
+# genderless, which is the reason this test exists.
+@pytest.mark.parametrize("code", ["fin", "hun"])
 def test_the_coreference_lesson_falls_back_before_it_draws(code):
     """Taking a Finnish sentence and an English pronoun would be worse.
 
@@ -2296,7 +2301,7 @@ def test_no_heading_is_a_truncated_english_word(code):
 @needs_db
 @pytest.mark.parametrize("code,name,expected", [
     ("deu", "candidate_rules", "Kandidat Regeln"),
-    ("rus", "candidate_rules", "кандида́т пра́вило"),
+    ("rus", "candidate_rules", "кандидат правила"),
     ("fra", "candidate_rules", "candidat règles"),
 ])
 def test_a_compound_heading_is_translated_word_by_word(code, name, expected):
