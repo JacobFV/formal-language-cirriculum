@@ -565,13 +565,29 @@ def compile_query(term: Term) -> Node:
             body = _QUERY_BODY[name]([])
             return (yn_question(body) if name in _POLAR
                     else wh_question(_WH.get(name, "what"), body))
-        # Everything else keeps the shape it had. Sending a bare name through
-        # the label path instead would spell out every identifier the lessons
-        # ask about -- "the next rule of a shortest proof" for
-        # `next_rule_of_a_shortest_proof` -- which reads better and is a
-        # different decision from this one, taken across a hundred and
-        # seventy-nine lessons on no evidence that the identifier is not
-        # wanted as an identifier.
+        # Spelled out, not printed. Ninety of the hundred and eighty lessons
+        # ask about a bare name, and as a symbol it went to the page whole:
+        # "What is the which_is_grammatical?", which is not a question in
+        # English and is an English identifier in every other language.
+        #
+        # A head that begins with an interrogative supplies it -- `which` from
+        # `which_is_grammatical`, and the rest becomes the body, so the
+        # question is "Which is grammatical?" rather than a wh-word in front
+        # of another one. Anything else is asked with "what".
+        if name:
+            first, sep, rest = name.partition("_")
+            if sep and first in _WH_PREFIX and rest:
+                # `which_is_grammatical` is "which <thing> is grammatical",
+                # not "which is the is grammatical". Dropping the copula and
+                # handing the rest over as a common noun lets `wh_identity`
+                # build it -- the wh takes the determiner slot of the generic
+                # word for a thing and the rest becomes the complement, which
+                # is a construction every grammar here already forms.
+                verb, gap, tail = rest.partition("_")
+                if gap and verb in ("is", "are") and tail:
+                    return wh_question(first, mk_cn(_label(tail)))
+                return wh_question(first, _label(rest))
+            return wh_question("what", _label(name))
         return wh_question("what", compile_term(term))
     head, *rest = term.value
     head = str(head)
