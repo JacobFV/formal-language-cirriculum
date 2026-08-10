@@ -242,8 +242,15 @@ def induce(pairs: Iterable[tuple[str, str, str]], *,
 # ======================================================================
 #: Case tags a paradigm may carry, and the UniMorph spelling of each case the
 #: engine asks for.
+#: Enough of UniMorph's case inventory to tell a cell that names a case from
+#: one that does not. Finnic and Ugric paradigms reach fifteen of them, and a
+#: case missing here reads as "no case named", which is how the Finnish
+#: allative came to pass for a citation form.
 _CASE_TAGS = frozenset({"NOM", "ACC", "GEN", "DAT", "INS", "LOC", "PRP",
-                        "VOC", "ABL", "ESS", "PRT", "ILL", "INE", "ADE"})
+                        "VOC", "ABL", "ESS", "PRT", "ILL", "INE", "ADE",
+                        "ALL", "ELA", "ABE", "TRA", "COM", "TERM", "EQTV",
+                        "ABS", "ERG", "SUB", "DEL", "SUP", "SBL", "LAT",
+                        "PRIV", "PROL", "FRML", "VERS", "REM", "PROX"})
 _CASE_TAG = {"nom": "NOM", "acc": "ACC", "gen": "GEN", "dat": "DAT",
              "ins": "INS", "loc": "LOC", "voc": "VOC", "abl": "ABL"}
 
@@ -470,7 +477,7 @@ class DataMorphology(Morphology):
         strict_case = bool(self.pos == "A" and wanted_case in marks)
         strict_class = bool(self.pos == "A" and wanted_class in marks)
 
-        best, best_score = None, (-1, 1)
+        best, best_score = None, (-1, -1, 1)
         for bundle, surface in rows:
             feats = parse_unimorph(bundle)
             tags = unimorph_tags(bundle)
@@ -492,7 +499,29 @@ class DataMorphology(Morphology):
             # singular and beat the real one: Finnish answered *kuutioni*, "my
             # cube". Counting what the source actually said means an unmapped
             # tag costs the cell instead of being invisible.
-            score = (matched, -(len(tags) - matched))
+            # Where no case was asked for, prefer the unmarked one. Every
+            # plural cell matches a bare NUM:pl request equally and scores
+            # the same, so row order decided it: Finnish answered "luvuille",
+            # the allative, Polish "liczbach", the locative, Czech "čísel",
+            # the genitive -- nine of the fourteen case-marking languages
+            # sampled put nouns in an oblique case for no reason. A cell that
+            # names no case is unmarked too; that is the citation form.
+            unmarked = 0
+            if not wanted_case:
+                # An explicit nominative outranks everything, and a cell
+                # naming no case outranks one naming an oblique. Testing only
+                # for membership of `_CASE_TAGS` was not enough: Finnish tags
+                # its allative `ALL`, which is not in that set, so the cell
+                # looked caseless, tied with the nominative, and won on row
+                # order -- which is the bug, not a near miss of it.
+                unmarked = (2 if "NOM" in raw
+                            else 1 if not set(raw) & _CASE_TAGS else 0)
+            # Before specificity, not after. Finnish writes its allative
+            # `N;AT+ALL;PL`, the composite tag does not parse, so the cell
+            # counts as *fewer* tags than `N;NOM;PL` and looked the more
+            # specific of the two. Ranked after specificity the preference
+            # never got a say; the oblique had already won.
+            score = (matched, unmarked, -(len(tags) - matched))
             if score > best_score:
                 best, best_score = surface, score
         return best

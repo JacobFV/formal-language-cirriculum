@@ -3122,3 +3122,32 @@ def test_a_rule_is_stated_as_a_sentence_not_named_as_one():
             if found:
                 offenders.setdefault(lesson_id, []).extend(found[:2])
     assert not offenders, f"rules stated as identifiers: {offenders}"
+
+
+@needs_db
+@pytest.mark.parametrize("code,lemma,expected", [
+    ("fin", "luku", "luvut"), ("pol", "liczba", "liczby"),
+    ("ces", "číslo", "čísla"),
+])
+def test_a_noun_asked_for_without_a_case_comes_back_unmarked(code, lemma, expected):
+    """Asking for a plural is not asking for the allative.
+
+    Every plural cell satisfies a bare NUM:pl request, and they scored the
+    same, so row order chose: Finnish answered "luvuille", Polish "liczbach",
+    Czech "čísel" -- nine of fourteen case-marking languages put nouns in an
+    oblique case for no reason.
+
+    The preference has to be weighed before specificity, not after. Finnish
+    writes its allative `N;AT+ALL;PL`; the composite tag does not parse, so
+    the cell counts as fewer tags than `N;NOM;PL` and looks the more specific
+    of the two. Ranked afterwards the preference never got a say.
+    """
+    from langcurriculum.grammar.category import CASE, NUM
+
+    db = LanguageDB()
+    if db.language(code) is None:
+        pytest.skip(f"{code} absent")
+    grammar = DerivedGrammar(db, code)
+    plain = grammar.inflect("N", lemma, FS({NUM: "pl"}))
+    assert plain == expected
+    assert plain == grammar.inflect("N", lemma, FS({NUM: "pl", CASE: "nom"}))
