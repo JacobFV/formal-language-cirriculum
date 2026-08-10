@@ -1059,3 +1059,51 @@ def test_the_readme_gives_every_command_the_rebuild_needs():
                     "scripts/load_wiktionary_forms.py"):
         assert command in readme, command
     assert "a 2 GB binary" not in readme, "the size contradicts itself again"
+
+
+@needs_db
+def test_the_shipped_extract_covers_what_the_curriculum_coins():
+    """The site is built from an extract; the extract can fall behind.
+
+    ``site-languages.db.gz`` is what the Pages runner has instead of the 8.4 GB
+    database, and it is built from the vocabulary as it stood when someone ran
+    the script. Three words were added to the curriculum after the last build,
+    so the published site rendered `raw` and `logical` in English for
+    fifty-seven languages while a local checkout translated them -- a
+    difference nothing would have reported.
+
+    So: whatever the full database can say for a coined word, the extract must
+    say too, for every language it claims to carry. Rebuild with
+
+        python scripts/build_site_db.py --out langcurriculum/grammar/data/x.db
+        gzip -9 x.db && mv x.db.gz site-languages.db.gz
+    """
+    import gzip
+    import shutil
+    import tempfile
+    from pathlib import Path
+
+    from langcurriculum.grammar.compile import curriculum_vocabulary
+
+    packed = (Path(__file__).resolve().parent.parent / "langcurriculum" /
+              "grammar" / "data" / "site-languages.db.gz")
+    assert packed.exists(), "the site database extract is missing"
+
+    with tempfile.TemporaryDirectory() as tmp:
+        plain = Path(tmp) / "site.db"
+        with gzip.open(packed, "rb") as src, plain.open("wb") as dst:
+            shutil.copyfileobj(src, dst)
+        extract = LanguageDB(plain)
+        codes = [r["code"] for r in extract.languages()]
+        assert len(codes) > 40, f"only {len(codes)} languages in the extract"
+
+        vocab = sorted(curriculum_vocabulary())
+        missing: dict[str, list[str]] = {}
+        for code in codes[::8]:                 # a spread, not all 57
+            gaps = [key for key in vocab
+                    if DB.lookup(code, key) is not None
+                    and extract.lookup(code, key) is None]
+            if gaps:
+                missing[code] = gaps[:6]
+        assert not missing, (
+            "the extract is behind the curriculum; rebuild it: " + repr(missing))
