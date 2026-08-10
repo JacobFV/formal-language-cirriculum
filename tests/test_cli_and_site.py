@@ -150,3 +150,71 @@ def test_the_sidebar_reaches_every_lesson(site):
     text = (site / "lessons" / "negation.html").read_text(encoding="utf-8")
     for lesson_id in lc.REGISTRY:
         assert f'href="../lessons/{lesson_id}.html"' in text, lesson_id
+
+
+# ---------------------------------------------------------------- the graph view
+def test_there_is_a_graph_page_for_every_curriculum(site):
+    import langcurriculum as lc
+
+    for name in lc.curriculum_ids():
+        assert (site / "graph" / f"{name}.html").exists(), name
+
+
+def test_the_graph_draws_every_node_and_every_edge(site):
+    import re
+
+    import langcurriculum as lc
+
+    c = lc.curriculum("progressive")
+    html = (site / "graph" / "progressive.html").read_text(encoding="utf-8")
+    assert html.count('class="dag-node"') == len(c.nodes)
+    assert html.count('class="dag-edge"') == len(c.edges)
+    # and nothing spills outside the canvas it declares
+    w, h = map(int, re.search(r'viewBox="0 0 (\d+) (\d+)"', html).groups())
+    for x, y, bw, bh in re.findall(
+            r'<rect class="dag-node" x="(\d+)" y="(-?\d+)" width="(\d+)" height="(\d+)"',
+            html):
+        assert 0 <= int(x) and int(x) + int(bw) <= w
+        assert 0 <= int(y) and int(y) + int(bh) <= h
+
+
+def test_the_layout_never_points_an_edge_backwards(site):
+    """A layered drawing is only readable if every arrow goes one way."""
+    import importlib.util
+
+    import langcurriculum as lc
+
+    spec = importlib.util.spec_from_file_location(
+        "_graph_site", ROOT / "scripts" / "serve_site.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    c = lc.curriculum("progressive")
+    order = mod._ordered_layers(c)
+    column = {k: i for i, col in enumerate(order) for k in col}
+    assert sorted(column) == sorted(c.keys)
+    for a, b in c.edges:
+        assert column[a] < column[b], f"{a} -> {b} points backwards"
+
+
+def test_an_edgeless_curriculum_still_draws(site):
+    """It is one column, and that is the curriculum declining to claim anything."""
+    html = (site / "graph" / "canonical.html").read_text(encoding="utf-8")
+    assert html.count('class="dag-node"') == 180
+    assert html.count('class="dag-edge"') == 0
+
+
+def test_every_graph_node_links_to_a_page_that_exists(site):
+    import re
+
+    html = (site / "graph" / "progressive.html").read_text(encoding="utf-8")
+    hrefs = set(re.findall(r'<a href="\.\./lessons/([a-z_]+)\.html"', html))
+    assert len(hrefs) == 180
+    for lid in hrefs:
+        assert (site / "lessons" / f"{lid}.html").exists(), lid
+
+
+def test_the_graph_fetches_nothing_from_anywhere_else(site):
+    """Same rule as the rest of the site: the SVG namespace is not a fetch."""
+    html = (site / "graph" / "progressive.html").read_text(encoding="utf-8")
+    stripped = html.replace("http://www.w3.org/2000/svg", "")
+    assert "http://" not in stripped and "https://" not in stripped

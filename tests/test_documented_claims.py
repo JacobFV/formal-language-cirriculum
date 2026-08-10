@@ -387,3 +387,25 @@ def test_every_surface_the_readme_tabulates_actually_exists():
         assert f"| `{name}` |" in text, f"the surface table omits {name}"
     # and the version it quotes is the one the code reports
     assert RENDERER_VERSIONS["raster"] in text
+
+
+def test_every_link_the_readme_offers_points_somewhere_real():
+    """A published link that 404s is a claim that is simply false.
+
+    The documentation URL was wrong for as long as it existed -- it named a repo
+    that does not exist -- and nothing checked it, because nothing checks prose.
+    """
+    import re
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parent.parent
+    text = (root / "README.md").read_text(encoding="utf-8")
+    text += (root / "pyproject.toml").read_text(encoding="utf-8")
+    sites = set(re.findall(r"https://jacobfv\.github\.io/([a-z-]+)/", text))
+    assert sites == {"formal-language-cirriculum"}, (
+        f"the README or pyproject points at {sites - {'formal-language-cirriculum'}}, "
+        f"which is not where the site is published")
+
+    # and every relative link into the repo resolves to a file that exists
+    for target in set(re.findall(r"\]\((?!https?:)([A-Za-z0-9_./-]+)\)", text)):
+        assert (root / target).exists(), f"README links to missing {target}"

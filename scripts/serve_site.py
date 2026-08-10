@@ -617,6 +617,152 @@ def compare_page(lesson_id: str, seed: int, codes: list[str]) -> bytes:
 
 
 # ---------------------------------------------------------------- transport
+# ---------------------------------------------------------------- the graph view
+#
+# A curriculum is a DAG and a list cannot show that. Drawn as columns of layers
+# with the edges between them, two things become visible that no ordering can
+# say: how wide the graph is at each depth -- which is how much of the material
+# is genuinely independent -- and which lessons are the joins everything funnels
+# through.
+#
+# The SVG is written out rather than drawn by a library, for the same reason the
+# rasterizer is: no external fetch, nothing to install, and the same bytes every
+# time.
+
+GRAPH_COL = 300
+GRAPH_ROW = 21
+GRAPH_PAD = 40
+GRAPH_BOX = 188
+
+
+def _ordered_layers(c) -> list:
+    """Nodes grouped by depth, ordered to keep the edges from crossing.
+
+    A barycentre sweep: put each node next to the average position of what it
+    connects to, alternating up and down the layers. It is the classic layered
+    layout heuristic and a handful of passes is enough -- the difference between
+    a readable picture and a ball of wool.
+    """
+    depth = c.layers()
+    layers: dict = {}
+    for n in c.linearize():
+        layers.setdefault(depth[n.key], []).append(n.key)
+    order = [layers[d] for d in sorted(layers)]
+
+    def sweep(forward: bool) -> None:
+        span = range(1, len(order)) if forward else range(len(order) - 2, -1, -1)
+        for i in span:
+            other = order[i - 1] if forward else order[i + 1]
+            place = {k: j for j, k in enumerate(other)}
+            neighbours = c.prerequisites if forward else c.dependents
+
+            def bary(key: str) -> float:
+                ps = [place[p] for p in neighbours(key) if p in place]
+                return sum(ps) / len(ps) if ps else len(place) / 2.0
+
+            order[i] = sorted(order[i], key=lambda k: (bary(k), k))
+
+    for _ in range(4):
+        sweep(True)
+        sweep(False)
+    return order
+
+
+def _graph_svg(cur: str, href=None) -> str:
+    c = get_curriculum(cur)
+    href = href or (lambda lid: f"/lesson/{quote(lid)}?cur={quote(cur)}")
+    order = _ordered_layers(c)
+    pos = {k: (i, j) for i, col in enumerate(order) for j, k in enumerate(col)}
+    width = GRAPH_PAD * 2 + max(1, len(order)) * GRAPH_COL
+    height = GRAPH_PAD * 2 + max((len(col) for col in order), default=1) * GRAPH_ROW + 30
+
+    def xy(key: str) -> tuple[int, int]:
+        i, j = pos[key]
+        return GRAPH_PAD + i * GRAPH_COL, GRAPH_PAD + 30 + j * GRAPH_ROW
+
+    parts = [f'<svg class="dag" viewBox="0 0 {width} {height}" width="{width}" '
+             f'height="{height}" xmlns="http://www.w3.org/2000/svg" '
+             f'font-family="ui-monospace, monospace">']
+    for i, col in enumerate(order):
+        x = GRAPH_PAD + i * GRAPH_COL
+        parts.append(f'<text x="{x}" y="{GRAPH_PAD}" class="dag-layer">'
+                     f'layer {i} &middot; {len(col)}</text>')
+    for a, b in c.edges:
+        if a not in pos or b not in pos:
+            continue
+        x1, y1 = xy(a)
+        x2, y2 = xy(b)
+        x1 += GRAPH_BOX
+        mid = (x1 + x2) / 2
+        parts.append(f'<path class="dag-edge" d="M{x1} {y1} C{mid} {y1} {mid} {y2} '
+                     f'{x2} {y2}"/>')
+    for key, (i, _j) in pos.items():
+        node = c.node(key)
+        x, y = xy(key)
+        n_in, n_out = len(c.prerequisites(key)), len(c.dependents(key))
+        label = node.lesson.replace("_", " ")
+        label = label if len(label) <= 26 else label[:25] + "\u2026"
+        parts.append(
+            f'<a href="{E(href(node.lesson))}">'
+            f'<title>{E(node.lesson)} &#10;{n_in} in, {n_out} out</title>'
+            f'<rect class="dag-node" x="{x}" y="{y - 8}" width="{GRAPH_BOX}" '
+            f'height="16" rx="3"/>'
+            f'<text class="dag-text" x="{x + 7}" y="{y + 4}">{E(label)}</text>'
+            f'</a>')
+    parts.append("</svg>")
+    return "".join(parts)
+
+
+GRAPH_STYLE = """
+.dagwrap { overflow: auto; border: 1px solid var(--rule); border-radius: 8px;
+  background: var(--panel); padding: 4px; }
+svg.dag { display: block; }
+.dag-edge { fill: none; stroke: var(--faint); stroke-width: 1; opacity: .4; }
+.dag-node { fill: var(--panel); stroke: var(--rule); }
+.dag-text { font-size: 11px; fill: var(--fg); }
+.dag-layer { font-size: 11px; fill: var(--accent); font-weight: 700; }
+svg.dag a:hover .dag-node { fill: var(--accent); stroke: var(--accent); }
+svg.dag a:hover .dag-text { fill: var(--accent-fg); }
+"""
+
+STYLE += GRAPH_STYLE
+
+
+def graph_page(cur: str = "progressive", code: str = "english", href=None) -> bytes:
+    """One curriculum, drawn. ``href`` lets the static export supply file paths."""
+    c = get_curriculum(cur)
+    depth = c.layers()
+    widest = max((sum(1 for v in depth.values() if v == d)
+                  for d in set(depth.values())), default=0)
+    head = (f'<div class="head"><h1><span class="sig">GRAPH</span>'
+            f'{E(c.id)}</h1>'
+            f'<p class="lede">{E(c.title)}. Lessons are flat; this is one '
+            f'curriculum\u2019s opinion about how they depend on each other, drawn '
+            f'as layers. An edgeless curriculum is a single column &mdash; that is '
+            f'not a bug, it is the curriculum declining to claim anything. '
+            f'Every arrow points from a prerequisite to what it enables.</p>'
+            + _spec(("curriculum", c.id, True),
+                    ("nodes", str(len(c.nodes)), False),
+                    ("edges", str(len(c.edges)), False),
+                    ("layers", str(max(depth.values(), default=0) + 1), False),
+                    ("widest layer", str(widest), False),
+                    ("roots", str(len(c.roots())), False))
+            + "</div>")
+    body = f'<div class="body"><div class="dagwrap">{_graph_svg(cur, href)}</div></div>'
+    top = (f'<header class="top">'
+           f'<label class="burger" for="navtoggle" title="lessons">&#9776;</label>'
+           f'<form class="picker" method="get" action="/graph">'
+           f'<span class="field"><label class="q">curriculum</label>'
+           f'{_plain_select("cur", cur, curriculum_ids())}</span>'
+           f'<noscript><button type="submit">go</button></noscript></form>'
+           f'<span class="grow"></span>'
+           f'<span class="here"><b>{len(c.nodes)}</b> nodes &middot; '
+           f'<b>{len(c.edges)}</b> edges</span></header>')
+    side_href = (lambda lid, _c: href(lid)) if href else None
+    return _page(f"graph \u00b7 {c.id} - langcurriculum",
+                 _sidebar("", code, href=side_href, cur=cur), top, head + body)
+
+
 DEFAULT_COMPARE = ["english", "spanish", "chinese", "turkish", "swahili"]
 
 
@@ -647,6 +793,8 @@ class Handler(BaseHTTPRequestHandler):
                 cur = DEFAULT_CURRICULUM
             if not parts:
                 return self._send(index_page(code, cur))
+            if parts[0] == "graph" and len(parts) == 1:
+                return self._send(graph_page(cur, code))
             if parts[0] == "lesson" and len(parts) == 2:
                 n = max(1, min(500, int((q.get("n") or [self.server.samples])[0])))
                 fmt = (q.get("fmt") or ["inline_bare"])[0]

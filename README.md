@@ -29,8 +29,9 @@ the business of a `Curriculum`, of which there are several, overlapping and disa
 Everything crossing the API is plain text or plain data. Point it at anything that maps a
 string to a string.
 
-Browsable curriculum, with 100 sample episodes per lesson:
-**[jacobfv.github.io/language-curriculum](https://jacobfv.github.io/language-curriculum/)**
+Browsable curriculum, with sample episodes per lesson and a drawn view of every
+curriculum's dependency graph:
+**[jacobfv.github.io/formal-language-cirriculum](https://jacobfv.github.io/formal-language-cirriculum/)**
 
 ---
 
@@ -91,12 +92,14 @@ lesson floors at 0.11, and two lessons both scoring 0.55 are not comparable.
 ```python
 report.lift                 # macro-average lift
 report.solved               # lessons at >= 90% of the headroom
-report.by_section()         # the profile, section by section
+report.by_tag()             # the profile, tag by tag
 report.by_capability()      # ... or by capability tag
+report.by_curriculum("progressive")   # ... or as a curve along a curriculum
 report["unification"].wrong # keep_wrong=N to retain failing episodes
 ```
 
-Slice it: `lc.evaluate(agent, "vii")` runs one section, `lc.evaluate(agent,
+Slice it: `lc.evaluate(agent, "tag:mathematics")` runs everything carrying a tag,
+`lc.evaluate(agent, "core170")` runs a curriculum in its own order, `lc.evaluate(agent,
 "unification,quantification")` runs named lessons, and `seed0=` picks which worlds you get.
 Scoring accepts a bare answer or an answer inside a sentence, and refuses a reply that
 hedges across several options; `strict=True` requires the bare answer.
@@ -120,15 +123,21 @@ One JSON object per line:
 
 ```json
 {"lesson_id": "unification", "seed": 3, "language": "english",
+ "presentation": "english/inline_bare/text", "instance_id": "9f2c1a77b0e4d310",
  "prompt": "The fact is bob is a parent of erin.\nThe pattern is B is a parent of erin.\nWhat does B unify with?\n\nAnswer with exactly one of: alice | bob | ...",
  "observation": "The fact is bob is a parent of erin.\nThe pattern is B is a parent of erin.\nWhat does B unify with?",
- "answer": "bob", "choices": ["alice", "bob", "carol", "dave", "erin", "frank"],
- "metadata": {"number": 11, "level": 11, "section": "i", "teaches": "...",
-              "capabilities": [...], "axes": {...}, "hidden": {"var": "B", "position": 0}}}
+ "answer": "bob", "target": "bob",
+ "choices": ["alice", "bob", "carol", "dave", "erin", "frank"],
+ "metadata": {"level": 11, "tags": ["symbols", "grounding", "elementary-language"],
+              "teaches": "...", "capabilities": [...], "axes": {...},
+              "hidden": {"var": "B", "position": 0}}}
 ```
 
-`prompt`/`answer` is what most training pipelines want. `observation` is the question
-without the trailing answer-set instruction, if you would rather format it yourself.
+`prompt`/`target` is what most training pipelines want — `target` is the expected open-form
+reply, which under a lettered answer format is `B` rather than `bob`. `observation` is the
+question without the answer-set block, if you would rather format it yourself.
+`instance_id` is shared by every rendering of the same episode, so records that differ only
+in language or surface can be joined; that join is the agreement measurement.
 `metadata.hidden` is the part of the world the generator knew and the agent was not shown —
 the grammar it sampled, the boundary it drew, the lexicon it invented. Useful for analysis;
 the one field you must not feed to a model you then intend to evaluate.

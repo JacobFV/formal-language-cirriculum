@@ -143,8 +143,12 @@ def verify_surface(lesson: Lesson | str, surface: str, *, episodes: int = 20,
                                         surface=surface, **options)
             else:
                 ex = lesson.example(seed0 + i, language=language)
+                # the episode's language travels with it: dictation only has
+                # English rules, and a check that did not say which language it
+                # was reading would pass everything
                 content = transcode(ex.prompt, surface, target=ex.target,
-                                    choices=ex.choices, **options)
+                                    choices=ex.choices, language=ex.language,
+                                    **options)
         except Exception as e:
             errors.append(f"{type(e).__name__}: {e}")
             continue

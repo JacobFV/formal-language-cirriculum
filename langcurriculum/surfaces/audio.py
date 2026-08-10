@@ -315,12 +315,13 @@ LISTENABLE_SECONDS = 30.0
 
 
 def transcode(text: str, target: str = "", *, choices=(), rate: float = 1.0,
-              pitch: float = 110.0, **_options):
+              pitch: float = 110.0, language: str = "english", **_options):
     """Dictate a prompt: the transcript, and the waveform read from it."""
     from .content import Asset, Content, Fidelity
-    from .spoken import collapses, spoken_form
+    from .spoken import SPOKEN_LANGUAGE, _language_note, collapses, spoken_form
 
     said, notes = spoken_form(text)
+    notes.extend(_language_note(language))
     spoken_target, _ = spoken_form(target) if target else ("", [])
     data = wav(synthesize(said, rate=rate, pitch=pitch))
     seconds = duration_of(data)
@@ -337,7 +338,8 @@ def transcode(text: str, target: str = "", *, choices=(), rate: float = 1.0,
     return Content(
         surface="audio", text=said, target=spoken_target,
         assets=(Asset(mime="audio/wav", data=data, role="prompt"),),
-        fidelity=Fidelity(lossless=not clashes, notes=tuple(notes)),
-        meta={"renderer": RENDERER_VERSION, "written": text,
+        fidelity=Fidelity(lossless=not clashes and language == SPOKEN_LANGUAGE,
+                          notes=tuple(notes)),
+        meta={"renderer": RENDERER_VERSION, "written": text, "language": language,
               "seconds": round(seconds, 2), "sample_rate": SAMPLE_RATE,
               "synthesis": "rule-based formant; no model"})

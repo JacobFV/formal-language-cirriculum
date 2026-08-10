@@ -121,11 +121,13 @@ def transcode(text: str, surface: str = "text", *, target: str = "",
         raise ValueError(f"unknown surface {surface!r}; try one of {surface_names()}")
     if surface in _WANTS_CHOICES:
         return SURFACES[surface](text, target, choices=tuple(choices), **options)
+    options.pop("language", None)          # only the spoken surfaces read it
     return SURFACES[surface](text, target, **options)
 
 
 def transcode_example(example, surface: str = "text", **options: Any) -> Content:
     """Render an :class:`~langcurriculum.lesson.Example` into a surface."""
+    options.setdefault("language", example.language)
     return transcode(example.prompt, surface, target=example.target,
                      choices=example.choices, **options)
 

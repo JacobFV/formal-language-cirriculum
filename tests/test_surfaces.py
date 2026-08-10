@@ -312,3 +312,36 @@ def test_a_drawn_scene_is_deterministic():
     a = render_native(lc.get("quantification"), 5)
     b = render_native(lc.get("quantification"), 5)
     assert a.assets[0].sha256 == b.assets[0].sha256
+
+
+# ---------------------------------------------------------------- language honesty
+def test_dictation_admits_it_only_has_english_rules():
+    """The boundary is allowed to exist; it is not allowed to be silent."""
+    from langcurriculum.surfaces.spoken import SPOKEN_LANGUAGE
+
+    assert SPOKEN_LANGUAGE == "english"
+    english = transcode_example(lc.get("symbol_grounding").example(0), "spoken")
+    assert english.fidelity.lossless
+
+    for code in ("spanish", "turkish", "swahili"):
+        ex = lc.get("symbol_grounding").example(0, language=code)
+        c = transcode_example(ex, "spoken")
+        assert not c.fidelity.lossless, code
+        assert any("letter-to-sound" in n for n in c.fidelity.notes), code
+        assert c.meta["language"] == code
+
+
+def test_the_audio_surface_carries_the_same_admission():
+    ex = lc.get("unification").example(0, language="spanish")
+    c = transcode_example(ex, "audio")
+    assert not c.fidelity.lossless
+    assert any("only approximate" in n for n in c.fidelity.notes)
+
+
+def test_verify_surface_flags_a_language_dictation_cannot_read():
+    ok = lc.verify.verify_surface("unification", "spoken", episodes=3,
+                                  language="english")
+    bad = lc.verify.verify_surface("unification", "spoken", episodes=3,
+                                   language="spanish")
+    assert ok["ok"] is True
+    assert bad["ok"] is False and bad["lossy_episodes"] == 3

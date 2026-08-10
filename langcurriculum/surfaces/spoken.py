@@ -24,7 +24,8 @@ from typing import Iterable, Sequence
 
 from .content import Content, Fidelity
 
-__all__ = ["RENDERER_VERSION", "spoken_form", "number_words", "collapses", "transcode"]
+__all__ = ["RENDERER_VERSION", "SPOKEN_LANGUAGE", "spoken_form",
+           "number_words", "collapses", "transcode"]
 
 RENDERER_VERSION = "spoken_v1"
 
@@ -122,10 +123,27 @@ def collapses(options: Sequence[str]) -> tuple[tuple[str, ...], ...]:
     return tuple(tuple(v) for v in groups.values() if len(v) > 1)
 
 
+#: The only language whose rules this module actually has. Everything else is
+#: read with English letter-to-sound rules and English words for the numbers and
+#: the punctuation, which produces a mongrel: the lesson's words in one language,
+#: its digits and brackets in another. That is reported rather than hidden --
+#: a corpus is allowed to have a boundary, but not a silent one.
+SPOKEN_LANGUAGE = "english"
+
+
+def _language_note(language: str) -> list[str]:
+    if not language or language == SPOKEN_LANGUAGE:
+        return []
+    return [f"read with {SPOKEN_LANGUAGE} letter-to-sound rules and "
+            f"{SPOKEN_LANGUAGE} words for numbers and punctuation; this "
+            f"episode is in {language}, so the reading is only approximate"]
+
+
 def transcode(text: str, target: str = "", *, choices: Iterable[str] = (),
-              **_options) -> Content:
+              language: str = SPOKEN_LANGUAGE, **_options) -> Content:
     """Read a prompt aloud, and say whether the answer survived being read."""
     said, notes = spoken_form(text)
+    notes.extend(_language_note(language))
     spoken_target, _ = spoken_form(target) if target else ("", [])
     clashes = collapses(list(choices))
     if clashes:
@@ -133,5 +151,8 @@ def transcode(text: str, target: str = "", *, choices: Iterable[str] = (),
             f"{len(clashes)} answer options collapse onto the same sound "
             f"({' / '.join(clashes[0])}); this episode is not answerable from audio")
     return Content(surface="spoken", text=said, target=spoken_target,
-                   fidelity=Fidelity(lossless=not clashes, notes=tuple(notes)),
-                   meta={"renderer": RENDERER_VERSION, "written": text})
+                   fidelity=Fidelity(
+                       lossless=not clashes and language == SPOKEN_LANGUAGE,
+                       notes=tuple(notes)),
+                   meta={"renderer": RENDERER_VERSION, "written": text,
+                         "language": language})

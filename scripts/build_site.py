@@ -232,6 +232,23 @@ def index_page(codes: list[str], n: int) -> bytes:
                       style="style.css", script="")
 
 
+def graph_page(cur: str, codes: list[str], depth: int) -> bytes:
+    """A curriculum's DAG, as a standalone page.
+
+    The static export gets one per curriculum rather than a picker, because a
+    picker needs a server to answer it and the whole point of this file is that
+    there is not one.
+    """
+    up = "../" * depth
+    page = site.graph_page(cur, codes[0],
+                           href=lambda lid: f"{up}lessons/{lid}.html").decode("utf-8")
+    # relink the chrome the served version points at absolute routes
+    page = page.replace('href="/graph', f'href="{up}graph')
+    page = page.replace('action="/graph"', 'action="."')
+    page = page.replace('href="/"', f'href="{up}index.html"')
+    return page.replace('href="/style.css"', f'href="{up}style.css"').encode("utf-8")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--out", default=str(ROOT / "docs"))
@@ -268,6 +285,12 @@ def main() -> int:
     (out / ".nojekyll").write_text("")
     (out / "style.css").write_text(site.STYLE, encoding="utf-8")
     (out / "index.html").write_bytes(index_page(codes, args.samples))
+    graphs = out / "graph"
+    graphs.mkdir(parents=True, exist_ok=True)
+    from langcurriculum.curricula import curriculum_ids
+    for name in curriculum_ids():
+        (graphs / f"{name}.html").write_bytes(graph_page(name, codes, 1))
+    print(f"{len(curriculum_ids())} graph pages")
 
     started = time.time()
     for i, lid in enumerate(sorted(all_lessons()), 1):
@@ -277,7 +300,7 @@ def main() -> int:
                   f"({time.time() - started:.0f}s)", flush=True)
 
     total = sum(f.stat().st_size for f in out.rglob("*") if f.is_file())
-    print(f"wrote {len(all_lessons()) + 1} pages, {len(codes)} languages, "
+    print(f"wrote {len(all_lessons()) + 1 + len(curriculum_ids())} pages, {len(codes)} languages, "
           f"{args.samples} samples each -> {out} ({total / 1e6:.0f} MB, "
           f"{time.time() - started:.0f}s)")
     return 0
