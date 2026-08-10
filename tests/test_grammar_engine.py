@@ -459,8 +459,19 @@ def test_no_two_keys_import_the_same_word(code):
     smaller problem than an ambiguous one.
     """
     grammar = get_grammar(code)
+    from langcurriculum.grammar.derived import _lemmas
+
+    # Two concepts sharing a word is the fault. Two spellings of one concept
+    # sharing it is not: `bind` and `binds` are a verb and its inflection, and
+    # counting that as a clash dropped both, so Turkish lost bağlamak at the
+    # moment `binds` became resolvable. Grouped the way `_find_collisions`
+    # groups them, by the citation form rather than the spelling.
+    by_form: dict[str, set[str]] = {}
+    for key, form in grammar._imported.items():
+        by_form.setdefault(form, set()).add(_lemmas().get(key, key))
+    shared = {f: c for f, c in by_form.items() if len(c) > 1}
+    assert not shared, f"{code}: one word for two concepts: {shared}"
     forms = list(grammar._imported.values())
-    assert len(forms) == len(set(forms)), f"{code}: two keys share a form"
     curated = {grammar.vocabulary.translate(k)
                for k in set(grammar.vocabulary.nouns) | set(grammar.vocabulary.words)}
     assert not (set(forms) & curated), f"{code}: an import collides with curated"

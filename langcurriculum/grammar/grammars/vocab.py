@@ -129,6 +129,7 @@ class VocabularyGrammar(Grammar):
         if db is None:
             return
         from ..compile import curriculum_vocabulary
+        from ..derived import _lemmas
 
         taken = {self.vocabulary.translate(k) for k in
                  (set(self.vocabulary.nouns) | set(self.vocabulary.adjectives)
@@ -140,6 +141,15 @@ class VocabularyGrammar(Grammar):
             if self.vocabulary.knows(key) or key in self.predicate_words:
                 continue
             entry = db.lookup(self.iso, key)
+            if entry is None or not entry.form:
+                # The same citation form the derived grammars ask for. A
+                # dictionary keys on `accept`, the curriculum coins `accepted`,
+                # and asking only for the coined spelling left twenty Turkish
+                # and seventeen Swahili words in English that the database
+                # holds. The mapping is hand-written; only the target word
+                # comes from the scrape, as every imported word does.
+                lemma = _lemmas().get(key)
+                entry = db.lookup(self.iso, lemma) if lemma else None
             if entry is None or not entry.form:
                 continue
             form = entry.form
@@ -153,13 +163,23 @@ class VocabularyGrammar(Grammar):
                 continue
             candidates[key] = form
 
-        seen: dict[str, str] = {}
+        # Two curriculum words rendering alike is a collision and both are
+        # dropped; the same word twice is not. `bind` and `binds` are one
+        # verb, and counting them as a clash cost Turkish bağlamak the moment
+        # `binds` became resolvable -- a word going back to English while the
+        # change around it was adding them.
+        from collections import defaultdict
+
+        by_form: dict[str, list[str]] = defaultdict(list)
         for key, form in candidates.items():
-            if form in taken or form in seen:
-                seen.pop(form, None)          # drop both sides of a collision
+            by_form[form].append(key)
+        for form, keys in by_form.items():
+            if form in taken:
                 continue
-            seen[form] = key
-        self._imported = {k: f for f, k in seen.items()}
+            if len({_lemmas().get(k, k) for k in keys}) > 1:
+                continue
+            for key in keys:
+                self._imported[key] = form
 
     @property
     def database(self):
