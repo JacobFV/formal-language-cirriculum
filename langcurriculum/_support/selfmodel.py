@@ -68,7 +68,13 @@ def _rules(*lines: str) -> Term:
     episodes; with it every episode is self-contained and the answer is a pure
     function of what the agent can see.
     """
-    return Lst([Pred("rule", Ident(t)) for t in lines])
+    # The rule is a sentence, so it is written as one. As `Ident` it was a
+    # name and names pass through untouched, which put
+    # "a_theory_is_lossless_iff_it_predicts_every_observation_exactly" on the
+    # page -- in English too, where it is not a sentence either. As a headed
+    # term with no arguments it goes through the label path, which spells the
+    # underscores out and renders it a word at a time.
+    return Lst([Pred("rule", Pred(t)) for t in lines])
 
 
 def _paths(edges: Sequence[tuple[int, int]], src: int, dst: int) -> list[list[int]]:
