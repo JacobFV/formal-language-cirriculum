@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.science import _apply_perm, _shuffled
 
 
-def gen_multiscale_modeling(rng: random.Random):
+def gen_multiscale_modeling(rng: random.Random, ctx):
     """Microscopic transport, macroscopic question.
 
     The micro rule (a site permutation — transport that moves stuff without
@@ -24,7 +24,7 @@ def gen_multiscale_modeling(rng: random.Random):
     distractors are the coarse variable's values at *other* times, so the
     macro-level answer alone is not guessable from the trajectory.
     """
-    k, shown = 6, 5
+    k, shown = ctx.at(6, 14, default=6), 5
     for _ in range(200):
         counts = rng.sample(range(1, 20), k)
         perm = _shuffled(rng, range(k))

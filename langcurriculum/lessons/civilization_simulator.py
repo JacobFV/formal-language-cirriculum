@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.capstone import _mode, _nonce_pool, _shuffled, _transmit
 
 
-def gen_civilization_simulator(rng: random.Random):
+def gen_civilization_simulator(rng: random.Random, ctx):
     """A ring of agents, each holding a convention, transmitting for G
     generations under one of two explicitly stated rules; which convention ends
     up dominant?
@@ -27,7 +27,7 @@ def gen_civilization_simulator(rng: random.Random):
     against 0.25-0.33 chance — the residue is the minority of worlds whose
     dynamics simply cannot be made to overturn the starting plurality.
     """
-    n = rng.randint(7, 9)
+    n = rng.randint(*ctx.span((7, 9), (15, 19)))
     k = rng.randint(3, 4)
     words = _nonce_pool(rng, k)
     rule = rng.choice(["majority", "prestige"])

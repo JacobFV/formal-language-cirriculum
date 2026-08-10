@@ -13,7 +13,7 @@ from ..lesson import Lesson
 from ..generators.mathematics import _bound_values, _fsym, _label_items, _nonces, _shuffled
 
 
-def gen_uncertain_symbolic_reasoning(rng: random.Random):
+def gen_uncertain_symbolic_reasoning(rng: random.Random, ctx):
     """Symbolic derivation that carries uncertainty exactly.
 
     Half the episodes ask for a *tightest bound* on a compound event given only
@@ -42,11 +42,12 @@ def gen_uncertain_symbolic_reasoning(rng: random.Random):
             return obs, options, answer, {"kind": "frechet_bound", "pa": a, "pb": b,
                                           "bound": kind, "value": answer}
 
-    names = _nonces(rng, 4, 2)
+    n_claims = ctx.at(4, 9, default=4)
+    names = _nonces(rng, ctx.at(4, 7, default=4), 2)
     for _ in range(200):
         probs = {nm: rng.randrange(20, 90, 5) for nm in names}
         cands = []
-        for _ in range(12):
+        for _ in range(ctx.at(12, 40, default=12)):
             k = rng.randint(2, 3)
             sub = rng.sample(names, k)
             form = rng.choice(["and", "or", "and_not"])
@@ -68,9 +69,9 @@ def gen_uncertain_symbolic_reasoning(rng: random.Random):
                 p = Fraction(probs[sub[0]], 100) * Fraction(100 - probs[sub[1]], 100)
             if all(f != g for g, _ in cands):
                 cands.append((f, p))
-        if len(cands) < 4:
+        if len(cands) < n_claims:
             continue
-        picked = rng.sample(cands, 4)
+        picked = rng.sample(cands, n_claims)
         best = max(p for _, p in picked)
         if sum(1 for _, p in picked if p == best) != 1:
             continue

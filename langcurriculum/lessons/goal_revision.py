@@ -12,16 +12,16 @@ from ..lesson import Lesson
 from ..generators.selfmodel import _labels, _rules, _shuffled
 
 
-def gen_goal_revision(rng: random.Random):
+def gen_goal_revision(rng: random.Random, ctx):
     """New evidence removes a resource; which goal is no longer achievable?
 
     Availability propagates down a short derivation chain, so the depleted
     resource is usually not the one any goal names. Exactly one goal loses a
     requirement once the chain is followed.
     """
-    n_res = 6
+    n_res = ctx.at(6, 10, default=6)
     res = _labels(rng, "res", n_res)
-    chain_len = rng.choice([2, 3])
+    chain_len = rng.choice(ctx.among([[2, 3], [3, 4], [4, 5]]))
     chain = rng.sample(range(n_res), chain_len)   # chain[-1] is depleted at the base
     derived = [(chain[i], chain[i + 1]) for i in range(chain_len - 1)]
     unavailable = set(chain)

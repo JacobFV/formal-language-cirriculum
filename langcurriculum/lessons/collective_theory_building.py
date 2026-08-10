@@ -13,7 +13,7 @@ from ..generators.base import NAMES
 from ..generators.reflective import _nonces, _shuffled
 
 
-def gen_collective_theory_building(rng: random.Random):
+def gen_collective_theory_building(rng: random.Random, ctx):
     """Merge partially conflicting theories into the consensus they imply.
 
     Three researchers publish partial assignments over the same variables and
@@ -22,11 +22,12 @@ def gen_collective_theory_building(rng: random.Random):
     conflict, so the consensus value has to be computed rather than copied.
     """
     fallback = None
+    n_r = ctx.at(3, 6, default=3)
     for _ in range(300):
         variables = _nonces(rng, 3, 3)
         values = _nonces(rng, 4, 2)
-        researchers = rng.sample(NAMES, 3)
-        rank = dict(zip(_shuffled(rng, researchers), [1, 2, 3]))
+        researchers = rng.sample(NAMES, n_r)
+        rank = dict(zip(_shuffled(rng, researchers), list(range(1, n_r + 1))))
         claims: list[tuple[str, str, str]] = []
         for r in researchers:
             for v in rng.sample(variables, rng.randint(2, 3)):

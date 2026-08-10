@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.mathematics import _nonce, _nonces, _shuffled
 
 
-def gen_default_reasoning(rng: random.Random):
+def gen_default_reasoning(rng: random.Random, ctx):
     """Birds fly, penguins do not, and nobody said anything about rocks.
 
     A nonce taxonomy carries defeasible rules at several levels; the conclusion
@@ -22,7 +22,7 @@ def gen_default_reasoning(rng: random.Random):
     drawn uniformly and the taxonomy is then built to realize it, with an
     opposite-polarity rule placed higher up whenever specificity is what decides
     the case."""
-    depth = 4
+    depth = ctx.at(4, 10, default=4)
     classes = _nonces(rng, depth, 2)
     prop, other = _nonces(rng, 2, 2, avoid=classes)
     ind = _nonce(rng, 2)

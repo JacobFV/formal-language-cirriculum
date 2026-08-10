@@ -13,15 +13,16 @@ from ..generators.base import COLORS, SHAPES
 from ..generators.extra import SIZES, _nonce, _objects, _shuffled
 
 
-def gen_definitions(rng: random.Random):
+def gen_definitions(rng: random.Random, ctx):
     """A novel word is *defined compositionally in the episode* and then applied:
     ``a dax is any red cube``; half the episodes stack a second definition on the
     first (``a blicket is any big dax``), so the word must be expanded before it
     can be used. Nothing carries between episodes."""
-    objs = _objects(rng, 4)
-    c1, c2 = rng.sample(COLORS, 2)
-    s1, s2 = rng.sample(SHAPES, 2)
-    for o, (c, s) in zip(objs, [(c1, s1), (c1, s2), (c2, s1), (c2, s2)]):
+    nc, ns = ctx.at(2, 3, default=2), ctx.at(2, 3, default=2)   # the colour x shape grid
+    objs = _objects(rng, nc * ns)
+    cols = rng.sample(COLORS, nc)
+    shapes = rng.sample(SHAPES, ns)
+    for o, (c, s) in zip(objs, [(c, s) for c in cols for s in shapes]):
         o["color"], o["shape"] = c, s
     for o in objs:
         o["size"] = rng.choice(SIZES)
@@ -30,7 +31,7 @@ def gen_definitions(rng: random.Random):
     two_level = rng.random() < 0.5
     if two_level:
         # level 1 denotes two objects; level 2 narrows to exactly one by size
-        color = rng.choice([c1, c2])
+        color = rng.choice(cols)
         group = [o for o in objs if o["color"] == color]
         big = rng.choice(group)
         for o in group:

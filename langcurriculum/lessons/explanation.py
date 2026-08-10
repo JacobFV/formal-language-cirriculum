@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import _concept_graph, _follow, _labelled, _need, _shuffled
 
 
-def gen_explanation(rng: random.Random):
+def gen_explanation(rng: random.Random, ctx):
     """Which explanation is sufficient *for this listener*.
 
     Sufficiency is audience-relative and here it is decidable: simulate the
@@ -22,9 +22,10 @@ def gen_explanation(rng: random.Random):
     re-simulated and the episode is rejected unless exactly one candidate
     actually delivers the target.
     """
+    n_c = ctx.at(8, 15, default=8)
     for _ in range(400):
-        concepts, prereqs = _concept_graph(rng, 8)
-        target = concepts[rng.randrange(4, 8)]
+        concepts, prereqs = _concept_graph(rng, n_c)
+        target = concepts[rng.randrange(4, n_c)]
         known = {c for c in concepts if rng.random() < 0.35 and c != target}
         need = sorted(_need(target, known, prereqs), key=concepts.index)
         if len(need) < 3:

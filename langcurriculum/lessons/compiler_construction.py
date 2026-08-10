@@ -13,7 +13,7 @@ from ..lesson import Lesson
 from ..generators.reflective import _expand, _nonces, _num_options, _run_prog
 
 
-def gen_compiler_construction(rng: random.Random):
+def gen_compiler_construction(rng: random.Random, ctx):
     """Compile a high-level program to primitives, then run it.
 
     Macros are defined in terms of primitives *and of each other*, and a
@@ -23,6 +23,9 @@ def gen_compiler_construction(rng: random.Random):
     not expanding macros, treating ``times n`` as ``times 1``, and expanding
     only the outermost macro layer.
     """
+    max_stream = ctx.at(18, 60, default=18)
+    max_mul = ctx.at(4, 12, default=4)
+    max_val = ctx.at(3000, 3_000_000, default=3000)
     fallback = None
     for _ in range(400):
         prims = _nonces(rng, 3, 2)
@@ -40,14 +43,15 @@ def gen_compiler_construction(rng: random.Random):
         rng.shuffle(body1)
         macros = {mnames[0]: body0, mnames[1]: body1}
         prog: list[tuple] = []
-        for _ in range(rng.randint(2, 3)):
+        for _ in range(rng.randint(*ctx.span((2, 3), (5, 8)))):
             if rng.random() < 0.7:
                 t = rng.choice(mnames)
                 prog.append(("rep", rng.randint(2, 2), t) if rng.random() < 0.35 else ("tok", t))
             else:
                 prog.append(("tok", rng.choice(prims)))
         stream = _expand(prog, macros)
-        if not stream or len(stream) > 18 or sum(1 for t in stream if sem[t][0] == "mul") > 4:
+        if (not stream or len(stream) > max_stream
+                or sum(1 for t in stream if sem[t][0] == "mul") > max_mul):
             continue
         x = rng.randint(1, 5)
         ans = _run_prog(stream, sem, x)
@@ -67,7 +71,7 @@ def gen_compiler_construction(rng: random.Random):
         cand = (prims, sem, mnames, macros, prog, x, ans, near, stream)
         if fallback is None:
             fallback = cand
-        if ans not in near and len({ans, *near}) == 4 and abs(ans) < 3000:
+        if ans not in near and len({ans, *near}) == 4 and abs(ans) < max_val:
             fallback = cand
             break
     prims, sem, mnames, macros, prog, x, ans, near, stream = fallback

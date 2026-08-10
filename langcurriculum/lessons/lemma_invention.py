@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.mathematics import _derivation_costs, _horn_theory, _label_items, _ladder_theory, _shuffled
 
 
-def gen_lemma_invention(rng: random.Random):
+def gen_lemma_invention(rng: random.Random, ctx):
     """Which intermediate proposition, taken as a lemma, buys the most?
 
     Proof cost is tree size, so a proposition that is re-derived inside several
@@ -22,7 +22,7 @@ def gen_lemma_invention(rng: random.Random):
     strictly the largest."""
     for att in range(400):
         if att < 380:
-            atoms, facts, rules = _horn_theory(rng)
+            atoms, facts, rules = _horn_theory(rng, n_atoms=ctx.at(8, 14, default=8))
             cands_all = None
         else:                                            # pragma: no cover - budget
             atoms, facts, rules = _ladder_theory(rng)

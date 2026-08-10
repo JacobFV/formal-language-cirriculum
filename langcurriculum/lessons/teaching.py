@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import _closure, _nonces, _shuffled
 
 
-def gen_teaching(rng: random.Random):
+def gen_teaching(rng: random.Random, ctx):
     """Which single example moves the student furthest.
 
     The student's knowledge state and the rule base are both given; teaching one
@@ -22,7 +22,7 @@ def gen_teaching(rng: random.Random):
     and the episode is rejected unless one candidate strictly dominates.
     """
     for _ in range(400):
-        atoms = _nonces(rng, 10, 4)
+        atoms = _nonces(rng, ctx.at(10, 22, default=10), 4)
         rules: list[tuple[tuple[str, ...], str]] = []
         for i, a in enumerate(atoms):
             if i < 2:

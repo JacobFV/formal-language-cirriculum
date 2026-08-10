@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import ATTRS, _labelled, _nonces, _shuffled, _spec_accepts
 
 
-def gen_problem_formulation(rng: random.Random):
+def gen_problem_formulation(rng: random.Random, ctx):
     """The scenario never states its objective; the outcomes do.
 
     All that is given is a set of items with attributes and a handful of past
@@ -22,15 +22,17 @@ def gen_problem_formulation(rng: random.Random):
     if they actually misclassify something, so agreement with the data is the
     only thing that separates them.
     """
+    n_items = ctx.at(5, 8, default=5)            # items a plan may draw on
+    plan_max = ctx.at(4, 6, default=4)           # items in the largest plan
     for _ in range(400):
-        names = _nonces(rng, 5, 4)
+        names = _nonces(rng, n_items, 4)
         items = {n: {a: rng.randint(1, 9) for a in ATTRS} for n in names}
         a1, a2 = rng.sample(ATTRS, 2)
         truth = [(rng.choice(["at_least", "at_most"]), a1, rng.randint(6, 18)),
                  (rng.choice(["at_least", "at_most"]), a2, rng.randint(6, 18))]
         plans: list[list[str]] = []
         for _ in range(40):
-            p = sorted(rng.sample(names, rng.randint(1, 4)))
+            p = sorted(rng.sample(names, rng.randint(1, plan_max)))
             if p not in plans:
                 plans.append(p)
             if len(plans) == 6:

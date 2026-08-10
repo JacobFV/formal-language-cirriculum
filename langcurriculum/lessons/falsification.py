@@ -13,7 +13,7 @@ from ..generators.base import COLORS, SHAPES
 from ..generators.science import _labels, _lin, _shuffled
 
 
-def gen_falsification(rng: random.Random):
+def gen_falsification(rng: random.Random, ctx):
     """Which single observation would refute the stated law?
 
     Half the episodes state a universal (``every X-shaped thing is C``) and half
@@ -22,7 +22,8 @@ def gen_falsification(rng: random.Random):
     confirming — vacuous satisfaction and genuine confirmation both count as
     "not a refutation", which is the distinction the lesson is about.
     """
-    labels = _labels("o", 4)
+    n = ctx.at(4, 8, default=4)                  # candidate observations to sift
+    labels = _labels("o", n)
     if rng.random() < 0.5:
         shape = rng.choice(SHAPES)
         color = rng.choice(COLORS)
@@ -32,8 +33,10 @@ def gen_falsification(rng: random.Random):
         cases = [(shape, color),                                   # confirming instance
                  (rng.choice(others_shape), rng.choice(others_color)),   # irrelevant
                  (rng.choice(others_shape), color)]                # irrelevant
+        for _ in range(n - 4):                                     # further irrelevant ones
+            cases.append((rng.choice(others_shape), rng.choice(others_color)))
         rows = [refuter] + cases
-        order = _shuffled(rng, range(4))
+        order = _shuffled(rng, range(n))
         answer = labels[order.index(0)]
         obs = Rec(law=Pred("all_are", Ident(shape), Ident(color)),
                   candidates=Lst([Pred("candidate", Ident(labels[j]),
@@ -44,10 +47,10 @@ def gen_falsification(rng: random.Random):
                                                      "law": [shape, color], "answer": answer}
     a = rng.choice([-3, -2, -1, 1, 2, 3])
     b = rng.randint(-6, 6)
-    xs = rng.sample(range(-7, 8), 4)
+    xs = rng.sample(range(-7, 8), n)
     off = rng.choice([-5, -4, -3, -2, -1, 1, 2, 3, 4, 5])
     rows = [(xs[0], a * xs[0] + b + off)] + [(x, a * x + b) for x in xs[1:]]
-    order = _shuffled(rng, range(4))
+    order = _shuffled(rng, range(n))
     answer = labels[order.index(0)]
     obs = Rec(law=Pred("eq", Ident("y"), _lin(a, "x", b)),
               candidates=Lst([Pred("candidate", Ident(labels[j]),

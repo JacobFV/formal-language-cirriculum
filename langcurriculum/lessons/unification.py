@@ -13,15 +13,16 @@ from ..lesson import Lesson
 from ..generators.base import NAMES
 
 
-def gen_unification(rng: random.Random):
+def gen_unification(rng: random.Random, ctx):
     """Prolog-style term matching: parent(X,bob) vs parent(alice,bob) → X=alice."""
-    a, b = rng.sample(NAMES, 2)
+    arity = ctx.at(2, 5, default=2)
+    args = rng.sample(NAMES, arity)
     var = rng.choice(list(string.ascii_uppercase[:5]))
-    pos = rng.randrange(2)
-    pattern = Pred("parent", Ident(var) if pos == 0 else Ident(a), Ident(b) if pos == 0 else Ident(var))
-    fact = Pred("parent", Ident(a), Ident(b))
+    pos = rng.randrange(arity)
+    pattern = Pred("parent", *[Ident(var) if i == pos else Ident(x) for i, x in enumerate(args)])
+    fact = Pred("parent", *[Ident(x) for x in args])
     obs = Rec(pattern=pattern, fact=fact, query=Pred("unify", Ident(var)))
-    return obs, NAMES, (a if pos == 0 else b), {"var": var, "position": pos}
+    return obs, NAMES, args[pos], {"var": var, "position": pos}
 
 
 class Unification(Lesson):

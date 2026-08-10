@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.mathematics import _CLAIMS, _CLAIM_SYM, _label_items, _model_sym, _rand_model, _shuffled
 
 
-def gen_counterexample_generation(rng: random.Random):
+def gen_counterexample_generation(rng: random.Random, ctx):
     """A universal claim that is false, and the small model that refutes it.
 
     Four three-element structures are drawn and the claim is *evaluated* in each;
@@ -20,9 +20,10 @@ def gen_counterexample_generation(rng: random.Random):
     picking the refuter requires checking the quantifiers rather than pattern
     matching on how the claim is written."""
     dom = ["e1", "e2", "e3"]
+    n_models = ctx.at(4, 8, default=4)
     for _ in range(400):
         name, test = rng.choice(_CLAIMS)
-        models = [_rand_model(rng, dom) for _ in range(4)]
+        models = [_rand_model(rng, dom) for _ in range(n_models)]
         verdicts = [test(dom, *m) for m in models]
         if verdicts.count(False) != 1:
             continue

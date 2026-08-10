@@ -13,7 +13,7 @@ from ..generators.base import NAMES
 from ..generators.reflective import _labels, _pure_equilibria, _shuffled
 
 
-def gen_institution_design(rng: random.Random):
+def gen_institution_design(rng: random.Random, ctx):
     """Which rule makes the collective outcome happen?
 
     Three agents with different private costs choose contribute/defect in a
@@ -24,8 +24,9 @@ def gen_institution_design(rng: random.Random):
     of them produces the stated number of contributors.
     """
     fallback = None
+    n_a = ctx.at(3, 5, default=3)
     for _ in range(500):
-        agents = rng.sample(NAMES, 3)
+        agents = rng.sample(NAMES, n_a)
         cost = {a: rng.randint(1, 6) for a in agents}
         benefit = rng.randint(1, 3)
         ids = _labels(rng, "r", 4)
@@ -47,7 +48,7 @@ def gen_institution_design(rng: random.Random):
                 return v
             return payoff
 
-        eqs = {i: _pure_equilibria(3, make(*spec[i])) for i in ids}
+        eqs = {i: _pure_equilibria(n_a, make(*spec[i])) for i in ids}
         if any(len(e) != 1 for e in eqs.values()):
             continue
         counts = {i: sum(eqs[i][0]) for i in ids}

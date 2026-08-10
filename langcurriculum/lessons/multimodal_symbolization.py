@@ -13,7 +13,7 @@ from ..lesson import Lesson
 from ..generators.social import DETECT_CLASSES, SURFACES, _inside, _shuffled
 
 
-def gen_multimodal_symbolization(rng: random.Random):
+def gen_multimodal_symbolization(rng: random.Random, ctx):
     """Detector symbols — ``(label, score, cx, cy, w, h)`` — with two surfaces.
 
     Perception is modular here: the
@@ -25,11 +25,14 @@ def gen_multimodal_symbolization(rng: random.Random):
     Reading either surface alone gives a specific wrong answer: the object in the
     untrusted surface, or the confident object sitting in the right one.
     """
+    n_off = ctx.at(2, 5, default=2)               # uncertain detections outside every surface
     for _ in range(200):
         tau = round(rng.uniform(0.45, 0.6), 2)
         surface = rng.choice(SURFACES)
-        labels = rng.sample(DETECT_CLASSES, 5)
-        answer, decoy, off1, off2, confident = labels
+        labels = rng.sample(DETECT_CLASSES, 3 + n_off)
+        answer, decoy = labels[0], labels[1]
+        offs = labels[2:2 + n_off]
+        confident = labels[2 + n_off]
 
         def _lo() -> float:
             return round(rng.uniform(0.15, tau - 0.05), 2)
@@ -51,7 +54,7 @@ def gen_multimodal_symbolization(rng: random.Random):
                                   (decoy, _in(untrusted), _lo()),
                                   (confident, _in(trusted), _hi())]:
             dets.append({"label": lab, "score": sc, "cx": cx, "cy": cy, "w": 8, "h": 8})
-        for lab in (off1, off2):                               # uncertain, but nowhere near
+        for lab in offs:                                       # uncertain, but nowhere near
             dets.append({"label": lab, "score": _lo(), "cx": rng.randint(45, 55),
                          "cy": rng.randint(5, 15), "w": 8, "h": 8})
 
@@ -69,7 +72,7 @@ def gen_multimodal_symbolization(rng: random.Random):
                                   for d in _shuffled(rng, dets)]),
                   trust_threshold=Num(tau),
                   query=Pred("uncertain_on", Ident(surface)))
-        return (obs, _shuffled(rng, [answer, decoy, off1, off2, confident]),
+        return (obs, _shuffled(rng, [answer, decoy, *offs, confident]),
                 uncertain_inside[0]["label"],
                 {"threshold": tau, "surface": surface, "decoy_answer": decoy,
                  "confident_distractor": confident})

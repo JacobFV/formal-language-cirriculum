@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.mathematics import _cond_sym, _cond_test, _label_items, _nonce, _rand_cond, _shuffled
 
 
-def gen_mathematical_definition_learning(rng: random.Random):
+def gen_mathematical_definition_learning(rng: random.Random, ctx):
     """A nonce predicate is *defined by axioms* in the episode, then applied.
 
     The definition is a conjunction of two (possibly negated) primitive
@@ -20,6 +20,7 @@ def gen_mathematical_definition_learning(rng: random.Random):
     kept only if exactly one of them satisfies the definition, so membership is
     a fact about the axioms rather than a judgement call."""
     word = _nonce(rng, 2)
+    n_sets = ctx.at(4, 8, default=4)              # candidate sets to test the definition against
     for _ in range(400):
         c1, c2 = _rand_cond(rng), _rand_cond(rng)
         if c1[0] == c2[0]:
@@ -30,8 +31,8 @@ def gen_mathematical_definition_learning(rng: random.Random):
         def holds(s, t1=t1, t2=t2, neg1=neg1, neg2=neg2):
             return (t1(s) != neg1) and (t2(s) != neg2)
 
-        sets = [tuple(sorted(rng.sample(range(1, 10), rng.randint(2, 5)))) for _ in range(4)]
-        if len(set(sets)) < 4:
+        sets = [tuple(sorted(rng.sample(range(1, 10), rng.randint(2, 5)))) for _ in range(n_sets)]
+        if len(set(sets)) < n_sets:
             continue
         good = [s for s in sets if holds(s)]
         if len(good) != 1:

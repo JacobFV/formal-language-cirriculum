@@ -13,7 +13,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import _backward_scan, _binary_search, _forward_scan, _jump_search, _shuffled
 
 
-def gen_algorithm_analysis(rng: random.Random):
+def gen_algorithm_analysis(rng: random.Random, ctx):
     """Compare candidate algorithms by executing them and counting.
 
     Four search procedures run on the same sorted array and target; the cost is
@@ -29,7 +29,7 @@ def gen_algorithm_analysis(rng: random.Random):
                 f"jump_search_{b}": _jump_search(arr, t, b)}
 
     for _ in range(400):
-        n = rng.randint(8, 14)
+        n = rng.randint(*ctx.span((8, 14), (20, 34)))
         arr = sorted(rng.sample(range(1, 60), n))
         b = rng.randint(2, 4)
         # which algorithm wins depends entirely on where the target sits, so the

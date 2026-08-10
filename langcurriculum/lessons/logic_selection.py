@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.mathematics import _DISCRIMINATING, _REGIMES, _SCHEMAS, _SCHEMA_ATOMS, _VALIDITY, _fsym, _instantiate, _label_items, _matching_schemas, _nonces, _shuffled
 
 
-def gen_logic_selection(rng: random.Random):
+def gen_logic_selection(rng: random.Random, ctx):
     """Which calculus does this domain run on?
 
     Four calculi are *defined in the episode* by the schemas they endorse and
@@ -21,13 +21,15 @@ def gen_logic_selection(rng: random.Random):
     unfamiliar atoms, so each observation has to be recognized as an instance of
     a schema before it can be matched against a calculus. Observations are kept
     only when exactly one calculus is consistent with all of them."""
+    n_rules = ctx.at(5, 7, default=5)
+    k_lo, k_hi = ctx.span((2, 4), (4, 7))
     for _ in range(300):
-        names = rng.sample(_DISCRIMINATING, min(5, len(_DISCRIMINATING)))
+        names = rng.sample(_DISCRIMINATING, min(n_rules, len(_DISCRIMINATING)))
         profiles = {r: tuple(_VALIDITY[r][nm] for nm in names) for r in _REGIMES}
         if len(set(profiles.values())) != len(_REGIMES):
             continue
         true_regime = rng.choice(list(_REGIMES))
-        k = rng.randint(2, min(4, len(names)))
+        k = rng.randint(k_lo, min(k_hi, len(names)))
         obs_names = rng.sample(names, k)
         consistent = [r for r in _REGIMES
                       if all(_VALIDITY[r][nm] == _VALIDITY[true_regime][nm] for nm in obs_names)]

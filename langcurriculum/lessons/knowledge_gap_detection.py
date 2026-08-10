@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import GAP_LABELS, _nonces, _shuffled
 
 
-def gen_knowledge_gap_detection(rng: random.Random):
+def gen_knowledge_gap_detection(rng: random.Random, ctx):
     """Before answering, say what kind of question this is.
 
     Four statuses, all of which occur: the fact is stated outright; it follows
@@ -24,7 +24,7 @@ def gen_knowledge_gap_detection(rng: random.Random):
     label = rng.choice(GAP_LABELS)
     for _ in range(400):
         ents = _nonces(rng, 4, 4)
-        props = _nonces(rng, 7, 4, avoid=ents)
+        props = _nonces(rng, ctx.at(7, 14, default=7), 4, avoid=ents)
         implies = []
         for i, p in enumerate(props):
             if i and rng.random() < 0.55:

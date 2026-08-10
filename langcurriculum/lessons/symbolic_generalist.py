@@ -12,7 +12,10 @@ from ..lesson import Lesson
 from ..generators.capstone import _OWN_IDS, _dedup, _shuffled
 
 
-def gen_symbolic_generalist(rng: random.Random):
+_QUARTERS = ("north", "south", "east", "west", "centre")
+
+
+def gen_symbolic_generalist(rng: random.Random, ctx):
     """A held-out mixture: two *different* lessons from the registry are
     instantiated into one composite world, and the query names which of the two
     worlds it is about.
@@ -32,35 +35,35 @@ def gen_symbolic_generalist(rng: random.Random):
     if len(pool) < 2:                                 # pragma: no cover - registry empty
         raise RuntimeError("symbolic_generalist needs at least two other implemented lessons")
 
+    n_parts = min(len(_QUARTERS), len(pool), ctx.at(2, 5, default=2))
     picked = None
     for _ in range(20):
-        a, b = rng.sample(pool, 2)
+        drawn = rng.sample(pool, n_parts)
         try:
-            obs_a, voc_a, ans_a, hid_a = a.invoke(rng)
-            obs_b, voc_b, ans_b, hid_b = b.invoke(rng)
+            parts = [l.invoke(rng) for l in drawn]
         except Exception:                             # a broken lesson must not break this one
             continue
-        if ans_a not in list(voc_a) or ans_b not in list(voc_b):
+        if any(ans not in list(voc) for _, voc, ans, _ in parts):
             continue
-        picked = (a, b, obs_a, list(voc_a), ans_a, hid_a, obs_b, list(voc_b), ans_b, hid_b)
+        picked = (drawn, [(o, list(v), a, h) for o, v, a, h in parts])
         break
     if picked is None:                                # pragma: no cover
         raise RuntimeError("symbolic_generalist could not draw a usable mixture")
-    a, b, obs_a, voc_a, ans_a, hid_a, obs_b, voc_b, ans_b, hid_b = picked
+    drawn, parts = picked
 
     first = rng.random() < 0.5
-    left, right = (obs_a, obs_b) if first else (obs_b, obs_a)
-    asked = rng.choice(["north", "south"])
-    if asked == "north":
-        answer = ans_a if first else ans_b
-        source = a.id if first else b.id
-    else:
-        answer = ans_b if first else ans_a
-        source = b.id if first else a.id
-    obs = Rec(north=left, south=right, query=Pred("resolve_query_in", Ident(asked)))
-    vocab = _shuffled(rng, _dedup(list(voc_a) + list(voc_b)))
-    hidden = {"components": [a.id, b.id], "asked": asked, "source": source,
-              "answer": answer, "levels": [a.level, b.level]}
+    slot_of = list(range(n_parts)) if first else list(reversed(range(n_parts)))
+    placed = [parts[i] for i in slot_of]              # placed[j] occupies quarter j
+    quarters = list(_QUARTERS[:n_parts])
+    asked = rng.choice(quarters)
+    j = quarters.index(asked)
+    answer = placed[j][2]
+    source = drawn[slot_of[j]].id
+    obs = Rec(**{q: placed[j2][0] for j2, q in enumerate(quarters)},
+              query=Pred("resolve_query_in", Ident(asked)))
+    vocab = _shuffled(rng, _dedup([v for _, voc, _, _ in parts for v in voc]))
+    hidden = {"components": [l.id for l in drawn], "asked": asked, "source": source,
+              "answer": answer, "levels": [l.level for l in drawn]}
     return obs, vocab, answer, hidden
 
 

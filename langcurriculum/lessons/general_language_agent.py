@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.ontology import _OWN_IDS, _STATE, _local_episode, _shuffled
 
 
-def gen_general_language_agent(rng: random.Random):
+def gen_general_language_agent(rng: random.Random, ctx):
     """A fresh lesson family per episode, with its answer alphabet made explicit.
 
     The registry is read at *call* time (never at import time, which would be
@@ -32,8 +32,11 @@ def gen_general_language_agent(rng: random.Random):
 
     from ..registry import all_lessons              # local: the registry imports us
 
+    # the difficulty knob is the floor on the level of the family drawn: at zero
+    # the whole registry is in play, higher up only the deeper lessons are
+    floor = ctx.at(0, 120, default=0)
     pool = [(k, l) for k, l in sorted(all_lessons().items())
-            if k not in _OWN_IDS and l.status == "implemented"]
+            if k not in _OWN_IDS and l.status == "implemented" and l.level >= floor]
     picked = None
     _STATE["composing"] = True
     try:

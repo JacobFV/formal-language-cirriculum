@@ -13,7 +13,7 @@ from ..generators.selfmodel import (_claim_pool, _claim_term, _formal_claim, _la
                                    _render_claim, _rules, _shuffled)
 
 
-def gen_deformalization(rng: random.Random):
+def gen_deformalization(rng: random.Random, ctx):
     """Formal structure in, the reading that says the same thing out.
 
     The mirror image of formalization: the same realizer generates all four
@@ -22,8 +22,14 @@ def gen_deformalization(rng: random.Random):
     """
     true, picks = _claim_pool(rng)
     cands = [true] + picks
-    ids = _labels(rng, "gloss", 4)
-    facts = [Pred("candidate", Ident(ids[i]), _claim_term(*cands[i])) for i in range(4)]
+    n_cands = ctx.at(4, 8, default=4)
+    while len(cands) < n_cands:                  # further mis-readings to sift through
+        alt, more = _claim_pool(rng)
+        for c in [alt] + more:
+            if c not in cands and len(cands) < n_cands:
+                cands.append(c)
+    ids = _labels(rng, "gloss", n_cands)
+    facts = [Pred("candidate", Ident(ids[i]), _claim_term(*cands[i])) for i in range(n_cands)]
     obs = Rec(theory=_formal_claim(*true),
               candidates=Lst(_shuffled(rng, facts)),
               rules=_rules("forall_x_implies_p_x_q_x_says_every_p_is_q",

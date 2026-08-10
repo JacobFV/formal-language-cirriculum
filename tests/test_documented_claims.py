@@ -340,3 +340,50 @@ def test_every_typology_parameter_is_read_or_says_it_is_not():
             unread.append(name)
     assert not unread, (f"stored and never read, and not documented as such: "
                         f"{unread}")
+
+
+# ---------------------------------------------------------------- the new claims
+def test_the_readme_counts_the_difficulty_knobs_it_has():
+    """A number in prose is a claim, and claims rot. This one is checked."""
+    import re
+    from pathlib import Path
+
+    import langcurriculum as lc
+
+    text = (Path(__file__).resolve().parent.parent / "README.md").read_text(encoding="utf-8")
+    implemented = [l for l in lc.all_lessons().values() if l.status == "implemented"]
+    with_knob = [l for l in implemented if l.supports_difficulty()]
+    without = sorted(l.id for l in implemented if not l.supports_difficulty())
+
+    m = re.search(r"\*\*(\d+)\*\* of those \d+ take a difficulty", text)
+    assert m, "the README no longer states how many lessons take a difficulty"
+    assert int(m.group(1)) == len(with_knob), (
+        f"README says {m.group(1)}, there are {len(with_knob)}")
+    for lid in without:
+        assert lid in text, f"{lid} has no knob and the README does not say so"
+
+
+def test_the_readme_counts_the_surfaces_it_has():
+    import re
+    from pathlib import Path
+
+    from langcurriculum.surfaces import NATIVE_SURFACES, surface_names
+
+    text = (Path(__file__).resolve().parent.parent / "README.md").read_text(encoding="utf-8")
+    m = re.search(r"\*\*(\d+)\*\* surfaces an episode can be rendered into, "
+                  r"\*\*(\d+)\*\* of them transcodes", text)
+    assert m, "the README no longer states how many surfaces there are"
+    assert int(m.group(1)) == len(surface_names())
+    assert int(m.group(2)) == len(surface_names()) - len(NATIVE_SURFACES)
+
+
+def test_every_surface_the_readme_tabulates_actually_exists():
+    from pathlib import Path
+
+    from langcurriculum.surfaces import RENDERER_VERSIONS, surface_names
+
+    text = (Path(__file__).resolve().parent.parent / "README.md").read_text(encoding="utf-8")
+    for name in surface_names():
+        assert f"| `{name}` |" in text, f"the surface table omits {name}"
+    # and the version it quotes is the one the code reports
+    assert RENDERER_VERSIONS["raster"] in text

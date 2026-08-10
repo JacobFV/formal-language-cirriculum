@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.selfmodel import _labels, _rules, _shuffled
 
 
-def gen_world_model_synthesis(rng: random.Random):
+def gen_world_model_synthesis(rng: random.Random, ctx):
     """A world model with containment, nesting, and timed processes; query it.
 
     Objects sit inside crates or inside other objects, crates sit in rooms, and
@@ -22,10 +22,13 @@ def gen_world_model_synthesis(rng: random.Random):
     """
     rooms = _labels(rng, "room", 4)
     crates = _labels(rng, "crate", 3)
-    objs = _labels(rng, "obj", 4)
-    # objs[0] nests inside objs[1]; the rest sit directly in a crate
-    holder = {objs[0]: ("obj", objs[1])}
-    for o in objs[1:]:
+    objs = _labels(rng, "obj", ctx.at(4, 9, default=4))
+    # objs[0] nests inside objs[1], which may nest inside objs[2], and so on;
+    # the rest sit directly in a crate. The nesting depth is the knob: the
+    # containment chain to follow before the events can be replayed at all.
+    depth = min(len(objs) - 1, ctx.at(1, 5, default=1))
+    holder = {objs[i]: ("obj", objs[i + 1]) for i in range(depth)}
+    for o in objs[depth:]:
         holder[o] = ("crate", rng.choice(crates))
     at0 = {c: rng.choice(rooms) for c in crates}
     events = [(t, rng.choice(crates), rng.choice(rooms)) for t in (1, 2)]

@@ -16,7 +16,9 @@ from .evaluate import evaluate, random_agent
 from .languages import DEFAULT_LANGUAGE, languages
 from .presentation import ANSWER_FORMATS, Presentation
 from .registry import all_lessons, by_tag, get, resolve
-from .surfaces import REPRODUCIBILITY, RENDERER_VERSIONS, surface_names, transcode_example
+from .surfaces import (NATIVE_SURFACES, REPRODUCIBILITY, RENDERER_VERSIONS,
+                       render_native, renders_natively, surface_names,
+                       transcode_example)
 from .verify import verify_all, verify_surface
 
 __all__ = ["main"]
@@ -74,9 +76,14 @@ def _cmd_languages(args: argparse.Namespace) -> int:
 
 
 def _cmd_surfaces(args: argparse.Namespace) -> int:
-    print(f"{'surface':<10} {'renderer':<12} reproducibility")
+    print(f"{'surface':<10} {'renderer':<12} {'kind':<10} reproducibility")
     for name in surface_names():
-        print(f"{name:<10} {RENDERER_VERSIONS[name]:<12} {REPRODUCIBILITY[name]}")
+        kind = "native" if name in NATIVE_SURFACES else "transcode"
+        print(f"{name:<10} {RENDERER_VERSIONS[name]:<12} {kind:<10} "
+              f"{REPRODUCIBILITY[name]}")
+    print("\na transcode carries the same string in another medium, so it inherits "
+          "the lesson's floor;\na native surface draws the episode's structure and "
+          "has to be verified in its own right.", file=sys.stderr)
     print(f"\nanswer formats: {', '.join(sorted(ANSWER_FORMATS))}", file=sys.stderr)
     return 0
 
@@ -119,8 +126,19 @@ def _cmd_show(args: argparse.Namespace) -> int:
         if pres.surface == "text":
             print(ex.prompt)
         else:
-            content = transcode_example(ex, pres.surface)
-            print(content.text if pres.surface == "spoken" else repr(content))
+            content = (render_native(lesson, ex.seed, language=pres.language,
+                                     difficulty=args.difficulty, surface=pres.surface)
+                       if pres.surface in NATIVE_SURFACES
+                       else transcode_example(ex, pres.surface))
+            print(content.text if pres.surface in ("spoken", "audio")
+                  else repr(content))
+            if args.write:
+                for a in content.assets:
+                    path = f"{args.write}/{lesson.id}.{ex.seed:03d}.{a.name('x')}"
+                    import pathlib as _p
+                    _p.Path(path).parent.mkdir(parents=True, exist_ok=True)
+                    _p.Path(path).write_bytes(a.data)
+                    print(f"wrote {path} ({a.size} bytes)")
             if not content.fidelity.lossless:
                 print(f"! fidelity: {content.fidelity.to_dict()}")
         print(f"target: {ex.target}   (answer: {ex.answer})")
@@ -161,15 +179,24 @@ def _cmd_verify(args: argparse.Namespace) -> int:
                                language=args.language or DEFAULT_LANGUAGE)
                 for l in resolve(args.lessons)]
         failed = [r for r in rows if r.get("ok") is False]
+        # `ok is None` means the surface does not apply to this lesson at all --
+        # a native renderer with nothing to draw. Counting that as a failure
+        # would make a lesson look broken for the crime of being text.
+        skipped = [r for r in rows if r.get("ok") is None]
         if args.json:
             print(json.dumps(rows, indent=2))
         else:
             for r in rows:
+                if r.get("ok") is None:
+                    print(f"{r['lesson']:<36} n/a   {r.get('note', '')}")
+                    continue
                 mark = "ok  " if r["ok"] else "LOSSY"
                 print(f"{r['lesson']:<36} {mark} lossy={r.get('lossy_episodes')} "
                       f"dropped={''.join(r.get('dropped') or []) or '-'}")
-        print(f"\n{len(rows) - len(failed)}/{len(rows)} keep the episode answerable "
-              f"in {args.surface}", file=sys.stderr)
+        checked = len(rows) - len(skipped)
+        print(f"\n{checked - len(failed)}/{checked} keep the episode answerable "
+              f"in {args.surface}" + (f"; {len(skipped)} n/a" if skipped else ""),
+              file=sys.stderr)
         return 1 if failed else 0
 
     rows = verify_all(args.lessons, episodes=args.episodes, difficulty=args.difficulty)
@@ -266,6 +293,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     sp.add_argument("-n", type=int, default=1, help="episodes to print")
     sp.add_argument("--seed", type=int, default=0)
     sp.add_argument("--json", action="store_true")
+    sp.add_argument("--write", metavar="DIR",
+                    help="save the rendered assets (images, audio) into a directory")
     _presentation_args(sp)
     sp.set_defaults(fn=_cmd_show)
 

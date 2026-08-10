@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.capstone import _adopt, _mode, _nonce_pool, _shuffled
 
 
-def gen_scientific_civilization(rng: random.Random):
+def gen_scientific_civilization(rng: random.Random, ctx):
     """Labs hold theories, know only part of the experimental record, and share
     what they know along a collaboration network; after R rounds of sharing and
     re-adoption, which theory is the consensus?
@@ -24,9 +24,9 @@ def gen_scientific_civilization(rng: random.Random):
     (measured 0.34 against 0.33) — the lesson is the simulation, not the tally.
     """
     n_th = 3
-    n_labs = rng.randint(4, 5)
+    n_labs = rng.randint(*ctx.span((4, 5), (7, 8)))
     n_exp = rng.randint(5, 6)
-    rounds = rng.randint(1, 2)
+    rounds = rng.randint(*ctx.span((1, 2), (3, 4)))
     pool = _nonce_pool(rng, n_th + n_labs + n_exp + 2)
     theories, pool = pool[:n_th], pool[n_th:]
     labs, pool = pool[:n_labs], pool[n_labs:]

@@ -14,7 +14,7 @@ from ..generators.base import COLORS, SHAPES
 from ..generators.causal import _nonce_names
 
 
-def gen_speaker_listener_game(rng: random.Random):
+def gen_speaker_listener_game(rng: random.Random, ctx):
     """A speaker's code is arbitrary: which *dimension* it speaks about, and
     which value each signal denotes, are both invented per episode and both
     recoverable only from the rounds shown.
@@ -27,8 +27,9 @@ def gen_speaker_listener_game(rng: random.Random):
     dim_vals = COLORS if dim == "color" else SHAPES
     other_vals = SHAPES if dim == "color" else COLORS
 
-    signals = _nonce_names(rng, 2)
-    denote = dict(zip(signals, rng.sample(dim_vals, 2)))
+    n_sig = ctx.at(2, 5, default=2)
+    signals = _nonce_names(rng, n_sig)
+    denote = dict(zip(signals, rng.sample(dim_vals, n_sig)))
     query_sig = rng.choice(signals)
 
     rounds: list[dict[str, Any]] = []

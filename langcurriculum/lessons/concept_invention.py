@@ -14,7 +14,7 @@ from ..generators.base import COLORS, SHAPES
 from ..generators.semantics import SIZES, _shuffled
 
 
-def gen_concept_invention(rng: random.Random):
+def gen_concept_invention(rng: random.Random, ctx):
     """Which invented predicate compresses the examples?
 
     A hidden two-attribute conjunction generates the positives; the negatives
@@ -45,6 +45,12 @@ def gen_concept_invention(rng: random.Random):
                 ((k1, v1), None),                        # over-general
                 ((k2, v2), None),                        # over-general
                 ((k1, v1), (k3, sizes[0]))]              # over-specific
+        # further over-specific rivals: each pins the irrelevant attribute to one
+        # positive's value, so it still drops the other two positives
+        spare = [((k2, v2), (k3, sizes[0])), ((k1, v1), (k3, sizes[1])),
+                 ((k2, v2), (k3, sizes[1])), ((k1, v1), (k3, sizes[2])),
+                 ((k2, v2), (k3, sizes[2]))]
+        hyps += spare[:ctx.at(0, 5, default=0)]
 
         def covers(h: Sequence[Any], item: Mapping[str, str]) -> bool:
             return all(item[c[0]] == c[1] for c in h if c)
@@ -56,8 +62,8 @@ def gen_concept_invention(rng: random.Random):
     else:                                                  # pragma: no cover
         raise RuntimeError("no separating hypothesis")
 
-    hids = _shuffled(rng, ["h1", "h2", "h3", "h4"])
-    order = _shuffled(rng, list(range(4)))
+    hids = _shuffled(rng, [f"h{i + 1}" for i in range(len(hyps))])
+    order = _shuffled(rng, list(range(len(hyps))))
     answer = hids[order.index(0)]
     hyp_syms = []
     for slot, hi in enumerate(order):

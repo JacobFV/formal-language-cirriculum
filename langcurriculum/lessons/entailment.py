@@ -13,7 +13,7 @@ from ..generators.base import COLORS, SHAPES
 from ..generators.extra import _shuffled
 
 
-def gen_entailment(rng: random.Random):
+def gen_entailment(rng: random.Random, ctx):
     """Three-way natural-language inference over a tiny closed world: a universal
     rule, some ground facts, a uniqueness axiom for colour, and one entity about
     which *nothing* is stated. The label is chosen first and the premises are
@@ -30,6 +30,13 @@ def gen_entailment(rng: random.Random):
         Pred("object", Ident(e3)),                         # declared, nothing known
         Pred("axiom", Pred("one_color_per_object")),
     ]
+    # further rules and entities that bear on nothing the query asks about: the
+    # shapes are ones no queried entity has, so the three labels are untouched
+    spare_shapes = [s for s in SHAPES if s not in (shape_x, shape_z)]
+    spare_colors = [c for c in COLORS if c not in (color_y, color_w)]
+    for i in range(ctx.at(0, 4, default=0)):
+        premises.append(Pred("all_are", Ident(spare_shapes[i]), Ident(spare_colors[i])))
+        premises.append(Pred("shape", Ident(f"o{6 + i}"), Ident(spare_shapes[i])))
     label = rng.choice(["entailed", "contradicted", "unknown"])
     if label == "entailed":
         if rng.random() < 0.6:

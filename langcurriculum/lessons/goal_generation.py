@@ -12,14 +12,14 @@ from ..lesson import Lesson
 from ..generators.selfmodel import _labels, _rules, _shuffled
 
 
-def gen_goal_generation(rng: random.Random):
+def gen_goal_generation(rng: random.Random, ctx):
     """Which intermediate objective does the top goal now require?
 
     The top goal decomposes into subgoals with prerequisites among them; some are
     already achieved. Exactly one unachieved subgoal has all of its prerequisites
     in place, and that is the objective the agent should generate next.
     """
-    n = 6
+    n = ctx.at(6, 12, default=6)
     for _ in range(300):
         deps = {i: set() for i in range(n)}
         for i in range(1, n):

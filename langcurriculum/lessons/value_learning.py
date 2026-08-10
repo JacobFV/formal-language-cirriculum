@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.selfmodel import _labels, _rules, _shuffled
 
 
-def gen_value_learning(rng: random.Random):
+def gen_value_learning(rng: random.Random, ctx):
     """Recover the preference ordering behind a set of observed choices.
 
     The choices are generated from a hidden strict order and shown as unordered
@@ -20,7 +20,7 @@ def gen_value_learning(rng: random.Random):
     ordering is fully determined but only through transitivity, so no single
     observation answers the question.
     """
-    n = 4
+    n = ctx.at(4, 8, default=4)
     ids = _labels(rng, "opt", n)
     order = list(rng.sample(range(n), n))         # order[0] is most preferred
     comps = [(order[i], order[i + 1]) for i in range(n - 1)]

@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.selfmodel import _labels, _rules, _shuffled
 
 
-def gen_research_program(rng: random.Random):
+def gen_research_program(rng: random.Random, ctx):
     """Pick the next research action from a partially resolved question graph.
 
     An action is available only if everything it depends on is already resolved,
@@ -20,7 +20,7 @@ def gen_research_program(rng: random.Random):
     unblocks. Both conditions are structural, so "what should I work on next"
     reduces to reachability plus a count.
     """
-    n = 6
+    n = ctx.at(6, 14, default=6)
     for _ in range(200):
         deps = {i: set() for i in range(n)}       # i depends on each j in deps[i], j < i
         for i in range(1, n):

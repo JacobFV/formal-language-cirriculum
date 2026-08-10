@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.science import _DIMS, _dim_of, _equation_ok, _labels, _nonce, _shuffled
 
 
-def gen_dimensional_analysis(rng: random.Random):
+def gen_dimensional_analysis(rng: random.Random, ctx):
     """One of these four equations cannot be true whatever the constants are.
 
     Quantities carry symbolic dimensions given in a table; the candidate
@@ -22,6 +22,7 @@ def gen_dimensional_analysis(rng: random.Random):
     two terms of different dimension. Every name is a nonce, so no physics is
     recalled, only algebra over exponent vectors.
     """
+    n_eq = ctx.at(4, 8, default=4)                 # equations to check, one of them impossible
     for _ in range(400):
         base = []
         while len(base) < 4:
@@ -56,10 +57,10 @@ def gen_dimensional_analysis(rng: random.Random):
             flip = "div" if head == "mul" else "mul"
             return Pred(flip, Pred("pow", Ident(u), Num(e1)), Pred("pow", Ident(w), Num(-e2)))
 
-        bad_i = rng.randrange(4)
+        bad_i = rng.randrange(n_eq)
         eqs, lhs_names = [], []
         ok = True
-        for i in range(4):
+        for i in range(n_eq):
             rhs = monomial()
             if rng.random() < 0.45:                        # a sum, in good and bad alike
                 rhs = Pred("add", rhs, Pred("mul", twin(rhs), Ident(ratio)))
@@ -79,13 +80,13 @@ def gen_dimensional_analysis(rng: random.Random):
             table[nm] = target                                            # type: ignore[assignment]
             lhs_names.append(nm)
             eqs.append(Pred("eq", Ident(nm), rhs))
-        if not ok or len(eqs) != 4:
+        if not ok or len(eqs) != n_eq:
             continue
         verdicts = [_equation_ok(e, table) for e in eqs]
         if verdicts.count(False) != 1 or verdicts[bad_i]:
             continue
-        order = _shuffled(rng, range(4))
-        labels = _labels("q", 4)
+        order = _shuffled(rng, range(n_eq))
+        labels = _labels("q", n_eq)
         answer = labels[order.index(bad_i)]
         names = _shuffled(rng, sorted(table))
         obs = Rec(dimensions=Lst([Pred("dim", Ident(nm), Num(table[nm][0]), Num(table[nm][1]),

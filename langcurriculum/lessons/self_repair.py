@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.selfmodel import MODULE_NAMES, SLOTS, _labels, _rules, _shuffled
 
 
-def gen_self_repair(rng: random.Random):
+def gen_self_repair(rng: random.Random, ctx):
     """One slot of the described architecture is under-powered; which patch fixes it?
 
     A repair names a slot and the module that would replace it. Distractor
@@ -26,11 +26,12 @@ def gen_self_repair(rng: random.Random):
                  for s in SLOTS}
     installed = dict(zip(SLOTS, rng.sample(MODULE_NAMES, len(SLOTS))))
 
-    ids = _labels(rng, "fix", 4)
-    fix_i = rng.randrange(4)
-    spares = rng.sample([m for m in MODULE_NAMES if m not in installed.values()], 4)
+    n_fix = ctx.at(4, 9, default=4)               # candidate repairs to check one by one
+    ids = _labels(rng, "fix", n_fix)
+    fix_i = rng.randrange(n_fix)
+    spares = rng.sample([m for m in MODULE_NAMES if m not in installed.values()], n_fix)
     repairs: list[tuple[str, str, str, int]] = []
-    for i in range(4):
+    for i in range(n_fix):
         if i == fix_i:
             slot, lvl = broken, rng.randint(req[broken], 6)
         elif rng.random() < 0.5:

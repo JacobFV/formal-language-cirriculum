@@ -22,9 +22,11 @@ def test_an_address_reproduces_its_episode():
 
 
 def test_the_cache_key_names_the_renderer_and_the_plain_key_does_not():
+    from langcurriculum.surfaces import RENDERER_VERSIONS
+    version = RENDERER_VERSIONS["raster"]
     a = Address("unification", 1, presentation=Presentation(surface="raster"))
-    assert "raster_v1" in a.cache_key()
-    assert "raster_v1" not in a.key()
+    assert version in a.cache_key()
+    assert version not in a.key()
     assert a.digest() != Address("unification", 2,
                                  presentation=Presentation(surface="raster")).digest()
 

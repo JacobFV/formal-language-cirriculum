@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import _game_draw, _game_pools, _shuffled
 
 
-def gen_strategy_discovery(rng: random.Random):
+def gen_strategy_discovery(rng: random.Random, ctx):
     """A problem family with one reusable strategy behind every instance.
 
     The worked instances are positions in a take-away game with a per-episode
@@ -22,9 +22,9 @@ def gen_strategy_discovery(rng: random.Random):
     answerable at a glance. Positions are restricted to those with a unique
     winning move so the target is exact.
     """
-    hi = 22
+    hi = ctx.at(22, 34, default=22)
     for _ in range(200):
-        moves = sorted(rng.sample([1, 2, 3, 4, 5], rng.randint(2, 3)))
+        moves = sorted(rng.sample([1, 2, 3, 4, 5], rng.randint(*ctx.span((2, 3), (4, 5)))))
         naming = {m: f"take_{m}" for m in moves}
         pools = _game_pools(moves, hi, "none", naming)
         if len(pools) >= 3:                   # else one answer would dominate

@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.mathematics import _dag_isomorphisms, _nonces, _shuffled
 
 
-def gen_proof_translation(rng: random.Random):
+def gen_proof_translation(rng: random.Random, ctx):
     """The same derivation, written twice in mutually unintelligible notation.
 
     Atoms, rule names and step labels are all renamed by unknown bijections and
@@ -21,7 +21,7 @@ def gen_proof_translation(rng: random.Random):
     search finds a *single* structure-preserving correspondence, which then fixes
     the answer for any queried source step."""
     for _ in range(300):
-        n = rng.randint(4, 6)
+        n = rng.randint(*ctx.span((4, 6), (6, 8)))
         prem: list[tuple[int, ...]] = []
         for i in range(n):
             if i < 2:

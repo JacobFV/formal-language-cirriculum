@@ -13,7 +13,7 @@ from ..generators.base import NAMES
 from ..generators.social import ITEMS, PLACES, _shuffled
 
 
-def gen_deception_detection(rng: random.Random):
+def gen_deception_detection(rng: random.Random, ctx):
     """One speaker's claim contradicts the world; incentive alone cannot say who.
 
     Every speaker reports the location of a different item, and exactly one report
@@ -22,10 +22,11 @@ def gen_deception_detection(rng: random.Random):
     incentive facts halve the hypothesis space and no more: the remaining step is
     to check each claim against the world state.
     """
-    speakers = rng.sample(NAMES, 4)
-    items = rng.sample(ITEMS, 4)
+    n = ctx.at(4, 6, default=4)
+    speakers = rng.sample(NAMES, n)
+    items = rng.sample(ITEMS, n)
     world = {it: rng.choice(PLACES) for it in items}
-    liar_ix = rng.randrange(4)
+    liar_ix = rng.randrange(n)
     liar = speakers[liar_ix]
     claims: list[Term] = []
     claimed: dict[str, str] = {}

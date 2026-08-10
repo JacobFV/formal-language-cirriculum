@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.reflective import _nonces, _shuffled
 
 
-def gen_identity_continuity(rng: random.Random):
+def gen_identity_continuity(rng: random.Random, ctx):
     """Do these two descriptions pick out the same entity?
 
     Renaming preserves identity, replacing more than ``k`` parts does not,
@@ -24,7 +24,7 @@ def gen_identity_continuity(rng: random.Random):
     want = rng.random() < 0.5              # target answer, drawn once and balanced
     fallback = None
     for _ in range(400):
-        names = _nonces(rng, 6, 3)
+        names = _nonces(rng, ctx.at(6, 18, default=6), 3)
         start = names[:3]
         fresh = list(names[3:])
         k = rng.randint(1, 2)
@@ -33,7 +33,7 @@ def gen_identity_continuity(rng: random.Random):
         origin = dict(ident)
         ops: list[tuple] = []
         t = 1
-        for _ in range(rng.randint(3, 5)):
+        for _ in range(rng.randint(*ctx.span((3, 5), (9, 14)))):
             live = sorted(ident)
             kind = rng.choice(["rename", "replace", "replace", "merge", "split"])
             if kind == "rename" and fresh:

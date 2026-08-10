@@ -12,16 +12,17 @@ from ..lesson import Lesson
 from ..generators.base import COLORS, _scene
 
 
-def gen_lexicon_induction(rng: random.Random):
+def gen_lexicon_induction(rng: random.Random, ctx):
     """Every episode invents a NEW language. Support examples ground novel words;
     the query uses them compositionally. Nothing carries over between episodes,
     so a learner that memorizes a vocabulary learns nothing here."""
-    words = ["".join(rng.choice("kmtszlp") for _ in range(3)) for _ in range(3)]
-    colors = rng.sample(COLORS, 3)
+    n_words = ctx.at(3, 5, default=3)            # words to ground, one scene object each
+    words = ["".join(rng.choice("kmtszlp") for _ in range(3)) for _ in range(n_words)]
+    colors = rng.sample(COLORS, n_words)
     lex = dict(zip(words, colors))
     support = [Pred("says", Ident(w), Ident(c)) for w, c in lex.items()]
     rng.shuffle(support)
-    objs = _scene(rng, 4)
+    objs = _scene(rng, n_words + 1)
     # every colour distinct, so "find <word>" denotes exactly one object
     palette = colors + [c for c in COLORS if c not in colors][:1]
     for o, c in zip(objs, palette):

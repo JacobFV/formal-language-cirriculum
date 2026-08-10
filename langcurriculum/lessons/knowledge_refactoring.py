@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.selfmodel import KINDS, PROPS, _closure, _labels, _rules, _shuffled
 
 
-def gen_knowledge_refactoring(rng: random.Random):
+def gen_knowledge_refactoring(rng: random.Random, ctx):
     """Reorganize a symbolic memory without losing a single derivable fact.
 
     Five candidate knowledge bases are offered with their statement counts. One
@@ -22,8 +22,9 @@ def gen_knowledge_refactoring(rng: random.Random):
     has to be computed and compared against the facts that must be preserved.
     """
     kinds = rng.sample(KINDS, 2)
-    ents = _labels(rng, "e", 6)
-    kind_of = {e: (kinds[0] if i < 3 else kinds[1]) for i, e in enumerate(ents)}
+    n_e = 2 * ctx.at(3, 8, default=3)
+    ents = _labels(rng, "e", n_e)
+    kind_of = {e: (kinds[0] if i < n_e // 2 else kinds[1]) for i, e in enumerate(ents)}
     k0 = [e for e in ents if kind_of[e] == kinds[0]]
     k1 = [e for e in ents if kind_of[e] == kinds[1]]
     pA, pB, pC = rng.sample(PROPS, 3)

@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.social import CONCEPTS, WORDS, _shuffled
 
 
-def gen_language_culture(rng: random.Random):
+def gen_language_culture(rng: random.Random, ctx):
     """Each generation learns from a sample of the last one and fills the gaps.
 
     This is the iterated-learning setup in miniature: a learner hears words for
@@ -26,7 +26,7 @@ def gen_language_culture(rng: random.Random):
         meanings = rng.sample(CONCEPTS, 4)
         lex = dict(zip(meanings, rng.sample(WORDS, 4)))
         origin = dict(lex)
-        generations = rng.randint(2, 3)
+        generations = rng.randint(*ctx.span((2, 3), (6, 8)))
         heard_facts: list[Term] = []
         for g in range(1, generations + 1):
             order = _shuffled(rng, meanings)[:rng.randint(2, 3)]

@@ -13,7 +13,7 @@ from ..generators.base import COLORS, NAMES, SHAPES
 from ..generators.semantics import ACTIVITIES, _shuffled
 
 
-def gen_presupposition(rng: random.Random):
+def gen_presupposition(rng: random.Random, ctx):
     """Asserted vs presupposed vs denied vs unrelated, under a polarity switch.
 
     Negation is the diagnostic: negating the utterance flips the asserted
@@ -21,6 +21,7 @@ def gen_presupposition(rng: random.Random):
     that treats the whole utterance as one proposition cannot separate the two
     layers. The label is drawn first and the polarity chosen to realize it.
     """
+    n_extra = ctx.at(0, 5, default=0)
     label = rng.choice(["asserted", "presupposed", "denied", "neither"])
     if label == "asserted":
         polarity = "affirm"
@@ -37,6 +38,9 @@ def gen_presupposition(rng: random.Random):
         assertion = ("does", subj, act)
         presup = ("did_before", subj, act)
         unrelated = (rng.choice(["does", "did_before"]), other_subj, other_act)
+        trigger = "again"
+        pool = [(x, y) for x in NAMES for y in ACTIVITIES
+                if (x, y) not in {(subj, act), (other_subj, other_act)}]
     else:
         color, other_color = rng.sample(COLORS, 2)
         shape, other_shape = rng.sample(SHAPES, 2)
@@ -45,10 +49,20 @@ def gen_presupposition(rng: random.Random):
         assertion = ("on_table", color, shape)
         presup = ("exists", color, shape)
         unrelated = (rng.choice(["on_table", "exists"]), other_color, other_shape)
+        trigger = "the_x_is_on_the_table"
+        pool = [(x, y) for x in COLORS for y in SHAPES
+                if (x, y) not in {(color, shape), (other_color, other_shape)}]
 
+    # utterances about wholly different pairs: they carry layers of their own,
+    # so the queried proposition has to be traced back to the utterance that
+    # licenses it before its layer can be read off the polarity
+    others = [Pred("utterance", Ident(rng.choice(["affirm", "negate"])),
+                   Ident(trigger), Ident(x), Ident(y))
+              for x, y in (rng.sample(pool, n_extra) if n_extra else ())]
     candidate = {"asserted": assertion, "denied": assertion,
                  "presupposed": presup, "neither": unrelated}[label]
-    obs = Rec(said=utter,
+    extra_fields = {"context": Lst(others)} if others else {}
+    obs = Rec(said=utter, **extra_fields,
               layers=Lst([Ident("asserted"), Ident("presupposed"), Ident("denied"),
                           Ident("neither")]),
               query=Pred("status_of", Ident(candidate[0]), Ident(candidate[1]),

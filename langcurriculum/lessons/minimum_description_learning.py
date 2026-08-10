@@ -13,7 +13,7 @@ from ..generators.base import COLORS, SHAPES
 from ..generators.selfmodel import _labels, _rules, _shuffled
 
 
-def gen_minimum_description_learning(rng: random.Random):
+def gen_minimum_description_learning(rng: random.Random, ctx):
     """The explicit MDL trade: theory length plus the cost of listing its exceptions.
 
     A rule set that covers everything is long; a short one leaves exceptions that
@@ -23,7 +23,7 @@ def gen_minimum_description_learning(rng: random.Random):
     """
     for _ in range(80):
         items = [{"id": f"i{i}", "color": rng.choice(COLORS[:3]), "shape": rng.choice(SHAPES[:3])}
-                 for i in range(8)]
+                 for i in range(ctx.at(8, 22, default=8))]
         for it in items:
             it["label"] = "yes" if rng.random() < 0.5 else "no"
         penalty = rng.choice([2, 3, 4])

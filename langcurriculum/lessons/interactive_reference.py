@@ -13,7 +13,7 @@ from ..generators.base import COLORS, SHAPES
 from ..generators.semantics import POSITIONS, SIZES, _shuffled
 
 
-def gen_interactive_reference(rng: random.Random):
+def gen_interactive_reference(rng: random.Random, ctx):
     """Ask, or act? and if asking, ask about *what*.
 
     The instruction names one attribute value. If it already denotes uniquely
@@ -23,9 +23,10 @@ def gen_interactive_reference(rng: random.Random):
     """
     attrs = {"color": COLORS, "shape": SHAPES, "size": SIZES, "position": POSITIONS}
     keys = sorted(attrs)
+    n_obj = ctx.at(4, 8, default=4)              # objects in the scene
     for _ in range(200):
         label = rng.choice(keys + ["act_now"])
-        ids = _shuffled(rng, ["x1", "x2", "x3", "x4"])
+        ids = _shuffled(rng, [f"x{i + 1}" for i in range(n_obj)])
         objs = {o: {k: rng.choice(v) for k, v in attrs.items()} for o in ids}
 
         if label == "act_now":
@@ -37,7 +38,7 @@ def gen_interactive_reference(rng: random.Random):
         else:
             named = rng.choice([k for k in keys if k != label])
             val = rng.choice(attrs[named])
-            k = rng.randint(2, 3)
+            k = rng.randint(*ctx.span((2, 3), (3, 4)))    # candidates the instruction leaves open
             cands, rest = ids[:k], ids[k:]
             for o in cands:
                 objs[o][named] = val

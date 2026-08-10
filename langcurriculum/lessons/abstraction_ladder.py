@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.ontology import ENTITY_ISA, PERSONS, THINGS, VERB_ISA, _generalize_slot, _label_options, _more_specific, _schema_covers, _shuffled, _slot_members
 
 
-def gen_abstraction_ladder(rng: random.Random):
+def gen_abstraction_ladder(rng: random.Random, ctx):
     """Of four nested schemas, which is the most specific covering all examples?
 
     The candidates form a strict chain (each generalizes exactly one slot by one
@@ -50,7 +50,8 @@ def gen_abstraction_ladder(rng: random.Random):
             continue
         examples = None
         for _ in range(200):
-            evs = [tuple(rng.choice(pools[i]) for i in range(4)) for _ in range(3)]
+            evs = [tuple(rng.choice(pools[i]) for i in range(4))
+                   for _ in range(ctx.at(3, 8, default=3))]
             if any(e[1] == e[2] for e in evs):
                 continue
             if not all(_schema_covers(chain[j], e) for e in evs):

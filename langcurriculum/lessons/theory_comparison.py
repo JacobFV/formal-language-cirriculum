@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.science import _add, _labels, _mul, _shuffled, _sub
 
 
-def gen_theory_comparison(rng: random.Random):
+def gen_theory_comparison(rng: random.Random, ctx):
     """Four theories fit the observations *exactly*; a new datum kills three.
 
     The rivals are built as ``p·x + q + k·(x-s)(x-t)(x-u)`` over the three
@@ -22,14 +22,17 @@ def gen_theory_comparison(rng: random.Random):
     insufficient cue: the ``k = 0`` theory is the simplest one and is right a
     quarter of the time.
     """
+    n_roots = ctx.at(3, 5, default=3)            # training points, and the degree of the rivals
     for _ in range(300):
-        s, t, u = rng.sample(range(-5, 6), 3)
+        roots = rng.sample(range(-5, 6), n_roots)
         p = rng.choice([-3, -2, -1, 1, 2, 3])
         q = rng.randint(-6, 6)
         ks = [0] + rng.sample([-2, -1, 1, 2], 3)
-        pool = [v for v in range(-7, 8) if v not in (s, t, u)]
+        pool = [v for v in range(-7, 8) if v not in roots]
         xh = rng.choice(pool)
-        dh = (xh - s) * (xh - t) * (xh - u)
+        dh = 1
+        for r in roots:
+            dh *= xh - r
         if dh == 0:
             continue
         vals = [p * xh + q + k * dh for k in ks]
@@ -44,17 +47,18 @@ def gen_theory_comparison(rng: random.Random):
             base = _add(_mul(Num(p), Ident("x")), Num(q))
             if k == 0:
                 return base
-            cubic = _mul(_sub(Ident("x"), Num(s)), _mul(_sub(Ident("x"), Num(t)),
-                                                        _sub(Ident("x"), Num(u))))
+            cubic = _sub(Ident("x"), Num(roots[-1]))
+            for r in reversed(roots[:-1]):
+                cubic = _mul(_sub(Ident("x"), Num(r)), cubic)
             return _add(base, _mul(Num(k), cubic))
 
-        obs = Rec(data=Lst([Pred("observed", Num(x), Num(p * x + q)) for x in (s, t, u)]),
+        obs = Rec(data=Lst([Pred("observed", Num(x), Num(p * x + q)) for x in roots]),
                   theories=Lst([Pred("theory", Ident(labels[j]),
                                      Pred("eq", Ident("y"), theory(ks[i])))
                                 for j, i in enumerate(order)]),
                   new_observation=Pred("observed", Num(xh), Num(vals[true_i])),
                   query=Ident("surviving_theory"))
-        hidden = {"k_true": ks[true_i], "coefficients": [p, q], "roots": [s, t, u],
+        hidden = {"k_true": ks[true_i], "coefficients": [p, q], "roots": list(roots),
                   "x_new": xh, "answer": answer}
         return obs, _shuffled(rng, labels), answer, hidden
     raise RuntimeError("theory_comparison: no admissible episode")

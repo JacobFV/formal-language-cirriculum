@@ -13,7 +13,7 @@ from ..generators.base import COLORS
 from ..generators.science import _shuffled
 
 
-def gen_symmetry_reasoning(rng: random.Random):
+def gen_symmetry_reasoning(rng: random.Random, ctx):
     """Use a symmetry to infer a state you were never shown.
 
     The world is declared invariant under a stated permutation, so colour is
@@ -24,7 +24,7 @@ def gen_symmetry_reasoning(rng: random.Random):
     wrong more often than not.
     """
     for _ in range(400):
-        n = rng.choice([6, 7, 8])
+        n = rng.choice(ctx.among([[6, 7, 8], [8, 9, 10], [10, 11, 12]]))
         perm = _shuffled(rng, range(n))
         orbits: list[list[int]] = []
         seen: set[int] = set()

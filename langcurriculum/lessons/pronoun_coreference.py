@@ -16,7 +16,7 @@ from ..generators.extra import (
 )
 
 
-def _in_english(rng: random.Random):
+def _in_english(rng: random.Random, ctx):
     """The same episode, built from English material throughout.
 
     This lesson turns on the pronoun distinguishing its two antecedents, so a
@@ -27,12 +27,12 @@ def _in_english(rng: random.Random):
     """
     token = ACTIVE_LANGUAGE.set(DEFAULT_LANGUAGE)
     try:
-        return gen_pronoun_coreference(rng)
+        return gen_pronoun_coreference(rng, ctx)
     finally:
         ACTIVE_LANGUAGE.reset(token)
 
 
-def gen_pronoun_coreference(rng: random.Random):
+def gen_pronoun_coreference(rng: random.Random, ctx):
     """Two entities, one pronoun, exactly one grammatically valid antecedent —
     the other entity is ruled out by gender, so the episode has a single correct
     reading. Filler material varies the distance to the antecedent."""
@@ -40,7 +40,7 @@ def gen_pronoun_coreference(rng: random.Random):
     # the same people: checking later re-ran the generator mid-stream and the
     # English version came out about a different pair.
     if not supplies("pronouns"):
-        return _in_english(rng)
+        return _in_english(rng, ctx)
     genders = gender()
     fem = [n for n in NAMES if genders[n] == "f"]
     masc = [n for n in NAMES if genders[n] == "m"]
@@ -54,7 +54,7 @@ def gen_pronoun_coreference(rng: random.Random):
     sex = rng.choice(["f", "m"])
     pron = pronouns[sex]
     referent = she_ref if sex == "f" else he_ref
-    filler = [rng.choice(adverbs()) for _ in range(rng.randint(0, 2))]
+    filler = [rng.choice(adverbs()) for _ in range(rng.randint(*ctx.span((0, 2), (5, 9))))]
     toks = ([first, rng.choice(verbs()), second] + filler
             + [then_word(), pron, rng.choice(intransitive())])
     obs = Rec(discourse=Lst([Tok(w) for w in toks]), query=Pred("refers_to", Ident(pron)))

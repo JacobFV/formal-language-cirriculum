@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import _game_draw, _game_pools, _nonces, _shuffled
 
 
-def gen_strategy_transfer(rng: random.Random):
+def gen_strategy_transfer(rng: random.Random, ctx):
     """The same strategy, with every symbol replaced and magnitudes re-encoded.
 
     Nothing about the surface survives from :func:`gen_strategy_discovery`: the
@@ -22,9 +22,10 @@ def gen_strategy_transfer(rng: random.Random):
     that induced the invariant transfers and a learner that memorized surface
     forms — including the token ``take_2`` — has nothing to carry.
     """
-    hi = 16
+    hi = ctx.at(16, 48, default=16)
     for _ in range(200):
-        moves = sorted(rng.sample([1, 2, 3, 4], rng.randint(2, 3)))
+        moves = sorted(rng.sample([1, 2, 3, 4, 5, 6][:ctx.at(4, 6, default=4)],
+                                  rng.randint(*ctx.span((2, 3), (4, 5)))))
         words = _nonces(rng, 6 + len(moves), 4)
         heap_pred, move_pred, rule_pred, inst_pred, mark, hold = words[:6]
         move_ids = words[6:]

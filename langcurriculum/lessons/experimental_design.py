@@ -13,7 +13,7 @@ from ..lesson import Lesson
 from ..generators.science import _add, _labels, _mul, _random_core, _shuffled, _sub
 
 
-def gen_experimental_design(rng: random.Random):
+def gen_experimental_design(rng: random.Random, ctx):
     """Three hypotheses survive the data; four experiments are affordable; one.
 
     The hypotheses agree everywhere except on a hidden switch — a variable that
@@ -25,6 +25,7 @@ def gen_experimental_design(rng: random.Random):
     odd one out" points somewhere else.
     """
     names = ["a", "b", "c"]
+    n_flat = ctx.at(3, 8, default=3)
     for _ in range(300):
         switch = rng.choice(names)
         rest = [v for v in names if v != switch]
@@ -47,17 +48,16 @@ def gen_experimental_design(rng: random.Random):
         w, wp = rng.sample(range(0, 4), 2)
         free = rest[1]
         split = {switch: zp, decoy_var: w, free: rng.randint(0, 3)}
-        flats = [{switch: z, decoy_var: w, free: rng.randint(0, 3)},
-                 {switch: z, decoy_var: w, free: rng.randint(0, 3)},
-                 {switch: z, decoy_var: wp, free: rng.randint(0, 3)}]
+        flats = [{switch: z, decoy_var: (wp if j == n_flat - 1 else w),
+                  free: rng.randint(0, 3)} for j in range(n_flat)]
         trials = [split] + flats
         if any(t == split for t in flats):
             continue
         informative = [i for i, t in enumerate(trials) if len({f(t) for _, f in hyps}) > 1]
         if informative != [0]:                             # recomputed, never assumed
             continue
-        order = _shuffled(rng, range(4))
-        labels = _labels("e", 4)
+        order = _shuffled(rng, range(len(trials)))
+        labels = _labels("e", len(trials))
         answer = labels[order.index(0)]
         experiments = Lst([Pred("experiment", Ident(labels[j]),
                                 *[Pred("set", Ident(v), Num(trials[i][v])) for v in names])

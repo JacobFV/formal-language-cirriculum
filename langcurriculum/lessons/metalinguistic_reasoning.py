@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.reflective import _cyk_count, _nonces, _shuffled
 
 
-def gen_metalinguistic_reasoning(rng: random.Random):
+def gen_metalinguistic_reasoning(rng: random.Random, ctx):
     """A question *about* a grammar: how many parses does this string have?
 
     The grammar is invented per episode and is genuinely ambiguous (``S -> S S``
@@ -34,7 +34,7 @@ def gen_metalinguistic_reasoning(rng: random.Random):
         bins = rng.sample(pool, rng.randint(2, 4))
         if not any(r[0] == "S" for r in bins):
             bins.append(("S", "A", "B"))
-        w = [rng.choice([t0, t1]) for _ in range(rng.randint(3, 5))]
+        w = [rng.choice([t0, t1]) for _ in range(rng.randint(*ctx.span((3, 5), (6, 8))))]
         n = _cyk_count(w, lex, bins)
         if n > 4:
             continue

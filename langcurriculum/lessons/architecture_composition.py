@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.selfmodel import _labels, _paths, _rules, _shuffled
 
 
-def gen_architecture_composition(rng: random.Random):
+def gen_architecture_composition(rng: random.Random, ctx):
     """Compose typed modules into the cheapest pipeline, and name its first stage.
 
     Modules are typed converters over representation stages, and two of them skip
@@ -22,6 +22,9 @@ def gen_architecture_composition(rng: random.Random):
     """
     types = ["raw", "parsed", "logical", "plan"]
     spec = [(0, 1), (0, 1), (1, 2), (1, 2), (2, 3), (2, 3), (0, 2), (1, 3)]
+    # more parallel converters at each stage: the same shortest-path question
+    # over a graph with more ways through it
+    spec += [(0, 1), (1, 2), (2, 3), (0, 2), (1, 3), (0, 1)][:ctx.at(0, 6, default=0)]
     paths = _paths(spec, 0, 3)
     for _ in range(80):
         costs = rng.sample(range(1, 40), len(spec))

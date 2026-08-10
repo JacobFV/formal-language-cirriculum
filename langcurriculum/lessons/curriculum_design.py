@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import _follow, _labelled, _nonces, _shuffled
 
 
-def gen_curriculum_design(rng: random.Random):
+def gen_curriculum_design(rng: random.Random, ctx):
     """Ordering is the whole lesson: same material, four sequences.
 
     A lesson is learned only if its prerequisites are already learned, and a
@@ -22,7 +22,7 @@ def gen_curriculum_design(rng: random.Random):
     required.
     """
     for _ in range(400):
-        n = rng.randint(6, 7)
+        n = rng.randint(*ctx.span((6, 7), (13, 15)))
         lessons = _nonces(rng, n, 4)
         prereqs = {c: sorted(rng.sample(lessons[:i], min(i, rng.choice([0, 1, 1, 2]))))
                    for i, c in enumerate(lessons)}

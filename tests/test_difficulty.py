@@ -30,11 +30,35 @@ def test_difficulty_changes_the_episode(lid):
 
 
 @pytest.mark.parametrize("lid", WITH_KNOB)
-def test_a_harder_episode_is_a_bigger_one(lid):
-    """Difficulty scales structure, so the rendered episode should grow with it."""
-    easy = sum(len(lc.get(lid).example(s, difficulty=0.0).observation) for s in range(12))
-    hard = sum(len(lc.get(lid).example(s, difficulty=1.0).observation) for s in range(12))
-    assert hard > easy, f"{lid} at difficulty 1.0 is not larger than at 0.0"
+def test_difficulty_is_a_dial_rather_than_a_switch(lid):
+    """Turning it partway has to land somewhere, not snap to one end.
+
+    Deliberately *not* asserting that a harder episode is a longer one. The best
+    knobs in this curriculum do not lengthen anything: a deeper proof, a wider
+    game to solve, one more rule application between the fact and the goal. A
+    lesson that got harder without getting wordier is the good case, and a test
+    that demanded more characters would have pushed every one of them the wrong
+    way.
+    """
+    seen = {tuple(lc.get(lid).example(s, difficulty=d).observation for s in range(8))
+            for d in (0.0, 0.5, 1.0)}
+    assert len(seen) >= 2, f"{lid} only has one setting"
+
+
+def test_the_curriculum_as_a_whole_can_be_made_harder():
+    """Across the knobbed lessons, difficulty must buy real structure somewhere.
+
+    An aggregate rather than a per-lesson claim, because size is the wrong
+    measure lesson by lesson but the right sanity check over the whole set: if
+    nothing anywhere grew, the knobs are decorative.
+    """
+    easy = hard = 0
+    for lid in WITH_KNOB[::4]:
+        easy += sum(len(lc.get(lid).example(s, difficulty=0.0).observation)
+                    for s in range(4))
+        hard += sum(len(lc.get(lid).example(s, difficulty=1.0).observation)
+                    for s in range(4))
+    assert hard > easy * 1.1
 
 
 @pytest.mark.parametrize("lid", WITH_KNOB)

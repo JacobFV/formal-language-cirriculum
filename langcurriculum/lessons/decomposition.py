@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import _labelled, _nonces, _shuffled, _topo_ok
 
 
-def gen_decomposition(rng: random.Random):
+def gen_decomposition(rng: random.Random, ctx):
     """Which ordering of the subgoals actually respects the dependencies.
 
     The dependency edges are given but the orderings are not sorted for you; one
@@ -20,15 +20,16 @@ def gen_decomposition(rng: random.Random):
     least one edge. Validity is checked edge by edge, and the episode is
     rejected unless exactly one candidate passes.
     """
+    tries = ctx.at(60, 600, default=60)           # a topological order is rarer when n grows
     for _ in range(400):
-        n = rng.randint(5, 6)
+        n = rng.randint(*ctx.span((5, 6), (7, 8)))
         subs = _nonces(rng, n, 4)
         edges = [(subs[i], subs[j]) for i in range(n) for j in range(i + 1, n)
                  if rng.random() < 0.4]
         if len(edges) < 3:
             continue
         good = None
-        for _ in range(60):
+        for _ in range(tries):
             o = _shuffled(rng, subs)
             if _topo_ok(o, edges):
                 good = o

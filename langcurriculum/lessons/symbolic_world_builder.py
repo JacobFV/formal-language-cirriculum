@@ -14,7 +14,7 @@ from ..lesson import Lesson
 from ..generators.capstone import _grammar, _nonce_pool, _productive, _repeated_variable, _self_embedding, _shuffled
 
 
-def gen_symbolic_world_builder(rng: random.Random):
+def gen_symbolic_world_builder(rng: random.Random, ctx):
     """Four generated worlds, one named capability: which world actually forces
     a learner to acquire it?
 
@@ -31,10 +31,11 @@ def gen_symbolic_world_builder(rng: random.Random):
     positives: list[Any] = []
     negatives: list[Any] = []
     other_positives: list[Any] = []
+    size = ctx.at(3, 5, default=3)               # nonterminals per candidate grammar
     for _ in range(4000):
-        nts = [w.upper() for w in _nonce_pool(rng, 3, 1)]
-        terms = _nonce_pool(rng, 3, 1)
-        if len({*nts, *terms}) < 6:
+        nts = [w.upper() for w in _nonce_pool(rng, size, 1)]
+        terms = _nonce_pool(rng, size, 1)
+        if len({*nts, *terms}) < 2 * size:
             continue
         rules = _grammar(rng, nts, terms, varnames)
         if not _productive(rules, nts):
@@ -53,7 +54,7 @@ def gen_symbolic_world_builder(rng: random.Random):
         if len(positives) >= 3 and len(other_positives) >= 3 and len(negatives) >= 6:
             break
     if not positives or not other_positives or len(negatives) < 2:      # pragma: no cover
-        return gen_symbolic_world_builder(random.Random(rng.random()))
+        return gen_symbolic_world_builder(random.Random(rng.random()), ctx)
 
     def _bulk(c) -> int:
         return sum(len(b) for _h, b in c[2])
@@ -80,7 +81,7 @@ def gen_symbolic_world_builder(rng: random.Random):
         if combo:
             break
     if combo is None:
-        return gen_symbolic_world_builder(random.Random(rng.random()))
+        return gen_symbolic_world_builder(random.Random(rng.random()), ctx)
     cands = combo
 
     names = _shuffled(rng, [f"w{i}" for i in range(4)])

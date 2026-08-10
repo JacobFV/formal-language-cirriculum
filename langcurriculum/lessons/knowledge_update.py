@@ -13,7 +13,7 @@ from ..generators.base import COLORS
 from ..generators.semantics import _shuffled
 
 
-def gen_knowledge_update(rng: random.Random):
+def gen_knowledge_update(rng: random.Random, ctx):
     """Assertion, correction, retraction and uncertainty are different operations.
 
     All four arrive as utterances about a knowledge base and only two of them
@@ -21,7 +21,7 @@ def gen_knowledge_update(rng: random.Random):
     leaves it exactly as it was. The query sometimes names an untouched slot, so
     "return whatever the utterance mentioned" is wrong a third of the time.
     """
-    ids = _shuffled(rng, ["k1", "k2", "k3"])
+    ids = _shuffled(rng, [f"k{i}" for i in range(1, ctx.at(3, 9, default=3) + 1)])
     kb = {o: (rng.choice(COLORS) if rng.random() < 0.85 else "unknown") for o in ids}
     before = dict(kb)
     tgt = rng.choice(ids)

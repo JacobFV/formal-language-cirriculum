@@ -14,7 +14,7 @@ from ..lesson import Lesson
 from ..generators.semantics import _nonce_words, _shuffled
 
 
-def gen_grammar_induction(rng: random.Random):
+def gen_grammar_induction(rng: random.Random, ctx):
     """A fresh regular grammar per episode; pick the grammatical held-out string.
 
     Six nonce tokens are partitioned into two classes and a three-slot class
@@ -29,11 +29,12 @@ def gen_grammar_induction(rng: random.Random):
     unconstrained — and two different candidates are each "correct" under a
     different consistent grammar, which would make the label arbitrary.
     """
+    slots = ctx.at(3, 6, default=3)
     for _ in range(300):
         toks = _nonce_words(rng, 6, 2)
         c1, c2 = toks[:3], toks[3:]
         cls = {t: ("c1" if t in c1 else "c2") for t in toks}
-        template = [rng.choice(["c1", "c2"]) for _ in range(3)]
+        template = [rng.choice(["c1", "c2"]) for _ in range(slots)]
         if len(set(template)) == 1:                       # a trivial grammar teaches nothing
             continue
 
@@ -42,7 +43,7 @@ def gen_grammar_induction(rng: random.Random):
 
         def sample(valid: bool) -> tuple[str, ...] | None:
             for _ in range(400):
-                s = tuple(rng.choice(toks) for _ in range(3))
+                s = tuple(rng.choice(toks) for _ in range(slots))
                 if accepts(cls, template, s) == valid:
                     return s
             return None                                   # pragma: no cover
@@ -76,7 +77,7 @@ def gen_grammar_induction(rng: random.Random):
         answers = set()
         for mask in range(64):
             cl = {t: ("c1" if (mask >> i) & 1 else "c2") for i, t in enumerate(toks)}
-            for tp in itertools.product(("c1", "c2"), repeat=3):
+            for tp in itertools.product(("c1", "c2"), repeat=slots):
                 if all(accepts(cl, tp, s) for s in pos_l) and \
                         not any(accepts(cl, tp, s) for s in neg_l):
                     answers.add(tuple(sorted(c for c in cands if accepts(cl, tp, c))))

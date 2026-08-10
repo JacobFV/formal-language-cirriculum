@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import _nonces, _shuffled
 
 
-def gen_long_horizon_projects(rng: random.Random):
+def gen_long_horizon_projects(rng: random.Random, ctx):
     """A project mid-flight: what has to happen next.
 
     The critical path is a chain of prerequisites toward the deliverable, the
@@ -22,7 +22,7 @@ def gen_long_horizon_projects(rng: random.Random):
     which cannot be read off the log's last line.
     """
     for _ in range(200):
-        n_chain = rng.randint(4, 5)
+        n_chain = rng.randint(*ctx.span((4, 5), (9, 12)))
         names = _nonces(rng, n_chain + 4, 4)
         chain = names[:n_chain]
         goal = chain[-1]

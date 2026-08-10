@@ -14,7 +14,7 @@ from ..lesson import Lesson
 from ..generators.reflective import _SEM_KINDS, _nonces, _num_options, _run_ops, _shuffled
 
 
-def gen_interpreter_learning(rng: random.Random):
+def gen_interpreter_learning(rng: random.Random, ctx):
     """Infer the semantics of a brand-new language from program/output pairs,
     then run a held-out program.
 
@@ -40,7 +40,8 @@ def gen_interpreter_learning(rng: random.Random):
             a = dict(zip(ops, perm))
             if all(_run_ops(p, a, xi) == o for p, xi, o in demos):
                 consistent.append(a)
-        query = [(rng.choice(ops), rng.randint(1, 5)) for _ in range(rng.randint(2, 3))]
+        query = [(rng.choice(ops), rng.randint(1, 5))
+                 for _ in range(rng.randint(*ctx.span((2, 3), (5, 7))))]
         xq = rng.randint(1, 9)
         ans = _run_ops(query, true_assign, xq)
         near: list[int] = []

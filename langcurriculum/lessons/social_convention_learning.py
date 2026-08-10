@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.social import ACTIONS, _nonce, _shuffled
 
 
-def gen_social_convention_learning(rng: random.Random):
+def gen_social_convention_learning(rng: random.Random, ctx):
     """An arbitrary signal→action pairing, recoverable only from the episode.
 
     The convention is a fresh random bijection each episode, so there is nothing
@@ -21,12 +21,13 @@ def gen_social_convention_learning(rng: random.Random):
     being *shared and exclusive*: three signals are pinned by successful trials,
     the failed trials rule out more, and one action is left for the fourth signal.
     """
-    signals = [_nonce(rng, 3) for _ in range(4)]
-    while len(set(signals)) < 4:
-        signals = [_nonce(rng, 3) for _ in range(4)]
-    actions = rng.sample(ACTIONS, 4)
+    n_sig = ctx.at(4, 6, default=4)
+    signals = [_nonce(rng, 3) for _ in range(n_sig)]
+    while len(set(signals)) < n_sig:
+        signals = [_nonce(rng, 3) for _ in range(n_sig)]
+    actions = rng.sample(ACTIONS, n_sig)
     convention = dict(zip(signals, actions))
-    query_ix = rng.randrange(4)
+    query_ix = rng.randrange(n_sig)
     query_sig = signals[query_ix]
 
     trials: list[tuple[str, str, bool]] = []

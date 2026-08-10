@@ -13,7 +13,7 @@ from ..generators.base import COLORS, SHAPES
 from ..generators.selfmodel import _labels, _rules, _shuffled
 
 
-def gen_ambiguity_preservation(rng: random.Random):
+def gen_ambiguity_preservation(rng: random.Random, ctx):
     """How many readings does the evidence leave open?
 
     A novel word has several senses licensed by the episode's lexicon, and the
@@ -24,8 +24,9 @@ def gen_ambiguity_preservation(rng: random.Random):
     k = rng.choice([1, 2, 3, 4])
     senses = rng.sample(COLORS, rng.randint(1, 3))
     outside = [c for c in COLORS if c not in senses]
-    ids = _labels(rng, "o", 5)
-    colors = [rng.choice(senses) for _ in range(k)] + [rng.choice(outside) for _ in range(5 - k)]
+    n_obj = ctx.at(5, 14, default=5)
+    ids = _labels(rng, "o", n_obj)
+    colors = [rng.choice(senses) for _ in range(k)] + [rng.choice(outside) for _ in range(n_obj - k)]
     objs = list(zip(ids, colors))
     word = "".join(rng.choice("kmtszlp") for _ in range(3))
     scene = [Pred("obj", Ident(i), Ident(c), Ident(rng.choice(SHAPES))) for i, c in objs]

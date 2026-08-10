@@ -14,7 +14,7 @@ from ..generators.base import NAMES
 from ..generators.reflective import _labels, _shuffled
 
 
-def gen_institution_learning(rng: random.Random):
+def gen_institution_learning(rng: random.Random, ctx):
     """Infer the decision rule of an institution from the proposals it passed.
 
     Members have roles and voting weights; four candidate constitutions are
@@ -48,7 +48,7 @@ def gen_institution_learning(rng: random.Random):
         spec = dict(zip(ids, _shuffled(rng, specs)))
         truth = rng.choice(ids)
         traces = []
-        for _ in range(5):
+        for _ in range(ctx.at(5, 12, default=5)):
             votes = {m: rng.random() < 0.55 for m in members}
             traces.append((votes, decide(*spec[truth], votes, weight, role)))
         ok = [i for i in ids

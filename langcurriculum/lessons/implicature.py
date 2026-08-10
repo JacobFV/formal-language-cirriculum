@@ -13,7 +13,7 @@ from ..generators.base import COLORS
 from ..generators.semantics import _nonce_words, _shuffled
 
 
-def gen_implicature(rng: random.Random):
+def gen_implicature(rng: random.Random, ctx):
     """A stated speaker policy makes the scalar inference exactly determined.
 
     The scale is a fresh set of nonce words meaning ``at least t`` for every
@@ -22,7 +22,7 @@ def gen_implicature(rng: random.Random):
     the utterance leaves ``n - t + 1`` counts open; the implicature ("they would
     have said the stronger word if it were true") pins the count to exactly one.
     """
-    n = rng.randint(3, 5)
+    n = rng.randint(*ctx.span((3, 5), (9, 13)))
     words = _nonce_words(rng, n + 1, 4)
     scale = dict(zip(words, range(n + 1)))              # word -> threshold
     k = rng.randint(0, n)

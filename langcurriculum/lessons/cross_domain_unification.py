@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.selfmodel import _labels, _rigid_pair, _rules, _shuffled
 
 
-def gen_cross_domain_unification(rng: random.Random):
+def gen_cross_domain_unification(rng: random.Random, ctx):
     """Two domains, one structure: find the element that corresponds.
 
     The second domain is literally the image of the first under a permutation the
@@ -21,7 +21,7 @@ def gen_cross_domain_unification(rng: random.Random):
     answer is the permutation's value, computable by anyone who finds the
     isomorphism.
     """
-    n = 5
+    n = ctx.at(5, 7, default=5)
     edges, perm = _rigid_pair(rng, n)
     a_ids = _labels(rng, "a", n)
     b_ids = _labels(rng, "b", n)

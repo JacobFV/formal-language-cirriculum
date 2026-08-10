@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import PROCEDURES, _shuffled
 
 
-def gen_algorithm_discovery(rng: random.Random):
+def gen_algorithm_discovery(rng: random.Random, ctx):
     """Infer the procedure from its input/output behaviour.
 
     Five named candidates are offered and all five are executed on all three
@@ -20,8 +20,9 @@ def gen_algorithm_discovery(rng: random.Random):
     disagrees with the observed outputs somewhere, so no distractor is
     eliminated by luck and none is secretly extensionally equal on this data.
     """
+    n_cands = ctx.at(5, len(PROCEDURES), default=5)
     for _ in range(400):
-        names = rng.sample(sorted(PROCEDURES), 5)
+        names = rng.sample(sorted(PROCEDURES), n_cands)
         truth = rng.choice(names)
         inputs = [[rng.randint(1, 9) for _ in range(rng.randint(4, 6))] for _ in range(3)]
         outs = [PROCEDURES[truth](x) for x in inputs]

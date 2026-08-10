@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import PROVENANCE_LABELS, SOURCES, _nonces, _provenance_status, _shuffled
 
 
-def gen_source_provenance(rng: random.Random):
+def gen_source_provenance(rng: random.Random, ctx):
     """``x said p`` is a separate symbol from ``p``.
 
     Two of the four sources are declared unreliable in the episode, so a report
@@ -24,7 +24,7 @@ def gen_source_provenance(rng: random.Random):
     label = rng.choice(PROVENANCE_LABELS)
     srcs = rng.sample(SOURCES, 4)
     reliable, unreliable = set(srcs[:2]), set(srcs[2:])
-    props = _nonces(rng, 4, 4)
+    props = _nonces(rng, ctx.at(4, 12, default=4), 4)
     q = props[0]
 
     reports: list[tuple[str, str, str]] = []

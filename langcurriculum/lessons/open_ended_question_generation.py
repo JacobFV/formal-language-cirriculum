@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.selfmodel import _labels, _rules, _shuffled
 
 
-def gen_open_ended_question_generation(rng: random.Random):
+def gen_open_ended_question_generation(rng: random.Random, ctx):
     """Which question is worth asking: the one that eliminates the most hypotheses.
 
     Every live hypothesis states what it predicts for every candidate question, so
@@ -20,7 +20,7 @@ def gen_open_ended_question_generation(rng: random.Random):
     way the answer comes back. This is expected-information-gain reduced to
     counting, which is what makes "the agent decides what to ask" scoreable.
     """
-    n_h, n_q = 8, 4
+    n_h, n_q = ctx.at(8, 18, default=8), ctx.at(4, 6, default=4)
     for _ in range(200):
         table = [[rng.random() < 0.5 for _ in range(n_q)] for _ in range(n_h)]
         vals = []

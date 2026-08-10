@@ -13,7 +13,7 @@ from ..generators.base import COLORS
 from ..generators.selfmodel import _labels, _rules, _shuffled
 
 
-def gen_underspecification_reasoning(rng: random.Random):
+def gen_underspecification_reasoning(rng: random.Random, ctx):
     """Separate what the instruction fixes from what it leaves open.
 
     The instruction constrains the *types* of its two arguments and a stated
@@ -38,6 +38,11 @@ def gen_underspecification_reasoning(rng: random.Random):
 
     scene = [Pred("obj", Ident(cube_ids[i]), Ident("cube"), Ident(cube_cols[i])) for i in range(3)]
     scene += [Pred("obj", Ident(box_ids[j]), Ident("box"), Ident(box_cols[j])) for j in range(3)]
+    # decoy objects: a cube wearing a box colour (and vice versa) fits nothing, so
+    # the count is unchanged and only the number of pairs to check goes up
+    for e in range(ctx.at(0, 4, default=0)):
+        scene.append(Pred("obj", Ident(f"c{3 + e}"), Ident("cube"), Ident(rng.choice(box_cols))))
+        scene.append(Pred("obj", Ident(f"b{3 + e}"), Ident("box"), Ident(rng.choice(cube_cols))))
     obs = Rec(scene=Lst(_shuffled(rng, scene)),
               compatibility=Lst(_shuffled(rng, [Pred("fits", Ident(a), Ident(b)) for a, b in fits])),
               instruction=Lst([Pred("put", Ident("X"), Ident("Y")),

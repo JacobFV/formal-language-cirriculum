@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.ontology import ENTITIES, NEW_PRED_NAMES, REL_NAMES, _description_length, _pattern_instances, _shuffled
 
 
-def gen_representation_invention(rng: random.Random):
+def gen_representation_invention(rng: random.Random, ctx):
     """Which new predicate compresses the corpus most?
 
     A predicate ``P(X,Y) := r1(X,Y) & r2(X,Y)`` costs nine symbols to define and
@@ -42,7 +42,7 @@ def gen_representation_invention(rng: random.Random):
                 r1, r2, orient = pat
                 facts.add((r1, x, y))
                 facts.add((r2, x, y) if orient == "same" else (r2, y, x))
-        for _ in range(rng.randint(3, 6)):           # noise the patterns must survive
+        for _ in range(rng.randint(*ctx.span((3, 6), (12, 24)))):   # noise to survive
             facts.add((rng.choice(rels), *rng.choice(pairs)))
         # equalize how often each relation occurs: otherwise "name the predicate
         # built from the commonest relations" scores far above chance without

@@ -12,13 +12,13 @@ from ..lesson import Lesson
 from ..generators.causal import _dsl_lists, _dsl_mutate, _dsl_program, _dsl_run, _dsl_symbol, _labels, _options
 
 
-def gen_program_synthesis(rng: random.Random):
+def gen_program_synthesis(rng: random.Random, ctx):
     """Input/output examples from a hidden DSL program; exactly one candidate
     reproduces *every* example. Each distractor is checked to disagree with the
     truth on at least one example actually shown, so consistency decides."""
     for _ in range(200):
         prog = _dsl_program(rng)
-        inputs = _dsl_lists(rng, 3)
+        inputs = _dsl_lists(rng, ctx.at(3, 9, default=3))
         outputs = [_dsl_run(prog, xs) for xs in inputs]
         if any(len(o) == 0 for o in outputs):
             continue

@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.ontology import _assign_entities, _consistent, _inherited, _label_options, _mutations, _onto_facts, _onto_key, _random_hierarchy, _shuffled
 
 
-def gen_ontology_construction(rng: random.Random):
+def gen_ontology_construction(rng: random.Random, ctx):
     """Which of four type hierarchies explains every observation?
 
     Observations are an entity's *complete* property set. A hierarchy is
@@ -21,9 +21,10 @@ def gen_ontology_construction(rng: random.Random):
     and the label is computed, not annotated. Distractors are perturbations of
     the true hierarchy that are each verified to be inconsistent.
     """
+    n_extra = ctx.at(2, 6, default=2)             # entities beyond one per leaf type
     for _ in range(200):
         own, parent, leaves, props, _ = _random_hierarchy(rng)
-        inst = _assign_entities(rng, leaves)
+        inst = _assign_entities(rng, leaves, n_extra)
         observed = {e: _inherited(own, parent, inst[e]) for e in inst}
         if not _consistent(own, parent, inst, observed):
             continue

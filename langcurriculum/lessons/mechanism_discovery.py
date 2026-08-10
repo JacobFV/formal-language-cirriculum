@@ -13,7 +13,7 @@ from ..lesson import Lesson
 from ..generators.science import _add, _labels, _lin, _mul, _shuffled
 
 
-def gen_mechanism_discovery(rng: random.Random):
+def gen_mechanism_discovery(rng: random.Random, ctx):
     """Same predictions, different machinery — until you intervene.
 
     Every candidate mechanism reproduces the observational table exactly: they
@@ -24,11 +24,12 @@ def gen_mechanism_discovery(rng: random.Random):
     each mechanism under that ``do``, which is the whole content of the
     distinction between a predictive law and a causal mechanism.
     """
+    extra = ctx.at(0, 2, default=0)                        # further rival mechanisms
     for _ in range(400):
         a1 = rng.choice([-3, -2, -1, 1, 2, 3])
         b1 = rng.randint(-4, 4)
-        coeffs = rng.sample([-3, -2, -1, 1, 2, 3], 3)      # a2 for the two "through m" ones
-        a2, a3, a4 = coeffs
+        coeffs = rng.sample([-3, -2, -1, 1, 2, 3], 3 + extra)   # a2 for the two "through m" ones
+        a2, a3, a4 = coeffs[:3]
         b2 = rng.randint(-4, 4)
         p, q = a2 * a1, a2 * b1 + b2                        # the shared law y = p·x + q
         c3, d3 = p - a3 * a1, q - a3 * b1
@@ -44,6 +45,11 @@ def gen_mechanism_discovery(rng: random.Random):
             ("weak_path", _add(_add(_mul(Num(a4), Ident("m")), _mul(Num(c4), Ident("x"))), Num(d4)),
              lambda x, m: a4 * m + c4 * x + d4),
         ]
+        for a5 in coeffs[3:]:                              # same table, another path split
+            c5, d5 = p - a5 * a1, q - a5 * b1
+            mech.append(("mixed_path",
+                         _add(_add(_mul(Num(a5), Ident("m")), _mul(Num(c5), Ident("x"))), Num(d5)),
+                         lambda x, m, a=a5, c=c5, d=d5: a * m + c * x + d))
         xs = rng.sample(range(-5, 6), 4)
         rows = [(x, a1 * x + b1, p * x + q) for x in xs]
         if not all(all(f(x, m) == y for x, m, y in rows) for _, _, f in mech):
@@ -51,11 +57,11 @@ def gen_mechanism_discovery(rng: random.Random):
         x0 = rng.choice([v for v in range(-5, 6)])
         v = rng.choice([w for w in range(-8, 9) if w != a1 * x0 + b1])
         outcomes = [f(x0, v) for _, _, f in mech]
-        if len(set(outcomes)) != 4:
+        if len(set(outcomes)) != len(mech):
             continue                                        # the experiment must separate all
-        true_i = rng.randrange(4)
-        order = _shuffled(rng, range(4))
-        labels = _labels("m", 4)
+        true_i = rng.randrange(len(mech))
+        order = _shuffled(rng, range(len(mech)))
+        labels = _labels("m", len(mech))
         answer = labels[order.index(true_i)]
         obs = Rec(mechanisms=Lst([Pred("mechanism", Ident(labels[j]),
                                        Pred("eq", Ident("m"), _lin(a1, "x", b1)),

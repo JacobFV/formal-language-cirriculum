@@ -13,7 +13,7 @@ from ..generators.base import NAMES
 from ..generators.social import CITIES, COMPANIES, _shuffled
 
 
-def gen_document_world(rng: random.Random):
+def gen_document_world(rng: random.Random, ctx):
     """Employment history in one passage, geography in another, a lure in a third.
 
     No passage contains the answer. The employment passage names no city, the
@@ -23,19 +23,28 @@ def gen_document_world(rng: random.Random):
     to be reconciled over time: the person joined one employer, left it, and
     joined another.
     """
+    hops = ctx.at(1, 3, default=1)            # employers the subject leaves before the current one
+    n_firms = hops + 2
     people = rng.sample(NAMES, 3)
-    firms = rng.sample(COMPANIES, 3)
-    cities = rng.sample(CITIES, 4)
+    firms = rng.sample(COMPANIES, n_firms)
+    cities = rng.sample(CITIES, n_firms + 1)
     answer_city = cities[0]
     subject = people[0]
     old_firm, new_firm = firms[0], firms[1]
-    hq = {new_firm: answer_city, old_firm: cities[1], firms[2]: cities[2]}
-    lure_city = cities[3]
+    hq = {new_firm: answer_city, old_firm: cities[1]}
+    for i in range(2, n_firms):
+        hq[firms[i]] = cities[i]
+    lure_city = cities[n_firms]
 
     y0 = rng.randint(2001, 2008)
-    employment = [Pred("joined", Ident(subject), Ident(old_firm), Num(y0)),
-                  Pred("left", Ident(subject), Ident(old_firm), Num(y0 + rng.randint(2, 5)))]
-    joined_year = y0 + rng.randint(6, 9)
+    past_firms = [old_firm] + firms[3:]
+    employment = []
+    year = y0
+    for f in past_firms:
+        employment.append(Pred("joined", Ident(subject), Ident(f), Num(year)))
+        employment.append(Pred("left", Ident(subject), Ident(f), Num(year + rng.randint(2, 5))))
+        year = year + rng.randint(6, 9)
+    joined_year = year
     employment.append(Pred("joined", Ident(subject), Ident(new_firm), Num(joined_year)))
     for other, firm in zip(people[1:], firms[1:]):                    # distractor employees
         employment.append(Pred("joined", Ident(other), Ident(firm), Num(rng.randint(2001, 2015))))

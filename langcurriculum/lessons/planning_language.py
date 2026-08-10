@@ -12,14 +12,15 @@ from ..lesson import Lesson
 from ..generators.causal import _plan_domain, _plan_fallback
 
 
-def gen_planning_language(rng: random.Random):
+def gen_planning_language(rng: random.Random, ctx):
     """Answer the first action of a shortest plan. The episode is only emitted
     when breadth-first search says that first action is unique, so 'correct' is
     well defined; the plan length travels in ``hidden``."""
+    min_len = ctx.at(2, 6, default=2)          # shortest-plan length the episode must reach
     dom = None
     for _ in range(300):
         dom = _plan_domain(rng)
-        if dom is not None:
+        if dom is not None and dom["length"] >= min_len:
             break
     if dom is None:                                            # pragma: no cover
         dom = _plan_fallback(rng)

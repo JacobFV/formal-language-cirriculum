@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import OPERATORS, _shuffled
 
 
-def gen_resource_bounded_reasoning(rng: random.Random):
+def gen_resource_bounded_reasoning(rng: random.Random, ctx):
     """Reasoning costs something; spend the budget where it pays.
 
     Every operator states a cost, a success probability and a payoff, and the
@@ -21,8 +21,9 @@ def gen_resource_bounded_reasoning(rng: random.Random):
     the best affordable operator" come apart. Expected values are compared in
     scaled integers, so there are no floating-point ties.
     """
+    n_ops = ctx.at(5, 7, default=5)              # operators to compare
     for _ in range(400):
-        names = rng.sample(OPERATORS, 5)
+        names = rng.sample(OPERATORS, n_ops)
         budget = rng.randint(4, 9)
         ops = {}
         for nm in names:

@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.mathematics import _closure, _label_items, _nonces, _shuffled
 
 
-def gen_contradiction_tolerance(rng: random.Random):
+def gen_contradiction_tolerance(rng: random.Random, ctx):
     """Sources disagree; reason on anyway, without exploding.
 
     An atom reported both ways is *contested* and supports nothing. A claim is
@@ -21,13 +21,14 @@ def gen_contradiction_tolerance(rng: random.Random):
     through a contested atom, a contested atom itself, and a claim that never
     follows at all — so the lesson separates paraconsistent reasoning from both
     explosion and blanket scepticism."""
+    n_atoms = ctx.at(8, 14, default=8)
     for _ in range(300):
-        atoms = _nonces(rng, 8, 2)
+        atoms = _nonces(rng, n_atoms, 2)
         srcs = _nonces(rng, 3, 2, avoid=atoms)
         rules: list[tuple[str, str, tuple[str, ...]]] = []
-        rnames = _nonces(rng, 8, 2, avoid=atoms + srcs)
+        rnames = _nonces(rng, n_atoms, 2, avoid=atoms + srcs)
         k = 0
-        for i in range(3, 8):
+        for i in range(3, n_atoms):
             for _ in range(rng.randint(1, 2)):
                 if k >= len(rnames):
                     break

@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.mathematics import _FALLBACK_RULES, _nonces, _reach, _rewrite, _shuffled
 
 
-def gen_theorem_proving(rng: random.Random):
+def gen_theorem_proving(rng: random.Random, ctx):
     """A generated rewrite calculus, and the *next* step of a shortest proof.
 
     Breadth-first search over the whole derivation space fixes the distance from
@@ -22,6 +22,8 @@ def gen_theorem_proving(rng: random.Random):
     proof's first move, computed, not guessed."""
     names = _nonces(rng, 4, 2)
     alpha = "abcde"
+    d_lo, d_hi = ctx.span((2, 4), (4, 7))
+    max_depth = ctx.at(5, 8, default=5)
     for _ in range(300):
         rules = []
         for nm in names:
@@ -32,8 +34,8 @@ def gen_theorem_proving(rng: random.Random):
         if len(rules) != 4:
             continue
         start = "".join(rng.choice(alpha) for _ in range(rng.randint(2, 3)))
-        dist = _reach(start, rules, max_len=7, max_depth=5)
-        goals = [t for t, d in dist.items() if 2 <= d <= 4]
+        dist = _reach(start, rules, max_len=7, max_depth=max_depth)
+        goals = [t for t, d in dist.items() if d_lo <= d <= d_hi]
         if not goals:
             continue
         goal = rng.choice(goals)
@@ -44,7 +46,7 @@ def gen_theorem_proving(rng: random.Random):
             continue
         on_path = []
         for nm, t in succ:
-            dt = _reach(t, rules, max_len=7, max_depth=5).get(goal)
+            dt = _reach(t, rules, max_len=7, max_depth=max_depth).get(goal)
             if dt is not None and 1 + dt == d:
                 on_path.append(nm)
         if len(on_path) == 1:

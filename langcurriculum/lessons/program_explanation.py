@@ -13,12 +13,13 @@ from ..generators.causal import (_dsl_desc, _dsl_lists, _dsl_mutate, _dsl_progra
                                 _dsl_run, _dsl_symbol, _dsl_text, _labels, _options)
 
 
-def gen_program_explanation(rng: random.Random):
+def gen_program_explanation(rng: random.Random, ctx):
     """The inverse task: given the program, which description says what it does?
     Distractors describe mutants differing by one operator or one bound, and are
     kept only if they compute something different on some probe input — a
     description that is merely worded differently would be a second correct
     answer."""
+    n_wrong = ctx.at(3, 6, default=3)          # rival descriptions to rule out
     for _ in range(200):
         prog = _dsl_program(rng)
         probes = _dsl_lists(rng, 6)
@@ -34,9 +35,9 @@ def gen_program_explanation(rng: random.Random):
             if any(_dsl_run(m, xs) != out for xs, out in zip(probes, truth)):
                 wrong.append(m)
                 texts.add(_dsl_text(m))
-            if len(wrong) == 3:
+            if len(wrong) == n_wrong:
                 break
-        if len(wrong) < 3:
+        if len(wrong) < n_wrong:
             continue
 
         opts, correct = _options(rng, list(prog), wrong)

@@ -14,7 +14,7 @@ from ..lesson import Lesson
 from ..generators.semantics import _nonce_words, _shuffled
 
 
-def gen_translation(rng: random.Random):
+def gen_translation(rng: random.Random, ctx):
     """Two independently generated languages: different words *and* word order.
 
     Neither side is English. The parallel corpus is four sentences; the query
@@ -26,13 +26,16 @@ def gen_translation(rng: random.Random):
     word unseen, or that cannot distinguish two alignments, is resampled rather
     than labelled arbitrarily.
     """
+    # how many words fill each role: the lexicon to recover is three times this,
+    # and the space of sentences it generates is its cube
+    m = ctx.at(2, 4, default=2)
     for _ in range(200):
-        subj = rng.sample(["s1", "s2"], 2)
-        verb = rng.sample(["v1", "v2"], 2)
-        obj = rng.sample(["o1", "o2"], 2)
+        subj = rng.sample([f"s{i + 1}" for i in range(m)], m)
+        verb = rng.sample([f"v{i + 1}" for i in range(m)], m)
+        obj = rng.sample([f"o{i + 1}" for i in range(m)], m)
         concepts = subj + verb + obj
-        src = dict(zip(concepts, _nonce_words(rng, 6, 3)))
-        tgt_words = _nonce_words(rng, 6, 4, avoid=list(src.values()))
+        src = dict(zip(concepts, _nonce_words(rng, 3 * m, 3)))
+        tgt_words = _nonce_words(rng, 3 * m, 4, avoid=list(src.values()))
         tgt = dict(zip(concepts, tgt_words))
         roles = ["S", "V", "O"]
         o1 = _shuffled(rng, roles)
@@ -42,7 +45,8 @@ def gen_translation(rng: random.Random):
 
         triples = [(s, v, o) for s in subj for v in verb for o in obj]
         rng.shuffle(triples)
-        support, held = triples[:4], triples[4]
+        n_sup = min(len(triples) - 1, ctx.at(4, 16, default=4))
+        support, held = triples[:n_sup], triples[n_sup]
 
         def render(t: tuple[str, str, str], lexicon: Mapping[str, str],
                    order: Sequence[str]) -> list[str]:

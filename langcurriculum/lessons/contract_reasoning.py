@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.reflective import _CONTRACT_STATUSES, _contract_status, _nonces, _shuffled
 
 
-def gen_contract_reasoning(rng: random.Random):
+def gen_contract_reasoning(rng: random.Random, ctx):
     """Is the obligation inactive, active, fulfilled, breached or cancelled?
 
     A promise creates a future obligation the moment its trigger event occurs,
@@ -22,14 +22,15 @@ def gen_contract_reasoning(rng: random.Random):
     imply rather than what they were built to imply.
     """
     target = rng.choice(_CONTRACT_STATUSES)
+    n_ev = ctx.at(5, 11, default=5)
     fallback = None
     for _ in range(300):
-        names = _nonces(rng, 5, 3)
+        names = _nonces(rng, n_ev, 3)
         trigger, action, cancel = names[0], names[1], names[2]
         noise = names[3:]
         has_cancel = rng.random() < 0.6
         deadline = rng.randint(1, 3)
-        times = sorted(rng.sample(range(1, 12), 5))
+        times = sorted(rng.sample(range(1, 12), n_ev))
         events: list[tuple[int, str]] = []
         t0 = times[1]
         if target != "inactive":
@@ -45,7 +46,7 @@ def gen_contract_reasoning(rng: random.Random):
             if rng.random() < 0.5:
                 events.append((t, rng.choice(noise + [action if target == "inactive" else noise[0]])))
         if target in ("inactive",) and rng.random() < 0.5:
-            events.append((times[4], trigger))       # triggers only after "now"
+            events.append((times[n_ev - 1], trigger))  # triggers only after "now"
         events = sorted({(t, n) for t, n in events})
         if target == "fulfilled":
             now = max(t for t, _ in events)

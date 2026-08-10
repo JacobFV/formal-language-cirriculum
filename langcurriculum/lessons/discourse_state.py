@@ -12,26 +12,27 @@ from ..lesson import Lesson
 from ..generators.semantics import THINGS, _shuffled
 
 
-def gen_discourse_state(rng: random.Random):
+def gen_discourse_state(rng: random.Random, ctx):
     """Salience as state: entities are mentioned and *closed* over turns.
 
     The referent of "the animal we were talking about" is the most recently
     mentioned entity of that kind whose mention has not since been closed — so
     the answer depends on the whole turn sequence, not on the last line.
     """
+    n_ents = ctx.at(4, 8, default=4)
     for _ in range(200):
         kind = rng.choice(sorted({k for _, k in THINGS}))
         same = [n for n, k in THINGS if k == kind]
         others = [n for n, k in THINGS if k != kind]
         n_same = rng.randint(2, min(3, len(same)))
-        ents = rng.sample(same, n_same) + rng.sample(others, 4 - n_same)
+        ents = rng.sample(same, n_same) + rng.sample(others, n_ents - n_same)
         ents = _shuffled(rng, ents)
         kind_of = {n: k for n, k in THINGS}
 
         turns: list[tuple[str, str]] = []
         for e in rng.sample([x for x in ents if kind_of[x] == kind], n_same):
             turns.append(("mention", e))            # every candidate is mentioned
-        for _ in range(rng.randint(1, 3)):
+        for _ in range(rng.randint(*ctx.span((1, 3), (6, 10)))):
             turns.append(("mention", rng.choice(ents)))
         rng.shuffle(turns)
         if rng.random() < 0.5:

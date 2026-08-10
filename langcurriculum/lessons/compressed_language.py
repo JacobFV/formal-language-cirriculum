@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.social import TAGS, _code_ok, _encoded_length, _nonce, _prefix_free, _shuffled
 
 
-def gen_compressed_language(rng: random.Random):
+def gen_compressed_language(rng: random.Random, ctx):
     """Four candidate codes, one channel budget, exactly one code that works.
 
     Each rival fails for a different reason and the reasons are the two real
@@ -27,7 +27,7 @@ def gen_compressed_language(rng: random.Random):
         types = [_nonce(rng, 2) for _ in range(4)]
         if len(set(types)) < 4:
             continue
-        message = [rng.choice(types) for _ in range(rng.randint(6, 9))]
+        message = [rng.choice(types) for _ in range(rng.randint(*ctx.span((6, 9), (16, 22))))]
         if len(set(message)) < 4:
             continue
         freq = {w: message.count(w) for w in types}

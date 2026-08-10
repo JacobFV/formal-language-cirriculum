@@ -13,7 +13,7 @@ from ..generators.base import COLORS
 from ..generators.semantics import LOCATIONS, _act_sym, _apply, _instruction_query, _world, _world_facts
 
 
-def gen_instruction_following_micro(rng: random.Random):
+def gen_instruction_following_micro(rng: random.Random, ctx):
     """One command, one world update, then read back one state variable.
 
     The queried object is chosen independently of the command's argument, so
@@ -22,18 +22,21 @@ def gen_instruction_following_micro(rng: random.Random):
     """
     ids, st = _world(rng)
     init = {o: dict(v) for o, v in st.items()}
-    verb = rng.choice(["paint", "move"])
-    tgt = rng.choice(ids)
-    if verb == "paint":
-        val = rng.choice([c for c in COLORS if c != st[tgt]["color"]])
-    else:
-        val = rng.choice([l for l in LOCATIONS if l != st[tgt]["loc"]])
-    act = (verb, tgt, val)
-    _apply(st, act)
+    acts = []
+    for _ in range(ctx.at(1, 6, default=1)):
+        verb = rng.choice(["paint", "move"])
+        tgt = rng.choice(ids)
+        if verb == "paint":
+            val = rng.choice([c for c in COLORS if c != st[tgt]["color"]])
+        else:
+            val = rng.choice([l for l in LOCATIONS if l != st[tgt]["loc"]])
+        act = (verb, tgt, val)
+        acts.append(act)
+        _apply(st, act)
 
     query, vocab, answer, (slot, q) = _instruction_query(rng, ids, st)
     obs = Rec(world=_world_facts(ids, init),
-              instruction=Lst([_act_sym("step", 0, act)]),
+              instruction=Lst([_act_sym("step", i, a) for i, a in enumerate(acts)]),
               query=query)
     return obs, vocab, answer, {"action": list(act), "queried": [q, slot],
                                 "final": {o: dict(v) for o, v in st.items()}}

@@ -13,7 +13,7 @@ from ..generators.base import NAMES
 from ..generators.semantics import OBJECTS, TRANS_VERBS, _shuffled
 
 
-def gen_ellipsis(rng: random.Random):
+def gen_ellipsis(rng: random.Random, ctx):
     """Recover elided structure: gapping and VP-ellipsis.
 
     ``alice likes tea and bob coffee`` (the verb is gapped: what does bob do?)
@@ -21,12 +21,13 @@ def gen_ellipsis(rng: random.Random):
     like?). Distractor clauses precede the antecedent so the answer is never the
     only verb or the only object in the discourse.
     """
-    subs = rng.sample(NAMES, 4)
-    verbs = rng.sample(TRANS_VERBS, 3)
-    objs = rng.sample(OBJECTS, 4)
+    d = ctx.at(2, 4, default=2)                  # clauses between the reader and the antecedent
+    subs = rng.sample(NAMES, d + 2)
+    verbs = rng.sample(TRANS_VERBS, d + 1)
+    objs = rng.sample(OBJECTS, d + 2)
     mode = rng.choice(["gapping", "vp_ellipsis"])
 
-    clauses = [(subs[2], verbs[1], objs[1]), (subs[3], verbs[2], objs[2])]
+    clauses = [(subs[2 + i], verbs[1 + i], objs[1 + i]) for i in range(d)]
     rng.shuffle(clauses)
     antecedent = (subs[0], verbs[0], objs[0])
     clauses.append(antecedent)
@@ -35,7 +36,7 @@ def gen_ellipsis(rng: random.Random):
              for i, (s, v, o) in enumerate(clauses)]
     i = len(clauses)
     if mode == "gapping":
-        lines.append(Pred("gap", Num(i), Ident(subs[1]), Ident(objs[3])))
+        lines.append(Pred("gap", Num(i), Ident(subs[1]), Ident(objs[d + 1])))
         query = Pred("verb_of", Ident(subs[1]))
         vocab, answer = _shuffled(rng, TRANS_VERBS), antecedent[1]
     else:

@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.ontology import ENCODINGS, ITEMS, _selection_costs, _shuffled, _unique_argmin
 
 
-def gen_representation_selection(rng: random.Random):
+def gen_representation_selection(rng: random.Random, ctx):
     """One latent chain, four encodings, one query: which encoding costs least?
 
     ``graph`` is a shuffled edge list (each edge is found by scanning), ``sequence``
@@ -25,7 +25,7 @@ def gen_representation_selection(rng: random.Random):
     target = rng.choice(list(ENCODINGS))
     fallback = None
     for _ in range(400):
-        n = rng.randint(4, 7)
+        n = rng.randint(*ctx.span((4, 7), (6, 8)))
         chain = rng.sample(list(ITEMS), n)
         edges = _shuffled(rng, [(chain[i], chain[i + 1]) for i in range(n - 1)])
         u, h, b, l = rng.choice([1, 2]), rng.choice([1, 2, 3]), rng.choice([1, 2]), rng.choice([1, 2, 3])

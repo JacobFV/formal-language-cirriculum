@@ -37,7 +37,7 @@ from typing import Any, Sequence
 
 from .lesson import Lesson, as_text
 from .registry import all_lessons, get, resolve
-from .surfaces import transcode
+from .surfaces import NATIVE_SURFACES, render_native, renders_natively, transcode
 
 __all__ = ["verify_lesson", "verify_all", "verify_surface", "failures"]
 
@@ -128,15 +128,23 @@ def verify_surface(lesson: Lesson | str, surface: str, *, episodes: int = 20,
         lesson = get(lesson)
     if lesson.status != "implemented":
         return {"lesson": lesson.id, "surface": surface, "ok": None, "note": lesson.note}
+    native = surface in NATIVE_SURFACES
+    if native and not renders_natively(lesson, seed0):
+        return {"lesson": lesson.id, "surface": surface, "ok": None,
+                "note": f"builds nothing {surface} can draw"}
     lossy = 0
     dropped: set[str] = set()
     notes: set[str] = set()
     errors: list[str] = []
     for i in range(episodes):
         try:
-            ex = lesson.example(seed0 + i, language=language)
-            content = transcode(ex.prompt, surface, target=ex.target,
-                                choices=ex.choices, **options)
+            if native:
+                content = render_native(lesson, seed0 + i, language=language,
+                                        surface=surface, **options)
+            else:
+                ex = lesson.example(seed0 + i, language=language)
+                content = transcode(ex.prompt, surface, target=ex.target,
+                                    choices=ex.choices, **options)
         except Exception as e:
             errors.append(f"{type(e).__name__}: {e}")
             continue

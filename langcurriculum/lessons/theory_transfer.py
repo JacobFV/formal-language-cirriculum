@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.selfmodel import _labels, _rules, _shuffled
 
 
-def gen_theory_transfer(rng: random.Random):
+def gen_theory_transfer(rng: random.Random, ctx):
     """Carry a law from a mapped domain into one whose edges were never observed.
 
     The correspondence is given; the second domain's relations are not. The only
@@ -20,7 +20,7 @@ def gen_theory_transfer(rng: random.Random):
     learned in the source domain, and push the result forward again — the
     minimal, exactly checkable form of reusing a theory.
     """
-    n = 4
+    n = ctx.at(4, 8, default=4)
     a_ids = _labels(rng, "a", n)
     b_ids = _labels(rng, "b", n)
     mapping = list(rng.sample(range(n), n))       # source index -> target index

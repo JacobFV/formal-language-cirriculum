@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.ontology import ENTITIES, PROPS, _apply_op, _assign_entities, _consistent, _inherited, _label_options, _onto_facts, _op_symbol, _random_hierarchy, _revision_pool, _shuffled
 
 
-def gen_ontology_revision(rng: random.Random):
+def gen_ontology_revision(rng: random.Random, ctx):
     """An established taxonomy meets one anomalous entity; which revision fixes it?
 
     The anomaly either *lacks* a property its declared type inherits or *has* one
@@ -23,7 +23,7 @@ def gen_ontology_revision(rng: random.Random):
     """
     for _ in range(200):
         own, parent, leaves, props, _ = _random_hierarchy(rng)
-        inst = _assign_entities(rng, leaves)
+        inst = _assign_entities(rng, leaves, ctx.at(2, 5, default=2))
         observed = {e: _inherited(own, parent, inst[e]) for e in inst}
         if not _consistent(own, parent, inst, observed):
             continue

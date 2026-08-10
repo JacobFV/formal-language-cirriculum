@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.reflective import _coin_cost, _labels, _nonces, _shuffled
 
 
-def gen_language_design(rng: random.Random):
+def gen_language_design(rng: random.Random, ctx):
     """Four invented languages, one task set: which says it in fewest symbols?
 
     Each language is a lexicon of numerals plus one compositional rule
@@ -28,7 +28,7 @@ def gen_language_design(rng: random.Random):
         for _ in range(4):
             extra = rng.sample([2, 3, 4, 5, 6, 7, 8, 9], rng.randint(1, 3))
             sets.append(sorted({1, *extra}))
-        tasks = rng.sample(range(6, 22), 3)
+        tasks = rng.sample(range(6, 22), ctx.at(3, 9, default=3))
         costs = {i: sum(_coin_cost(t, s) for t in tasks) for i, s in zip(ids, sets)}
         best = min(costs.values())
         winners = [i for i in ids if costs[i] == best]

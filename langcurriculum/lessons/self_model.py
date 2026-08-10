@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.selfmodel import SKILLS, _rules, _shuffled, _yesno
 
 
-def gen_self_model(rng: random.Random):
+def gen_self_model(rng: random.Random, ctx):
     """Predict whether the *described* agent solves a task it has not attempted.
 
     The agent's competence is not stated directly: it is implied by a log of
@@ -21,9 +21,10 @@ def gen_self_model(rng: random.Random):
     failures are missing competence and half are budget overruns, so neither
     channel alone predicts the label.
     """
-    skills = rng.sample(SKILLS, 4)
+    n_sk = ctx.at(4, 6, default=4)
+    skills = rng.sample(SKILLS, n_sk)
     n_true = rng.choice([2, 3])
-    have_idx = set(rng.sample(range(4), n_true))
+    have_idx = set(rng.sample(range(n_sk), n_true))
     have = {s: (i in have_idx) for i, s in enumerate(skills)}
     present = [s for s in skills if have[s]]
     absent = [s for s in skills if not have[s]]

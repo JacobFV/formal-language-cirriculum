@@ -14,7 +14,7 @@ from ..lesson import Lesson
 from ..generators.capstone import _nonce_pool, _shuffled
 
 
-def gen_unknown_game(rng: random.Random):
+def gen_unknown_game(rng: random.Random, ctx):
     """A game with no semantic priors at all: observations are records of nonce
     feature tokens, actions are nonce tokens, and payoffs are nonce outcome
     tokens ordered by a preference chain that is itself given only as adjacent
@@ -42,7 +42,7 @@ def gen_unknown_game(rng: random.Random):
       unbalanced log is worth ~0.45 accuracy on its own; here it is worth
       nothing, and the only remaining route is the intended one.
     """
-    n_dims = rng.randint(4, 5)
+    n_dims = rng.randint(*ctx.span((4, 5), (7, 8)))   # decoy dimensions to rule out
     n_acts = 3
     n_out = 3
     pool = _nonce_pool(rng, n_dims * 2 + n_acts + n_out)
@@ -96,7 +96,7 @@ def gen_unknown_game(rng: random.Random):
         chosen = (d_star, table, rows, q_ob, best_a)
         break
     if chosen is None:                                # pragma: no cover - construction
-        return gen_unknown_game(random.Random(rng.random()))
+        return gen_unknown_game(random.Random(rng.random()), ctx)
     d_star, table, rows, q_ob, best_a = chosen
 
     def obs_rec(ob: Sequence[int]) -> Term:

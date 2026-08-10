@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.capstone import _bfs_dist, _nonce_pool, _shuffled
 
 
-def gen_universal_interface_transfer(rng: random.Random):
+def gen_universal_interface_transfer(rng: random.Random, ctx):
     """An environment whose entire language is permuted: state tokens, action
     tokens and outcome tokens are drawn from **one shared pool of fresh nonce
     words**, so even the type of a symbol has to be inferred from where it
@@ -30,7 +30,7 @@ def gen_universal_interface_transfer(rng: random.Random):
     from the current state leads to the same signal, so one-step greed is
     deliberately worthless.
     """
-    n_states = rng.randint(4, 5)
+    n_states = rng.randint(*ctx.span((4, 5), (9, 11)))
     n_acts = rng.randint(3, 4)
     n_out = 3
     pool = _nonce_pool(rng, n_states + n_acts + n_out)

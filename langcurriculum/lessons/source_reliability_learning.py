@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import DOMAINS, SOURCES, _shuffled
 
 
-def gen_source_reliability_learning(rng: random.Random):
+def gen_source_reliability_learning(rng: random.Random, ctx):
     """Reliability is conditional, not a scalar.
 
     Each source has a *per-domain* accuracy, shown only as an itemized track
@@ -22,7 +22,7 @@ def gen_source_reliability_learning(rng: random.Random):
     overall is deliberately not the best source in the queried domain, which is
     exactly the distinction a single global score cannot make.
     """
-    srcs = rng.sample(SOURCES, 4)
+    srcs = rng.sample(SOURCES, ctx.at(4, 8, default=4))
     domains = rng.sample(DOMAINS, 3)
     qd = rng.choice(domains)
     want_split = rng.random() < 0.5           # force local != global half the time

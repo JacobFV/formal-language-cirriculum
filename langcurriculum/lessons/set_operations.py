@@ -13,16 +13,17 @@ from ..generators.base import COLORS, SHAPES
 from ..generators.extra import _formula, _obj_list, _objects, _shuffled
 
 
-def gen_set_operations(rng: random.Random):
+def gen_set_operations(rng: random.Random, ctx):
     """Conjunction, disjunction and negation over property sets. Formulas are
     sampled and then *rejected* unless they denote exactly one object, so the
     description is a definite one and the answer is unique."""
-    objs = _objects(rng, 4)
-    # colours and shapes each repeat once, so no single property is a definite
+    nc, ns = ctx.at(2, 3, default=2), ctx.at(2, 3, default=2)   # the colour x shape grid
+    objs = _objects(rng, nc * ns)
+    # colours and shapes each repeat, so no single property is a definite
     # description and only a boolean combination picks out one object
-    c1, c2 = rng.sample(COLORS, 2)
-    s1, s2 = rng.sample(SHAPES, 2)
-    for o, (c, s) in zip(objs, [(c1, s1), (c1, s2), (c2, s1), (c2, s2)]):
+    cols = rng.sample(COLORS, nc)
+    shapes = rng.sample(SHAPES, ns)
+    for o, (c, s) in zip(objs, [(c, s) for c in cols for s in shapes]):
         o["color"], o["shape"] = c, s
     shown = _shuffled(rng, objs)
     for _ in range(80):

@@ -13,7 +13,7 @@ from ..lesson import Lesson
 from ..generators.capstone import _curriculum_valid, _nonce_pool, _shuffled
 
 
-def gen_curriculum_invention(rng: random.Random):
+def gen_curriculum_invention(rng: random.Random, ctx):
     """Given a target capability and four candidate training curricula, which
     one actually induces it?
 
@@ -24,7 +24,7 @@ def gen_curriculum_invention(rng: random.Random):
     stages in an order that uses a capability before it exists — and all four
     are run through the checker so that exactly one is valid.
     """
-    depth = rng.randint(3, 4)
+    depth = rng.randint(*ctx.span((3, 4), (7, 9)))
     pool = _nonce_pool(rng, depth + 5)
     base = pool[0]
     chain = pool[1:depth + 1]              # base -> chain[0] -> ... -> target
@@ -56,7 +56,7 @@ def gen_curriculum_invention(rng: random.Random):
     cands = [good, trunc, broke, swapped]
     flags = [_curriculum_valid(c, [base], target) for c in cands]
     if flags != [True, False, False, False]:               # never trust construction
-        return gen_curriculum_invention(random.Random(rng.random()))
+        return gen_curriculum_invention(random.Random(rng.random()), ctx)
 
     labels = _shuffled(rng, [f"c{i}" for i in range(4)])
     order = _shuffled(rng, list(range(4)))

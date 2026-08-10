@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.causal import _PROC_MOD, _nonce_names, _proc_body, _proc_exec, _proc_simple, _proc_symbol
 
 
-def gen_procedural_language(rng: random.Random):
+def gen_procedural_language(rng: random.Random, ctx):
     """A tiny imperative program with a bounded loop and a branch. All
     arithmetic is mod 10 and stated in the observation; the answer is what the
     interpreter leaves in the queried variable."""
@@ -20,7 +20,8 @@ def gen_procedural_language(rng: random.Random):
     init = {v: rng.randrange(_PROC_MOD) for v in vs}
 
     prog: list[tuple] = [_proc_simple(rng, vs)]
-    prog.append(("repeat", rng.randint(2, 4), _proc_body(rng, vs, rng.randint(1, 2))))
+    prog.append(("repeat", rng.randint(*ctx.span((2, 4), (7, 12))),
+                 _proc_body(rng, vs, rng.randint(*ctx.span((1, 2), (3, 4))))))
     if rng.random() < 0.75:
         prog.append(("ifgt", rng.choice(vs), _proc_body(rng, vs, 1),
                      rng.randrange(_PROC_MOD), _proc_body(rng, vs, 1)))

@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.semantics import EVENT_NAMES, _shuffled
 
 
-def gen_temporal_language(rng: random.Random):
+def gen_temporal_language(rng: random.Random, ctx):
     """Interval traces with ``before / after / while / until``.
 
     The generator enumerates every (relation, anchor) pair whose denotation is a
@@ -20,7 +20,7 @@ def gen_temporal_language(rng: random.Random):
     ordering question always has exactly one correct event.
     """
     for _ in range(400):
-        names = rng.sample(EVENT_NAMES, 5)
+        names = rng.sample(EVENT_NAMES, ctx.at(5, 8, default=5))
         evs = []
         for nm in names:
             s = rng.randint(0, 10)

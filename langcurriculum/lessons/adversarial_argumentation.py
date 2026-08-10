@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import _grounded, _nonces, _shuffled
 
 
-def gen_adversarial_argumentation(rng: random.Random):
+def gen_adversarial_argumentation(rng: random.Random, ctx):
     """A critic attacks every thesis; exactly one survives valid criticism.
 
     Each of the four theses is attacked. One is defended by an argument the
@@ -21,15 +21,16 @@ def gen_adversarial_argumentation(rng: random.Random):
     attack cycle that leaves them merely undecided. Surviving is computed on the
     graph, so "the thesis with the most defenders" is not the answer.
     """
+    n = ctx.at(4, 9, default=4)
     for _ in range(200):
-        names = _nonces(rng, 16, 4)
-        theses = names[:4]
-        attackers = names[4:8]
-        defenders = names[8:12]
-        extra = names[12:]
-        winner = rng.randrange(4)
-        attacks = [(attackers[i], theses[i]) for i in range(4)]
-        for i in range(4):
+        names = _nonces(rng, 4 * n, 4)
+        theses = names[:n]
+        attackers = names[n:2 * n]
+        defenders = names[2 * n:3 * n]
+        extra = names[3 * n:]
+        winner = rng.randrange(n)
+        attacks = [(attackers[i], theses[i]) for i in range(n)]
+        for i in range(n):
             if i == winner:
                 attacks.append((defenders[i], attackers[i]))       # unanswered defence
             else:
@@ -49,7 +50,7 @@ def gen_adversarial_argumentation(rng: random.Random):
         survivors = [theses[winner]]
 
     obs = Rec(theses=Lst([Pred("thesis", Ident(t)) for t in _shuffled(rng, theses)]),
-              arguments=Lst([Pred("argument", Ident(x)) for x in _shuffled(rng, names[4:])]),
+              arguments=Lst([Pred("argument", Ident(x)) for x in _shuffled(rng, names[n:])]),
               attacks=Lst(_shuffled(rng, [Pred("attacks", Ident(a), Ident(b)) for a, b in attacks])),
               query=Ident("which_thesis_survives"))
     return (obs, _shuffled(rng, theses), survivors[0],

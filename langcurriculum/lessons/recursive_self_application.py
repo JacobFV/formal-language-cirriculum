@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.reflective import _ARITH, _nonces, _num_options, _rewrite, _run_prog
 
 
-def gen_recursive_self_application(rng: random.Random):
+def gen_recursive_self_application(rng: random.Random, ctx):
     """A program that transforms programs, applied to itself.
 
     ``R`` is a token rewriter; it is *also* a token sequence (its rules, flat),
@@ -38,7 +38,7 @@ def gen_recursive_self_application(rng: random.Random):
         rules2 = [(flat2[i], flat2[i + 1]) for i in range(0, len(flat2), 2)]
         if len({a for a, _ in rules2}) != len(rules2):     # R' must be a function
             continue
-        prog = [rng.choice(toks) for _ in range(rng.randint(3, 4))]
+        prog = [rng.choice(toks) for _ in range(rng.randint(*ctx.span((3, 4), (8, 10))))]
         x = rng.randint(1, 6)
         ans = _run_prog(_rewrite(rules2, prog), sem, x)
         near = [_run_prog(_rewrite(rules, prog), sem, x),                       # stopped at R(P)

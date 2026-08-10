@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.science import _random_law, _shuffled
 
 
-def gen_scientific_model_induction(rng: random.Random):
+def gen_scientific_model_induction(rng: random.Random, ctx):
     """Four candidate models, one dataset, one held-out prediction.
 
     Exactly one model reproduces every observation, and all four disagree at the
@@ -21,20 +21,21 @@ def gen_scientific_model_induction(rng: random.Random):
     selection and prediction are graded as one act, which is what makes this
     induction rather than curve-fitting.
     """
+    k = ctx.at(4, 6, default=4)                      # rival theories to tell apart
     for _ in range(300):
-        laws = [_random_law(rng) for _ in range(4)]
+        laws = [_random_law(rng) for _ in range(k)]
         xs = rng.sample(range(-6, 7), 4)
         pool = [v for v in range(-8, 9) if v not in xs]
         xq = rng.choice(pool)
-        true_i = rng.randrange(4)
+        true_i = rng.randrange(k)
         f_true = laws[true_i][1]
         data = [(x, f_true(x)) for x in xs]
         if [i for i, (_, f) in enumerate(laws) if all(f(x) == y for x, y in data)] != [true_i]:
             continue                                     # not exactly one survivor
         preds = [f(xq) for _, f in laws]
-        if len(set(preds)) != 4:
+        if len(set(preds)) != k:
             continue                                     # the query does not discriminate
-        order = _shuffled(rng, range(4))
+        order = _shuffled(rng, range(k))
         shown = Lst([Pred("theory", Ident(f"t{j + 1}"), laws[i][0]) for j, i in enumerate(order)])
         obs = Rec(data=Lst([Pred("observed", Num(x), Num(y)) for x, y in data]),
                   theories=shown, query=Pred("predict", Num(xq)))

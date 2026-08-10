@@ -21,28 +21,35 @@ from dataclasses import dataclass
 from typing import Sequence
 
 from .content import Asset, Content, Fidelity
-from .font import HEIGHT, WIDTH, covers, glyph
+from .font import HEIGHT, WIDTH, covers, decompose, glyph
 
-__all__ = ["RENDERER_VERSION", "Page", "render", "png", "coverage", "layout"]
+__all__ = ["RENDERER_VERSION", "Page", "render", "png", "apng", "coverage", "layout"]
 
 #: Bump when a change would alter the bytes of an already-published rendering.
-RENDERER_VERSION = "raster_v1"
+#: ``v2`` draws composed diacritics, which ``v1`` rendered as a missing-glyph box.
+RENDERER_VERSION = "raster_v2"
 
 _SIG = b"\x89PNG\r\n\x1a\n"
 
 
 @dataclass(frozen=True)
 class Page:
-    """A rasterized page: width, height and one byte of grey per pixel."""
+    """A rasterized page: width, height, and one or three bytes per pixel.
+
+    Greyscale for text, colour for a scene. Both go through the same PNG writer;
+    the channel count picks the format's colour type and nothing else changes.
+    """
 
     width: int
     height: int
     pixels: bytes
+    channels: int = 1
 
     def ascii_art(self, on: str = "#", off: str = ".") -> str:
         """The page as text, for eyeballing a glyph without opening an image."""
+        step = self.channels
         return "\n".join(
-            "".join(on if self.pixels[y * self.width + x] < 128 else off
+            "".join(on if self.pixels[(y * self.width + x) * step] < 128 else off
                     for x in range(self.width))
             for y in range(self.height))
 
@@ -82,6 +89,7 @@ def layout(text: str, *, columns: int = 88) -> list[str]:
 def render(text: str, *, columns: int = 88, scale: int = 2, padding: int = 8,
            line_gap: int = 3, letter_gap: int = 1, invert: bool = False) -> Page:
     """Lay text out and draw it, one glyph at a time."""
+    from .font import GLYPHS as _direct
     lines = layout(text, columns=columns)
     cell_w = WIDTH + letter_gap
     cell_h = HEIGHT + line_gap
@@ -90,21 +98,42 @@ def render(text: str, *, columns: int = 88, scale: int = 2, padding: int = 8,
     bg, fg = (0, 255) if invert else (255, 0)
     buf = bytearray([bg]) * (width * height)
 
+    def stamp(bitmap, ox: int, oy: int) -> None:
+        """Blit one 5-row-or-fewer bitmap, clipped to the page."""
+        for gy, srow in enumerate(bitmap):
+            for gx in range(min(WIDTH, len(srow))):
+                if srow[gx] != "#":
+                    continue
+                for sy in range(scale):
+                    y = oy + gy * scale + sy
+                    if not 0 <= y < height:
+                        continue
+                    base = y * width + ox + gx * scale
+                    for sx in range(scale):
+                        x = ox + gx * scale + sx
+                        if 0 <= x < width:
+                            buf[base + sx] = fg
+
     for row, line in enumerate(lines):
         for col, ch in enumerate(line[:columns]):
-            bitmap = glyph(ch)
             ox = padding + col * cell_w * scale
             oy = padding + row * cell_h * scale
-            for gy in range(HEIGHT):
-                srow = bitmap[gy]
-                for gx in range(WIDTH):
-                    if srow[gx] != "#":
-                        continue
-                    for sy in range(scale):
-                        y = oy + gy * scale + sy
-                        base = y * width + ox + gx * scale
-                        for sx in range(scale):
-                            buf[base + sx] = fg
+            if ch in _direct:
+                stamp(glyph(ch), ox, oy)
+                continue
+            parts = decompose(ch)
+            if parts is None:
+                stamp(glyph(ch), ox, oy)               # the missing-glyph box
+                continue
+            # A mark sits in the leading above the letter, or just below it.
+            # Both bands already exist as line spacing, so composing costs no
+            # extra height and leaves every un-accented line where it was.
+            base_ch, above, below = parts
+            stamp(glyph(base_ch), ox, oy)
+            for mark in above:
+                stamp(mark, ox, oy - len(mark) * scale)
+            for mark in below:
+                stamp(mark, ox, oy + HEIGHT * scale)
     return Page(width, height, bytes(buf))
 
 
@@ -113,15 +142,64 @@ def _chunk(kind: bytes, data: bytes) -> bytes:
             + struct.pack(">I", zlib.crc32(kind + data) & 0xFFFFFFFF))
 
 
-def png(page: Page) -> bytes:
-    """An 8-bit greyscale PNG. No palette, no interlace, no ancillary chunks."""
+def _scanlines(page: "Page") -> bytes:
     raw = bytearray()
+    stride = page.width * page.channels
     for y in range(page.height):
         raw.append(0)                                  # filter type 0: none
-        raw += page.pixels[y * page.width:(y + 1) * page.width]
-    ihdr = struct.pack(">IIBBBBB", page.width, page.height, 8, 0, 0, 0, 0)
+        raw += page.pixels[y * stride:(y + 1) * stride]
+    return bytes(raw)
+
+
+def _colour_type(channels: int) -> int:
+    if channels == 1:
+        return 0                                       # greyscale
+    if channels == 3:
+        return 2                                       # truecolour
+    raise ValueError(f"{channels} channels; PNG here is greyscale or RGB")
+
+
+def apng(pages: Sequence["Page"], *, delay_ms: int = 700, loops: int = 0) -> bytes:
+    """An animated PNG of a frame sequence.
+
+    A container that is byte-exact, which no video codec is: APNG is PNG chunks
+    all the way down, so the same frames give the same file on every machine and
+    the reproducibility claim survives packaging. Every frame must be the same
+    size, which the reveal renderer guarantees by keeping the page height fixed.
+
+    Delays are a rational number of seconds in the format, so ``delay_ms`` is
+    written as ``ms/1000`` exactly rather than converted to some other tick.
+    """
+    if not pages:
+        raise ValueError("an animation needs at least one frame")
+    w, h = pages[0].width, pages[0].height
+    if any((p.width, p.height, p.channels) != (w, h, pages[0].channels) for p in pages):
+        raise ValueError("every frame of an animation must be the same size")
+
+    ct = _colour_type(pages[0].channels)
+    out = [_SIG, _chunk(b"IHDR", struct.pack(">IIBBBBB", w, h, 8, ct, 0, 0, 0))]
+    out.append(_chunk(b"acTL", struct.pack(">II", len(pages), loops)))
+    seq = 0
+    for i, page in enumerate(pages):
+        out.append(_chunk(b"fcTL", struct.pack(
+            ">IIIIIHHBB", seq, w, h, 0, 0, delay_ms, 1000, 0, 0)))
+        seq += 1
+        data = zlib.compress(_scanlines(page), 9)
+        if i == 0:
+            out.append(_chunk(b"IDAT", data))          # the first frame is the still
+        else:
+            out.append(_chunk(b"fdAT", struct.pack(">I", seq) + data))
+            seq += 1
+    out.append(_chunk(b"IEND", b""))
+    return b"".join(out)
+
+
+def png(page: Page) -> bytes:
+    """An 8-bit greyscale PNG. No palette, no interlace, no ancillary chunks."""
+    ihdr = struct.pack(">IIBBBBB", page.width, page.height, 8,
+                       _colour_type(page.channels), 0, 0, 0)
     return (_SIG + _chunk(b"IHDR", ihdr)
-            + _chunk(b"IDAT", zlib.compress(bytes(raw), 9))
+            + _chunk(b"IDAT", zlib.compress(_scanlines(page), 9))
             + _chunk(b"IEND", b""))
 
 

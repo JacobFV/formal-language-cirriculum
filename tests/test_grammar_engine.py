@@ -3043,12 +3043,15 @@ def test_no_two_program_descriptions_read_the_same(language):
     from langcurriculum.generators.causal import _dsl_desc
     from langcurriculum.grammar.compile import compile_term
     from langcurriculum.grammar.features import EMPTY
-    from langcurriculum.lessons.program_explanation import gen_program_explanation
+    from langcurriculum.registry import get
 
     grammar = (GRAMMARS[language] if language in GRAMMARS
                else DerivedGrammar(LanguageDB(), language))
     for seed in range(12):
-        obs, _labels, _answer, _hidden = gen_program_explanation(random.Random(seed))
+        # through `build`, never the bare generator: a lesson with a difficulty
+        # knob takes a context, and reaching past the seam is what broke this
+        # test the last two times a generator grew a parameter
+        obs, _labels, _answer, _hidden = get("program_explanation").build(seed)
         descriptions = obs.field("descriptions")
         said = [grammar.lin(compile_term(d.children[-1]), EMPTY)
                 for d in descriptions.children]

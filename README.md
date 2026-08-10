@@ -544,6 +544,12 @@ eight difficulty axes — `lexical_novelty`, `grammar_complexity`, `recursion_de
   that fill in the syntax and semantics ladder without being part of the numbered sequence.
 - **179** implemented lessons, each verified to generate, to be deterministic, and to have
   a beatable floor. See "Verification" below.
+- **177** of those 179 take a difficulty. The **2** that do not — `spatial_language` and
+  `ontology_alignment` — say so through `supports_difficulty()`, and the reason is in each
+  case that the structure is pinned by what makes the lesson work at all: one object per
+  compass direction, and a 3-bit lattice.
+- **6** surfaces an episode can be rendered into, **5** of them transcodes of the same
+  string and **1** (`scene`) a native drawing of the episode's structure.
 - Two lessons carry names that differ from an earlier written specification:
   `parse_depth` was `parse-tree`, and `entailment` was `semantic-entailment`.
 
@@ -657,17 +663,34 @@ system that answers correctly through one and not another has learned the surfac
 is the measurement. Everything is procedural and rule-based; there is no model anywhere in
 the pipeline.
 
-| surface | what it produces | reproducibility |
-|---|---|---|
-| `text` | the string | exact, given the language database version |
-| `raster` | 8-bit greyscale PNG, bundled 5x7 font | exact, given `raster_v1` and the font |
-| `spoken` | the transcript a dictation is read from | exact; rule-based, no synthesis model |
-| `video` | a sequence of PNG frames | exact for the frames; containers are packaging |
+| surface | kind | what it produces | reproducibility |
+|---|---|---|---|
+| `text` | transcode | the string | exact, given the language database version |
+| `raster` | transcode | 8-bit greyscale PNG, bundled 5x7 font | exact, given `raster_v2` and the font |
+| `spoken` | transcode | the transcript a dictation is read from | exact; rule-based |
+| `audio` | transcode | a WAV, from letter-to-sound rules into a formant synthesizer | exact; no model, no host voice |
+| `video` | transcode | PNG frames, packaged as APNG | exact, frames *and* container |
+| `scene` | **native** | a picture of the scene, question beside it in text | exact; procedural, no blending |
 
 Transcoding does not change the answer set, so a lesson's floor carries over untouched.
 What a transcode *can* do is destroy the evidence — draw a glyph the font lacks, or read
 two distinct options as the same sound — and `verify -S <surface>` measures exactly that,
 by rendering real episodes rather than by declaring compatibility in a table.
+
+`scene` is the exception and is kept apart in the code (`NATIVE_SURFACES`), because it
+reads the episode's *structure* and draws it rather than re-presenting a sentence. That is
+visual question answering: the ground truth is still computed from the construction, but
+the floor does **not** carry over and has to be re-measured.
+
+Everything is zero-dependency and procedural. The PNG writer is `struct` and `zlib`; the
+animation is APNG, chosen because it is PNG chunks rather than a codec and therefore
+byte-exact where an mp4 would not be; the voice is a source-filter synthesizer with three
+resonators, the way speech was made before anything was trained.
+
+Font coverage is measured rather than assumed. Latin diacritics are *composed* — `é` is
+the `e` this font has plus an acute drawn in the leading — so most of Europe costs eleven
+mark bitmaps instead of two hundred glyphs. Greek and Cyrillic are written out. CJK is not
+attempted, and `covers()` says so rather than drawing boxes quietly.
 
 ## Difficulty
 
@@ -785,6 +808,28 @@ object storage is a cache and not the store of record.
 An infinite set cannot be shuffled, so a batch index is mapped to an address through a
 keyed bijection — a small Feistel network with cycle-walking. Batches are reproducible from
 their index alone, and two batches that do not share indices cannot share episodes.
+
+### Caching what is expensive
+
+```python
+>>> from langcurriculum import CachedRenderer, store_from_env
+>>> renderer = CachedRenderer(store_from_env())       # None if nothing is configured
+>>> renderer.warm(batch(space, 0, 1000))
+{'hits': 0, 'misses': 1000, 'skipped': 0}
+```
+
+Object storage here is a **cache, not the store of record** — nothing is ever only in the
+bucket, so a miss costs a re-render and never an episode. Two rules keep it from going
+stale, and both are enforced in code rather than left to the caller: the renderer version
+is part of the cache key, and cheap surfaces are never cached at all, because regenerating
+a text episode costs less than asking whether it is cached.
+
+`LocalStore` is a directory. `S3Store` speaks the S3 API with SigV4 signed by hand — a page
+of `hmac` and `hashlib` rather than a dependency — so Cloudflare R2 works out of the box:
+
+```bash
+export R2_ACCOUNT_ID=... R2_BUCKET=... R2_ACCESS_KEY_ID=... R2_SECRET_ACCESS_KEY=...
+```
 
 ## License
 

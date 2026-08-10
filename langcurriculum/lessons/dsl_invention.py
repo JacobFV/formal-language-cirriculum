@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.reflective import _dsl_cost, _labels, _nonces, _shuffled
 
 
-def gen_dsl_invention(rng: random.Random):
+def gen_dsl_invention(rng: random.Random, ctx):
     """Which invented DSL makes the recurring computations shortest?
 
     Every candidate offers two macros over the same primitives; writing a task
@@ -25,7 +25,7 @@ def gen_dsl_invention(rng: random.Random):
         prims = _nonces(rng, 3, 2)
         motifs = [tuple(rng.choice(prims) for _ in range(rng.randint(2, 3))) for _ in range(3)]
         tasks = []
-        for _ in range(rng.randint(2, 3)):
+        for _ in range(rng.randint(*ctx.span((2, 3), (6, 8)))):
             seq: list[str] = []
             while len(seq) < 6:
                 seq += list(rng.choice(motifs)) if rng.random() < 0.75 else [rng.choice(prims)]

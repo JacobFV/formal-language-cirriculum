@@ -14,7 +14,7 @@ from ..generators.base import NAMES
 from ..generators.reflective import _labels, _shuffled
 
 
-def gen_protocol_discovery(rng: random.Random):
+def gen_protocol_discovery(rng: random.Random, ctx):
     """Which service discipline governs these interaction traces?
 
     A server answers requests in *some* order. The candidate protocols are
@@ -37,7 +37,7 @@ def gen_protocol_discovery(rng: random.Random):
         truth = rng.choice(ids)
         traces = []
         for _ in range(3):
-            n = rng.randint(3, 4)
+            n = rng.randint(*ctx.span((3, 4), (5, 6)))    # requests per trace
             clients = rng.sample(NAMES, n)
             prios = rng.sample(range(1, 10), n)
             reqs = [(clients[i], prios[i], i) for i in range(n)]

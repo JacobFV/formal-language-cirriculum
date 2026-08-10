@@ -13,7 +13,7 @@ from ..generators.base import NAMES
 from ..generators.semantics import PLACES, _shuffled
 
 
-def gen_belief_state(rng: random.Random):
+def gen_belief_state(rng: random.Random, ctx):
     """First- and second-order belief over a moving object.
 
     An agent's belief is the last move it witnessed; what ``a`` believes ``b``
@@ -23,8 +23,8 @@ def gen_belief_state(rng: random.Random):
     disagree with the truth whenever an agent left early — which is most
     episodes.
     """
-    locs = rng.sample(PLACES, 4)
-    n_moves = rng.randint(2, 3)
+    locs = rng.sample(PLACES, ctx.at(4, 6, default=4))
+    n_moves = rng.randint(*ctx.span((2, 3), (4, 5)))
     seq = rng.sample(locs, n_moves + 1)
     a, b = rng.sample(NAMES, 2)
     horizon = {a: rng.randint(0, n_moves), b: rng.randint(0, n_moves)}

@@ -5,16 +5,24 @@ from __future__ import annotations
 import pytest
 
 import langcurriculum as lc
-from langcurriculum.surfaces import (REPRODUCIBILITY, RENDERER_VERSIONS, SURFACES,
-                                     surface_names, transcode, transcode_example)
+from langcurriculum.surfaces import (NATIVE_SURFACES, REPRODUCIBILITY,
+                                     RENDERER_VERSIONS, SURFACES, surface_names,
+                                     transcode, transcode_example)
 from langcurriculum.surfaces.font import GLYPHS, HEIGHT, WIDTH, covers
 from langcurriculum.surfaces.raster import png, render
 from langcurriculum.surfaces.spoken import collapses, number_words, spoken_form
 
 SAMPLE = ["symbol_grounding", "unification", "negation", "parse_depth"]
 
+#: The surfaces that re-present the same string. A native surface is a different
+#: kind of thing and gets its own tests further down.
+TRANSCODES = [s for s in surface_names() if s not in NATIVE_SURFACES]
 
-@pytest.mark.parametrize("surface", surface_names())
+#: Surfaces whose text is the words as spoken rather than the prompt verbatim.
+SPOKEN = {"spoken", "audio"}
+
+
+@pytest.mark.parametrize("surface", TRANSCODES)
 def test_a_transcode_is_deterministic(surface):
     """Same text, same options, same bytes — the claim the whole cache rests on."""
     text = "In the scene: o0 is a red cube at (4, 8).\nWhich object is red?"
@@ -24,15 +32,18 @@ def test_a_transcode_is_deterministic(surface):
     assert [x.sha256 for x in a.assets] == [x.sha256 for x in b.assets]
 
 
-@pytest.mark.parametrize("surface", surface_names())
+@pytest.mark.parametrize("surface", TRANSCODES)
 @pytest.mark.parametrize("lesson", SAMPLE)
 def test_a_transcode_carries_the_same_underlying_text(surface, lesson):
     """A surface may re-present the string; it may not change the problem."""
     ex = lc.get(lesson).example(2)
     content = transcode_example(ex, surface)
     assert content.surface == surface
-    if surface == "spoken":
-        assert content.text and content.text != ex.prompt      # read aloud, not copied
+    if surface in SPOKEN:
+        # read aloud, not copied: the written form is kept alongside so no
+        # consumer of a dictated corpus has to transcribe it back
+        assert content.text and content.text != ex.prompt
+        assert content.meta["written"] == ex.prompt
     else:
         assert content.text == ex.prompt
 
@@ -41,7 +52,7 @@ def test_a_transcode_carries_the_same_underlying_text(surface, lesson):
 def test_every_surface_states_what_it_guarantees(surface):
     assert RENDERER_VERSIONS[surface]
     assert REPRODUCIBILITY[surface]
-    assert surface in SURFACES
+    assert surface in SURFACES or surface in NATIVE_SURFACES
 
 
 def test_an_unknown_surface_is_refused_with_the_list():
@@ -127,10 +138,11 @@ def test_case_loss_is_declared():
 def test_a_reveal_produces_one_frame_per_line_and_they_differ():
     ex = lc.get("symbol_grounding").example(0)
     content = transcode_example(ex, "video", columns=40, scale=1)
-    assert len(content.assets) > 1
-    digests = [a.sha256 for a in content.assets]
+    frames = [a for a in content.assets if a.role == "frame"]
+    assert len(frames) > 1
+    digests = [a.sha256 for a in frames]
     assert len(set(digests)) == len(digests), "frames must not repeat"
-    assert content.meta["container"].startswith("none")
+    assert content.meta["frames"] == len(frames)
 
 
 def test_scroll_declares_the_working_memory_demand_it_adds():
@@ -145,3 +157,158 @@ def test_verify_surface_agrees_with_the_transcode(lesson):
     row = lc.verify.verify_surface(lesson, "raster", episodes=4)
     assert row["ok"] is True
     assert row["lossy_episodes"] == 0
+
+
+# ---------------------------------------------------------------- font coverage
+def test_composition_covers_latin_europe_without_a_glyph_each():
+    """An accented letter is a letter this font has, plus a mark."""
+    from langcurriculum.surfaces.font import decompose, drawable
+    for ch in "éàâñüößçğşıåøæœ":
+        assert drawable(ch), ch
+    base, above, below = decompose("é")
+    assert base == "e" and above and not below
+    base, above, below = decompose("ç")
+    assert base == "c" and below and not above
+
+
+def test_a_composed_letter_actually_draws_its_mark():
+    from langcurriculum.surfaces.raster import render
+    plain = render("n", columns=2, scale=1, padding=3).ascii_art()
+    tilde = render("ñ", columns=2, scale=1, padding=3).ascii_art()
+    assert tilde != plain
+    assert tilde.count("#") > plain.count("#"), "the mark was not drawn"
+
+
+def test_every_shipped_language_is_either_drawable_or_reported():
+    """Coverage is measured against real episodes, never assumed."""
+    from langcurriculum.surfaces.font import covers
+    for code in ("english", "spanish", "turkish", "swahili", "english_synonym"):
+        missing = set()
+        for lid in SAMPLE:
+            missing |= set(covers(lc.get(lid).example(0, language=code).prompt))
+        assert not missing, f"{code} needs glyphs for {sorted(missing)}"
+
+
+def test_cjk_is_declared_missing_rather_than_drawn_wrong():
+    from langcurriculum.surfaces.font import covers
+    assert covers("模式") == ("式", "模")
+
+
+# ---------------------------------------------------------------- containers
+def test_an_animation_is_a_real_apng_and_is_deterministic():
+    from langcurriculum.surfaces.raster import apng, render
+    pages = [render(t, columns=8, scale=1) for t in ("a", "ab", "abc")]
+    data = apng(pages)
+    assert data.startswith(b"\x89PNG\r\n\x1a\n")
+    assert b"acTL" in data and b"fcTL" in data and b"fdAT" in data
+    assert apng(pages) == data
+
+
+def test_frames_of_different_sizes_are_refused():
+    from langcurriculum.surfaces.raster import apng, render
+    with pytest.raises(ValueError, match="same size"):
+        apng([render("a", columns=8, scale=1), render("a", columns=20, scale=1)])
+
+
+def test_the_video_surface_ships_a_container_beside_its_frames():
+    ex = lc.get("unification").example(0)
+    c = transcode_example(ex, "video", columns=40, scale=1)
+    kinds = {a.mime for a in c.assets}
+    assert kinds == {"image/apng", "image/png"}
+    assert c.meta["container"].startswith("apng")
+
+
+# ---------------------------------------------------------------- audio
+def test_pronunciation_is_rule_based_and_covers_invented_words():
+    from langcurriculum.surfaces.phonemes import pronounce_word
+    assert pronounce_word("cube") == ("K", "Y", "UW", "B")
+    assert pronounce_word("red") == ("R", "EH", "D")
+    # a word no dictionary has still gets a pronunciation
+    assert pronounce_word("blicket") == ("B", "L", "IH", "K", "EH", "T")
+    assert pronounce_word("zzzqx"), "no word may come out silent"
+
+
+def test_synthesis_is_deterministic_and_independent_of_the_global_rng():
+    import random as _random
+    from langcurriculum.surfaces.audio import say
+    _random.seed(1)
+    a = say("the red cube")
+    _random.seed(999)
+    b = say("the red cube")
+    assert a == b, "the synthesizer read the global random state"
+
+
+def test_a_waveform_is_a_valid_wav_of_plausible_length():
+    from langcurriculum.surfaces.audio import duration_of, say
+    data = say("the red cube is left of the green sphere.")
+    assert data[:4] == b"RIFF" and data[8:12] == b"WAVE"
+    assert 1.0 < duration_of(data) < 12.0
+
+
+def test_distinct_identifiers_do_not_become_the_same_sound():
+    from langcurriculum.surfaces.audio import say
+    assert say("o zero") != say("o one")
+
+
+def test_the_audio_surface_reports_how_long_the_listening_is():
+    ex = lc.get("symbol_grounding").example(0)
+    c = transcode_example(ex, "audio")
+    assert c.assets and c.assets[0].mime == "audio/wav"
+    assert c.meta["seconds"] > 0
+    assert c.meta["synthesis"].endswith("no model")
+
+
+# ---------------------------------------------------------------- native scene
+def test_the_scene_surface_draws_the_scene_not_the_sentence():
+    from langcurriculum.surfaces import render_native, renders_natively
+    lesson = lc.get("symbol_grounding")
+    assert renders_natively(lesson)
+    c = render_native(lesson, 0)
+    assert c.surface == "scene" and c.meta["native"] is True
+    assert c.assets[0].mime == "image/png"
+    # the question travels as text beside the picture
+    assert "Which object" in c.text
+
+
+def test_a_drawn_scene_has_one_shape_per_object():
+    from langcurriculum.surfaces.scene import objects
+    lesson = lc.get("symbol_grounding")
+    structured = lesson.structured(0)
+    objs = objects(structured)
+    assert objs and all(set(o) == {"id", "colour", "shape", "x", "y"} for o in objs)
+    # and it matches what the text says
+    text = lesson.example(0).observation
+    for o in objs:
+        assert o["id"] in text and o["colour"] in text and o["shape"] in text
+
+
+def test_dropping_the_labels_is_reported_as_losing_the_answer():
+    from langcurriculum.surfaces import render_native
+    c = render_native(lc.get("symbol_grounding"), 0, labels=False)
+    assert not c.fidelity.lossless
+    assert any("cannot be answered" in n for n in c.fidelity.notes)
+
+
+def test_a_lesson_with_no_scene_is_not_drawable_and_says_so():
+    from langcurriculum.surfaces import render_native, renders_natively
+    assert not renders_natively(lc.get("unification"))
+    with pytest.raises(ValueError, match="no scene"):
+        render_native(lc.get("unification"), 0)
+    row = lc.verify.verify_surface("unification", "scene", episodes=2)
+    assert row["ok"] is None and "nothing" in row["note"]
+
+
+def test_a_native_surface_is_not_a_transcode():
+    from langcurriculum.surfaces import NATIVE_SURFACES, render_native, transcode
+    assert "scene" in NATIVE_SURFACES
+    with pytest.raises(ValueError, match="unknown surface"):
+        transcode("hi", "scene")
+    with pytest.raises(ValueError, match="transcode, not a native"):
+        render_native(lc.get("symbol_grounding"), 0, surface="raster")
+
+
+def test_a_drawn_scene_is_deterministic():
+    from langcurriculum.surfaces import render_native
+    a = render_native(lc.get("quantification"), 5)
+    b = render_native(lc.get("quantification"), 5)
+    assert a.assets[0].sha256 == b.assets[0].sha256

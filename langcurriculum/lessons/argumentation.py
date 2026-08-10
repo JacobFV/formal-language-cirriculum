@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import ARG_LABELS, _grounded, _nonces, _shuffled
 
 
-def gen_argumentation(rng: random.Random):
+def gen_argumentation(rng: random.Random, ctx):
     """Claims and attacks form a graph; status is the grounded extension.
 
     Attack edges are sampled with cycles allowed, so all three statuses actually
@@ -22,7 +22,7 @@ def gen_argumentation(rng: random.Random):
     """
     target = rng.choice(ARG_LABELS)
     for _ in range(400):
-        n = rng.randint(5, 7)
+        n = rng.randint(*ctx.span((5, 7), (10, 14)))
         nodes = _nonces(rng, n, 4)
         attacks: list[tuple[str, str]] = []
         for a in nodes:

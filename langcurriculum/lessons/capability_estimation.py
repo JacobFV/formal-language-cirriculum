@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.selfmodel import SKILLS, _labels, _rules, _shuffled
 
 
-def gen_capability_estimation(rng: random.Random):
+def gen_capability_estimation(rng: random.Random, ctx):
     """Of four candidate tasks, exactly one is beyond the described agent.
 
     Estimating capability *before* acting is the point, so the question is which
@@ -27,11 +27,12 @@ def gen_capability_estimation(rng: random.Random):
     log = [Pred("attempt", Ident(f"log{i}"), Ident(s), Num(1),
                 Ident("failed" if s == missing else "solved")) for i, s in enumerate(skills)]
 
-    ids = _labels(rng, "task", 4)
-    fail_i = rng.randrange(4)
+    n_tasks = ctx.at(4, 9, default=4)            # candidate tasks to screen
+    ids = _labels(rng, "task", n_tasks)
+    fail_i = rng.randrange(n_tasks)
     by_budget = rng.random() < 0.5
     tasks: list[tuple[str, list[str], int]] = []
-    for i in range(4):
+    for i in range(n_tasks):
         if i == fail_i and not by_budget:
             req = _shuffled(rng, [missing, rng.choice(present)])
             cost = rng.randint(2, budget)

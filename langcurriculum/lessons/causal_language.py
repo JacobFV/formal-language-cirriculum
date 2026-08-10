@@ -12,21 +12,29 @@ from ..lesson import Lesson
 from ..generators.causal import _labels, _nonce_names, _options, _tree_values
 
 
-def gen_causal_language(rng: random.Random):
+def gen_causal_language(rng: random.Random, ctx):
     """Correlation is made *useless* here: the mechanisms are deterministic, so
     in the observational trace every pair of variables in a component is
     perfectly (anti-)correlated. Only the interventional blocks separate the
     claims, and they separate them exactly — under do(u=0)/do(u=1), a variable
     moves iff u is its causal ancestor."""
-    names = _nonce_names(rng, 7)
+    deeper = ctx.at(0, 4, default=0)                          # extra links below C
+    names = _nonce_names(rng, 7 + deeper)
     rng.shuffle(names)
-    R, A, B, C, D, E, F = names
+    R, A, B, C, D, E, F = names[:7]
+    chain = names[7:]
     parent = {A: R, B: R, C: A, D: B, F: E}
+    below = C
+    for v in chain:
+        parent[v] = below
+        below = v
     neg = {v: rng.randint(0, 1) for v in parent}
-    order = [R, A, B, C, D, E, F]
-    main = [R, A, B, C, D]
+    order = [R, A, B, C, D, E, F] + chain
+    main = [R, A, B, C, D] + chain
 
-    ancestors = {R: [], A: [R], B: [R], C: [A, R], D: [B, R], E: [], F: [E]}
+    ancestors: dict[str, list[str]] = {}
+    for v in order:
+        ancestors[v] = ([parent[v]] + ancestors[parent[v]]) if v in parent else []
     causal_pairs = [(u, v) for v in main for u in ancestors[v] if u in main]
     incomparable = [(x, y) for x in main for y in main
                     if x != y and x not in ancestors[y] and y not in ancestors[x]]

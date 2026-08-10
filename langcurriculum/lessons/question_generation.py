@@ -13,23 +13,24 @@ from ..generators.base import COLORS, NAMES
 from ..generators.causal import _labels, _nonce_names, _options, _qg_colors
 
 
-def gen_question_generation(rng: random.Random):
+def gen_question_generation(rng: random.Random, ctx):
     """The agent must answer 'what colour is the box in the room where P is?'
     and is missing exactly one link of that chain.
 
     Necessity and sufficiency are *computed*: the goal has ≥2 possible colours
     under the visible facts, exactly 1 once the correct question is answered,
     and ≥2 once any distractor is."""
+    n_rooms = ctx.at(4, 9, default=4)            # rooms, and one box more than rooms
     persons = rng.sample(NAMES, 3)
-    rooms = _nonce_names(rng, 4)
-    boxes = _nonce_names(rng, 5)
+    rooms = _nonce_names(rng, n_rooms)
+    boxes = _nonce_names(rng, n_rooms + 1)
     while set(boxes) & set(rooms):
-        boxes = _nonce_names(rng, 5)
+        boxes = _nonce_names(rng, n_rooms + 1)
     palette = rng.sample(COLORS, 5) if len(COLORS) >= 5 else list(COLORS)
 
     for _ in range(200):
         at = dict(zip(persons, rng.sample(rooms, 3)))
-        contains = dict(zip(rooms, rng.sample(boxes, 4)))
+        contains = dict(zip(rooms, rng.sample(boxes, n_rooms)))
         color = {b: rng.choice(palette) for b in boxes}
         target = rng.choice(persons)
         missing = rng.choice(["at", "contains", "color"])

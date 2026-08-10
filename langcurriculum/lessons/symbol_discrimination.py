@@ -11,13 +11,15 @@ from .._structure import Ident, Lst, Num, Pred, Rec
 from ..lesson import Lesson
 
 
-def gen_symbol_discrimination(rng: random.Random):
+def gen_symbol_discrimination(rng: random.Random, ctx):
     """A hidden category boundary between near neighbours."""
-    boundary = rng.randint(3, 7)
-    v = rng.randint(0, 10)
-    examples = [(k, "high" if k >= boundary else "low") for k in range(0, 11, 2) if k != v]
+    top = ctx.at(10, 20, default=10)             # how far the scale runs
+    boundary = rng.randint(*ctx.span((3, 7), (6, 14)))
+    v = rng.randint(0, top)
+    examples = [(k, "high" if k >= boundary else "low") for k in range(0, top + 1, 2) if k != v]
     rng.shuffle(examples)
-    obs = Rec(examples=Lst([Pred("ex", Num(k), Ident(lab)) for k, lab in examples[:5]]),
+    shown = examples[:ctx.at(5, 10, default=5)]
+    obs = Rec(examples=Lst([Pred("ex", Num(k), Ident(lab)) for k, lab in shown]),
               query=Pred("classify", Num(v)))
     return obs, ["low", "high"], ("high" if v >= boundary else "low"), {"boundary": boundary}
 

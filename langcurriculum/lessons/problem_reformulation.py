@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import _backtrack, _labelled, _nonces, _shuffled
 
 
-def gen_problem_reformulation(rng: random.Random):
+def gen_problem_reformulation(rng: random.Random, ctx):
     """Same problem, four encodings, very different search costs.
 
     The constraint network is fixed; what varies is the order the variables are
@@ -22,7 +22,7 @@ def gen_problem_reformulation(rng: random.Random):
     rather than of how the ordering looks.
     """
     for _ in range(400):
-        nv = rng.randint(4, 5)
+        nv = rng.randint(*ctx.span((4, 5), (6, 7)))
         vars_ = _nonces(rng, nv, 4)
         domains = {v: sorted(rng.sample(range(1, 7), rng.randint(2, 4))) for v in vars_}
         cons: list[tuple[str, str, str]] = []

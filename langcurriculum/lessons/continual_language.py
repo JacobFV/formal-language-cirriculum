@@ -13,7 +13,7 @@ from ..generators.base import COLORS
 from ..generators.social import _nonce, _shuffled
 
 
-def gen_continual_language(rng: random.Random):
+def gen_continual_language(rng: random.Random, ctx):
     """A lexicon edited generation by generation; report a late meaning.
 
     Two edit types drive the drift: a *rename* keeps a meaning and changes its
@@ -32,7 +32,7 @@ def gen_continual_language(rng: random.Random):
         origin = dict(state)
         used = set(terms)
         events: list[Term] = []
-        generations = rng.randint(3, 4)
+        generations = rng.randint(*ctx.span((3, 4), (8, 11)))
         swaps = 0
         for g in range(generations):
             for _ in range(rng.randint(1, 2)):

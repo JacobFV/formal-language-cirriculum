@@ -39,7 +39,9 @@ from langcurriculum.curricula import curriculum_ids               # noqa: E402
 from langcurriculum.curricula import get as get_curriculum         # noqa: E402
 from langcurriculum.presentation import ANSWER_FORMATS, Presentation  # noqa: E402
 from langcurriculum.registry import all_lessons                    # noqa: E402
-from langcurriculum.surfaces import surface_names, transcode_example  # noqa: E402
+from langcurriculum.surfaces import (NATIVE_SURFACES, render_native,  # noqa: E402
+                                    renders_natively, surface_names,
+                                    transcode_example)
 
 E = html.escape
 
@@ -442,23 +444,53 @@ def _rendered(lesson, seed: int, code: str, pres) -> tuple[str, str, object]:
     ex = lesson.example(seed, presentation=pres.with_(language=code))
     if pres.surface == "text":
         return ex.prompt, ex.target, None
-    content = transcode_example(ex, pres.surface, columns=64, scale=2)
+    if pres.surface in NATIVE_SURFACES:
+        if not renders_natively(lesson, seed):
+            raise ValueError(f"{lesson.id} builds nothing {pres.surface} can draw")
+        content = render_native(lesson, seed, language=code, surface=pres.surface)
+        return content.text, content.target or ex.target, content
+    opts = {} if pres.surface == "audio" else {"columns": 64, "scale": 2}
+    content = transcode_example(ex, pres.surface, **opts)
     return content.text, content.target or ex.target, content
 
 
+#: Alt text has to say what the picture *is* without saying what it shows -- an
+#: honest description of the answer would hand it to a reader who cannot see the
+#: image, which is exactly the episode this page is meant to pose.
+_ALT = {"raster": "the episode, rendered as an image",
+        "video": "the episode, revealed a line at a time",
+        "scene": "the scene the episode describes, drawn"}
+
+
 def _asset_html(content) -> str:
-    """Images inline as data URIs, so a page still fetches nothing from anywhere."""
+    """Media inline as data URIs, so a page still fetches nothing from anywhere."""
     import base64
     if content is None or not content.assets:
         return ""
-    shown = content.assets[:1] if content.surface == "video" else content.assets
+    alt = _ALT.get(content.surface, "the episode")
     out = []
-    for a in shown:
+    if content.surface == "audio":
+        a = content.assets[0]
         b64 = base64.b64encode(a.data).decode()
-        out.append(f'<img alt="the episode, rasterized" style="max-width:100%"'
-                   f' src="data:{a.mime};base64,{b64}">')
+        out.append(f'<audio controls preload="none" style="width:100%"'
+                   f' src="data:{a.mime};base64,{b64}"></audio>')
+        out.append(f'<div class="answer">{content.meta.get("seconds", "?")} seconds, '
+                   f'synthesized by rule &mdash; no model</div>')
+        out.append(f'<pre>{E(content.text)}</pre>')
+        return "".join(out)
     if content.surface == "video":
-        out.append(f'<div class="answer">frame 1 of <b>{len(content.assets)}</b></div>')
+        primary = next((a for a in content.assets if a.mime == "image/apng"), None)
+        a = primary or content.assets[0]
+        b64 = base64.b64encode(a.data).decode()
+        out.append(f'<img alt="{alt}" style="max-width:100%"'
+                   f' src="data:{a.mime};base64,{b64}">')
+        out.append(f'<div class="answer"><b>{content.meta.get("frames", 0)}</b> frames, '
+                   f'animated PNG</div>')
+        return "".join(out)
+    for a in content.assets:
+        b64 = base64.b64encode(a.data).decode()
+        out.append(f'<img alt="{alt}" style="max-width:100%"'
+                   f' src="data:{a.mime};base64,{b64}">')
     return "".join(out)
 
 

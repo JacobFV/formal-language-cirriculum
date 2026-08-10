@@ -13,21 +13,23 @@ from ..generators.base import COLORS, SHAPES
 from ..generators.selfmodel import SIZES, _labels, _rules, _shuffled
 
 
-def gen_goal_inference(rng: random.Random):
+def gen_goal_inference(rng: random.Random, ctx):
     """Which goal explains everything the observed agent took, and nothing it left.
 
     The agent's picks are exactly the extension of one candidate goal; the other
     candidates each over- or under-cover, so a goal that merely explains most of
     the behaviour is not good enough.
     """
+    n_items = ctx.at(6, 12, default=6)
+    max_picked = ctx.at(4, 8, default=4)
     for _ in range(200):
         items = [{"id": f"i{i}", "color": rng.choice(COLORS[:3]), "shape": rng.choice(SHAPES[:3]),
-                  "size": rng.choice(SIZES)} for i in range(6)]
+                  "size": rng.choice(SIZES)} for i in range(n_items)]
         opts = [(a, v) for a in ("color", "shape", "size")
                 for v in {"color": COLORS[:3], "shape": SHAPES[:3], "size": SIZES}[a]]
         true = rng.choice(opts)
         picked = {it["id"] for it in items if it[true[0]] == true[1]}
-        if not (1 <= len(picked) <= 4):
+        if not (1 <= len(picked) <= max_picked):
             continue
         others = [o for o in opts if o != true
                   and {it["id"] for it in items if it[o[0]] == o[1]} != picked]

@@ -14,7 +14,7 @@ from ..generators.base import NAMES
 from ..generators.semantics import ACTIONS, PLACES, _shuffled
 
 
-def gen_question_answering(rng: random.Random):
+def gen_question_answering(rng: random.Random, ctx):
     """who / what / where / when / how-many over an explicit event world.
 
     Each interrogative is a different reasoning operation over the same facts.
@@ -23,7 +23,7 @@ def gen_question_answering(rng: random.Random):
     counts so that "one" is not the default reply.
     """
     for _ in range(200):
-        n = rng.randint(4, 5)
+        n = rng.randint(*ctx.span((4, 5), (7, 8)))
         actors = rng.sample(NAMES, 4)
         actions = rng.sample(ACTIONS, 4)
         places = rng.sample(PLACES, 4)

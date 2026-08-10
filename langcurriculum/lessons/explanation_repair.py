@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import _concept_graph, _follow, _need, _shuffled
 
 
-def gen_explanation_repair(rng: random.Random):
+def gen_explanation_repair(rng: random.Random, ctx):
     """The listener reports where the explanation broke; name the missing piece.
 
     An otherwise correct explanation has one prerequisite removed. The listener
@@ -21,9 +21,10 @@ def gen_explanation_repair(rng: random.Random):
     The distractor vocabulary is drawn from concepts that are equally unknown to
     the listener, so "pick something they do not know" is not enough.
     """
+    n_concepts = ctx.at(9, 15, default=9)
     for _ in range(400):
-        concepts, prereqs = _concept_graph(rng, 9)
-        target = concepts[rng.randrange(4, 9)]
+        concepts, prereqs = _concept_graph(rng, n_concepts)
+        target = concepts[rng.randrange(4, n_concepts)]
         known = {c for c in concepts if rng.random() < 0.3 and c != target}
         need = sorted(_need(target, known, prereqs), key=concepts.index)
         if len(need) < 3:

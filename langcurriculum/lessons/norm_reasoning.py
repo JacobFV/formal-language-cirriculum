@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.reflective import _labels, _shuffled
 
 
-def gen_norm_reasoning(rng: random.Random):
+def gen_norm_reasoning(rng: random.Random, ctx):
     """Obligation, permission or prohibition — under conflicting norms.
 
     Norms carry conditions and an explicit, total priority order. Several
@@ -29,7 +29,7 @@ def gen_norm_reasoning(rng: random.Random):
         true_atoms = rng.sample(conds, rng.randint(2, 3))
         false_atoms = [c for c in conds if c not in true_atoms]
         action = rng.choice(actions)
-        prios = _shuffled(rng, range(1, 10))
+        prios = _shuffled(rng, range(1, ctx.at(10, 24, default=10)))
         norms: list[tuple[str, int, str, str, str]] = []
         p = list(prios)
         n_app = rng.randint(2, 3)
@@ -39,7 +39,7 @@ def gen_norm_reasoning(rng: random.Random):
             cond = rng.choice(true_atoms) if rng.random() < 0.75 else "always"
             norms.append(("", app_prios[k], cond, d, action))
         rest = [x for x in p if x not in app_prios]
-        for _ in range(rng.randint(2, 3)):           # decoys: false condition, high priority
+        for _ in range(rng.randint(*ctx.span((2, 3), (7, 10)))):   # decoys: false condition, high priority
             pr = max(rest) if rest and rng.random() < 0.6 else rng.choice(rest)
             rest.remove(pr)
             norms.append(("", pr, rng.choice(false_atoms), rng.choice(deontics), action))

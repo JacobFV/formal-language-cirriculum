@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import _nonces, _shuffled
 
 
-def gen_anytime_reasoning(rng: random.Random):
+def gen_anytime_reasoning(rng: random.Random, ctx):
     """Quality against compute, read at a deadline.
 
     Every algorithm publishes a profile of (compute, quality) checkpoints; at a
@@ -23,7 +23,7 @@ def gen_anytime_reasoning(rng: random.Random):
     a function of the budget.
     """
     for _ in range(400):
-        names = _nonces(rng, 4, 4)
+        names = _nonces(rng, ctx.at(4, 8, default=4), 4)
         deadline = rng.randint(4, 14)
         profiles: dict[str, list[tuple[int, int]]] = {}
         for nm in names:

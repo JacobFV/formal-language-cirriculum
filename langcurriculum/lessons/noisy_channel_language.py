@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.social import CONCEPTS, _lev, _shuffled, _spread_code
 
 
-def gen_noisy_channel_language(rng: random.Random):
+def gen_noisy_channel_language(rng: random.Random, ctx):
     """A codebook with slack, a message damaged in transit, one recoverable reading.
 
     The codebook is drawn with pairwise Hamming distance at least three, so a
@@ -23,9 +23,13 @@ def gen_noisy_channel_language(rng: random.Random):
     the redundancy is exactly right and a decoder that pattern-matches is not.
     """
     alphabet = "abc"
+    # the codebook is what makes decoding hard: how many words are in it (capped
+    # by the concept list) and how long each codeword is
+    n_words = ctx.at(5, 6, default=5)
+    length = ctx.at(5, 9, default=5)
     for _ in range(200):
-        words = rng.sample(CONCEPTS, 5)
-        code = _spread_code(rng, 5, 5, alphabet, 3)
+        words = rng.sample(CONCEPTS, n_words)
+        code = _spread_code(rng, n_words, length, alphabet, 3)
         if code is None:
             continue
         book = dict(zip(words, code))

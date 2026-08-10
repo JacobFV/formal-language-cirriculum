@@ -12,16 +12,17 @@ from ..lesson import Lesson
 from ..generators.mathematics import _derivation_costs, _horn_theory, _label_items, _ladder_theory, _proof_steps, _shuffled
 
 
-def gen_proof_compression(rng: random.Random):
+def gen_proof_compression(rng: random.Random, ctx):
     """Two goals are proved by one long flat derivation with repeated subproofs.
 
     Factoring a shared subproof out as a named lemma pays its cost once instead
     of once per use; the answer is the proposition whose abstraction shortens the
     *total* derivation the most, with ties rejected. This is proof structure, not
     proof validity: every candidate is already true."""
+    n_atoms = ctx.at(9, 14, default=9)            # a bigger theory means longer derivations
     for att in range(400):
         if att < 380:
-            atoms, facts, rules = _horn_theory(rng, n_atoms=9, n_facts=3)
+            atoms, facts, rules = _horn_theory(rng, n_atoms=n_atoms, n_facts=3)
             d0 = _derivation_costs(facts, rules, atoms)
             tail = [a for a in atoms[5:] if d0[a] is not None]
             if len(tail) < 2:

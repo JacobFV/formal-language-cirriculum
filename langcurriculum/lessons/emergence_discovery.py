@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.science import _closed, _has_repeat, _labels, _macro_eval, _shuffled
 
 
-def gen_emergence_discovery(rng: random.Random):
+def gen_emergence_discovery(rng: random.Random, ctx):
     """Which coarse variable has a life of its own?
 
     A micro trajectory is shown together with four candidate macrostates. One of
@@ -24,7 +24,7 @@ def gen_emergence_discovery(rng: random.Random):
     closure is never true vacuously, and the check is run on the *shown*
     trajectory, so the answer is a fact about the observation.
     """
-    k = 5
+    k = ctx.at(5, 9, default=5)
     for _ in range(400):
         m = rng.choice([3, 4, 5])
         alpha, beta = rng.randrange(1, m), rng.randrange(1, m)

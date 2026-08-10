@@ -13,7 +13,7 @@ from ..lesson import Lesson
 from ..generators.causal import _nonce_names
 
 
-def gen_counterfactuals(rng: random.Random):
+def gen_counterfactuals(rng: random.Random, ctx):
     """Given a factual observation and the model, what would the target have
     been under a different intervention?
 
@@ -21,13 +21,20 @@ def gen_counterfactuals(rng: random.Random):
     model is re-run with the antecedent forced — the answer is the value that
     re-run produces, computed, not estimated."""
     MOD = 4
-    names = _nonce_names(rng, 5)
+    depth = ctx.at(2, 5, default=2)              # generations below the exogenous root
+    names = _nonce_names(rng, 1 + 2 * depth)
     rng.shuffle(names)
-    R, A, B, C, D = names
-    parent = {A: R, B: R, C: A, D: B}
-    order = [R, A, B, C, D]
+    R = names[0]
+    levels = [[R]] + [names[1 + 2 * k:3 + 2 * k] for k in range(depth)]
+    parent = {}
+    for k in range(1, depth + 1):                # two children per generation
+        for i, v in enumerate(levels[k]):
+            parent[v] = levels[k - 1][i] if k > 1 else R
+    order = [v for lv in levels for v in lv]
     coef = {v: (rng.choice([1, 3]), rng.randrange(MOD)) for v in parent}   # v = (a*parent + b) % 4
-    ancestors = {R: [], A: [R], B: [R], C: [A, R], D: [B, R]}
+    ancestors = {R: []}
+    for v in order[1:]:
+        ancestors[v] = [parent[v]] + ancestors[parent[v]]
 
     def run(root: int, forced: Mapping[str, int] | None = None) -> dict[str, int]:
         forced = forced or {}

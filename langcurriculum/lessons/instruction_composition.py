@@ -13,7 +13,7 @@ from ..generators.base import COLORS
 from ..generators.semantics import _act_sym, _apply, _instruction_query, _rand_action, _world, _world_facts
 
 
-def gen_instruction_composition(rng: random.Random):
+def gen_instruction_composition(rng: random.Random, ctx):
     """Sequencing plus branching: ``if b is blue then ... else ...``, ``unless``.
 
     Conditions are evaluated against the state *as it stands at that step*, so a
@@ -24,6 +24,8 @@ def gen_instruction_composition(rng: random.Random):
     init = {o: dict(v) for o, v in st.items()}
     kinds = ["plain", rng.choice(["if", "unless"])]
     if rng.random() < 0.5:
+        kinds.append(rng.choice(["plain", "if", "unless"]))
+    for _ in range(ctx.at(0, 4, default=0)):      # a longer program to interpret in order
         kinds.append(rng.choice(["plain", "if", "unless"]))
     rng.shuffle(kinds)
 

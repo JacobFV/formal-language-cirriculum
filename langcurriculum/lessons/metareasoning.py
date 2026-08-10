@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.epistemics import OPERATORS, _shuffled
 
 
-def gen_metareasoning(rng: random.Random):
+def gen_metareasoning(rng: random.Random, ctx):
     """Choosing how to reason, with a fallback if the reasoning fails.
 
     Each operator can fail, and failure is not worth zero — there is a stated
@@ -22,7 +22,7 @@ def gen_metareasoning(rng: random.Random):
     reading of the same table is wrong.
     """
     for _ in range(400):
-        names = rng.sample(OPERATORS, 5)
+        names = rng.sample(OPERATORS, ctx.at(5, 7, default=5))     # OPERATORS has 7
         budget = rng.randint(6, 12)
         ops = {}
         for nm in names:

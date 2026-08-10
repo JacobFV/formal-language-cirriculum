@@ -13,7 +13,7 @@ from ..generators.base import NAMES
 from ..generators.reflective import _shuffled
 
 
-def gen_multi_perspective_modeling(rng: random.Random):
+def gen_multi_perspective_modeling(rng: random.Random, ctx):
     """Where does *this* agent think the ball is?
 
     Agents come and go while the ball is moved; an agent's belief is whatever it
@@ -31,7 +31,7 @@ def gen_multi_perspective_modeling(rng: random.Random):
         present = {a: True for a in agents}
         belief = {a: loc for a in agents}
         t = 1
-        for _ in range(rng.randint(3, 5)):
+        for _ in range(rng.randint(*ctx.span((3, 5), (9, 15)))):
             roll = rng.random()
             if roll < 0.45:
                 nxt = rng.choice([b for b in boxes if b != loc])

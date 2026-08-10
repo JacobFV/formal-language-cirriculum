@@ -57,7 +57,10 @@ from .scoring import extract_choice, normalize, score
 from .languages import (DEFAULT_LANGUAGE, LANGUAGES, Language, Lexicon,
                         get_language, language_codes, languages,
                         register_language)
-from .surfaces import SURFACES, transcode
+from .address import Address, Space, batch, draw
+from .store import CachedRenderer, LocalStore, S3Store, store_from_env
+from .surfaces import (NATIVE_SURFACES, SURFACES, Content, render_native,
+                       renders_natively, transcode, transcode_example)
 from .verify import verify_all, verify_lesson
 
 __version__ = "0.2.0"
@@ -75,7 +78,12 @@ __all__ = [
     # curricula
     "Curriculum", "Node", "curriculum", "curricula", "curriculum_ids",
     # presentation
-    "Presentation", "ANSWER_FORMATS", "presentations", "SURFACES", "transcode",
+    "Presentation", "ANSWER_FORMATS", "presentations",
+    "SURFACES", "NATIVE_SURFACES", "Content", "transcode", "transcode_example",
+    "render_native", "renders_natively",
+    # addressing and caching
+    "Address", "Space", "batch", "draw",
+    "CachedRenderer", "LocalStore", "S3Store", "store_from_env",
     # languages
     "DEFAULT_LANGUAGE", "LANGUAGES", "Language", "Lexicon",
     "get_language", "language_codes", "languages", "register_language",

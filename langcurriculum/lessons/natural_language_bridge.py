@@ -13,7 +13,7 @@ from ..generators.base import COLORS, SHAPES
 from ..generators.ontology import ENTITIES, REL_WORDS, _english, _label_options, _shuffled
 
 
-def gen_natural_language_bridge(rng: random.Random):
+def gen_natural_language_bridge(rng: random.Random, ctx):
     """Which symbolic structure does this English sentence denote?
 
     The sentence is *generated from* the structure, so the mapping is exact; the
@@ -23,11 +23,13 @@ def gen_natural_language_bridge(rng: random.Random):
     sentence — a distractor that says the same thing would make the episode
     unanswerable rather than hard.
     """
+    n_col = ctx.at(2, 3, default=2)                  # the world is the full colour x shape grid,
+    n_shp = ctx.at(2, 3, default=2)                  # so neither feature alone ever refers
     for _ in range(200):
-        ids = rng.sample(list(ENTITIES), 4)
-        c1, c2 = rng.sample(COLORS, 2)
-        s1, s2 = rng.sample(SHAPES, 2)
-        combos = _shuffled(rng, [(c1, s1), (c1, s2), (c2, s1), (c2, s2)])
+        ids = rng.sample(list(ENTITIES), n_col * n_shp)
+        cs = rng.sample(COLORS, n_col)
+        ss = rng.sample(SHAPES, n_shp)
+        combos = _shuffled(rng, [(c, s) for c in cs for s in ss])
         world = {i: {"id": i, "color": c, "shape": s} for i, (c, s) in zip(ids, combos)}
         rels = rng.sample(list(REL_WORDS), 3)
         form = rng.choice(["rel", "not", "and"])

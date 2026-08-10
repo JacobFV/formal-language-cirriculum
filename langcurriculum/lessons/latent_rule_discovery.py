@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.science import _CA_CELLS, _ca_fits, _ca_step, _shuffled
 
 
-def gen_latent_rule_discovery(rng: random.Random):
+def gen_latent_rule_discovery(rng: random.Random, ctx):
     """A hidden law runs a world; the trajectory is shown; predict the next state.
 
     Half the episodes are an elementary cellular automaton on a ring, half an
@@ -23,10 +23,12 @@ def gen_latent_rule_discovery(rng: random.Random):
     a distractor, so "predict no change" is available and always wrong.
     """
     ca = rng.random() < 0.5
+    cells = ctx.at(_CA_CELLS, 11, default=_CA_CELLS)       # width of the ring
+    moduli = ctx.among([[7, 9, 11, 13], [11, 13, 17, 19], [17, 19, 23, 29]])
     for _ in range(400):
         if ca:
             rule = rng.randrange(256)
-            traj = [tuple(rng.randint(0, 1) for _ in range(_CA_CELLS))]
+            traj = [tuple(rng.randint(0, 1) for _ in range(cells))]
             for _ in range(5):
                 traj.append(_ca_step(traj[-1], rule))
             nxt = _ca_step(traj[-1], rule)
@@ -52,7 +54,7 @@ def gen_latent_rule_discovery(rng: random.Random):
                       "consistent_rules": len(consistent)}
             return obs, _shuffled(rng, [answer] + [fmt(d) for d in distract]), answer, hidden
 
-        m = rng.choice([7, 9, 11, 13])
+        m = rng.choice(moduli)
         a, b = rng.randrange(1, m), rng.randrange(m)
         seq = [rng.randrange(m)]
         for _ in range(5):

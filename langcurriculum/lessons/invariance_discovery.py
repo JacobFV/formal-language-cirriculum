@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.science import _labels, _property, _shuffled, _transform
 
 
-def gen_invariance_discovery(rng: random.Random):
+def gen_invariance_discovery(rng: random.Random, ctx):
     """Which transformation leaves the named property alone?
 
     A structure, a property stated symbolically, and four generated
@@ -22,7 +22,7 @@ def gen_invariance_discovery(rng: random.Random):
     never means "probably invariant". The pairing of property and transformation
     is resampled every episode, so no transformation is a safe bet.
     """
-    n = 5
+    n = ctx.at(5, 12, default=5)
     for _ in range(400):
         v = [rng.randint(-6, 9) for _ in range(n)]
         prop = rng.choice([Pred("sum"), Pred("spread"), Pred("multiset"),

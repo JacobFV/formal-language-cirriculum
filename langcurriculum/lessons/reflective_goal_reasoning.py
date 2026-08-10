@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.selfmodel import _labels, _rules, _shuffled
 
 
-def gen_reflective_goal_reasoning(rng: random.Random):
+def gen_reflective_goal_reasoning(rng: random.Random, ctx):
     """Reason about the goals themselves: which one has to go?
 
     Conflict is not declared, it is *derived* — two goals conflict when they
@@ -20,7 +20,7 @@ def gen_reflective_goal_reasoning(rng: random.Random):
     exists, and the goal to abandon is its lower-priority member, so both the
     conflict and the resolution have to be computed.
     """
-    n_g, n_v = 4, 4
+    n_g, n_v = ctx.at(4, 8, default=4), ctx.at(4, 20, default=4)
     varz = _labels(rng, "var", n_v)
     gids = _labels(rng, "goal", n_g)
     for _ in range(400):

@@ -14,7 +14,7 @@ from ..generators.base import COLORS, SHAPES
 from ..generators.reflective import _SIZES, _labels, _shuffled
 
 
-def gen_distributed_knowledge(rng: random.Random):
+def gen_distributed_knowledge(rng: random.Random, ctx):
     """Which single message lets the group answer the question?
 
     One agent must name the object matching a description but knows only part of
@@ -23,9 +23,10 @@ def gen_distributed_knowledge(rng: random.Random):
     but useless. The possibility set after every message is computed explicitly.
     """
     attrs = ["color", "shape", "size"]
+    n_obj = ctx.at(5, 9, default=5)
     fallback = None
     for _ in range(400):
-        objs = [f"o{i}" for i in range(5)]
+        objs = [f"o{i}" for i in range(n_obj)]
         world = {o: {"color": rng.choice(COLORS), "shape": rng.choice(SHAPES),
                      "size": rng.choice(_SIZES)} for o in objs}
         d_attrs = rng.sample(attrs, 2)

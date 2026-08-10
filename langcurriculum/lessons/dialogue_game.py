@@ -14,7 +14,7 @@ from ..generators.base import COLORS, SHAPES
 from ..generators.social import SIZES, _obj_facts, _shuffled
 
 
-def gen_dialogue_game(rng: random.Random):
+def gen_dialogue_game(rng: random.Random, ctx):
     """A two-party clarification dialogue, run to agreement, then asked about.
 
     ``a`` wants one object and describes it one attribute at a time; ``b`` reports
@@ -24,11 +24,12 @@ def gen_dialogue_game(rng: random.Random):
     by the bag of words in the transcript: an agent that intersects every
     mentioned attribute lands on a different object, or on none.
     """
+    n_obj = ctx.at(4, 9, default=4)
     for _ in range(400):
-        ids = _shuffled(rng, [f"o{i}" for i in range(4)])
+        ids = _shuffled(rng, [f"o{i}" for i in range(n_obj)])
         objs = [{"id": ids[i], "color": rng.choice(COLORS), "shape": rng.choice(SHAPES),
-                 "size": rng.choice(SIZES)} for i in range(4)]
-        tgt = objs[rng.randrange(4)]
+                 "size": rng.choice(SIZES)} for i in range(n_obj)]
+        tgt = objs[rng.randrange(n_obj)]
         order = _shuffled(rng, ["color", "shape", "size"])
         constraints: dict[str, str] = {}
         used: list[str] = []

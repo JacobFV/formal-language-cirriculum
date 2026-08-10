@@ -13,23 +13,24 @@ from ..generators.base import NAMES
 from ..generators.extra import _shuffled
 
 
-def gen_analogy(rng: random.Random):
+def gen_analogy(rng: random.Random, ctx):
     """``a : b :: c : ?`` over a relational structure. Two functional relations
     are laid over the same six entities and disagree on every entity, so exactly
     one of them explains the pair ``a:b`` and the answer is that relation applied
     to ``c``. Which relation was used is never named."""
     nodes = list(NAMES)
-    for _ in range(200):
-        p1 = _shuffled(rng, nodes)
-        p2 = _shuffled(rng, nodes)
-        if all(p1[i] != nodes[i] and p2[i] != nodes[i] and p1[i] != p2[i] for i in range(len(nodes))):
+    k = ctx.at(2, 3, default=2)                  # rival relations over the same entities
+    for _ in range(200 if k == 2 else 20000):
+        perms = [_shuffled(rng, nodes) for _ in range(k)]
+        if all(all(p[i] != nodes[i] for i in range(len(nodes))) for p in perms) and \
+                all(all(perms[j][i] != perms[l][i] for i in range(len(nodes)))
+                    for j in range(k) for l in range(j + 1, k)):
             break
     else:                                        # pragma: no cover - derangement
-        p1 = nodes[1:] + nodes[:1]
-        p2 = nodes[2:] + nodes[:2]
-    r1, r2 = rng.sample(["follows", "outranks", "precedes", "mirrors"], 2)
-    maps = {r1: dict(zip(nodes, p1)), r2: dict(zip(nodes, p2))}
-    rel = rng.choice([r1, r2])
+        perms = [nodes[j:] + nodes[:j] for j in range(1, k + 1)]
+    rels = rng.sample(["follows", "outranks", "precedes", "mirrors"], k)
+    maps = {r: dict(zip(nodes, p)) for r, p in zip(rels, perms)}
+    rel = rng.choice(rels)
     a = rng.choice(nodes)
     b = maps[rel][a]
     c = rng.choice([x for x in nodes if x not in (a, b)])

@@ -13,7 +13,7 @@ from ..generators.base import NAMES
 from ..generators.reflective import _labels, _shuffled
 
 
-def gen_mechanism_design(rng: random.Random):
+def gen_mechanism_design(rng: random.Random, ctx):
     """Which mechanism meets the designer's objective once agents best-respond?
 
     Two bidders with known values choose between a low and a high bid; each
@@ -29,7 +29,7 @@ def gen_mechanism_design(rng: random.Random):
         a, b = rng.sample(NAMES, 2)
         va, vb = rng.sample(range(2, 10), 2)
         values = {a: va, b: vb}
-        bids = [2, 6]
+        bids = [2, 6, 4, 8][:ctx.at(2, 4, default=2)]
         specs = []
         for tie in (a, b):
             for kind, k in (("own_bid", 0), ("other_bid", 0), ("fixed", rng.randint(1, 5))):

@@ -13,7 +13,7 @@ from ..lesson import Lesson
 from ..generators.mathematics import _DISCRIMINATING, _POOL, _REGIMES, _SCHEMAS, _SCHEMA_ATOMS, _fsym, _label_items, _mv_eval, _shuffled
 
 
-def gen_logic_discovery(rng: random.Random):
+def gen_logic_discovery(rng: random.Random, ctx):
     """Induce a world's logic from its epistemic dynamics, then apply it.
 
     The observation lists every distinguishable *situation* of the world and
@@ -25,6 +25,7 @@ def gen_logic_discovery(rng: random.Random):
     negation elimination, excluded middle, ex falso, disjunctive syllogism) is
     valid in one episode and invalid in the next: prior classical reflexes are
     actively punished."""
+    n_wrong = ctx.at(3, 8, default=3)             # invalid rules to tell the valid one from
     for _ in range(200):
         regime = rng.choice(list(_REGIMES))
         reg = _REGIMES[regime]
@@ -45,14 +46,14 @@ def gen_logic_discovery(rng: random.Random):
 
         ok = [s for s in _SCHEMAS if valid(s)]
         bad = [s for s in _SCHEMAS if not valid(s)]
-        if not ok or len(bad) < 3:
+        if not ok or len(bad) < n_wrong:
             continue
         ok_d = [s for s in ok if s[0] in _DISCRIMINATING] or ok
         bad_d = [s for s in bad if s[0] in _DISCRIMINATING]
         answer_s = rng.choice(ok_d)
         others = rng.sample(bad_d, min(2, len(bad_d)))
         rest = [s for s in bad if s not in others]
-        others += rng.sample(rest, 3 - len(others))
+        others += rng.sample(rest, n_wrong - len(others))
         break
     else:                                                # pragma: no cover - construction
         regime = "classical"

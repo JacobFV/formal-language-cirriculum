@@ -13,7 +13,7 @@ from ..lesson import Lesson
 from ..generators.social import ITEMS, TAGS, _shuffled
 
 
-def gen_negotiation_game(rng: random.Random):
+def gen_negotiation_game(rng: random.Random, ctx):
     """Alternating offers under stated reservation values, simulated to a close.
 
     Each party values the items differently and accepts the first offer worth at
@@ -23,7 +23,7 @@ def gen_negotiation_game(rng: random.Random):
     acceptance rather than at the best offer on the table. Deadlock ("none") is
     one of the four outcomes and is drawn as often as any other.
     """
-    items = rng.sample(ITEMS, 3)
+    items = rng.sample(ITEMS, ctx.at(3, 6, default=3))
     parties = ["a", "b"]
     for _ in range(400):
         values = {p: {it: rng.randint(1, 6) for it in items} for p in parties}

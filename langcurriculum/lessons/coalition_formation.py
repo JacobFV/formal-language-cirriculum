@@ -13,7 +13,7 @@ from ..lesson import Lesson
 from ..generators.reflective import _labels, _partitions, _shuffled
 
 
-def gen_coalition_formation(rng: random.Random):
+def gen_coalition_formation(rng: random.Random, ctx):
     """Which grouping is stable when any subset may walk out together?
 
     Every coalition has a value and members split it equally, so each candidate
@@ -23,8 +23,9 @@ def gen_coalition_formation(rng: random.Random):
     checked; the option set is built with one stable partition and three
     provably blockable ones.
     """
-    agents = ["a", "b", "c", "d"]
-    subsets = [tuple(s for s in agents if (i >> agents.index(s)) & 1) for i in range(1, 16)]
+    agents = ["a", "b", "c", "d", "e", "f"][:ctx.at(4, 6, default=4)]
+    subsets = [tuple(s for s in agents if (i >> agents.index(s)) & 1)
+               for i in range(1, 2 ** len(agents))]
     fallback = None
     for _ in range(300):
         share = {s: rng.randint(1, 9) for s in subsets}         # per-member payoff of s

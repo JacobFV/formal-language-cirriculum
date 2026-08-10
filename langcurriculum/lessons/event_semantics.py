@@ -13,12 +13,14 @@ from ..generators.base import NAMES
 from ..generators.extra import _shuffled, verbs
 
 
-def gen_event_semantics(rng: random.Random):
+def gen_event_semantics(rng: random.Random, ctx):
     """Neo-Davidsonian events: each has an id, a predicate, two participants and
     a time. Queries ask either for a participant of a named event or for the
     temporal extremum. Times are a shuffled sample, so the event id says nothing
     about when it happened, and the event list order says nothing either."""
-    n = rng.randint(2, 3)
+    # actors and themes are disjoint draws from the same six names, so three
+    # events is the most this world can hold; the knob raises the floor to it
+    n = rng.randint(*ctx.span((2, 3), (3, 3)))
     actors = rng.sample(NAMES, n)
     themes = rng.sample([x for x in NAMES if x not in actors], n)
     chosen = rng.sample(verbs(), n)

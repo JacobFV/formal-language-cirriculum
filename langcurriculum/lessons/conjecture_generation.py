@@ -13,7 +13,7 @@ from ..lesson import Lesson
 from ..generators.mathematics import _cval, _entails, _fsym, _label_items, _rand_formula, _shuffled
 
 
-def gen_conjecture_generation(rng: random.Random):
+def gen_conjecture_generation(rng: random.Random, ctx):
     """A good conjecture is true *and* not already known.
 
     A concrete structure (a full truth assignment) is generated together with a
@@ -22,12 +22,13 @@ def gen_conjecture_generation(rng: random.Random):
     either false in the structure or already entailed, and both conditions are
     checked by enumerating every valuation."""
     atoms = list("abcde")
+    depth = ctx.at(2, 4, default=2)
     for _ in range(400):
         model = {a: rng.random() < 0.5 for a in atoms}
         premises = []
         for _ in range(3):
             for _ in range(30):
-                f = _rand_formula(rng, atoms, 2)
+                f = _rand_formula(rng, atoms, depth)
                 if _cval(f, model) and f not in premises:
                     premises.append(f)
                     break
@@ -35,7 +36,7 @@ def gen_conjecture_generation(rng: random.Random):
             continue
         pool: list[Any] = []
         for _ in range(60):
-            f = _rand_formula(rng, atoms, 2)
+            f = _rand_formula(rng, atoms, depth)
             if f not in pool and f not in premises:
                 pool.append(f)
         good = [f for f in pool if _cval(f, model) and not _entails(premises, f, atoms)]

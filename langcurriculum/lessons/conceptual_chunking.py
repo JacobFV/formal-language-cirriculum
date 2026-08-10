@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.ontology import MACRO_NAMES, OPS, _macro_saving, _shuffled
 
 
-def gen_conceptual_chunking(rng: random.Random):
+def gen_conceptual_chunking(rng: random.Random, ctx):
     """Which macro removes the most steps from a library of plans?
 
     Naming a fragment costs its length once and saves ``len - 1`` steps at every
@@ -31,9 +31,10 @@ def gen_conceptual_chunking(rng: random.Random):
                 break
         if len(macros) != 4:
             continue
-        n_plans = rng.randint(3, 4)
+        n_plans = rng.randint(*ctx.span((3, 4), (6, 7)))
         plans: list[list[str]] = [[] for _ in range(n_plans)]
-        plants = [rng.randint(3, 5)] + [rng.randint(0, 2) for _ in range(3)]
+        plants = ([rng.randint(*ctx.span((3, 5), (6, 9)))]
+                  + [rng.randint(*ctx.span((0, 2), (1, 4))) for _ in range(3)])
         seq: list[tuple[int, tuple]] = []
         for idx, (m, cnt) in enumerate(zip(macros, plants)):
             seq += [(idx, m)] * cnt

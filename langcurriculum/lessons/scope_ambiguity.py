@@ -13,7 +13,7 @@ from ..generators.base import NAMES
 from ..generators.semantics import OBJECTS, _shuffled
 
 
-def gen_scope_ambiguity(rng: random.Random):
+def gen_scope_ambiguity(rng: random.Random, ctx):
     """One sentence, two logical forms; the world decides which hold.
 
     ``r1 = forall a. exists b. reads(a,b)`` and ``r2 = exists b. forall a.
@@ -22,7 +22,7 @@ def gen_scope_ambiguity(rng: random.Random):
     realize it.
     """
     label = rng.choice(["both", "r1_only", "neither"])
-    agents = rng.sample(NAMES, 3)
+    agents = rng.sample(NAMES, ctx.at(3, 6, default=3))
     books = rng.sample(OBJECTS, 3)
     edges: list[tuple[str, str]] = []
     for _ in range(200):

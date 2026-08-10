@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.selfmodel import ASSUMPTIONS, _assumption_status, _rules, _shuffled
 
 
-def gen_paradigm_shift(rng: random.Random):
+def gen_paradigm_shift(rng: random.Random, ctx):
     """A framework that held in the old regime; exactly one assumption dies in the new one.
 
     Every assumption is a testable predicate over the series and all four hold on
@@ -23,32 +23,33 @@ def gen_paradigm_shift(rng: random.Random):
     bound = rng.choice([80, 100, 120])
     step = rng.choice([5, 6, 7])
     target = rng.choice(ASSUMPTIONS)
+    steps = ctx.at(5, 9, default=5)               # readings per regime, minus the first
     for _ in range(200):
         start = rng.randint(2, 10)
         old = [start]
-        for _ in range(5):
+        for _ in range(steps):
             old.append(old[-1] + rng.randint(1, step))
         if not all(_assumption_status(old, bound, step).values()):
             continue
         if target == "positivity":
             s = rng.randint(-6, -1)
             new = [s]
-            for _ in range(5):
+            for _ in range(steps):
                 new.append(new[-1] + rng.randint(1, step))
         elif target == "monotonicity":
             new = [rng.randint(3, 12)]
-            for _ in range(5):
+            for _ in range(steps):
                 new.append(new[-1] + rng.randint(1, step))
             i = rng.randrange(len(new) - 1)
             new[i], new[i + 1] = new[i + 1], new[i]
         elif target == "boundedness":
             new = [bound - rng.randint(1, 4)]
-            for _ in range(5):
+            for _ in range(steps):
                 new.append(new[-1] + rng.randint(1, step))
         else:
             new = [rng.randint(2, 8)]
-            jump = rng.randrange(5)
-            for k in range(5):
+            jump = rng.randrange(steps)
+            for k in range(steps):
                 new.append(new[-1] + (rng.randint(step + 2, step + 9) if k == jump
                                       else rng.randint(1, step)))
         st = _assumption_status(new, bound, step)

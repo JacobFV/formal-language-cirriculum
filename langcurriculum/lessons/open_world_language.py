@@ -13,7 +13,7 @@ from ..generators.base import NAMES
 from ..generators.social import PROPS, _shuffled
 
 
-def gen_open_world_language(rng: random.Random):
+def gen_open_world_language(rng: random.Random, ctx):
     """Closed world inside the roster, open world outside it.
 
     The roster names the entities whose records are complete, so absence of a fact
@@ -24,7 +24,7 @@ def gen_open_world_language(rng: random.Random):
     """
     entities = rng.sample(NAMES, 5)
     roster, outside = entities[:3], entities[3:]
-    props = rng.sample(PROPS, 3)
+    props = rng.sample(PROPS, ctx.at(3, 6, default=3))
     # every rostered entity has at least one property and lacks at least one, so
     # all three answers are always available and the case can be drawn uniformly
     has = {e: rng.sample(props, rng.randint(1, 2)) for e in roster}

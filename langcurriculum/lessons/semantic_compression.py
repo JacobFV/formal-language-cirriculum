@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.selfmodel import _labels, _predict, _rules, _shuffled
 
 
-def gen_semantic_compression(rng: random.Random):
+def gen_semantic_compression(rng: random.Random, ctx):
     """Compress the observations into the smallest theory that still reproduces them.
 
     The literal table of observations is always among the candidates and always
@@ -24,7 +24,7 @@ def gen_semantic_compression(rng: random.Random):
     for _ in range(60):
         family = rng.choice(["linear", "square"])
         a, b = rng.randint(2, 7), rng.randint(-6, 9)
-        xs = rng.sample(range(0, 13), 5)
+        xs = rng.sample(range(0, 13), ctx.at(5, 12, default=5))
         data = [(x, _predict(family, a, b, x)) for x in xs]
         alt = "square" if family == "linear" else "linear"
         cands = [

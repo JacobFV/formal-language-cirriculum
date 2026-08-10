@@ -14,7 +14,7 @@ from ..generators.base import COLORS
 from ..generators.semantics import _nonce_words, _shuffled
 
 
-def gen_few_shot_language_learning(rng: random.Random):
+def gen_few_shot_language_learning(rng: random.Random, ctx):
     """A whole miniature language, invented in this episode and gone at its end.
 
     Three nonce primitives denote colours and three nonce function words denote
@@ -22,11 +22,12 @@ def gen_few_shot_language_learning(rng: random.Random):
     Support demonstrations show each word once; the query composes them in a way
     the support never did, and asks for one position of the output.
     """
+    n_prim = ctx.at(3, 6, default=3)
     for _ in range(200):
-        prim_w = _nonce_words(rng, 3, 3)
+        prim_w = _nonce_words(rng, n_prim, 3)
         fn_w = _nonce_words(rng, 3, 4, avoid=prim_w)
         rep, swap, wrap = fn_w
-        cols = rng.sample(COLORS, 3)
+        cols = rng.sample(COLORS, n_prim)
         lex = dict(zip(prim_w, cols))
 
         def run(expr: Sequence[str]) -> list[str]:

@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.reflective import _labels, _shuffled
 
 
-def gen_cultural_evolution(rng: random.Random):
+def gen_cultural_evolution(rng: random.Random, ctx):
     """Which variant survives transmission across generations?
 
     Four variants differ in how regular they are and how long they are; the
@@ -23,7 +23,7 @@ def gen_cultural_evolution(rng: random.Random):
     """
     fallback = None
     for _ in range(400):
-        ids = _labels(rng, "v", 4)
+        ids = _labels(rng, "v", ctx.at(4, 9, default=4))
         info = {i: {"count": rng.randint(6, 24), "length": rng.randint(1, 5),
                     "regular": rng.random() < 0.5} for i in ids}
         g_reg, g_irr, c_len = rng.randint(4, 9), rng.randint(0, 3), rng.randint(1, 3)

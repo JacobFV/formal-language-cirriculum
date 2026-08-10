@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.science import _CAUSES, _lin, _shuffled
 
 
-def gen_anomaly_resolution(rng: random.Random):
+def gen_anomaly_resolution(rng: random.Random, ctx):
     """A good theory, and data that disobeys it. Why?
 
     Three diagnoses are available and the episode generates exactly one of them,
@@ -23,7 +23,7 @@ def gen_anomaly_resolution(rng: random.Random):
     column predicts is a boundary condition. Nothing about the diagnosis depends
     on knowing which one was drawn — it is recoverable from the rows.
     """
-    n = 7
+    n = ctx.at(7, 13, default=7)
     for _ in range(400):
         cause = rng.choice(_CAUSES)
         p = rng.choice([-3, -2, -1, 1, 2, 3])

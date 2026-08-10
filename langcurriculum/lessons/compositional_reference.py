@@ -12,17 +12,18 @@ from ..lesson import Lesson
 from ..generators.base import COLORS, _scene, _scene_term
 
 
-def gen_compositional_reference(rng: random.Random):
+def gen_compositional_reference(rng: random.Random, ctx):
     """'the red object left of the blue cube' — recursive denotation."""
-    objs = _scene(rng, 4)
+    n_objs = ctx.at(4, 8, default=4)
+    objs = _scene(rng, n_objs)
     # distinct x so 'left of' is unambiguous, but assigned by a shuffled
     # permutation: otherwise object *id order* correlates with the answer and a
     # constant-guessing agent scores far above chance.
-    xs = [0, 2, 4, 6]
+    xs = [2 * i for i in range(n_objs)]
     rng.shuffle(xs)
     for o, x in zip(objs, xs):
         o["x"] = x
-    anchor = max(objs, key=lambda o: o["x"]) if rng.random() < 0.5 else objs[rng.randrange(4)]
+    anchor = max(objs, key=lambda o: o["x"]) if rng.random() < 0.5 else objs[rng.randrange(n_objs)]
     lefts = [o for o in objs if o["x"] < anchor["x"]]
     if not lefts:
         anchor = max(objs, key=lambda o: o["x"])

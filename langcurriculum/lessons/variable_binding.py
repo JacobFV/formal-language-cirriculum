@@ -13,13 +13,14 @@ from ..lesson import Lesson
 from ..generators.base import NAMES
 
 
-def gen_variable_binding(rng: random.Random):
+def gen_variable_binding(rng: random.Random, ctx):
     """Variable identity independent of token identity."""
-    vs = rng.sample(list(string.ascii_uppercase[:5]), 2)
-    vals = rng.sample(NAMES, 2)
-    subst = [Pred("bind", Ident(vs[0]), Ident(vals[0])), Pred("bind", Ident(vs[1]), Ident(vals[1]))]
+    n_bind = ctx.at(2, 5, default=2)
+    vs = rng.sample(list(string.ascii_uppercase[:5]), n_bind)
+    vals = rng.sample(NAMES, n_bind)
+    subst = [Pred("bind", Ident(vs[i]), Ident(vals[i])) for i in range(n_bind)]
     rng.shuffle(subst)
-    which = rng.randrange(2)
+    which = rng.randrange(n_bind)
     obs = Rec(substitution=Lst(subst), query=Pred("value_of", Ident(vs[which])))
     return obs, NAMES, vals[which], {"bindings": dict(zip(vs, vals))}
 

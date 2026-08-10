@@ -12,7 +12,7 @@ from ..lesson import Lesson
 from ..generators.selfmodel import STAGES, _rules, _shuffled
 
 
-def gen_self_error_diagnosis(rng: random.Random):
+def gen_self_error_diagnosis(rng: random.Random, ctx):
     """Attribute a failure to the stage that caused it.
 
     The pipeline's stages each declare a deterministic transformation and the
@@ -25,9 +25,9 @@ def gen_self_error_diagnosis(rng: random.Random):
     ops: list[tuple[str, str, int]] = []
     for st in STAGES:
         kind = rng.choice(["add", "sub", "mul"])
-        k = 2 if kind == "mul" else rng.randint(2, 6)
+        k = 2 if kind == "mul" else rng.randint(*ctx.span((2, 6), (2, 40)))
         ops.append((st, kind, k))
-    x = rng.randint(1, 9)
+    x = rng.randint(*ctx.span((1, 9), (1, 99)))
     faulty = rng.randrange(len(STAGES))
 
     outs: list[int] = []

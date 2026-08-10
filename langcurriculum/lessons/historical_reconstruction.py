@@ -13,7 +13,7 @@ from ..lesson import Lesson
 from ..generators.reflective import _labels, _shuffled
 
 
-def gen_historical_reconstruction(rng: random.Random):
+def gen_historical_reconstruction(rng: random.Random, ctx):
     """Which history is consistent with the present state and every record?
 
     Items pass between people; the learner sees where they started, where they
@@ -42,7 +42,7 @@ def gen_historical_reconstruction(rng: random.Random):
         init = {it: rng.choice(people) for it in items}
         true_hist = []
         state = dict(init)
-        for _ in range(rng.randint(3, 4)):
+        for _ in range(rng.randint(*ctx.span((3, 4), (7, 9)))):
             it = rng.choice(items)
             f = state[it]
             t = rng.choice([p for p in people if p != f])
@@ -79,7 +79,7 @@ def gen_historical_reconstruction(rng: random.Random):
         for _ in range(120):
             st = dict(init)
             h = []
-            for _ in range(rng.randint(2, 5)):
+            for _ in range(rng.randint(*ctx.span((2, 5), (5, 10)))):
                 i2 = rng.choice(items)
                 f = st[i2]
                 t = rng.choice([p for p in people if p != f])

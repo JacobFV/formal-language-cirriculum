@@ -13,7 +13,7 @@ from ..generators.base import NAMES
 from ..generators.semantics import TRANS_VERBS, _shuffled
 
 
-def gen_paraphrase(rng: random.Random):
+def gen_paraphrase(rng: random.Random, ctx):
     """Same logical form, different surface: voice alternation plus a synonym.
 
     Each candidate is given as ``(form, w1, w2, w3)`` where ``form`` says how to
@@ -21,8 +21,10 @@ def gen_paraphrase(rng: random.Random):
     operation rather than string matching; the distractors keep the words and
     change the roles, the verb, or the patient.
     """
-    agent, patient, other = rng.sample(NAMES, 3)
-    v_a, v_b, v_c = rng.sample(TRANS_VERBS, 3)          # v_a ~ v_b are synonyms here
+    people = rng.sample(NAMES, ctx.at(3, 6, default=3))
+    agent, patient, other = people[0], people[1], people[2]
+    verbs = rng.sample(TRANS_VERBS, ctx.at(3, 6, default=3))
+    v_a, v_b, v_c = verbs[0], verbs[1], verbs[2]        # v_a ~ v_b are synonyms here
     form = rng.choice(["active", "passive"])
     flip = {"active": "passive", "passive": "active"}[form]
 
@@ -33,8 +35,10 @@ def gen_paraphrase(rng: random.Random):
     bad = [sent(flip, patient, v_b, agent),             # roles swapped
            sent(flip, agent, v_c, patient),             # not a synonym
            sent(form, agent, v_a, other)]               # different patient
+    bad += [sent(form, agent, v_a, p) for p in people[3:]]      # more wrong patients
+    bad += [sent(flip, agent, v, patient) for v in verbs[3:]]   # more non-synonyms
     cands = _shuffled(rng, [good] + bad)
-    cids = _shuffled(rng, ["c1", "c2", "c3", "c4"])
+    cids = _shuffled(rng, [f"c{i + 1}" for i in range(len(cands))])
     answer = cids[cands.index(good)]
 
     target = sent(form, agent, v_a, patient)
