@@ -46,12 +46,12 @@ def gen_representation_selection(rng: random.Random):
     n, chain, edges, u, h, b, l, k, x, costs, win = fallback
 
     rules = [
-        Pred("cost", Ident("sequence"), Ident("scan_per_item"), Num(u)),
-        Pred("cost", Ident("sequence"), Ident("per_step"), Num(h)),
-        Pred("cost", Ident("graph"), Ident("scan_per_edge"), Num(u)),
+        Pred("cost", Ident("sequence"), Pred("scan_per_item"), Num(u)),
+        Pred("cost", Ident("sequence"), Pred("per_step"), Num(h)),
+        Pred("cost", Ident("graph"), Pred("scan_per_edge"), Num(u)),
         Pred("cost", Ident("set"), Ident("lookup"), Num(l)),
-        Pred("cost", Ident("set"), Ident("per_step"), Ident("unsupported")),
-        Pred("cost", Ident("table"), Ident("index_per_row"), Num(b)),
+        Pred("cost", Ident("set"), Pred("per_step"), Ident("unsupported")),
+        Pred("cost", Ident("table"), Pred("index_per_row"), Num(b)),
         Pred("cost", Ident("table"), Ident("lookup"), Num(l)),
     ]
     obs = Rec(

@@ -54,11 +54,11 @@ def gen_cultural_evolution(rng: random.Random):
                        Ident("regular" if info[i]["regular"] else "irregular")) for i in ids])),
               dynamics=Lst([Pred("gain", Ident("regular"), Num(g_reg)),
                             Pred("gain", Ident("irregular"), Num(g_irr)),
-                            Pred("cost", Ident("per_unit_length"), Num(c_len)),
-                            Pred("bottleneck", Ident("keep_top"), Num(k)),
-                            Pred("tie_break", Ident("shorter_then_name"))]),
+                            Pred("cost", Pred("per_unit_length"), Num(c_len)),
+                            Pred("bottleneck", Pred("keep_top"), Num(k)),
+                            Pred("tie_break", Pred("shorter_then_name"))]),
               generations=Num(gens),
-              query=Ident("which_variant_leads_at_the_end"))
+              query=Pred("which_variant_leads_at_the_end"))
     return obs, _shuffled(rng, ids), answer, {"final_counts": count, "generations": gens}
 
 

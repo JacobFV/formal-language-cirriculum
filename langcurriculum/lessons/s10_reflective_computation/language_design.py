@@ -45,7 +45,7 @@ def gen_language_design(rng: random.Random):
         langs.append(Pred("language", Ident(lid),
                           Lst([Pred("word", Ident(w), Num(v)) for w, v in zip(words, s)])))
     obs = Rec(languages=Lst(_shuffled(rng, langs)),
-              composition=Pred("rule", Ident("juxtaposition"), Ident("sums_word_values")),
+              composition=Pred("rule", Ident("juxtaposition"), Pred("sums_word_values")),
               tasks=Lst([Num(t) for t in tasks]),
               query=Ident("fewest_symbols_for_all_tasks"))
     return obs, _shuffled(rng, ids), answer, {"costs": costs, "tasks": tasks,

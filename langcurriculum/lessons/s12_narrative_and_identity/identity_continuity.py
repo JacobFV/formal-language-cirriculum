@@ -91,7 +91,7 @@ def gen_identity_continuity(rng: random.Random):
             op_syms.append(Pred("split", Num(op[1]), Ident(op[2]), Ident(op[3]), Ident(op[4])))
     obs = Rec(entities=Lst([Ident(n) for n in start]),
               rules=Lst([Pred("rule", Ident("rename"), Pred("preserves_identity")),
-                         Pred("rule", Ident("replaced_parts_allowed"), Num(k)),
+                         Pred("rule", Pred("replaced_parts_allowed"), Num(k)),
                          Pred("rule", Ident("merge"), Pred("creates_new_identity")),
                          Pred("rule", Ident("split"), Pred("larger_fragment_keeps_identity"))]),
               history=Lst(op_syms),

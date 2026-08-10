@@ -48,7 +48,7 @@ def gen_ontology_construction(rng: random.Random):
         observations=Lst(_shuffled(rng, [Pred("observed", Ident(e), Ident(p))
                                          for e in sorted(observed) for p in sorted(observed[e])])),
         candidates=Lst(cands),
-        query=Ident("consistent_ontology"),
+        query=Pred("consistent_ontology"),
     )
     hidden = {"n_types": len(own), "n_entities": len(inst),
               "max_props": max(len(_inherited(own, parent, t)) for t in own),

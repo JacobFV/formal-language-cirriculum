@@ -15,9 +15,9 @@ not — without anyone writing a Turkish or Swahili line for that head. The
 Coverage and the long tail
 --------------------------
 
-The curriculum uses **399 distinct predicate heads across 643 sites**, and the
-distribution is brutally long-tailed: the commonest head appears 26 times and
-the average head 1.6. Hand-writing 399 frames would be the same mistake as
+The curriculum uses **467 distinct predicate heads across 714 sites**, and the
+distribution is brutally long-tailed: the commonest head appears 26 times
+and the average head 1.5. Hand-writing 399 frames would be the same mistake as
 hand-writing 399 templates, one level up.
 
 So frames come from two places. :data:`FRAMES` names the heads that carry real

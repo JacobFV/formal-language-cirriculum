@@ -69,7 +69,7 @@ def gen_contract_reasoning(rng: random.Random):
             fallback = cand
             break
     trigger, action, cancel_arg, deadline, events, now, status = fallback
-    clause = [Pred("on_event", Ident(trigger)), Pred("obliges", Ident("party_a"), Ident(action)),
+    clause = [Pred("on_event", Ident(trigger)), Pred("obliges", Pred("party_a"), Ident(action)),
               Pred("within", Num(deadline))]
     if cancel_arg is not None:
         clause.append(Pred("cancelled_by", Ident(cancel_arg)))

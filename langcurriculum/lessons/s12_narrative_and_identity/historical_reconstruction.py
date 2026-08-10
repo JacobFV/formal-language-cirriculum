@@ -106,11 +106,11 @@ def gen_historical_reconstruction(rng: random.Random):
     rec_syms = []
     for r in records:
         if r[0] == "at_time":
-            rec_syms.append(Pred("record", Ident("held_at_time"), Num(r[1]), Ident(r[2]), Ident(r[3])))
+            rec_syms.append(Pred("record", Pred("held_at_time"), Num(r[1]), Ident(r[2]), Ident(r[3])))
         elif r[0] == "never_held":
-            rec_syms.append(Pred("record", Ident("never_held"), Ident(r[1]), Ident(r[2])))
+            rec_syms.append(Pred("record", Pred("never_held"), Ident(r[1]), Ident(r[2])))
         else:
-            rec_syms.append(Pred("record", Ident("number_of_transfers"), Num(r[1])))
+            rec_syms.append(Pred("record", Pred("number_of_transfers"), Num(r[1])))
     obs = Rec(initial=Lst([Pred("holds", Ident(init[i]), Ident(i)) for i in items]),
               present=Lst([Pred("holds", Ident(present[i]), Ident(i)) for i in items]),
               records=Lst(_shuffled(rng, rec_syms)),

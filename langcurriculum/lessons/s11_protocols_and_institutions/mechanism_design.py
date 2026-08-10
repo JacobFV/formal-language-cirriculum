@@ -104,10 +104,10 @@ def gen_mechanism_design(rng: random.Random):
     a, b, values, bids, ids, spec, eq, objective, kind, tgt, answer = fallback
     obs = Rec(agents=Lst([Pred("agent", Ident(x), Ident("value"), Num(values[x])) for x in (a, b)]),
               bid_options=Lst([Num(v) for v in bids]),
-              allocation=Pred("item_to", Ident("highest_bid")),
-              solution_concept=Pred("bids_by", Ident("iterated_weak_dominance")),
-              mechanisms=Lst(_shuffled(rng, [Pred("mechanism", Ident(i), Ident("tie_to"),
-                                                  Ident(spec[i][0]), Ident("winner_pays"),
+              allocation=Pred("item_to", Pred("highest_bid")),
+              solution_concept=Pred("bids_by", Pred("iterated_weak_dominance")),
+              mechanisms=Lst(_shuffled(rng, [Pred("mechanism", Ident(i), Pred("tie_to"),
+                                                  Ident(spec[i][0]), Pred("winner_pays"),
                                                   Ident(spec[i][1]), Num(spec[i][2]))
                                              for i in ids])),
               objective=objective,

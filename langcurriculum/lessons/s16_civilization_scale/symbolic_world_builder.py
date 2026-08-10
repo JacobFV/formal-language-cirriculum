@@ -97,7 +97,7 @@ def gen_symbolic_world_builder(rng: random.Random):
                           ontology=Lst([Ident(s) for s in nts] + [Ident(s) for s in terms]),
                           start=Ident(nts[0]),
                           dynamics=Lst(_shuffled(rng, body)),
-                          task=Ident("recognize_generated_strings")))
+                          task=Pred("recognize_generated_strings")))
     obs = Rec(candidates=Lst(worlds),
               legend=Lst([Pred("variable", Ident(v)) for v in varnames]),
               query=Pred("which_world_requires", Ident(target)))

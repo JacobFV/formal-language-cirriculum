@@ -53,11 +53,11 @@ def gen_algorithm_analysis(rng: random.Random):
     obs = Rec(array=Lst([Num(v) for v in arr]),
               target=Num(t),
               algorithms=Lst(_shuffled(rng, [
-                  Pred("algorithm", Ident("forward_scan"), Ident("scan_from_start")),
-                  Pred("algorithm", Ident("backward_scan"), Ident("scan_from_end")),
-                  Pred("algorithm", Ident("binary_search"), Ident("halve_the_interval")),
+                  Pred("algorithm", Ident("forward_scan"), Pred("scan_from_start")),
+                  Pred("algorithm", Ident("backward_scan"), Pred("scan_from_end")),
+                  Pred("algorithm", Ident("binary_search"), Pred("halve_the_interval")),
                   Pred("algorithm", Ident(f"jump_search_{b}"), Pred("blocks_of", Num(b)))])),
-              cost_model=Ident("count_element_comparisons"),
+              cost_model=Pred("count_element_comparisons"),
               query=Ident("fewest_comparisons"))
     return (obs, _shuffled(rng, names), best,
             {"costs": costs, "answer": best, "target_index": arr.index(t), "block": b})

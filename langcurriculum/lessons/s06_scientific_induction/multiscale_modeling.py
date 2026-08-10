@@ -51,7 +51,7 @@ def gen_multiscale_modeling(rng: random.Random):
                 seen.append(cand)
         distract = _shuffled(rng, seen)[:4]
         obs = Rec(trajectory=Lst([Lst([Num(v) for v in s]) for s in traj]),
-                  query=Pred("macro", Ident("left_half_mass"), Num(shown - 1 + ahead)))
+                  query=Pred("macro", Pred("left_half_mass"), Num(shown - 1 + ahead)))
         hidden = {"permutation": list(perm), "steps_ahead": ahead, "total": sum(counts),
                   "answer": answer}
         return obs, _shuffled(rng, [answer] + distract), answer, hidden

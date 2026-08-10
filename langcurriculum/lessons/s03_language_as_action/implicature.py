@@ -29,12 +29,12 @@ def gen_implicature(rng: random.Random):
     said = words[k]                                     # the strongest true term
     prop = rng.choice(COLORS)
 
-    lex = _shuffled(rng, [Pred("means", Ident(w), Ident("at_least"), Num(t))
+    lex = _shuffled(rng, [Pred("means", Ident(w), Pred("at_least"), Num(t))
                           for w, t in scale.items()])
     obs = Rec(scale=Lst(lex),
               policy=Lst([Pred("speaker", Ident("cooperative")),
-                          Pred("policy", Ident("utters_strongest_true_term")),
-                          Pred("alternatives", Ident("the_whole_scale"))]),
+                          Pred("policy", Pred("utters_strongest_true_term")),
+                          Pred("alternatives", Pred("the_whole_scale"))]),
               context=Lst([Pred("domain", Ident("boxes"), Num(n)),
                            Pred("property", Ident(prop))]),
               said=Pred("said", Ident(said), Ident("boxes"), Ident(prop)),

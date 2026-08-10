@@ -59,7 +59,7 @@ def gen_narrative_modeling(rng: random.Random):
             break
     story, goal, answer, ids, base = fallback
     obs = Rec(events=Lst([Pred("event", Ident(i), Ident(pre), Ident(eff)) for i, (pre, eff) in story]),
-              semantics=Pred("event_fires_only_if", Ident("precondition_already_holds")),
+              semantics=Pred("event_fires_only_if", Pred("precondition_already_holds")),
               outcome=Pred("holds_at_end", Ident(goal)),
               query=Pred("pivotal_for", Ident(goal)))
     return obs, _shuffled(rng, [i for i, _ in story]), answer, {"pivot": answer,

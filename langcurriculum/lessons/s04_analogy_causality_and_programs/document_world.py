@@ -44,9 +44,9 @@ def gen_document_world(rng: random.Random):
     travel = [Pred("visited", Ident(subject), Ident(lure_city), Num(joined_year + 1)),
               Pred("visited", Ident(people[1]), Ident(hq[firms[2]]), Num(joined_year + 2))]
 
-    passages = [Pred("passage", Ident("p_employment"), Lst(_shuffled(rng, employment))),
-                Pred("passage", Ident("p_geography"), Lst(_shuffled(rng, geography))),
-                Pred("passage", Ident("p_travel"), Lst(_shuffled(rng, travel)))]
+    passages = [Pred("passage", Pred("p_employment"), Lst(_shuffled(rng, employment))),
+                Pred("passage", Pred("p_geography"), Lst(_shuffled(rng, geography))),
+                Pred("passage", Pred("p_travel"), Lst(_shuffled(rng, travel)))]
     obs = Rec(document=Lst(_shuffled(rng, passages)),
               query=Pred("works_in_city", Ident(subject)))
     vocab = _shuffled(rng, sorted(set(list(hq.values()) + [lure_city])))

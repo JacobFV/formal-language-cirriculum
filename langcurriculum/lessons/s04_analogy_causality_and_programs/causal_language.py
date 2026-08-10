@@ -73,7 +73,7 @@ def gen_causal_language(rng: random.Random):
               interventions=Lst(inter),
               claims=Lst([Pred("claim", Ident(lab), Ident(u), Ident(v))
                           for lab, (u, v) in zip(labels, opts)]),
-              query=Ident("which_claim_is_causal"))
+              query=Pred("which_claim_is_causal"))
     hidden = {"edges": [[p, c] for c, p in sorted(parent.items())],
               "negations": {k: neg[k] for k in sorted(neg)},
               "true_claim": list(true_claim), "answer_label": labels[correct]}

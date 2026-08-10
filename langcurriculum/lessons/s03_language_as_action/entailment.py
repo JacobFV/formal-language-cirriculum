@@ -28,7 +28,7 @@ def gen_entailment(rng: random.Random):
         Pred("shape", Ident(e2), Ident(shape_z)),
         Pred("color", Ident(e2), Ident(color_w)),
         Pred("object", Ident(e3)),                         # declared, nothing known
-        Pred("axiom", Ident("one_color_per_object")),
+        Pred("axiom", Pred("one_color_per_object")),
     ]
     label = rng.choice(["entailed", "contradicted", "unknown"])
     if label == "entailed":

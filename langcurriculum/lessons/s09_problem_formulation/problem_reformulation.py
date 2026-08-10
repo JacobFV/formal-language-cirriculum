@@ -59,8 +59,8 @@ def gen_problem_reformulation(rng: random.Random):
                              for v in vars_]),
               constraints=Lst(_shuffled(rng, [Pred("constrain", Ident(a), Ident(r), Ident(b))
                                               for a, r, b in cons])),
-              procedure=Pred("search", Ident("backtracking"), Ident("values_ascending"),
-                             Ident("stop_at_first_solution"), Ident("cost_is_assignments_tried")),
+              procedure=Pred("search", Ident("backtracking"), Pred("values_ascending"),
+                             Pred("stop_at_first_solution"), Pred("cost_is_assignments_tried")),
               candidates=Lst(_shuffled(rng, entries)),
               query=Ident("cheapest_encoding"))
     return (obs, _shuffled(rng, labs), answer,

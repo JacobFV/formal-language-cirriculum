@@ -43,7 +43,7 @@ def gen_language_culture(rng: random.Random):
         obs = Rec(founder_lexicon=Lst(_shuffled(rng, [Pred("says", Ident(m), Ident(w))
                                                       for m, w in origin.items()])),
                   transmission=Lst(heard_facts),
-                  rule=Lst([Pred("unheard_meaning_takes", Ident("last_heard_word"))]),
+                  rule=Lst([Pred("unheard_meaning_takes", Pred("last_heard_word"))]),
                   query=Pred("word_for", Num(generations), Ident(target)))
         return (obs, _shuffled(rng, list(origin.values())), lex[target],
                 {"generations": generations, "meaning": target,

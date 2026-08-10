@@ -82,7 +82,7 @@ def gen_uncertain_symbolic_reasoning(rng: random.Random):
 
     shown, label_of = _label_items(rng, order)
     obs = Rec(probabilities=Lst([Pred("percent", Ident(nm), Num(probs[nm])) for nm in names]),
-              independence=Ident("mutually_independent"),
+              independence=Pred("mutually_independent"),
               claims=Lst([Pred("claim", Ident(lab), _fsym(f)) for lab, (f, _) in shown]),
               query=Ident("most_probable_claim"))
     return obs, _shuffled(rng, [lab for lab, _ in shown]), label_of[0], {

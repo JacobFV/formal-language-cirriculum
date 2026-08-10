@@ -52,7 +52,7 @@ def gen_coalition_formation(rng: random.Random):
     obs = Rec(values=Lst([Pred("coalition", Lst([Ident(x) for x in s]),
                                Num(share[s] * len(s))) for s in subsets]),
               split_rule=Pred("members_split", Ident("equally")),
-              stability=Pred("stable_if", Ident("no_subset_makes_all_its_members_better")),
+              stability=Pred("stable_if", Pred("no_subset_makes_all_its_members_better")),
               options=Lst(_shuffled(rng, [Pred("grouping", Ident(i),
                                                Lst([Lst([Ident(x) for x in b]) for b in assign[i]]))
                                           for i in ids])),

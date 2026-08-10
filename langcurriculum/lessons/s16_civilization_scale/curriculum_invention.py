@@ -74,7 +74,7 @@ def gen_curriculum_invention(rng: random.Random):
               proposals=Lst(blocks),
               semantics=Lst([Pred("stage_teaches", Ident("produces")),
                              Pred("stage_needs", Ident("requires")),
-                             Pred("order", Ident("stages_run_in_listed_index_order"))]),
+                             Pred("order", Pred("stages_run_in_listed_index_order"))]),
               query=Pred("which_curriculum_induces", Ident(target)))
     hidden = {"target": target, "answer": answer, "depth": depth,
               "chain": chain, "kinds": {"good": 0, "no_target": 1, "unmet_prereq": 2, "misordered": 3}}

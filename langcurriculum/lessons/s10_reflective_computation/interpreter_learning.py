@@ -66,7 +66,7 @@ def gen_interpreter_learning(rng: random.Random):
               # the hypothesis space is stated, so the language is *identifiable*
               # from the demonstrations rather than merely constrained by them
               operator_space=Lst([Ident(k) for k in _SEM_KINDS]),
-              operator_use=Pred("each_opcode_has", Ident("one_distinct_meaning")),
+              operator_use=Pred("each_opcode_has", Pred("one_distinct_meaning")),
               program=_steps(query),
               query=Pred("output_for_input", Num(xq)))
     hidden = {"semantics": dict(true_assign), "input": xq, "answer": ans,

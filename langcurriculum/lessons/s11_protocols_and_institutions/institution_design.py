@@ -60,9 +60,9 @@ def gen_institution_design(rng: random.Random):
             fallback = cand
             break
     agents, cost, benefit, ids, spec, counts, target, answer = fallback
-    obs = Rec(agents=Lst([Pred("agent", Ident(a), Ident("contribution_cost"), Num(cost[a]))
+    obs = Rec(agents=Lst([Pred("agent", Ident(a), Pred("contribution_cost"), Num(cost[a]))
                           for a in agents]),
-              payoff=Pred("each_agent_gains", Ident("benefit_per_contributor"), Num(benefit)),
+              payoff=Pred("each_agent_gains", Pred("benefit_per_contributor"), Num(benefit)),
               rules=Lst(_shuffled(rng, [Pred("rule", Ident(i), Ident(spec[i][0]),
                                              Num(spec[i][1]), Num(spec[i][2])) for i in ids])),
               objective=Pred("contributors_in_equilibrium", Num(target)),

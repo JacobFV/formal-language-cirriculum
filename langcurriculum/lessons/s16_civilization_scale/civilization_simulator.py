@@ -63,8 +63,8 @@ def gen_civilization_simulator(rng: random.Random):
     agents = [Pred("agent", Ident(ids[i]), Ident(start[i]), Num(prestige[i])) for i in range(n)]
     links = [Pred("neighbour", Ident(ids[i]), Ident(ids[(i + 1) % n])) for i in range(n)]
     rules = [Pred("rule", Ident("copy_" + rule)),
-             Pred("tiebreak", Ident("highest_prestige")),
-             Pred("neighbourhood", Ident("self_and_both_neighbours")),
+             Pred("tiebreak", Pred("highest_prestige")),
+             Pred("neighbourhood", Pred("self_and_both_neighbours")),
              Pred("update", Ident("simultaneous")),
              Pred("generations", Num(gens))]
     obs = Rec(population=Lst(_shuffled(rng, agents)),

@@ -83,7 +83,7 @@ def gen_representation_invention(rng: random.Random):
         rows.append(Pred("define", Ident(nm), Pred("head", Ident("X"), Ident("Y")), Lst(body)))
     obs = Rec(
         corpus=Lst(_shuffled(rng, [Pred(r, Ident(x), Ident(y)) for (r, x, y) in sorted(facts)])),
-        cost_model=Lst([Pred("cost", Ident("atom"), Num(1), Ident("plus_one_per_argument")),
+        cost_model=Lst([Pred("cost", Ident("atom"), Num(1), Pred("plus_one_per_argument")),
                         Pred("baseline", Num(3 * len(facts)))]),
         candidates=Lst(_shuffled(rng, rows)),
         query=Ident("most_compressive_predicate"),

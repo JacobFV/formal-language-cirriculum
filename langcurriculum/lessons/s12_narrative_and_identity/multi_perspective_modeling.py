@@ -63,7 +63,7 @@ def gen_multi_perspective_modeling(rng: random.Random):
         syms.append(Pred(kind, Num(t), Ident(arg)))
     obs = Rec(agents=Lst([Ident(a) for a in agents]),
               timeline=Lst(syms),
-              semantics=Pred("an_agent_sees_a_move", Ident("only_while_present")),
+              semantics=Pred("an_agent_sees_a_move", Pred("only_while_present")),
               query=Pred("believes_ball_in", Ident(who)))
     return obs, _shuffled(rng, boxes), answer, {"truth": loc, "belief": answer,
                                                 "agent": who, "differs": answer != loc}

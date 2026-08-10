@@ -62,7 +62,7 @@ def gen_norm_reasoning(rng: random.Random):
               norms=Lst(_shuffled(rng, [Pred("norm", Ident(i), Num(pr), Ident(cond),
                                              Ident(d), Ident(act))
                                         for i, pr, cond, d, act in norms])),
-              conflict_rule=Pred("resolve_by", Ident("highest_priority_applicable")),
+              conflict_rule=Pred("resolve_by", Pred("highest_priority_applicable")),
               query=Pred("status_of", Ident(action)))
     return (obs, _shuffled(rng, deontics), answer,
             {"action": action, "status": answer, "n_norms": len(norms),

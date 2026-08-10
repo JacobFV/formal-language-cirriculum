@@ -78,9 +78,9 @@ def gen_scientific_civilization(rng: random.Random):
     holds = [Pred("holds", Ident(l), Ident(held[l])) for l in labs]
     seen = [Pred("has_seen", Ident(l), Ident(e)) for l in labs for e in sorted(known[l])]
     links = [Pred("shares_with", Ident(a), Ident(b)) for a, b in edges]
-    protocol = [Pred("round", Ident("share_then_readopt")),
-                Pred("adopt", Ident("most_supported_by_own_evidence")),
-                Pred("tiebreak", Ident("keep_current_else_first_listed")),
+    protocol = [Pred("round", Pred("share_then_readopt")),
+                Pred("adopt", Pred("most_supported_by_own_evidence")),
+                Pred("tiebreak", Pred("keep_current_else_first_listed")),
                 Pred("rounds", Num(rounds))]
     obs = Rec(theories=Lst([Ident(t) for t in theories]),      # listed order = the tiebreak order
               record=Lst(_shuffled(rng, record)),

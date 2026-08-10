@@ -59,7 +59,7 @@ def gen_conjecture_generation(rng: random.Random):
                              for a in atoms]),
               premises=Lst([_fsym(p) for p in premises]),
               claims=Lst([Pred("claim", Ident(lab), _fsym(f)) for lab, f in shown]),
-              query=Pred("conjecture", Ident("true_in_structure_and_not_implied")))
+              query=Pred("conjecture", Pred("true_in_structure_and_not_implied")))
     return obs, _shuffled(rng, [lab for lab, _ in shown]), label_of[0], {
         "model": {k: bool(v) for k, v in model.items()},
         "answer_claim": str(_fsym(cands[0]))}
