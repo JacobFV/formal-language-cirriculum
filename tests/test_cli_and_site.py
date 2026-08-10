@@ -125,12 +125,38 @@ def test_the_site_fetches_nothing_from_anywhere_else(site):
 
 
 def test_a_lesson_page_carries_every_language_it_was_built_with(site):
-    """One page, every exported language, the select hiding all but one."""
+    """One page, every exported language, the select hiding all but one.
+
+    Counted by ``data-lang``, which is what the language select actually keys
+    on. Counting every ``.sample`` instead swept in the surface block, so the
+    test would have gone green or red according to how many modalities the page
+    happened to show.
+    """
     text = (site / "lessons" / "symbol_grounding.html").read_text(encoding="utf-8")
-    assert text.count('<div class="sample"') == 4, "2 languages x 2 samples"
+    assert text.count('<div class="sample" data-lang=') == 4, "2 languages x 2 samples"
     assert 'data-lang="english"' in text and 'data-lang="spanish"' in text
     assert 'id="langsel"' in text
     assert "denotation" in text
+
+
+def test_a_lesson_page_shows_the_same_episode_through_the_other_surfaces(site):
+    """The point of the block: one instance, several surfaces, side by side."""
+    import re
+
+    text = (site / "lessons" / "symbol_grounding.html").read_text(encoding="utf-8")
+    assert "the same episode, carried differently" in text
+    assert re.search(r"instance [0-9a-f]{16}", text)
+    for surface in ("raster", "spoken", "video", "scene"):
+        assert f"<b>{surface}</b>" in text, surface
+    # the media is inline, so the page still fetches nothing from anywhere
+    assert "data:image/png;base64," in text
+    assert "data:image/apng;base64," in text
+
+
+def test_the_spec_only_lesson_shows_no_surfaces_rather_than_an_error(site):
+    text = (site / "lessons" / "open_world_research_agent.html").read_text(
+        encoding="utf-8")
+    assert "the same episode, carried differently" not in text
 
 
 def test_the_page_opens_on_the_first_language(site):
@@ -218,3 +244,18 @@ def test_the_graph_fetches_nothing_from_anywhere_else(site):
     html = (site / "graph" / "progressive.html").read_text(encoding="utf-8")
     stripped = html.replace("http://www.w3.org/2000/svg", "")
     assert "http://" not in stripped and "https://" not in stripped
+
+
+def test_the_graph_is_reachable_by_clicking_rather_than_by_typing_a_url(site):
+    """A page nothing links to is a page nobody finds.
+
+    The graph pages shipped and were live for a deploy before anything on the
+    site pointed at them.
+    """
+    import langcurriculum as lc
+
+    index = (site / "index.html").read_text(encoding="utf-8")
+    for name in lc.curriculum_ids():
+        assert f'href="graph/{name}.html"' in index, name
+    lesson = (site / "lessons" / "analogy.html").read_text(encoding="utf-8")
+    assert 'href="../graph/' in lesson

@@ -409,3 +409,55 @@ def test_every_link_the_readme_offers_points_somewhere_real():
     # and every relative link into the repo resolves to a file that exists
     for target in set(re.findall(r"\]\((?!https?:)([A-Za-z0-9_./-]+)\)", text)):
         assert (root / target).exists(), f"README links to missing {target}"
+
+
+# ---------------------------------------------------------------- the site extract
+def test_a_pack_that_falls_back_to_the_database_exports_the_code_it_falls_back_to():
+    """A hand-written pack is not self-sufficient, and the extract must know it.
+
+    ``spanish`` asks the database for ``spa`` whenever its own vocabulary has no
+    word for a key. Exporting ``spanish`` without ``spa`` therefore exports a
+    pack that falls through to nothing — which is how the published site carried
+    an English "at" in the middle of a Spanish sentence, in every language, for
+    as long as the extract has existed.
+    """
+    import importlib.util
+    from pathlib import Path
+
+    from langcurriculum.grammar.grammars import GRAMMARS
+
+    root = Path(__file__).resolve().parent.parent
+    spec = importlib.util.spec_from_file_location(
+        "_bsd", root / "scripts" / "build_site_db.py")
+    bsd = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(bsd)
+
+    packs = [c for c, g in GRAMMARS.items() if getattr(g, "iso", "")]
+    assert packs, "no pack declares an iso; this test has stopped testing anything"
+    expanded = bsd.with_pack_fallbacks(packs)
+    for code in packs:
+        iso = GRAMMARS[code].iso
+        assert iso in expanded, f"{code} falls back to {iso}, which is not exported"
+    # and it does not invent fallbacks for packs that carry their own words
+    plain = [c for c, g in GRAMMARS.items() if not getattr(g, "iso", "")]
+    assert bsd.with_pack_fallbacks(plain) == plain
+
+
+def test_the_key_probe_reads_more_than_one_language():
+    """One language does not establish the key set.
+
+    A case-marking language puts a location in the noun and never looks up a
+    preposition, so probing Finnish alone never asks for "at" — and Spanish,
+    which needs it, shipped without it.
+    """
+    import importlib.util
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parent.parent
+    spec = importlib.util.spec_from_file_location(
+        "_bsd2", root / "scripts" / "build_site_db.py")
+    bsd = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(bsd)
+    assert len(bsd.PROBE_LANGUAGES) >= 4, bsd.PROBE_LANGUAGES
+    # the probe has to cover more than one way of marking a location
+    assert {"spanish", "turkish"} <= set(bsd.PROBE_LANGUAGES)

@@ -43,6 +43,7 @@ _spec.loader.exec_module(site)                                     # noqa: E402
 import langcurriculum as lc                                        # noqa: E402
 from langcurriculum.languages import language_codes  # noqa: F401
 from langcurriculum.registry import all_lessons                    # noqa: E402
+from langcurriculum.surfaces import RENDERER_VERSIONS              # noqa: E402
 
 E = site.E
 
@@ -121,6 +122,56 @@ def _sample(lesson, seed: int, code: str, lesson_id: str) -> str:
             f'<div class="answer">answer <b>{E(answer)}</b></div></div>')
 
 
+#: What one sample of each surface costs, measured rather than guessed:
+#: raster 1.7 KiB, video 15 KiB, scene 13 KiB, spoken nothing (it is text), and
+#: audio 894 KiB -- thirty times the other four put together. So the cheap ones
+#: ship by default and audio is asked for.
+DEFAULT_SURFACES = ("raster", "spoken", "video", "scene")
+
+
+def _surface_block(lesson, seed: int, code: str, surfaces) -> str:
+    """One episode, shown through every surface that can carry it.
+
+    The point of putting these side by side is that they share an
+    ``instance_id``: it is the same problem, and a system that answers one and
+    not another has learned the surface rather than the problem. That is the
+    measurement the whole resource is bent toward, so the site ought to show it.
+    """
+    from langcurriculum.presentation import Presentation
+
+    if lesson.status != "implemented":
+        return ""                       # nothing to render, and it says why itself
+    rows = []
+    for name in surfaces:
+        pres = Presentation(language=code, surface=name)
+        try:
+            text, target, content = site._rendered(lesson, seed, code, pres)
+        except Exception as exc:
+            rows.append(f'<div class="sample"><div class="head">{E(name)}</div>'
+                        f'<div class="answer">not available here &mdash; '
+                        f'{E(str(exc)[:120])}</div></div>')
+            continue
+        shown = (site._asset_html(content) if content is not None and content.assets
+                 else f'<pre>{E(text)}</pre>')
+        warn = ""
+        if content is not None and not content.fidelity.lossless:
+            warn = (f'<div class="answer">! {E("; ".join(content.fidelity.notes))}'
+                    f'</div>')
+        size = (f' &middot; {content.bytes_total // 1024} KiB'
+                if content is not None and content.bytes_total else "")
+        rows.append(f'<div class="sample"><div class="head"><b>{E(name)}</b>'
+                    f'<span class="grow"></span>'
+                    f'<span>{E(RENDERER_VERSIONS.get(name, ""))}{size}</span>'
+                    f'</div>{shown}{warn}'
+                    f'<div class="answer">target <b>{E(target)}</b></div></div>')
+    if not rows:
+        return ""
+    ex = lesson.example(seed, language=code)
+    return (f'<h2><span class="s">surfaces</span><span>the same episode, '
+            f'carried differently &mdash; instance {E(ex.instance_id)}</span></h2>'
+            + "".join(rows))
+
+
 def _select(codes: list[str], chosen: str) -> str:
     opts = "".join(
         f'<option value="{E(c)}"{" selected" if c == chosen else ""}>'
@@ -155,7 +206,8 @@ SWITCH = """<script>
 </script>"""
 
 
-def lesson_page(lesson_id: str, codes: list[str], n: int, depth: int) -> bytes:
+def lesson_page(lesson_id: str, codes: list[str], n: int, depth: int,
+                surfaces=DEFAULT_SURFACES, surface_samples: int = 1) -> bytes:
     up = "../" * depth
     lesson = lc.get(lesson_id)
     axes = getattr(lesson, "axes", {}) or {}
@@ -179,11 +231,15 @@ def lesson_page(lesson_id: str, codes: list[str], n: int, depth: int) -> bytes:
            f'<span class="field"><label class="q" for="langsel">language</label>'
            f'{_select(codes, codes[0])}</span>'
            f'<span class="grow"></span>'
-           f'<span class="here">{site._sig(lesson_id)} &middot; <b>{n}</b> samples '
+           f'<span class="here">'
+           f'<a href="{up}graph/{E(site.DEFAULT_CURRICULUM)}.html">graph &rarr;</a> '
+           f'&middot; {site._sig(lesson_id)} &middot; <b>{n}</b> samples '
            f'&middot; <b>{len(codes)}</b> languages</span></header>')
     # grouped by seed, so "all languages" reads as a comparison of one episode
     blocks = "".join(_sample(lesson, seed, code, lesson_id)
                      for seed in range(n) for code in codes)
+    blocks += "".join(_surface_block(lesson, seed, codes[0], surfaces)
+                      for seed in range(min(n, surface_samples)))
     sidebar = site._sidebar(lesson_id, codes[0],
                             lambda lid, _c: f"{up}lessons/{lid}.html",
                             n_languages=len(codes), home=f"{up}index.html")
@@ -210,7 +266,11 @@ def index_page(codes: list[str], n: int) -> bytes:
                          ("samples each", str(n), False),
                          ("languages in the engine", str(len(site._catalogue())), False))
             + "</div>")
-    body = []
+    from langcurriculum.curricula import curriculum_ids
+    links = " &middot; ".join(
+        f'<a href="graph/{E(name)}.html">{E(name)}</a>' for name in curriculum_ids())
+    body = [f'<h2><span class="s">graphs</span><span>every curriculum, drawn: '
+            f'{links}</span></h2>']
     for heading, ids in site._groups(site.DEFAULT_CURRICULUM):
         body.append(f'<h2><span class="s">{E(site.DEFAULT_CURRICULUM)}</span>'
                     f'<span>{E(heading)}</span></h2><div class="grid">')
@@ -223,7 +283,9 @@ def index_page(codes: list[str], n: int) -> bytes:
         body.append("</div>")
     top = (f'<header class="top">'
            f'<label class="burger" for="navtoggle" title="lessons">&#9776;</label>'
-           f'<span class="here"><b>{len(all_lessons())}</b> lessons &middot; '
+           f'<span class="here">'
+           f'<a href="graph/{E(site.DEFAULT_CURRICULUM)}.html">graph &rarr;</a> &middot; '
+           f'<b>{len(all_lessons())}</b> lessons &middot; '
            f'<b>{len(codes)}</b> languages here &middot; '
            f'<b>{len(site._catalogue())}</b> in the engine</span></header>')
     sidebar = site._sidebar("", codes[0], lambda lid, _c: f"lessons/{lid}.html",
@@ -258,6 +320,12 @@ def main() -> int:
                          "and 'all' is every language the engine speaks")
     ap.add_argument("--budget-mb", type=float, default=900.0,
                     help="stop adding languages past this size (Pages allows 1 GB)")
+    ap.add_argument("--surfaces", default=",".join(DEFAULT_SURFACES),
+                    help="modalities to show one sample of on each lesson page; "
+                         "'none' for text only. audio is ~894 KiB an episode "
+                         "against ~30 KiB for the other four together")
+    ap.add_argument("--surface-samples", type=int, default=1,
+                    help="how many seeds to render through the other surfaces")
     args = ap.parse_args()
 
     if args.languages == "all":
@@ -277,6 +345,13 @@ def main() -> int:
         print(f"unknown languages: {unknown}", file=sys.stderr)
         return 2
 
+    surfaces = tuple(x.strip() for x in args.surfaces.split(",")
+                     if x.strip() and x.strip() != "none")
+    unknown_surfaces = [x for x in surfaces if x not in site.surface_names()]
+    if unknown_surfaces:
+        print(f"unknown surfaces: {unknown_surfaces}", file=sys.stderr)
+        return 2
+
     out = Path(args.out)
     lessons = out / "lessons"
     if lessons.exists():
@@ -294,7 +369,8 @@ def main() -> int:
 
     started = time.time()
     for i, lid in enumerate(sorted(all_lessons()), 1):
-        (lessons / f"{lid}.html").write_bytes(lesson_page(lid, codes, args.samples, 1))
+        (lessons / f"{lid}.html").write_bytes(
+            lesson_page(lid, codes, args.samples, 1, surfaces, args.surface_samples))
         if i % 30 == 0:
             print(f"  {i}/{len(all_lessons())} lessons  "
                   f"({time.time() - started:.0f}s)", flush=True)

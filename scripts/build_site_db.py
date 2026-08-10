@@ -45,7 +45,15 @@ from langcurriculum.registry import all_lessons                    # noqa: E402
 SOURCE = ROOT / "langcurriculum" / "grammar" / "data" / "languages.db"
 
 
-def keys_used(probe_languages=("fin",), seeds: int = 50) -> set[str]:
+#: Languages to render the curriculum in while recording what it looks up.
+#: One is not enough -- see the docstring below. These six take genuinely
+#: different paths through the grammar: prepositional, case-marking,
+#: classifier, agglutinative, noun-class, and a derived language that exercises
+#: the database path rather than a hand-written pack.
+PROBE_LANGUAGES = ("english", "spanish", "chinese", "turkish", "swahili", "fin")
+
+
+def keys_used(probe_languages=PROBE_LANGUAGES, seeds: int = 50) -> set[str]:
     """Every key the renderer asks the lexicon for, recorded by asking it.
 
     Guessing this set is how the first two extracts shipped wrong. The coined
@@ -56,8 +64,16 @@ def keys_used(probe_languages=("fin",), seeds: int = 50) -> set[str]:
 
     Rendering the whole curriculum and recording what it looks up gives 1048
     keys, 426 of them outside the rendered set: quantifiers, comparators,
-    role names like "actor of", the bare "P" and "Q" of a logic lesson. The
-    keys are English, so one language establishes the set.
+    role names like "actor of", the bare "P" and "Q" of a logic lesson.
+
+    **One language does not establish the set**, which this file used to claim
+    on the grounds that the keys are English. The keys are English; the
+    *questions asked* are not. A case-marking language puts a location in the
+    noun and never looks up a preposition, so probing Finnish alone never asks
+    for "at" -- and Spanish, which does need it, shipped with an English "at"
+    sitting in the middle of a Spanish sentence. So the probe runs over
+    languages chosen to take different paths through the grammar, and
+    ``--verify`` is what catches it when they are still not enough.
 
     Seeds matter as much as languages. Probing two seeds and publishing fifty
     left six lesson/language pairs differing, because a later episode coins a
@@ -99,6 +115,30 @@ def keys_used(probe_languages=("fin",), seeds: int = 50) -> set[str]:
 
     return (asked | rendered_vocabulary() | set(PREDICATE_GLOSS.values())
             | {w for g in PREDICATE_GLOSS.values() for w in g.split()})
+
+
+def with_pack_fallbacks(codes: list[str]) -> list[str]:
+    """Add the ISO codes the hand-written packs fall back to.
+
+    A pack is not self-sufficient. When its own vocabulary has no word for a key
+    it asks the database under its ISO code -- ``spanish`` looks up ``spa`` --
+    so exporting ``spanish`` without ``spa`` exports a pack that will fall
+    through to nothing. That is how a Spanish sentence shipped with an English
+    "at" in the middle of it: the row existed in the full database under a code
+    the extract had never been told to copy.
+
+    Only the packs that declare an ``iso`` reach for the database at all; the
+    rest carry their own words and are unaffected.
+    """
+    from langcurriculum.grammar.grammars import GRAMMARS
+
+    out = list(codes)
+    for code in codes:
+        grammar = GRAMMARS.get(code)
+        iso = getattr(grammar, "iso", "") if grammar is not None else ""
+        if iso and iso not in out:
+            out.append(iso)
+    return out
 
 
 def _chunks(seq, n=800):
@@ -244,6 +284,7 @@ def main() -> int:
         spec.loader.exec_module(bs)
         codes = bs.choose(args.budget_mb, args.samples)
     codes = [c for c in codes if c not in {"symbols", "english_synonym"}]
+    codes = with_pack_fallbacks(codes)
 
     target = Path(args.out)
     print(f"extracting {len(codes)} languages into {target}")

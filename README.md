@@ -681,6 +681,10 @@ the pipeline.
 | `video` | transcode | PNG frames, packaged as APNG | exact, frames *and* container |
 | `scene` | **native** | a picture of the scene, question beside it in text | exact; procedural, no blending |
 
+Every lesson page on the site carries one episode rendered through all of them at once,
+sharing an `instance_id` — which is the measurement made visible: the same problem, five
+ways, and a system that answers one and not another has learned the surface.
+
 Transcoding does not change the answer set, so a lesson's floor carries over untouched.
 What a transcode *can* do is destroy the evidence — draw a glyph the font lacks, or read
 two distinct options as the same sound — and `verify -S <surface>` measures exactly that,
