@@ -206,6 +206,22 @@ SWITCH = """<script>
 </script>"""
 
 
+def lang_rules(codes: list[str]) -> str:
+    """Un-hide the selected language.
+
+    The shared stylesheet hides every sample under `[data-show]` and only
+    knows how to show them all again for `data-show="*"`. CSS cannot compare
+    a sample's `data-lang` against the container's `data-show`, so the pairing
+    has to be spelled out one code at a time -- which only the export knows,
+    since it picks which languages fit the budget.
+    """
+    def q(code: str) -> str:
+        return code.replace("\\", "\\\\").replace('"', '\\"')
+    return "\n".join(
+        f'.samples[data-show="{q(c)}"] .sample[data-lang="{q(c)}"]'
+        " { display: block; }" for c in codes) + "\n"
+
+
 def lesson_page(lesson_id: str, codes: list[str], n: int, depth: int,
                 surfaces=DEFAULT_SURFACES, surface_samples: int = 1) -> bytes:
     up = "../" * depth
@@ -358,7 +374,8 @@ def main() -> int:
         shutil.rmtree(lessons)
     lessons.mkdir(parents=True, exist_ok=True)
     (out / ".nojekyll").write_text("")
-    (out / "style.css").write_text(site.STYLE, encoding="utf-8")
+    (out / "style.css").write_text(site.STYLE + lang_rules(codes),
+                                   encoding="utf-8")
     (out / "index.html").write_bytes(index_page(codes, args.samples))
     graphs = out / "graph"
     graphs.mkdir(parents=True, exist_ok=True)

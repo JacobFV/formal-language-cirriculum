@@ -260,8 +260,13 @@ table.cmp tr:hover td { background: var(--code-bg); }
 .grid .t { font-weight: 620; margin: 2px 0 3px; }
 .grid .c { font-size: 12px; color: var(--muted); line-height: 1.45; }
 /* static export: one page carries every exported language, and the select
-   shows one at a time -- switching is instant and needs no second request */
+   shows one at a time -- switching is instant and needs no second request.
+   Showing the picked one needs a rule per code, which only the exporter can
+   write (it chooses the codes); build_site.lang_rules appends them below.
+   The surface block is one episode carried through raster, audio and video,
+   so it has no `data-lang` and belongs on the page whichever code is up. */
 .samples[data-show] .sample { display: none; }
+.samples[data-show] .sample:not([data-lang]) { display: block; }
 .samples[data-show="*"] .sample { display: block; }
 .sample .xl { display: none; }
 .samples[data-show="*"] .sample .xl { display: inline; }

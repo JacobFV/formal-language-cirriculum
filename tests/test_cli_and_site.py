@@ -165,6 +165,38 @@ def test_the_page_opens_on_the_first_language(site):
     assert "In the scene:" in text
 
 
+def test_the_stylesheet_shows_the_language_the_page_opens_on(site):
+    """Every exported language needs a rule, or the page renders blank.
+
+    The stylesheet hides every sample under `[data-show]` and un-hides them
+    for `data-show="*"`. Nothing pairs a sample's `data-lang` with the
+    container's `data-show` -- CSS cannot compare the two -- so without a rule
+    per code, picking a single language hid all 3204 samples and the published
+    page showed a header reading "50 samples" above nothing at all. Only the
+    side-by-side option worked, which is how it survived every existing test:
+    they all read the HTML, and the HTML was right the whole time.
+    """
+    css = (site / "style.css").read_text(encoding="utf-8")
+    for code in ("english", "spanish"):
+        rule = (f'.samples[data-show="{code}"] .sample[data-lang="{code}"]'
+                " { display: block; }")
+        assert rule in css, f"{code} samples would be hidden"
+
+
+def test_the_surfaces_survive_picking_a_language(site):
+    """The surface block sits inside the container the language select hides.
+
+    Raster, audio and video are one episode carried differently, so they carry
+    no `data-lang` -- which means the rule that shows the picked language does
+    not reach them, and the blanket hide does. They went missing for exactly
+    the same reason the samples did, and stayed missing after the per-code
+    rules were added, because a rule keyed on a code cannot match markup that
+    has none.
+    """
+    css = (site / "style.css").read_text(encoding="utf-8")
+    assert ".samples[data-show] .sample:not([data-lang]) { display: block; }" in css
+
+
 def test_the_index_links_every_lesson_page(site):
     text = (site / "index.html").read_text(encoding="utf-8")
     for lesson_id in lc.REGISTRY:
